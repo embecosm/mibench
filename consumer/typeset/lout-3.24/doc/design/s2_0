@@ -1,0 +1,14 @@
+@Section
+    @Title { Objects }
+@Begin
+@PP
+The essence of any move to a higher level is the introduction of some
+abstraction which serves to organize the low-level operations,
+resulting in a more succinct expression of their
+common combinations at the cost of some loss of detailed control.  The
+early part of the Lout project was spent in the development of such an
+abstraction for the building blocks of documents, one which could
+explain, not just the simple phenomena of words, lines, and paragraphs,
+but also the alignment of columns in tables, and the complex nested
+structures of equations.
+@BeginSubSections

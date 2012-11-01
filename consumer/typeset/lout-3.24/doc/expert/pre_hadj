@@ -1,0 +1,33 @@
+@Section
+   @Title { "@HAdjust", "@VAdjust", and "@PAdjust" }
+   @Tag { hadjust }
+@Begin
+@PP
+padjust. @Index { @@PAdjust symbol }
+hadjust. @Index { @@HAdjust symbol }
+vadjust. @Index { @@VAdjust symbol }
+adjustment @Index { Adjustment of object }
+These symbols spread their right parameter apart until it occupies
+all the space available to it;  @@HAdjust adjusts @Code "|" sequences,
+@@VAdjust adjusts @Code "/" sequences, and @@PAdjust adjusts @Code "&"
+sequences.  For example,
+@ID @Code {
+"4i @Wide @PAdjust { 1 2 3 4 5 6 7 8 }"
+}
+has result
+@ID {
+4i @Wide @PAdjust { 1 2 3 4 5 6 7 8 }
+}
+More precisely, the widening is effected by enlarging the size of each
+component except the last by an equal fraction of the space that would
+otherwise be left over -- just the opposite of the usual procedure,
+which assigns all the leftover space to the last component (Section
+{@NumberOf size}).
+@PP
+@@PAdjust is used by the @Code adjust and @Code outdent options of
+the @@Break symbol (Section {@NumberOf break}).  It has a slight
+peculiarity:  it will not enlarge components when the immediately
+following gap has width 0.  This is to prevent space from appearing
+(for example) between a word and an immediately following comma.  The
+other two symbols will enlarge such components.
+@End @Section

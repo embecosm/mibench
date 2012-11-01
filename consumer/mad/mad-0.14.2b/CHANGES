@@ -1,0 +1,483 @@
+
+ mad - MPEG audio decoder
+ Copyright (C) 2000-2001 Robert Leslie
+
+ $Id: CHANGES,v 1.70 2001/11/09 00:58:44 rob Exp $
+
+===============================================================================
+
+Version 0.14.2 (beta)
+
+  * Added a new output module, audio_esd, for EsounD (Enlightened Sound
+    Daemon) support. You must have EsounD already installed before running
+    `configure'. Use -o esd:[HOSTNAME] as args to `madplay'. If --with-esd
+    is given to `configure', EsounD will be used for native audio output.
+
+  * Added a new output module, audio_cdda, for creating CD audio images.
+    Output is forced to 16-bit 44100 Hz stereo.
+
+  * Added a new output module, audio_aiff, for Audio IFF (AIFF) format
+    files.
+
+  * Changed the audio_wave module to initially write ~0 length rather than
+    0, for better compatibility when output is piped to another program.
+
+  * Changed audio_oss module to try /dev/sound/dsp before /dev/dsp.
+
+  * Added new -b (--bit-depth) option to `madplay'. Most output modules now
+    support configurable bit depths.
+
+  * Added new -i (--ignore-crc) option to `madplay'.
+
+  * Changed Cygwin builds to use MinGW; resulting Win32 executables no
+    longer have a dependency on Cygwin DLLs.
+
+  * `madplay' now supports keyboard controls under Win32.
+
+  * Made use of localeconv() conditional based on results from `configure'.
+
+  * Made use of assert() portable to systems without <assert.h>.
+
+  * Fixed my bad fix for avoiding log10(0).
+
+  * Added a new mad_stream_errorstr() API function to libmad for retrieving
+    a string description of the current error condition.
+
+Version 0.14.1 (beta)
+
+  * Updated config.guess and config.sub to latest upstream versions.
+
+  * Enabled libtool versioning rather than release numbering.
+
+  * Renamed `libid3' to `libid3tag' and enabled installation as a separate
+    library.
+
+  * Enabled the plug-in for Winamp to use libid3tag.
+
+  * Fixed a NetBSD compatibility issue in audio_sun.
+
+  * Fixed a FreeBSD compatibility issue in audio_oss.
+
+  * Modified the audio_null output module to compute peak amplitude.
+
+  * Changed the peak amplitude computation to avoid evaluating log10(0).
+
+  * Improved the documentation in minimad.c.
+
+  * Several other small fixes.
+
+Version 0.14.0 (beta)
+
+  * Added a new ID3 tag manipulation library (libid3). The required zlib
+    support is provided either by the host system or by the included static
+    library implementation (libz).
+
+  * Fixed a possible segmentation fault due to mmap() abuse.
+
+  * Added a 64-bit FPM negation operation to improve performance of subband
+    synthesis on some platforms.
+
+  * Improved MSVC++ portability and added MSVC++ project files.
+
+  * Added rounding to Layer III requantization for slightly better accuracy.
+
+  * Modified the PCM dithering routine for better dithered output.
+
+  * Added TTY controls and new --tty-control and --no-tty-control options to
+    `madplay'. TTY control keys: `P' pause, `S' stop, `Q' quit, `F' forward,
+    `B' backward.
+
+  * New time/time-remaining modes with --verbose --tty-control (select by
+    pressing `T'.)
+
+Version 0.13.0 (beta)
+
+  * The last complete audio frame should now be properly decoded even when
+    it is not followed by other data [fixed in both `madplay' and the
+    plug-in for Winamp.]
+
+  * The plug-in for Winamp now reads Xing VBR headers for fast length
+    calculation.
+
+  * The plug-in for Winamp should now display visuals correctly for 24- and
+    32-bit output.
+
+  * Ancillary data is now properly extracted from Layer III streams.
+
+  * Rewrote the Layer III joint stereo decoding routine to correct a major
+    MPEG-2 problem and a minor MPEG-1 problem decoding intensity stereo.
+
+  * Eliminated the dependency on sign-extending right shifts for Layer I and
+    Layer II.
+
+  * Renamed `private' field to `private_bits' for better C++ compatibility.
+
+  * Gratuitously renamed `sfreq' field to `samplerate' and
+    MAD_ERROR_BADSAMPLEFREQ constant to MAD_ERROR_BADSAMPLERATE.
+
+  * Added `samplerate' and `channels' fields to synth.pcm struct to allow
+    these to be different from the decoded frame, and for simpler access.
+
+  * Added new mad_stream_options() and mad_decoder_options() API entries for
+    special runtime decoding options.
+
+  * Added new MAD_OPTION_IGNORECRC and MAD_OPTION_HALFSAMPLERATE options.
+
+  * Added new --downsample option to `madplay'.
+
+  * Added new MAD_FLAG_FREEFORMAT indicator flag.
+
+  * Fixed some bugs in the async decoder.
+
+  * Added a new mad_timer_multiply() API routine.
+
+  * Eliminated `+' from asm constraints under Intel for better compatibility
+    with some compilers.
+
+  * Fixed a PIC-related problem in libmad/imdct_l_arm.S.
+
+  * Eliminated a static variable to make libmad thread-safe.
+
+Version 0.12.5 (beta)
+
+  * Modified Layer III requantization to occur during Huffman decoding for
+    significant performance gains.
+
+  * Optimized short block IMDCT by eliminating redundant calculations.
+
+  * Made several other Layer III performance improvements; added
+    ASO_INTERLEAVE1, ASO_INTERLEAVE2, and ASO_ZEROCHECK
+    architecture-specific options for best performance on various
+    architectures.
+
+  * Optimized synthesis DCT to store result values as soon as they are
+    calculated.
+
+Version 0.12.4 (beta)
+
+  * New PowerPC fixed-point assembly courtesy of David Blythe.
+
+  * Reorganized fixed-point assembly routines for easier maintenance and
+    better performance.
+
+  * Improved performance of subband synthesis through better indexing and
+    fewer local variables.
+
+  * Added alias reduction for the lower two subbands of mixed short blocks,
+    per a report of ambiguity with ISO/IEC 11172-3 and for uniformity with
+    most other implementations. Also improved alias reduction performance
+    using multiply/accumulate.
+
+  * Added --enable-strict-iso option to `configure' to override best
+    accepted practices such as the alias reduction for mixed short blocks.
+
+  * Improved performance of Layer III IMDCT by using longer
+    multiply/accumulate runs where possible.
+
+Version 0.12.3 (beta)
+
+  * Added MPEG 2.5 support.
+
+  * Added preliminary support for parameterizing the binary point position in
+    the fixed-point representation.
+
+  * Added calls to madvise() on supported systems to reduce memory overhead
+    when using mmap().
+
+  * Added support for automatic mono/stereo channel selection based on output
+    capability.
+
+  * Added a new option to force stereo output of single or dual channel
+    streams.
+
+  * Added a new option to amplify/attenuate the output signal by an amount
+    expressed in decibels.
+
+  * Output statistics (peak amplitude, clipped samples) are now gathered and
+    displayed after decoding.
+
+  * Added multiply/accumulate optimization to the Layer III IMDCT for long
+    blocks.
+
+  * Fixed a bug in the handling of Layer III mixed_block_flag.
+
+  * Many Winamp plug-in enhancements.
+
+  * Fixed a problem calling setlocale() when NLS is disabled.
+
+  * Fixed a configure problem when multiple -O CFLAGS are present.
+
+Version 0.12.2 (beta)
+
+  * Rearranged the synthesis polyphase filterbank memory vector for better
+    locality of reference, and rewrote mad_synth_frame() to accommodate,
+    resulting in improved performance.
+
+  * Discovered a combination of compiler optimization flags that further
+    improve performance.
+
+  * Changed some array references in layer3.c to pointer derefs.
+
+  * Fixed another FreeBSD sound compatibility problem in audio_oss.c.
+
+Version 0.12.1 (beta)
+
+  * New code for a Winamp plug-in.
+
+  * Resolved the intensity + MS joint stereo issue (a simple bug).
+    OPT_ISKLUGE is no longer considered to be a kluge.
+
+  * Fixed another, hopefully last main_data memory bug.
+
+  * Split part of struct mad_frame into struct mad_header for convenience
+    and size.
+
+  * Rewrote the audio PCM packing routines for (hopefully) somewhat better
+    performance.
+
+  * Fixed a FreeBSD sound compatibility problem in audio_oss.c with help
+    from Graham Guttocks.
+
+  * Moved ID3 genre table into a separate file (shared by Winamp plug-in)
+    and updated extensions with current list from Winamp.
+
+  * New Croatian, Norwegian, and Spanish translations courtesy of Mario
+    Horvat, Christoffer Nicolaisen, and Damian Brizuela, respectively.
+
+  * Added a simple ABX testing script.
+
+Version 0.12.0 (alpha)
+
+  * Changed the build environment to use automake and libtool. A libmad
+    shared library can now be built using the --enable-shared option to
+    `configure'.
+
+  * Added internationalization support via GNU gettext. New French
+    translation added courtesy of Gabriel Bouvigne.
+
+  * Changed raw output module to use host-endian byte order.
+
+  * Added --disable-mmap option to `configure' per suggestion of Erik
+    Andersen.
+
+  * Debug builds now link with -lefence, if available.
+
+  * Added another callback to MAD's high-level decoder API after the frame
+    header has been read but before the frame's audio data is decoded.
+
+  * Streamlined header processing so that mad_frame_decode() can be called
+    with or without having already called mad_frame_header().
+
+  * Fixed some other header reading miscellany, including CRC handling and
+    free bitrate detection, and frame length verification with free
+    bitrates.
+
+  * Fixed a problem with Layer III free bitrates > 320 kbps. The main_data
+    buffer size should now be large enough to handle any size frame, by
+    virtue of the maximum possible part2_3_length.
+
+  * Further developed the async API; arbitrary messages can now be passed
+    to the subsidiary decoding process.
+
+  * Streamlined libmad/timer.c and extended its interface. It now has
+    support for video frame/field lengths, including output support for
+    drop-frame encoding.
+
+  * Replaced many constant integer preprocessor defines with enums.
+
+  * Added `madplay' support for filter chains. This could eventually be
+    extended to support dynamically loaded filters.
+
+  * Added a new optional fade-in filter.
+
+  * Rewrote madplay.c to use GNU getopt, and added many new options (use
+    `madplay --help' to see them all.)
+
+  * Updated the man page for `madplay'.
+
+Version 0.11.4 (beta)
+
+  * Fixed free format bitrate discovery.
+
+  * Added Sun/NeXT audio file output module (audio_au.c).
+
+  * Added 32-bit (really 24-bit) output support to OSS module.
+
+  * Changed the timer implementation and extended its interface.
+
+  * Relaxed output sample frequency match requirement.
+
+  * Fixed endian assumption problem in audio_sun.c.
+
+  * Integrated Nicolas Pitre's patch for pre-shifting at compile-time and
+    for better multiply/accumulate code output.
+
+  * Applied Simon Burge's patch to imdct_l_arm.S for a.out compatibility.
+
+  * Added -mtune=strongarm for all ARM targets.
+
+Version 0.11.3 (beta)
+
+  * Added new --enable-speed and --enable-accuracy options for `configure'
+    to automatically select appropriate SSO/ASO options, et al.
+
+  * Modified subband synthesis to use multiply/accumulate optimization
+    (if available) for better speed and/or accuracy.
+
+  * Incorporated Andre McCurdy's changes for further rounding optimizations
+    in the rest of his code.
+
+  * Joint stereo mode now shows LR indicator during playback.
+
+Version 0.11.2 (beta)
+
+  * Incorporated Nicolas Pitre's ARM assembly and parameterized scaling
+    changes.
+
+  * Incorporated Andre McCurdy's ARM assembly optimization (used only if
+    --enable-aso is given to `configure' to enable architecture-specific
+    optimizations.)
+
+  * Reduced FPM_INTEL assembly to two instructions.
+
+  * Fixed accuracy problems with certain FPM modes in synth.c.
+
+  * Improved the accuracy of FPM_APPROX.
+
+  * Improved the accuracy of SSO.
+
+  * Added a dual channel output selection option.
+
+  * Improved the OSS output module by falling back on 8-bit format if 16-bit
+    is not available, and by using native 16-bit endianness.
+
+  * PCM output is now dithered for better audio quality. A new runtime
+    option can disable this feature.
+
+  * Added a resampling feature for unsupported output sampling frequencies.
+
+  * Centralized sample scaling and formatting in audio.c for the output
+    modules.
+
+  * Moved the empeg-car audio output support into a separate module.
+
+  * Added bad-CRC frame muting code to madplay.c.
+
+  * Improved sync discovery by checking for a sync word in the following
+    frame.
+
+  * Changed `madtime' to indicate average bitrates.
+
+  * Reduced the ID3 genre table memory usage.
+
+  * Minor code clean-up.
+
+  * Added experimental rules for generating a libmad.so shared library.
+
+Version 0.11.1 (beta)
+
+  * Moved libmad code into a separate directory.
+
+  * Improved the robustness of the Win32 audio output module.
+
+  * Changed SSO to be disabled by default, as output accuracy is deemed to
+    be more important than speed in the general case.
+
+  * Fixed a bug in Layer III sanity checking that could cause a crash on
+    certain random data input.
+
+  * Extended the Layer III requantization table from 8191 to 8206 as some
+    encoders are known to use these values, even though ISO/IEC 11172-3
+    suggests the maximum should be 8191.
+
+  * Added a short man page for madplay.
+
+  * Wrote most of the code for madtime.
+
+  * Wrote code for an experimental multi-stream mixer `madmix'
+    (--enable-experimental to add -x option support for this to madplay).
+
+Version 0.11.0 (beta)
+
+  * Implemented MPEG-2 extension to Lower Sampling Frequencies.
+
+  * Improved Layer III performance by avoiding IMDCT calculation when all
+    input samples are zero.
+
+  * Significantly reduced size of Layer II tables.
+
+Version 0.10.3 (beta)
+
+  * Improved SSO output quality.
+
+  * Made portable to cygwin.
+
+  * Wrote new Win32 audio interface module.
+
+  * Localized memory references in III_huffdecode() for better performance.
+
+Version 0.10.2 (beta)
+
+  * Rewrote Layer III long block 36-point IMDCT routine for better
+    performance.
+
+  * Improved subband synthesis fixed-point games somewhat.
+
+Version 0.10.1 (beta)
+
+  * Added a subband synthesis optimization (SSO) which involves modifying
+    the fixed-point multiplication method during windowing. This produces
+    subtle differences in the output but improves performance greatly.
+
+  * Added I_STEREO and MS_STEREO flags to frame struct.
+
+  * Eliminated privately-used CRCFAILED flag.
+
+  * Fixed a bug where Layer III decoding could crash on some badly-formatted
+    (e.g. non-MPEG) bitstreams.
+
+  * Miscellaneous code clean-up.
+
+  * Running madplay with no arguments now gives usage info.
+
+Version 0.10.0 (beta)
+
+  * Added SPARC fixed-point math support.
+
+  * Revamped libmad API for better high- and low-level support.
+
+  * Documented more of the code.
+
+  * Changed sync semantics such that new stream buffers are assumed to be
+    sync-aligned.
+
+  * Added framework for ID3v2 support.
+
+  * Changed Layer III to dynamically allocate static memory so as not to
+    waste it (about 6.4K) when only decoding Layer I or Layer II.
+
+  * Added prefix parsing for output module selection.
+
+  * Added audio_raw output module.
+
+  * Rewrote madplay.c to use high-level interface.
+
+Version 0.9.7 (beta)
+
+  * Added audio_hex module (--enable-debugging) for PCM-level debugging.
+
+  * Fixed bug in audio_sun module; should work correctly now.
+
+  * Added -Q (very quiet) option to omit bitstream error messages.
+
+  * Reduced -v output by eliminating timing tenths.
+
+  * Fixed problem configuring unsupported sample frequencies, and added user
+    feedback.
+
+  * Enhanced final frame count reporting to include playing time.
+
+  * Cleaned up madplay.c somewhat.
+
+===============================================================================
+

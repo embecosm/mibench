@@ -1,0 +1,154 @@
+: Use /bin/sh
+#
+# $Id: makeshar,v 1.7 1994/01/25 07:11:57 geoff Exp $
+#
+# Copyright 1993, Geoff Kuenning, Granada Hills, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgment:
+#      This product includes software developed by Geoff Kuenning and
+#      other unpaid contributors.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+# Make a shar file, keeping file sizes below a maximum, but as large as
+# possible.  The output files are put in file01.shar through filenn.shar,
+# where "file" is the output base name (default "prog").
+#
+# If one of the output files is named "README", it is placed first in the
+# first shar file.
+#
+# Usage:
+#
+#	makeshar [-f n] [-n] [-m max-size] [-o output-base ] [shar-switches] file-list
+#
+# $Log: makeshar,v $
+# Revision 1.7  1994/01/25  07:11:57  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#
+SHAR_SW=
+MAXSIZE=60000
+OUTPUT_BASE=prog
+NUM_SHARS=no
+FROM=1
+TMP=${TMPDIR:-/tmp}/ms$$
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-f)
+	    FROM=$2
+	    shift; shift
+	    ;;
+	-m)
+	    MAXSIZE=$2
+	    shift; shift
+	    ;;
+	-n)
+	    NUM_SHARS=yes
+	    shift
+	    ;;
+	-o)
+	    OUTPUT_BASE="$2"
+	    shift; shift
+	    ;;
+	-*)
+	    SHAR_SW="$SHAR_SW $1"
+	    shift
+	    ;;
+	*)
+	    break
+	    ;;
+    esac
+done
+trap "/bin/rm -f ${TMP}; exit 1" 1 2 15
+trap "/bin/rm -f ${TMP}; exit 0" 13
+sed -e "s;OUTPUT_BASE;$OUTPUT_BASE;" -e "s;SHAR_SW;$SHAR_SW;" \
+  -e "s;FROM;$FROM;" \
+  -e "s;MAXSIZE;$MAXSIZE;" > ${TMP} << 'EOF_AWK_SCRIPT'
+    BEGIN { nfiles = 0 }
+	{
+	if ($3 == "total")
+	    next
+	# Shar adds one extra character per line
+	size[nfiles] = $1 + $2
+	files[nfiles] = $3
+	nfiles++
+	}
+    END \
+	{
+	outbase = "OUTPUT_BASE"
+	sharcount = FROM
+	for (filesdone = 0;  filesdone < nfiles;  sharcount++)
+	    {
+	    printf ("%s", "isharSHAR_SW")
+	    totsize = 0
+	    for (i = 0;  filesdone == 0  &&  i < nfiles;  i++)
+		{
+		if (files[i] == "README")
+		    {
+		    filesdone++
+		    totsize += size[i]
+		    printf (" %s", files[i])
+		    files[i] = ""
+		    size[i] = 0
+		    }
+		}
+	    for (i = 0;  totsize < MAXSIZE  &&  i < nfiles;  i++)
+		{
+		if (files[i] != "" \
+		  &&  (totsize == 0  ||  size[i] < MAXSIZE - totsize))
+		    {
+		    filesdone++
+		    totsize += size[i]
+		    printf (" %s", files[i])
+		    files[i] = ""
+		    size[i] = 0
+		    }
+		}
+	    printf (" > %s%2.2d.shar\n", outbase, sharcount)
+	    }
+	print "echo", sharcount - 1
+	}
+EOF_AWK_SCRIPT
+nshars=`wc -lc "$@" \
+  | sort -rn \
+  | awk -F ${TMP} \
+  | sh`
+if [ $NUM_SHARS = yes ]
+then
+    echo $nshars
+else
+    echo $nshars shar files:
+    ls -l $OUTPUT_BASE??.shar
+fi
+
+/bin/rm -f ${TMP}

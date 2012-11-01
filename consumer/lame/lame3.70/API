@@ -1,0 +1,68 @@
+The LAME API
+
+This is the simple interface to the lightweight encoding library
+obtained by compiling libmp3lame.a without defining any of
+the following extra features:
+
+#define HAVEMPGLIB   to use mpglib's mp3 *decoding* capibility
+#define AMIGA_MPEGA  to use mpega.library (Amiga), don't use with HAVEMPGLIB
+#define BRHIST       to allow the display of the VBR historgram
+#define LIBSNDFILE   to use Erik de Castro Lopo's libsndfile
+#define LAMESNDFILE  to use LAME's minimial internal sndfile I/O
+#define LAMEPARSE    to use LAME's command line parsing/option setting routines
+#define HAVEGTK      to compile in support for the GTK mp3 frame analyzer
+
+To use any of the above features, see lame.h more for details.
+For an example of a simple command line interface to lame, see
+main.c
+
+
+=========================================================================
+
+1. (optional) Get the version number of the encoder, if you are interested.  
+   lame_version(char *);
+
+2. Initialize the encoder.  sets default for all encoder parameters,
+returns pointer to encoder parameters listed above 
+
+   #include "lame.h"
+   lame_global_flags gf;
+   lame_init(%gf);
+
+Then override various default settings as necessary, for example:
+
+   gf.num_channels=2;
+   gf.in_samplerate = 44100;
+   gf.brate = 128;
+   gf.mode = 0,1 or 3      /* stereo, jstereo, mono */
+   gf.quality = 2,5 or 9       /* 2=high, 5=medium 9=low */
+
+see lame.h for the complete list of options.
+
+
+3. sets more internal configuration based on data provided above:
+   lame_init_params(&gf);
+
+
+
+4. Encode some data.  input pcm data, output (maybe) mp3 frames.
+This routine handles all buffering, resampling and filtering for you.
+The required mp3buffer_size can be computed from num_samples, 
+samplerate and encoding rate, but here is a worst case estimate:
+mp3buffer_size (in bytes) = 1.25*num_samples + 7200
+The return code = number of bytes output in mp3buffer.  This can be 0.
+If it is -1, an error occured.  
+
+   int lame_encode_buffer(lame_global_flags *gfp,
+         short int leftpcm[], short int rightpcm[],
+         int num_samples,char *mp3buffer,int  mp3buffer_size);
+
+
+5. lame_encode_finish will flush the buffers and may return a 
+final few mp3 frames.  mp3buffer should be at least 7200 bytes.
+return code = number of bytes output to mp3buffer.  This can be 0.
+
+   int lame_encode_finish(lame_global_flags *gfp,char *mp3buffer);
+
+
+

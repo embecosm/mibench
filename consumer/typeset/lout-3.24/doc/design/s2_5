@@ -1,0 +1,90 @@
+@SubSection
+    @Tag { style }
+    @Title { Context-sensitive attributes of objects }
+@Begin
+@PP
+Although we are free to place any object in any context, the context
+must influence the appearance of the object, since otherwise
+@ID @Code "A short paragraph of text."
+could not appear in a variety of fonts, column widths, etc.  This
+influence cannot take the purely static form that block-structured
+languages use to associate values with identifiers, for then an operator
+could not influence the appearance of its parameters; and a state
+variable solution is not compatible with the overall functional design.
+@PP
+The information needed from the context seems quite limited, comprising
+the font family, face, and size to use, the style of paragraph breaking
+required, how much space to substitute between the words of paragraphs,
+and how much horizontal and vertical space is available to receive the
+object.  These four items constitute the so-called `style information'
+of Lout.  As graphics rendering hardware improves, the style information
+will probably grow to include colour and texture information.
+@PP
+The way to deal with fonts at least is very clear:
+@ID @Code "{ Times Slope 12p } @Font { Hello, world }"
+should have result
+@ID { { Times Slope 12p } @Font { Hello, world } }
+Lout also provides @Code "@Break" and @Code "@Space" symbols for
+controlling the paragraph breaking and space styles mentioned
+above.  These work in the same way, returning their right
+parameters in the style of their left.  The implementation is very
+simple:  one merely broadcasts the style information down into the parse
+tree of the right parameter.  A font, for example, is converted to an
+8-bit internal name and stored in each leaf, while a breaking style is
+stored in the root node of each paragraph.
+@PP
+The same language design can be used for available width and height,
+only here the implementation is much more demanding:
+@ID @Code {
+"2i @Wide {"
+"(1)  |0.1i  An example"
+"containing a small"
+"paragraph of filled text."
+"}"
+}
+is guaranteed to be two inches wide:
+@ID {
+2i @Wide {
+(1)  |0.1i  An example
+containing a small
+paragraph of filled text.
+}
+}
+One must calculate that 1.9 inches minus the width of @Code "(1)" is
+available
+to the paragraph, and break it accordingly; Basser Lout does this in two
+stages.  In the first, upward-moving stage, widths are calculated using the
+formulae of Section {@NumberOf objects}, which assume that available
+space is infinite.  If the upward movement reaches a @Eq { WIDE }
+node, corresponding to a @Code "@Wide" operator, and
+the calculated width exceeds that allowed, a second, downward-moving stage
+is initiated which attempts to reduce the width by finding and breaking
+paragraphs.  This second stage is quite routine except at @Code "|" nodes,
+whose children are the columns of a table.  It is necessary to apportion
+the available width (minus inter-column gaps) among the columns.  Basser
+Lout leaves narrow columns unbroken and breaks the remaining columns to
+equal width, using up all of the available space.
+@PP
+The size of an object is not clearly determined when the upward-moving
+size is less than the downward-moving available space, and the object
+contains constructs that depend on available space (e.g. right
+justification).  For example, in
+@ID @Code "2i @Wide { Heading // a |1rt b }"
+it seems natural to assign a width of two inches to the subobject
+@Code "a |1rt b" because of the right justification, but it would be
+equally plausible if the width of @Code Heading was assigned to the
+subobject instead.  The author is conscious of having failed to resolve
+this matter properly; an extra operator for controlling available space
+is probably necessary.
+@PP
+The actual paragraph breaking is just a simple transformation on the
+parse tree; the real issue is how to describe the various styles:  ragged
+right, adjusted, outdented, and so on.  Their diversity suggests that
+they should somehow be defined using more basic features; but then there
+are algorithms for high-quality paragraph breaking, which presumably
+must be built-in.  This dilemma was not clearly grasped by the author in
+1985, and he included a built-in paragraph breaker, with the @Code
+"@Break" operator selecting from a fixed set of styles.  A much better
+solution based on galleys will be given in Section {@NumberOf horizontal},
+but, regrettably, it is not implemented.
+@End @SubSection

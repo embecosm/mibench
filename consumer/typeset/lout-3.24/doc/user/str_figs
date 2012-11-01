@@ -1,0 +1,288 @@
+@Section
+   @Title { Figures and tables }
+   @Tag { figures }
+@Begin
+@PP
+Figures are created in a similar way to footnotes:
+figures. @Index { figures }
+@ID @OneRow @Code {
+"@Figure"
+"    @Caption { Basser Lout }"
+"@Diag vstrut { yes } treehsep { 1c } {"
+"    @HTree { @Box Lout @FirstSub arrow { yes } @Box PostScript }"
+"}"
+}
+The @Code "@Figure" symbol places the following object (which in this example is
+figure. @Index @Code "@Figure"
+created using the advanced graphics features of Chapter {@NumberOf diagrams})
+at the top of the following column or page,
+@Figure
+    @Tag { figex }
+    @Caption { Basser Lout }
+@Diag vstrut { yes } treehsep { 1c } {
+    @HTree { @Box Lout @FirstSub arrow { yes } @Box PostScript }
+}
+labelled by the @Code "@Caption" option and automatically numbered.  You
+captions. @RawIndex { captions }
+captions.figures @SubIndex { in @Code "@Figure" and @Code "@Table" }
+can see this example at the top of page {@PageOf figex}.  Tables are
+table. @Index @Code "@Table"
+obtained in the same way using {@Code "@Table"} instead of {@Code "@Figure"}.
+@PP
+@Code "@Figure" and @Code "@Table" each have an @Code "@InitialLanguage"
+option which determines the language of the figure or table.  If this is
+omitted, the language of the document as a whole will be used, not the
+language where the figure or table occurs.
+@PP
+The two symbols also have a @Code "@CaptionPos" option, which determines
+whether the caption appears above or below the figure or table.  The
+default is {@Code "Below"}, the alternative is {@Code "Above"}.
+@PP
+The question of what is a suitable running header to print on pages
+containing figures and tables (possibly from different sections) is a
+rather awkward one.  On any page with a figure or table at the top, Lout
+uses whatever running header was appropriate for the text on the previous
+page.  In practice it seems to work quite well.
+@PP
+If your document contains many figures, large figures, or multi-page
+figures, you are likely to encounter cases where Lout's assignment of
+figures to pages is not pleasing.  In that case, you can improve things
+by moving the figures around within the body text, and by using the
+@Code "@Location" option of the @Code "@Figure" symbol, which determines
+location. @Index @Code "@Location"
+where the figure will appear.  Its possible values are
+@DP @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@FirstRowa
+    A { PageTop }
+    B { The figure will appear at the top of the following page, occupying
+the full page width; or, if there is insufficient space there (owing to other
+figures already present), at the top of the first subsequent page with
+sufficient space. }
+@Rowa
+    A { EvenPageTop }
+    B { Like @Code PageTop except that the first page of the figure
+or table will be an even-numbered (left-hand or verso) page -- useful
+for double-pace spreads.  }
+@Rowa
+    A { FullPage }
+    B { Like {@Code PageTop} except that nothing else will appear on the
+same page as the figure except the usual running headers and footers, and
+possibly other @Code FullPage figures and tables.
+@FootNote { This location replaces the @Code "@FullPage" option of
+earlier versions of Lout, which has been withdrawn. }
+}
+@Rowa
+    A { EvenFullPage }
+    B { Like {@Code FullPage} except that the first page of the figure
+or table will be an even-numbered (left-hand or verso) page, like
+{@Code EvenPageTop}.
+}
+@Rowa
+    A { PageFoot }
+    B { The figure will appear at the foot of the current page, occupying
+the full page width; or, if there is insufficient space there, at the top
+of the following page and so on as for {@Code PageTop}. }
+@Rowa
+    A { ColTop }
+    B { The figure will appear at the top of the following column,
+occupying the column width; or, if there is insufficient space there,
+at the top of the first subsequent column with sufficient space.  This
+is different from @Code PageTop only in multi-column documents. }
+@Rowa
+    A { ColFoot }
+    B { The figure will appear at the foot of the current column,
+occupying the column width; or, if there is insufficient space there, at
+the top of the following column as for {@Code ColTop}.  This differs
+from @Code PageFoot only in multi-column documents. }
+@Rowa
+    A { ColEnd }
+    B { The figure will appear in a column at the end of the document
+(or chapter, appendix etc. in the case of books).  There is no
+@Code PageEnd value corresponding to {@Code ColEnd}. }
+@Rowa
+    A { AfterLine }
+    B { The figure will appear as a column-width display immediately after
+the line in the final printed document in which it occurs. }
+@Rowa
+    A { TryAfterLine }
+    B { The same as @Code {AfterLine} unless there is insufficient space
+in the current column to hold the displayed figure, in which case it
+switches to @Code {ColTop} instead. }
+@Rowa
+    A { Display }
+    B { The figure will appear as a display at the point it occurs.  There
+is no @Code TryDisplay value corresponding to {@Code Display}. }
+@Rowa
+    A { Raw }
+    B { The figure will appear as an object, with no extra spacing, at
+the point it occurs.  This is useful, for example, for getting two figures
+side by side in one display:  use a displayed table containing two raw
+figures. }
+}
+@DP
+The @Code "@Table" symbol also has this option.  The default location is
+{@Code "PageTop"}, but this can be changed by changing the
+figurelocation. @Index @Code "@FigureLocation"
+tablelocation. @Index @Code "@TableLocation"
+@Code "@FigureLocation" and @Code "@TableLocation" setup file options.
+@PP
+The numbers assigned to figures and tables, and their ordering in any list
+of figures or tables, is based on where they appear in the final printed
+document, not on where they appear in the source files.  This is better for
+the reader in the unusual case of a fixed figure being overtaken by a
+floating one.  If a section number is printed as part of a figure number,
+and the figure floats forward from one section into another, the figure
+number will reflect the later section, not the earlier one as it should.
+You can fix this problem by moving the figure to an earlier point in
+the section, or by not having section numbers in figures (see below).
+@PP
+@Code "@Figure" and @Code "@Table" each have a @Code "@OnePage" option,
+whose value may be @Code "Yes" or {@Code No}.  Setting @Code "@OnePage"
+to @Code Yes causes the figure or table and its caption to be kept
+together on one page or column (enclosing the body of the figure or table
+in @Code "@OneRow" would have the same effect except that it would not
+incorporate the caption, hence the need for this option).  You need to be
+certain that the whole assembly will fit on one page when setting
+@Code "@OnePage" to {@Code "Yes"}.  If it doesn't, Lout should warn you
+with a message such as
+@ID @Code "25.3c object too high for 23.4c space; will try elsewhere"
+giving the size of the oversize object and the size of the space it
+failed to fit into; but (unfortunately) it does not given a clear
+indication of whether trying elsewhere succeeded or not.  When you
+see this message you need to check for yourself whether the figure was
+actually printed or not; it may mean merely that the figure was put
+back to a later page than the first possible one.
+@PP
+The @I default value of the @Code "@OnePage" option for each figure or
+table depends on the value of its @Code "@Location" option as follows:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col ! @Col @Code B }
+{
+@Rowa
+    A { No }
+    B { PageTop  ColTop  ColEnd  Raw }
+@Rowa
+    A { Yes }
+    B { PageFoot  ColFoot  Display  AfterLine  TryAfterLine }
+}
+These choices represent a guess that figures that the user is happy to
+see at the page foot or in a display are probably going to be small enough
+to keep on one page, but that other figures may not be.  In any case, these
+are only default values and you may set @Code "@OnePage" as you wish.
+@PP
+By default, the body of the figure will be centred, and this usually looks
+best, at least for small figures.  @Code "@Figure" and @Code "@Table" each
+have a @Code "@Format" option which controls this format:
+@ID @Code {
+"@Figure"
+"    @Format { @CurveBox @HExpand @CC @Body }"
+}
+Within the @Code "@Format" option, the @Code "@Body" symbol stands for the
+body of the figure or table; it must appear exactly once.  Display symbols
+such as @Code "@CentredDisplay" may not be applied to the {@Code "@Body"}
+symbol; instead, there are {@Code "@II"}, {@Code "@QQ"}, {@Code "@CC"}, and
+{@Code "@RR"}, which indent, quote, centre, or right-justify the following
+object.  The example just given centres the figure inside a @Code "@CurveBox"
+which is horizontally expanded (by the @Code "@HExpand" symbol, which is not
+specific to figures) to occupy the full width of the page or column, rather
+than fitting snugly around the figure.
+@PP
+Although @Code "@CC" will always centre the figure or table, occasionally
+it underestimates the amount of space available to centre in, and hence
+the figure or table appears only partly centred, or even left
+justified.  This occurs when nothing on the page extends the full
+width of the page.  If this problem occurs, use
+@ID @Code "@Format { @HExpand @CC @Body }"
+The @Code "@HExpand" symbol expands the space available to the following
+object to the maximum possible amount, so that the centring is with respect
+to the full available width as desired.
+@PP
+The @Code "@Format" option applies to just the body of the figure, not to
+its caption.  It applies to each page or column of a multi-page or
+multi-column figure; for example, the above format will draw a box around
+each page of a multi-page figure, and each page will be separately centred.
+@Code "ColEnd" and @Code "Raw" figures are exceptions to this rule:  they
+always apply the format to the figure as a whole.  This means that you cannot
+box multi-page figures of these two types, since the result would be an
+unbreakable object too large to fit on one page.
+@PP
+There are setup file options for controlling the appearance of figures and
+tables.  Only those for figures will be given here, since the ones for tables
+are identical except that @Code Table replaces @Code Figure in their
+names.  Here they all are:
+@FootNote { These are as of Version 3.15 and above.  Prior to that
+there were {@Code "@CaptionFont"}, {@Code "@CaptionBreak"}, and
+{@Code "@CaptionFormat"} options, and {@Code "@CaptionFormat"}
+took values that did not include the @Code "caption" symbol. }
+@ID @OneCol @Code {
+"@FigureLocation { PageTop }"
+"@FigureFormat { @CC @Body }"
+"@FigureWord { figure }"
+"@FigureNumbers { Arabic }"
+"@FigureCaptionPos { Below }"
+"@FigureCaptionFont { }"
+"@FigureCaptionBreak { }"
+"@FigureCaptionFormat { @B { word @NumSep number. &2s } @Insert caption }"
+"@MakeFigureContents { No }"
+"@FigureListWord { figurelist }"
+}
+@Code "@FigureLocation" is the default value of the @Code "@Location"
+option of figures.  Changing it, for example to
+{@Code "FullPage"}, changes the location of all figures at
+once.  You may still override this location for any individual figure,
+however, by giving that figure a @Code "@Location" option.  In a similar way,
+figureformat. @Index @Code "@FigureFormat"
+tableformat. @Index @Code "@TableFormat"
+@Code "@FigureFormat" is the default value of the @Code "@Format"
+option (this shows why figures are centred by default) and
+figurecaptionpos. @Index @Code "@FigureCaptionPos"
+tablecaptionpos. @Index @Code "@TableCaptionPos"
+@Code "@FigureCaptionPos" is the default value of {@Code "@CaptionPos"}.
+@PP
+@Code "@FigureWord" determines the word that is part of the figure
+number.  The default value, {@Code figure}, produces `Figure' or its
+equivalent in the current language; any other value produces itself.
+@PP
+@Code "@FigureNumbers"
+figurenumbers. @Index @Code "@FigureNumbers"
+tablenumbers. @Index @Code "@TableNumbers"
+determines whether figures are
+numbered automatically or not; the choices are
+{@Code "None"}, {@Code "Arabic"}, {@Code "Roman"}, {@Code "UCRoman"},
+{@Code "Alpha"}, and {@Code "UCAlpha"}.  Depending on the document
+type and where the figure or table occurs, the number might include
+a chapter number as well.  This is determined by options in the
+setup file for your document type; for example, 
+@ID @Code "@SectionNumInFigures { No }"
+appears in the @Code "report" setup file, and means that a section
+number will not appear in the figure number (unless you change the
+option to {@Code Yes}).
+@PP
+@Code "@FigureCaptionFont" and @Code "@FigureCaptionBreak" determine the
+font and paragraph breaking style used in the captions of figures.  Their
+default values are empty, meaning to use the initial font and break styles;
+but, for example, you could have
+@ID @Code "@FigureCaptionFont { -2p }"
+in your setup file to get a smaller font size in your captions.
+@PP
+The @Code "@FigureCaptionFormat" option determines the format of the
+caption.  Within it, the symbol @Code word stands for the `Figure'
+word as defined by {@Code "@FigureWord"}); the @Code number
+symbol stands for the number of the figure; and @Code caption stands
+for the body of the caption.  The default value shown above prints
+the word and number and a period in bold, inserted together with a
+gap of two spaces into the first paragraph of the caption.  If you
+don't use the @Code "@Insert" symbol you'll run into problems with
+multi-paragraph captions.
+@PP
+You can get a list of figures at the start of your document by setting
+the @Code "@MakeFigureContents" setup file option to {@Code Yes}.  The
+format of these lists will follow the format of tables of contents.  These
+lists are only available in books (Section {@NumberOf books}).  The
+title printed above the list of figures is determined by the
+@Code "@FigureListWord" option; the default value, {@Code "figurelist"},
+produces `List of Figures' or its equivalent in the current language; any
+other value produces itself.
+@End @Section

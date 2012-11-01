@@ -1,0 +1,52 @@
+@Section
+   @Title { Colour }
+   @Tag { colour }
+@Begin
+@PP
+Colour is obtained in much the same way that fonts and language changes
+colour. @Index @Code "@Colour"
+color. @Index @Code "@Color"
+are, using the @Code "@Colour" (or equivalently {@Code "@Color"}) symbol:
+@ID @Code "grey  @Colour  { Hello, world }"
+produces
+@ID grey @Colour { Hello, world }
+The @Code "@Colour" symbol will accept any of the following colours:
+@QD @HAdjust @Tab
+    vmargin { 0.7vx }
+    hmargin { 0.2c }
+    @Fmta { @Col A @Colour @FilledBox ! @Col @Code A ! @Col !
+            @Col B @Colour @FilledBox ! @Col @Code B ! @Col !
+            @Col C @Colour @FilledBox ! @Col @Code C        }
+    @Fmtb { @Col A @Colour @FilledBox ! @Col @Code A ! @Col !
+            @Col B @Colour @FilledBox ! @Col @Code B ! @Col !
+            @Col                      ! @Col                }
+{
+@Rowa A { darkred	} B { red		} C { lightred		}
+@Rowa A { darkgreen	} B { green		} C { lightgreen	}
+@Rowa A { darkblue	} B { blue		} C { lightblue		}
+@Rowa A { darkcyan	} B { cyan		} C { lightcyan		}
+@Rowa A { darkmagenta	} B { magenta		} C { lightmagenta	}
+@Rowa A { darkyellow	} B { yellow		} C { lightyellow	}
+@Rowa A { darkgrey	} B { grey		} C { lightgrey		}
+@Rowa A { darkgray	} B { gray		} C { lightgray		}
+@Rowb A { black    	} B { white		}
+}
+Monochrome output devices will render them as shades of grey.  Colouring
+something @Code white makes it invisible, which is sometimes useful.
+@PP
+In addition to the list of colours given above, there is a special
+colour called {@Code nochange} which produces the colour you already
+happen to be using.
+@PP
+Whether or not the colours produced by @Code "@Colour" actually
+correspond with the names depends on the output device; the same
+nominal colour can look quite different on screen and on paper.  The
+standard Lout @Code "@SetColour" symbol can provide many more colours
+setcolour. @Index @Code "@SetColour"
+@Cite { $kingston1995lout.expert}, although they must be specified
+using numbers rather than names.  For example,
+@ID @Code "{ 0.5 0.5 1.0 } @SetColour Hello"
+prints @Code Hello in a colour containing red at intensity 0.5, green
+at intensity 0.5, and blue at intensity 1.0, which turns out, in the
+strange world of colour coordinates, to be a light blue.
+@End @Section

@@ -1,0 +1,42 @@
+March 30, 2000
+
+Release notes MP3X (the LAME frame analyzer) for WIN32
+
+===========================================================================
+How to compile Lame with MP3x support:
+
+You first need the proper GTK and GLIB include files and lib files. 
+You can get them from the WINGTK project 
+http://user.sgic.fi/~tml/gimp/win32/ 
+(or see http://www.gtk.org, and click on the WINGTK link).
+
+Download:  glib-dev-VERSION.zip, gtk+-dev-VERSION.zip, extralibs-dev-VERSION.zip
+where VERSION = something like 20000201
+
+unzip the files.  this will make a "src" directory. (for example, c:\gtk\src)
+Then, in MSVC, under Tools->options->directories, add 
+to the "include files" and "library files" settings:
+  c:\gtk\src\glib
+  c:\gtk\src\gtk+\glib
+  c:\gtk\src\gtk+
+
+
+===========================================================================
+To run MP3x.exe, or lame.exe with MP3x support, you need
+the GTK DLL files:  Either instal them on your system,
+or put them in the same directory as lame.exe.
+
+glib-1.3.dll
+gdk-1.3.dll
+gtk-1.3.dll
+gmodule-1.3.dll
+gnu-intl.dll
+
+lame -g myfile
+
+myfile can be a mp3 file, or a wav file.
+
+
+
+
+

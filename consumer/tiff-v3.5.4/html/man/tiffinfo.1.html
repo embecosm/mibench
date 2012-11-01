@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFFINFO</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFFINFO</H1>
+Section: User Commands  (1)<BR>Updated: January 27, 1997<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiffinfo - print information about
+<FONT SIZE="-1">TIFF</FONT>
+files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiffinfo</B>
+
+[
+<I>options</I>
+
+]
+<I>input.tif ...</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>Tiffinfo</I>
+
+displays information about files created according
+to the Tag Image File Format, Revision 6.0.
+By default, the contents of each
+<FONT SIZE="-1">TIFF</FONT>
+directory in each file
+is displayed, with the value of each tag shown symbolically
+(where sensible).
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-c</B>
+
+<DD>
+Display the colormap and color/gray response curves, if present.
+<DT><B>-D</B>
+
+<DD>
+In addition to displaying the directory tags,
+read and decompress all the data in each image (but not display it).
+<DT><B>-d</B>
+
+<DD>
+In addition to displaying the directory tags,
+print each byte of decompressed data in hexadecimal.
+<DT><B>-j</B>
+
+<DD>
+Display any <FONT SIZE="-2">JPEG</FONT>-related tags that are present.
+<DT><B>-o</B>
+
+<DD>
+Set the initial
+<FONT SIZE="-1">TIFF</FONT>
+directory according to the specified file offset.
+The file offset may be specified using the usual C-style syntax;
+i.e. a leading ``0x'' for hexadecimal and a leading ``0'' for octal.
+<DT><B>-s</B>
+
+<DD>
+Display the offsets and byte counts for each data strip in a directory.
+<DT><B>-z</B>
+
+<DD>
+Enable strip chopping when reading image data.
+<DT><B>-#</B>
+
+<DD>
+Set the initial
+<FONT SIZE="-1">TIFF</FONT>
+directory to
+<I>#</I>.
+
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffcmp+1.html">tiffcmp</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:48 GMT, November 23, 1999
+</BODY>
+</HTML>

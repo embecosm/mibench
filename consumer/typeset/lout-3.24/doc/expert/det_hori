@@ -1,0 +1,91 @@
+@Section
+   @Title { Horizontal galleys }
+   @Tag { horizontal }
+@Begin
+@PP
+All the galleys so far have been @I { vertical galleys }:  galleys
+whose components are separated by vertical concatenation symbols.  There
+are also horizontal galleys, whose components are separated by the
+horizontal concatenation operator @Code "&" (or equivalently, by
+spaces).  These work in the same way as vertical galleys, except for
+the change of direction.  For example, the following defines the
+equivalent of an ordinary outdented paragraph, except that an option
+is provided for varying the size of the outdent:
+@ID @Code {
+"def @OutdentPar"
+"    named outdent { 2f }"
+"    right x"
+"{"
+"    def @ParPlace { @Galley }"
+""
+"    def @LineList"
+"    {"
+"        outdent @Wide {} | @PAdjust @ParPlace"
+"        //1vx @LineList"
+"    }"
+""
+"    def @ParGalley force horizontally into { @ParPlace&&preceding }"
+"        right x"
+"    {"
+"        x"
+"    }"
+""
+"        @PAdjust @ParPlace"
+"    //  @ParGalley { x &1rt }"
+"    //1vx  @LineList"
+"}"
+}
+Notice the use of @Code "&1rt" to cancel the effect of @Code "@PAdjust"
+on the last line of the paragraph.  This definition has a problem in
+that there will be a concluding unexpanded @Code "@LineList" symbol
+which will hold up promotion of the enclosing galley; this problem
+may be fixed by the same method used to end a list.
+@PP
+In an ideal world, there would be nothing further to say about horizontal
+galleys.  However there are a few differences which arise from various
+practical considerations and limitations.  Perhaps some day a more
+perfect symmetry will be implemented.
+@PP
+Each vertical galley has a fixed finite width, and every component is
+broken to that width.  This is needed basically to trigger paragraph
+breaking.  However, there is no equivalent of paragraph breaking in
+the vertical direction, so horizontal galleys do not have any particular
+fixed height.  Instead, each component has its own individual height.
+@PP
+When two objects are separated by {@Code "/"}, they
+are assigned the same width (Section {@NumberOf targets}), and
+this holds true even if the two objects are subsequently separated
+by being promoted into different targets.  For example, two aligned
+equations will have the same width, and hence their alignment will be
+preserved, even if they appear in different columns or pages.  However,
+even though @Code "&" aligns the marks of its two parameters, it does
+not assign them a common height.  This means that the height of any
+component of a horizontal galley promoted into one target does not
+affect the height consumed by the components promoted into any other
+target.  The other horizontal concatenation operator, {@Code "|"},
+does assign a common height to its two parameters; but sequences of
+objects separated by this operator cannot be the components of a
+horizontal galley.
+@PP
+Lout is able to read vertical galleys one paragraph at a time; in this
+way it processes the document in small chunks, never holding more than
+a few pages in memory at any time.  However, horizontal galleys are
+always read in completely, so they should not be extremely long.
+@PP
+In principle Lout should be able to hyphenate the components of
+horizontal galleys when they are simple words, but this is not
+implemented at present.
+@PP
+In an ideal world, every paragraph would be treated as a horizontal
+galley.  However, to do so in practice would be too slow and would
+lead to excessive clumsiness in notation, so at present Lout has
+two competing mechanisms in this area:  the built-in paragraph
+breaker with its limited set of options as given under the @Code
+"@Break" operator, and horizontal galleys.  As the example above
+shows, horizontal galleys are in principle capable of implementing
+many more paragraph styles than the built-in paragraph breaker
+could ever hope to do.  The recommended practical strategy is to use
+the built-in paragraph breaker most of the time, and switch to
+horizontal galleys only for occasional tricks, such as paragraphs
+with drop capitals, circular outlines, etc.
+@End @Section

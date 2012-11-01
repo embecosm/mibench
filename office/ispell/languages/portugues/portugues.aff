@@ -1,0 +1,971 @@
+#        Affix table for Portugues
+#           For JSpell and ISpell (3.1...)
+#
+# Copyright 1994 by Ulisses Pinto & Josi Joco Almeida, 
+#   Dep. Informatica, Universidade do Minho
+#     Portugal
+#
+# Permission for non-profit use is hereby granted.
+# All other rights reserved.
+#
+# This affix file uses both upper- and lower-case affix flags, so you
+# must              #define MASKBITS 64 in your local.h file.
+#
+#    available modes:
+#        -T lat               (latin1)
+#        -T tex
+#        -T pre               (  'a 'e ,c ...)
+#
+#    any comments, important new words, and errors should be mailed to
+#                 J.Joao Almeida (jj@di.uminho.pt)
+#
+#                      Last update: 19 Jan 1995
+#
+# the last version Available in 
+#                  ***********************************************
+#
+# 8 bits used (latin1)
+#
+
+allaffixes on
+
+defstringtype "lat" "nroff" ".list"
+
+wordchars        a            A
+stringchar        a            A
+stringchar        `            @
+stringchar        c            C
+stringchar        b            B
+wordchars        [bc]        [BC]
+stringchar        g            G
+wordchars        [de]        [DE]
+stringchar        i            I
+stringchar        h            H
+stringchar        j            J
+wordchars        [f-i]        [F-I]
+stringchar        m            M
+stringchar        l            L
+wordchars        [j-o]        [J-O]
+stringchar        s            S
+stringchar        r            R
+stringchar        u            U
+stringchar        t            T
+wordchars        [p-u]        [P-U]
+stringchar        z            Z
+stringchar        y            Y
+stringchar        |            \
+wordchars        [v-z]        [V-Z]
+
+#
+#
+altstringtype "pre" "nroff" ".pre"
+
+altstringchar \'a a
+altstringchar \`a `
+altstringchar \~a c
+altstringchar \^a b
+altstringchar \,c g
+altstringchar \'e i
+altstringchar \`e h
+altstringchar \^e j
+altstringchar \'i m
+altstringchar \`i l
+altstringchar \'o s
+altstringchar \`o r
+altstringchar \~o u
+altstringchar \^o t
+altstringchar \'u z
+altstringchar \`u y
+#altstringchar \^u {
+
+altstringchar \'A A
+altstringchar \`A @
+altstringchar \~A C
+altstringchar \^A B
+altstringchar \,C G
+altstringchar \'E I
+altstringchar \`E H
+altstringchar \^E J
+altstringchar \'I M
+altstringchar \`I L
+altstringchar \'O S
+altstringchar \`O R
+altstringchar \~O U
+altstringchar \^O T
+altstringchar \'U Z
+altstringchar \`U Y
+#altstringchar \^U [
+
+#
+# Plain TeX
+#
+altstringtype "tex" "nroff" ".tex"
+
+altstringchar \\\'a a
+altstringchar \\\`a `
+altstringchar \\\~a c
+altstringchar \\\^a b
+altstringchar \\c{c} g
+altstringchar \\\'e i
+altstringchar \\\`e h
+altstringchar \\\^e j
+altstringchar \\\'{\\i} m
+altstringchar \\\'o s
+altstringchar \\\`o r
+altstringchar \\\~o u
+altstringchar \\\^o t
+altstringchar \\\'u z
+altstringchar \\\`u y
+#altstringchar \\\^u {
+
+altstringchar \\\'A A
+altstringchar \\\`A @
+altstringchar \\\~A C
+altstringchar \\\^A B
+altstringchar \\c{C} G
+altstringchar \\\'E I
+altstringchar \\\`E H
+altstringchar \\\^E J
+altstringchar \\\'I M
+altstringchar \\\'O S
+altstringchar \\\`O R
+altstringchar \\\~O U
+altstringchar \\\^O T
+altstringchar \\\'U Z
+altstringchar \\\`U Y
+#altstringchar \\\^U [
+
+
+prefixes
+
+flag *A:
+    .       >      ANTI       # "FSEM=anti"       # ex. venenoso -> antivenenoso
+flag *B:
+    .       >      ANTI\-     # "FSEM=anti"       # ex. semita -> anti-semita
+
+flag *S:
+[^H]        >      DES        # "FSEM=not"       # ex. amarrar -> desamarrar
+H           >    -H,DES       # "FSEM=not"       # ex. habitar -> desabitar
+
+flag *I:
+[^PLMR]     >      IN         # "FSEM=not"    # ex. finito -> infinito
+P           >      IM         # "FSEM=not"    # ex. paciente->impaciente
+[LM]        >      I          # "FSEM=not"    # ex. material->imaterial
+R           >      IR         # "FSEM=not"    # ex. real->irreal
+
+flag *R:
+[^S]        >      RE         # "FSEM=outra"     # ex. encontrar -> reencontrar
+S           >      RES        # "FSEM=outra"     # ex. surgir -> ressurgir
+
+flag *E:
+    .       >      PRI\-     # "FSEM=pre"       # ex. escolar -> pri-escolar
+
+flag *O:
+    .       >      PSS\-     # "FSEM=pos"       # ex. guerra -> p'os-guerra
+
+flag *U:
+    .       >      SUB\-      # "FSEM=sub"       # ex. problema -> sub-problema
+
+suffixes
+
+#-----------------------------------------
+# plurais - os mais habituais
+flag *p:         # "CAT=a_nc,N=s"
+[^C][^LSMRNZX]>    S    # "N=p"         # -> s         ex. pato, patos
+C E        >       S    # "N=p"         # ce -> ces    ex. mce, mces
+C O        >  -CO,UES # "N=p"         # co -> ues    ex. leco, leues
+A L         >    -L,IS   # "N=p"         # al -> ais    ex. animal, animais
+O L         >   -OL,SIS # "N=p"         # ol -> sis    ex. anzol, anzsis
+[^V] E L    >   -EL,IIS # "N=p"         # el -> iis    ex. papel, papiis
+[AIMSZ] V E L > -L,IS # "N=p"       # el -> eis    ex. afavel, afaveis
+I L         >    -L,S    # "N=p"         # il -> is     ex. funil, funis
+[^AIJ] S >       ES   # "N=p"         # -> es        ex. deus, deuses
+A S        >  -AS,ASES # "N=p"         # as -> ases   ex. gas, gases
+I S        >  -IS,ESES # "N=p"         # is -> eses   ex. revis,reveses
+J S        >  -JS,ESES # "N=p"         # js -> eses   ex. japonjs,japoneses
+M           >    -M,NS   # "N=p"         # m -> ns      ex. jovem, jovens
+[RNZX]      >       ES   # "N=p"         # -> es        ex. cantor, cantores
+
+flag *a:         # "CAT=a_nc,N=s"
+C O        >       S    # "N=p"         # co -> cos     ex. mco, mcos
+I L         >   -IL,EIS  # "N=p"         # il -> eis     ex. agil, ageis  # deve ser posto em todos os que tjm acento e acabam em il
+
+flag *e:         # "CAT=a_nc,N=s"
+C O        >    -O,ES   # "N=p"         # co -> ces     ex. pco, pces
+
+#-----------------------------------------
+# femininos - os mais habituais
+flag *f:         # "CAT=a_nc,G=m,N=s"
+[^C] O     >    -O,A    # "G=f"         # o -> a     ex. pato -> pata
+[^C] O     >    -O,AS   # "G=f, N=p"
+[^AEIOUSCN] >       A    # "G=f"         # -> a       ex. cantor -> cantora
+[^AEIOUSCN] >       AS   # "G=f, N=p"
+[^J] S     >       A    # "G=f"         # -> a       ex. deus   -> deusa
+[^J] S     >       AS   # "G=f, N=p"
+J S        >  -JS,ESA  # "G=f"         # js -> esa   ex. japonjs -> japonesa
+J S        >  -JS,ESAS # "G=f"         # js -> esas  ex. japonjs -> japonesas
+C O        >  -CO,ONA  # "G=f"         # co -> ona   ex. burlco -> burlona
+C O        >  -CO,ONAS # "G=f, N=p"
+E           >    -E,A    # "G=f"         # e -> a     ex. ele -> ela
+E           >    -E,AS   # "G=f, N=p"    # e -> a     ex. ele -> elas
+
+flag *b:         # "CAT=a_nc,G=m,N=s"
+C O        >    -O,-    # "G=f"         # co -> c     ex. alemco -> alemc
+C O        >    -O,S    # "G=f, N=p"    # co -> cs
+
+flag *g:         # "CAT=adj_nome,G=m,N=s"
+C O        >   -CO,OA  # "G=f"         # co -> oa     ex. patrco -> patroa
+C O        >  -COS,OAS # "G=f, N=p"    # co -> oas
+
+#----------------------------------------
+# mente
+flag *m:         # "CAT=adj,N=s"
+O           >     -O,AMENTE    # "CAT=adv"      # aberto->abertamente
+[^V][^N~][^O]>       MENTE     # "CAT=adv"      # anterior->anteriormente  N~-means any char
+A V E L    > -AVEL,AVELMENTE # "CAT=adv"      # amavel->amavelmente
+M V E L    > -MVEL,IVELMENTE # "CAT=adv"      # horrmvel->horrivelmente
+
+#----------------------------------------
+# mssimo
+flag *s:         # "CAT=adj,N=s"
+[^CGG]O    >     -O,MSSIMO    # "GR=sup"       # alto->altmssimo
+C O         >    -CO,QUMSSIMO  # "GR=sup"       # pouco->pouqumssimo
+G O        >   -GO,CMSSIMO   # "GR=sup"       # vivac,o->vivacmssimo
+G O         >    -GO,GUMSSIMO  # "GR=sup"       # meigo->meigumssimo
+E           >     -E,MSSIMO    # "GR=sup"       # leve->levmssimo
+[LR]        >        MSSIMO    # "GR=sup"       # normal->normalmssimo
+J S        >   -JS,ESMSSIMO  # "GR=sup"       # burgujs->burguesmssimo
+Z           >     -Z,CMSSIMO   # "GR=sup"       # feliz->felicmssimo
+
+[^CGG]O    >     -O,MSSIMA    # "GR=sup,G=f"       # alto->altmssima
+C O         >    -CO,QUMSSIMA  # "GR=sup,G=f"       # pouco->pouqumssima
+G O        >   -GO,CMSSIMA   # "GR=sup,G=f"       # vivac,o->vivacmssima
+G O         >    -GO,GUMSSIMA  # "GR=sup,G=f"       # meigo->meigumssima
+E           >     -E,MSSIMA    # "GR=sup,G=f"       # leve->levmssima
+[LR]        >        MSSIMA    # "GR=sup,G=f"       # normal->normalmssima
+J S        >   -JS,ESMSSIMA  # "GR=sup,G=f"       #
+Z           >     -Z,CMSSIMA   # "GR=sup,G=f"       # feliz->felicmssima
+
+[^CGG]O    >     -O,MSSIMOS   # "GR=sup,N=p"       # alto->altmssimos
+C O         >    -CO,QUMSSIMOS # "GR=sup,N=p"       # pouco->pouqumssimos
+G O        >   -GO,CMSSIMOS  # "GR=sup,N=p"       # vivac,o->vivacmssimos
+G O         >    -GO,GUMSSIMOS # "GR=sup,N=p"       # meigo->meigumssimos
+E           >     -E,MSSIMOS   # "GR=sup,N=p"       # leve->levmssimos
+[LR]        >        MSSIMOS   # "GR=sup,N=p"       # normal->normalmssimos
+J S        >   -JS,ESMSSIMOS # "GR=sup,N=p"       # burgujs->burguesmssimos
+Z           >     -Z,CMSSIMOS  # "GR=sup,N=p"       # feliz->felicmssimos
+
+[^CGG]O    >     -O,MSSIMAS   # "GR=sup,G=f,N=p"   # alto->altmssimas
+C O         >    -CO,QUMSSIMAS # "GR=sup,G=f,N=p"   # pouco->pouqumssimas
+G O        >   -GO,CMSSIMAS  # "GR=sup,G=f,N=p"   # vivac,o->vivacmssimas
+G O         >    -GO,GUMSSIMAS # "GR=sup,G=f,N=p"   # meigo->meigumssimas
+E           >     -E,MSSIMAS   # "GR=sup,G=f,N=p"   # leve->levmssimas
+[LR]        >        MSSIMAS   # "GR=sup,G=f,N=p"   # normal->normalmssimas
+J S        >   -JS,ESMSSIMAS # "GR=sup,G=f,N=p"   #
+Z           >     -Z,CMSSIMAS  # "GR=sup,G=f,N=p"   # feliz->felicmssimas
+
+#-----------------------------------------
+# idade
+flag *d:         # "CAT=adj,N=s"
+[^GG]O     >     -O,IDADE     # "CAT=nc,G=f,FSEM=dd" # activo->actividade
+G O        >   -GO,CIDADE    # "CAT=nc,G=f,FSEM=dd" # castic,o->casticidade
+G O         >    -GO,GUIDADE   # "CAT=nc,G=f,FSEM=dd" # antigo->antiguidade
+E           >     -E,IDADE     # "CAT=nc,G=f,FSEM=dd" # breve->brevidade
+R           >        IDADE     # "CAT=nc,G=f,FSEM=dd" # angular->angularidade
+[^V][^N~] L >        IDADE     # "CAT=nc,G=f,FSEM=dd" # amoral->amoralidade
+[^AM] V E L>  -VEL,BILIDADE  # "CAT=nc,G=f,FSEM=dd" #
+A V E L    > -AVEL,ABILIDADE # "CAT=nc,G=f,FSEM=dd" # amavel->amabilidade
+M V E L    > -MVEL,IBILIDADE # "CAT=nc,G=f,FSEM=dd" # amovmvel->amovibilidade
+Z           >     -Z,CIDADE    # "CAT=nc,G=f,FSEM=dd" # feroz->ferocidade
+
+[^GG]O     >     -O,IDADE     # "CAT=nc,G=f,N=p,FSEM=dd" # activo->actividades
+G O         >    -GO,GUIDADES  # "CAT=nc,G=f,N=p,FSEM=dd" # antigo->antiguidades
+[^V][^N~] L >        IDADES    # "CAT=nc,G=f,N=p,FSEM=dd" # funcional->funcionalidades
+
+#-----------------------------------------
+# ismo
+flag *i:         # "CAT=nc,N=s"
+[^CGC]O   >     -O,ISMO       # "FSEM=ismo"   # activo->activismo
+C O         >    -CO,QUISMO     # "FSEM=ismo"   # barroco->barroquismo
+G O        >   -GO,CISMO      # "FSEM=ismo"   # castic,o->casticismo
+G C O     > -GCO,CIONISMO   # "FSEM=ismo"   # abolic,co->abolicionismo
+[^ICG]A     >     -A,ISMO       # "FSEM=ismo"   # buda->budismo
+I A         >     -A,SMO        # "FSEM=ismo"   # academia->academismo
+C A         >    -CA,QUISMO     # "FSEM=ismo"   # benfica->benfiquismo
+G A         >    -GA,GUISMO     # "FSEM=ismo"   # colega->coleguismo
+E           >     -E,ISMO       # "FSEM=ismo"   # brilhante->brilhantismo
+[LR]        >        ISMO       # "FSEM=ismo"   # actual->actualismo
+J S        >   -JS,ESISMO     # "FSEM=ismo"   # chinjs->chinesismo
+
+#-----------------------------------------
+# ista
+flag *t:          # "CAT=nc,N=s"
+[^CGC]O   >     -O,ISTA       # "FSEM=ista"  # porto->portista
+C O         >    -CO,QUISTA     # "FSEM=ista"  # bloco->bloquista
+G O        >   -GO,CISTA      # "FSEM=ista"  # aderec,o->aderecista
+G C O     > -GCO,CIONISTA   # "FSEM=ista"  # abolic,co->abolicionista
+[^IGG] A   >     -A,ISTA       # "FSEM=ista"  # bomba->bombista
+I A         >     -A,STA        # "FSEM=ista"  # anarquia->anarquista
+G A        >   -GA,CISTA      # "FSEM=ista"  # cobranc,a->cobrancista
+G A         >     -A,UISTA      # "FSEM=ista"  # borga->borguista
+E           >     -E,ISTA       # "FSEM=ista"  # alarme->alarmista
+[LR]        >        ISTA       # "FSEM=ista"  # flor->florista
+
+[^CGC]O   >     -O,ISTAS      # "N=p,FSEM=ista"  # porto->portistas
+C O         >    -CO,QUISTAS    # "N=p,FSEM=ista"  # bloco->bloquistas
+G O        >   -GO,CISTAS     # "N=p,FSEM=ista"  # aderec,o->aderecistas
+G C O     > -GCO,CIONISTAS  # "N=p,FSEM=ista"  # abolic,co->abolicionistas
+[^IGG] A   >     -A,ISTAS      # "N=p,FSEM=ista"  # bomba->bombistas
+I A         >     -A,STAS       # "N=p,FSEM=ista"  # anarquia->anarquistas
+G A        >   -GA,CISTAS     # "N=p,FSEM=ista"  # cobranc,a->cobrancistas
+G A         >     -A,UISTAS     # "N=p,FSEM=ista"  # borga->borguistas
+E           >     -E,ISTAS      # "N=p,FSEM=ista"  # alarme->alarmistas
+[LR]        >        ISTAS      # "N=p,FSEM=ista"  # flor->floristas
+
+#-----------------------------------------
+# inho
+flag *h:            # "CAT=a_nc,N=s"
+[^CGGCI]O >     -O,INHO         # "GR=dim"  # beijo->beijinho
+C O         >    -CO,QUINHO       # "GR=dim"  # porco->porquinho
+G O        >   -GO,CINHO        # "GR=dim"  # mac,o->macinho
+G O         >     -O,UINHO        # "GR=dim"  # antigo->antiguinho
+C O        >        ZINHO        # "GR=dim"  # cco->ccozinho
+E           >     -E,INHO         # "GR=dim"  # bigode->bigodinho
+[^J][SZ]   >        INHO         # "GR=dim"  # arroz->arrozinho
+J S        >   -JS,ESINHO       # "GR=dim"  # chinjs->chinesinho
+[IRUN]      >        ZINHO        # "GR=dim"  # bar->barzinho
+S          >    -S,OZINHO       # "GR=dim"  # ps->pozinho
+T          >    -T,OZINHO       # "GR=dim"  # avt->avozinho
+I          >    -I,EZINHO       # "GR=dim"  # pi->pezinho
+Z          >    -Z,UZINHO       # "GR=dim"  # baz->bauzinho
+M           >     -M,NZINHO       # "GR=dim"  # homem->homenzinho
+L           >        ZINHO        # "GR=dim"  # anel->anelzinho
+
+[^CGGCI]O >     -O,INHOS        # "N=p,GR=dim"  # beijo->beijinhos
+C O         >    -CO,QUINHOS      # "N=p,GR=dim"  # porco->porquinhos
+G O        >   -GO,CINHOS       # "N=p,GR=dim"  # mac,o->macinhos
+G O         >     -O,UINHOS       # "N=p,GR=dim"  # antigo->antiguinhos
+C O        >        ZINHOS       # "N=p,GR=dim"  # cco->ccozinhos
+E           >     -E,INHOS        # "N=p,GR=dim"  # bigode->bigodinhos
+[^J][SZ]   >        INHOS        # "N=p,GR=dim"  # arroz->arrozinhos
+J S        >   -JS,ESINHOS      # "N=p,GR=dim"  # chinjs->chinesinhos
+[IRUN]      >        ZINHOS       # "N=p,GR=dim"  # bar->barzinhos
+S          >    -S,OZINHOS      # "N=p,GR=dim"  # ps->pozinhos
+T          >    -T,OZINHOS      # "N=p,GR=dim"  # avt->avozinhos
+I          >    -I,EZINHOS      # "N=p,GR=dim"  # pi->pezinhos
+Z          >    -Z,UZINHOS      # "N=p,GR=dim"  # baz->bauzinhos
+M           >     -M,NZINHOS      # "N=p,GR=dim"  # homem->homenzinhos
+L           >        ZINHOS       # "N=p,GR=dim"  # anel->anelzinhos
+
+[^GG]A     >     -A,INHA         # "GR=dim"  # depressa->depressinha
+G A        >   -GA,CINHA        # "GR=dim"  # cabec,a->cabecinha
+G A         >     -A,UINHA        # "GR=dim"  # carga->carguinha
+A          >    -A,AZINHA       # "GR=dim"  # pa->pazinha
+C          >    -C,AZINHA       # "GR=dim"  # mamc->mamazinha
+
+[^GG]A     >     -A,INHAS        # "N=p,GR=dim"  # depressa->depressinhas
+G A        >   -GA,CINHAS       # "N=p,GR=dim"  # cabec,a->cabecinhas
+G A         >     -A,UINHAS       # "N=p,GR=dim"  # carga->carguinhas
+A          >    -A,AZINHAS      # "N=p,GR=dim"  # pa->pazinhas
+C          >    -C,AZINHAS      # "N=p,GR=dim"  # mamc->mamazinhas
+
+flag z:
+[EO]        >        ZINHO        # "GR=dim"  # pobre->pobrezinho
+L           >        INHO         # "GR=dim"  # casal->casalinho
+
+[EO]        >        ZINHOS       # "N=p,GR=dim"  # pobre->pobrezinhos
+L           >        INHOS        # "N=p,GR=dim"  # casal->casalinhos
+
+#---------------------------------------
+# c,co
+flag *c:                 # "CAT=v,T=inf"
+[AE] R      >   -R,GCO     # "CAT=nc,G=f,N=s,FSEM=cao"  # inalar->inalac,co
+[^ZG] I R   >   -R,GCO     # "CAT=nc,G=f,N=s,FSEM=cao"  # abolir->abolic,co
+Z I R       > -ZIR,GCO     # "CAT=nc,G=f,N=s,FSEM=cao"  # seduzir->seduc,co
+P O R       >   -R,SIGCO   # "CAT=nc,G=f,N=s,FSEM=cao"  # expor->exposic,co
+
+[AE] R      >   -R,GUES    # "CAT=nc,G=f,N=p,FSEM=cao"  # inalar->inalac,ues
+[^ZG] I R   >   -R,GUES    # "CAT=nc,G=f,N=p,FSEM=cao"  # abolir->abolic,ues
+Z I R       > -ZIR,GUES    # "CAT=nc,G=f,N=p,FSEM=cao"  # seduzir->seduc,ues
+P O R       >   -R,SIGUES  # "CAT=nc,G=f,N=p,FSEM=cao"  # expor->exposic,ues
+
+flag *C:                 # "CAT=v,T=inf"
+T A R       >   -TAR,GCO   # "CAT=nc,G=f,N=s,FSEM=cao"  # cantar->canc,co
+C I O N A R > -IONAR,GCO   # "CAT=nc,G=f,N=s,FSEM=cao"  # adicionar->adic,co
+A I R       >    -IR,CGCO  # "CAT=nc,G=f,N=s,FSEM=cao"  # atrair->atracc,co
+U I R       >    -IR,GCO   # "CAT=nc,G=f,N=s,FSEM=cao"  # evoluir->evoluc,co
+
+T A R       >   -TAR,GUES  # "CAT=nc,G=f,N=p,FSEM=cao"  # cantar->canc,ues
+C I O N A R > -IONAR,GUES  # "CAT=nc,G=f,N=p,FSEM=cao"  # adicionar->adic,ues
+A I R       >    -IR,CGUES # "CAT=nc,G=f,N=p,FSEM=cao"  # atrair->atracc,ues
+U I R       >    -IR,GUES  # "CAT=nc,G=f,N=p,FSEM=cao"  # evoluir->evoluc,ues
+
+#---------------------------------------
+# mento
+flag *M:                 # "CAT=v,T=inf"
+[AI] R      >  -R,MENTO   #"CAT=nc,G=m,N=s,FSEM=mento" # acumular->acumulamento
+E R         > -ER,IMENTO  #"CAT=nc,G=m,N=s,FSEM=mento" # sofrer->sofrimento
+
+[AI] R      >  -R,MENTOS  #"CAT=nc,G=m,N=p,FSEM=mento" # acumular->acumulamentos
+E R         > -ER,IMENTOS #"CAT=nc,G=m,N=p,FSEM=mento" # sofrer->sofrimentos
+
+#---------------------------------------
+# nte
+flag *n:                # "CAT=v,T=inf"
+[AE] R      >   -R,NTE        # "CAT=adj,N=s,FSEM=nte"  # lavar->lavante
+I R         >  -IR,ENTE       # "CAT=adj,N=s,FSEM=nte"  # aderir->aderente
+O R         >   -R,NENTE      # "CAT=adj,N=s,FSEM=nte"  # opor->oponente
+
+[AE] R      >   -R,NTES       # "CAT=adj,N=p,FSEM=nte"  # lavar->lavantes
+I R         >  -IR,ENTES      # "CAT=adj,N=p,FSEM=nte"  # aderir->aderentes
+O R         >   -R,NENTES     # "CAT=adj,N=p,FSEM=nte"  # opor->oponentes
+
+#---------------------------------------
+# *dor
+flag *D:                 # "CAT=v,T=inf"
+[AEI] R     >   -R,DOR        # "CAT=a_nc,G=m,N=s,FSEM=dor" # lavrar->lavrador
+[AEI] R     >   -R,DORA       # "CAT=a_nc,G=f,N=s,FSEM=dor" # lavrar->lavradora
+[AEI] R     >   -R,DORES      # "CAT=a_nc,G=m,N=p,FSEM=dor" # lavrar->lavradores
+[AEI] R     >   -R,DORAS      # "CAT=a_nc,G=f,N=p,FSEM=dor" # lavrar->lavradoras
+
+#---------------------------------------
+# mvel, avel           verb2adj
+flag *v:                  # "CAT=v,T=inf"
+A R         >    -AR,AVEL    # "CAT=adj,N=s,FSEM=vel"  # lavar->lavavel
+E R         >    -ER,MVEL    # "CAT=adj,N=s,FSEM=vel"  # amover->amovmvel
+I R         >    -IR,MVEL    # "CAT=adj,N=s,FSEM=vel"  # auferir->aufermvel
+
+A R         >    -AR,AVEIS   # "CAT=adj,N=p,FSEM=vel"  # lavar->lavaveis
+E R         >    -ER,MVEIS   # "CAT=adj,N=p,FSEM=vel"  # amover->amovmveis
+I R         >    -IR,MVEIS   # "CAT=adj,N=p,FSEM=vel"  # auferir->aufermveis
+
+#---------------------------------------------
+# para ja ponho ss excepc,ues muito frequentes
+# erir ZY, uir K, ear ZY, air K, arar ZY, uzir ZY, por K, fazer K, dizer
+# [^\-] i posto para evitar a gerac,co de hipsteses parvas
+
+flag *X:                # "CAT=v,T=inf" # deve ser posta nos verbos regulares
+
+[^\-] A R   >  -AR,O       # "P=1,N=s,T=p"
+A R         >  -R,S        # "P=2,N=s,T=p"
+[^\-] A R   >  -AR,A       # "P=3,N=s,T=p"
+A R         >  -R,MOS      # "P=1,N=p,T=p"
+A R         >  -R,IS       # "P=2,N=p,T=p"
+A R         >  -R,M        # "P=3,N=p,T=p"
+[^CGG] A R >  -AR,E       # "P=13,N=s,T=pc"
+C A R       >  -CAR,QUE    # "P=13,N=s,T=pc"
+G A R       >  -GAR,GUE    # "P=13,N=s,T=pc"
+G A R      >  -GAR,CE    # "P=13,N=s,T=pc"
+[^CGG] A R >  -AR,ES      # "P=2,N=s,T=pc"
+C A R       >  -CAR,QUES   # "P=2,N=s,T=pc"
+G A R       >  -GAR,GUES   # "P=2,N=s,T=pc"
+G A R      >  -GAR,CES   # "P=2,N=s,T=pc"
+[^CGG] A R >  -AR,EMOS    # "P=1,N=p,T=pc"
+C A R       >  -CAR,QUEMOS # "P=1,N=p,T=pc"
+G A R       >  -GAR,GUEMOS # "P=1,N=p,T=pc"
+G A R      >  -GAR,CEMOS # "P=1,N=p,T=pc"
+[^CGG] A R >  -AR,EIS     # "P=2,N=p,T=pc"
+C A R       >  -CAR,QUEIS  # "P=2,N=p,T=pc"
+G A R       >  -GAR,GUEIS  # "P=2,N=p,T=pc"
+G A R      >  -GAR,CEIS  # "P=2,N=p,T=pc"
+[^CGG] A R >  -AR,EM      # "P=3,N=p,T=pc"
+C A R       >  -CAR,QUEM   # "P=3,N=p,T=pc"
+G A R       >  -GAR,GUEM   # "P=3,N=p,T=pc"
+G A R      >  -GAR,CEM   # "P=3,N=p,T=pc"
+
+[^CUG\-] E R >  -ER,O       # "P=1,N=s,T=p"
+C E R      >  -CER,GO    # "P=1,N=s,T=p"
+G E R      >  -GER,JO     # "P=1,N=s,T=p"
+G U E R    >  -GUER,GO    # "P=1,N=s,T=p"
+E R        >  -R,S        # "P=2,N=s,T=p"
+E R        >  -ER,E       # "P=3,N=s,T=p"
+E R        >  -R,MOS      # "P=1,N=p,T=p"
+E R        >  -R,IS       # "P=2,N=p,T=p"
+E R        >  -R,M        # "P=3,N=p,T=p"
+[^CUG\-] E R >  -ER,A       # "P=13,N=s,T=pc"
+C E R      >  -CER,GA    # "P=13,N=s,T=pc"
+G E R      >  -GER,JA     # "P=13,N=s,T=pc"
+G U E R    >  -GUER,GA    # "P=13,N=s,T=pc"
+[^CUG] E R >  -ER,AS      # "P=2,N=s,T=pc"
+C E R      >  -CER,GAS   # "P=2,N=s,T=pc"
+G E R      >  -GER,JAS    # "P=2,N=s,T=pc"
+G U E R    >  -GUER,GAS   # "P=2,N=s,T=pc"
+[^CUG] E R >  -ER,AMOS    # "P=1,N=p,T=pc"
+C E R      >  -CER,GAMOS # "P=1,N=p,T=pc"
+G E R      >  -GER,JAMOS  # "P=1,N=p,T=pc"
+G U E R    >  -GUER,GAMOS # "P=1,N=p,T=pc"
+[^CUG] E R >  -ER,AIS     # "P=2,N=p,T=pc"
+C E R      >  -CER,GAIS  # "P=2,N=p,T=pc"
+G E R      >  -GER,JAIS   # "P=2,N=p,T=pc"
+G U E R    >  -GUER,GAIS  # "P=2,N=p,T=pc"
+[^CUG] E R >  -ER,AM      # "P=3,N=p,T=pc"
+C E R      >  -CER,GAM   # "P=3,N=p,T=pc"
+G E R      >  -GER,JAM    # "P=3,N=p,T=pc"
+G U E R    >  -GUER,GAM   # "P=3,N=p,T=pc"
+
+[^CUG\-] I R >  -IR,O       # "P=1,N=s,T=p"
+C I R      >  -CIR,GO    # "P=1,N=s,T=p"
+G I R      >  -GIR,JO     # "P=1,N=s,T=p"
+Q U I R    >  -QUIR,CO    # "P=1,N=s,T=p"
+G U I R    >  -UIR,O      # "P=1,N=s,T=p"
+I R        >  -IR,ES      # "P=2,N=s,T=p"
+I R        >  -IR,E       # "P=3,N=s,T=p"
+I R        >  -R,MOS      # "P=1,N=p,T=p"
+I R        >  -R,S        # "P=2,N=p,T=p"
+I R        >  -IR,EM      # "P=3,N=p,T=p"
+[^CUG\-] I R >  -IR,A       # "P=13,N=s,T=pc"
+C I R      >  -CIR,GA    # "P=13,N=s,T=pc"
+G I R      >  -GIR,JA     # "P=13,N=s,T=pc"
+Q U I R    >  -QUIR,CA    # "P=13,N=s,T=pc"
+G U I R    >  -UIR,A      # "P=13,N=s,T=pc"
+[^CUG] I R >  -IR,AS      # "P=2,N=s,T=pc"
+C I R      >  -CIR,GAS   # "P=2,N=s,T=pc"
+G I R      >  -GIR,JAS    # "P=2,N=s,T=pc"
+Q U I R    >  -QUIR,CAS   # "P=2,N=s,T=pc"
+G U I R    >  -UIR,AS     # "P=2,N=s,T=pc"
+[^CUG] I R >  -IR,AMOS    # "P=1,N=p,T=pc"
+C I R      >  -CIR,GAMOS # "P=1,N=p,T=pc"
+G I R      >  -GIR,JAMOS  # "P=1,N=p,T=pc"
+Q U I R    >  -QUIR,CAMOS # "P=1,N=p,T=pc"
+G U I R    >  -UIR,AMOS   # "P=1,N=p,T=pc"
+[^CUG] I R >  -IR,AIS     # "P=2,N=p,T=pc"
+C I R      >  -CIR,GAIS  # "P=2,N=p,T=pc"
+G I R      >  -GIR,JAIS   # "P=2,N=p,T=pc"
+Q U I R    >  -QUIR,CAIS  # "P=2,N=p,T=pc"
+G U I R    >  -UIR,AIS    # "P=2,N=p,T=pc"
+[^CUG] I R >  -IR,AM      # "P=3,N=p,T=pc"
+C I R      >  -CIR,GAM   # "P=3,N=p,T=pc"
+G I R      >  -GIR,JAM    # "P=3,N=p,T=pc"
+Q U I R    >  -QUIR,CAM   # "P=3,N=p,T=pc"
+G U I R    >  -UIR,AM     # "P=3,N=p,T=pc"
+A R > -AR,A
+E R > -ER,J
+
+flag *Y:              # "CAT=v,T=inf"  # Deve ser posta nos verbos regulares
+
+A R     >  -R,VA        # "P=13,N=s,T=pi"
+A R     >  -R,VAS       # "P=2,N=s,T=pi"
+A R     >  -AR,AVAMOS  # "P=1,N=p,T=pi"
+A R     >  -AR,AVEIS   # "P=2,N=p,T=pi"
+A R     >  -R,VAM       # "P=3,N=p,T=pi"
+[^CGG] A R >  -AR,EI   # "P=1,N=s,T=pp"
+C A R   >  -CAR,QUEI    # "P=1,N=s,T=pp"
+G A R   >  -GAR,GUEI    # "P=1,N=s,T=pp"
+G A R  >  -GAR,CEI    # "P=1,N=s,T=pp"
+A R     >  -R,STE       # "P=2,N=s,T=pp"
+A R     >  -AR,OU       # "P=3,N=s,T=pp"
+A R     >  -AR,AMOS    # "P=1,N=p,T=pp"
+A R     >  -R,STES      # "P=2,N=p,T=pp"
+A R     >  AM           # "P=3,N=p,T=pp"
+A R     >  A            # "P=13,N=s,T=pmp"
+A R     >  AS           # "P=2,N=s,T=pmp"
+A R     >  -AR,ARAMOS  # "P=1,N=p,T=pmp"
+A R     >  -AR,AREIS   # "P=2,N=p,T=pmp"
+A R     >  EI           # "P=1,N=s,T=f"
+A R     >  AS          # "P=2,N=s,T=f"
+A R     >  A           # "P=3,N=s,T=f"
+A R     >  EMOS         # "P=1,N=p,T=f"
+A R     >  EIS          # "P=2,N=p,T=f"
+A R     >  CO          # "P=3,N=p,T=f"
+A R     >  -R,SSE       # "P=13,N=s,T=pic"
+A R     >  -R,SSES      # "P=2,N=s,T=pic"
+A R     >  -AR,ASSEMOS # "P=1,N=p,T=pic"
+A R     >  -AR,ASSEIS  # "P=2,N=p,T=pic"
+A R     >  -R,SSEM      # "P=3,N=p,T=pic"
+A R     >  ES           # "P=2,N=s,T=fc"
+A R     >  MOS          # "P=1,N=p,T=fc"
+A R     >  DES          # "P=2,N=p,T=fc"
+A R     >  EM           # "P=3,N=p,T=fc"
+A R     >  IA           # "P=13,N=s,T=c"
+A R     >  IAS          # "P=2,N=s,T=c"
+A R     >  MAMOS       # "P=1,N=p,T=c"
+A R     >  MEIS        # "P=2,N=p,T=c"
+A R     >  IAM          # "P=3,N=p,T=c"
+A R     >  -R,NDO       # "T=g"
+A R     >  -R,DO        # "G=m,N=s,T=ppa"
+A R     >  -R,DA        # "G=f,N=s,T=ppa"
+A R     >  -R,DOS       # "G=m,N=p,T=ppa"
+A R     >  -R,DAS       # "G=f,N=p,T=ppa"
+
+E R     >  -ER,IA       # "P=13,N=s,T=pi"
+E R     >  -ER,IAS      # "P=2,N=s,T=pi"
+E R     >  -ER,MAMOS   # "P=1,N=p,T=pi"
+E R     >  -ER,MEIS    # "P=2,N=p,T=pi"
+E R     >  -ER,IAM      # "P=3,N=p,T=pi"
+E R     >  -ER,I        # "P=1,N=s,T=pp"
+E R     >  -R,STE       # "P=2,N=s,T=pp"
+E R     >  -R,U         # "P=3,N=s,T=pp"
+E R     >  -R,MOS       # "P=1,N=p,T=pp"
+E R     >  -R,STES      # "P=2,N=p,T=pp"
+E R     >  AM           # "P=3,N=p,T=pp"
+E R     >  A            # "P=13,N=s,T=pmp"
+E R     >  AS           # "P=2,N=s,T=pmp"
+E R     >  -ER,JRAMOS  # "P=1,N=p,T=pmp"
+E R     >  -ER,JREIS   # "P=2,N=p,T=pmp"
+E R     >  EI           # "P=1,N=s,T=f"
+E R     >  AS          # "P=2,N=s,T=f"
+E R     >  A           # "P=3,N=s,T=f"
+E R     >  EMOS         # "P=1,N=p,T=f"
+E R     >  EIS          # "P=2,N=p,T=f"
+E R     >  CO          # "P=3,N=p,T=f"
+E R     >  -R,SSE       # "P=13,N=s,T=pic"
+E R     >  -R,SSES      # "P=2,N=s,T=pic"
+E R     >  -ER,JSSEMOS # "P=1,N=p,T=pic"
+E R     >  -ER,JSSEIS  # "P=2,N=p,T=pic"
+E R     >  -R,SSEM      # "P=3,N=p,T=pic"
+E R     >  ES           # "P=2,N=s,T=fc"
+E R     >  MOS          # "P=1,N=p,T=fc"
+E R     >  DES          # "P=2,N=p,T=fc"
+E R     >  EM           # "P=3,N=p,T=fc"
+E R     >  IA           # "P=13,N=s,T=c"
+E R     >  IAS          # "P=2,N=s,T=c"
+E R     >  MAMOS       # "P=1,N=p,T=c"
+E R     >  MEIS        # "P=2,N=p,T=c"
+E R     >  IAM          # "P=3,N=p,T=c"
+E R     >  -R,NDO       # "T=g"
+E R     >  -ER,IDO      # "G=m,N=s,T=ppa"
+E R     >  -ER,IDA      # "G=f,N=s,T=ppa"
+E R     >  -ER,IDOS     # "G=m,N=p,T=ppa"
+E R     >  -ER,IDAS     # "G=f,N=p,T=ppa"
+
+I R     >  -R,A         # "P=13,N=s,T=pi"
+I R     >  -R,AS        # "P=2,N=s,T=pi"
+I R     >  -IR,MAMOS   # "P=1,N=p,T=pi"
+I R     >  -IR,MEIS    # "P=2,N=p,T=pi"
+I R     >  -R,AM        # "P=3,N=p,T=pi"
+I R     >  -IR,I        # "P=1,N=s,T=pp"
+I R     >  -R,STE       # "P=2,N=s,T=pp"
+I R     >  -R,U         # "P=3,N=s,T=pp"
+I R     >  -R,MOS       # "P=1,N=p,T=pp"
+I R     >  -R,STES      # "P=2,N=p,T=pp"
+I R     >  AM           # "P=3,N=p,T=pp"
+I R     >  A            # "P=13,N=s,T=pmp"
+I R     >  AS           # "P=2,N=s,T=pmp"
+I R     >  -IR,MRAMOS  # "P=1,N=p,T=pmp"
+I R     >  -IR,MREIS   # "P=2,N=p,T=pmp"
+I R     >  EI           # "P=1,N=s,T=f"
+I R     >  AS          # "P=2,N=s,T=f"
+I R     >  A           # "P=3,N=s,T=f"
+I R     >  EMOS         # "P=1,N=p,T=f"
+I R     >  EIS          # "P=2,N=p,T=f"
+I R     >  CO          # "P=3,N=p,T=f"
+I R     >  -R,SSE       # "P=13,N=s,T=pic"
+I R     >  -R,SSES      # "P=2,N=s,T=pic"
+I R     >  -IR,MSSEMOS # "P=1,N=p,T=pic"
+I R     >  -IR,MSSEIS  # "P=2,N=p,T=pic"
+I R     >  -R,SSEM      # "P=3,N=p,T=pic"
+I R     >  ES           # "P=2,N=s,T=fc"
+I R     >  MOS          # "P=1,N=p,T=fc"
+I R     >  DES          # "P=2,N=p,T=fc"
+I R     >  EM           # "P=3,N=p,T=fc"
+I R     >  IA           # "P=13,N=s,T=c"
+I R     >  IAS          # "P=2,N=s,T=c"
+I R     >  MAMOS       # "P=1,N=p,T=c"
+I R     >  MEIS        # "P=2,N=p,T=c"
+I R     >  IAM          # "P=3,N=p,T=c"
+I R     >  -R,NDO       # "T=g"
+I R     >  -R,DO        # "G=m,N=s,T=ppa"
+I R     >  -R,DA        # "G=f,N=s,T=ppa"
+I R     >  -R,DOS       # "G=m,N=p,T=ppa"
+I R     >  -R,DAS       # "G=f,N=p,T=ppa"
+A R > -AR,A
+E R > -ER,J
+
+
+
+flag *Z:                # "CAT=v,T=inf" # (p, Pc, I) Irregulares (frequente)
+
+E R I R     >   -ERIR,IRO    # "P=1,N=s,T=p"
+E R I R     >   -IR,ES       # "P=2,N=s,T=p"   #REG.
+E R I R     >   -IR,E        # "P=3,N=s,T=p"   #REG.
+E R I R     >   -R,MOS       # "P=1,N=p,T=p"   #REG.
+E R I R     >   -R,S         # "P=2,N=p,T=p"   #REG.
+E R I R     >   -IR,EM       # "P=3,N=p,T=p"   #REG.
+E R I R     >   -ERIR,IRA    # "P=13,N=s,T=pc"
+E R I R     >   -ERIR,IRAS   # "P=2,N=s,T=pc"
+E R I R     >   -ERIR,IRAMOS # "P=1,N=p,T=pc"
+E R I R     >   -ERIR,IRAIS  # "P=2,N=p,T=pc"
+E R I R     >   -ERIR,IRAM   # "P=3,N=p,T=pc"
+
+E A R       >   -AR,IO   # "P=1,N=s,T=p"
+E A R       >   -AR,IAS  # "P=2,N=s,T=p"
+E A R       >   -AR,IA   # "P=3,N=s,T=p"
+E A R       >   -R,MOS   # "P=1,N=p,T=p"   #REG.
+E A R       >   -R,IS    # "P=2,N=p,T=p"   #REG.
+E A R       >   -AR,IAM  # "P=3,N=p,T=p"
+E A R       >   -AR,IE   # "P=13,N=s,T=pc"
+E A R       >   -AR,IES  # "P=2,N=s,T=pc"
+E A R       >   -AR,EMOS # "P=1,N=p,T=pc"   #REG.
+E A R       >   -AR,EIS  # "P=2,N=p,T=pc"   #REG.
+E A R       >   -AR,IEM  # "P=3,N=p,T=pc"
+E A R       >   -AR,IEM  # "P=3,N=p,T=i"
+
+U Z I R     >  -IR,O       # "P=1,N=s,T=p"   #REG.
+U Z I R     >  -IR,ES      # "P=2,N=s,T=p"   #REG.
+U Z I R     >  -ZIR,Z      # "P=3,N=s,T=p"
+U Z I R     >  -R,MOS      # "P=1,N=p,T=p"   #REG.
+U Z I R     >  -R,S        # "P=2,N=p,T=p"   #REG.
+U Z I R     >  -IR,EM      # "P=3,N=p,T=p"   #REG.
+U Z I R     >  -IR,A       # "P=13,N=s,T=pc"   #REG.
+U Z I R     >  -IR,AS      # "P=2,N=s,T=pc"   #REG.
+U Z I R     >  -IR,AMOS    # "P=1,N=p,T=pc"   #REG.
+U Z I R     >  -IR,AIS     # "P=2,N=p,T=pc"   #REG.
+U Z I R     >  -IR,AM      # "P=3,N=p,T=pc"   #REG.
+A R > -AR,A
+E R > -ER,J
+
+
+flag *K:                # "CAT=v,T=inf"   # Todos Irregulares (frequente)
+# Excepto guir
+U I R       >   -IR,O       # "P=1,N=s,T=p"
+A I R       >   -R,O        # "P=1,N=s,T=p"
+[UA] I R    >   -R,S        # "P=2,N=s,T=p"
+[UA] I R    >   -IR,I       # "P=3,N=s,T=p"
+[UA] I R    >   -IR,MMOS   # "P=1,N=p,T=p"
+[UA] I R    >   -IR,MS     # "P=2,N=p,T=p"
+[UA] I R    >   -IR,EM      # "P=3,N=p,T=p"
+[UA] I R    >   -IR,MA     # "P=13,N=s,T=pi"
+[UA] I R    >   -IR,MAS    # "P=2,N=s,T=pi"
+[UA] I R    >   -IR,MAMOS  # "P=1,N=p,T=pi"  # REG.
+[UA] I R    >   -IR,MEIS   # "P=2,N=p,T=pi"  # REG.
+[UA] I R    >   -IR,MAM    # "P=3,N=p,T=pi"
+[UA] I R    >   -IR,M      # "P=1,N=s,T=pp"
+[UA] I R    >   -IR,MSTE   # "P=2,N=s,T=pp"
+[UA] I R    >   -R,U        # "P=3,N=s,T=pp"
+[UA] I R    >   -IR,MMOS   # "P=1,N=p,T=pp"
+[UA] I R    >   -IR,MSTES  # "P=2,N=p,T=pp"
+[UA] I R    >   -IR,MRAM   # "P=3,N=p,T=pp"
+[UA] I R    >   -IR,MRA    # "P=31,N=s,T=pmp"
+[UA] I R    >   -IR,MRAS   # "P=2,N=s,T=pmp"
+[UA] I R    >   -IR,MRAMOS # "P=1,N=p,T=pmp"  # REG.
+[UA] I R    >   -IR,MREIS  # "P=2,N=p,T=pmp"  # REG.
+[UA] I R    >   EI          # "P=1,N=s,T=f"    # REG.
+[UA] I R    >   AS         # "P=2,N=s,T=f"    # REG.
+[UA] I R    >   A          # "P=3,N=s,T=f"    # REG.
+[UA] I R    >   EMOS        # "P=1,N=p,T=f"    # REG.
+[UA] I R    >   EIS         # "P=2,N=p,T=f"    # REG.
+[UA] I R    >   CO         # "P=3,N=p,T=f"    # REG.
+[UA] I R    >   -R,A        # "P=13,N=s,T=pc"
+[UA] I R    >   -R,AS       # "P=2,N=s,T=pc"
+[UA] I R    >   -R,AMOS     # "P=1,N=p,T=pc"
+[UA] I R    >   -R,AIS      # "P=2,N=p,T=pc"
+[UA] I R    >   -R,AM       # "P=3,N=p,T=pc"
+[UA] I R    >   -IR,MSSE   # "P=13,N=s,T=pic"
+[UA] I R    >   -IR,MSSES  # "P=2,N=s,T=pic"
+[UA] I R    >   -IR,MSSEMOS# "P=1,N=p,T=pic"  # REG.
+[UA] I R    >   -IR,MSSEIS # "P=2,N=p,T=pic"  # REG.
+[UA] I R    >   -IR,MSSEM  # "P=3,N=p,T=pic"
+[UA] I R    >   -IR,MRES   # "P=2,N=s,T=fc"
+[UA] I R    >    MOS        # "P=1,N=p,T=fc"
+[UA] I R    >   -IR,MRDES  # "P=2,N=p,T=fc"
+[UA] I R    >   -IR,MREM   # "P=3,N=p,T=fc"
+[UA] I R    >   IA          # "P=13,N=s,T=c"    # REG
+[UA] I R    >   IAS         # "P=2,N=s,T=c"    # REG.
+[UA] I R    >   MAMOS      # "P=1,N=p,T=c"    # REG.
+[UA] I R    >   MEIS       # "P=2,N=p,T=c"    # REG.
+[UA] I R    >   IAM         # "P=3,N=p,T=c"    # REG.
+[UA] I R    >   -R,NDO      # "T=g"        # REG.
+[UA] I R    >   -IR,MDO    # "G=m,N=s,T=ppa"
+[UA] I R    >   -IR,MDA    # "G=f,N=s,T=ppa"
+[UA] I R    >   -IR,MDOS   # "G=m,N=p,T=ppa"
+[UA] I R    >   -IR,MDAS   # "G=f,N=p,T=ppa"
+
+
+P O R       >   -R,NHO        # "P=1,N=s,T=p"
+P O R       >   -OR,UES      # "P=2,N=s,T=p"
+P O R       >   -OR,UE       # "P=3,N=s,T=p"
+P O R       >   -R,MOS        # "P=1,N=p,T=p"
+P O R       >   -R,NDES       # "P=2,N=p,T=p"
+P O R       >   -OR,UEM      # "P=3,N=p,T=p"
+P O R       >   -OR,UNHA      # "P=13,N=s,T=pi"
+P O R       >   -OR,UNHAS     # "P=2,N=s,T=pi"
+P O R       >   -OR,ZNHAMOS  # "P=1,N=p,T=pi"
+P O R       >   -OR,ZNHEIS   # "P=2,N=p,T=pi"
+P O R       >   -OR,UNHAM     # "P=3,N=p,T=pi"
+P O R       >   -OR,US        # "P=1,N=s,T=pp"
+P O R       >   -OR,USESTE    # "P=2,N=s,T=pp"
+P O R       >   -OR,TS       # "P=3,N=s,T=pp"
+P O R       >   -OR,USEMOS    # "P=1,N=p,T=pp"
+P O R       >   -OR,USESTES   # "P=2,N=p,T=pp"
+P O R       >   -OR,USERAM    # "P=3,N=p,T=pp"
+P O R       >   -OR,USERA     # "P=13,N=s,T=pmp"
+P O R       >   -OR,USERAS    # "P=2,N=s,T=pmp"
+P O R       >   -OR,USIRAMOS # "P=1,N=p,T=pmp"
+P O R       >   -OR,USIREIS  # "P=2,N=p,T=pmp"
+P O R       >   EI            # "P=1,N=s,T=f"
+P O R       >   AS           # "P=2,N=s,T=f"
+P O R       >   A            # "P=3,N=s,T=f"
+P O R       >   EMOS          # "P=1,N=p,T=f"
+P O R       >   EIS           # "P=2,N=p,T=f"
+P O R       >   CO           # "P=3,N=p,T=f"
+P O R       >   -R,NHA        # "P=13,N=s,T=pc"
+P O R       >   -R,NHAS       # "P=2,N=s,T=pc"
+P O R       >   -R,NHAMOS     # "P=1,N=p,T=pc"
+P O R       >   -R,NHAIS      # "P=2,N=p,T=pc"
+P O R       >   -R,NHAM       # "P=3,N=p,T=pc"
+P O R       >   -OR,USESSE    # "P=13,N=s,T=pic"
+P O R       >   -OR,USESSES   # "P=2,N=s,T=pic"
+P O R       >   -OR,USISSEMOS# "P=1,N=p,T=pic"
+P O R       >   -OR,USISSEIS # "P=2,N=p,T=pic"
+P O R       >   -OR,USESSEM   # "P=3,N=p,T=pic"
+P O R       >   -OR,USER      # "P=1,N=s,T=fc"
+P O R       >   -OR,USERES    # "P=2,N=s,T=fc"
+P O R       >   -OR,USER      # "P=3,N=s,T=fc"
+P O R       >   -OR,USERMOS   # "P=1,N=p,T=fc"
+P O R       >   -OR,USERDES   # "P=2,N=p,T=fc"
+P O R       >   -OR,USEREM    # "P=3,N=p,T=fc"
+P O R       >   IA            # "P=13,N=s,T=c"
+P O R       >   IAS           # "P=2,N=s,T=c"
+P O R       >   MAMOS        # "P=1,N=p,T=c"
+P O R       >   MEIS         # "P=2,N=p,T=c"
+P O R       >   IAM           # "P=3,N=p,T=c"
+P O R       >   -R,NDO        # "T=g"
+P O R       >   -R,STO        # "G=m,N=s,T=ppa"
+P O R       >   -R,STA        # "G=f,N=s,T=ppa"
+P O R       >   -R,STOS       # "G=m,N=p,T=ppa"
+P O R       >   -R,STAS       # "G=f,N=p,T=ppa"
+P O R       >   ES            # "P=2,N=s,T=ip"
+P O R       >   MOS           # "P=1,N=p,T=ip"
+P O R       >   DES           # "P=2,N=p,T=ip"
+P O R       >   EM            # "P=3,N=p,T=ip"
+
+F A Z E R   >   -ZER,GO        # "P=1,N=s,T=p"
+F A Z E R   >   -R,S            # "P=2,N=s,T=p"
+F A Z E R   >   -ZER,Z          # "P=3,N=s,T=p"
+F A Z E R   >   -R,MOS          # "P=1,N=p,T=p"
+F A Z E R   >   -R,IS           # "P=2,N=p,T=p"
+F A Z E R   >   -R,M            # "P=3,N=p,T=p"
+F A Z E R   >   -ER,IA          # "P=13,N=s,T=pi"
+F A Z E R   >   -ER,IAS         # "P=2,N=s,T=pi"
+F A Z E R   >   -ER,MAMOS      # "P=1,N=p,T=pi"
+F A Z E R   >   -ER,MEIS       # "P=2,N=p,T=pi"
+F A Z E R   >   -ER,IAM         # "P=3,N=p,T=pi"
+F A Z E R   >   -AZER,IZ        # "P=1,N=s,T=pp"
+F A Z E R   >   -AZER,IZESTE    # "P=2,N=s,T=pp"
+F A Z E R   >   -AZER,EZ        # "P=3,N=s,T=pp"
+F A Z E R   >   -AZER,IZEMOS    # "P=1,N=p,T=pp"
+F A Z E R   >   -AZER,IZESTES   # "P=2,N=p,T=pp"
+F A Z E R   >   -AZER,IZERAM    # "P=3,N=p,T=pp"
+F A Z E R   >   -AZER,IZERA     # "P=13,N=s,T=pmp"
+F A Z E R   >   -AZER,IZERAS    # "P=2,N=s,T=pmp"
+F A Z E R   >   -AZER,IZIRAMOS # "P=1,N=p,T=pmp"
+F A Z E R   >   -AZER,IZIREIS  # "P=2,N=p,T=pmp"
+F A Z E R   >   -ZER,REI        # "P=1,N=s,T=f"
+F A Z E R   >   -ZER,RAS       # "P=2,N=s,T=f"
+F A Z E R   >   -ZER,RA        # "P=3,N=s,T=f"
+F A Z E R   >   -ZER,REMOS      # "P=1,N=p,T=f"
+F A Z E R   >   -ZER,REIS       # "P=2,N=p,T=f"
+F A Z E R   >   -ZER,RCO       # "P=3,N=p,T=f"
+F A Z E R   >   -ZER,GA        # "P=13,N=s,T=pc"
+F A Z E R   >   -ZER,GAS       # "P=2,N=s,T=pc"
+F A Z E R   >   -ZER,GAMOS     # "P=1,N=p,T=pc"
+F A Z E R   >   -ZER,GAIS      # "P=2,N=p,T=pc"
+F A Z E R   >   -ZER,GAM       # "P=3,N=p,T=pc"
+F A Z E R   >   -AZER,IZESSE    # "P=13,N=s,T=pic"
+F A Z E R   >   -AZER,IZESSES   # "P=2,N=s,T=pic"
+F A Z E R   >   -AZER,IZISSEMOS# "P=1,N=p,T=pic"
+F A Z E R   >   -AZER,IZISSEIS # "P=2,N=p,T=pic"
+F A Z E R   >   -AZER,IZESSEM   # "P=3,N=p,T=pic"
+F A Z E R   >   -AZER,IZER      # "P=1,N=s,T=fc"
+F A Z E R   >   -AZER,IZERES    # "P=2,N=s,T=fc"
+F A Z E R   >   -AZER,IZER      # "P=3,N=s,T=fc"
+F A Z E R   >   -AZER,IZERMOS   # "P=1,N=p,T=fc"
+F A Z E R   >   -AZER,IZERDES   # "P=2,N=p,T=fc"
+F A Z E R   >   -AZER,IZEREM    # "P=3,N=p,T=fc"
+F A Z E R   >   -ZER,RIA        # "P=13,N=s,T=c"
+F A Z E R   >   -ZER,RIAS       # "P=2,N=s,T=c"
+F A Z E R   >   -ZER,RMAMOS    # "P=1,N=p,T=c"
+F A Z E R   >   -ZER,RMEIS     # "P=2,N=p,T=c"
+F A Z E R   >   -ZER,RIAM       # "P=3,N=p,T=c"
+F A Z E R   >   -R,NDO          # "T=g"
+F A Z E R   >   -ZER,EITO       # "G=m,N=s,T=ppa"
+F A Z E R   >   -ZER,EITA       # "G=f,N=s,T=ppa"
+F A Z E R   >   -ZER,EITOS      # "G=m,N=p,T=ppa"
+F A Z E R   >   -ZER,EITAS      # "G=f,N=p,T=ppa"
+F A Z E R   >   ES             # "P=2,N=s,T=ip"
+F A Z E R   >   ERMOS          # "P=1,N=p,T=ip"
+F A Z E R   >   ERDES          # "P=2,N=p,T=ip"
+F A Z E R   >   EM             # "P=3,N=p,T=ip"
+
+D I Z E R   >   -ZER,GO        # "P=1,N=s,T=p"
+D I Z E R   >   -R,S           # "P=2,N=s,T=p"
+D I Z E R   >   -ZER,Z         # "P=3,N=s,T=p"
+D I Z E R   >   -R,MOS         # "P=1,N=p,T=p"
+D I Z E R   >   -R,IS          # "P=2,N=p,T=p"
+D I Z E R   >   -R,M           # "P=3,N=p,T=p"
+D I Z E R   >   -ER,IA         # "P=13,N=s,T=pi"
+D I Z E R   >   -ER,IAS        # "P=2,N=s,T=pi"
+D I Z E R   >   -ER,MAMOS     # "P=1,N=p,T=pi"
+D I Z E R   >   -ER,MEIS      # "P=2,N=p,T=pi"
+D I Z E R   >   -ER,IAM        # "P=3,N=p,T=pi"
+D I Z E R   >   -ZER,SSE       # "P=1,N=s,T=pp"
+D I Z E R   >   -ZER,SSESTE    # "P=2,N=s,T=pp"
+D I Z E R   >   -ZER,SSE       # "P=3,N=s,T=pp"
+D I Z E R   >   -ZER,SSEMOS    # "P=1,N=p,T=pp"
+D I Z E R   >   -ZER,SSESTES   # "P=2,N=p,T=pp"
+D I Z E R   >   -ZER,SSERAM    # "P=3,N=p,T=pp"
+D I Z E R   >   -ZER,SSERA     # "P=13,N=s,T=pmp"
+D I Z E R   >   -ZER,SSERAS    # "P=2,N=s,T=pmp"
+D I Z E R   >   -ZER,SSIRAMOS # "P=1,N=p,T=pmp"
+D I Z E R   >   -ZER,SSIREIS  # "P=2,N=p,T=pmp"
+D I Z E R   >   -ZER,REI       # "P=1,N=s,T=f"
+D I Z E R   >   -ZER,RAS      # "P=2,N=s,T=f"
+D I Z E R   >   -ZER,RA       # "P=3,N=s,T=f"
+D I Z E R   >   -ZER,REMOS     # "P=1,N=p,T=f"
+D I Z E R   >   -ZER,REIS      # "P=2,N=p,T=f"
+D I Z E R   >   -ZER,RCO      # "P=3,N=p,T=f"
+D I Z E R   >   -ZER,GA        # "P=13,N=s,T=pc"
+D I Z E R   >   -ZER,GAS       # "P=2,N=s,T=pc"
+D I Z E R   >   -ZER,GAMOS     # "P=1,N=p,T=pc"
+D I Z E R   >   -ZER,GAIS      # "P=2,N=p,T=pc"
+D I Z E R   >   -ZER,GAM       # "P=3,N=p,T=pc"
+D I Z E R   >   -ZER,SSESSE    # "P=13,N=s,T=pic"
+D I Z E R   >   -ZER,SSESSES   # "P=2,N=s,T=pic"
+D I Z E R   >   -ZER,SSISSEMOS# "P=1,N=p,T=pic"
+D I Z E R   >   -ZER,SSISSEIS # "P=2,N=p,T=pic"
+D I Z E R   >   -ZER,SSESSEM   # "P=3,N=p,T=pic"
+D I Z E R   >   -ZER,SSER      # "P=1,N=s,T=fc"
+D I Z E R   >   -ZER,SSERES    # "P=2,N=s,T=fc"
+D I Z E R   >   -ZER,SSER      # "P=3,N=s,T=fc"
+D I Z E R   >   -ZER,SSERMOS   # "P=1,N=p,T=fc"
+D I Z E R   >   -ZER,SSERDES   # "P=2,N=p,T=fc"
+D I Z E R   >   -ZER,SSEREM    # "P=3,N=p,T=fc"
+D I Z E R   >   -ZER,RIA       # "P=13,N=s,T=c"
+D I Z E R   >   -ZER,RIAS      # "P=2,N=s,T=c"
+D I Z E R   >   -ZER,RMAMOS   # "P=1,N=p,T=c"
+D I Z E R   >   -ZER,RMEIS    # "P=2,N=p,T=c"
+D I Z E R   >   -ZER,RIAM      # "P=3,N=p,T=c"
+D I Z E R   >   -R,NDO         # "T=g"
+D I Z E R   >   -ZER,TO        # "G=m,N=s,T=ppa"
+D I Z E R   >   -ZER,TA        # "G=f,N=s,T=ppa"
+D I Z E R   >   -ZER,TOS       # "G=m,N=p,T=ppa"
+D I Z E R   >   -ZER,TAS       # "G=f,N=p,T=ppa"
+D I Z E R   >   ES             # "P=2,N=s,T=ip"
+D I Z E R   >   MOS            # "P=1,N=p,T=ip"
+D I Z E R   >   DES            # "P=2,N=p,T=ip"
+D I Z E R   >   EM             # "P=3,N=p,T=ip"
+A R > -AR,A
+E R > -ER,J
+
+#-------------------------------------------
+#-------------------------------------------
+# conjugac,co pronominal (compl. indirecto)
+
+
+# reflexividade dos verbos
+
+
+
+#-----------------------------------------
+# conjugac,co pronominal (compl. directo)
+# os acabados em (Z) ex.condu-la sco irreg.
+
+
+
+
+# tratar alguns verbos irreg.
+
+# inf. pess, futuro e condicional pronomiais
+
+
+

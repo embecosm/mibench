@@ -1,0 +1,17 @@
+@Section
+   @Title { "@HContract" and "@VContract" }
+   @Tag { hcontract }
+@Begin
+@PP
+hcontract. @Index { @@HContract symbol }
+vcontract. @Index { @@VContract symbol }
+contraction @Index { Contraction of object }
+The @@HContract symbol reduces the size of its right parameter to a
+reasonable minimum (after paragraph breaking).  For example,
+@ID @Code "5i @Wide @HContract { A |1rt B }"
+has result
+@ID { 5i @Wide @HContract { A |1rt B } }
+in which the B is much closer to the A than it would otherwise have
+been.  @@VContract is similar, but in a vertical direction.  See
+Section {@NumberOf size} for a more extensive discussion.
+@End @Section

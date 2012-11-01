@@ -1,0 +1,629 @@
+@Section
+   @Title { Fonts and font sizes }
+   @Tag { fonts }
+@Begin
+@PP
+A @I font is a collection of characters that may be printed.  For
+font. @Index { font }
+example, here is the Times Roman font:
+@ID @OneRow { Times Base } @Font 0.05c @Space {
+{ @Char space }
+{ @Char exclam }
+{ @Char quotedbl }
+{ @Char numbersign }
+{ @Char dollar }
+{ @Char percent }
+{ @Char ampersand }
+{ @Char quoteright }
+{ @Char parenleft }
+{ @Char parenright }
+{ @Char asterisk }
+{ @Char plus }
+{ @Char comma }
+{ @Char hyphen }
+{ @Char period }
+{ @Char slash }
+{ @Char zero }
+{ @Char one }
+{ @Char two }
+{ @Char three }
+{ @Char four }
+{ @Char five }
+{ @Char six }
+{ @Char seven }
+{ @Char eight }
+{ @Char nine }
+{ @Char colon }
+{ @Char semicolon }
+{ @Char less }
+{ @Char equal }
+{ @Char greater }
+{ @Char question }
+{ @Char at }
+{ @Char bracketleft }
+{ @Char backslash }
+{ @Char bracketright }
+{ @Char asciicircum }
+{ @Char underscore }
+{ @Char quoteleft }
+//1vx
+{ @Char A }
+{ @Char B }
+{ @Char C }
+{ @Char D }
+{ @Char E }
+{ @Char F }
+{ @Char G }
+{ @Char H }
+{ @Char I }
+{ @Char J }
+{ @Char K }
+{ @Char L }
+{ @Char M }
+{ @Char N }
+{ @Char O }
+{ @Char P }
+{ @Char Q }
+{ @Char R }
+{ @Char S }
+{ @Char T }
+{ @Char U }
+{ @Char V }
+{ @Char W }
+{ @Char X }
+{ @Char Y }
+{ @Char Z }
+//1vx
+{ @Char a }
+{ @Char b }
+{ @Char c }
+{ @Char d }
+{ @Char e }
+{ @Char f }
+{ @Char g }
+{ @Char h }
+{ @Char i }
+{ @Char j }
+{ @Char k }
+{ @Char l }
+{ @Char m }
+{ @Char n }
+{ @Char o }
+{ @Char p }
+{ @Char q }
+{ @Char r }
+{ @Char s }
+{ @Char t }
+{ @Char u }
+{ @Char v }
+{ @Char w }
+{ @Char x }
+{ @Char y }
+{ @Char z }
+//1vx
+{ @Char braceleft }
+{ @Char bar }
+{ @Char braceright }
+{ @Char asciitilde }
+{ @Char dotlessi }
+{ @Char grave }
+{ @Char acute }
+{ @Char circumflex }
+{ @Char tilde }
+{ @Char macron }
+{ @Char breve }
+{ @Char dotaccent }
+{ @Char dieresis }
+{ @Char ring }
+{ @Char cedilla }
+{ @Char hungarumlaut }
+{ @Char ogonek }
+{ @Char caron }
+{ @Char space }
+{ @Char exclamdown }
+{ @Char cent }
+{ @Char sterling }
+{ @Char currency }
+{ @Char yen }
+{ @Char brokenbar }
+{ @Char section }
+{ @Char dieresis }
+{ @Char copyright }
+{ @Char ordfeminine }
+{ @Char guillemotleft }
+{ @Char logicalnot }
+{ @Char hyphen }
+{ @Char registered }
+{ @Char macron }
+{ @Char degree }
+{ @Char plusminus }
+{ @Char twosuperior }
+{ @Char threesuperior }
+{ @Char acute }
+{ @Char mu }
+{ @Char paragraph }
+{ @Char periodcentered }
+{ @Char cedilla }
+{ @Char onesuperior }
+{ @Char ordmasculine }
+{ @Char guillemotright }
+{ @Char onequarter }
+{ @Char onehalf }
+{ @Char threequarters }
+{ @Char questiondown }
+//1vx
+{ @Char Agrave }
+{ @Char Aacute }
+{ @Char Acircumflex }
+{ @Char Atilde }
+{ @Char Adieresis }
+{ @Char Aring }
+{ @Char AE }
+{ @Char Ccedilla }
+{ @Char Egrave }
+{ @Char Eacute }
+{ @Char Ecircumflex }
+{ @Char Edieresis }
+{ @Char Igrave }
+{ @Char Iacute }
+{ @Char Icircumflex }
+{ @Char Idieresis }
+{ @Char Eth }
+{ @Char Ntilde }
+{ @Char Ograve }
+{ @Char Oacute }
+{ @Char Ocircumflex }
+{ @Char Otilde }
+{ @Char Odieresis }
+{ @Char multiply }
+{ @Char Oslash }
+{ @Char Ugrave }
+{ @Char Uacute }
+{ @Char Ucircumflex }
+{ @Char Udieresis }
+{ @Char Yacute }
+{ @Char Thorn }
+//1vx
+{ @Char germandbls }
+{ @Char agrave }
+{ @Char aacute }
+{ @Char acircumflex }
+{ @Char atilde }
+{ @Char adieresis }
+{ @Char aring }
+{ @Char ae }
+{ @Char ccedilla }
+{ @Char egrave }
+{ @Char eacute }
+{ @Char ecircumflex }
+{ @Char edieresis }
+{ @Char igrave }
+{ @Char iacute }
+{ @Char icircumflex }
+{ @Char idieresis }
+{ @Char eth }
+{ @Char ntilde }
+{ @Char ograve }
+{ @Char oacute }
+{ @Char ocircumflex }
+{ @Char otilde }
+{ @Char odieresis }
+{ @Char divide }
+{ @Char oslash }
+{ @Char ugrave }
+{ @Char uacute }
+{ @Char ucircumflex }
+{ @Char udieresis }
+{ @Char yacute }
+{ @Char thorn }
+{ @Char ydieresis }
+}
+and here is the Times Italic font:
+@ID @OneRow { Times Slope } @Font 0.05c @Space {
+{ @Char space }
+{ @Char exclam }
+{ @Char quotedbl }
+{ @Char numbersign }
+{ @Char dollar }
+{ @Char percent }
+{ @Char ampersand }
+{ @Char quoteright }
+{ @Char parenleft }
+{ @Char parenright }
+{ @Char asterisk }
+{ @Char plus }
+{ @Char comma }
+{ @Char hyphen }
+{ @Char period }
+{ @Char slash }
+{ @Char zero }
+{ @Char one }
+{ @Char two }
+{ @Char three }
+{ @Char four }
+{ @Char five }
+{ @Char six }
+{ @Char seven }
+{ @Char eight }
+{ @Char nine }
+{ @Char colon }
+{ @Char semicolon }
+{ @Char less }
+{ @Char equal }
+{ @Char greater }
+{ @Char question }
+{ @Char at }
+{ @Char bracketleft }
+{ @Char backslash }
+{ @Char bracketright }
+{ @Char asciicircum }
+{ @Char underscore }
+{ @Char quoteleft }
+//1vx
+{ @Char A }
+{ @Char B }
+{ @Char C }
+{ @Char D }
+{ @Char E }
+{ @Char F }
+{ @Char G }
+{ @Char H }
+{ @Char I }
+{ @Char J }
+{ @Char K }
+{ @Char L }
+{ @Char M }
+{ @Char N }
+{ @Char O }
+{ @Char P }
+{ @Char Q }
+{ @Char R }
+{ @Char S }
+{ @Char T }
+{ @Char U }
+{ @Char V }
+{ @Char W }
+{ @Char X }
+{ @Char Y }
+{ @Char Z }
+//1vx
+{ @Char a }
+{ @Char b }
+{ @Char c }
+{ @Char d }
+{ @Char e }
+{ @Char f }
+{ @Char g }
+{ @Char h }
+{ @Char i }
+{ @Char j }
+{ @Char k }
+{ @Char l }
+{ @Char m }
+{ @Char n }
+{ @Char o }
+{ @Char p }
+{ @Char q }
+{ @Char r }
+{ @Char s }
+{ @Char t }
+{ @Char u }
+{ @Char v }
+{ @Char w }
+{ @Char x }
+{ @Char y }
+{ @Char z }
+//1vx
+{ @Char braceleft }
+{ @Char bar }
+{ @Char braceright }
+{ @Char asciitilde }
+{ @Char dotlessi }
+{ @Char grave }
+{ @Char acute }
+{ @Char circumflex }
+{ @Char tilde }
+{ @Char macron }
+{ @Char breve }
+{ @Char dotaccent }
+{ @Char dieresis }
+{ @Char ring }
+{ @Char cedilla }
+{ @Char hungarumlaut }
+{ @Char ogonek }
+{ @Char caron }
+{ @Char space }
+{ @Char exclamdown }
+{ @Char cent }
+{ @Char sterling }
+{ @Char currency }
+{ @Char yen }
+{ @Char brokenbar }
+{ @Char section }
+{ @Char dieresis }
+{ @Char copyright }
+{ @Char ordfeminine }
+{ @Char guillemotleft }
+{ @Char logicalnot }
+{ @Char hyphen }
+{ @Char registered }
+{ @Char macron }
+{ @Char degree }
+{ @Char plusminus }
+{ @Char twosuperior }
+{ @Char threesuperior }
+{ @Char acute }
+{ @Char mu }
+{ @Char paragraph }
+{ @Char periodcentered }
+{ @Char cedilla }
+{ @Char onesuperior }
+{ @Char ordmasculine }
+{ @Char guillemotright }
+{ @Char onequarter }
+{ @Char onehalf }
+{ @Char threequarters }
+{ @Char questiondown }
+//1vx
+{ @Char Agrave }
+{ @Char Aacute }
+{ @Char Acircumflex }
+{ @Char Atilde }
+{ @Char Adieresis }
+{ @Char Aring }
+{ @Char AE }
+{ @Char Ccedilla }
+{ @Char Egrave }
+{ @Char Eacute }
+{ @Char Ecircumflex }
+{ @Char Edieresis }
+{ @Char Igrave }
+{ @Char Iacute }
+{ @Char Icircumflex }
+{ @Char Idieresis }
+{ @Char Eth }
+{ @Char Ntilde }
+{ @Char Ograve }
+{ @Char Oacute }
+{ @Char Ocircumflex }
+{ @Char Otilde }
+{ @Char Odieresis }
+{ @Char multiply }
+{ @Char Oslash }
+{ @Char Ugrave }
+{ @Char Uacute }
+{ @Char Ucircumflex }
+{ @Char Udieresis }
+{ @Char Yacute }
+{ @Char Thorn }
+//1vx
+{ @Char germandbls }
+{ @Char agrave }
+{ @Char aacute }
+{ @Char acircumflex }
+{ @Char atilde }
+{ @Char adieresis }
+{ @Char aring }
+{ @Char ae }
+{ @Char ccedilla }
+{ @Char egrave }
+{ @Char eacute }
+{ @Char ecircumflex }
+{ @Char edieresis }
+{ @Char igrave }
+{ @Char iacute }
+{ @Char icircumflex }
+{ @Char idieresis }
+{ @Char eth }
+{ @Char ntilde }
+{ @Char ograve }
+{ @Char oacute }
+{ @Char ocircumflex }
+{ @Char otilde }
+{ @Char odieresis }
+{ @Char divide }
+{ @Char oslash }
+{ @Char ugrave }
+{ @Char uacute }
+{ @Char ucircumflex }
+{ @Char udieresis }
+{ @Char yacute }
+{ @Char thorn }
+{ @Char ydieresis }
+}
+As their names imply, these two fonts belong to the @I { Times family },
+a collection of fonts designed to go well together.  Every font has a
+@I { family name }, such as Times, Helvetica, or Courier, and a
+family.name @Index { family name of font }
+face.name @Index { face name of font }
+@I { face name }, such as Roman or Italic.  To find out how to
+get the unusual characters, see Section {@NumberOf characters}.
+@PP
+Documents look best when they use just one font family, so the most
+common need is to change to a different face within the current
+family.  We have already seen {@Code "@I"}, which changes to the Italic
+face of the current family; there are six such symbols:
+b. @Index @Code "@B"
+i. @Index @Code "@I"
+bi. @Index @Code "@BI"
+ii. @Index @Code "@II"
+s. @Index @Code "@S"
+r. @Index @Code "@R"
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "@B { Hello World }" }
+    B {  @B { Hello World }  }
+@Rowa
+    A { "@I { Hello World }" }
+    B {  @I { Hello World }  }
+@Rowa
+    A { "@BI { Hello World }" }
+    B {  @BI { Hello World }  }
+@Rowa
+    A { "@II { Hello World }" }
+    B {  @II { Hello World }  }
+@Rowa
+    A { "@S { Hello World }" }
+    B {  @S { Hello World }  }
+@Rowa
+    A { "@R { Hello World }" }
+    B {  @R { Hello World }  }
+}
+The symbols' names stand for Bold, Italic, Bold-Italic, Italic-Italic
+(see below), Small capitals, and Roman.  It is conventional to use Bold
+for headings; Italic for emphasis, terms being defined, and subsidiary
+headings; and Roman for the rest.  Small capitals are not really a
+different font; they are
+small.caps @Index { small capitals }
+made on demand from the current font.  So you can write, for example,
+@ID @Code "@I @S { Hello World }"
+and get @I @S { Hello World }.
+@PP
+The @Code "@R" symbol is almost unnecessary, since the document as a
+whole is set in a Roman face; but it is occasionally useful:
+@ID @Code "@I { An Italic sentence with one @R Roman word }"
+produces
+@ID @I { An Italic sentence with one @R Roman word }
+This illustrates the general principle that the effect of a font symbol
+on the following object is subject to font symbols within that object.
+@PP
+When part of a title is to be set in italic font, neither @Code "@I"
+nor @Code "@BI" is suitable because the part should appear in bold
+italics in the title itself, but in ordinary italics in running headers
+and the table of contents.  The @Code "@II" symbol is the one for this
+situation:  it produces bold italics when the current font is bold,
+and ordinary italics otherwise.
+@PP
+Changing families is a little more complicated.  Here is the complete
+list of font families and their faces available with Basser Lout Version 3:
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col { ragged nohyphen } @Break @Code B }
+{
+@Rowa
+    A { AvantGarde }
+    B { Base Slope Bold BoldSlope BoldObl Book BookOblique
+CondBold CondBook CondDemi CondMedium Demi DemiOblique
+ExtraLight ExtraLightObl Medium MediumObl }
+@Rowa
+    A { Bookman }
+    B { Base Slope Bold BoldSlope BoldItalic Demi DemiItalic
+Light LightItalic Medium MediumItalic }
+@Rowa
+    A { Chancery }
+    B { Base Slope Bold BoldSlope
+Roman Bold Italic Light Demi LightItalic MediumItalic
+}
+@Rowa
+    A { Courier }
+    B { Base Slope Bold BoldSlope BoldOblique Oblique }
+@Rowa
+    A { Helvetica }
+    B { Base Slope Bold BoldSlope Black BlackOblique
+BoldOblique Compressed Cond CondBlack CondBlackObl
+CondBold CondBoldObl CondLight CondLightObl
+CondOblique ExtraCompressed
+Light LightOblique Narrow NarrowBold NarrowBoldObl
+NarrowObl Oblique UltraCompressed }
+@Rowa
+    A { Schoolbook }
+    B { Base Slope Bold BoldSlope BoldItalic Italic Roman }
+@Rowa
+    A { Palatino }
+    B { Base Slope Bold BoldSlope BoldItalic
+BoldItalicOsF BoldOsF Italic ItalicOsF Roman SC }
+@Rowa
+    A { Symbol }
+    B { Base Slope Bold BoldSlope }
+@Rowa
+    A { Times }
+    B { Base Slope Bold BoldSlope BoldItalic
+BoldItalicOsF BoldSC ExtraBold Italic ItalicOsF
+Roman RomanSC Semibold SemiboldItalic }
+@Rowa
+    A { Dingbats }
+    B { Base Slope Bold BoldSlope }
+}
+Lout understands all these fonts, but your printing device may not.  Times,
+Helvetica, Courier, and Symbol at least seem to be ubiquitous, although
+not in every face.  These fonts work only with languages that use the
+Latin1 character set; consult Section {@NumberOf languages} for more
+information about this.  It is not difficult for a Lout expert to extend this
+list @Cite { $kingston1995lout.expert }.
+@PP
+It is a convention in Lout that every font family should at least
+base. @Index { @Code Base font }
+slope. @Index { @Code Slope font }
+bold. @Index { @Code Bold font }
+boldslope. @Index { @Code BoldSlope font }
+contain faces called @Code { Base }, @Code { Slope }, @Code { Bold },
+and @Code { BoldSlope }, and these faces are what the @Code { "@R" },
+@Code { "@I" }, @Code { "@B" }, and @Code { "@BI" } symbols give you.  But
+this convention is something of a fiction for two reasons.  First,
+some font families don't have faces that could reasonably be described as
+bold or whatever.  In particular, the @Code Symbol family contains just
+one face, and all four conventional face names produce that face.  Second,
+the four conventional face names are not names that typographers actually
+use, @Code { Bold } excepted.  @Code { Slope } produces an italic face
+in some families and an oblique one in others.  As the table shows, the
+true names are available if you want to use them, but it is very convenient
+to have a @Code { Slope } face that is guaranteed to exist no matter which
+family is used.
+@PP
+The @Code "@Font" symbol changes the font of the following object.  For
+font.sym @Index @Code "@Font"
+example,
+@ID @Code "{ Helvetica Slope } @Font { Hello World }"
+produces
+@ID { Helvetica Slope } @Font { Hello World }
+When changing to a different family, a face name must follow the family
+name; but when changing face within a family, just the face name is
+sufficient.
+@PP
+To make the characters larger or smaller, you need to change the
+font.size @Index { font size }
+@I { font size }, which can also be done with the @Code "@Font"
+symbol.  Font sizes are traditionally measured in {@I points}:  there
+are 72 points to one inch, and the most common font sizes are 12 point
+and 10 point.  However, as Section {@NumberOf objects} explains in
+detail, any length including fractional lengths is acceptable:
+@ID @Code "24p @Font { Hello World }"
+changes to 24 point size, producing
+@ID 24p @Font { Hello World }
+It is also possible to specify a font size relative to the current
+size:  @Code "+2p" means two points larger, @Code "-2p" means two
+points smaller, and @Code "1.5f" means 1.5 times the current font
+size.
+@PP
+For the convenience of people who use fixed width fonts such as
+Courier, there is an @Code "@F" symbol which switches to a
+fixed width font family:
+@ID @Code "@F { Hello world }"
+produces
+@ID @F { Hello world }
+It is the same as writing @Code "{ Courier Base -1p } @Font ..."
+with the @Code "-1p" included to compensate for the relatively
+large appearance of the Courier font.
+@PP
+The document as a whole will be set in @Code { Times Base 12p }.  To
+change this you need to change the @Code "@InitialFont" option, for
+initialfont. @Index @Code "@InitialFont"
+example to
+@ID @Code "@InitialFont { Helvetica Base 10p }"
+to get Helvetica 10 point.  You must give all three parts in
+{@Code "@InitialFont"}:  family, face, size.  If you are using your own
+setup file, as explained in Section {@NumberOf setup}, you can find the
+@Code "@InitialFont" option there.  If not, you can set it at the
+beginning of your document as explained in Section {@NumberOf ordinary}.
+@PP
+There are two features that make fonts look better on the
+page.  @I Ligatures are pairs of letters run together; the most
+ligatures. @Index { ligatures }
+common ligatures are `fi' and `fl.'  @I Kerning is moving adjacent
+kerning. @Index { kerning }
+letters closer together, for example in `VA.'  Lout considers
+ligatures and kerning to be integral parts of each font; you can prevent
+them from happening only by enclosing one of the letters in a
+@Code "@OneCol" symbol, as in {@Code "@OneCol { V }A" }.
+@End @Section

@@ -1,0 +1,14 @@
+Compile Instructions
+--------------------
+1)  Change directories to src.
+2)  Type "make".  This will bring up a list of systems that you use to 
+    plug into the new command line "make *".  Choose the one that best
+    suites your system.  If this doesn't work see the src/Makefile for
+    details on how to fix or modify the install process.
+
+Clean Instructions
+------------------
+1)  Change directories to src.
+2)  Type "make clean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

@@ -1,0 +1,85 @@
+@Section
+   @Title { Stand-alone illustrations }
+   @Tag { illustrations }
+@Begin
+@PP
+This section describes how to use Lout to produce an illustration for
+stand.alone.illustrations. @Index { stand-alone illustrations }
+illustrations. @Index { illustrations }
+inclusion in some other document, which may itself be a Lout document
+but need not be.  The opposite process, the inclusion of an illustration
+in a Lout document, is the subject of Section {@NumberOf include}.
+@PP
+Suppose you want to produce the following logo
+for inclusion in some other document:
+@ID {
+45d @Rotate @CurveBox { ARMY @LP 180d @Rotate ARMY }
+}
+This is just an object, and it is not hard to make it using Lout's
+graphics features:
+@ID @Code "45d @Rotate @CurveBox { ARMY @LP 180d @Rotate ARMY }"
+The problem is that objects ordinarily come out on pages with margins,
+page numbers, and so forth, which we don't want here.  The solution
+is to use the illustration document type, whose setup file, curiously
+enough, is called {@Code "picture"}:
+illustration. @Index @Code "@Illustration"
+@ID @OneRow @Code {
+"@SysInclude { picture }"
+"@Illustration {"
+"    45d @Rotate @CurveBox { ARMY @LP 180d @Rotate ARMY }"
+"}"
+}
+After the usual @Code "@SysInclude" line comes one @Code "@Illustration"
+symbol.  Following it is an arbitrary object which becomes the entire
+result, with no pages and no margins, ready for inclusion in some other
+document as an illustration.
+@PP
+The @Code "@Illustration" symbol has options for setting the initial
+font, paragraph breaking style, colour, and language.  Here they are
+with their default values:
+@ID @OneRow @Code {
+"@Illustration"
+"    @InitialFont { Times Base 12p }"
+"    @InitialBreak { adjust 1.2fx hyphen }"
+"    @InitialSpace { lout }"
+"    @InitialLanguage { English }"
+"    @InitialColour { black }"
+"{"
+"    ..."
+"}"
+}
+You can specify any colour from the list in Section {@NumberOf colour},
+for example {@Code blue}, and then your illustration will have that
+colour wherever it is included.
+@PP
+Because there are no pages, the width and height of the result are
+indeterminate, depending on how large the object turns out to be.  This
+makes things very awkward for filled paragraphs and centring, which depend
+on knowing how much space is available to be occupied.  So you should either
+avoid filled paragraphs and all displays and lists altogether in
+illustrations, or else enclose your object in a @Code "@Wide" symbol:
+wide @RawIndex { @Code "@Wide" }
+wide.illustrations @SubIndex { with illustrations }
+@ID @OneRow @Code {
+"@Illustration 5c @Wide {"
+"    ..."
+"}"
+}
+to make clear how wide you want your illustration to be.
+@PP
+The technical name for a file containing a stand-alone illustration
+encapsulated.postscript @Index { encapsulated PostScript file }
+eps @Index { EPS file }
+is `encapsulated PostScript file' or `EPS file' for short.  To get
+Lout to produce an encapsulated PostScript file instead of an ordinary
+PostScript file, you have to use the @Code "-EPS" Unix command line
+flag.  For example, suppose the Lout file containing our example
+illustration is called {@Code "army"}; then the appropriate Unix
+command for formatting it is
+@ID @Code "lout -EPS army > army.eps"
+An EPS file is supposed to contain only one `page', so Lout will refuse
+to generate any second or subsequent pages when the @Code "-EPS" flag
+is given.  There is also a minor difference in format between ordinary
+and encapsulated PostScript files, which is why the @Code "-EPS" flag
+is needed at all.
+@End @Section

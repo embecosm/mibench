@@ -1,0 +1,466 @@
+#
+# $Id: deutsch-alt.7bit,v 1.25 1995/01/08 23:24:04 geoff Exp $
+#
+# Copyright 1992, 1993, Geoff Kuenning, Granada Hills, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgment:
+#      This product includes software developed by Geoff Kuenning and
+#      other unpaid contributors.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+#	Affix table for German
+#
+# This table is a first cut at a description of the common affixes found
+# in the German language.  It is definitely not final.  This
+# file should be considered as a suggestion and an example of how a proper
+# affix file might be done.  (It is obvious from the experience of trying to
+# build this file that a proper affix description must be done by a native
+# speaker of the language, at least until such time as I improve "findaffix"
+# to handle character-stripping).
+#
+# If a native German speaker chooses to create a well-thought-out affix
+# file, please send a copy to me (geoff@ITcorp.com), both so that I may
+# use it myself and so that I may distribute it to the "ispell" community.
+# I would also welcome receiving affix files for any other languages.
+#
+# This affix file uses both upper- and lower-case affix flags, so you
+# must #define MASKBITS 64 in your local.h file.
+#
+# Here's a record of flags used, in case you want to add new ones.
+#
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Used:      *** ****** ********** **** ***    *** **   *   ******
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Available:    -      -          -        ----   -  --- ---      
+#
+# $Log: deutsch-alt.7bit,v $
+# Revision 1.25  1995/01/08  23:24:04  geoff
+# Fix an error in the 8-bit NeXT characters involving the sharp-S
+# character.
+#
+# Revision 1.24  1994/03/16  03:50:39  geoff
+# Fix some incorrect verb suffixes
+#
+# Revision 1.23  1994/01/25  07:12:34  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#
+
+compoundwords on
+allaffixes on
+
+# Character-set definitions.  The special-character strings are appropriate
+# for use with the "-mm" nroff/troff macro package.  Users of other formatters
+# or macro packages will undoubtedly have to modify these definitions.
+# The definition of "ess-zed" requires that you define two characters in
+# your ".mm" files;  "\*(ss" should expand to "\*b" (the Greek beta, which
+# is fairly close to ess-zed) and "\*(SS" should expand to "SS" (two capital
+# esses).
+#
+# These definitions also illustrate a cute little trick.  By declaring the
+# non-special string 'ss' as a stringchar, we cause ispell to represent it
+# as a single character internally.  This allows ispell to suggest spellings
+# that use ess-zed as corrections for spellings using double esses, which is
+# good because this is a common spelling error.  The price we pay is that
+# ispell will not generate proper corrections for less common typos such
+# as "st" for "ss".
+
+#
+# generic umlauts and sz as used in german word list
+# All othertypes are defined relative to this one.
+#
+defstringtype "list" "nroff" ".list"
+
+boundarychars	[']			# Kant's, geht's
+wordchars	a	A
+stringchar	a\"	A\"
+wordchars	[b-o]	[B-O]
+stringchar	o\"	O\"
+wordchars	[p-s]	[P-S]
+stringchar	ss	SS
+stringchar	sS	# Ss		# No captalized version
+wordchars	[tu]	[TU]
+stringchar	u\"	U\"
+wordchars	[v-z]	[V-Z]
+
+#
+# TeX/LaTeX `a la german.sty
+#
+altstringtype "tex" "TeX" ".tex" ".bib"
+
+altstringchar	\"a	a\"
+altstringchar	\"A	A\"
+altstringchar	\"o	o\"
+altstringchar	\"O	O\"
+altstringchar	\"u	u\"
+altstringchar	\"U	U\"
+altstringchar	\"s	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Plain TeX
+#
+altstringtype "plaintex" "TeX" ".tex"
+
+altstringchar	\\\"a	a\"
+altstringchar	\\\"A	A\"
+altstringchar	\\\"o	o\"
+altstringchar	\\\"O	O\"
+altstringchar	\\\"u	u\"
+altstringchar	\\\"U	U\"
+altstringchar	{\\ss}	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# N/Troff with -ms/-me macros packages
+#
+altstringtype "nroff" "nroff" ".nr" ".ms" ".me"
+
+altstringchar	a\\*\:	a\"
+altstringchar	A\\*\:	A\"
+altstringchar	o\\*\:	o\"
+altstringchar	O\\*\:	O\"
+altstringchar	u\\*\:	u\"
+altstringchar	U\\*\:	U\"
+altstringchar	\\*8	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# N/Troff with -mm macros
+#
+altstringtype "-mm" "nroff" ".nr" ".mm"
+
+altstringchar	a\\*\:	a\"
+altstringchar	A\\*\;	A\"
+altstringchar	o\\*\:	o\"
+altstringchar	O\\*\;	O\"
+altstringchar	u\\*\:	u\"
+altstringchar	U\\*\;	U\"
+altstringchar	\\*(ss	sS
+#altstringchar	\\*(SS	Ss
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Alternate forms for plain ASCII text files
+altstringtype "ascii" "nroff" ".ascii" ".txt"
+
+altstringchar	ae	a\"
+altstringchar	Ae	A\"
+altstringchar	oe	o\"
+altstringchar	Oe	O\"
+altstringchar	ue	u\"
+altstringchar	Ue	U\"
+altstringchar	ss	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Alternate forms for ISO latin1 charset
+#
+altstringtype "latin1" "TeX" ".latin1" ".txt"
+
+altstringchar	\344	a\"
+altstringchar	\304	A\"
+altstringchar	\366	o\"
+altstringchar	\326	O\"
+altstringchar	\374	u\"
+altstringchar	\334	U\"
+altstringchar	\337	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Alternate form for NeXTSTEP charset
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".txt" ".tex"
+
+altstringchar	\331	a\"
+altstringchar	\205	A\"
+altstringchar	\360	o\"
+altstringchar	\226	O\"
+altstringchar	\366	u\"
+altstringchar	\271	U\"
+altstringchar	\373	sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Alternate forms for Roman8 (used on HP-9000 machines and maybe others)
+# Added: Christoph Vogelsang, 08/27/92
+#        mz80@wiwi7.uni-bielefeld.de
+#
+altstringtype "roman8" "TeX" ".tex"
+
+altstringchar	\371	a\"
+altstringchar	\330	A\"
+altstringchar		o\"
+altstringchar	\331	O\"
+altstringchar	)	u\"
+altstringchar	\351	U\"
+altstringchar		sS
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+#
+# Alternate forms for PC or ATARI
+#
+altstringtype "atari" "nroff" ".txt" ".atari"
+
+altstringchar	\204	a\"	# \204
+altstringchar	\371	A\"	# \216
+altstringchar	\224	o\"	# \224
+altstringchar	\231	O\"	# \231
+altstringchar	\201	u\"	# \201
+altstringchar	\271	U\"	# \232
+altstringchar	\371	sS	# \236
+altstringchar	ss	ss
+altstringchar	SS	SS
+
+prefixes
+
+flag *a:	# Inseparable ab- prefix for verbs
+    .			>	AB		# Wie bauen > abbauen
+
+flag A:		# Separable an- prefix for verbs
+    .			>	AN		# Wie kommen > ankommen
+
+flag b:		# Separable bei- prefix for verbs
+    .			>	BEI		# Wie kommen > beikommen
+
+flag B:		# Separable auf- prefix for verbs
+    .			>	AUF		# Wie halten > aufhalten
+
+flag c:		# Separable aus- prefix for verbs
+    .			>	AUS		# Wie kommen > auskommen
+
+flag *C:	# Inseparable be- prefix for verbs
+    .			>	BE		# Wie kommen > bekommen
+
+flag *e:	# Inseparable er- prefix for verbs
+    .			>	ER		# Wie fahren > erfahren
+
+flag E:		# Separable ein- prefix for verbs
+    .			>	EIN		# Wie ziehen > einziehen
+
+flag f:		# Da- compounds
+    [^AA"IOO"UU"]	>	DA		# Wie mit > damit
+    [AA"EIOO"U"]	>	DAR		# Wie auf > darauf
+
+flag F:		# Wo- compounds
+    [^AA"EIOO"UU"] >	WO		# Wie mit > womit
+    [AA"EIOO"UU"]	>	WOR		# Wie auf > worauf
+
+flag G:		# Inseparable ge- prefix for verbs
+    .			>	GE		# Wie schlossen > geschlossen
+
+flag h:		# Un- prefix for adjectives
+    .			>	UN		# Wie gesund > ungesund
+
+flag H:		# Separable mit- prefix for verbs
+    .			>	MIT		# Wie kommen > mitkommen
+
+flag i:		# Separable zu- prefix for verbs
+    .			>	ZU		# Wie kommen > zukommen
+
+flag *I:	# Inseparable ver- prefix for verbs
+    .			>	VER		# Wie kaufen > verkaufen
+
+flag j:		# Separable vorbei- prefix for verbs
+    .			>	VORBEI		# Wie gehen > vorbeigehen
+
+flag J:		# Separable vor- prefix for verbs
+    .			>	VOR		# Wie haben > vorhaben
+
+flag *u:	# Separable um- prefix for verbs
+    .			>	UM		# Wie gehen > umgehen
+
+flag *v:	# Separable ueber- prefix for verbs
+    .			>	\"UBER		# Wie gehen > uebergehen
+
+flag *w:	# Separable unter- prefix for verbs
+    .			>	UNTER		# Wie gehen > untergehen
+
+flag *x:	# Separable hin- prefix for verbs
+    .			>	HIN		# Wie gehen > hingehen
+
+flag *y:	# Separable her- prefix for verbs
+    .			>	HER		# Wie gehen > hergehen
+
+flag *z:	# Inseparable zer- prefix for verbs
+    .			>	ZER		# Wie schlagen > zerschlagen
+
+suffixes
+
+flag l:		# IN for feminizing nouns
+    .			>	IN		# Wie Freund > Freundin
+
+flag L:		# LICH for creating adverbs
+    N			>	TLICH		# Wie wesen > wesentlich
+    [^N]		>	LICH		# Wie kind > kindlich
+
+flag m:		# INNEN for plural feminine nouns
+    .			>	INNEN		# Wie Freund > Freundinnen
+
+flag M:		# EM for adjectives
+    [^ER]		>	EM		# Wie neu > neuem
+    E			>	M		# Wie diese > diesem
+    [^E] R		>	EM		# Wie formbar > formbarem
+    E R			>	-ER,REM		# Wie teuer > teurem
+
+flag n:		# Dxx for making adjectives from verbs
+    .			>	D		# Wie schlafen > schlafend
+    .			>	DE		# Wie schlafen > schlafende
+    .			>	DEN		# Wie schlafen > schlafenden
+    .			>	DER		# Wie schlafen > schlafender
+    .			>	DES		# Wie schlafen > schlafendes
+    .			>	DEM		# Wie schlafen > schlafendem
+
+# Note that the first of these rules is the inverse of the du-form
+# imperative endings, and the second is the inverse of the ich-form
+# endings, and thus this rule could be considered superfluous.
+# However, it allows better suggestions to be generated when a word
+# is not in the dictionary.  Also, this rule does not participate in
+# cross-products.  The price of this is that "munchlist" won't
+# generate an optimally small dictionary, so I'm not sure that it is
+# worth it.
+#
+flag N:		# EN for adjectives
+    [^ER]		>	EN		# Wie neu > neuen
+    E			>	N		# Wie diese > diesen
+    [^E] R		>	EN		# Wie formbar > formbaren
+    E R			>	-ER,REN		# Wie teuer > teuren
+
+flag O:		# E for adjectives
+    [^ER]		>	E		# Wie neu > neue
+    [^E] R		>	E		# Wie formbar > formbare
+    E R			>	-ER,RE		# Wie teuer > teure
+
+# Note that the P flag and the S flag are duplicates for [AEIOUSZ].  This
+# is harmless (although it causes the raw dictionaries to contain a few
+# extra bytes).
+#
+flag P:		# S for plurals and genitives
+    [^SsSZ]		>	S		# Wie Wolfgang > Wolfgangs
+    [SsSZ]		>	ES		# Wie Platz > Platzes
+
+# See flag N.
+#
+flag *q:	# Du-form imperative endings
+    E N			>	-EN,-		# Wie kommen > komm
+    E L N		>	-ELN,LE		# Wie laecheln > laechle
+    E R N		>	-N,E		# Wie naehern > naehere
+
+# See flag N.
+#
+flag *Q:	# Ich-endings
+    E N		 	>	-N,-		# Wie kommen > komme
+    E L N		>	-ELN,LE		# Wie laecheln > laechle
+    E R N		>	-N,E		# Wie naehern > naehere
+
+flag R:		# ER for adjectives, nouns, and comparatives
+    [^ER]		>	ER		# Wie neu > neuer
+    E			>	R		# Wie diese > dieser
+    [^E] R		>	ER		# Wie formbar > formbarer
+    E R			>	-ER,RER		# Wie teuer > teurer
+
+# See flag P.
+#
+flag S:		# ES for adjectives
+    [^E]		>	ES		# Wie neu > neues
+    E			>	S		# Wie diese > dieses
+    [^E] R		>	ES		# Wie formbar > formbares
+    E R			>	-ER,RES		# Wie teuer > teures
+
+flag *T:	# Er/sie/es/ihr-form endings
+    [DT] E N		>	-N,T		# Wie arbeiten > arbeitet
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,T		# Wie atmen > atmet
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,T		# Wie lernen > lernt
+    [^DTMN] E N		>	-EN,T		# Wie leben > lebt
+    E L N		>	-N,T		# Wie laecheln > laechelt
+    E R N		>	-N,T		# Wie naehern > naehert
+
+flag *U:	# Du-form endings
+    [DT] E N		>	-N,ST		# Wie arbeiten > arbeitest
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,ST		# Wie atmen > atmest
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,ST		# Wie lernen > lernst
+    [SsSZ] E N		>	-EN,T		# Wie heissen > heisst
+    [^DTMNSsSZ] E N	>	-EN,ST		# Wie leben > lebst
+    E L N		>	-N,ST		# Wie laecheln > laechelst
+    E R N		>	-N,ST		# Wie naehern > naeherst
+
+flag *W:	# Past-tense ich/er/sie/es-form endings
+    [DT] E N		>	-N,TE		# Wie arbeiten > arbeitete
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,TE		# Wie atmen > atmete
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,TE		# Wie lernen > lernte
+    [^DTMN] E N		>	-EN,TE		# Wie leben > lebte
+    E L N		>	-N,TE		# Wie laecheln > laechelte
+    E R N		>	-N,TE		# Wie naehern > naeherte
+
+flag *X:	# Past-tense du-form endings
+    [DT] E N		>	-N,TEST		# Wie arbeiten > arbeitetest
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,TEST		# Wie atmen > atmetest
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,TEST	# Wie lernen > lerntest
+    [^DTMN] E N		>	-EN,TEST	# Wie leben > lebtest
+    E L N		>	-N,TEST		# Wie laecheln > laecheltest
+    E R N		>	-N,TEST		# Wie naehern > naehertest
+
+flag *Y:	# Past-tense ihr-form endings
+    [DT] E N		>	-N,TET		# Wie arbeiten > arbeitetet
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,TET		# Wie atmen > atmetet
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,TET		# Wie lernen > lerntet
+    [^DTMN] E N		>	-EN,TET		# Wie leben > lebtet
+    E L N		>	-N,TET		# Wie laecheln > laecheltet
+    E R N		>	-N,TET		# Wie naehern > naehertet
+
+flag *Z:	# Past-tense sie/Sie-form endings
+    [DT] E N		>	-N,TEN		# Wie arbeiten > arbeiteten
+    [^AA"EIOO"UU"LRMN] [MN] E N
+			>	-N,TEN		# Wie atmen > atmeten
+    [AA"EIOO"UU"LRMN] [MN] E N
+			>	-EN,TEN		# Wie lernen > lernten
+    [^DTMN] E N		>	-EN,TEN		# Wie leben > lebten
+    E L N		>	-N,TEN		# Wie laecheln > laechelten
+    E R N		>	-N,TEN		# Wie naehern > naeherten

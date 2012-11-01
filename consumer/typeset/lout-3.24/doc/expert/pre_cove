@@ -1,0 +1,32 @@
+@Section
+   @Title { "@HCover" and "@VCover" }
+   @Tag { hcover }
+@Begin
+@PP
+hcover. @Index { @@HCover symbol }
+vcover. @Index { @@VCover symbol }
+The @@VCover symbol vertically scales its right parameter so that it
+covers every object that shares its row mark.  For example,
+@ID @Code "@VCover ( 45d @Rotate Hello @VCover )"
+produces
+@ID @ShowHMark { @VCover ( 45d @Rotate Hello @VCover ) }
+The row mark has been added to show clearly where it lies.  This should be
+compared with
+@ID @Code "@VScale ( 45d @Rotate Hello @VScale )"
+which produces
+@ID @ShowHMark { @VScale ( 45d @Rotate Hello @VScale ) }
+Scaling abandons mark alignment and so is able to exactly cover the
+rest of the row, whereas covering preserves mark alignment and so
+is obliged in general to more than cover the rest of the row.
+@PP
+If the parameter of @@VCover has zero vertical size, this is taken
+to mean that covering is not required after all and the @@VCover is
+silently ignored.  If however the parameter has non-zero size above
+the mark but zero size below, or vice versa, this is taken to be an error
+since scaling cannot make the parameter cover the rest of the row.
+@PP
+@@HCover is similar, horizontally covering all objects that share
+its column mark.  Neither symbol works well near galley targets,
+because the scale factor to apply is determined before any galley
+flushing takes place.
+@End @Section

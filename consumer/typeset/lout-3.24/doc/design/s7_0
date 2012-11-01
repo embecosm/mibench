@@ -1,0 +1,84 @@
+@Section
+    @Title { Conclusion }
+@Begin
+@PP
+Since its public release in October 1991, the Basser Lout interpreter
+has been ported without incident to a wide variety of Unix systems and
+hardware.  It was tested extensively before release on its own
+documentation, and the few minor bugs which have emerged since then have
+all been fixed in the second release, scheduled to appear in mid-1992.
+@PP
+Seven substantial packages of definitions are distributed with Basser
+Lout.  The DocumentLayout package, and its variants ReportLayout and
+BookLayout, provide the standard features that all documents
+require:  pages, columns, paragraphs, headings, footnotes, floating
+figures and tables, chapters and sections, displays and lists, access
+to bibliographic databases, cross references, and so on
+[11].  The BookLayout package has extra features
+needed by books, including an automatically generated table of contents,
+Roman page numbers for the prefatory material, running page headers,
+odd and even page layouts, and a sorted index.  The Eq package formats
+equations, and Pas formats Pascal programs [10]; Tab
+formats tables [12]; and Fig draws figures
+[6].
+@PP
+The non-expert user who uses these packages perceives a system of a
+standard quite similar to other fully developed batch formatters,
+although the interface is considerably more coherent than, say, the troff
+family's [8].  The expert user perceives a system which
+is radically different from previous ones, in which a great deal can be
+achieved very quickly.  To take an extreme example, Pas was designed,
+implemented, tested, and documented in one afternoon.  Eq took about
+a week, but most of that time was spent in marshalling the vast
+repertoire of mathematical symbols, and fine-tuning the spacing.  Most
+of the effort seems to go into designing a good interface; most symbols
+are implemented in just one or a few lines of Lout.
+@PP
+A group of about 20 satisfied non-expert users has grown up within
+the author's department, mainly Honours students with no investment
+in older systems to hold them back.  Basser Lout has been advertised
+on the Internet news as available via anonymous {@I ftp}, so the
+extent of its outside user community is hard to gauge.  About 50
+people have mailed comments or questions to the author; many
+of these people have ported the program, written small definitions,
+and modified the standard packages.
+@PP
+Future work could usefully begin with the improvements suggested in this
+paper:  overlapping spanning columns, better semantics for available
+space, and especially horizontal galleys.  Support for non-European
+languages is also needed.  However, the main task is the development of
+an interactive document editor based on Lout.  A structure editor similar
+to Lilac [13], which already has objects and user-defined
+symbols, is envisaged; since cross references are easy when the whole
+document is available, the only major new problem is the treatment of
+galleys, including the expansion and retraction of receptive symbols.
+@LP
+@LP
+@B { Note. }  Since the above was written the author has completed a
+revised version of Basser Lout, in which the problem concerning
+available space mentioned in Section {@NumberOf style} has been resolved.
+@LP
+@LP
+@B { Acknowledgment. }  The author gratefully acknowledges many
+valuable discussions with Douglas W. Jones, especially during the
+development of the galley abstraction; and also many helpful comments on
+presentation by the anonymous referee.
+@DP
+@DP
+@Heading { References }
+@NumberedList
+@LI @RefPrint kingston91
+@LI @RefPrint kingston91over
+@LI @RefPrint kingston91basser
+@LI @RefPrint furuta82
+@LI @RefPrint kernighan75
+@LI @RefPrint kingston91fig
+@LI @RefPrint reid80
+@LI @RefPrint ossanna76
+@LI @RefPrint knuth84
+@LI @RefPrint kingston91eq
+@LI @RefPrint kingston91begin
+@LI @RefPrint kingston91tab
+@LI @RefPrint brooks91
+@EndList
+@End @Section

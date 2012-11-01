@@ -1,0 +1,591 @@
+
+def @TeX { T{ /0.2fo E}X }
+
+def @Code
+    right x
+{   { Helvetica Base -1p } @Font lines @Break x
+}
+
+######################################################
+#                                                    #
+#  Nodes and trees.                                  #
+#                                                    #
+######################################################
+
+import @Fig
+def @FBox
+    named width  { 0.6c }
+    named height { 0.4c }
+    named margin { 0.1c }
+    right x
+{
+    @Box margin { margin }
+    {	width @Wide height @High
+	{ /0.5rt |0.5rt @OneCol @OneRow 0.8f @Font x
+	}
+    }
+}
+
+import @Fig
+def @FEllipse
+    named width  { 0.6c }
+    named height { 0.4c }
+    named margin { 0.1c }
+    right x
+{
+    @Ellipse margin { margin }
+    {	height @High
+	{ /0.5rt |0.5rt @OneCol @OneRow 0.8f @Font x
+	}
+    }
+}
+
+import @Fig
+def @FCircle
+    named width  { 0.4c }
+    named height { 0.4c }
+    named margin { 0.1c }
+    right x
+{
+    @Circle margin { margin }
+    {	width @Wide height @High
+	{ /0.5rt |0.5rt @OneCol @OneRow 0.8f @Font x
+	}
+    }
+}
+
+import @Fig
+def @JoinFigures
+    left A
+    named linestyle  { solid   }
+    named linewidth  { 0.5 pt  }
+    named linecap    { round   }
+    named dashlength { 0.15 cm }
+    named arrow      { noarrow }
+    named headstyle  { open    }
+    named headwidth  { 0.05 cm }
+    named headlength { 0.15 cm }
+    right B
+{
+    @Line
+	from       { {A"@CTR"} ++ {{A"@CTR"} @Angle {B"@CTR"} A"@CIRCUM"} }
+	to         { {B"@CTR"} ++ {{B"@CTR"} @Angle {A"@CTR"} B"@CIRCUM"} }
+	linestyle  { linestyle  }
+	linewidth  { linewidth  }
+	linecap    { linecap    }
+	dashlength { dashlength }
+	arrow      { arrow      }
+	headstyle  { headstyle  }
+	headwidth  { headwidth  }
+	headlength { headlength }
+    {}
+}
+
+import @Fig
+export @LeftSub @RightSub @FirstSub @NextSub @StubSub @Node
+def @Tree
+    named hmargin    { 0.2c    }
+    named vmargin    { 0.3c    }
+    named linestyle  { solid   }
+    named linewidth  { 0.5 pt  }
+    named linecap    { round   }
+    named dashlength { 0.15 cm }
+    named arrow      { noarrow }
+    named headstyle  { open    }
+    named headwidth  { 0.05 cm }
+    named headlength { 0.15 cm }
+    body x
+@Begin
+
+    def @LeftSub
+	precedence 90
+	associativity left
+	left root
+	named hmargin    { hmargin    }
+	named linestyle  { linestyle  }
+	named linewidth  { linewidth  }
+	named linecap    { linecap    }
+	named dashlength { dashlength }
+	named arrow      { arrow      }
+	named headstyle  { headstyle  }
+	named headwidth  { headwidth  }
+	named headlength { headlength }
+	right x
+    {
+	{ /vmargin {L::x} } |hmargin  root |
+	L@T @JoinFigures
+	        linestyle  { linestyle  }
+	        linewidth  { linewidth  }
+	        linecap    { linecap    }
+	        dashlength { dashlength }
+	        arrow      { arrow      }
+	        headstyle  { headstyle  }
+	        headwidth  { headwidth  }
+	        headlength { headlength }
+	T
+    }
+
+    def fixroot
+	precedence 90
+	left root
+    {
+	|0.5rt root
+    }
+
+    def firstsub
+	precedence 90
+	associativity left
+	named hmargin    { hmargin    }
+	named linestyle  { linestyle  }
+	named linewidth  { linewidth  }
+	named linecap    { linecap    }
+	named dashlength { dashlength }
+	named arrow      { arrow      }
+	named headstyle  { headstyle  }
+	named headwidth  { headwidth  }
+	named headlength { headlength }
+	right x
+    {
+	S::x &
+	S@T @JoinFigures
+		linestyle  { linestyle  }
+		linewidth  { linewidth  }
+		linecap    { linecap    }
+		dashlength { dashlength }
+		arrow      { arrow      }
+		headstyle  { headstyle  }
+		headwidth  { headwidth  }
+		headlength { headlength }
+	T
+    }
+
+    macro @FirstSub { fixroot //vmargin |0.5rt firstsub }
+
+    def @NextSub
+	precedence 90
+	associativity left
+	left others
+	named hmargin    { hmargin    }
+	named linestyle  { linestyle  }
+	named linewidth  { linewidth  }
+	named linecap    { linecap    }
+	named dashlength { dashlength }
+	named arrow      { arrow      }
+	named headstyle  { headstyle  }
+	named headwidth  { headwidth  }
+	named headlength { headlength }
+	right x
+    {
+	others &hmargin S::x &
+	S@T @JoinFigures
+		linestyle  { linestyle  }
+		linewidth  { linewidth  }
+		linecap    { linecap    }
+		dashlength { dashlength }
+		arrow      { arrow      }
+		headstyle  { headstyle  }
+		headwidth  { headwidth  }
+		headlength { headlength }
+	T
+    }
+
+    def @RightSub
+	precedence 90
+	associativity left
+	left root
+	named hmargin    { hmargin    }
+	named linestyle  { linestyle  }
+	named linewidth  { linewidth  }
+	named linecap    { linecap    }
+	named dashlength { dashlength }
+	named arrow      { arrow      }
+	named headstyle  { headstyle  }
+	named headwidth  { headwidth  }
+	named headlength { headlength }
+	right x
+    {
+	root |hmargin  { /vmargin {R::x} } |
+	R@T @JoinFigures
+		linestyle  { linestyle  }
+		linewidth  { linewidth  }
+		linecap    { linecap    }
+		dashlength { dashlength }
+		arrow      { arrow      }
+		headstyle  { headstyle  }
+		headwidth  { headwidth  }
+		headlength { headlength }
+	T
+    }
+
+    def @StubSub
+	precedence 90
+	associativity left
+	left root
+	named linestyle  { linestyle  }
+	named linewidth  { linewidth  }
+	named linecap    { linecap    }
+	named dashlength { dashlength }
+    {
+	root |
+	@Figure
+	    shape { T@SW
+		    T@W -- { 0.1 cm 0.7 cm }
+		    T@E -- {-0.1 cm 0.7 cm }
+		    T@SE
+		  }
+	    linestyle  { linestyle  }
+	    linewidth  { linewidth  }
+	    linecap    { linecap    }
+	    dashlength { dashlength }
+	{ @Null }
+    }
+
+    def @Node
+	# named mark {}
+	right root
+    {
+	T:: root
+	# & T@W ++ { -0.2 cm 0.1 cm } @BaseOf mark
+    }
+
+    @OneCol @OneRow x
+
+@End @Tree
+
+
+def @ShowMarks
+    named linewidth  { 0.015 cm }
+    named linestyle  { dashed   }
+    named dashlength { 0.15 cm  }
+    named paint      { lightgrey    }
+    named marks      { both     } # none, horizontal, vertical, or both
+    right x
+{
+    @Fig
+    {	@Box margin { 0c } linewidth { linewidth } paint { paint }
+	{   @Figure
+		shape {
+		    marks @Case {
+		        { horizontal both } @Yield
+			    { -0.3 cm ymark {xsize ymark} ++ {0.3 cm 0} }
+		        else @Yield {}
+		    }
+		    marks @Case {
+			both @Yield []
+			else @Yield {}
+		    }
+		    marks @Case {
+			{ vertical both } @Yield
+			    { xmark -0.3 cm {xmark ysize} ++ {0 0.3 cm} }
+			else @Yield {}
+		    }
+		}
+		linewidth { linewidth }
+		linestyle { linestyle }
+		dashlength { dashlength }
+	      x
+	}
+    }
+}
+
+   import @Fig
+   def @DagBox
+      named top {}
+      named mid {}
+      named base {}
+   {
+      @OneRow {
+	   TOP::  @FBox top
+	// MID::  @FBox mid
+	// BASE:: @FBox base
+      }
+   }
+
+   import @Fig
+   def @BlackDot
+      named diameter { 0.07c }
+   {
+      @Circle
+	margin { 0c }
+	paint { black }
+      { diameter @Wide diameter @High {}
+      }
+   }
+
+   import @Fig
+   def @TVShape   # television shape enclosing points ne, nw, se, sw
+       named nw {}
+       named ne {}
+       named sw {}
+       named se {}
+       named delta { 0.5 cm }
+   {
+       @Figure
+	   shape {
+		{ {nw @Min sw @Min ne @Min se} -- { delta 0 } } @Label BL
+		{ {nw @Max sw @Max ne @Max se} ++ { delta 0 } } @Label TR
+		BL ++ { 0 BL @YDistance TR } @Label TL
+		BL ++ { BL @XDistance TR 0 } @Label BR
+		BL
+		BR			[ BR ++ {0 delta} ]
+		BR ++ {delta delta}
+		TR ++ {delta -delta}	[ TR -- {0 delta} ]
+		TR
+		TL			[ TL -- {0 delta} ]
+		TL -- {delta delta}
+		BL ++ {-delta delta}	[ BL ++ {0 delta} ]
+		BL
+	   }
+       {}
+   }
+
+   import @Fig
+   def @FunnyArrow
+      named from {}
+      named to {}
+      named arrow { forward }
+   {
+      @Figure
+         shape {from from ++ {0 from @YDistance to} to}
+         arrow { arrow }
+      {}
+   }
+
+   def "->" { {Symbol Base} @Font "\256" } #174 decimal
+   def "=>" { {Symbol Base} @Font "\336" } #222 decimal
+   macro @JP	{ /0.5v  }
+
+   ###################################################
+   #                                                 #
+   #  Lout keywords.                                 #
+   #                                                 #
+   ###################################################
+
+   def @@Begin         { @Code "@Begin"        }
+   def @@Break         { @Code "@Break"        }
+   def @@Case          { @Code "@Case"         }
+   def @@Database      { @Code "@Database"     }
+   def @@End           { @Code "@End"          }
+   def @@Font          { @Code "@Font"         }
+   def @@Galley        { @Code "@Galley"       }
+   def @@Graphic       { @Code "@Graphic"      }
+   def @@HExpand       { @Code "@HExpand"      }
+   def @@HScale        { @Code "@HScale"       }
+   def @@High          { @Code "@High"         }
+   def @@Include       { @Code "@Include"      }
+   def @@Key           { @Code "@Key"          }
+   def @@LClos         { @Code "@LClos"        }
+   def @@LEnv          { @Code "@LEnv"         }
+   def @@LInput        { @Code "@LInput"       }
+   def @@Moment        { @Code "@Moment"       }
+   def @@Next          { @Code "@Next"         }
+   def @@Null          { @Code "@Null"         }
+   def @@OneCol        { @Code "@OneCol"       }
+   def @@OneRow        { @Code "@OneRow"       }
+   def @@Open          { @Code "@Open"         }
+   def @@Prepend       { @Code "@Prepend"      }
+   def @@Rotate        { @Code "@Rotate"       }
+   def @@Space         { @Code "@Space"        }
+   def @@SysDatabase   { @Code "@SysDatabase"  }
+   def @@SysInclude    { @Code "@SysInclude"   }
+   def @@SysPrepend    { @Code "@SysPrepend"   }
+   def @@Tag           { @Code "@Tag"          }
+   def @@Tagged        { @Code "@Tagged"       }
+   def @@Use           { @Code "@Use"          }
+   def @@VExpand       { @Code "@VExpand"      }
+   def @@VScale        { @Code "@VScale"       }
+   def @@Yield         { @Code "@Yield"        }
+   def @@Wide          { @Code "@Wide"         }
+
+
+   ###################################################
+   #                                                 #
+   #  Miscellaneous, mostly graphical definitions.   #
+   #                                                 #
+   ###################################################
+
+   def @Leaders
+   { ..   @Leaders
+   }
+
+   def @HLine {
+     @BackEnd @Case {
+       PostScript @Yield {
+        { 0 0 moveto xsize 0 lineto stroke }
+        @Graphic {}
+       }
+       PDF @Yield {
+        { 0 0 m __xsize 0 l S }
+        @Graphic {}
+       }
+     }
+   }
+
+   def @VDashLine
+      right length
+   {
+     @BackEnd @Case {
+       PostScript @Yield {
+         length @High
+         { 0 0 moveto 0 ysize lineto [ 3 pt ] 0 setdash stroke }
+         @Graphic {}
+       }
+       PDF @Yield {
+         length @High
+         { [ __mul(3, __pt) ] 0 d   0 0 m 0 __ysize l stroke }
+         @Graphic {}
+       }
+     }
+   }
+
+   def @LBox
+      right offset
+   {
+     @BackEnd @Case {
+       PostScript @Yield {
+         @OneCol @OneRow
+         {
+         {  //0.2c
+            0.6c @High 1.2c @Wide
+            { 0 0 moveto xsize 0 lineto
+	          xsize ysize lineto 0 ysize lineto closepath
+	          gsave 0.9 setgray fill grestore stroke }
+            @Graphic {}
+         }
+         ||offset @VDashLine 1c
+         }
+       }
+       PDF @Yield {
+         @OneCol @OneRow
+         {
+         {  //0.2c
+            0.6c @High 1.2c @Wide
+            { 0 0 m __xsize 0 l
+	          __xsize __ysize l 0 __ysize l h
+	          q 0.9 g f Q S }
+            @Graphic {}
+         }
+         ||offset @VDashLine 1c
+         }
+       }
+     }
+   }
+
+   def @Arrow
+      right length
+   {  @OneCol @OneRow
+      {
+	   30d @Rotate {0.12c @Wide @HLine}
+	   //
+	   length @Wide @HLine
+	   //
+	   "-30d" @Rotate {0.12c @Wide @HLine}
+      }
+   }
+
+   def @DoubleArrow
+      right length
+   {  @OneCol @OneRow
+      { 
+         & 180d @Rotate @Arrow length
+         |0io @Arrow length
+      }
+   }
+
+   def @Put
+     left coord
+     right x
+   { @OneCol @OneRow
+     { coord / | @OneCol @OneRow x
+     }
+   }
+   
+   macro @At { //0io }
+
+
+   ###################################################
+   #                                                 #
+   #  Interpolated example documents.                #
+   #                                                 #
+   ###################################################
+
+   def @LittleEndRunPlace { @Galley }
+   def @LittleEndRun
+      force into { @LittleEndRunPlace&&preceding }
+   {}
+
+   def @LittleTextPlace { @Galley }
+   def @LittleText into { @LittleTextPlace&&preceding }
+      right x
+   { x
+   }
+
+   def @LittleFootPlace { @Galley }
+   def @LittleFootNote into { @LittleFootPlace&&following }
+      right x
+   { x
+   }
+
+   def @LittlePageColumn
+      right x
+   {
+        9px @Break 8p @Font
+        2.8c @Wide x
+   }
+
+   def @LittlePage
+      right x
+   {
+     @BackEnd @Case {
+       PostScript @Yield {
+         @HContract @VContract
+         { 0 0 moveto xsize 0 lineto xsize ysize lineto
+	       0 ysize lineto closepath stroke } @Graphic
+         {  //0.3c ||0.3c
+           9px @Break 8p @Font
+           2.8c @Wide 3.8c @High x
+           ||0.3c //0.3c
+         }
+       }
+       PDF @Yield {
+         @HContract @VContract
+         { 0 0 m __xsize 0 l __xsize __ysize l 0 __ysize l s } @Graphic
+         {  //0.3c ||0.3c
+           9px @Break 8p @Font
+           2.8c @Wide 3.8c @High x
+           ||0.3c //0.3c
+         }
+       }
+     }
+   }
+
+   def @LittleFootSect
+   {  1c @Wide @HLine
+      //0.3v @LittleFootPlace ||0.5c
+   }
+
+   def @LittlePageList
+     right @PageNum
+   {
+      @LittlePage { # |0.5rt @PageNum //0.8v
+		//0.3v @LittleTextPlace
+		//1rt @LittleFootSect
+	     }
+      //
+      @LittlePageList @Next @PageNum
+   }
+
+   def @LittleDocument
+   {  @LittlePage
+      {  @LittleTextPlace
+         //1rt @LittleFootSect
+      }
+      // @LittlePageList 2
+      // @LittleEndRunPlace
+   }
+		
+   def @Strange
+       named @Format right @Val { [@Val] }
+       right x
+   {   @Format x
+   }

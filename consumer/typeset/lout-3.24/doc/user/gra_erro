@@ -1,0 +1,40 @@
+@Section
+   @Title { Errors }
+   @Tag { grerrors }
+@Begin
+@PP
+Lout normally produces output that will print without mishap on
+any PostScript device.  However, some of the options of @Code "@Graph"
+and all of the data and labels are passed through Lout without
+checking.  Any errors in this material will not be detected
+until the file is printed.
+@PP
+The most likely errors are @I { rangecheck errors}, for example if
+an attempt is made to divide by zero or take the square root of a
+negative number, and @I { undefined errors }, arising from symbols
+misspelt, use of @Code "x" outside an {@Code "xloop"}, etc.  Less commonly,
+everything may be correct but the graph is too large in some
+way:  too much data, expression too deeply nested, and so on.
+@PP
+When an error is detected, @Code "@Graph" arranges for the offending page
+to be printed up to the point where the error occurred, with a message
+nearby describing the error.  Printing of the document is then
+aborted.  The problem is usually easy to locate since it lies in whatever
+should have been printed next.
+@PP
+If you see @Code VMerror in an error message, it means that the printer
+has run out of memory.  All the data is stored in the printer while the
+graph is being printed, and it remains there until the end of the current
+page, when it is discarded and all memory consumed by the graph is
+reclaimed.  If you do run out of memory, one option is to try
+@ID @Code {
+"@Graph"
+"    save { yes }"
+"..."
+}
+This causes the memory used by the graph to be reclaimed as soon as
+the graph is printed, which might well solve your problem if you have
+several graphs on one page.  However, if the graph is nested
+inside some other major Lout package, notably {@Code "@Diag"}, this
+option could cause PostScript errors in that package.
+@End @Section

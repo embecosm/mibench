@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFF2PS</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFF2PS</H1>
+Section: User Commands  (1)<BR>Updated: January 27, 1997<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiff2ps - convert a
+<FONT SIZE="-1">TIFF</FONT>
+image to P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT>tm
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiff2ps</B>
+
+[
+<I>options</I>
+
+]
+<I>input.tif ...</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>tiff2ps</I>
+
+reads
+<FONT SIZE="-1">TIFF</FONT>
+images and writes P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> or Encapsulated P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> (EPS)
+on the standard output.
+By default,
+<I>tiff2ps</I>
+
+writes Encapsulated P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> for the first image in the specified
+<FONT SIZE="-1">TIFF</FONT>
+image file.
+<P>
+
+By default,
+<I>tiff2ps</I>
+
+will generate P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> that fills a printed area specified
+by the 
+<FONT SIZE="-1">TIFF</FONT>
+tags in the input file.
+If the file does not contain
+<I>XResolution</I>
+
+or
+<I>YResolution</I>
+
+tags, then the printed area is set according to the image dimensions.
+The
+<B>-w</B>
+
+and
+<B>-h</B>
+
+options (see below)
+can be used to set the dimensions of the printed area in inches;
+overriding any relevant
+<FONT SIZE="-1">TIFF</FONT>
+tags.
+<P>
+
+The P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> generated for
+<FONT SIZE="-1">RGB,</FONT>
+palette, and
+<FONT SIZE="-1">CMYK</FONT>
+images uses the
+<I>colorimage</I>
+
+operator.
+The P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> generated for
+greyscale and bilevel images
+uses the
+<I>image</I>
+
+operator.
+When the
+<I>colorimage</I>
+
+operator is used, P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> code to emulate this operator
+on older P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> printers is also generated.
+Note that this emulation code can be very slow.
+<P>
+
+Color images with associated alpha data are composited over
+a white background.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-1</B>
+
+<DD>
+Generate P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> Level I (the default).
+<DT><B>-2</B>
+
+<DD>
+Generate P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> Level II.
+<DT><B>-a</B>
+
+<DD>
+Generate output for all IFDs (pages) in the input file.
+<DT><B>-d</B>
+
+<DD>
+Set the initial
+<FONT SIZE="-1">TIFF</FONT>
+directory to the specified directory number.
+(NB: directories are numbered starting at zero.)
+This option is useful for selecting individual pages in a
+multi-page (e.g. facsimile) file.
+<DT><B>-e</B>
+
+<DD>
+Force the generation of Encapsulated P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT>.
+<DT><B>-h</B>
+
+<DD>
+Specify the vertical size of the printed area (in inches).
+<DT><B>-o</B>
+
+<DD>
+Set the initial
+<FONT SIZE="-1">TIFF</FONT>
+directory to the
+<FONT SIZE="-1">IFD</FONT>
+at the specified file offset.
+This option is useful for selecting thumbnail images and the
+like which are hidden using the SubIFD tag.
+<DT><B>-p</B>
+
+<DD>
+Force the generation of (non-Encapsulated) P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT>.
+<DT><B>-s</B>
+
+<DD>
+Generate output for a single IFD (page) in the input file.
+<DT><B>-w</B>
+
+<DD>
+Specify the horizontal size of the printed area (in inches).
+<DT><B>-z</B>
+
+<DD>
+When generating P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> Level II, data is scaled so that it does not
+image into the 
+<I>deadzone</I>
+
+on a page (the outer margin that the printing device is unable to mark).
+This option suppresses this behaviour.
+When P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> Level I is generated, data is imaged to the entire printed
+page and this option has no affect.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+The following generates P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> Level II for all pages of a facsimile:
+<DL COMPACT><DT><DD>
+<PRE>
+tiff2ps -a2 fax.tif | lpr
+</PRE>
+
+</DL>
+
+Note also that if you have version 2.6.1 or newer of Ghostscript then you
+can efficiently preview facsimile generated with the above command.
+<P>
+
+To generate Encapsulated P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> for a the image at directory 2
+of an image use:
+<DL COMPACT><DT><DD>
+<PRE>
+tiff2ps -d 1 foo.tif
+</PRE>
+
+</DL>
+
+(notice that directories are numbered starting at zero.)
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+Because P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> does not support the notion of a colormap,
+8-bit palette images produce 24-bit P<FONT SIZE="-2">OST</FONT>S<FONT SIZE="-2">CRIPT</FONT> images.
+This conversion results in output that is six times
+bigger than the original image and which takes a long time
+to send to a printer over a serial line.
+Matters are even worse for 4-, 2-, and 1-bit palette images.
+<A NAME="lbAH">&nbsp;</A>
+<H2>BUGS</H2>
+
+Does not handle tiled images when generating PS Level I output.
+<A NAME="lbAI">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffgt+1.html">tiffgt</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="tiff2bw+1.html">tiff2bw</A></I>(1),
+
+<I><A HREF="tiffsv+1.html">tiffsv</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">BUGS</A><DD>
+<DT><A HREF="#lbAI">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

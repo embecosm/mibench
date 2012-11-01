@@ -1,0 +1,67 @@
+; Pure C Project file for PGP2.6.3i (ATARI ST)
+; Guy Geens 960104
+pgp.ttp
+.C[-W-amb]	; ignore a lot of warnings...
+.C[-W-sig]
+.C[-DATARI]
+.C[-DHIGHFIRST]
+.C[-DDPORTABLE]
+.C[-DIDEA32]
+.C[-DPROTO]
+=
+PCXSTART.O         ; startup code
+68000_32.s	; Works on any 68000 processor.
+armor.c (mpilib.h,usuals.h,platform.h,fileio.h,mpiio.h,language.h,
+	pgp.h,more.h,armor.h,crypto.h,charset.h)
+noise.c (noise.h)
+charset.c (usuals.h,language.h,charset.h,system.h)
+config.c (usuals.h,fileio.h,pgp.h,more.h,armor.h,config.h,charset.h)
+crypto.c (mpilib.h,usuals.h,platform.h,mpiio.h,random.h,idea.h,
+	crypto.h,keymgmt.h,keymaint.h,mdfile.h,md5.h,fileio.h,charset.h,
+	language.h,pgp.h,more.h,armor.h,exitpgp.h,zipup.h,rsaglue.h)
+fileio.c (random.h,usuals.h,mpilib.h,platform.h,mpiio.h,fileio.h,
+	language.h,pgp.h,more.h,armor.h,exitpgp.h,charset.h,system.h)
+genprime.c (mpilib.h,usuals.h,platform.h,genprime.h,random.h)
+getopt.c (getopt.h)
+idea.c (idea.h,usuals.h)
+keyadd.c (mpilib.h,usuals.h,platform.h,crypto.h,fileio.h,keymgmt.h,
+	charset.h,language.h,pgp.h,more.h,armor.h,exitpgp.h,keyadd.h,
+	keymaint.h)
+keymaint.c (mpilib.h,usuals.h,platform.h,random.h,crypto.h,fileio.h,
+	keymgmt.h,keymaint.h,mpiio.h,charset.h,language.h,pgp.h,more.h,
+	armor.h)
+keymgmt.c (system.h,mpilib.h,usuals.h,platform.h,idea.h,random.h,
+	crypto.h,fileio.h,keymgmt.h,rsagen.h,mpiio.h,language.h,pgp.h,
+	more.h,armor.h,md5.h,charset.h,keymaint.h)
+language.c (usuals.h,fileio.h,language.h,pgp.h,more.h,armor.h,
+	charset.h)
+md5.c (md5.h)
+mdfile.c (mpilib.h,usuals.h, platform.h, mdfile.h, md5.h, fileio.h,
+	language.h,pgp.h, more.h ,armor.h)
+more.c (system.h, mpilib.h, usuals.h, platform.h, language.h,fileio.h,
+	pgp.h, more.h, armor.h, charset.h)
+mpiio.c (mpilib.h) ;# usuals.h platform.h mpiio.h pgp.h more.h armor.h 
+mpilib.c (mpilib.h) ;# usuals.h platform.h 
+passwd.c (random.h, usuals.h, md5.h, language.h,pgp.h,more.h,armor.h)
+pgp.c (system.h, mpilib.h, usuals.h, platform.h, random.h, crypto.h,
+	fileio.h,keymgmt.h,language.h,pgp.h,more.h,armor.h,exitpgp.h,
+	charset.h,getopt.h,config.h,keymaint.h, keyadd.h, rsaglue.h)
+random.c (system.h, random.h, usuals.h, language.h)
+randpool.c (randpool.h)
+rsagen.c (mpilib.h, usuals.h, platform.h, genprime.h, rsagen.h,
+	random.h, rsaglue.h)
+rsaglue1.c (mpilib.h, mpiio.h, pgp.h, rsaglue.h)
+system.c (exitpgp.h, system.h, charset.h, mpilib.h)
+zbits.c (zip.h, ztailor.h, ziperr.h) 
+zdeflate.c (zunzip.h, usuals.h, system.h, zip.h, ztailor.h, ziperr.h)
+zfile_io.c (zunzip.h ,usuals.h ,system.h)
+zglobals.c (zip.h, ztailor.h ,ziperr.h)
+zinflate.c (zunzip.h ,usuals.h ,system.h ,exitpgp.h)
+zip.c (usuals.h, fileio.h, language.h,pgp.h,more.h,armor.h,exitpgp.h)
+zipup.c (zip.h,ztailor.h,ziperr.h,zrevisio.h)
+ztrees.c (zip.h, ztailor.h, ziperr.h)
+zunzip.c (zunzip.h, usuals.h, system.h)
+
+PCSTDLIB.LIB       ; standard library
+PCEXTLIB.LIB       ; extended library
+PCTOSLIB.LIB       ; TOS library

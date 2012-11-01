@@ -1,0 +1,267 @@
+@Section
+   @Title { Changing the appearance of the data }
+   @Tag { data }
+@Begin
+@PP
+The @Code "@Data" symbol has options for controlling the
+data. @Index @Code "@Data"
+appearance of its data.  We have already seen the
+@Code "points" option, which controls what is printed at each data
+point:
+points.graphs @Index { @Code "points" option in graphs }
+@CD @Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @Code A ! @Col B ! @Col ! @Col @Code C ! @Col D }
+{
+@Rowa
+    A { cross }
+    B { @GraphCross }
+    C { plus }
+    D { @GraphPlus }
+@Rowa
+    A { square }
+    B { @GraphSquare }
+    C { filledsquare }
+    D { @GraphFilledSquare }
+@Rowa
+    A { diamond }
+    B { @GraphDiamond }
+    C { filleddiamond }
+    D { @GraphFilledDiamond }
+@Rowa
+    A { circle }
+    B { @GraphCircle }
+    C { filledcircle }
+    D { @GraphFilledCircle }
+@Rowa
+    A { triangle }
+    B { @GraphTriangle }
+    C { filledtriangle }
+    D { @GraphFilledTriangle }
+}
+If the @Code "points" option is omitted or empty, nothing is printed.  The
+symbols are centred over the data point.  There is a @Code "symbolsize"
+option which controls the size (radius) of all these symbols:
+symbolsize. @Index { @Code "symbolsize" option in graphs }
+@ID @OneRow @Code {
+"@Data"
+"    symbolsize { 0.15 ft }"
+}
+shows the default, 0.15 times the current font size.  More
+precisely, the default value is taken from an option
+to the @Code "@Graph" symbol, also called {@Code "symbolsize"}.  By
+setting that option you can therefore set the symbol size of all data
+points in the graph at once; its default value is {@Code "0.15 ft"}.
+@PP
+The @Code "@Data" symbol also has a @Code "pairs" option which
+pairs. @Index { @Code "pairs" option in graphs }
+determines how each pair of points is connected.  The choices are
+@Code none (not connected, the default), @Code solid (a solid line),
+@Code dashed (a dashed line), or @Code dotted (a dotted line).  For
+example,
+@ID @OneRow @Code {
+"@Graph"
+"    abovecaption { Estimated population of Boston, New York, and Philadelphia }"
+"{"
+"    @Data  points { plus }  pairs { solid }"
+"    { 1720 12000  1730 13000  1740 15601  1760 15631  1770 15877 }"
+""
+"    @Data  points { plus }  pairs { dashed }"
+"    { 1720 7000  1730 8622  1740 10451  1750 14255  1760 18000  1770 22667 }"
+""
+"    @Data  points { plus }  pairs { dotted }"
+"    { 1720 10000  1730 11500  1740 12654  1750 18202  1760 23750  1770 34583 }"
+"}"
+}
+produces
+@CD @Graph
+    abovecaption { Estimated population of Boston, New York, and Philadelphia
+}
+{
+    @Data  points { plus }  pairs { solid }
+    { 1720 12000  1730 13000  1740 15601  1760 15631  1770 15877 }
+
+    @Data  points { plus }  pairs { dashed }
+    { 1720 7000  1730 8622  1740 10451  1750 14255  1760 18000  1770 22667 }
+
+    @Data  points { plus }  pairs { dotted }
+    { 1720 10000  1730 11500  1740 12654  1750 18202  1760 23750  1770 34583 }
+
+}
+(R. C. Simmons, @I { The American Colonies }, W. W. Norton, New York,
+1981.)  We will see in Section {@NumberOf key} how to add an explanatory key to
+this graph.  If the points have symbols, these connecting lines will stop 1.5
+symbolsizes away from the data points, so as not to overstrike them.  If
+the points have no symbols and @Code "pairs" is {@Code "dashed"}, the
+first and last dash in each segment will have half the length of the
+others.
+@PP
+A @Code "dashlength" option controls the length of dashes and also the
+separation between dots, and a @Code "linewidth" option controls the
+width (thickness) of the lines and dots:
+@ID @OneRow @Code {
+"@Data"
+"    dashlength { 0.2 ft }"
+"    linewidth { 0.5 pt }"
+"{"
+"    ..."
+"}"
+}
+This shows the default values, {@Code "0.2 ft"} for @Code "dashlength"
+and {@Code "0.5 pt"} (half a point) for {@Code "linewidth"}.  Actually
+the default value for @Code "linewidth" is whatever happens to be
+already in use, but Lout sets line widths to half a point initially.
+This option also controls the separation between bars in histograms.
+@PP
+The @Code "pairs" option is also used for producing histograms, like
+histograms. @Index { histograms }
+this:
+@ID @OneRow @Code {
+"@Graph"
+"    hidecaptions { yes }"
+"    abovecaption { Computer Science 3 Results (1993) }"
+"    leftcaption { Number of"
+"students }"
+"    belowcaption { Final mark (%) }"
+"    yextra { 0 cm }"
+"    ymax { 80 }"
+"{"
+"    @Data pairs { yhisto }"
+"    { 0 1 10 3 20 2 30 4 40 15 50 60 60 58 70 28 80 15 90 7 100 0 }"
+"}"
+}
+which has result
+@CD @Graph
+    hidecaptions { yes }
+    abovecaption { Computer Science 3 Results (1993) }
+    leftcaption { Number of
+students }
+    belowcaption { Final mark (%) }
+    yextra { 0 cm }
+    ymax { 80 }
+{
+    @Data
+        pairs { yhisto }
+    { 0 1 10 3 20 2 30 4 40 15 50 60 60 58 70 28 80 15 90 7 100 0 }
+}
+Note carefully that one y histogram rectangle occupies the space from
+one x value to the next, with height equal to the y value lying between
+these two x values.  This means that the very last y value has no effect
+on the result (however, there must be a last y value anyway).
+@PP
+There is an alternative to @Code "yhisto" called {@Code "surfaceyhisto"}:
+@CD @Graph
+    hidecaptions { yes }
+    abovecaption { Computer Science 3 Results (1993) }
+    leftcaption { Number of
+students }
+    belowcaption { Final mark (%) }
+    yextra { 0 cm }
+    ymax { 80 }
+{
+    @Data
+        pairs { surfaceyhisto }
+    { 0 1 10 3 20 2 30 4 40 15 50 60 60 58 70 28 80 15 90 7 100 0 }
+}
+As you can see, @Code "surfaceyhisto" draws just the surface of the
+histogram, not the descending lines.
+@PP
+There are @Code "xhisto" and @Code "surfacexhisto" values of
+@Code "pairs" which produce a histogram whose bars are parallel to
+the x axis.  There are also {@Code "filledyhisto" } and
+{@Code "filledxhisto" } values which produce filled rectangles rather
+than outlined ones:
+@ID @OneRow @Code {
+"@Graph"
+"    abovecaption { Fertility rates in some developing countries }"
+"    xextra { 0 cm }"
+"    yextra { 0 cm }"
+"    xmax { 8 }"
+"    yticks {"
+"        1.5 (Turkey) 2.5 (Thailand)"
+"        3.5 (Indonesia) 4.5 (Costa Rica)"
+"        5.5 (Colombia) 6.5 (Cameroon)"
+"        7.5 (Botswana) 8.5 (Bangladesh)"
+"    }"
+"    yticklength { 0 cm }"
+"{"
+"    @Data"
+"        pairs { filledxhisto }"
+"    { 0 1 3.2 2 2.2 3 3.0 4 3.5 5 2.8 6 5.9 7 4.8 8 5.3 9 }"
+"}"
+}
+produces
+@CD @Graph
+    abovecaption { Fertility rates in some developing countries
+    }
+    xextra { 0 cm }
+    yextra { 0 cm }
+    xmax { 8 }
+    yticks { 1.5 (Turkey) 2.5 (Thailand) 3.5 (Indonesia) 4.5 (Costa Rica)
+             5.5 (Colombia) 6.5 (Cameroon) 7.5 (Botswana) 8.5 (Bangladesh) }
+    yticklength { 0 cm }
+{
+    @Data
+        pairs { filledxhisto }
+    { 0 1 3.2 2 2.2 3 3.0 4 3.5 5 2.8 6 5.9 7 4.8 8 5.3 9 }
+}
+(Bryant Robey, Shea O. Rutstein, and Leo Morros:  The fertility decline in
+developing countries, @I { Scientific American }, December 1993.)  Once
+again each bar goes from one y value to the next, with its x value
+equal to the x value lying between the two y values; this time the very
+first x value has no effect on the result.
+@PP
+The colour of one set of data can be changed with a @Code "colour"
+option:
+@ID @OneRow @Code {
+"@Data"
+"    colour { blue }"
+}
+For the complete list of acceptable colour names, see Section
+{@NumberOf colour}.  The @Code "colour" option's name may also be
+spelt @Code {"color"}.
+@PP
+It is also possible to paint the area between the data points and
+the x axis (or frame if @Code "style" is not {@Code "axes"}), using
+@ID @OneRow @Code {
+"@Data"
+"    paint { yes }"
+}
+The paint colour is determined by the @Code "colour" option just
+introduced; it will be @Code "black" if no colour is specified.  Paint
+(including white paint) hides paint, points, and lines drawn by previous
+data sets.  However the points and lines of each data set are drawn after
+painting that set, so they cannot be hidden under their own paint; and
+axes and frames are drawn last so that they too are never hidden.
+@PP
+A @Code "dataformat" option is provided for changing the interpretation
+dataformat. @Index { @Code "dataformat" option in graphs }
+of the data.  Ordinarily, as we know, the numbers are taken to be pairs of
+x and y coordinates, like this:
+@ID @OneRow @Code {
+"@Data"
+"{"
+"    x y  x y  ...  x y"
+"}"
+}
+However, by setting @Code "dataformat" to {@Code "yonly"}, the
+interpretation is changed to a sequence of y coordinates only:
+@ID @OneRow @Code {
+"@Data"
+"    dataformat { yonly }"
+"{"
+"    y y  ...  y"
+"}"
+}
+and x values 1, 2, and so on are inserted automatically, just as though
+the original input had been
+@ID @OneRow @Code {
+"@Data"
+"{"
+"    1 y  2 y  ..."
+"}"
+}
+There is also {@Code "xonly"}, which inserts y values 1, 2, and so on.  The
+default value, {@Code "xandy"}, gives the usual interpretation.  The
+layout of data on lines has no effect on the interpretation.
+@End @Section

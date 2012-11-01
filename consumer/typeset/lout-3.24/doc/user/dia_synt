@@ -1,0 +1,573 @@
+@Section
+    @Tag { dia_synt }
+    @Title { Syntax diagrams }
+@Begin
+@PP
+A variant of the @@Diag symbol, called {@Code "@SyntaxDiag"},
+syntax.diag @Index { @Code "@SyntaxDiag" symbol }
+syntax.diagrams @Index { syntax diagrams }
+railroad.diagrams @Index { railroad diagrams }
+produces syntax diagrams (sometimes called railroad diagrams):
+@CD @SyntaxDiag
+    title { call-chain }
+{
+    @StartRight @Sequence
+        A { @Optional @Sequence
+                A { @BCell "super" }
+                B { @CCell "!" }
+          }
+        B { @Loop
+                A { @Sequence
+                        A { @ACell identifier }
+                        B { @Optional @Sequence
+                                A { @CCell "(" }
+                                B { @Loop
+                                        A { @ACell expression }
+                                        B { @CCell "," }
+                                  }
+                                C { @CCell ")" }
+                          }
+                  }
+                B { @CCell "." }
+          }
+}
+These are used to define the syntax of computer programming languages,
+although they could be put to other uses.  We'll explain how to get
+syntax diagrams first.  At the end of this section is an explanation of
+how to change the formats of things, which people who use these diagrams
+for other purposes will probably need to do.
+@PP
+A syntax diagram can be @I { right-moving }, which means it starts
+at the left and heads right (like the example above), or it can be
+@I { down-moving }, starting at the top and heading downwards.  The
+@Code "@StartRight" and @Code "@StartDown" symbols are used at the start
+of the diagram to say which of these directions is wanted:
+@ID @OneRow @Code @Verbatim {
+@SyntaxDiag
+    title { call-chain }
+{
+    @StartRight ...
+}
+}
+where @Code { ... } stands for the rest of the diagram, as we are about
+to describe.  For completeness there are also @Code "@StartLeft" and
+@Code "@StartUp" symbols, but diagrams never start off in these directions.
+@PP
+The @Code title option is optional; if given, the effect is as shown
+(this option is also available with {@Code "@Diag"}).  Subsequent
+examples will omit the enclosing {@Code "@SyntaxDiag { ... }"}.
+@PP
+The basic components of syntax diagrams are @I { category cells },
+shown as boxes in the example above and obtained with the
+@Code "@ACell" symbol; @I { keyword cells }, shown as curved boxes
+and obtained with {@Code "@BCell"}; and @I { punctuation cells },
+containing punctuation symbols small enough to be enclosed in circles,
+and obtained with {@Code "@CCell"}.  After each symbol, place whatever
+has to go inside the cell:
+@ID @OneRow {
+@Code @Verbatim { @StartRight @BCell loop }
+|7ct
+@SyntaxDiag {
+@StartRight @BCell loop
+}
+}
+Lout will insert the appropriate arrows, taking account of which
+direction (right, up, left, or down) the diagram is currently
+moving.  This is true for all the syntax diagram symbols; we
+won't mention it again.
+@FootNote {
+This wonderfully useful effect is achieved by a dirty trick, one
+of whose consequences is that if you see an error message
+similar to `@Code { replacing unknown "@Case" option 0p by 1p }'
+it means you've forgotten the initial @Code "@StartRight" or
+whatever.
+}
+@PP
+Occasionally, instead of a cell one wants the horizontal or
+vertical line to continue uninterrupted.  For this there is
+the @Code "@Skip" symbol:
+@ID @OneRow {
+@Code @Verbatim { @StartDown @Skip }
+|7ct
+@SyntaxDiag {
+@StartDown @Skip
+}
+}
+Some examples of its use in practice appear below.
+@PP
+There are three main ways to build up larger syntax diagrams out
+of smaller ones:  @I { sequencing }, @I { selection }, and
+@I { looping }.  For sequencing there is the @Code "@Sequence" symbol:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Sequence
+    A { @BCell loop }
+    B { @ACell statements }
+    C { @BCell end }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Sequence
+    A { @BCell loop }
+    B { @ACell statements }
+    C { @BCell end }
+}
+}
+This is what the sequence looks like in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@Sequence
+    A { @BCell loop }
+    B { @ACell statements }
+    C { @BCell end }
+}
+} }
+Whatever the direction, the arrows go from option @Code A to option @Code B
+to option @Code C and so on.  You can have up to twelve items in the
+sequence, in options @Code A to {@Code L}; if more than twelve are needed,
+just place another sequence inside any one of these options:  where one
+syntax diagram is allowed, any syntax diagram is allowed, provided there
+is enough space on the page (Lout makes a total mess of any diagram that
+is too wide to fit on the page).
+@PP
+After sequencing comes selection, which is obtained with the
+@Code "@Select" symbol:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Select
+    A { @ACell asst }
+    B { @ACell call-chain }
+    C { @Sequence
+           A { @BCell assert }
+           B { @ACell condition }
+      }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Select
+    A { @ACell asst }
+    B { @ACell call-chain }
+    C { @Sequence
+           A { @BCell assert }
+           B { @ACell condition }
+      }
+}
+}
+This example shows right-moving selection of three alternatives,
+the third being a sequence of things.  Here is the same example
+in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@Select
+    A { @ACell asst }
+    B { @ACell call-chain }
+    C { @Sequence
+           A { @BCell assert }
+           B { @ACell condition }
+      }
+} } }
+When building up complex diagrams like this, it pays to keep the indenting
+perfect in the source document.  As with sequences, there can be
+up to twelve alternatives, in options from @Code A to {@Code L}.
+@PP
+To say that something is @I optional is to select either that thing or
+nothing:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Select
+    A { @Skip }
+    B { @ACell parameters }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Select
+    A { @Skip }
+    B { @ACell parameters }
+}
+}
+Since this case is so common, there is an @Code "@Optional" symbol for it:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Optional
+@ACell parameters
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Optional
+@ACell parameters
+}
+}
+@Code "@Optional" is exactly like @Code "@Select" with option @Code A
+set to @Code "@Skip" and option @Code B set to the syntax diagram
+following the @Code "@Optional" symbol.  Here is the same example in
+the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@Optional @ACell parameters
+} } }
+There is another kind of `optional' layout, {@Code "@OptionalDiverted"}:
+@ID @OneRow {
+@Code @Verbatim {
+@StartDown @OptionalDiverted
+@Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+}
+||7ct
+@SyntaxDiag {
+@StartDown @OptionalDiverted @Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartRight A | @Cell @StartUp A |
+	      @Cell mr { 0i } @StartLeft A }
+{
+@Rowa A {
+@OptionalDiverted @Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+} } }
+The optional material goes in a direction perpendicular to what
+it would have otherwise:  right-moving if previously up or down, and
+down-moving if previously left or right.
+@PP
+Another, related symbol is {@Code "@Diverted"}; it is similar to
+@Code "@OptionalDiverted" but without the path which produces nothing:
+@ID @OneRow {
+@Code @Verbatim {
+@StartDown @Diverted @Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+}
+||7ct
+@SyntaxDiag {
+@StartDown @Diverted @Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartRight A | @Cell @StartUp A |
+	      @Cell mr { 0i } @StartLeft A }
+{
+@Rowa A {
+@Diverted @Sequence
+    A { @BCell creation }
+    B { @ACell parameters }
+} } }
+This symbol is a great aid to packing a big syntax diagram into a
+compact shape.
+@PP
+That covers sequencing and selection; now for looping.  The @Code "@Loop"
+symbol produces a loop, with option @Code A going forwards and option
+@Code B centred and going backwards:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Loop
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Loop
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@Loop
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+} } }
+One common case of looping is to have nothing on the way back.  We could
+get this by placing @Code "@Skip" in option {@Code B} of {@Code "@Loop"},
+but there is an even easier way, the {@Code "@Repeat"} symbol:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @Repeat
+@ACell statement
+}
+||7ct
+@SyntaxDiag {
+@StartRight @Repeat
+@ACell statement
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@Repeat
+@ACell statement
+} } }
+Occasionally it looks better to have the empty returning arrow go on
+the opposite side of the forward part; for that, there are
+@Code "@LoopOpposite" and @Code "@RepeatOpposite" symbols:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @LoopOpposite
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @LoopOpposite
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartUp A | @Cell @StartLeft A |
+	      @Cell mr { 0i } @StartDown A }
+{
+@Rowa A {
+@LoopOpposite
+    A { @Sequence
+           A { @ACell identifier }
+           B { @CCell : }
+           C { @ACell type }
+      }
+    B { @CCell , }
+} } }
+@Code "@RepeatOpposite" is particularly useful around a large
+{@Code "@Select"}:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @RepeatOpposite
+@Select
+    A { @ACell asst }
+    B { @ACell call-chain }
+    C { @BCell return }
+    D { @Sequence
+           A { @BCell assert }
+           B { @ACell condition }
+      }
+    E { @ACell conditional }
+    F { @ACell selection }
+    G { @ACell loop }
+}
+||7ct
+@SyntaxDiag {
+@StartRight @RepeatOpposite
+@Select
+    A { @ACell asst }
+    B { @ACell call-chain }
+    C { @BCell return }
+    D { @Sequence
+           A { @BCell assert }
+           B { @ACell condition }
+      }
+    E { @ACell conditional }
+    F { @ACell selection }
+    G { @ACell loop }
+}
+}
+since it clearly distinguishes the loop from the selection.
+@PP
+Finally, the @Code "@RepeatDiverted" symbol combines the two ideas
+of repetition and diversion:
+@ID @OneRow {
+@Code @Verbatim {
+@StartDown @RepeatDiverted
+@ACell statement
+}
+||7ct
+@SyntaxDiag {
+@StartDown @RepeatDiverted
+@ACell statement
+}
+}
+Here is the same example in the other three directions:
+@CD @OneRow @SyntaxDiag {
+@Tbl
+    mh { 1f }
+    mv { 0i }
+    iv { top }
+    aformat { @Cell ml { 0i } @StartRight A | @Cell @StartUp A |
+	      @Cell mr { 0i } @StartLeft A }
+{
+@Rowa A {
+@RepeatDiverted
+@ACell statement
+} } }
+There is no {@Code "@LoopDiverted"} symbol, for good reason.
+@PP
+Every syntax diagram, from the simplest to the most complex, has
+one arrow going into it, and one coming out.  There are no exceptions
+to this rule.  In most syntax diagrams, these two arrows lie on the
+same (invisible) line and point in the same direction, and this is
+the direction that we say the diagram is moving.  There are two symbols
+that produce syntax diagrams that lack this second property.  Because
+of this lack, these symbols cannot be used at arbitrary places in a
+complex diagram; they can only be used instead of the @Code "@StartRight"
+or @Code "@StartDown" symbols at the beginning of a diagram.  The first
+symbol, {@Code "@StartRightDown"}, prints its option @Code A right-moving
+and its option @Code B down-moving like this:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRightDown
+    A { @ACell A }
+    B { @ACell B }
+}
+||7ct
+@SyntaxDiag {
+@StartRightDown
+    A { @ACell A }
+    B { @ACell B }
+}
+}
+The second symbol, {@Code "@StartRightRight"}, prints both options
+right-moving like this:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRightRight
+    A { @ACell A }
+    B { @ACell B }
+}
+||7ct
+@SyntaxDiag {
+@StartRightRight
+    A { @ACell A }
+    B { @ACell B }
+}
+}
+As usual, the options to these symbols may contain arbitrarily complex
+syntax diagrams.
+@PP
+Finally, a few words about changing things.  The @Code "@SyntaxDiag"
+symbol used the {@Code "@ANode"}, {@Code "@BNode"}, and {@Code "@CNode"}
+symbols of @@Diag to construct its three types of cells.  In fact, the
+@Code "@SyntaxDiag" symbol is nothing more than this:
+@ID @OneRow @Code @Verbatim {
+@Diag
+    avalign { mark }
+    avstrut { yes }
+    amargin { 0.2f }
+    aoutline { box }
+    afont { Italic }
+    bvalign { mark }
+    bvstrut { yes }
+    bmargin { 0.2f }
+    boutline { curvebox }
+    bfont { Bold }
+    cvalign { mark }
+    cvstrut { yes }
+    cmargin { 0.2f }
+    coutline { circle }
+    chsize { 1f }
+    arrowlength { 0.4f }
+}
+So any of the other @Code "@Diag" options can be used freely with
+{@Code "@SyntaxDiag"}; and the format of the three cell types can be
+changed by using @Code "@Diag" instead of {@Code "@SyntaxDiag"}, and
+choosing new values for these (and other) options.
+@PP
+If there are more than three cell types, it is necessary to fall back
+on the {@Code "@XCell"} symbol, which produces a cell without nominating
+any particular cell type.  After @Code "@XCell" there must be a regular
+@Code "@Diag" node, like this:
+@ID @OneRow {
+@Code @Verbatim {
+@StartRight @XCell @Ellipse INIT
+}
+|7ct
+@SyntaxDiag {
+@StartRight @XCell @Ellipse INIT
+}
+}
+This way there is no limit to the number of different kinds of cells.  Also,
+since (for example) @Code "@ACell" is merely an abbreviation for
+@ID @OneRow @Code @Verbatim { @XCell @ANode }
+any node options may follow {@Code "@ACell"}, {@Code "@BCell"}, and
+{@Code "@CCell"}.  The appearance of the arrows can be changed in the usual
+way, by setting options as has been done above for {@Code "arrowlength"}.
+@PP
+There are three options specifically related to syntax diagrams:
+@ID @OneRow @Code @Verbatim {
+@SyntaxDiag
+    syntaxgap { 0.35f }
+    syntaxbias { 1.0f }
+    syntaxradius { 0.3f }
+}
+The @Code syntaxgap option determines the spacing between the various
+elements; changing it causes the syntax diagrams to be set tighter or
+looser in a consistent way.  The default value shown is 0.35 times the
+current font size.  The @Code syntaxbias and @Code syntaxradius
+options affect the appearance of curved lines, as in @Code "@RVLCurve"
+and its relatives.  These options are also available with {@Code "@Diag"},
+and in the setup file.  Note however that these options cannot be given to
+individual elements in a syntax diagram, only to the diagram as a whole.
+@End @Section

@@ -1,0 +1,61 @@
+@Section
+   @Title { "@Language" and "@CurrLang" }
+   @Tag { language }
+@Begin
+@PP
+The @@Language symbol informs Lout that its right parameter is written
+language.sym @Index { @@Language symbol }
+in the language of its left parameter:
+@ID @Code "Danish  @Language  { ... }"
+Basser Lout Version 3 uses this information in two ways:  to hyphenate
+words appropriately to that language, and to change the value of the
+@@CurrLang symbol (see below).  Other uses, such as right-to-left
+formatting of certain languages, may be added in the future.
+@PP
+The left parameter must either be empty (which means to leave the current
+language unchanged) or else it must have been given in a @Code "langdef"
+langdef.sym @Index { @Code langdef language definition }
+language definition at the beginning of the input:
+@ID {
+@Code "langdef  Danish  Dansk  {" @I implementation-dependent @Code "}"
+}
+After @Code "langdef" comes a sequence of one or more simple words,
+which are alternative names for the language being defined.  Following
+them comes an implementation-dependent part between braces.  In Basser
+Lout Version 3 this part contains the name of the Lout hyphenation
+information file (minus its .lh suffix) to be used when hyphenating
+words in this language, followed by a sequence of words which define
+the ends of sentences.  For example:
+@ID @Code "langdef English { english  .  :  ?  !  .)  ?)  !)  }"
+defines a language called English with hyphenation patterns file
+{@Code english.lh} and seven ways to end a sentence.  The use of
+these sentence endings is described in Section {@NumberOf space}.  If
+there is no hyphenation file available, this is indicated by writing
+@Code "-" for the file name; if there are no sentence ends, they are
+simply omitted.
+@PP
+The @@CurrLang symbol, which has no parameters, evaluates to the first
+currlang.sym @Index { @@CurrLang symbol }
+name given in the @Code "langdef" of the language in force at the point
+where it is invoked:
+@ID @Code "Dansk  @Language  { This is @CurrLang. }"
+has result
+@ID { Dansk  @Language  { This is @CurrLang. } }
+It is typically used with the @@Case symbol like this:
+@ID @Code {
+"@CurrLang  @Case  {"
+"    Danish  @Yield  tirsdag"
+"    English  @Yield  Tuesday"
+"    French  @Yield  Mardi"
+"}"
+}
+This example evaluates to the name of the third day of the week in the
+current language.
+@PP
+The current language is part of the style of an object, like its
+font.  As explained in Section {@NumberOf size}, style is inherited
+through the point of appearance, which for language can be
+unexpected.  For example, an index entry which originates in a French
+chapter but appears in an English index will have English for its
+language, so must be explicitly set to French using @@Language.
+@End @Section

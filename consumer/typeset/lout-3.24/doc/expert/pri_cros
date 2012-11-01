@@ -1,0 +1,112 @@
+@Section
+   @Tag { cross }
+   @Title { Cross references }
+@Begin
+@PP
+A cross reference
+cross.ref @Index { Cross reference }
+in common terminology is something like `see Table 6'
+or `see page 57' -- a reference within a document to some other part of
+it.  Readers find them very useful, but they are a major
+problem for authors.  As the document is revised, Table 6
+becomes Table 7, the thing on page 57 moves to page 63, and all the
+cross references must be changed.
+@PP
+The Scribe
+scribe @Index { Scribe }
+document formatter, developed by Brian K. Reid @Cite { $reid1980scribe },
+reid.brian @Index { Reid, Brian K. }
+introduced a scheme for keeping track of cross
+references.  It allows you to give names to tables, figures, etc., and to
+refer to them by name.  The formatter inserts the appropriate numbers in
+place of the names, so that as the document is revised, the
+cross references are kept up to date automatically.  Lout has adopted
+and extended this scheme.
+@PP
+In Lout, automatic cross referencing works in the following way.  First
+define a symbol with a parameter with the special name @Code "@Tag":
+@ID @OneRow @Code {
+"def @Table"
+"   left @Tag"
+"   right @Value"
+"{"
+"   ||1i  @Value"
+"}"
+}
+When this symbol is invoked, the value given to @Code "@Tag" should be a
+simple word like {@Code "cities"}, or several simple words juxtaposed
+like {@Code "cities compare"}; it serves to name the invocation:
+@ID @OneRow @Code {
+"{ cities compare } @Table"
+"{"
+"    Washington  |0.5i  Canberra"
+"}"
+}
+We may now refer to this invocation elsewhere in the document, using the
+@I {cross reference} @Code "@Table&&{ cities compare }".  Here @Code "&&"
+is the {@I {cross reference symbol}}; its left parameter is a symbol and
+its right parameter is the value of the @Code "@Tag" parameter of some
+invocation of that symbol.  Of course it's simplest if you use just a
+one-word tag; then no braces are needed.
+@PP
+A cross reference is not an object; the reader should think of it as
+an arrow in the final printed document, beginning at the cross reference
+and ending at the top of the target
+target.cr @Index { Target of cross reference }
+#@ID 8p @Font {
+#  { @LittlePage // @LittlePage }
+#  ||0io ||0.7c
+#  { //2c 
+#    { @Code "@Table&&cities" }
+#    //0.1c
+#    ||0.5c 90d @Rotate @Arrow 2.5c
+#    //0.05c
+#    @HContract @VContract
+#      @Fig { @Box margin { 0c } paint { grey } { 1.5c @Wide 1c @High } }
+#  }
+#}
+#@PP
+invocation.  Three special values may be given to the right parameter of
+{@Code "&&"}:  {@Code preceding}, {@Code following}, and
+preceding. @Index { @Code preceding }
+following. @Index { @Code following }
+foll_or_prec. @Index { @Code following }
+{@Code foll_or_prec}.  The cross
+reference @Code "@Table&&preceding" points to some table
+appearing earlier in the final printed document than itself; that is, the
+arrow is guaranteed to point backwards through the document.  Usually it
+points to the nearest preceding invocation.  Similarly, 
+@Code "@Table&&following" points forwards, usually to the
+nearest following invocation.  @Code "@Table&&foll_or_prec" is the same as
+@Code "@Table&&following" if it exists, otherwise it is the same as
+{@Code "@Table&&preceding"}.
+@PP
+This section has been concerned with what a cross reference is -- an
+arrow from one point in a document to another -- but not with how it is
+used.  One simple way to use a cross reference is to put it where an
+object is expected, like this:
+@ID @Code {
+"a  |  @Table&&cities  |  c"
+}
+In this case the cross reference will be replaced by a copy of the
+invocation it points to:  in the example just given, a table will appear
+between @Code a and @Code c.  Other applications of cross references may be
+found in Chapter {@NumberOf examples}, including finding the number of
+the page where something appears, producing running page headers and footers,
+and accessing databases of Roman numerals, references, etc.  Cross
+references are also used by galleys, as will be explained in the next section.
+@PP
+The implementation of cross referencing copies every symbol invocation with
+a @Code "@Tag" parameter into the @I { cross-reference database },
+a collection of files whose names end in {@Code ".ld"} indexed by one file
+whose name is {@Code "lout.li"}.  It is generally the case that the bulk
+content of a symbol such as the table above is contained in its right or
+body parameter, and that this bulk content is not needed by cross references
+to the symbol.  Hence, to save space in the database, Lout replaces the
+right parameter of each symbol it writes into it by the word "???" whenever
+the right parameter appears to be large.  The table above would appear as
+"???" because of this optimization, and in general, the user must ensure
+that any content required by cross references is contained in parameters
+other than the right or body parameter.  This optimization does not apply
+when the symbol being written into the cross-reference database is a galley.
+@End @Section

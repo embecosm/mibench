@@ -1,0 +1,54 @@
+@Chapter
+   @Title { Predefined symbols }
+   @Tag { symbols }
+@Begin
+@BeginSections
+@Include { pre_begi }
+@Include { pre_conc }
+@Include { pre_font }
+@Include { pre_brea }
+@Include { pre_spac }
+@Include { pre_yuni }
+@Include { pre_colo }
+@Include { pre_outl }
+@Include { pre_lang }
+@Include { pre_oner }
+@Include { pre_wide }
+@Include { pre_hshi }
+@Include { pre_hexp }
+@Include { pre_hcon }
+@Include { pre_hlim }
+@Include { pre_hadj }
+@Include { pre_hsca }
+@Include { pre_cove }
+@Include { pre_span }
+@Include { pre_scal }
+@Include { pre_rota }
+@Include { pre_back }
+@Include { pre_kshr }
+@Include { pre_rump }
+@Include { pre_inse }
+@Include { pre_oneo }
+@Include { pre_next }
+@Include { pre_case }
+@Include { pre_mome }
+@Include { pre_null }
+@Include { pre_gall }
+@Include { pre_head }
+@Include { pre_notr }
+@Include { pre_cros }
+@Include { pre_tagg }
+@Include { pre_open }
+@Include { pre_link }
+@Include { pre_data }
+@Include { pre_grap }
+@Include { pre_plai }
+@Include { pre_incg }
+@Include { pre_prep }
+@Include { pre_incl }
+@Include { pre_bend }
+@Include { pre_verb }
+@Include { pre_unde }
+@Include { pre_page }
+@EndSections
+@End @Chapter

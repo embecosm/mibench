@@ -1,0 +1,58 @@
+@SysInclude { eq }
+@SysInclude { tab }
+@SysInclude { fig }
+@SysInclude { report }
+@SysDatabase @Reference { oldrefs }
+@Report
+    @Title { The Design and Implementation
+of the
+Lout Document Formatting Language }
+    @Author { Jeffrey H. Kingston }
+    @Institution { Basser Department of Computer Science,
+The University of Sydney 2006,
+Australia }
+    @DateLine { 27 January, 1993 }
+    @InitialLanguage { English }
+    @OptimizePages { Yes }
+    @AbstractTitle { SUMMARY }
+    @Abstract
+{
+Lout is a high-level language for document formatting, whose ease of use
+has permitted an unprecedented number of advanced features to be added
+quickly and reliably.  This paper charts the evolution of the design and
+implementation of Lout from conception in mid-1984 to public release in
+October 1991.  It includes extensive discussions of remaining problems
+and possible solutions.
+@DP
+{@B Keywords}  document formatting typesetting
+}
+
+//
+
+@Include { s1_0 }
+@Include { s2_0 }
+@Include { s2_1 }
+@Include { s2_2 }
+@Include { s2_3 }
+@Include { s2_4 }
+@Include { s2_5 }
+@Include { s2_9 }
+@Include { s3_0 }
+@Include { s3_1 }
+@Include { s3_2 }
+@Include { s3_3 }
+@Include { s3_4 }
+@Include { s3_9 }
+@Include { s4_0 }
+@Include { s5_0 }
+@Include { s5_1 }
+@Include { s5_2 }
+@Include { s5_3 }
+@Include { s5_4 }
+@Include { s5_5 }
+@Include { s5_9 }
+@Include { s6_0 }
+@Include { s6_1 }
+@Include { s6_2 }
+@Include { s6_9 }
+@Include { s7_0 }

@@ -1,0 +1,81 @@
+@Section
+   @Title { Typesetting computer programs as part of a larger document }
+   @Tag { embedded }
+@Begin
+@PP
+When the program texts are to be part of a larger Lout document,
+the procedure is somewhat different.  You need to include the setup file
+appropriate to your language, like this:
+@ID @OneRow @Code {
+"@SysInclude { cprint }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+The @Code cprint setup file includes everything needed to set up for C
+program formatting; for the other languages, consult the second column
+of the table at the start of this chapter.
+@PP
+The program texts within the Lout document are enclosed in braces
+preceded by the Lout symbol from the third column of the table, like
+this for the C language:
+@ID @OneRow @Code {
+"@IndentedDisplay @CP {"
+"#include <stdio.h>"
+""
+"treeprint(p)        /* print tree p recursively */"
+"struct tnode *p;"
+"{"
+"        if (p != NULL) {"
+"                treeprint(p->left);"
+"                printf(\"%4d %s\\n\", p->count, p->word);"
+"                treeprint(p->right);"
+"        }"
+"}"
+"}"
+}
+Although computer programs violate the rules of legal Lout input in many ways,
+these rules are suspended by the {@Code "@CP"}, {@Code "@Eiffel"} etc. symbols,
+allowing the program text to be incorporated with absolutely no
+modifications.  The result is
+@ID @OneRow @CP {
+#include <stdio.h>
+
+treeprint(p)        /* print tree p recursively */
+struct tnode *p;
+{
+        if (p != NULL) {
+                treeprint(p->left);
+                printf("%4d %s\n", p->count, p->word);
+                treeprint(p->right);
+        }
+}
+}
+We have chosen to use the @Code "@IndentedDisplay" symbol from Section
+{@NumberOf displays} to obtain an indented display, but in fact
+{@Code "@CP"}, {@Code "@Eiffel"} and the rest may appear anywhere at
+all:  the result is an object in the usual way, which may go
+anywhere.  When including a program text within a paragraph, use
+@Code "@OneCol @CP { ... }" (or @Code "@OneCol @Eiffel { ... }" etc. for
+other languages) to prevent it being broken across two lines, if desired.
+@PP
+In cases where the program text has unbalanced braces, it is necessary to
+use the alternative form @Code "@CP @Begin ... @End @CP" (or the
+equivalent for other languages), so that Lout does not confuse program
+braces with Lout braces.  In that case the program text must not
+contain {@Code "@End"}; and in either case the program text must not
+include @Code "@Include" or @Code "@SysInclude" unless you are really
+including a file at that point (Section {@NumberOf pipes}).
+@PP
+If your Lout document contains program texts in several languages,
+simply add one @Code "@SysInclude" line for each of them and proceed
+as before.  If your programming language is not currently supported,
+a viable alternative is
+@ID @Code "@F @Verbatim { ... }"
+These symbols cause the text between braces to be set verbatim in
+a fixed-width font, as explained elsewhere in this guide.  This fallback
+method will not handle tab and formfeed characters very well.  Again,
+use @Code "@Verbatim @Begin ... @End @Verbatim" if your program text
+contains unbalanced braces.
+@End @Section

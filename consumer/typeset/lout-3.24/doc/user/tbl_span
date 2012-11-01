@@ -1,0 +1,195 @@
+@Section
+    @Title { Spanning columns and rows }
+    @Tag { tbl_span }
+@Begin
+@PP
+To make a cell span across several columns, precede the @Code "@Cell"
+spanning.columns @Index { spanning columns and rows in tables }
+symbol with @Code "@StartHSpan" and replace each spanned cell's
+@Code "@Cell" symbol with {@Code "@HSpan"}, like this:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    rule { yes }
+    aformat { @StartHSpan @Cell indent { ctr } @B A | @HSpan | @HSpan }
+    bformat { @Cell A | @Cell B | @Cell C }
+{
+@Rowa
+    A { Some famous authors }
+@Rowb
+    A { Austen }
+    B { Chaucer }
+    C { Donne }
+@Rowb
+    A { Balzac }
+    B { Darwin }
+    C { Goethe }
+}
+}
+The result of this is
+@CD @OneRow @Tbl
+    rule { yes }
+    aformat { @StartHSpan @Cell indent { ctr } @B A | @HSpan | @HSpan }
+    bformat { @Cell A | @Cell B | @Cell C }
+{
+@Rowa
+    A { Some famous authors }
+@Rowb
+    A { Austen }
+    B { Chaucer }
+    C { Donne }
+@Rowb
+    A { Balzac }
+    B { Darwin }
+    C { Goethe }
+}
+We've used a sample of options to show how naturally these go with
+spanning cells:  they apply to the whole cell as usual, whatever
+its extent.  It is quite acceptable to span just some of the columns,
+not all of them; indeed, there may be no @Code "@HSpan" symbols at
+all, and then the cell just spans its own column, which sounds redundant
+but actually has a use (Section {@NumberOf tbl_alig}).
+@PP
+Spanning rows work in the same way; the spanning cell is preceded by
+{@Code "@StartVSpan"}, and the spanned cells are replaced by
+{@Code "@VSpan"}:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    rule { yes }
+    aformat { @StartVSpan @Cell @I A | @Cell B | @Cell C }
+    bformat { @VSpan | @Cell B | @Cell C }
+{
+@Rowa
+    A { Mathematics }
+    B { MATH 1001 }
+    C { Differential Calculus }
+@Rowb
+    B { MATH 1002 }
+    C { Linear Algebra }
+@Rowa
+    A { Computer Science }
+    B { COMP 1001 }
+    C { Introductory Programming }
+@Rowb
+    B { COMP 1002 }
+    C { Introductory Computer Science }
+}
+}
+The result of this is
+@CD @OneRow @Tbl
+    rule { yes }
+    aformat { @StartVSpan @Cell @I A | @Cell B | @Cell C }
+    bformat { @VSpan | @Cell B | @Cell C }
+{
+@Rowa
+    A { Mathematics }
+    B { MATH 1001 }
+    C { Differential Calculus }
+@Rowb
+    B { MATH 1002 }
+    C { Linear Algebra }
+@Rowa
+    A { Computer Science }
+    B { COMP 1001 }
+    C { Introductory Programming }
+@Rowb
+    B { COMP 1002 }
+    C { Introductory Computer Science }
+}
+Here is a notorious larger example, the `spiral':
+@ID @OneRow @Code @Verbatim {
+@QuotedDisplay @Tbl
+    rule { yes }
+{
+@Row
+    format { @StartVSpan @Cell A | @StartHSpan @Cell B | @HSpan }
+    A { @SomeText }
+    B { @SomeText }
+@Row
+    format { @VSpan | @Cell B | @StartVSpan @Cell C }
+    B { @SomeText }
+    C { @SomeText }
+@Row
+    format { @StartHSpan @Cell A | @HSpan | @VSpan }
+    A { @SomeText }
+}
+}
+The @Code "@SomeText" symbol produces a short paragraph of text.  The
+result is
+@QD @Tbl
+    rule { yes }
+{
+@Row format { @StartVSpan @Cell A | @StartHSpan @Cell B | @HSpan }
+    A { @SomeText }
+    B { @SomeText }
+@Row format { @VSpan | @Cell B | @StartVSpan @Cell C }
+    B { @SomeText }
+    C { @SomeText }
+@Row format { @StartHSpan @Cell A | @HSpan | @VSpan }
+    A { @SomeText }
+}
+It is important when constructing mind-boggling tables like this one
+to ensure that every format has exactly the same number of @Code "|"
+symbols.  Otherwise the number of columns will differ from row to row.
+The names given to the entries ({@Code "A"}, {@Code "B"}, {@Code "C"},
+etc.) are quite irrelevant:  having a @Code "@Cell D" in one row and a
+@Code "@Cell D" in another does not mean that the cells will appear in
+the same column.
+# @PP
+# There is an asymmetry in the spiral above:  the first column
+# occupies slightly more space than the other two.  This arises
+# because the left margin of the leftmost column is excluded from the
+# calculation of how much space is available.  This anomaly might be
+# corrected some day.
+@PP
+There is a @Code "@StartHVSpan" symbol which combines the effects
+of @Code "@StartHSpan" and {@Code "@StartVSpan"}.  You need to
+use it in this arrangement:
+@ID @OneRow @Tbl
+    mv { 0.5vx }
+    aformat { @Cell @Code A | @Cell @Code B | @Cell @Code C }
+{
+@Rowa
+    A { "@StartHVSpan" }
+    B { "@HSpan" }
+    C { "@HSpan" }
+@Rowa
+    A { "@VSpan" }
+@Rowa
+    A { "@VSpan" }
+}
+The blank positions should be left empty.  For example:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    rule { yes }
+    aformat { @Cell A | @Cell B | @Cell C | @Cell D }
+    bformat { @Cell A | @StartHVSpan @Cell i { ctr } iv { ctr } B | @HSpan | @Cell D }
+    cformat { @Cell A | @VSpan |      | @Cell D }
+{
+@Rowa
+@Rowb
+    B { CPU }
+@Rowc
+@Rowa
+}
+}
+produces
+@CD @OneRow @Tbl
+    rule { yes }
+    strut { no }
+    aformat { @Cell A | @Cell B | @Cell C | @Cell D }
+    bformat { @Cell A | @StartHVSpan @Cell i { ctr } iv { ctr } B | @HSpan | @Cell D }
+    cformat { @Cell A | @VSpan | | @Cell D }
+{
+@Rowa
+@Rowb
+    B { CPU }
+@Rowc
+@Rowa
+}
+This example illustrates how Lout apportions space in the presence of
+spanning columns.  If the spanning cell is naturally narrower than the
+cells it spans, it is widened to their size.  If it is wider (as in
+the example above), then the last spanned cell is widened to take
+up the slack.  This is why the third cell is wider than the second in the
+first row of this example.
+@End @Section

@@ -1,0 +1,433 @@
+@Section
+    @Tag { dia_labe }
+    @Title { Labels }
+@Begin
+@PP
+Diagrams often contain small @I labels adjacent to their nodes and links:
+@CD @Diag
+    nodelabelformat { @I @Body }
+{
+@Tab
+    @Fmta { @Col A ! @Col ! @Col ! @Col B ! @Col ! @Col ! @Col C }
+{
+@Rowa
+    B { B:: @Circle alabel { b } }
+@Rowa
+    A { A:: @Circle alabel { a } }
+@Rowa
+    C { C:: @Circle dlabel { c } }
+}
+//
+@Arrow from { A } to { B } ylabel { 10 }
+@Arrow from { A } to { C } ylabel { 15 }
+@Arrow from { B } to { C } ylabel { 20 }
+}
+Each node may have up to four labels, called {@Code alabel}, {@Code blabel},
+label.  @Index { label options in @Code "@Diag" }
+alabel. @Index { @Code alabel option in @Code "@Diag" }
+blabel. @Index { @Code blabel option in @Code "@Diag" }
+clabel. @Index { @Code clabel option in @Code "@Diag" }
+dlabel. @Index { @Code dlabel option in @Code "@Diag" }
+{@Code clabel}, and {@Code dlabel}:
+@ID {
+@Code {
+"@Ellipse"
+"    alabel { a }"
+"    blabel { b }"
+"    clabel { c }"
+"    dlabel { d }"
+"{ Hello, world }"
+}
+||7ct
+@VContract @Diag {
+@Ellipse
+    alabel { a }
+    blabel { b }
+    clabel { c }
+    dlabel { d }
+{ Hello, world }
+}
+}
+Links also have labels, five in fact:
+@ID {
+@Code {
+"@Link"
+"    fromlabel { f }"
+"    xlabel { x }"
+"    ylabel { y }"
+"    zlabel { z }"
+"    tolabel { t }"
+}
+||7ct
+@VContract @Diag {
+3c @Wide 1c @High
+//
+@Link
+    from { 0 0 }
+    to { 1,1 }
+    fromlabel { f }
+    xlabel { x }
+    ylabel { y }
+    zlabel { z }
+    tolabel { t }
+}
+}
+The {@Code fromlabel} and {@Code tolabel} options are positioned directly
+over the endpoints of the link, and {@Code fromlabel} is by default printed
+at a funny angle, because these labels are the means of attaching
+arrowheads to links:
+@ID {
+@Code {
+"@Link"
+"    tolabel { @SolidArrowHead }"
+}
+||7ct
+@VContract @Diag {
+3c @Wide 1c @High
+//
+@Link
+    from { 0 0 }
+    to { 1,1 }
+    tolabel { @SolidArrowHead }
+}
+}
+@Code "@SolidArrowHead" is a symbol available for use anywhere whose value
+is an object in the shape of a small solid arrowhead.  The arrowhead
+options of Section {@NumberOf dia_link} work by setting {@Code fromlabel}
+and {@Code tolabel} in exactly this way.  Usually it is best to forget
+about {@Code fromlabel} and {@Code tolabel}, and think of links as having
+three labels:  {@Code xlabel} near the start, {@Code ylabel} in the
+middle, and {@Code zlabel} near the end.
+@PP
+Adding a label will not change the size of the diagram or the position
+of any node, link, or other label.  Although a label may be an arbitrary
+object, it is treated as having zero size and will overstrike anything
+that happens to be where it wants to go.
+@PP
+There are options for controlling the appearance and position of
+labels.  These are described below mainly for {@Code alabel}, but there
+are corresponding options for all nine labels.
+@PP
+The {@Code alabelfont} and {@Code alabelbreak} options determine the
+font and paragraph breaking style of the label:
+@ID {
+@Code {
+"@Ellipse"
+"    alabel { a }"
+"    alabelfont { -2p }"
+"    alabelbreak { ragged nohyphen }"
+"{ Hello, world }"
+}
+||7ct
+@VContract @Diag {
+@Ellipse
+    alabel { a }
+    alabelfont { -2p }
+    alabelbreak { ragged nohyphen }
+{ Hello, world }
+}
+}
+This example shows the default values of these two options; @Code "-2p"
+explains why the labels in earlier examples were printed in a smaller
+font size.  There is also an {@Code alabelformat} option which allows
+for more radical changes in appearance:
+@ID {
+@Code {
+"@Ellipse"
+"    alabel { a }"
+"    alabelformat { @Box @I @Body }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+//0.5c
+@Ellipse
+    alabel { a }
+    alabelformat { @Box @I @Body }
+{ Hello, world }
+}
+}
+The value attached to the ellipse will be the value of {@Code alabelformat},
+with any @Code "@Body" symbol within it replaced by the value of the
+{@Code alabel} option.  This example produces boxed italic labels.
+@PP
+Nodes also have {@Code nodelabelfont}, {@Code nodelabelbreak}, and
+{@Code nodelabelformat} options which work in the same way but affect all
+of the node labels, not just one:
+@ID {
+@Code {
+"@Ellipse"
+"    nodelabelformat"
+"        { @Box @I @Body }"
+"    alabel { a }"
+"    blabel { b }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+//0.5c
+@Ellipse
+    nodelabelformat { @Box @I @Body }
+    alabel { a }
+    blabel { b }
+{ Hello, world }
+}
+}
+Links similarly have {@Code linklabelfont}, {@Code linklabelbreak}, and
+{@Code linklabelformat} options which affect all the link labels
+(except {@Code fromlabel} and {@Code tolabel}, since that would produce
+results that people do not expect.)  The @Code "@Diag" symbol also has
+these options, in the usual way, and they are extremely useful there:
+@ID {
+@Code {
+"@Diag"
+"    nodelabelfont { Slope -2p }"
+"    linklabelformat { \"/\"@Body\"/\" }"
+"    hsize { 1.8c }"
+"{"
+"    A:: @Ellipse alabel { a } { OK }"
+"    @DP"
+"    @DP"
+"    B:: @Ellipse alabel { b } { FAULT }"
+"    //"
+"    @Arrow from { A } to { B } ylabel { sig }"
+"}"
+}
+||7ct
+@VContract @Diag
+    nodelabelfont { Slope -2p }
+    linklabelformat { "/"@Body"/" }
+    hsize { 1.8c }
+{
+    A:: @Ellipse alabel { a } { OK }
+    @DP
+    @DP
+    B:: @Ellipse alabel { b } { FAULT }
+    //
+    @Arrow  from { A } to { B } ylabel { sig }
+}
+}
+These settings specify that every node label will be set in italics,
+two points smaller than the surrounding text, and that every link label
+will appear between two @Code "/" characters, also two points smaller
+because the default value of @Code "linklabelfont" still applies.  Of
+course, it remains open to any node or link to override these settings
+by supplying its own label options.
+@PP
+The remaining five label options, {@Code alabelpos}, {@Code alabelangle},
+{@Code alabelprox}, {@Code alabelmargin}, {@Code alabelctr}, and
+{@Code alabeladjust},
+affect the position of the label.  Don't be daunted by the number of
+options.  As previous examples have shown, they all have sensible
+default values and thus need to be set only rarely.
+@PP
+Each label inhabits its own characteristic region of the node or
+link:  {@Code alabel} in the north-east corner of the node,
+{@Code ylabel} halfway along the link, and so on.  This general
+location of the label is defined by the {@Code alabelpos} option.  Here
+are the default values for all nine labels:
+@IL
+@LI {
+@Code {
+"@Node"
+"    alabelpos { NE }"
+"    blabelpos { NW }"
+"    clabelpos { SW }"
+"    dlabelpos { SE }"
+}
+||7ct
+@VContract @Diag {
+//0.5f
+@ShowTags @Ellipse { 3c @Wide 2c @High }
+}
+}
+@LI {
+@Code {
+"@Link"
+"    fromlabelpos { FROM }"
+"    xlabelpos { LFROM }"
+"    ylabelpos { LMID }"
+"    zlabelpos { LTO }"
+"    tolabelpos { TO }"
+}
+||7ct
+@VContract @Diag {
+//1.0f
+2c @Wide 2.2c @High
+//
+@ShowTags @Link
+    from { 0,0.7 }
+    to { 1,0 }
+    # tolabel { @SolidArrowHead }
+}
+}
+@EL
+Thus, by changing @Code clabelpos to @Code S you can move the position
+of the @Code clabel label to beneath the node.  You can do this for every
+node by setting this option in the @Code "@Diag" symbol, as was done for
+the formatting options above.
+@PP
+In a similar vein, there is an @Code { xindent } option which controls how
+far from the start of the link the @Code "LFROM" tag, and hence the
+{@Code xlabel}, will appear.  A similar option, @Code { zindent }, determines
+how far from the end of the link the @Code "LTO" tag and hence the
+{@Code zlabel} will appear:
+@ID {
+@Code {
+"@Link"
+"    xindent { 1f }"
+"    zindent { 2f }"
+}
+||7ct
+@VContract @Diag {
+//1f
+2c @Wide 1.2c @High
+//
+@ShowTags @Link
+    xindent { 1f }
+    zindent { 2f }
+    from { 0,0.7 }
+    to { 1,0 }
+}
+}
+Both options have default value {@Code 0.8f}.
+@PP
+The @Code alabelangle option determines the angle at which the label is
+printed:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "alabelangle { horizontal }" }
+    B { Horizontal (the default) }
+@Rowa
+    A { "alabelangle { aligned }" }
+    B { Aligned with the node outline or link path }
+@Rowa
+    A { "alabelangle { perpendicular }" }
+    B { Perpendicular to the outline or link path }
+}
+The @Code "alabelprox" option determines where in the proximity of
+@Code alabelpos the label is printed:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "alabelprox { above }" }
+    B { Above the node outline or link path (the default for link labels) }
+@Rowa
+    A { "alabelprox { below }" }
+    B { Below the node outline or link path }
+@Rowa
+    A { "alabelprox { left }" }
+    B { To the left of the node outline or link path }
+@Rowa
+    A { "alabelprox { right }" }
+    B { To the right of the node outline or link path }
+@Rowa
+    A { "alabelprox { inside }" }
+    B { Inside the node outline or on the left of the link path
+going from @Code from to @Code to }
+@Rowa
+    A { "alabelprox { outside }" }
+    B { Outside the node outline or on the right of the link path
+going from @Code from to @Code to (the default for node labels) }
+}
+The {@Code alabelmargin} option adds a margin around all four sides of
+the label, thereby moving it away from {@Code alabelpos} irrespective of
+which direction it happens to lie in:
+@ID {
+@Code {
+"@Ellipse"
+"    alabel { a }"
+"    alabelmargin { 0f }"
+"{ Hello, world }"
+}
+||7ct
+@VContract @Diag {
+@Ellipse
+    alabel { a }
+    alabelmargin { 0f }
+{ Hello, world }
+}
+}
+The default value is {@Code 0.2f}, and so there is scope for some
+reduction as well as increase.
+@PP
+@@Diag takes careful account of the @Code alabelangle option, the
+@Code alabelprox option, the direction that the node outline or link
+path is heading, and which label it is, and places the label in a way
+that looks good nearly always.  When it doesn't, the remainder of this
+section should help.
+@PP
+The @Code alabelangle option may be given an arbitrary angle, and then
+the label will be printed at that angle.  There are also the special
+values @Code parallel and {@Code antiparallel}, which give the direction
+that the node outline or link path is going at that point and its
+opposite.  These are the default values for @Code tolabelangle and
+@Code fromlabelangle respectively, which explains why arrowheads point the
+right way.  The @Code aligned value above is one of these two angles,
+the one closest to {@Code 0d}.
+@PP
+The @Code alabelprox option may be {@Code N},
+{@Code S}, {@Code E}, {@Code W}, {@Code NE}, {@Code SE}, {@Code NW},
+{@Code SW}, or {@Code CTR}:
+@CD @Diag {
+//1f
+@ShowTags @Box margin { 0.5c } { 24p @Font grey @Colour @I label }
+}
+meaning that the indicated point of the label will coincide with
+{@Code alabelpos}.  These points lie on the outside of the margins
+added by {@Code alabelmargin}.
+@PP
+The six values of @Code alabelprox given earlier (@Code { above },
+@Code { below }, etc.) all produce one of {@Code N}, {@Code S} etc. for
+their ultimate result; which one they produce depends on the direction
+the outline or link is going at that point.  For example, @Code { above }
+produces @Code { SE } when the outline or link is going from northeast
+to southwest or vice versa, @Code { SW } when the outline or link is
+going from northwest to southeast and vice versa, and @Code { S } when
+it happens to be exactly horizontal.  There is also a dependence
+on which label it is:  for example, if it is @Code "xlabel" and the
+direction happens to be vertical, the result is {@Code "NW"}.
+@PP
+The preceding discussion is all under the assumption that the
+@Code "alabelctr" option is {@Code no}.  When it is {@Code "yes"},
+a small adjustment is made to the position of the label.  The selected
+corner or side midpoint of the label will no longer coincide with
+{@Code alabelpos}, although it will still lie on the straight line passing
+through {@Code alabelpos} at the angle of {@Code alabelpos}.  The corner
+or side midpoint slides up or down this line to the point which
+minimises the distance from {@Code alabelpos} to the centre of the
+label.  Only @Code ylabelctr has @Code "yes" for its default value; the
+@Code y label often looks better centred when this adjustment is made,
+particularly on lines with shallow but non-zero slope:
+@CD @Tab
+    @Fmta { @Col @CC A ! @Col ! @Col @CC B }
+{
+@Rowa
+    A { @Code "ylabelctr { no }" }
+    B { @Code "ylabelctr { yes }" }
+@Rowa
+@Rowa
+@Rowa
+    A { @Diag ylabelctr { no } {
+        A:: @Square //0.5c &3c B:: @Square
+        //
+        @Link from { A } to { B } ylabel { @I { ylabel } }
+      } }
+    B { @Diag ylabelctr { yes } {
+        A:: @Square //0.5c &3c B:: @Square
+        //
+        @Link from { A } to { B } ylabel { @I { ylabel } }
+      } }
+}
+since it is then the centre of the label which is centred on the link,
+rather than one of its corners.
+@PP
+Finally, when all else fails there is an {@Code alabeladjust} option
+which translates the label by an arbitrary amount:
+@ID @Code "alabeladjust { -0.5c 1.5c }"
+causes the label to appear 0.5 centimetres to the left of and 1.5 centimetres
+above the point where it otherwise would have done.
+@End @Section

@@ -1,0 +1,26 @@
+			  LoutTib v1.0 Alpha
+			    now available
+
+
+LoutTib is a tool to typeset Tibetan with Lout (batch) document
+formatter. This is an *ALPHA* release (it is only a month old). I
+wrote it as I need Tibetan excerpts in my paper. I find it useful, may
+be you'll find it useful too.
+
+The LoutTib distribution contains
+
+	o Type1 Tibetan font (modified version of Tibetan-ModernA by
+	  Christopher Fynn)
+
+	o Transliteration utility called `louttib', that translate
+	  romanized Tibetan into glyph codes.
+
+	o Supporting Lout code
+
+
+You can get LoutTib (gzipped tar archive) and preformatted PostScript
+documentation (A4, Tibetan font included) from
+
+ ftp://ftp.ptc.spbu.ru/pub/tibet/software/typeset/louttib-1.0alpha.tgz
+ ftp://ftp.ptc.spbu.ru/pub/tibet/software/typeset/louttib-doc.ps.gz
+

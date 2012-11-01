@@ -1,0 +1,57 @@
+@Section
+   @Title { Reading and selecting program text from separate files }
+   @Tag { pipes }
+@Begin
+@PP
+We have said that program text within @Code "@CP { ... }" and the other
+symbols is passed directly to @Code prg2lout for analysis.  However,
+there is an exception.  The program text may contain an
+@Code "@Include" or @Code "@SysInclude" command, which, as for the
+@Code "@Verbatim" symbol (Section {@NumberOf verbatim}), causes Lout
+to take the program text from a file:
+@ID @OneRow @Code {
+"@Eiffel"
+"{"
+"    @Include { \"/usr/staff/jeff/Eiffel/hash.e\" }"
+"}"
+}
+The included file is not examined for balanced braces or @Code "@End" or
+{@Code "@Include"}; it is treated entirely verbatim and passed straight
+on to {@Code prg2lout}.  There may be several @Code "@Include" commands,
+and any amount of program text as well, within @Code "@CP { ... }" and
+the rest.
+@PP
+When including files in this way it often happens that only part of an
+actual program file is wanted for display.  Rather than placing the
+wanted part in a separate file, which is error-prone and tedious when
+the program is changing, Unix users can use the @Code "pipe" option
+to pipe the entire file through an arbitrary sequence of Unix commands,
+which may be used to make the wanted selection before the program text
+is passed to {@Code prg2lout}.
+@PP
+For example, suppose that all your Eiffel routines begin with the
+routine name one tab stop from the left margin and end at the first
+following @Eiffel { end } indented two tab stops.  Then
+@ID @OneRow @Code {
+"@Eiffel"
+"    pipe { \"sed -n /^.insert/,/^..end/p\" }"
+"{"
+"    @Include { \"/usr/staff/jeff/Eiffel/hash.e\" }"
+"}"
+}
+will select just the @Eiffel { insert } routine from the @Code { hash.e }
+file.  Assuming that your program text has been laid out in a
+disciplined manner, every line of the selection will begin with a
+tab character that is not wanted in this display, so an even better
+pipe is
+@ID @OneRow @Code {
+"@Eiffel"
+"    pipe { \"sed -n /^.insert/,/^..end/p | cut -c2-\" }"
+"{"
+"    @Include { \"/usr/staff/jeff/Eiffel/hash.e\" }"
+"}"
+}
+since it cuts away the unwanted tab characters.  Unfortunately, we
+can't show the result of this on an actual example, since that would
+prevent this manual from being formatted on a non-Unix system.
+@End @Section

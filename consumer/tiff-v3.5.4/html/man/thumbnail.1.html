@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of THUMBNAIL</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>THUMBNAIL</H1>
+Section: User Commands  (1)<BR>Updated: September 26, 1994<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+thumbnail - create a
+<FONT SIZE="-1">TIFF</FONT>
+file with thumbnail images
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>thumbnail</B>
+
+[
+<I>options</I>
+
+]
+<I>input.tif</I>
+
+<I>output.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>thumbnail</I>
+
+is a program written to show how one might use the
+SubIFD tag (#330) to store thumbnail images.
+<I>thumbnail</I>
+
+copies a
+<FONT SIZE="-1">TIFF</FONT>
+Class F facsimile file to the output file
+and for each image an 8-bit greyscale 
+<I>thumbnail sketch</I>.
+
+The output file contains the thumbnail image with the associated
+full-resolution page linked below with the SubIFD tag.
+<P>
+
+By default, thumbnail images are 216 pixels wide by 274 pixels high.
+Pixels are calculated by sampling and filtering the input image
+with each pixel value passed through a contrast curve.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-w</B>
+
+<DD>
+Specify the width of thumbnail images in pixels.
+<DT><B>-h</B>
+
+<DD>
+Specify the height of thumbnail images in pixels.
+<DT><B>-c</B>
+
+<DD>
+Specify a contrast curve to apply in generating the thumbnail images.
+By default pixels values are passed through a linear contrast curve
+that simply maps the pixel value ranges.
+Alternative curves are:
+<B>exp50</B>
+
+for a 50% exponential curve,
+<B>exp60</B>
+
+for a 60% exponential curve,
+<B>exp70</B>
+
+for a 70% exponential curve,
+<B>exp80</B>
+
+for a 80% exponential curve,
+<B>exp90</B>
+
+for a 90% exponential curve,
+<B>exp</B>
+
+for a pure exponential curve,
+<B>linear</B>
+
+for a linear curve.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>BUGS</H2>
+
+There are no options to control the format of the saved thumbnail images.
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="tiffdump+1.html">tiffdump</A></I>(1),
+
+<I><A HREF="tiffgt+1.html">tiffgt</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">BUGS</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

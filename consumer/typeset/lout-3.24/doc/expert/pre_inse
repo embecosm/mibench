@@ -1,0 +1,19 @@
+@Section
+   @Title { "@Insert" }
+   @Tag { insert }
+@Begin
+@PP
+insert.sym @Index { @@Insert symbol }
+The @@Insert symbol inserts its left parameter at the beginning of the
+first paragraph of its right parameter:
+@ID @Code "X @Insert { A B // C // D }"
+is equivalent to
+@ID @Code "{ XA B // C // D }"
+Notice that a zero-width space separates @Code { X } from the first
+paragraph, so if some wider space is required it must be placed at the
+end of @Code { X }.  The @Code "@Insert" operation is applied to the
+value of the right parameter after evaluation.
+@PP
+The only known use for this symbol is to attach something like
+@B { Figure 6 } to the front of a multi-paragraph caption.
+@End @Section

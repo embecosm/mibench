@@ -1,0 +1,25 @@
+Directory lout/doc/design
+
+This directory contains the Lout source files
+for the report entitled `The design and
+implementation of the Lout document formatting
+language'  which appeared in Software--Practice
+and Experience, vol 23, pp1001-1041 (September
+1993).  To produce the report, type the command
+
+	lout all > outfile.ps
+
+in this directory.  This must be done three
+times to completely resolve all cross references,
+although the PostScript file outfile.ps is
+printable after the first run.  Auxiliary files
+with .li and .ld suffixes will be created in
+this directory.  A copy of the final outfile.ps
+is included.
+
+The second and third runs should produce no error
+messages (although changing the paper size might
+produce one or two benign ones).
+
+Jeffrey H. Kingston
+8 October 2000

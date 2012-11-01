@@ -1,0 +1,378 @@
+
+               FREQUENTLY ASKED QUESTIONS ABOUT PGP 2.6.3i
+               *******************************************
+
+                        Last update: 24 April 1996
+
+
+[The following is a list of Frequently Asked Questions about PGPi (the
+international PGP versions) with answers. This document is also available
+in HTML format from http://www.ifi.uio.no/pgp/FAQ.shtml. Comments
+and corrections may be sent to stale@hypnotech.com.]
+
+
+CONTENTS
+
+1. International vs US version
+   1.1. Why create an international PGP version?
+   1.2. What is the latest international version of PGP?
+   1.3. How does PGP 2.6.3i differ from MIT PGP 2.6.2?
+   1.4. How is PGP 2.6.3i compatible with other PGP versions?
+   1.5. What is RSAREF? MPILIB? What is the difference?
+
+2. Legal issues
+   2.1. What does "international" mean? Who may use it?
+   2.2. Why isn't it official? Is it illegal to use?
+   2.3. Can I use PGP 2.6.3i for commercial purposes?
+
+3. Getting it
+   3.1. Where can I get a copy of PGP 2.6.3i?
+   3.2. Is there a Windows version of PGP 2.6.3i?
+   3.3. How can I check the integrity of PGP 2.6.3i?
+   3.4. Where can I get updated language modules for PGP 2.6.3i?
+
+4. Miscellaneous
+   4.1. Isn't PGP 2.6.3i the version that was weakened for export by the NSA?
+   4.2. Are there any bugs in PGP 2.6.3i?
+   4.3. Who is responsible for PGP 2.6.3i?
+   4.4. Where can I learn more about PGP?
+
+
+WHY CREATE AN INTERNATIONAL PGP VERSION?
+
+The official PGP versions from MIT (the latest of which is 2.6.2) were made
+inside the USA and intended for use in the USA alone. Due to special patent
+and copyright issues in the US, these versions contain a number of limitations
+and restrictions that are totally irrelevant for users elsewhere. When PGP
+has spread to the rest of the world, it is only natural that these limitations
+are removed. That's why we have the international PGP versions. :-)
+
+
+WHAT IS THE LATEST INTERNATIONAL VERSION OF PGP?
+
+The latest international version of PGP is 2.6.3i. It was first released on
+18 January 1996. PGP 2.6.3i is based on the source code for MIT PGP 2.6.2
+and modified for international use. PGP 2.6.3i replaced PGP 2.6.2i.
+
+
+HOW DOES PGP 2.6.3i DIFFER FROM MIT PGP 2.6.2?
+
+The following are the most important differences:
+
+  1. It does not use the RSAREF encryption library
+  2. It is compatible with all other PGP 2.x versions
+  3. It corrects a number of bugs present in PGP 2.6.2(i)
+  4. It compiles "out of the box" for many new platforms
+  5. It adds some new features without breaking compatibility with earlier
+     versions
+
+For a complete list of changes, refer to the PGP263I.DIF file in the
+source code distribution.
+
+
+HOW IS PGP 2.6.3i COMPATIBLE WITH OTHER PGP VERSIONS?
+
+PGP 2.6.3i can read and understand messages, keys and signatures created
+with any 2.x version of PGP. (Note, however, that the keys cannot be
+larger than 2048 bits. No official PGP version uses larger keys, though.)
+Because it uses MPILIB rather than RSAREF, PGP 2.6.3i is even capable of
+understanding the old key signature format in PGP 2.2 and earlier versions
+(pkcs_compat=0). It cannot write such signatures, though.
+
+PGP 2.6.3i can generate messages, keys and signatures that can be read
+and understood by any PGP 2.x version of PGP. However, if you want your
+messages to be readable by PGP 2.3a and earlier versions, it is necessary
+to uncomment the "legal_kludge = off" line in your CONFIG.TXT file.
+
+
+WHAT IS RSAREF? MPILIB? WHAT IS THE DIFFERENCE?
+
+RSAREF is a software library that implements the RSA cryptography
+routines. (RSA is one of the encryption routines used in PGP, and the very
+heart of public key encryption.) RSAREF is freeware, and is released by
+RSA Data Security Inc., the patent holder of the RSA algorithm in the US.
+Everyone in the US who wants to make use of RSA in their programs and
+give it away for free (e.g. PGP), must use RSAREF. All official MIT
+versions of PGP, starting with version 2.5, have been using RSAREF.
+
+MPILIB is simply another implementation of the same RSA routines as found
+in RSAREF. The MPILIB routines were originally written by Phil Zimmermann,
+and were used in all PGP versions up to and including version 2.3a.
+Functionally, MPILIB is identical to RSAREF, but the routines are
+generally faster than the RSAREF routines (although the speed difference
+varies between machine platforms). In addition, MPILIB is capable of
+understanding the old key signature format in PGP 2.2 and earlier versions
+(pkcs_compat=0). RSAREF, on the other hand, cannot read such signatures.
+Furthermore, MPILIB is published under the terms of the GPL, whereas
+RSAREF is not.
+
+Please note that PGP 2.6.3i uses MPILIB, _not_ RSAREF. This is the main
+reason why PGP 2.6.3i should not be used within the US. Phil Zimmermann
+said this about PGP 2.6.i, the predecessor to 2.6.3i:
+
+"The unofficial variant of PGP named PGP 2.6.i by its developers
+replaces RSAREF routines with other code implementing RSA-related
+algorithms.  I am very familiar with that code, and while I tried to
+make PGP use RSAREF in a manner that did not suffer a performance
+penalty, I believe that these other subroutines are at least as
+efficient, as well as being functionally identical for PGP's purposes.
+Since the RSA patent does not exist outside the USA, it seems
+reasonable to not encumber European users with the RSAREF subroutine
+library and its own additional copyright restrictions..."
+
+
+WHAT DOES "INTERNATIONAL" MEAN? WHO MAY USE IT?
+
+PGP 2.6.3i was put together to provide an alternative to the American
+versions of PGP, which are distributed by MIT and contain a number of
+restrictions that are not relevant for users outside the USA. In general,
+"international" means "non-US", i.e. it may be used by anyone except
+those who live in the US.
+
+
+WHY ISN'T IT OFFICIAL? IS IT ILLEGAL TO USE?
+
+PGP 2.6.3i is perfectly legal to use provided that you:
+
+  1. Don't live in a country where encryption is illegal (such as France,
+     Russia, Iran, Iraq or China).
+  2. Are not physically inside the USA.
+  3. Make sure that you don't download a copy of PGP that is physically
+     inside the USA.
+
+The reason why PGP 2.6.3i is not official, is that is was based on source
+code that was once illegaly exported from the USA. However, once the
+program has been exported, anyone may use it freely.
+
+
+CAN I USE PGP 2.6.3i FOR COMMERCIAL PURPOSES?
+
+Yes, you can, but you need to buy a separate license for the IDEA algorithm
+used in PGP. (RSA is not patented outside the US, so you don't need a
+license for this algorithm.) IDEA licenses can be purchased from Ascom Systec
+AG in Switzerland. (The licensing of the IDEA algorithm was formerly
+administrated by Ascom Tech, but this responsibility has been transferred to
+Ascom Systec. Please, do not contact Ascom Tech about this matter!) The fee
+is charged on a per-user basis as follows:
+
+    1..  50 users     15 US$ per copy
+   51.. 100 users     10 US$ per copy 
+  101.. 250 users      8 US$ per copy
+  251.. 500 users      7 US$ per copy
+  501..1000 users      6 US$ per copy
+     > 1000 users          on request
+
+The end-user license can be ordered online via WWW:
+
+  http://www.ascom.ch/Web/systec/security/enduser.htm
+
+For more information, contact Licensing Manager Roland Weinhart at:
+
+  Ascom Systec AG
+  IDEA Licensing
+  Gewerbepark
+  CH-5506 Maegenwil
+  Switzerland
+
+  Phone : +41 62 889 59 54
+  Fax   : +41 62 889 59 54
+  Email : idea@ascom.ch
+  WWW   : http://www.ascom.ch/Web/systec/
+
+
+WHERE CAN I GET A COPY OF PGP 2.6.3i?
+
+PGP 2.6.3i is available both as source code and as precompiled binaries
+for some of the most popular platforms, such as MS-DOS, OS/2, Atari,
+Amiga and Macintosh. To obtain a copy of PGP 2.6.3i, try:
+
+WWW:
+  http://www.ifi.uio.no/pgp/
+
+FTP:
+  ftp.ifi.uio.no/pub/pgp/
+  ftp.dsi.unimi.it/pub/security/crypt/PGP/
+  ftp.encomix.es/pub/pgp/
+  ftp.ox.ac.uk/pub/crypto/pgp/
+
+E-mail:
+  Send a message to pgp@hypnotech.com with your request in the
+  Subject field.
+
+  Subject              What you will get
+  -------              -----------------
+  GET pgp263i.zip        MS-DOS executable (uuencoded)
+  GET pgp263ix.zip       32-bit MS-DOS executable (uuencoded)
+  GET pgp263i-os2.zip    OS/2 executable (uuencoded)
+  GET pgp263i-win32.zip  Windows 95/NT text-mode executable (uuencoded)
+  GET Amiga-PGP          Amiga executable (uuencoded)
+  GET Atari-PGP          Atari executable (uuencoded)
+  GET MacPGP             Macintosh executable (HexBin)
+  GET pgp263is.zip       Source code, MS-DOS line feeds (uuencoded)
+  GET pgp263is.tar.gz    Source code, UNIX line feeds (uuencoded)
+  GET MacPGP source      Additional source code for Macintosh (HexBin)
+
+  Note: The uuencoded files are not split in any way, but sent in one
+  portion. Because some of the files are very big (more than 800 kbytes),
+  this may cause problems if your mail system cannot handle messages of
+  this size. If you don't get a reply, this is probably the reason.
+
+
+IS THERE A WINDOWS VERSION OF PGP 2.6.3i?
+
+No. There is no "true" Windows 3.1/NT/95 version of PGP, but there exists
+a number of front-end shells that wrap around the DOS versions. Precompiled
+binaries exist for MS-DOS (16-bit & 32-bit), OS/2, Amiga, Atari and Macintosh.
+There is also a Win32 (Windows 95/NT) compilation, but it's only a text-mode
+application without any fancy GUI.
+
+
+HOW CAN I CHECK THE INTEGRITY OF PGP 2.6.3i?
+
+All the PGP 2.6.3i distribution archives contain a signature file so that
+you can verify that the files have not been tampered with. In order to
+verify the signature, you need the signatory's public key:
+
+Stale Schumacher (0xCCEF447D): source code, MS-DOS, Mac and OS/2 versions
+Peter Simons (0x34D74DC1)    : Amiga version
+Guy Geens (0xAB2A3F25)       : Atari version
+
+All keys are available from a public keyserver. For details, send email to
+pgp-public-keys@keys.pgp.net with HELP as the Subject.
+
+
+WHERE CAN I GET UPDATED LANGUAGE MODULES FOR PGP 2.6.3i?
+
+An updated collection of translation files for both PGP 2.6.3 and 2.6.3i can
+be found at the PGPi Language Page, available via WWW from:
+
+  http://www.ifi.uio.no/pgp/modules.shtml
+
+Alternatively, you can get them via anonymous FTP from:
+
+  ftp.ifi.uio.no/pub/pgp/lang/
+  ftp.encomix.es/pub/pgp/lang/
+  ftp.ox.ac.uk/pub/crypto/pgp/language/
+
+
+ISN'T PGP 2.6.3i THE VERSION THAT WAS WEAKENED FOR EXPORT BY THE NSA?
+
+No. PGP 2.6.3i is just as secure as any other version of PGP. Neither
+Phil Zimmermann, MIT, NSA, myself nor anybody else have put any backdoor
+into PGP 2.6.3i, limited the effecive key size or otherwise done anything
+to compromise the security of the program. If you don't believe it,
+download the source code and see for yourself. The PGP source is free for
+anyone to scrutinize, and has been so for many years now. Still, nobody
+has been able to find any backdoors. Strange, isn't it?
+
+
+ARE THERE ANY BUGS IN PGP 2.6.3i?
+
+No program is 100% error free. Yet PGP 2.6.3i is probably the most bug-
+free PGP version available today. To see a list of known bugs and how to
+fix them, please refer to the PGPi Bugs Page, available via WWW from:
+
+  http://www.ifi.uio.no/pgp/bugs.shtml
+
+To report new bugs, send email to pgp-bugs@ifi.uio.no.
+
+
+WHO IS RESPONSIBLE FOR PGP 2.6.3i?
+
+PGP 2.6.3i was put together and published by Stale Schumacher in Norway.
+However, this work would not have been possible without the help of many
+individuals around the world. The international PGP versions are now
+maintained and supported by an international development team, who
+coordinate their work through an Internet mailing list. If you would like
+to join this list, please contact stale@hypnotech.com.
+
+All questions regarding PGP 2.6.3i should be addressed to
+pgp-bugs@ifi.uio.no. Please note that Phil Zimmermann, MIT and the
+University of Oslo have nothing to do with PGP 2.6.3i. Comments, bug
+reports and suggestions for future releases are welcome.
+
+
+WHERE CAN I LEARN MORE ABOUT PGP?
+
+The README.1ST file in the PGP 2.6.3i distribution covers most of the
+details that are special to the international PGP versions. If you have
+access to WWW, the PGPi Home Page is an excellent starting point for
+further PGP exploration:
+
+  http://www.ifi.uio.no/pgp/
+
+For information on PGP and encryption in general, check out the following
+resources:
+
+Other FAQs:
+
+    PGP Frequently Asked Questions from alt.security.pgp
+      http://www.prairienet.org/~jalicqui/pgpfaq.txt
+      ftp://ftp.prairienet.org/pub/providers/pgp/pgpfaq.txt
+    Where to Get the Latest PGP Program FAQ
+      ftp://ftp.uu.net/usenet/news.answers/pgp-faq/where-is-PGP.Z
+    
+WWW:
+
+    Fran Litterio's PGP Page (from the Virtual Library)
+      http://world.std.com/~franl/pgp/pgp.html
+    The Official Bug List for MIT PGP 2.6.2
+      http://www.mit.edu:8001/people/warlord/pgp-faq.html
+
+FTP:
+
+    ftp://ftp.ifi.uio.no/pub/pgp/
+    ftp://ftp.dsi.unimi.it/pub/security/crypt/PGP/
+    ftp://ftp.ox.ac.uk/pub/crypto/pgp/
+
+Newsgroups:
+
+    alt.anonymous              discussion of anonymity and anon remailers
+    alt.anonymous.messages     for anonymous encrypted message transfer
+    alt.privacy.clipper        Clipper, Capstone, Skipjack, Key Escrow
+    alt.security               general security discussions
+    alt.security.pgp           discussion of PGP
+    alt.security.ripem         discussion of RIPEM
+    alt.security.keydist       key distribution via Usenet
+    alt.society.civil-liberty  general civil liberties, including privacy
+    comp.compression           discussion of compression algorithms
+    comp.org.eff.news          news reports from EFF
+    comp.org.eff.talk          discussion of EFF related issues
+    comp.patents               discussion of S/W patents, including RSA
+    comp.risks                 some mention of crypto and wiretapping
+    comp.society.privacy       general privacy issues
+    comp.security.announce     announcements of security holes
+    misc.legal.computing       software patents, copyrights, computer laws
+    sci.crypt                  methods of data encryption/decryption
+    sci.math                   general math discussion
+    talk.politics.crypto       general talk on crypto politics
+
+Books:
+
+    The Official PGP User's Guide
+    by Philip R. Zimmermann
+      MIT Press 1995 
+      ISBN 0-262-74017-6
+      216 pp. $14.95 
+
+    PGP: Pretty Good Privacy
+    by Simson Garfinkel
+      O'Reilly & Associates 1994
+      ISBN 1-56592-098-8
+      430 pp. $24.95
+
+    Protect Your Privacy: The PGP User's Guide
+    by William Stallings
+      Prentice Hall PTR 1995
+      ISBN 0-13-185596-4
+      302 pp. $19.95
+
+    Applied Cryptography: Protocols, Algorithms, and Source Code in C
+    2nd Edition, by Bruce Schneier
+      Wiley Publishing 1996
+      ISBN 0-471-11709-9
+
+    E-Mail Security: How to Keep Your Electronic Mail Private
+    by Bruce Schneier
+      Wiley Publishing
+      ISBN 0-471-05318-X 

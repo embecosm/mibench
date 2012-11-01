@@ -1,0 +1,466 @@
+@Section
+   @Title { Summary }
+   @Tag { grsummary }
+@Begin
+@PP
+The options to the @Code "@Graph" symbol, their default values, and
+their possible values are:
+@ID -2.1px @Break -1p @Font @Tab
+   hmargin { 0.15c }
+   @Fmta { @Col @Code { "    "A } ! @Col @Code "{" ! @Col @Code B !
+	   @Col @Code "}" ! @Col ! @Col ! @Col C }
+   @Fmtb { @Col @Code A ! @Col ! @Col ! @Col ! @Col ! @Col ! @Col }
+{
+@Rowb
+    A { "@Graph" }
+@Rowa
+    A { style }
+    B { frame }
+    C { {@Code frame}, {@Code axes}, or {@Code none} }
+@Rowa
+    A { width }
+    B { 6.0 cm }
+    C { any @I distance }
+@Rowa
+    A { height }
+    B { 4.0 cm }
+    C { any @I distance }
+@Rowa
+    A { xextra }
+    B { 0.5 cm }
+    C { any @I distance ({@Code axes} and {@Code none} default is {@Code "0 cm"}) }
+@Rowa
+    A { yextra }
+    B { 0.5 cm }
+    C { any @I distance ({@Code axes} and {@Code none} default is {@Code "0 cm"}) }
+@Rowa
+    A { xdecreasing }
+    B { no }
+    C { @Code yes or @Code no }
+@Rowa
+    A { ydecreasing }
+    B { no }
+    C { @Code yes or @Code no }
+@Rowa
+    A { leftcaption }
+    B { }
+    C { any Lout object }
+@Rowa
+    A { rightcaption }
+    B { }
+    C { any Lout object }
+@Rowa
+    A { abovecaption }
+    B { }
+    C { any Lout object }
+@Rowa
+    A { belowcaption }
+    B { }
+    C { any Lout object }
+@Rowa
+    A { leftgap }
+    B { 1.5 cm }
+    C { any @I distance }
+@Rowa
+    A { rightgap }
+    B { 0.5 cm }
+    C { any @I distance }
+@Rowa
+    A { abovegap }
+    B { 0.5 cm }
+    C { any @I distance }
+@Rowa
+    A { belowgap }
+    B { 0.5 cm }
+    C { any @I distance }
+@Rowa
+    A { hidecaptions }
+    B { yes }
+    C { @Code yes or @Code no }
+@Rowa
+    A { xorigin }
+    B { none }
+    C { {@Code none} or any @I number }
+@Rowa
+    A { yorigin }
+    B { none }
+    C { {@Code none} or any @I number }
+@Rowa
+    A { xlog }
+    B { none }
+    C { {@Code none} or any @I number greater than 1 }
+@Rowa
+    A { ylog }
+    B { none }
+    C { {@Code none} or any @I number greater than 1 }
+@Rowa
+    A { xmin }
+    B { none }
+    C { @Code none or any {@I number} }
+@Rowa
+    A { xmax }
+    B { none }
+    C { @Code none or any {@I number} }
+@Rowa
+    A { ymin }
+    B { none }
+    C { @Code none or any {@I number} }
+@Rowa
+    A { ymax }
+    B { none }
+    C { @Code none or any {@I number} }
+@Rowa
+    A { xticksep }
+    B { none }
+    C { {@Code none} or any @I number greater than 0 }
+@Rowa
+    A { yticksep }
+    B { none }
+    C { {@Code none} or any @I number greater than 0 }
+@Rowa
+    A { rticksep }
+    B { none }
+    C { {@Code none} or any @I number greater than 0 }
+@Rowa
+    A { xticks }
+    B { auto  }
+    C { @I sequence (of numbers and strings), or @Code auto meaning
+automatic }
+@Rowa
+    A { yticks }
+    B { auto }
+    C { @I sequence (of numbers and strings), or @Code auto meaning
+automatic }
+@Rowa
+    A { rticks }
+    B { }
+    C { @I sequence (of numbers and strings), or @Code auto meaning
+automatic }
+@Rowa
+    A { xticklength }
+    B { 0.5 ft }
+    C { any @I distance }
+@Rowa
+    A { yticklength }
+    B { 0.5 ft }
+    C { any @I distance }
+@Rowa
+    A { rticklength }
+    B { 0.5 ft }
+    C { any @I distance }
+@Rowa
+    A { objects }
+    B { }
+    C { sequence of {@Code "@CTR"}, {@Code "@NW"}, {@Code "@SW"}, {@Code "@SE"},
+{@Code "@NE"}, {@Code "@N"}, {@Code "@W"}, {@Code "@S"}, {@Code "@E"} symbols }
+@Rowa
+    A { points }
+    B { none }
+    C { {@Code none}, {@Code plus}, {@Code cross}, {@Code square},
+{@Code filledsquare}, {@Code diamond}, {@Code filleddiamond},
+{@Code circle}, {@Code filledcircle}, {@Code triangle}, {@Code filledtriangle} }
+@Rowa
+    A { pairs }
+    B { none }
+    C { {@Code none}, {@Code solid}, {@Code dashed}, {@Code dotted},
+{@Code yhisto}, {@Code xhisto}, {@Code filledyhisto}, {@Code filledxhisto},
+{@Code surfaceyhisto}, {@Code surfacexhisto} }
+@Rowa
+    A { "colour/color" }
+    B { none }
+    C { {@Code none} or any colour name from Section {@NumberOf colour}}
+@Rowa
+    A { paint }
+    B { no }
+    C { {@Code no} or {@Code yes} }
+@Rowa
+    A { dataformat }
+    B { xandy }
+    C { {@Code xandy}, {@Code yonly}, {@Code xonly} }
+@Rowa
+    A { dashlength }
+    B { 0.2 ft }
+    C { any @I distance }
+@Rowa
+    A { linewidth }
+    B { 0.5 pt }
+    C { any @I distance }
+@Rowa
+    A { symbolsize }
+    B { 0.15 ft }
+    C { any @I distance }
+}
+@I Number means an ordinary decimal number; @I distance means a number
+followed by at least one space followed by any one of the following
+units of measurement:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { cm }
+    B { centimetres }
+@Rowa
+    A { in }
+    B { inches }
+@Rowa
+    A { em }
+    B { Ems (12 ems = 1 inch) }
+@Rowa
+    A { pt }
+    B { Points (72 points = 1 inch) }
+@Rowa
+    A { ft }
+    B { @Code "1 ft" is the size of the current font }
+@Rowa
+    A { sp }
+    B { @Code "1 sp" is the width of the space character in the current font }
+@Rowa
+    A { vs }
+    B { @Code "1 vs" is the current inter-line spacing }
+}
+In general, numbers denote x or y values while distances denote lengths
+on the printed result.
+@PP
+The minimum plottable x value is the minimum of all the x data,
+{@Code xticks}, {@Code xorigin}, {@Code xmin}, and {@Code xmax} whenever
+these are not {@Code none}.  If @Code xticks is {@Code none}, this
+minimum may be reduced further to a `round' number.  The maximum plottable
+x value is the maximum of the same values, and it may be increased further
+if {@Code xticks} is {@Code none}.  Similar remarks apply to y values.
+@PP
+The value of the @Code "objects" option is a sequence of zero or more of
+the following:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A ! @Col { @Code "at {" @I expression @I expression
+@Code "}" } ! @Col @I object }
+{
+@Rowa A { @Code "@CTR" }
+@Rowa A { @Code "@NW"  }
+@Rowa A { @Code "@SW"  }
+@Rowa A { @Code "@SE"  }
+@Rowa A { @Code "@NE"  }
+@Rowa A { @Code "@N"   }
+@Rowa A { @Code "@W"   }
+@Rowa A { @Code "@S"   }
+@Rowa A { @Code "@E"   }
+}
+where @I object is an arbitrary Lout object.  Each of these nine symbols
+also has a @Code "margin" option whose value may be any non-negative
+distance, with default value {@Code "0.3 ft"}.
+@PP
+The options to the @Code "@Data" symbol, their default values, and
+their possible values are:
+@ID 0.85vx @Break @Tab
+   hmargin { 0.15c }
+   @Fmta { @Col @Code { "    "A } ! @Col @Code "{" ! @Col @I inherited !
+	   @Col @Code "}" ! @Col ! @Col ! @Col C }
+   @Fmtb { @Col A ! @Col ! @Col ! @Col ! @Col ! @Col ! @Col }
+{
+@Rowb
+    A { @Code "@Data" }
+@Rowa
+    A { points }
+    C { {@Code none}, {@Code plus}, {@Code cross}, {@Code square},
+{@Code filledsquare}, {@Code diamond}, {@Code filleddiamond},
+{@Code circle}, {@Code filledcircle},
+{@Code triangle}, {@Code filledtriangle} }
+@Rowa
+    A { pairs }
+    C { {@Code none}, {@Code solid}, {@Code dashed}, {@Code dotted},
+{@Code yhisto}, {@Code xhisto}, {@Code filledyhisto}, {@Code filledxhisto},
+{@Code surfaceyhisto}, {@Code surfacexhisto} }
+@Rowa
+    A { "colour/color" }
+    C { {@Code none}, or any colour name from Section {@NumberOf colour} }
+@Rowa
+    A { paint }
+    C { {@Code no} or {@Code yes} }
+@Rowa
+    A { dataformat }
+    C { {@Code xandy}, {@Code yonly}, {@Code xonly} }
+@Rowa
+    A { dashlength }
+    C { any @I distance }
+@Rowa
+    A { linewidth }
+    C { any @I distance }
+@Rowa
+    A { symbolsize }
+    C { any @I distance }
+@Rowb
+    A { @Code "{" @I sequence @Code "}" }
+    C { any @I sequence }
+}
+@I Inherited means that the default value is taken from the
+@Code "@Graph" option with the same name.
+@PP
+The right parameter of @Code "@Data" contains a @I sequence of zero
+or more {@I expressions}.  The {@Code xticks}, {@Code yticks}, and
+{@Code rticks} options also are sequences, which may contain @Code "@"
+and labels as well as expressions.  An @I expression is any of the
+following (operators are shown in decreasing precedence order, with
+the precedence, if relevant, at right):
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A ! @Col ! @Col B }
+{
+@Rowa
+    A { @I number }
+@Rowa
+    A { @Code x   (within @Code xloop only) }
+@Rowa
+    A { @Code y   (within @Code yloop only) }
+@Rowa
+    A { @Code z   (within @Code zloop only) }
+@Rowa
+    A { @Code pi }
+@Rowa
+    A { @Code e }
+@Rowa
+    A { @Code "{" @I expression @Code "}" }
+@Rowa
+    A { @Code "sqrt" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "abs" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "ceiling" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "floor" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "truncate" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "round" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "cos" @I expression }
+    B { 40 }
+@Rowa
+    A { @Code "sin" @I expression }
+    B { 40 }
+@Rowa
+    A { @I expression @Code "atan" @I expression }
+    B { 39 }
+@Rowa
+    A { @I expression @Code "exp" @I expression }
+    B { 38 }
+@Rowa
+    A { @I expression @Code "log" @I expression }
+    B { 37 }
+@Rowa
+    A { @I expression @Code "rand" @I expression }
+    B { 36 }
+@Rowa
+    A { @I expression @Eq { non * } @I expression }
+    B { 35 }
+@Rowa
+    A { @I expression @Code "/" @I expression }
+    B { 34 }
+@Rowa
+    A { @I expression @Code "idiv" @I expression }
+    B { 34 }
+@Rowa
+    A { @I expression @Code "mod" @I expression }
+    B { 34 }
+@Rowa
+    A { @I expression @Eq { non - } @I expression }
+    B { 33 }
+@Rowa
+    A { @Eq { non - } @I expression }
+    B { 33 }
+@Rowa
+    A { @I expression @Code "+" @I expression }
+    B { 32 }
+@Rowa
+    A { @Code "+" @I expression }
+    B { 32 }
+@Rowa
+   A { @Code "if cond {" @I boolean @Code "} then {" @I expression
+@Code "} else {" @I expression @Code "}" }
+}
+A @Eq { non - } immediately followed by a digit or decimal point is
+always taken to be a minus sign, never a subtraction.  The left
+parameter of @Code "exp" and @Code "log" is the base of the
+exponentiation and logarithm respectively; @Code "idiv" is integer
+division; and @Code "rand" returns a uniform random integer lying between
+its two parameters (inclusive).  Now a @I sequence is zero or more of
+the following:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A }
+{
+@Rowa
+   A { 2c @Wide "@" (within {@Code xticks}, {@Code yticks}, and {@Code rticks} only) }
+@Rowa
+   A { 2c @Wide { ({@I label}) } (within {@Code xticks}, {@Code yticks}, and {@Code rticks} only) }
+@Rowa
+   A { @I expression }
+@Rowa
+   A { @Code "xloop from {" @I expression @Code "} to {" @I expression
+@Code "} by {" @I expression @Code "} do {" @I sequence @Code "}" }
+@Rowa
+   A { @Code "yloop from {" @I expression @Code "} to {" @I expression
+@Code "} by {" @I expression @Code "} do {" @I sequence @Code "}" }
+@Rowa
+   A { @Code "zloop from {" @I expression @Code "} to {" @I expression
+@Code "} by {" @I expression @Code "} do {" @I sequence @Code "}" }
+@Rowa
+   A { @Code "if cond {" @I boolean @Code "} then {" @I sequence
+@Code "} else {" @I sequence @Code "}" }
+}
+The @Code "by" part of the loop symbols is optional with default
+value 1; the @Code "else" part of @Code "if" is optional with
+default value equal to the empty sequence.  A @I boolean is any one of
+the following things, again shown in decreasing precedence order, with
+the precedence at right:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A ! @Col ! @Col B }
+{
+@Rowa
+    A { @Code true }
+@Rowa
+    A { @Code false }
+@Rowa
+    A { @Code "{" @I boolean @Code "}" }
+@Rowa
+    A { @I expression @Code = @I expression }
+    B { 30 }
+@Rowa
+    A { @I expression @Code != @I expression }
+    B { 30 }
+@Rowa
+    A { @I expression @Code < @I expression }
+    B { 30 }
+@Rowa
+    A { @I expression @Code <= @I expression }
+    B { 30 }
+@Rowa
+    A { @I expression @Code > @I expression }
+    B { 30 }
+@Rowa
+    A { @I expression @Code >= @I expression }
+    B { 30 }
+@Rowa
+    A { @Code not @I boolean }
+    B { 25 }
+@Rowa
+    A { @I boolean @Code and @I boolean }
+    B { 24 }
+@Rowa
+    A { @I boolean @Code xor @I boolean }
+    B { 23 }
+@Rowa
+    A { @I boolean @Code or @I boolean }
+    B { 22 }
+@Rowa
+   A { @Code "if cond {" @I boolean @Code "} then {" @I boolean
+@Code "} else {" @I boolean @Code "}" }
+}
+@End @Section

@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# script to compile ANSI source with a K&R compiler and unproto.
+#
+
+while :
+do
+	case $1 in
+		-c)	;;
+		-o)	shift ;;
+		*.c)	break ;;
+		*)	arg="$arg $1" ;;
+	esac
+	shift
+done
+
+set -e
+
+f=$1
+shift
+b=`basename $f .c`
+
+cc -E $arg $f | unproto/unproto >${b}.i 
+cc -c $arg ${b}.i $*
+rm ${b}.i

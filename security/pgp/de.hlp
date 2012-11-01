@@ -1,0 +1,138 @@
+Hier eine Kurzübersicht über die Befehle von PGP 2.6.3(i):
+==========================================================
+
+Zum Verschlüsseln eines Klartextes mit dem öffentlichen Schlüssel des
+Empfängers:
+     pgp -e  {Textdatei}  {seine Benutzer-ID}
+
+Zum Unterschreiben eines Klartextes mit Deinem privaten Schlüssel:
+     pgp -s  {Textdatei}  [-u {Deine Benutzer-ID}]
+
+Zum Unterschreiben eines Klartextes mit Deinem privaten Schlüssel und
+anschließendem Verschlüsseln des Klartextes mit dem öffentlichen
+Schlüssel des Empfängers:
+     pgp -es  {Textdatei}  {seine Benutzer-ID}  [-u {Deine Benutzer-ID}]
+
+Zum Verschlüsseln eines Klartextes nur mit herkömmlicher Verschlüsselung
+(keine Verwendung öffentlicher Schlüssel, sondern gleicher Schlüssel zum
+Ver- und Entschlüsseln):
+     pgp -c  {Textdatei}
+
+Zum Entschlüsseln einer verschlüsselten Datei oder um die Echtheit
+einer Unterschrift einer unterschriebenen Datei zu prüfen:
+     pgp  {verschlüsselte Datei}  [-o {Klartextdatei}]
+
+Um eine Nachricht für beliebig viele Empfänger zu verschlüsseln:
+     pgp -e  {Textdatei}  {Benutzer-ID1}  {Benutzer-ID2}  {Benutzer-ID3} ...
+
+Um weitere Empfänger-IDs für eine Nachricht aus einer Datei einzulesen
+(z.B. für Mailinglisten etc.), die Option -@ benutzen:
+     pgp -e  {Textdatei}  [{Benutzer-ID1} ... ]  -@ {Datei mit weiteren IDs}
+
+
+Kommandos zur Schlüsselverwaltung:
+----------------------------------
+
+Um Dein eigenes, einzigartiges Schlüsselpaar aus öffentlichem und
+privatem Schlüssel herzustellen:
+     pgp -kg
+
+Zum Hinzufügen eines öffentlichen oder privaten Schlüssels in Deinen
+öffentlichen oder privaten Schlüsselbund:
+     pgp -ka  {Datei mit neuen Schlüsseln}  [{Schlüsselbund}]
+
+Zum Herauskopieren eines Schlüssels aus Deinem öffentlichen oder
+privaten Schlüsselbund:
+     pgp -kx   {Benutzer-ID}  {Datei mit Schlüssel}  [{Schlüsselbund}]
+bzw. pgp -kxa  {Benutzer-ID}  {Datei mit ASCII-Schlüssel}  [{Schlüsselbund}]
+
+Zum Anzeigen des Inhalts Deines öffentlichen Schlüsselbunds:
+     pgp -kv[v]  [{Benutzer-ID}]  [{Schlüsselbund}]
+
+Zum Anzeigen des "Fingerabdrucks" eines öffentlichen Schlüssels, um ihn
+z.B. über Telefon mit seinem Besitzer besser vergleichen zu können:
+     pgp -kvc  [{Benutzer-ID}]  [{Schlüsselbund}]
+
+Zum Anzeigen des Inhalts und zur Überprüfung der Beglaubigungsunterschriften
+Deines öffentlichen Schlüsselbunds:
+     pgp -kc  [{Benutzer-ID}]  [{Schlüsselbund}]
+
+Zum Bearbeiten der Benutzer-ID oder des Mantras für Deinen privaten
+Schlüssel:
+     pgp -ke  {Deine Benutzer-ID}  [{privater Schlüsselbund}]
+
+Zum Bearbeiten der "Vertrauensparameter" eines öffentlichen Schlüssels:
+     pgp -ke  {Benutzer-ID}  [{Schlüsselbund}]
+
+Zum Entfernen eines Schlüssels oder nur einer Benutzer-ID aus Deinem
+öffentlichen Schlüsselbund:
+     pgp -kr  {Benutzer-ID}  [{Schlüsselbund}]
+
+Zum Unterschreiben und Beglaubigen des öffentlichen Schlüssels von
+jemand anderem in Deinem öffentlichen Schlüsselbund:
+     pgp -ks  {seine Benutzer-ID} [-u {Deine Benutzer-ID}] [{Schlüsselbund}]
+
+Zum Entfernen ausgewählter Unterschriften einer Benutzer-ID aus einem
+Schlüsselbund:
+     pgp -krs  {Benutzer-ID}  [{Schlüsselbund}]
+
+Zum dauerhaften Zurückziehen Deines eigenen Schlüssels durch
+Veröffentlichung einer "Schlüssel-Widerrufs-Urkunde":
+     pgp -kd  {Deine Benutzer-ID}
+
+Zum Sperren oder Freigeben eines öffentlichen Schlüssels in Deinem
+eigenen öffentlichen Schlüsselbund:
+     pgp -kd  {Benutzer-ID}
+
+
+Esoterische Kommandos:
+----------------------
+
+Zum Entschlüsseln einer Nachricht, ihre Unterschrift bleibt intakt:
+     pgp -d  {verschlüsselte Datei}
+
+Zum Erstellen einer Unterschriftsbescheinigung, die vom unterschriebenen
+Dokument getrennt ist:
+     pgp -sb  {Textdatei}  [-u {Deine Benutzer-ID}]
+
+Zum Trennen einer Unterschriftsbescheinigung vom unterschriebenen Dokument:
+     pgp -b  {verschlüsselte Datei}
+
+
+Kommandooptionen, die in Verbindung mit anderen Kommandooptionen benutzt
+werden können (manchmal ergeben sich recht interessante englische Worte!):
+--------------------------------------------------------------------------
+
+Zur Herstellung eines verschlüsselten Textes im ASCII-radix-64-Format
+einfach den Schalter -a anhängen, wenn ein Dokument verschlüsselt oder
+unterschrieben bzw. wenn ein Schlüssel entnommen wird:
+     pgp -sea  {Textdatei}  {seine Benutzer-ID}
+bzw. pgp -kxa  {Benutzer-ID}  {Datei mit Schlüssel}  [{Schlüsselbund}]
+
+Zum Löschen durch Überschreiben der Klartextdatei ("wipe out") nach der
+Herstellung der verschlüsselten Datei oder dem Unterschreiben die Option
+-w benutzen:
+     pgp -sew  {klartext.txt}  {seine Benutzer-ID}
+
+Um festzulegen, daß eine Klartextdatei ASCII-Text und keine Binärdaten
+enthält, und daß sie beim Empfänger gemäß seiner Textdarstellungskonven-
+tionen angezeigt werden soll, die Option -t (Text) an andere Optionen
+anfügen:
+     pgp -seat  {klartext.txt}  {seine Benutzer-ID}
+
+Zum Anzeigen des entschlüsselten Klartextes auf Deinem Monitor, ohne ihn
+in eine Datei zu schreiben, die Option -m (More) benutzen:
+     pgp -m  {verschlüsselte Datei}
+
+Um festzulegen, daß der entschlüsselte Klartext dem Empfänger *NUR* auf
+seinem Bildschirm angezeigt wird und nicht auf Diskette gesichert werden
+kann, die Option -m anhängen:
+     pgp -steam  {klartext.txt}  {seine Benutzer-ID}
+
+Zum Wiederherstellen des Original-Dateinamens beim Entschlüsseln die
+Option -p verwenden:
+     pgp -p  {verschlüsselte Datei}
+
+Um den Unix-ähnlichen Filterbetrieb zu benutzen (Lesen von der Standard-
+eingabe und Schreiben auf die Standardausgabe) die Option -f anfügen:
+     pgp -feast  {seine Benutzer-ID}  < {Eingabedatei}  > {Ausgabedatei}

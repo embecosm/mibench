@@ -1,0 +1,31 @@
+@Preface
+   @Tag { preface }
+@Begin
+@PP
+@IndexBlanks
+This manual is addressed to those who wish to become
+expert users of the Lout document formatting system.  An expert user
+is someone who understands the principles of document formatting
+that Lout embodies, and is able to apply them, for example to design
+a document format or a special-purpose package.  In contrast, a non-expert
+user is someone who simply uses Lout to format documents.
+@PP
+Chapter {@NumberOf principles} explains these principles, and it
+should be read carefully and in sequence.  Chapters {@NumberOf details}
+and {@NumberOf symbols} are for reference; respectively, they
+contain descriptions of the detailed operation of Lout's major
+components, and a complete description of each predefined symbol.  The
+final chapter presents a collection of advanced examples.
+@PP
+This manual presents Version 3 of Basser Lout, publicly released in
+September 1994 @Cite { $kingston1995lout.program } and developed
+continuously since then.  This manual was rendered into PostScript
+postscript @Index { PostScript }
+by Version 3.24 of the Basser Lout interpreter, using the symbols
+described in the User's Guide @Cite { $kingston1995lout.user }.
+@DP
+@Heading { Acknowledgment. }  Version 3 has benefited from hundreds of
+comments received since the release of Version 1 in October 1991.  Not
+every suggestion could be followed, but many have been, and the
+encouragement was greatly appreciated.
+@End @Preface

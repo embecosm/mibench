@@ -1,0 +1,14 @@
+Compile Instructions
+--------------------
+1)  Change directories to mad-0.14.2b.
+2)  Type "./configure" to configure the Makefile for your system.
+3)  Type "make".  This will create the executables used by the scripts. If
+    this doesn't work see the mad-0.14.2b/INSTALL file for details on how
+    to fix or modify the install process.
+
+Clean Instructions
+------------------
+1)  Change directories to mad-0.14.2b.
+2)  Type "make distclean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

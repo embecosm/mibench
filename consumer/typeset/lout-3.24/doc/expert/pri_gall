@@ -1,0 +1,279 @@
+@Section
+   @Title { Galleys }
+   @Tag { galleys }
+@Begin
+@PP
+It is time to pause and ask ourselves how close we are to achieving our
+aim of producing neatly formatted documents.  We can certainly produce
+the pieces of a document:
+@ID {
+
+nohyphen @Break @LittlePageColumn {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@DP
+In the world of music England is supposed to be a mere province.  If she
+produces an indifferent composer or performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign students of
+musical history have to acknowledge a British musical genius, he is
+considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}
+
+||1c
+
+@LittlePageColumn
+{ { 0.8f @Font 1 ^//0.2v}Blom, Eric.  @I {Some Great Composers.}  Oxford, 1944.
+}
+
+||1c
+
+@Code {
+       @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//0.2c 8p @Font "@PageList"
+}
+
+}
+but when we try to merge them together, we encounter two obstacles.
+@PP
+First, when an object is entered at a certain place in the document, it
+appears at that place.  But a footnote is naturally entered immediately
+after the point it refers to (`{-2p @Font PURCELL}' in this case), yet it
+appears somewhere else: at the bottom of a page.
+@PP
+Second, all our features build up larger objects out of smaller ones,
+but the -2p @Font PURCELL object, for example, must be broken down into
+page-sized pieces.  This occurs when the available space at the
+`somewhere else' is insufficient to hold the entire object, so this
+second obstacle arises out of the first.
+@PP
+Lout's last major feature, which we introduce to overcome these
+obstacles, is the @I galley
+galley.feature @Index { Galleys }
+(the name is borrowed from the galleys
+used in manual typesetting).  A galley is an object plus a cross
+reference which points to where the object is to appear.  The example
+above has three galleys:
+@ID {
+
+{
+//0.1c
+
+nohyphen @Break @LittlePageColumn {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@DP
+In the world of music England is supposed to be a mere province.  If she
+produces an indifferent composer or performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign students of
+musical history have to acknowledge a British musical genius, he is
+considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}  { //0.4c 180d @Rotate @Arrow 2.0c }
+
+}
+
+||0io ||4.8c
+
+@Code {
+       @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//0.2c 8p @Font "@PageList"
+}  180d @Rotate @Arrow 1i @I -2p @Font {to printer}
+
+||0io ||2.0c
+{
+//3.9c
+
+{ @Arrow 1.7c }  nohyphen @Break @LittlePageColumn
+{ { 0.8f @Font 1 ^//0.2v}Blom, Eric.  @I {Some Great Composers.}  Oxford, 1944.
+}
+}
+}
+A galley replaces the invocation pointed to by its cross reference.  If
+space is not sufficient there to hold it all, the remainder of the
+galley is split off (the vertical concatenation symbol preceding it
+being discarded) and it replaces later invocations of the same symbol.
+This is exactly what is required to get text and footnotes onto pages.
+@PP
+To create a galley, first define a symbol with a
+special @Code into
+into @Index { @Code into clause }
+clause, like this:
+@ID @OneRow @Code {
+"def @FootNote into { @FootPlace&&following }"
+"   right x"
+"{"
+"   8p @Font x"
+"}"
+}
+An invocation of such a symbol will then be a galley whose object is the
+result of the invocation, and whose cross reference is given by the
+@Code into clause.  The right parameter of the cross reference must be
+one of {@Code preceding}, {@Code following}, and {@Code foll_or_prec}.
+@PP
+A symbol, like @Code "@FootPlace", which is the @I target of a galley,
+target.g @Index { Target of a galley }
+must contain the special symbol @@Galley exactly once in its body; often
+this is all that the body contains:
+@ID @Code {
+"def  @FootPlace  {  @Galley  }"
+}
+It is this special symbol that is replaced by the incoming galley, in
+fact, not the @Code "@FootPlace" symbol as a whole.
+@PP
+A symbol which contains @@Galley, either directly within its body or
+indirectly within the body of a symbol it invokes, is called a @I receptive
+receptive @Index { Receptive symbol }
+symbol, meaning receptive to galleys.  @Code "@FootPlace" is receptive, which
+makes @Code "@FootList", @Code "@FootSect" and @Code "@PageList"
+receptive since they invoke @Code "@FootPlace".  If no galley replaces
+any @@Galley within some invocation of a receptive symbol, that
+invocation is replaced by @@Null.  The advantages of this rule for page
+layout were explained at the end of Section {@NumberOf definitions}.
+@PP
+Let us now follow through the construction of our example
+document.  Initially there is just the one @I root
+root.galley @Index { Root galley }
+galley, containing an unexpanded invocation of @Code "@PageList":
+@ID { ||5c
+10p @Font @Code "@PageList"  180d @Rotate @Arrow 1i @I -2p @Font {to printer}
+}
+Then the -2p @Font PURCELL galley appears, targeted to a @Code
+"@TextPlace".  Lout knows that there is a @Code "@TextPlace" hidden
+inside @Code "@PageList", so it expands @Code "@PageList":
+@ID {
+
+{
+//0.1c
+
+nohyphen @Break @LittlePageColumn {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@DP
+In the world of music England is supposed to be a mere province.  If she
+produces an indifferent composer or performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign students of
+musical history have to acknowledge a British musical genius, he is
+considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}  { //0.4c 180d @Rotate @Arrow 2.2c }
+}
+
+||0io ||5c
+
+@Code {
+       @LittlePage { "@TextPlace" //1rt "@FootSect" }
+//0.2c 8p @Font "@PageList"
+}  180d @Rotate @Arrow 1i @I -2p @Font {to printer}
+
+}
+After promoting the first line into @Code "@TextPlace", the footnote
+galley attached to it appears and demands an invocation of
+@Code "@FootPlace" following its attachment point
+(`{-2p @Font PURCELL}').  Such a @Code "@FootPlace" is found at
+the bottom of the first page, inside @Code "@FootSect", which is
+accordingly expanded, and the footnote is promoted onto the page:
+@ID {
+
+{
+//1.2c
+
+nohyphen @Break @LittlePageColumn {
+In the world of music England is supposed to be a mere province.  If she
+produces an indifferent composer or performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign
+students of musical history have to acknowledge a British musical genius,
+he is considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}  180d @Rotate @Arrow 2.2c
+}
+
+||0io ||5c
+
+{
+nohyphen @Break @LittleDocument
+//
+@LittleText {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@LittleFootNote
+{ { 0.8f @Font 1 ^//0.2v}Blom, Eric.  @I {Some Great Composers.}  Oxford, 1944.
+//1vx @Code "@FootList"
+}
+//1vx @Code "@TextPlace" }
+//
+@LittleEndRun
+//0.2c 8p @Font @Code "@PageList"
+}  180d @Rotate @Arrow 1i -2p @Font @I {to printer}
+
+}
+Now the promotion of the -2p @Font PURCELL galley resumes.  When the
+first page is filled, Lout searches forwards for another @Code "@TextPlace"
+to receive the remainder, once again expanding a @Code "@PageList":
+@ID {
+
+{
+//4.85c
+
+nohyphen @Break @LittlePageColumn {
+performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign
+students of musical history have to acknowledge a British musical genius,
+he is considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}  180d @Rotate @Arrow 2.2c
+}
+
+||0io ||5c
+
+{
+nohyphen @Break @LittleDocument
+//
+@LittleText {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@LittleFootNote
+{ { 0.8f @Font 1 ^//0.2v}Blom, Eric.  @I {Some Great Composers.}  Oxford, 1944.
+}
+@DP
+      @HExpand {In the world of music}
+//1vx @HExpand {England is supposed to}
+//1vx @HExpand {be a mere province.  If}
+//1vx @HExpand {she produces an indifferent composer or}
+}
+//
+@LittleEndRun
+//     @LittlePage { @Code "@TextPlace" //1rt @Code "@FootSect" }
+//0.2c 8p @Font @Code "@PageList"
+}  180d @Rotate @Arrow 1i -2p @Font @I {to printer}
+
+}
+and so on.  All these expansions and replacements are done with total
+integrity.  For example, if Lout finds after expanding @Code "@FootSect"
+that the page is too full to accept even the first line of the footnote,
+@Code "@FootSect" is reset to unexpanded and the search for a target for
+the footnote moves on.  And the cross reference direction, @Code
+preceding or @Code following, is always obeyed (although lack of space
+sometimes prevents Lout from choosing the nearest target).  Only the
+root galley contains receptive symbols in our running example, but
+any galley may contain them.
+@End @Section

@@ -1,0 +1,372 @@
+@SubSection
+    @Tag { flushing }
+    @Title { The galley flushing algorithm }
+@Begin
+@PP
+Galley components are promoted one by one into the point of appearance in
+the dynamic parent galley, then carried along with it, ultimately to the
+root galley and the output file.  This process is called @I galley
+{@I flushing}: the galleys are rivers running together to the sea, and
+each component is a drop of water.
+@PP
+Here is a snapshot of a small dynamic tree, based on the @Code "@PageList"
+definitions of Section {@NumberOf recursion}:
+@ID @Fig {
+
+@I 10p @Font { output file } A:: @Box linestyle { noline } margin { 0c }
+
+||2c
+
+{
+@I 10p @Font { root galley }
+//0.2c
+B:: @Box margin { 0c } linestyle { noline }
+//
+@LittlePage {
+|0.5rt - 1 -
+//1.2vx &2m A small
+//1.2vx @Code "@Galley" * C:: @Box margin { 0.01c } linestyle { noline }
+//1rt @Code "@FootSect"
+}
+//
+@Box margin { 0.3c } 2.8c @Wide 8p @Font @Code "@PageList 2"
+}
+
+||2c
+
+{
+//0.9c  @I 10p @Font { body text }
+//0.2c  D:: @Box margin { 0.3c } 2.8c @Wide 8p @Font paragraph
+//      @Box margin { 0.3c } 2.8c @Wide 8p @Font { of text. }
+//      @Box margin { 0.3c } 2.8c @Wide @Code 8p @Font "@Input"
+}
+
+// @Arrow from { B@W } to { A@E }
+// @Arrow from { D@W } to { C@E }
+
+}
+The components of the body text galley are lines, except for the special
+receptive symbol @Code "@Input" which is a placeholder for as yet unread
+input (Section {@NumberOf lookahead}).  The components of the root galley are
+pages, except for the concluding unexpanded invocation of {@Code "@PageList"},
+which is an inexhaustible source of more pages, expanded on demand.
+@PP
+The concrete data structure used by Basser Lout permits the galley
+flushing algorithm to navigate the dynamic tree and find significant
+features quickly:
+@ID 10p @Font @Fig maxlabels { 100 } {
+
+A:: @Ellipse @I { HEAD }
+
+||1.5c
+
+@OneCol @OneRow {
+B:: @Ellipse @I { RECEIVING * }
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@W  A@CIRCUM} } to { B@W  }
+//0.6c
+C:: @Ellipse @I { RECEPTIVE }
+// @Arrow from { A@CTR ++ {A@CTR @Angle C@W  A@CIRCUM} } to { C@W  }
+//0.6c
+D:: @Box margin { 0c } linestyle { noline }
+// @Arrow from { A@CTR ++ {A@CTR @Angle D@NW  A@CIRCUM} } to { D@NW  }
+//
+@LittlePage {
+|0.5rt - 1 -
+//1.2vx &2m A small
+//1.2vx  E:: @Box margin { 0c } linestyle { noline } @Code "@Galley "
+//1rt    F:: @Box margin { 0c } linestyle { noline } @Code "@FootSect "
+}
+// @FunnyArrow arrow { forward } from { B@E } to { E@E }
+// @FunnyArrow arrow { forward } from { C@E } to { F@E }
+//0.6c
+C:: @Ellipse @I { GAP }
+// @Arrow from { A@CTR ++ {A@CTR @Angle C@W  A@CIRCUM} } to { C@W  }
+//0.6c
+C:: @Ellipse @I { RECEPTIVE }
+// @Arrow from { A@CTR ++ {A@CTR @Angle C@W  A@CIRCUM} } to { C@W  }
+//0.6c
+D:: @Box margin { 0.3c } 2.8c @Wide 8p @Font @Code "@PageList 2"
+//  @Arrow from { A@CTR ++ {A@CTR @Angle D@NW  A@CIRCUM} } to { D@NW  }
+//  @FunnyArrow from { C@E } to { D@W ++ { 1.8 cm 0 } }
+}
+
+||1.0c
+
+A:: @Ellipse @I { HEAD }
+& @Arrow from { B@E } to { A@W }
+
+||1.5c
+
+@OneCol @OneRow {
+B:: @Box margin { 0.3c } 2.8c @Wide 8p @Font paragraph
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@W A@CIRCUM} } to { B@W }
+//0.6c
+B:: @Ellipse @I { GAP }
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@W A@CIRCUM} } to { B@W }
+//0.6c
+B:: @Box margin { 0.3c } 2.8c @Wide 8p @Font { of text. }
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@NW A@CIRCUM} } to { B@NW }
+//0.6c
+B:: @Ellipse @I { GAP }
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@W A@CIRCUM} } to { B@W }
+//0.6c
+B:: @Ellipse @I { RECEPTIVE }
+// @Arrow from { A@CTR ++ {A@CTR @Angle B@W A@CIRCUM} } to { B@W }
+//0.6c
+C:: @Box margin { 0.3c } 2.8c @Wide 8p @Font @Code "@Input"
+// @Arrow from { A@CTR ++ {A@CTR @Angle C@NW A@CIRCUM} } to { C@NW }
+// @FunnyArrow from { B@E } to { C@W ++ { 1.2 cm 0 } }
+}
+
+}
+Each galley has a @Eq { HEAD } node whose children are its component
+objects, separated by @Eq { GAP } nodes recording the inter-component
+gaps.
+@PP
+Each component is preceded by zero or more @I {galley index nodes} of
+various types.  Every receptive symbol has a @Eq { RECEPTIVE } index pointing
+to it, so that it can be found without searching through its
+component.  If the symbol is currently the target of a galley, it has a
+@Eq { RECEIVING } index instead which is also linked to the incoming
+galley.  Galleys that are currently without a target are linked to the
+dynamic tree by @Eq { UNATTACHED } galley indexes, either just after their
+most recent target if there has been one, or else at their point of
+invocation.
+@PP
+Each galley should be thought of as a concurrent process, although the
+implementation in C uses coroutines implemented by procedures.  A galley
+may promote its first component only if it has a target, sufficient space
+is available at the target to receive the component, and the component
+contains no receptive symbols.  This last condition seems to be the key
+to galley synchronization:  it forces a bottom-up promotion regime,
+preventing pages from flushing to output before text flushes into them,
+for example.
+@PP
+Each galley contains a number of binary semaphores, shown as asterisks
+in our snapshots when set.  At any given moment, a galley process is
+either running or else is suspended on one of its own semaphores.  The
+@Eq { HEAD } node contains a semaphore which is set when the galley has tried
+to find a target and failed.  Each receptive symbol has a semaphore
+which is set when that symbol is preventing the first component from
+being promoted.
+@PP
+For example, in the snapshot at the beginning of this section, the root
+galley is suspended on the @Code "@Galley" symbol, but the text galley
+is running.  It will suspend on the @Code "@Input" symbol after the
+first two components are promoted.
+@PP
+Every galley {@I G}, be it a list of pages, body text, a footnote, or
+whatever, executes the following algorithm in parallel with every other
+galley:
+@DP
+1.  Initially @I G is unattached.  Search forwards or backwards from its
+@Eq { UNATTACHED } index as required, to find a receptive symbol @I S which
+can expand to reveal a target for {@I G}.
+@DP
+2.  If no @I S can be found, suspend on the attachment semaphore.  Resume
+later from step 1.
+@DP
+3.  Expand @I S to reveal the target of {@I G}.  Preserve {@I S}'s
+semaphore by moving it to the first receptive symbol within the
+expansion of {@I S}.
+@DP
+4.  Calculate the available width and height at the target, and if
+@I G is still a pure parse tree, use the environment attached to @I G
+and the style information from the target to evaluate @I G as in
+Section {@NumberOf functional}.
+@DP
+5.  Examine the components of @I G one by one.  For each component there
+are three possibilities:
+@PP
+@I ACCEPT.  If the component fits into the available space, and has
+no other problems, then promote it into the target.  If this is the
+first component promoted into this target, and @I G is a forcing
+galley (Section {@NumberOf lookahead}), delete every receptive symbol
+preceding the target in the parent galley.  If @I G is the root galley,
+render the component on the output file and dispose it;
+@PP
+@I REJECT.  If the component is too large for the available space, or a
+@Eq { FOLLOWS } index (described below) forbids its promotion into this
+target, then detach @I G from the target.  If this was the first component
+at this target, @I S has been a complete failure, so undo step 3 (Basser
+Lout is not able to undo step 4); otherwise delete the target.  Return to
+step 1 and continue immediately;
+@PP
+@I SUSPEND.  If the component contains a receptive symbol, it cannot be
+promoted yet.  If this symbol is the target of a galley that was written
+to an auxiliary file on a previous run, read in that galley and flush
+it.  Otherwise suspend on the receptive symbol's semaphore; resume later
+from step 4.
+@DP
+6.  Terminate when the galley is empty.
+@DP
+At various points in this algorithm, receptive symbols (and their
+semaphores) are deleted in the dynamic parent galley, possibly
+permitting it to resume flushing.  When this happens, Basser Lout resumes
+the parent immediately after @I G suspends or terminates.  Also,
+whenever a component is promoted, any child galleys connected to
+it by @Eq { UNATTACHED } indexes must be resumed, since these
+galleys may be able to find a target now.  A good example of this
+situation occurs when a line of body text with one or more footnotes
+is promoted onto a page.  Basser Lout gives priority to such children,
+suspending @I G while each is given a chance to flush.
+@PP
+Basser Lout searches for the first target of @I G only in regions of the
+dynamic tree that will clearly precede or follow {@I G}'s invocation
+point in the final printed document, whichever is specified in the
+@Code into clause; subsequent targets are sought later in the same
+galley as the first.  An exception to this rule, whose necessity will
+be made clear later, is that a first @Code following target will be
+sought within a dynamic sibling galley preceding {@I G}'s invocation
+point:
+@ID 10p @Font @Fig {
+
+{
+@I { dynamic parent }
+//0.2c
+@Box 2.8c @Wide 4.5c @High
+{
+   //0.5c A:: @Box margin { 0c } linestyle { noline } @Code "@XTarget"
+   //1.0c C:: @Box margin { 0c } linestyle { noline } @Eq { UNATTACHED }
+   //1.3c @Code "@XTarget"
+}
+}
+
+||1.5c
+
+{
+//0.6c
+B:: @Box margin {0c} linestyle {noline} @Code "X into { @XTarget&&following }"
+//0.2c
+@Box 2.8c @Wide 1.5c @High { //0.8c @Code "@GTarget" }
+//1.0c
+D:: @Box margin {0c} linestyle {noline} @Code "G into { @GTarget&&following }"
+//0.2c
+@Box 2.8c @Wide 2.5c @High {}
+}
+
+// @Arrow from { A@E ++ {0.2 cm 0} } to { B@W -- {0.2 cm 0} }
+// @Arrow from { C@E ++ {0.2 cm 0} } to { D@W -- {0.2 cm 0} }
+
+}
+Here @I G will find the @Code "@GTarget" target within {@I X}.  This is
+dangerous, since if the first component of @I G is then promoted via
+@I X into the first {@Code "@XTarget"} rather than into the second,
+{@I G}'s target will not appear later in the final printed document than
+its invocation point, as required by the @Code into clause.
+@PP
+Accordingly, when such a target is chosen, two special galley indexes
+are inserted and linked together: a @Eq { PRECEDES } index at {@I G}'s
+invocation point, and a @Eq { FOLLOWS } index at the first component of
+{@I G}.  The algorithm checks before promoting any @Eq { FOLLOWS } index
+that its promotion would not place it earlier than the corresponding
+@Eq { PRECEDES } index in the same galley, and rejects the component if
+it would.  Since @Eq { PRECEDES } and @Eq { FOLLOWS } indexes are rarely used,
+this check can be implemented by linear search.
+@PP
+When two components are separated by {@Code "/"}, as opposed to the more
+usual {@Code "//"}, each influences the horizontal position of the
+other.  Because of this, the @I SUSPEND action is in fact taken if a
+receptive symbol occurs in any component separated from the first by
+{@Code "/"} operators only.  Again, linear search forwards to the first
+{@Code "//"} suffices for this check.
+@PP
+A good illustration of these unusual cases is afforded by the
+@Code "@Align" symbols from the standard DocumentLayout package.  These
+are used to produce displayed equations, aligned on their equals signs
+despite being separated by arbitrary body text.
+@PP
+The @Code "@Align" symbols are packaged neatly for the convenience of
+the non-expert user, but we will show just the essence of the
+implementation here.  First, an @Code "@AlignList" galley is created
+which contains an infinite supply of @Code "@AlignPlace" receptive
+symbols separated by @Code "/" operators:
+@ID @Fig {
+
+{
+@I { body text galley }
+//0.2c
+@Box 2.8c @Wide 4.0c @High
+{ //1.5c
+  A:: @Box margin { 0c } linestyle { noline } @Code "@Galley"
+}
+}
+
+||1.5c
+
+{
+//2.4c
+B:: @Box margin { 0c } linestyle { noline } @Code "@AlignList"
+//0.2c
+@Box {
+      @Code "@AlignPlace"
+//1vx @Code "@AlignPlace"
+//1vx @Code "..."
+//1vx @Code "@EndAlignList"
+}
+
+}
+
+// @Arrow from { A@E ++ {0.2 cm 0} } to { B@W -- {0.2 cm 0} }
+}
+Then equations like
+@ID @ShowMarks @Eq { f(x) ^= g(x) + 2 }
+are created and sent to @Code "@AlignPlace&&following" targets.  They
+collect in the @Code "@AlignList" galley and are aligned there:
+@ID @Fig {
+
+{
+@I { body text galley }
+//0.2c
+@Box 2.8c @Wide 4.0c @High
+{ //1.5c
+  A:: @Box margin { 0c } linestyle { noline } @Code "@Galley"
+}
+}
+
+||1.5c
+
+{
+//2.4c
+B:: @Box margin { 0c } linestyle { noline } @Code "@AlignList"
+//0.2c
+@Box {
+   @Line linestyle { dashed } from { xmark ysize } to { xmark 0 }
+   {
+	     @Eq { f(x) ^= g(x) + 2 }
+	/1vx @Eq { f(x) - g(x) ^= 2 }
+	/1vx @Code "..."
+	/1vx @Code "@EndAlignList"
+   }
+}
+
+}
+
+// @Arrow from { A@E ++ {0.2 cm 0} } to { B@W -- {0.2 cm 0} }
+}
+The @Code "@AlignList" galley does not flush, because its first
+component is connected to a receptive symbol by @Code "/" operators.
+@PP
+After the last equation, an empty forcing galley is sent to
+{@Code "@EndAlignList"}, deleting the two remaining receptive symbols from
+the @Code "@AlignList" galley and permitting it to flush.  @Eq { FOLLOWS }
+indexes ensure that each equation finds a target placed in the body text
+just after its point of invocation, so the equations return, aligned, to
+approximately the points where they were invoked.  Notice that the flushing
+of body text is suspended until the list of equations is completed, as it
+must be, since the horizontal position of the first equation cannot
+be known until the last equation is added to the list.
+@PP
+Layout quality can occasionally be improved by rejecting a component
+that could be promoted -- for example, a component of body text that
+carries a footnote too large to fit on the current page.  Since Lout
+does not specify how breaking decisions are made, beyond the basic
+constraints imposed by available space and @Code into clauses, in
+principle such high quality breaking could be added to the
+implementation with no change to the language.  However, the
+generality of the galley flushing algorithm, and its already
+considerable complexity, make this a daunting problem in practice,
+although a fascinating one.  @TeX [9], with its unnested
+set of `floating insertions' clearly identifiable as each page is begun,
+has the advantage in this respect.
+@End @SubSection

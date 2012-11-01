@@ -1,0 +1,108 @@
+@Section
+   @Title { Theorems, lemmas, corollaries, definitions, propositions,
+examples, and claims }
+   @RunningTitle { Theorems, lemmas, etc. }
+   @Tag { theorems }
+@Begin
+@PP
+theorem. @Index @Code "@Theorem"
+A theorem is created like this:
+@ID @OneRow @Code {
+"@LD @Theorem"
+"    @Title { Fermat's Last Theorem }"
+"{"
+"@Eq { a sup n + b sup n != c sup n } for all positive integers @Eq { a },"
+"@Eq { b }, @Eq { c } and @Eq { n } when @Eq { n > 2 }."
+"@LP"
+"@Proof I have a proof of this theorem, but the margin"
+"is too small to contain it. @EndProof"
+"}"
+}
+where we have used the @Code "@LD" `left display' symbol from
+Section {@NumberOf displays} to get a left-justified display,
+and the @Code "@Eq" symbol from Chapter {@NumberOf equations}
+for the equations.  The result is
+@ID @Theorem
+    @Title { Fermat's Last Theorem }
+{
+@Eq { a sup n + b sup n != c sup n } for all positive integers @Eq { a },
+@Eq { b }, @Eq { c } and @Eq { n } when @Eq { n > 2 }.
+@LP
+@Proof I have a proof of this theorem, but the margin
+is too small to contain it. @EndProof
+}
+The @Code "@Theorem" symbol produces an object with no adjacent
+vertical space, hence it needs to be used in conjuction with
+display or paragraph symbols.  The theorem is numbered automatically,
+with the title and number inserted at the start of the first
+paragraph.  @Code "@Title" may be omitted.
+@PP
+@Code "@Proof" produces @Proof @Null
+proof. @Index @Code "@Proof"
+with the appropriate following space, and @Code "@EndProof" produces
+endproof. @Index @Code "@EndProof"
+a box at the end of the line.  They may be used anywhere, not
+just within theorems.
+@FootNote { Occasionally @Code "@EndProof" does not
+appear as far to the right as it should.  This problem can be fixed by using
+{@Code "@LD @HExpand @Theorem"}, which instructs Lout to make sure
+that as much horizontal space as possible is allocated to the theorem. }
+@PP
+There are seven symbols that produce independently numbered sequences
+in this way.  They are {@Code "@Theorem"}, {@Code "@Definition"},
+definition. @Index @Code "@Definition"
+claim. @Index @Code "@Claim"
+proposition. @Index @Code "@Proposition"
+lemma. @Index @Code "@Lemma"
+corollary. @Index @Code "@Corollary"
+example. @Index @Code "@Example"
+{@Code "@Claim"}, {@Code "@Proposition"}, {@Code "@Lemma"},
+{@Code "@Corollary"}, and {@Code "@Example"}.
+@PP
+The setup file contains options which determine whether the theorem
+numbers include a chapter number ({@Code "@ChapterNumInTheorems"}),
+or a section number ({@Code "@SectionNumInTheorems"}), and so on.  A
+section number automatically includes a chapter number, etc.  There
+are also options to change the word printed.  For example, if you
+need a sequence of conjectures, change the @Code "@ClaimWord" setup
+file option to
+@ID @Code "@ClaimWord { Conjecture }"
+and use the @Code "@Claim" symbol for your conjectures.  You can even put
+@ID @Code {
+"import @DocumentSetup"
+"macro @Conjecture { @Claim }"
+}
+into your @Code mydefs file (Section {@NumberOf definitions}) if you wish,
+so that you can write @Code "@Conjecture" in your documents instead of
+{@Code "@Claim"}.
+@PP
+The setup file also contains two options which control the format of
+the theorem (claims and so on have corresponding options).  Here they
+are with their default values:
+@ID @Code {
+"@TheoremTitleFormat { (title) }"
+"@TheoremFormat { { @B { word @NumSep number title: } &2s } @Insert body }"
+}
+The first option is used only when a @Code "@Title" is given to the
+theorem, and it determines how the title is formatted:  the @Code title
+symbol within the option stands for the @Code "@Title" option.  The default
+value shown places parentheses around the title.  The second option
+determines the format of the entire theorem.  Within it, @Code word
+stands for the value of {@Code "@TheoremWord"};
+@Code "number" is the number of the theorem; @Code "title" is the title
+of the theorem after formatting by {@Code "@TheoremFormat"} (if there
+is a title; otherwise @Code title is {@Code "@Null"}, which prints as
+nothing and even deletes the preceding space as required); and
+@Code body is the body of the theorem.  The default value prints the
+word, number and title with a colon in bold, and inserts them and two
+spaces into the first paragraph of the body; another value might be
+@ID @Code { "@TheoremFormat { @B { word @NumSep number title } @LP body }" }
+which places the header in bold on a line by itself, separated from the
+body by a paragraph break.  For @Code "@NumSep" see page {@PageOf numsep}.
+@PP
+Owing to problems behind the scenes, the @Code "@Theorem" symbol and its
+companions have a potential efficiency problem:  although all numbers are
+finalized on the second run, it takes Lout time proportional to the square
+of the highest theorem number to do this.  So large numbers of theorems
+numbered together might be slow.
+@End @Section

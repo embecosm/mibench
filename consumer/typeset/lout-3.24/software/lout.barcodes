@@ -1,0 +1,28 @@
+I've developed a little Lout package that will enable you to generate
+barcodes from lout.3.04 (or later).
+
+Usage is very simple. Add the following line to the include portion of
+your lout file
+
+    @SysInclude { barcodes }
+
+and every time you wish to use the barcode font use the following
+syntax
+
+    {BarCode Base} @Font { object }
+
+
+The font is a 3 of 9 barcode font developed by Willem van Schaik.
+
+The package is available as lout.barcodes.1.0.tar.gz and can be found
+with the rest of the Lout distribution at
+
+    ftp://ftp.cs.su.oz.au/jeff/
+
+Regards
+Peter
+----------
+Peter Samuel                                peter@uniq.com.au
+Technical Consultant                        or at present:
+Uniq Professional Services                  Peter.Samuel@nms.otc.com.au
+Phone: +61 2 287 4647                       Fax: +61 2 287 5754

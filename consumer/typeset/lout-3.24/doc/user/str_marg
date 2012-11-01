@@ -1,0 +1,158 @@
+@Section
+   @Title { Margin notes and arbitrary placement }
+   @Tag { marginnotes }
+@Begin
+@PP
+A note can be placed in the left margin by typing
+leftnote. @Index @Code "@LeftNote"
+marginnote. @Index { margin notes }
+@ID {
+@Code "@LeftNote { A left note. }"
+@LeftNote { A left note. }
+}
+after the word that the note refers to.  The note will appear in the
+margin at the same height on the page as that word, unless that would
+cause it to overlap a previous margin note, in which case it will be
+shifted downwards (but never onto the next page).  The note may be an
+arbitrary Lout object; for example, you might type
+@ID {
+@Code "@LeftNote @I { A left note. }"
+@LeftNote @I { A left note. }
+}
+to make your note come out in italics.
+@PP
+You can get a note in the right margin by using @Code "@RightNote"
+@RightNote { A right note. }
+rightnote. @Index @Code "@RightNote"
+instead of {@Code "@LeftNote"}.  To get a note in the outer margin
+(left on even pages, right on odd pages), use {@Code "@OuterNote"};
+@OuterNote { An outer note. }
+outernote. @Index @Code "@OuterNote"
+and for the opposite, use {@Code "@InnerNote"}.
+@InnerNote { An inner note. }
+@PP
+By default, Lout produces margins that are 2.5 centimetres wide, which
+is not really enough to accommodate reasonable margin notes.  To
+change these margins, you need to change options in the setup file, as
+explained in Section {@NumberOf margins}.
+@PP
+The appearance of the margin notes themselves is also determined by
+options in the setup file (for a general introduction to setup files
+and their options, consult Section {@NumberOf setup}).  Here are
+the options and their default values:
+@ID @OneRow @Code {
+"@MarginNoteFont { 0.80f }"
+"@MarginNoteBreak { ragged 1.10fx }"
+"@MarginNoteHGap { 0.5c }"
+"@MarginNoteVGap { 1.00v }"
+"@MarginNoteWidth { 1.50c }"
+}
+@Code "@MarginNoteFont" determines the font; the default value
+produces the current font scaled to 0.8 times the current size.
+@Code "Slope 0.80f" would yield italic notes, and so
+on.  @Code "@MarginNoteBreak" is the paragraph breaking style,
+similar to the @Code "@InitialBreak" setup file option.
+@PP
+@Code "@MarginNoteHGap" determines how far away from the
+adjacent text column the margin note will appear; the default
+value is 0.5 centimetres.  Notice that, by this definition, margin
+notes will appear in the page body margin (Section {@NumberOf margins})
+if there is one.  @Code "@MarginNoteVGap" is the minimum
+vertical separation between margin notes (i.e. it determines how
+far downwards a note will be shifted to avoid the previous
+one).  @Code "@MarginNoteWidth" determines the width of the column
+in which margin notes (both left and right) are set; the default
+value of 1.5 centimetres is suited to the 2.5 centimetre page margins
+that are the default, but if you widen the page or page body margins
+you will be able to increase @Code "@MarginNoteWidth" too.
+@PP
+Left notes extend into the left margin (including the left page body
+margin) a total distance of @Code "@MarginNoteHGap" plus
+{@Code "@MarginNoteWidth"}, and it is up to you to make sure that this
+does not put them off the page.  Similar remarks apply to right
+notes.  And since notes are never shifted to the next page, only
+downwards, there is also a risk that a note will be shifted off the
+bottom of the page, if it is very long or if preceding notes obstruct
+it.  Again, it is up to you to avoid this problem by keeping your notes
+small and not too close together.
+@PP
+Margin notes inside footnotes, figures and tables work well.  Margin
+notes in multi-column documents are disastrous unless used very
+sparingly.  Margin notes do not appear in plain text output
+(Section {@NumberOf plain}).
+@PP
+A more radical way to place objects at arbitrary points on the current
+place. @Index @Code "@Place"
+page is provided by the @Code "@Place" symbol:
+@ID @OneRow @Code {
+"@Place"
+"    x { right - 1 cm - xsize }"
+"    y { { foot + top } / 2 }"
+"{"
+"    @Box { Hello }"
+"}"
+}
+The placed object may be any object.  This particular example produces a
+box whose @I x (horizontal) position is such that its right edge is one
+centimetre from the right edge of the page, and whose @I y (vertical)
+position is halfway up &
+@Place
+    x { right - 1 cm - xsize }
+    y { { foot + top } / 2 }
+{
+    @Box { Hello }
+}
+the page.
+@PP
+In addition to numbers, Lout lengths (Section {@NumberOf objects}),
+and Diag lengths (Section {@NumberOf dia_summ}), the following symbols
+may be used inside the @Code "x" and @Code "y" options:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { left }
+    B { The left edge of the page }
+@Rowa
+    A { right }
+    B { The right edge of the page }
+@Rowa
+    A { foot }
+    B { The foot edge of the page }
+@Rowa
+    A { top }
+    B { The top edge of the page }
+@Rowa
+    A { "+" }
+    B { Addition (positive is to the right and up) }
+@Rowa
+    A { "-" }
+    B { Subtraction (negative is to the left and down) }
+@Rowa
+    A { "*" }
+    B { Multiplication }
+@Rowa
+    A { "/" }
+    B { Division }
+@Rowa
+    A { "xsize" }
+    B { The width of the object being placed }
+@Rowa
+    A { "xmark" }
+    B { The column mark of the object being placed (for expert users) }
+@Rowa
+    A { "ysize" }
+    B { The height of the object being placed }
+@Rowa
+    A { "ymark" }
+    B { The row mark of the object being placed (for expert users) }
+}
+The usual precedences and associativities apply to the mathematical
+operators; braces (not parentheses) may be used for grouping.  It is
+best to give values to @Code "x" and @Code y that do not depend on
+any assumptions about where the coordinate system's origin is; this
+is true of the examples above.  At the point where @Code "@Place" occurs,
+the result is an empty object.  As with margin notes, Lout does not know
+what is happening and will not lay out the rest of the page around the
+placed object.
+@End @Section

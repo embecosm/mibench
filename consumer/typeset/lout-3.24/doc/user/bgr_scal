@@ -1,0 +1,53 @@
+@Section
+   @Title { Scaling }
+   @Tag { scaling }
+@Begin
+@PP
+The @Code "@Scale" symbol performs a geometrical scaling of the
+scale. @Index @Code "@Scale"
+following object:
+@ID @Code {
+"0.5 @Scale @Box WARNING!"
+}
+produces
+@ID {
+0.5 @Scale @Box WARNING!
+}
+A scale factor of 0.5 means half the original size, 2.0 means double size,
+and so on.  No unit of measurement appears in the scale factor, because
+it makes no sense to have one.  As usual, the object to be scaled may be
+arbitrary.
+@PP
+It is also possible to supply two scale factors, in which case the
+first is applied horizontally and the second vertically:
+@ID @Code "{0.5 2.0} @Scale @Box WARNING!"
+has result
+@ID {0.5 2.0} @Scale @Box WARNING!
+Practical uses for this kind of scaling are rare.
+@PP
+If an empty object is given instead of a scale factor, like this:
+@ID @Code "{} @Scale @Box WARNING!"
+the @Code "@Scale" symbol will choose the largest scale factor that
+does not overrun the available horizontal space.  It is often possible
+to omit the {@Code "{}"}, since Lout inserts an empty object
+automatically whenever an object is clearly missing (see Section
+{@NumberOf objects}).  For example,
+@ID @Code "@QuotedDisplay @Scale @Box WARNING!"
+produces
+@QuotedDisplay @Scale @Box WARNING!
+@Code "@QuotedDisplay" and @Code "@LeftDisplay" go well with this form
+of {@Code "@Scale"}.  However, some care is needed because Lout foolishly
+takes no account of the available @I vertical space when choosing the
+scale factor.  The chosen scale factor could enlarge the vertical size so
+much that the object no longer fits on the page, with disastrous results.
+@PP
+By using a @Code "@Wide" symbol to restrict the available horizontal
+space, this form of scaling can also be used to scale to a nominated
+width.  For example,
+wide @RawIndex { @Code "@Wide" }
+wide.scale @SubIndex { with @Code "@Scale" }
+@ID @Code "5c @Wide @Scale @Box WARNING!"
+produces
+@ID { 5c @Wide @Scale @Box WARNING! }
+which is 5 centimetres wide.
+@End @Section

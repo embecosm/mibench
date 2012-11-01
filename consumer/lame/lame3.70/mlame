@@ -1,0 +1,81 @@
+#!/bin/bash 
+#!/usr/local/bin/bash
+############################################################################
+#   
+#  Run the LAME encoder on multiple files, with option to delete .wav files
+#  after encoding.  "mlame -h" will give instructions.
+#
+#  Robert Hegemann <Robert.Hegemann@gmx.de>
+#
+############################################################################
+
+mp3coder="lame"
+options="-h -d -m j -b 128"
+rmsrc=false
+
+helptext="\
+\nThis script runs the LAME mp3 encoder on multiple files: \n\n\
+$0 [options] <file 1> ... <file n>\n\
+\n\
+  options:\n\
+    -h                  this help text\n\
+    -r                  remove files after encoding\n\
+    -o \"<lame options>\" overrides script default options \"${options}\"\n\
+\n\
+  example:\n\
+    $0 -r -o \"-v -V 0 -b 112\" a*.wav z*.aif\n\
+    \n\
+"
+
+#   process command-line options
+#   this could be extended to fake the 
+#   commandline interface of the mp3encoder
+
+while getopts ":o:r" optn; do
+    case $optn in
+    o ) options=$OPTARG # replace default options
+        ;; 
+    r ) rmsrc=true
+        ;;
+    \? ) printf "$helptext"
+        exit 1  
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+#   process input-files
+
+for filename in "$@"; do
+    case $filename in
+    *[*?]*  )   # means shell couldn´t extend *.wav, etc.
+        echo "warning: no $filename file(s) found"
+        ;;
+    *[.][wW][aA][vV]  )
+        name=${filename%[.][wW][aA][vV]}
+        if $mp3coder $options "$filename" "${name}.mp3" 
+        then
+            if [ $rmsrc = true ]; then
+                rm -f "$filename"
+            fi
+        fi
+        ;;
+    *[.][aA][iI][fF]  )
+        name=${filename%[.][aA][iI][fF]}
+        if $mp3coder $options "$filename" "${name}.mp3" 
+        then
+            if [ $rmsrc = true ]; then
+                rm -f "$filename"
+            fi
+        fi
+        ;;
+    *   )
+        if $mp3coder $options "$filename" "${filename}.mp3" 
+        then
+            if [ $rmsrc = true ]; then
+                rm -f "$filename"
+            fi
+        fi
+        ;;
+    esac
+done

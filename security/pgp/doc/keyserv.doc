@@ -1,0 +1,194 @@
+PGP Public Keyservers
+---------------------
+
+There are PGP public key servers which allow one to exchange public
+keys running through the Internet and UUCP mail systems.
+
+
+NOTE!
+
+This service is NOT supported in any way whatsoever by the schools or
+organizations on which these servers run.  It is here only to help
+transfer keys between PGP users.  It does NOT attempt to guarantee
+that a key is a valid key; use the signators on a key for that kind of
+security.  This service can be discontinued at any time without prior
+notification.
+
+Each keyserver processes requests in the form of mail messages.  The
+commands for the server are entered on the Subject: line.
+
+        To: pgp-public-keys@keys.pgp.net
+        From: johndoe@some.site.edu
+        Subject: help
+
+Sending your key to ONE server is enough.  After it processes your
+key, it will forward your add request to other servers automagically.
+
+For example, to add your key to the keyserver, or to update your key if it is
+already there, send a message similar to the following to any server:
+
+        To: pgp-public-keys@keys.pgp.net
+        From: johndoe@some.site.edu
+        Subject: add
+
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: 2.6.3i
+
+        <blah blah blah>
+        -----END PGP PUBLIC KEY BLOCK-----
+
+COMPROMISED KEYS:  Create a Key Revocation Certificate (read the PGP
+docs on how to do that) and mail your key to the server once again,
+with the ADD command.
+
+Valid commands are:
+
+Command                Message body contains
+--------------------------------------------------------------------
+ADD            Your PGP public key (key to add is body of msg) (-ka)
+INDEX          List all PGP keys the server knows about (-kv)
+VERBOSE INDEX  List all PGP keys, verbose format (-kvv)
+GET            Get the whole public key ring (-kxa *)
+GET <userid>   Get just that one key (-kxa <userid>)
+MGET <userid>  Get all keys which match <userid>
+LAST <n>       Get all keys uploaded during last <n> days
+--------------------------------------------------------------------
+
+Examples for the MGET command:
+
+        MGET michael            Gets all keys which have "michael" in them
+        MGET iastate            All keys which contain "iastate"
+        MGET 0AF605A5|683A738B  Those two keyids
+
+If you wish to get the entire key ring and have access to FTP, it
+would be a lot more efficient to use FTP rather than e-mail. Using
+e-mail, the entire key ring can generate a many part message, which
+you will have to reconstruct into a single file before adding it to
+your key ring.
+
+
+As of 10-Oct-95, these sites are running this system:
+
+    pgp-public-keys@uit.no
+    (aka pgp-public-keys@keys.no.pgp.net)
+    Borge Brunes <borge@cc.uit.no>
+
+    pgp-public-keys@informatik.uni-hamburg.de
+    (aka pgp-public-keys@keys.de.pgp.net)
+    Vesselin V. Bontchev <bontchev@fbihh.informatik.uni-hamburg.de>
+
+    pgp-public-keys@kub.nl
+    (aka pgp-public-keys@keys.nl.pgp.net)
+    Teun Nijssen <teun@kub.nl>
+
+    pgp-public-keys@pgp.ox.ac.uk
+    (aka pgp-public-keys@keys.uk.pgp.net)
+    Paul Leyland <pcl@ox.ac.uk>
+
+    pgp-public-keys@pgp.pipex.net
+    Mark Turner <markt@pipex.net>
+
+    pgp-public-keys@dsi.unimi.it
+    David Vincenzetti <vince@dsi.unimi.it>
+
+    pgp-public-keys@goliat.upc.es
+    Alvar Vinacua <alvar@turing.upc.es>
+
+    pgp-public-keys@srce.hr
+    Cedomir Igaly <cigaly@srce.hr>
+
+    pgp-public-keys@kiae.su
+    <blaster@rd.relcom.msk.su>
+
+    pgp-public-keys@ext221.sra.co.jp
+    Hironobu Suzuki <hironobu@sra.co.jp>
+
+    pgp-public-keys@sw.oz.au
+    Jeremy Fitzhardinge <jeremy@sw.oz.au>
+
+    pgp-public-keys@pgp.mit.edu (*)
+    (aka pgp-public-keys@keys.us.pgp.net)
+    Derek Atkins <warlord@mit.edu>
+
+    public-key-server@martigny.ai.mit.edu (*)
+    Brian A. LaMacchia <public-key-server-request@martigny.ai.mit.edu>
+
+    pgp-public-keys@pgp.iastate.edu (*)
+    Michael Graff <explorer@iastate.edu>
+
+    pgp-public-keys@burn.ucsd.edu (*)
+    Andy Howard <ahoward@ucsd.edu>
+
+    pgp-public-keys@pgp.dhp.com (*)
+    DJ Wipeout <wipeout@dhp.com>
+
+    pgp-public-keys@jpunix.com (*)
+    John Perry <perry@jpunix.com>
+
+    pgp-public-keys@gondolin.org (*)
+    <pgp-admin@gondolin.org>
+
+    (*) Key servers in the USA only accept keys labelled "Version: 2.4" or
+        later.
+
+Random keyserver:
+
+    E-mail sent to pgp-public-keys@keys.pgp.net will be sent to a keyserver
+    randomly chosen from one of:
+
+    pgp-public-keys@keys.de.pgp.net
+    pgp-public-keys@keys.nl.pgp.net
+    pgp-public-keys@keys.no.pgp.net
+    pgp-public-keys@keys.uk.pgp.net
+    pgp-public-keys@keys.us.pgp.net
+
+Sites accessible via WWW:
+
+    http://www.service.uit.no/pgp/servruit.eng.html
+    http://www.cl.cam.ac.uk/PGP/pks-toplev.html
+    http://www.nic.surfnet.nl/pgp/pks-toplev.html
+    http://goliat.upc.es/~alvar/pks/pks-toplev.html
+    http://martigny.ai.mit.edu/~bal/pks-toplev.html
+
+Key server keyrings accessible via FTP:
+
+    ftp://ftp.uit.no/pub/crypto/pgp/keys/pubring.pgp
+    ftp://ftp.informatik.uni-hamburg.de/pub/virus/crypt/pgp/pubkring.pgp
+    ftp://ftp.dsi.unimi.it/pub/security/crypt/PGP/public-keys.pgp
+    ftp://ftp.ox.ac.uk/pub/crypto/pgp/keys/pubring.pgp
+    ftp://ftp.sunet.se/pub/security/tools/crypt/pgp/keys/pubring.pgp
+    ftp://ftp.funet.fi/pub/crypt/cryptography/pgp/keys/pubring.pgp
+    ftp://pgp.mit.edu/pub/keys/public-keys.pgp
+    ftp://pgp.iastate.edu/pub/pgp/public-keys.pgp
+    ftp://burn.ucsd.edu/Crypto/public-keys.pgp
+    ftp://jpunix.com/pub/PGP/
+
+In addition to the "traditional" keyservers, there is a commercial key
+registry in operation at four11.com.  Four11 Directory Services is set
+up primarily as a directory service to assist in searching for people
+or groups.  Members of the service may have their key certified by
+Four11 and placed on their server; a key signature from Four11
+indicates that you have met their signing requirements.  At the time
+of this writing, they offer "SLED Silver Signatures", which require
+identification of the key holder through one of the following:
+
+ - a mailed or faxed driver's license
+ - a mailed or faxed copy of a passport
+ - payment for services with a preprinted personal check which cleared
+
+Send mail to info@four11.com or connect to http://www.four11.com/ for
+more information on SLED/Four11 or to search their server.  Their
+current certification keys may be retrieved by sending mail to
+key-pgp-silver@sled.com or by looking up "SLED" on the other
+keyservers.
+
+
+Check the Usenet newsgroup alt.security.pgp for updates to this system
+and for new sites, or take a look at the PGP FAQ by Jeff Licquia
+<jalicqui@prairienet.org>, available via WWW from:
+
+  http://www.prairienet.org/~jalicqui/pgpfaq.txt
+
+or via FTP:
+
+  ftp://ftp.prairienet.org/pub/providers/pgp/pgpfaq.txt

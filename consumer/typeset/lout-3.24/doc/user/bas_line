@@ -1,0 +1,43 @@
+@Section
+   @Title { Line spacing }
+   @Tag { linespace }
+@Begin
+@PP
+The @Code "@Break" symbol also controls the amount of space placed
+line.spacing @Index { line spacing }
+between the lines of paragraphs.  This distance is best given using the
+@Code "v" unit of measurement:  @Code "1v" is the current line
+separation (see Section {@NumberOf objects} for a description of
+lengths in general).  For example,
+@ID @Code "2vx @Break ..."
+produces double spacing in the paragraphs of the following object, and
+double.spacing @Index { double spacing }
+@ID @Code "0.9vx @Break ..."
+produces cramped spacing, which can be useful in large tables that don't
+quite fit on one page.  The @Code "x" following the @Code "v" is required,
+but its meaning is beyond our scope @Cite { $kingston1995lout.expert }.
+@PP
+To set the entire document in a different line spacing from the
+initialbreak @Index @Code "@InitialBreak"
+default, you need to change the @Code "@InitialBreak" option.  If you
+are using your own setup file (Section {@NumberOf setup}),
+change it there.  If not, you can change it at the beginning of your
+document, as described in Section {@NumberOf ordinary}.
+@PP
+The default value of the @Code "@InitialBreak" option produces the
+@Code "adjust" paragraph breaking style with a line spacing of 1.20
+times the current (that is, the initial) font size, and hyphenation
+on:
+@ID @Code "@InitialBreak { adjust 1.20fx hyphen }"
+To get double spacing, change it to
+@ID @Code "@InitialBreak { adjust 2.40fx hyphen }"
+To get ragged paragraphs with hyphenation off, change it to
+@ID @Code "@InitialBreak { ragged 1.20fx nohyphen }"
+and so on.  It is a good idea to define the initial line spacing using
+the @Code "f" unit, since then if you change the initial font size the
+line spacing will change with it.  However, any length (Section
+{@NumberOf objects}) with an @Code "x" appended will do:  @Code "14px"
+for 14 point, @Code "0.5cx" for 0.5 centimetres, etc.  Don't use the
+@Code "v" unit though, because it refers to some @I previous line
+spacing, whereas here we are defining the line spacing for the first time.
+@End @Section

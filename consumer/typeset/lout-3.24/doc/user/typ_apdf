@@ -1,0 +1,28 @@
+@Section
+   @Title { PDF (Adobe Portable Document Format) documents }
+   @Tag { pdf }
+@Begin
+@PP
+You can get Lout to produce PDF (Adobe Portable Document Format) output as
+an alternative to PostScript, by adding @Code "-PDF" to the command line
+like this:
+pdf. @Index { PDF documents }
+@ID @Code "lout -PDF simple > simple.pdf"
+No other changes are required.
+@PP
+When viewed with a PDF viewer, entries in tables of contents and indexes
+can be clicked on and this transports the viewer to the part of the document
+referenced by the link, as described in
+cross @CrossLink { Section {@NumberOf cross} }.  Recent versions of PostScript
+support this feature too, via the @I pdfmark feature, and Lout's PostScript
+contains links expressed in this way.  Unfortunately, few PostScript viewers
+know how to handle these links; those that don't just ignore them.
+@PP
+Regrettably, the PDF output produced by Lout is inferior at graphics:  the
+advanced features of the @Code "@Diag" and @Code "@Graph" packages do not
+produce any output.  One can still format documents that contain them, but
+the results are disappointing.  The only way to get the best of everything
+is to produce PostScript, and then either pass it through a `distillation'
+program to produce PDF, or else view it with a PostScript viewer that
+understands links.
+@End @Section

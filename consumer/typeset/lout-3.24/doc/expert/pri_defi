@@ -1,0 +1,246 @@
+@Section
+   @Title { Definitions }
+   @Tag { definitions }
+@Begin
+@PP
+The features of Lout are very general.  They do not assume that documents
+are composed of pages, nor that there are such things as margins and
+footnotes, for example.  @I Definitions
+definitions. @Index { Definitions }
+bridge the gap between Lout's general features and the
+special features -- footnotes, equations, pages -- that particular
+documents require.  They hold the instr&-uct&-ions for producing these
+special features, conveniently packaged ready for use.
+@PP
+For example, consider the challenge posed by `@TeX', which is the name of
+one of Lout's most illustrious rivals @Cite { $knuth1984tex }.  Lout solves it
+easily enough, like this:
+@ID @Code {
+"T{ /0.2fo E }X"
+}
+but to type this every time @TeX is mentioned would be tedious and
+error-prone.  So we place a definition at the beginning of the document:
+@ID @Code {
+"def  @TeX  {  T{ /0.2fo E }X  }"
+}
+Now @Code "@TeX" stands for the object following it between
+braces, and we may write
+@ID @Code {
+consider the challenge posed by "`@TeX'", ...
+}
+as the author did earlier in this paragraph.
+@PP
+A @I symbol
+symbol. @Index Symbol
+is a name, like {@Code "@TeX"}, which stands for
+something other than itself.  The initial @Code "@" is not compulsory,
+but it does make the name stand out clearly.  A @I definition of a symbol
+declares a name to be a symbol, and says what the symbol stands for.  The
+@I body of a definition
+body.of @Index { Body of a definition }
+is the part following the name, between the braces.  To @I invoke
+invocation @Index { Invocation of a symbol }
+a symbol is to make use of it.
+@PP
+Another expression ripe for packaging in a definition is
+@ID @Code {
+"@OneRow {  |  -2p @Font n  ^/0.5fk  2  }"
+}
+which produces @OneRow { | -2p @Font n ^/0.5sk 2 } (see
+Chapter {@NumberOf details}).  But this time we would like to be able to write
+@ID {
+@I object  @Code "@Super"  @I object
+}
+so that @Code { a "@Super" 2 } would come out as {a @Super 2}, and so
+on, for in this way the usefulness of the definition is greatly
+increased.  Here is how it is done:
+@ID @OneRow @Code {
+"def @Super"
+"   left x"
+"   right y"
+"{ @OneRow {  |  -2p @Font y  ^/0.5fk  x  }"
+"}"
+}
+This definition says that @Code "@Super" has two {@I parameters},
+parameter @Index Parameter
+@Code x and {@Code y}.  When @Code "@Super" is invoked, all occurrences
+of @Code x in the body will be replaced by the object just to the left
+of {@Code "@Super"}, and all occurrences of @Code y will be replaced by
+the object just to the right.  So, for example, the expression
+@ID @Code {
+"2  @Super  { Slope @Font n }"
+}
+is equal to
+@ID @Code {
+"@OneRow {  |  -2p @Font { Slope @Font n }  ^/0.5fk  2  }"
+}
+and so comes out as {2 @Super {Slope @Font n}}.
+@PP
+Lout permits definitions to invoke themselves, a peculiarly circular
+thing to do which goes by the name of
+recursion @Index Recursion
+@I recursion.  Here is an example
+of a recursive definition:
+@ID @Code {
+"def  @Leaders  {  ..   @Leaders  }"
+}
+The usual rule is that the value of an invocation of a symbol is a copy of
+the body of the symbol's definition, so the value of @Code "@Leaders" must be
+@ID @Code {
+"..   @Leaders"
+}
+But now this rule applies to this new invocation of {@Code "@Leaders"};
+substituting its body gives
+@ID @Code {
+"..   ..   @Leaders"
+}
+and so on forever.  In order to make this useful,
+an invocation of a recursive symbol is replaced by its body only if
+sufficient space is available.  So, for example,
+@ID @Code {
+"4i @Wide { Chapter 7  @Leaders   62 }"
+}
+has for its result the object
+@ID {
+4i @Wide { Chapter 7  @Leaders   62 }
+}
+with Lout checking before each replacement of @Code "@Leaders" by
+@OneCol @Code { ".."   "@Leaders" } that the total length afterwards,
+including the other words, would not exceed four inches.
+@PP
+The remaining issue is what happens when Lout decides that it is time to
+stop.  The obvious thing to do is to replace the last invocation by an
+empty object:
+@ID @Code {
+"..    ..    ..    ..    ..    ..    ..    ..    {}"
+}
+As the example shows, this would leave a small trailing space, which
+is a major headache.  Lout fixes this
+by replacing the last invocation with a different kind of empty object,
+called @@Null, whose effect is to make an adjacent concatenation symbol
+disappear, preferably one preceding the @@Null.  Thus, when Lout
+replaces @Code "@Leaders" by @@Null in the expression
+@ID @Code {
+"..    ..    ..    ..    ..    ..    ..    ..    @Leaders"
+}
+the trailing space, which is really a horizontal concatenation symbol,
+disappears as well.  This is taken into account when deciding
+whether there is room to replace @Code "@Leaders" by its body.
+@PP
+The remainder of this section is devoted to showing how definitions may
+be used to specify the @I {page layout}
+page.layout @RawIndex { Page layout }
+page.layout.basic @SubIndex { principles of }
+of a document.  To begin with,
+we can define a page like this:
+@ID @OneRow @Code {
+"def @Page"
+"{"
+"    //1i  ||1i"
+"    6i @Wide 9.5i @High"
+"    { @TextPlace  //1rt  @FootSect }"
+"    ||1i  //1i"
+"}"
+}
+Now @Code "@Page" is an eight by
+eleven and a half inch object, with one inch margins, a place at the top for
+text, and a section at the bottom for footnotes (since @Code "//1rt"
+bottom-justifies the following object).  It will be
+convenient for us to show the effect of invoking @Code "@Page" like this:
+@ID @Code
+{ { //0.5ix 8p @Font "@Page" &2m => } &2m
+@LittlePage { "@TextPlace" //1rt "@FootSect" }
+}
+with the invoked symbol appearing to the left of the arrow, and its body to
+the right.
+@PP
+The definition of a vertical list of pages should come as no surprise:
+@ID @OneRow @Code {
+"def @PageList"
+"{"
+"    @Page  //  @PageList"
+"}"
+}
+This allows invocations like the following:
+@ID @Code @HExpand @HScale {
+{ //0.5ix 8p @Font "@PageList" }
+||1m { //0.5ix => } ||1m
+{        @LittlePage { "@TextPlace" //1rt "@FootSect" }
+  //0.2c 8p @Font "@PageList"
+}
+||1m { //0.5ix => } ||1m
+{        @LittlePage { "@TextPlace" //1rt "@FootSect" }
+  //     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+  //0.2c 8p @Font "@PageList"
+}
+||1m { //0.5ix => } ||1m
+{        @LittlePage { "@TextPlace" //1rt "@FootSect" }
+  //     @LittlePage { "@TextPlace" //1rt "@FootSect" }
+}
+}
+setting  @Code "@PageList" to @Code @@Null on the last step.  Any
+number of pages can be generated.
+@PP
+A definition for @Code "@TextPlace" is beyond us at present, since
+@Code "@TextPlace" must be replaced by different parts of the text
+of the document on different pages.  But we can
+define @Code "@FootSect" to be a small space followed by a
+horizontal line followed by a list of places where footnotes go:
+@ID @OneRow @Code {
+"def @FootList         "
+"{                     "
+"   @FootPlace  //0.3v  @FootList"
+"}                     "
+"                      "
+"def @FootSect"
+"{                        "
+"   //0.3v 1i @Wide @HLine"
+"   //0.3v @FootList      "
+"}                        "
+}
+assuming that @Code "@HLine" will produce a horizontal line of the
+indicated width.  With this definition we can generate pages like this:
+@ID @Code {
+@LittlePage { "@TextPlace"
+               //1rt
+               "@FootSect"
+             }
+||2m { //0.5ix => } ||2m
+@LittlePage { "@TextPlace"
+               //1rt
+               @OneRow { 1c @Wide @HLine
+                         //0.1c
+                         "@FootList"
+                       }
+             }
+||2m { //0.5ix => } ||2m
+@LittlePage { "@TextPlace"
+               //1rt
+               @OneRow { 1c @Wide @HLine
+                         //0.1c
+                         "@FootPlace"
+                         //0.1c
+                         "@FootList"
+                       }
+             }
+}
+and so on for arbitrarily many footnotes.
+@PP
+We will see in the next section how invocations of @Code "@PageList",
+@Code "@FootSect" and @Code "@FootList" are replaced by their bodies only
+when the need to insert text and footnotes obliges Lout to do so;
+otherwise the invocations are replaced by @@Null.  In this way, the
+right number of pages is made, the small line appears only on pages that
+have at least one footnote, and unnecessary concatenation symbols
+disappear.
+@PP
+This approach to page layout is the most original contribution Lout has
+made to document formatting.  It is extraordinarily flexible.  Two-column
+pages?  Use
+@ID @Code {
+"{2.8i @Wide @TextPlace}  ||0.4i  {2.8i @Wide @TextPlace}"
+}
+instead of {@Code "@TextPlace"}.  Footnotes in smaller type?  Use
+@Code { -2p "@Font" "@FootPlace" } instead of {@Code "@FootPlace"}.  And
+on and on.
+@End @Section

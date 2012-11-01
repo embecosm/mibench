@@ -1,0 +1,124 @@
+# Sample config.txt file for PGP 2.6.3i.
+#
+# Blank lines are ignored, as is anything following a '#'.
+# Keywords are not case-sensitive.  
+# Whatever appears in here can be overridden on the command line,
+# by specifying (for example) "+armor=on".
+
+# MyName is substring of default userid for secret key to make signatures.
+# If not set, PGP will use the first key on your secret keyring (the last
+# key you created) if you don't specify the user with -u
+# MyName = "John Q. Public"
+
+# The language we will be using for displaying messages to the user.  
+#
+# Available languages:
+#   en = English (default)
+#   es = Spanish, fr = French, de = German, it = Italian,
+#   sv = Swedish, da = Danish, no = Norwegian, fi = Finnish,
+#   nl = Dutch, pl = Polish, ru = Russian, el = Greek,
+#   cz = Czech, ro = Romanian, hu = Hungarian, sr = Serbian,
+#   br = Brazilian Portuguese, lt = Lithuanian, ja = Japanese
+#
+# Language modules may be obtained from:
+#   http://www.ifi.uio.no/pgp/modules.shtml
+#   ftp://ftp.ifi.uio.no/pub/pgp/lang/
+#
+# Languages not yet available:
+#   ar = Arabic, iw = Hebrew, tr = Turkish, lv = Latvian, ko = Korean,
+#   pt = Portugese, is = Icelandic, zh = Chinese, esp = Esperanto
+#
+# Most of these codes are the ISO 639-1988 2-letter "Codes for
+# Representation of Names of Languages"
+# 
+Language = en
+
+# Character set for displaying messages and for conversion of text files.
+# If you set this variable to anything else than latin1, koi8 or noconv,
+# PGP will do character set conversions if TextMode = on or if you specify
+# the -t option when encrypting or signing a file.
+# 
+# Available character sets:
+#
+#   latin1    - ISO-Latin/1      (ISO 8859/1)
+#   cp850     - IBM codepage 850 (International)
+#   cp852     - IBM codepage 852 (Eastern Europe)
+#   cp860     - IBM codepage 860 (Portuguese)
+#   cp866     - IBM codepage 866 (Russian)
+#   alt_codes - Cyrillic         (Russian)
+#   koi8      - Cyrillic         (Russian)
+#   keybcs2   - KEYBCS 2         (Eastern Europe)
+#   next      - NeXTSTEP
+#   mac       - Macintosh
+#   ascii     - 7-bit ASCII
+#
+# For MSDOS with a standard character set you should use cp850 to get
+# correct character translations.  Russian character sets for MSDOS are
+# usually alt_codes.
+#
+# Note that noconv, latin1, and koi8 are all treated as equivalent.
+# Also note that cp852 and keybcs2 convert to/from latin2 rather that
+# latin1.
+#
+# CharSet = cp850
+
+# TMP is the directory name for PGP scratch files, usually a RAM disk.
+# It can be overridden by the environment variable TMP.
+# TMP = "e:\"
+
+# Pager is the file viewing program used for viewing messages with -m
+# If not set or set to "pgp", a built-in pager will be used.  The pager set
+# in config.txt will override the environment variable PAGER.
+# Pager = "list"
+
+# ArmorLines is the maximum number of lines per packet when creating a
+# transport armored file.  Set to 0 to disable splitting in parts.
+ArmorLines = 0
+
+# The following commented-out settings are *not* the defaults.
+# Uncomment (remove the leading "#" character) them to get the
+# non-default behaviour indicated.
+
+# Armor = on          # Use -a flag for ASCII armor whenever applicable
+# TextMode = on       # Attempt to use -t option where applicable
+# ClearSig = off      # Use ASCII armor even for unencrypted signed messages
+# KeepBinary = on     # Decrypt will not delete intermediate .pgp file
+# Verbose = 2         # Verbose diagnostic messages
+# Verbose = 0         # Be quiet
+# Compress = off      # Suppress compression to aid debugging
+# ShowPass = on       # Echo password when user types it
+# Interactive = on    # Interactively prompt the user when adding keys (-ka)
+# EncryptToSelf = on  # Encrypt all messages with your own public key
+# AutoSign = off      # Don't sign new userids
+# Legal_Kludge = off  # Use backwards-compatible format
+
+# BakRing is the path to a backup copy of your secret keyring, usually
+# on floppy disk.  Your secret keys will be compared with the backup copy
+# when doing a keyring check (pgp -kc)
+# BakRing = "a:\secring.pgp"
+
+# Number of completely trusted signatures needed to make a key valid.
+Completes_Needed = 1
+
+# Number of marginally trusted signatures needed to make a key valid.
+Marginals_Needed = 2
+
+# How many levels of introducers may introduce other introducers.
+Cert_Depth = 4
+
+# TZFix is hours to add to time() to get GMT, for GMT timestamps.
+# Since MSDOS assumes local time is US Pacific time, and pre-corrects 
+# Pacific time to GMT, make TZFix=0 for California, -1 for Colorado, 
+# -2 for Chicago, -3 for NY, -8 for London, -9 for Amsterdam.  
+# However, if your MSDOS environmental variable TZ is properly defined 
+# for your timezone, you can leave TZFix=0.  Unix systems probably 
+# shouldn't need to worry about setting TZFix.
+# TZFix = 0
+
+# Paths to keyrings and seed file for random generator.
+# PubRing = "a:\pubring.pgp"
+# SecRing = "a:\secring.pgp"
+# RandSeed = "a:\randseed.bin"
+
+# Add optional comment to ASCII armor output.
+# Comment = "Requires PGP version 2.6 or later."

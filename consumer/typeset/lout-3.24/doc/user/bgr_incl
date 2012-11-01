@@ -1,0 +1,47 @@
+@Section
+   @Title { Including an illustration }
+   @Tag { include }
+@Begin
+@PP
+The @Code "@IncludeGraphic" symbol incorporates into a Lout document an
+include.graphic @Index @Code "@IncludeGraphic"
+include.illus @Index { including an illustration }
+illustration (that is, an encapsulated PostScript or EPS file)
+produced by other means.  For the opposite process, using Lout to produce
+an illustration for inclusion in some other document, see
+Section {@NumberOf illustrations}.
+@PP
+For example, suppose the encapsulated PostScript file @Code "su_crest.eps"
+contains the University of Sydney crest.  Then
+@ID @Code "@IncludeGraphic su_crest.eps"
+produces
+@ID @IncludeGraphic su_crest.eps
+In general, the result produced by @Code "@IncludeGraphic" is an object
+that may be scaled, rotated, made into a display or placed within a
+paragraph, just like any other object.  Accolades for this remarkable
+flexibility should go to the PostScript page description language,
+whose extraordinary power makes the provision of this feature in Lout
+almost trivial.
+@PP
+The @Code "@IncludeGraphic" command understands that files ending
+with any of the suffixes {@Code ".gz"}, {@Code "-gz"}, {@Code ".z"},
+{@Code "-z"}, {@Code "_z"}, and {@Code ".Z"} are compressed files,
+and it will uncompress such files using the @Code "gunzip" command
+before including them.  The uncompressed version is stored in a file
+called @Code "lout.eps" in the current directory, and removed after
+being copied into the output file.
+@PP
+If you place an included illustration in a line of text, or anywhere
+where you care about its alignment with things on either side of it,
+it will be positioned with its centre at the same height as the
+centre of the letter x.  If this is not where you want it, use the
+@Code "@VShift" symbol:
+vshift. @Index @Code "@VShift"
+@ID @Code "... +0.5f @VShift @IncludeGraphic ..."
+prints the illustration half of the current font size higher on the
+page than would otherwise have been the case, and
+@ID @Code "... -0.5f @VShift @IncludeGraphic ..."
+prints it half the current font size lower.  Any length (Section
+{@NumberOf objects}) is allowed, and the object following @Code "@VShift"
+may in fact be arbitrary as usual.
+@End @Section

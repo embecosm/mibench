@@ -1,0 +1,353 @@
+# Affikstabell for norsk
+# Skrevet av Ivar Aavatsmark, oktober 1993.
+# I filen local.h er satt:
+#
+#   #define MASKBITS        64
+#   #define INPUTWORDLEN    50
+#   #define MAXAFFIXLEN     20
+#
+
+texchars ()\[]{}\\$*
+compoundwords off
+allaffixes on
+flagmarker /
+wordchars [a-e] [A-E]
+wordchars \351 \311
+wordchars [f-z] [F-Z]
+wordchars \346 \306
+wordchars \370 \330
+wordchars \345 \305
+
+#
+# Alternate form for NeXTSTEP charset (guesses by GHK; may need correction)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+
+altstringchar	\335	\351
+altstringchar	\211	\311
+altstringchar	\361	\346
+altstringchar	\341	\306
+altstringchar	\372	\370
+altstringchar	\352	\330
+altstringchar	\332	\345
+altstringchar	\206	\305
+
+# Her er en oversikt over benyttede flagg:
+#
+# Brukt:         ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+#            
+# Tilgjengelig:
+#            
+
+prefixes
+
+# Ekte forstavelser:
+#
+
+flag *a:
+    .              >       U               # ferdig > uferdig
+
+flag *b:
+    .              >       FOR             # dampe > fordampe
+
+flag *c:
+    .              >       GJEN            # vinne > gjenvinne
+
+flag *d:
+    .              >       HOVED           # sak > hovedsak
+
+flag *e:
+    .              >       MIS             # tenke > mistenke
+
+flag *f:
+    .              >       SAM             # arbeid > samarbeid
+
+flag *g:       # forstavelse: in-
+    [^BLMPR]       >       IN              # effektiv > ineffektiv
+    L              >       IL              # legal    > illegal
+    [BMP]          >       IM              # mobil    > immobil
+    R              >       IR              # regul\346r  > irregul\346r
+
+# Ikke behandlet er forstavelser som: an-, be-, er-, re-.
+#
+
+# Forstavelser som er preposisjoner eller adverb:
+#
+
+flag *h:
+    .              >       ETTER           # leve > etterleve
+
+flag *i:
+    .              >       TIL             # st\345 > tilst\345
+
+flag *j:
+    .              >       OVER            # tid > overtid
+
+flag *k:
+    .              >       UNDER           # kjenne > underkjenne
+
+flag *l:
+    .              >       P\305              # f\370re > p\345f\370re
+
+flag *m:
+    .              >       AV              # st\345 > avst\345
+
+flag *n:
+    .              >       INN             # f\370re > innf\370re
+ 
+flag *o:
+    .              >       UT              # f\370re > utf\370re
+ 
+flag *p:
+    .              >       OPP             # st\345 > oppst\345
+
+flag *q:
+    .              >       NED             # f\370re > nedbryte
+
+flag *r:
+    .              >       OM              # g\345 > omg\345
+
+flag *s:
+    .              >       SAMMEN          # satt > sammensatt
+
+
+suffixes
+
+# Avledningsendelser:
+#
+
+flag *t:       # ing-endelse i verb
+    E              >       -E,ING          # vandre > vandring
+    E              >       -E,INGEN        # vandre > vandringen
+    E              >       -E,INGA         # vandre > vandringa
+    [AIOUY\330\305]      >       ING             # g\345     > g\345ing
+    [AIOUY\330\305]      >       INGEN           # g\345     > g\345ingen
+    [AIOUY\330\305]      >       INGA            # g\345     > g\345inga
+
+flag *u:       # ning-endelse i verb
+    E              >       -E,NING         # lade   > ladning
+    E              >       -E,NINGEN       # lade   > ladningen
+
+flag *v:       # else-endelse i verb
+    E              >       LSE             # ane    > anelse
+    E              >       LSEN            # ane    > anelsen
+    [IO\305]          >       ELSE            # befri  > befrielse
+    [IO\305]          >       ELSEN           # tilst\345 > tilst\345elsen
+
+flag *w:       # endelse: -het
+    .              >       HET             # glatt > glatthet
+    .              >       HETEN           # glatt > glattheten
+
+flag *x:       # endelse: -skap
+    [^E]           >       SKAP            # klok  > klokskap
+    E              >       -E,SKAP         # regne > regnskap
+
+flag *y:       # endelse: -itet
+    [AEIOUY\330] [DLMNRSV]  >   ITET          # normal  > normalitet
+    [AEIOUY\330] [DLMNRSV]  >   ITETEN        # normal  > normaliteten
+    E L L          >       -ELL,ALITET     # formell > formalitet
+    E L L          >       -ELL,ALITETEN   # formell > formaliteten
+    \306 R            >       -\306R,ARITET      # regul\346r > regularitet
+    \306 R            >       -\306R,ARITETEN    # regul\346r > regulariteten
+
+flag *\[:      # endelse: -lig
+    .              >       LIG             # tro > trolig
+    .              >       LIGE            # bl\345 > bl\345lige
+
+flag *\\:
+    [O\305]           >       ELIG            # bebo  > beboelig
+    [O\305]           >       ELIGE           # oppn\345 > oppn\345elige
+
+flag *\]:      # endelse: -bar
+    E              >       -E,BAR          # m\345le > m\345lbar
+    E              >       -E,BART         # m\345le > m\345lbart
+    E              >       -E,BARE         # m\345le > m\345lbare
+
+flag *\^:      # endelse: -aktig
+    .              >       AKTIG           # voks > voksaktig
+    .              >       AKTIGE          # voks > voksaktige
+
+flag *\_:      # endelse: -messig
+    .              >       MESSIG          # fag > fagmessig
+    .              >       MESSIGE         # fag > fagmessige
+
+flag *\`:
+    .              >       SMESSIG         # tid > tidsmessig
+    .              >       SMESSIGE        # tid > tidsmessige
+
+# Ikke behandlet er avledningsendelser som: -dom, -sjon, -ig, -isk.
+#
+
+# B\370yningsendelser:
+#
+
+flag *A:       # hankj\370nnsendelse: -en
+    E              >       N               # tanke > tanken
+    E              >       NS              # tanke > tankens
+    [^EM]          >       EN              # tank  > tanken
+    [^EM]          >       ENS             # tank  > tankens
+    M              >       MEN             # kam   > kammen
+    M              >       MENS            # kam   > kammens
+
+flag *B:       # intetkj\370nnsendelse: -et, jevnf\370r flagg M
+    E              >       T               # eple  > eplet
+    E              >       TS              # eple  > eplets
+    [^EM]          >       ET              # barn  > barnet
+    [^EM]          >       ETS             # barn  > barnets
+    M              >       MET             # lam   > lammet
+    M              >       METS            # lam   > lammets
+
+flag *C:       # hunkj\370nnsendelse og flertallsendelse: -a, jevnf\370r flagg N
+    E              >       -E,A            # jente  > jenta,  eple   > epla
+    [^ELMR]        >       A               # ku     > kua,    barn   > barna
+    [^E] [LR]      >       A               # n\345l    > n\345la,   b\345l    > b\345la
+    E L            >       -EL,LA          # aksel  > aksla,  tempel > templa
+    E R            >       -ER,RA          # hulder > huldra, teater > teatra
+    M              >       MA              # vom    > vomma,  lam    > lamma
+
+
+flag *D:       # hunkj\370nnsendelse og flertallsendelse med genitiv: -as
+    E              >       -E,AS           # jente  > jentas,  eple   > eplas
+    [^ELMR]        >       AS              # ku     > kuas,    barn   > barnas
+    [^E] [LR]      >       AS              # n\345l    > n\345las,   b\345l    > b\345las
+    E L            >       -EL,LAS         # aksel  > akslas,  tempel > templas
+    E R            >       -ER,RAS         # hulder > huldras, teater > teatras
+    M              >       MAS             # vom    > vommas,  lam    > lammas
+
+flag *E:       # flertallsendelse: -er og -e
+    E              >       R               # kvinne > kvinner 
+    [^ELMR]        >       ER              # gutt   > gutter 
+    [^E] [LR]      >       ER              # ball   > baller 
+    E L            >       -EL,LER         # tempel > templer
+    E R            >       -ER,RE          # teater > teatre
+    M              >       MER             # dr\370m   > dr\370mmer
+
+flag *F:       # flertallsendelse med genitiv: -ers og -es
+    E              >       RS              # kvinne > kvinners 
+    [^ELMR]        >       ERS             # gutt   > gutters
+    [^E] [LR]      >       ERS             # ball   > ballers
+    E L            >       -EL,LERS        # tempel > templers
+    E R            >       -ER,RES         # teater > teatres
+    M              >       MERS            # dr\370m   > dr\370mmers
+
+flag *G:       # flertallsendelse: -ene
+    E              >       NE              # kvinne > kvinnene 
+    [^ELMR]        >       ENE             # gutt   > guttene 
+    [^E] [LR]      >       ENE             # ball   > ballene 
+    E L            >       -EL,LENE        # tempel > templene
+    E R            >       -ER,RENE        # teater > teatrene
+    M              >       MENE            # dr\370m   > dr\370mmene
+
+flag *H:       # flertallsendelse med genitiv: -enes
+    E              >       NES             # kvinne > kvinnenes
+    [^ELMR]        >       ENES            # gutt   > guttenes
+    [^E] [LR]      >       ENES            # ball   > ballenes
+    E L            >       -EL,LENES       # tempel > templenes
+    E R            >       -ER,RENES       # teater > teatrenes
+    M              >       MENES           # dr\370m   > dr\370mmenes
+
+flag *I:       # flertallsendelse: -e og -ne
+    E R            >       E               # maler > malere
+    E R            >       ES              # maler > maleres
+    E R            >       NE              # maler > malerne
+    E R            >       NES             # maler > malernes
+
+flag *J:       # genitivs- og passivendelse: -s
+    .              >       S               # mann > manns, kaste > kastes
+
+flag *K:       # passivendelse: -es
+    [^E]           >       ES              # f\345 > f\345es, omgikk > omgikkes
+
+flag *L:       # presensendelse: -r
+    [AEIOUY\330\305]     >       R               # kaste  > kaster, g\345 > g\345r
+
+flag *M:       # fortidsendelse: -et med svak partisippb\370yning, jevnf\370r flagg B
+    E              >       T               # rette  > rettet
+    E              >       DE              # rette  > rettede
+
+flag *N:       # fortidsendelse: -a, jevnf\370r flagg C
+    E              >       -E,A            # kaste  > kasta
+
+flag *O:       # fortidsendelse: -te og -t
+    E              >       -E,TE           # sende  > sendte
+    E              >       -E,T            # sende  > sendt
+
+flag *P:       # fortidsendelse: -dde og -dd
+    [AEIOUY\330\305]     >       DDE             # bo     > bodde
+    [AEIOUY\330\305]     >       DD              # bo     > bodd
+
+flag *Q:       # fortidsendelse: -de og -d
+    E              >       -E,DE           # b\370ye   > b\370yde
+    E              >       -E,D            # b\370ye   > b\370yd
+
+flag *R:       # imperativ
+    [^M] E         >       -E,-            # sende  > send
+    [^M] M E       >       -E,-            # lime   > lim  
+    M M E          >       -ME,-           # t\370mme  > t\370m
+
+flag *S:       # presens partisipp
+    E              >       NDE             # ligge  > liggende
+    [AIOUY\330\305]      >       ENDE            # st\345    > st\345ende
+ 
+flag *T:       # adjektivendelse: -ede
+    E T            >       -T,DE           # encellet > encellede
+
+flag *U:       # sterk partisippb\370yning: -en og -ne
+    E T            >       -T,N            # skrevet > skreven
+    E T            >       -ET,NE          # skrevet > skrevne
+
+flag *V:       # adjektivendelse: -e
+    [^LMN]         >       E               # stor  > store
+    [^E] [LN]      >       E               # fin   > fine
+    E L            >       -EL,LE          # edel  > edle
+    E N            >       -EN,NE          # doven > dovne
+    M              >       ME              # dum   > dumme
+
+# Genitiv av substantiverte adjektiv er utelatt, men jevnf\370r flaggene J og K.
+
+flag *W:       # intetkj\370nn i adjektiv: -t og -tt
+    [^I\330\305]         >       T               # stor  > stort
+    E I            >       T               # grei  > greit
+    [^E] I         >       TT              # fri   > fritt
+    [\330\305]           >       TT              # bl\345   > bl\345tt
+
+flag *X:       # komparativ: -ere
+    [^LMR]         >       ERE             # glad  > gladere
+    [^E] [LR]      >       ERE             # fin   > finere
+    E L            >       -EL,LERE        # edel  > edlere
+    E R            >       -ER,RERE        # mager > magrere
+    M              >       MERE            # dum   > dummere
+
+flag *Y:       # superlativ: -est
+    [^LMR]         >       EST             # glad  > gladest
+    [^E] [LR]      >       EST             # fin   > finest
+    E L            >       -EL,LEST        # edel  > edlest
+    E R            >       -ER,REST        # mager > magrest
+    M              >       MEST            # dum   > dummest
+ 
+flag *Z:       # superlativ: -este
+    [^LMR]         >       ESTE            # glad  > gladeste
+    [^E] [LR]      >       ESTE            # fin   > fineste
+    E L            >       -EL,LESTE       # edel  > edleste
+    E R            >       -ER,RESTE       # mager > magreste
+    M              >       MESTE           # dum   > dummeste
+
+flag *z:       # superlativ: -st og -ste
+    I G            >       ST              # grundig > grundigst
+    I G            >       STE             # grundig > grundigste
+    S O M          >       ST              # varsom  > varsomst
+    S O M          >       STE             # varsom  > varsomste
+
+# Ikke behandlet er:
+# 1. konsonantforenkling:        sykkel > sykler > syklene
+#                                fylle > fylte > fylt
+# 2. omlyd:                      mann > mennene
+#                                velge > valgte > valgt
+#                                ung > yngre > yngst
+# 3. sterk b\370yning:              f\345 > fikk > f\345tt
+# 4. annen uregelmessig b\370yning: stor > st\370rre
+#                                sp\370rre > sp\370r
+#                                far > fedre > fedrene
+# I tillegg faller enkelte ord med regelmessig b\370yning utenfor:
+#                                sel > seler > selene
+#                                v\345pen > v\345pnene

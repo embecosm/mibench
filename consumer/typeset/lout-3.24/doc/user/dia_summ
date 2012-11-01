@@ -1,0 +1,1778 @@
+@Section
+    @Tag { dia_summ }
+    @Title { Summary }
+@Begin
+@PP
+Here is the complete list of standard node outlines that may be given
+to the @Code "@Node" symbol.  Each shows the outline name, any extra
+options relevant to this outline, base (shown as a grey
+box), segments (shown using {@Code "outlinestyle { solid dashed }"}),
+tags, and directions (shown as a thick arrowhead wherever defined):
+@IndentedList gap { 3v }
+
+@LI {
+@Code {
+"@Node"
+"    outline { box }"
+}
+||7ct
+@Diag {
+//0.5f
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { box }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { curvebox }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { curvebox }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { shadowbox }"
+"    shadow { 0.4f }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { shadowbox }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { square }"
+}
+||7ct
+@Diag {
+//1.5f
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { square }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { diamond }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { diamond }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { polygon }"
+"    sides { 3 }"
+"    angle { 180d / sides }"
+}
+||7ct
+@Diag {
+//0.5f
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { polygon }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+&0.5c ... &0.5c
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { polygon }
+    sides { 10 }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+&0.5c ...
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { isosceles }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { isosceles }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { ellipse }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { ellipse }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@LI {
+@Code {
+"@Node"
+"    outline { circle }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@ShowTags @ShowDirections @Node
+    outline { circle }
+    outlinestyle { solid dashed }
+    outlinewidth { 0.03f }
+    vsize { 1.0c } hsize { 2.0c }
+}
+}
+
+@EndList
+@DP
+Here are the abbreviations for the standard shapes:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col @Code { outline "{" A "}" } ! @Col @Code { "@"B } }
+{
+@Rowa
+    A { box }
+    B { Box }
+@Rowa
+    A { curvebox }
+    B { CurveBox }
+@Rowa
+    A { shadowbox }
+    B { ShadowBox }
+@Rowa
+    A { square }
+    B { Square }
+@Rowa
+    A { diamond }
+    B { Diamond }
+@Rowa
+    A { polygon }
+    B { Polygon }
+@Rowa
+    A { isosceles }
+    B { Isosceles }
+@Rowa
+    A { ellipse }
+    B { Ellipse }
+@Rowa
+    A { circle }
+    B { Circle }
+}
+Here are all the options to the @Code "@Node" symbol, their default
+values, and their ranges of allowed values.  Definitions of {@I number},
+{@I length}, {@I angle}, and {@I point} appear later in this summary.  The
+options related to {@Code alabel}, {@Code blabel}, {@Code clabel}, and
+{@Code dlabel} have mostly been omitted since they are the same as
+the {@Code nodelabel} options except for {@Code nodelabelpos}.
+@DP
+1fx @Break @Tab
+  hmargin { 1s }
+  # vmargin { 0.6vx }
+  @Fmth { @Col @Code A ! @Col @Code " " ! @Col @Code B ! @Col @Code " " !
+	  @Col 1.0c @Wide ! @Col C }
+  @Fmta { @Col @Code A ! @Col @Code "{" ! @Col @Code B ! @Col @Code "}" !
+	  @Col 1.0c @Wide ! @Col C }
+{
+@FirstRowh
+  A { "@Node" }
+@Rowa
+  A { "   outline" }
+  B { box }
+  C { {@Code box}, {@Code curvebox}, {@Code shadowbox}, {@Code square},
+{@Code diamond}, {@Code polygon}, {@Code ellipse}, {@Code circle}, or
+any outline }
+@Rowa
+  A { "   margin"    }
+  B { 0.6f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   shadow"    }
+  B { 0.4f }
+  C { any @I length }
+@Rowa
+  A { "   sides"    }
+  B { 3 }
+  C { any @I number (it will be rounded to the nearest integer) }
+@Rowa
+  A { "   angle"    }
+  B { 180d "/" sides }
+  C { any @I angle }
+@Rowa
+  A { "   translate"    }
+  B { }
+  C { empty, or @I point @Code to @I point }
+@Rowa
+  A { "   outlinestyle" }
+  B { solid }
+  C { {@Code solid}, {@Code dashed}, {@Code cdashed}, {@Code dotted},
+{@Code noline}, or any sequence of one or more of these values }
+@Rowa
+  A { "   outlinedashlength"}
+  B { 0.2f }
+  C { any @I length }
+@Rowa
+  A { "   outlinewidth" }
+  B { thin }
+  C { {@Code thin}, {@Code medium}, {@Code thick}, or any @I length }
+@Rowa
+  A { "   paint"     }
+  B { nopaint }
+  C { @Code nopaint or any colour from Section {@NumberOf colour} }
+@Rowa
+  A { "   font"     }
+  B { }
+  C { any value suitable for the @Code "@Font" symbol }
+@Rowa
+  A { "   break"     }
+  B { }
+  C { any value suitable for the @Code "@Break" symbol }
+@Rowa
+  A { "   format"     }
+  B { "@Body" }
+  C { any object, usually containing {@Code "@Body"} }
+@Rowa
+  A { "   valign"}
+  B { ctr }
+  C { {@Code "top"}, {@Code "ctr"}, {@Code "foot"}, or any length
+from Section {@NumberOf objects} }
+@Rowa
+  A { "   vsize"}
+  B { }
+  C { empty, or any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   vindent"}
+  B { ctr }
+  C { {@Code "top"}, {@Code "ctr"}, {@Code "mctr"}, {@Code "foot"}, or any
+length from Section {@NumberOf objects} }
+@Rowa
+  A { "   vstrut"}
+  B { no }
+  C { {@Code no}, {@Code yes}, or any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   vmargin"    }
+  B { margin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   topmargin"    }
+  B { vmargin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   footmargin"    }
+  B { vmargin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   halign"}
+  B { ctr }
+  C { {@Code "left"}, {@Code "ctr"}, {@Code "right"}, or any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   hsize"}
+  B { }
+  C { empty, or any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   hindent"}
+  B { ctr }
+  C { {@Code "left"}, {@Code "ctr"}, {@Code "mctr"}, {@Code "right"}, or any
+length from Section {@NumberOf objects} }
+@Rowa
+  A { "   hmargin"    }
+  B { margin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   leftmargin"    }
+  B { hmargin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   rightmargin"    }
+  B { hmargin }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   hstrut"}
+  B { no }
+  C { {@Code no}, {@Code yes}, or any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   nodelabel"}
+  B {  }
+  C { any object }
+@Rowa
+  A { "   nodelabelmargin"}
+  B { 0.2f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   nodelabelfont"}
+  B { -2p }
+  C { any value suitable for the @Code "@Font" symbol }
+@Rowa
+  A { "   nodelabelbreak"}
+  B { ragged nohyphen }
+  C { any value suitable for the @Code "@Break" symbol }
+@Rowa
+  A { "   nodelabelformat"}
+  B { "@Body" }
+  C { any object, usually containing @Code "@Body" }
+@Rowa
+  A { "   nodelabelpos"}
+  B { }
+  C { any @I point }
+@Rowa
+  A { "   nodelabelangle"}
+  B { horizontal }
+  C { {@Code horizontal}, {@Code aligned}, or {@Code perpendicular};
+{@Code parallel}, {@Code antiparallel}, or any @I angle }
+@Rowa
+  A { "   nodelabelprox"}
+  B { outside }
+  C { {@Code above}, {@Code below}, {@Code left}, {@Code right},
+{@Code inside}, or {@Code outside}; {@Code CTR}, {@Code N}, {@Code S},
+{@Code E}, {@Code W}, {@Code NE}, {@Code NW}, {@Code SW}, or {@Code SE}
+}
+@Rowa
+  A { "   nodelabelctr"}
+  B { no }
+  C { @Code yes or @Code no }
+@Rowa
+  A { "   nodelabeladjust"}
+  B { 0 0 }
+  C { any @I point }
+@Rowa
+  A { "   alabelpos"}
+  B { NE }
+  C { any @I point }
+@Rowa
+  A { "   blabelpos"}
+  B { NW }
+  C { any @I point }
+@Rowa
+  A { "   clabelpos"}
+  B { SW }
+  C { any @I point }
+@Rowa
+  A { "   dlabelpos"}
+  B { SE }
+  C { any @I point }
+}
+@DP
+Here is the complete list of standard link paths that may be given
+to the @Code "@Link" symbol.  Each entry shows the link path name,
+any extra options relevant to this path, segments (shown using
+{@Code "outlinestyle { solid dashed }"}, and tags.  All tags
+have directions pointing along the link from @Code FROM to
+{@Code TO}; these have been omitted for clarity.  The @Code frompt
+and @Code topt options of @Code bezier are compulsory and denote the
+two control points (Section {@NumberOf dia_defi}).
+@IndentedList gap { 2v }
+
+@LI {
+@Code {
+"@Link"
+"    path { line }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { line } from { A } to { B }
+}
+&2.5c
+#@Diag {
+#|1.5c B:: @Circle /0.8c A:: @Circle 
+#//
+#@ShowTags @Link
+#    pathstyle { solid dashed }
+#    path { line } from { A } to { B }
+#}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { doubleline }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { doubleline } from { A } to { B }
+}
+&2.5c
+#@Diag {
+#|1.5c B:: @Circle /0.8c A:: @Circle 
+#//
+#@ShowTags @Link
+#    pathstyle { solid dashed }
+#    path { line } from { A } to { B }
+#}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { curve }"
+"    bias { 2.0f }"
+}
+||6ct
+@Diag {
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { curve } from { A } to { B }
+}
+&2.5c
+@Diag {
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { curve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { ccurve }"
+"    bias { 2.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { ccurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { ccurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { bezier }"
+"    frompt { A@CTR ++ { 3f 0 } }"
+"    topt { B@CTR ++ { 3f 0 } }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { bezier } from { A } to { B }
+    frompt { A@CTR ++ { 3f 0 } }
+    topt { B@CTR ++ { 3f 0 } }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { bezier } from { A } to { B }
+    frompt { A@CTR ++ { 3f 0 } }
+    topt { B@CTR ++ { 3f 0 } }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { vhline }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { vhline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { vhline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { hvline }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { hvline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { hvline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { vhcurve }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { vhcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { vhcurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { hvcurve }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { hvcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { hvcurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { lvrline }"
+"    bias { 2.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { lvrline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { lvrline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { rvlline }"
+"    bias { 2.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { rvlline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { rvlline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { lvrcurve }"
+"    bias { 2.0f }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { lvrcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { lvrcurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { rvlcurve }"
+"    bias { 2.0f }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { rvlcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { rvlcurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { dwrapline }"
+"    tbias { 2.0f }"
+"    bias { 2.0f }"
+"    fbias { 2.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle /2f
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { dwrapline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle /2f
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { dwrapline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { uwrapline }"
+"    tbias { 2.0f }"
+"    bias { 2.0f }"
+"    fbias { 2.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+/2f A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { uwrapline } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+/2f |1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { uwrapline } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { dwrapcurve }"
+"    tbias { 2.0f }"
+"    bias { 2.0f }"
+"    fbias { 2.0f }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+A:: @Circle /0.8c |1.5c B:: @Circle /2f
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { dwrapcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+|1.5c B:: @Circle /0.8c A:: @Circle /2f
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { dwrapcurve } from { A } to { B }
+}
+}
+
+@LI {
+@Code {
+"@Link"
+"    path { uwrapcurve }"
+"    tbias { 2.0f }"
+"    bias { 2.0f }"
+"    fbias { 2.0f }"
+"    radius { 1.0f }"
+}
+||6ct
+@Diag {
+//0.5f
+/2f A:: @Circle /0.8c |1.5c B:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { uwrapcurve } from { A } to { B }
+}
+&2.5c
+@Diag {
+//0.5f
+/2f |1.5c B:: @Circle /0.8c A:: @Circle 
+//
+@ShowTags @Link
+    pathstyle { solid dashed }
+    path { uwrapcurve } from { A } to { B }
+}
+}
+
+@EndList
+Here is the list of abbreviations for the standard paths (note
+that @Code curve and @Code acurve are the same).  Each
+path also has an abbreviation which adds a forward arrow:
+@DP
+@Tab
+    @Fmta { @Col { @DisplayIndent @Wide & @Code { path "{" A "}" } } !
+	    @Col @Code "@"B ! @Col @Code "@"C }
+{
+@FirstRowa
+    A { line }
+    B { Line }
+    C { Arrow }
+@Rowa
+    A { doubleline }
+    B { DoubleLine }
+    C { DoubleArrow }
+@Rowa
+    A { curve }
+    B { Curve }
+    C { CurveArrow }
+@Rowa
+    A { acurve }
+    B { ACurve }
+    C { ACurveArrow }
+@Rowa
+    A { ccurve }
+    B { CCurve }
+    C { CCurveArrow }
+
+@Rowa
+    A { bezier }
+    B { Bezier }
+    C { BezierArrow }
+
+@Rowa
+    A { hvline }
+    B { HVLine }
+    C { HVArrow }
+@Rowa
+    A { vhline }
+    B { VHLine }
+    C { VHArrow }
+@Rowa
+    A { hvcurve }
+    B { HVCurve }
+    C { HVCurveArrow }
+@Rowa
+    A { vhcurve }
+    B { VHCurve }
+    C { VHCurveArrow }
+
+@Rowa
+    A { lvrline }
+    B { LVRLine }
+    C { LVRArrow }
+@Rowa
+    A { rvlline }
+    B { RVLLine }
+    C { RVLArrow }
+@Rowa
+    A { lvrcurve }
+    B { LVRCurve }
+    C { LVRCurveArrow }
+@Rowa
+    A { rvlcurve }
+    B { RVLCurve }
+    C { RVLCurveArrow }
+
+@Rowa
+    A { dwrapline }
+    B { DWrapLine }
+    C { DWrapArrow }
+@Rowa
+    A { uwrapline }
+    B { UWrapLine }
+    C { UWrapArrow }
+@Rowa
+    A { dwrapcurve }
+    B { DWrapCurve }
+    C { DWrapCurveArrow }
+@Rowa
+    A { uwrapcurve }
+    B { UWrapCurve }
+    C { UWrapCurveArrow }
+}
+@DP
+Here is the complete list of options to the @Code "@Link" symbol.  The
+options related to {@Code xlabel}, {@Code ylabel}, and {@Code zlabel}
+have been omitted where they are the same as the {@Code linklabel} options.
+@DP
+1fx @Break @Tab
+  hmargin { 1s }
+  # vmargin { 0.6vx }
+  @Fmth { @Col @Code A ! @Col @Code " " ! @Col @Code B ! @Col @Code " " !
+	  @Col 1.0c @Wide ! @Col C }
+  @Fmta { @Col @Code A ! @Col @Code "{" ! @Col @Code B ! @Col @Code "}" !
+	  @Col 1.0c @Wide ! @Col C }
+{
+@Rowh
+  A { "@Link" }
+@Rowa
+  A { "   path" }
+  B { line }
+  C { {@Code "line"}, {@Code "doubleline"}, {@Code "curve"}, {@Code "acurve"},
+{@Code "ccurve"}, {@Code "bezier"},
+{@Code "vhline"}, {@Code "hvline"}, {@Code "vhcurve"}, {@Code "hvcurve"},
+{@Code "lvrline"}, {@Code "rvlline"}, {@Code "lvrcurve"}, {@Code "rvlcurve"},
+{@Code "dwrapline"}, {@Code "uwrapline"}, {@Code "dwrapcurve"},
+{@Code "uwrapcurve"}, or any path }
+@Rowa
+  A { "   from"}
+  B { 0,0 }
+  C { any @I point or node label }
+@Rowa
+  A { "   to"}
+  B { 1,1 }
+  C { any @I point or node label }
+@Rowa
+  A { "   bias"}
+  B { 2.0f }
+  C { any @I length }
+@Rowa
+  A { "   fbias"}
+  B { 2.0f }
+  C { any @I length }
+@Rowa
+  A { "   tbias"}
+  B { 2.0f }
+  C { any @I length }
+@Rowa
+  A { "   radius"}
+  B { 1.0f }
+  C { any @I length }
+@Rowa
+  A { "   xindent"}
+  B { 0.8f }
+  C { any @I length }
+@Rowa
+  A { "   zindent"}
+  B { 0.8f }
+  C { any @I length }
+@Rowa
+  A { "   frompt"}
+  B { 0 0 }
+  C { any @I point }
+@Rowa
+  A { "   topt"}
+  B { 0 0 }
+  C { any @I point }
+@Rowa
+  A { "   pathstyle" }
+  B { solid }
+  C { {@Code solid}, {@Code dashed}, {@Code cdashed}, {@Code dotted},
+{@Code noline}, or any sequence of one or more of these values }
+@Rowa
+  A { "   pathdashlength"}
+  B { 0.2f }
+  C { any @I length }
+@Rowa
+  A { "   pathwidth" }
+  B { thin }
+  C { {@Code thin}, {@Code medium}, {@Code thick}, or any @I length }
+@Rowa
+  A { "   pathgap" }
+  B { thin }
+  C { {@Code thin}, {@Code medium}, {@Code thick}, or any @I length }
+@Rowa
+  A { "   arrow"}
+  B { no }
+  C { {@Code no}, {@Code yes}, {@Code forward}, {@Code back},
+or {@Code both} }
+@Rowa
+  A { "   arrowstyle"}
+  B { solid }
+  C { {@Code solid}, {@Code halfopen}, {@Code open}, {@Code curvedsolid},
+{@Code curvedhalfopen}, or {@Code curvedopen} }
+@Rowa
+  A { "   arrowwidth"}
+  B { 0.3f }
+  C { any @I length }
+@Rowa
+  A { "   arrowlength"}
+  B { 0.5f }
+  C { any @I length }
+@Rowa
+  A { "   linklabel"}
+  B {  }
+  C { any object }
+@Rowa
+  A { "   linklabelmargin"}
+  B { 0.2f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   linklabelfont"}
+  B { -2p }
+  C { any value suitable for the @Code "@Font" symbol }
+@Rowa
+  A { "   linklabelbreak"}
+  B { ragged nohyphen }
+  C { any value suitable for the @Code "@Break" symbol }
+@Rowa
+  A { "   linklabelformat"}
+  B { "@Body" }
+  C { any object, usually containing @Code "@Body" }
+@Rowa
+  A { "   linklabelpos"}
+  B { }
+  C { any @I point }
+@Rowa
+  A { "   linklabelangle"}
+  B { horizontal }
+  C { {@Code horizontal}, {@Code aligned}, or {@Code perpendicular};
+{@Code parallel}, {@Code antiparallel}, or any @I angle }
+@Rowa
+  A { "   linklabelprox"}
+  B { above }
+  C { {@Code above}, {@Code below}, {@Code left}, {@Code right},
+{@Code inside}, or {@Code outside}; {@Code CTR}, {@Code N}, {@Code S},
+{@Code E}, {@Code W}, {@Code NE}, {@Code NW}, {@Code SW}, or {@Code SE}
+}
+@Rowa
+  A { "   linklabelctr"}
+  B { no }
+  C { @Code yes or @Code no }
+@Rowa
+  A { "   linklabeladjust"}
+  B { 0 0 }
+  C { any @I point }
+@Rowa
+  A { "   xlabelpos"}
+  B { LFROM }
+  C { any @I point }
+@Rowa
+  A { "   ylabelpos"}
+  B { LMID }
+  C { any @I point }
+@Rowa
+  A { "   ylabelctr"}
+  B { yes }
+  C { @Code yes or @Code no }
+@Rowa
+  A { "   zlabelpos"}
+  B { LTO }
+  C { any @I point }
+@Rowa
+  A { "   fromlabel"}
+  B {  }
+  C { any object }
+@Rowa
+  A { "   fromlabelmargin"}
+  B { 0f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   fromlabelfont"}
+  B {     }
+  C { Any value suitable for the @Code "@Font" symbol }
+@Rowa
+  A { "   fromlabelbreak"}
+  B { ragged nohyphen }
+  C { Any value suitable for the @Code "@Break" symbol }
+@Rowa
+  A { "   fromlabelformat"}
+  B { "@Body" }
+  C { any object, usually containing @Code "@Body" }
+@Rowa
+  A { "   fromlabelpos"}
+  B { FROM }
+  C { any @I point }
+@Rowa
+  A { "   fromlabelangle"}
+  B { antiparallel }
+  C { {@Code horizontal}, {@Code aligned}, or {@Code perpendicular};
+{@Code parallel}, {@Code antiparallel}, or any @I angle }
+@Rowa
+  A { "   fromlabelprox"}
+  B { W }
+  C { {@Code above}, {@Code below}, {@Code left}, {@Code right},
+{@Code inside}, or {@Code outside}; {@Code CTR}, {@Code N}, {@Code S},
+{@Code E}, {@Code W}, {@Code NE}, {@Code NW}, {@Code SW}, or {@Code SE}
+}
+@Rowa
+  A { "   fromlabelctr"}
+  B { no }
+  C { @Code yes or @Code no }
+@Rowa
+  A { "   fromlabeladjust"}
+  B { 0 0 }
+  C { any @I point }
+@Rowa
+  A { "   tolabel"}
+  B {  }
+  C { any object }
+@Rowa
+  A { "   tolabelmargin"}
+  B { 0f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   tolabelfont"}
+  B {     }
+  C { Any value suitable for the @Code "@Font" symbol }
+@Rowa
+  A { "   tolabelbreak"}
+  B { ragged nohyphen }
+  C { Any value suitable for the @Code "@Break" symbol }
+@Rowa
+  A { "   tolabelformat"}
+  B { "@Body" }
+  C { any object, usually containing @Code "@Body" }
+@Rowa
+  A { "   tolabelpos"}
+  B { TO }
+  C { any @I point }
+@Rowa
+  A { "   tolabelangle"}
+  B { parallel }
+  C { {@Code horizontal}, {@Code aligned}, or {@Code perpendicular};
+{@Code parallel}, {@Code antiparallel}, or any @I angle }
+@Rowa
+  A { "   tolabelprox"}
+  B { W }
+  C { {@Code above}, {@Code below}, {@Code left}, {@Code right},
+{@Code inside}, or {@Code outside}; {@Code CTR}, {@Code N}, {@Code S},
+{@Code E}, {@Code W}, {@Code NE}, {@Code NW}, {@Code SW}, or {@Code SE}
+}
+@Rowa
+  A { "   tolabelctr"}
+  B { no }
+  C { @Code yes or @Code no }
+@Rowa
+  A { "   tolabeladjust"}
+  B { 0 0 }
+  C { any @I point }
+}
+@DP
+Here is the complete list of options to the @Code "@Tree" symbol:
+@DP @OneRow 1fx @Break @Tab
+  hmargin { 1s }
+  # vmargin { 0.6vx }
+  @Fmth { @Col @Code A ! @Col @Code " " ! @Col @Code B ! @Col @Code " " !
+	  @Col 1.0c @Wide ! @Col C }
+  @Fmta { @Col @Code A ! @Col @Code "{" ! @Col @Code B ! @Col @Code "}" !
+	  @Col 1.0c @Wide ! @Col C }
+{
+@Rowh
+  A { "@Tree" }
+@Rowa
+  A { "   treehindent" }
+  B { ctr }
+  C { {@Code left}, {@Code ctr}, {@Code right}, or any length from
+Section {@NumberOf objects} }
+}
+@DP
+The @Code "@HTree" option has a similar @Code "treevindent" option,
+which may be {@Code "top"}, {@Code ctr}, {@Code foot}, or any length
+from Section {@NumberOf objects}.
+@PP
+Here are all the syntax diagrams symbols, used within {@Code "@SyntaxDiag"}
+usually but also available within {@Code "@Diag"}.  To begin with we have
+the six starter symbols:
+@CD @SyntaxDiag {
+@Tbl
+    aformat { @Cell @Code A | @Cell B | @Cell | @Cell @Code C |
+	      @Cell D | @Cell | @Cell @Code E | @Cell F }
+{
+@Rowa
+    A { "@StartRight ..." }
+    B { @StartRight @ACell "..." }
+    C { "@StartUp ..." }
+    D { @StartUp @ACell "..." }
+    E {
+"@StartRightRight"
+      "A { ... }"
+      "B { ... }"
+}
+    F { @StartRightRight A { @ACell A } B { @ACell B } }
+@Rowa
+    A { "@StartLeft ..." }
+    B { @StartLeft @ACell "..." }
+    C { "@StartDown ..." }
+    D { @StartDown @ACell "..." }
+    E {
+"@StartRightDown"
+      "A { ... }"
+      "B { ... }"
+}
+    F { @StartRightDown A { @ACell A } B { @ACell B } }
+}
+}
+And here are all the syntax diagram types, shown in all four directions
+(right, up, left, and down).  @Code "@Sequence" and @Code "@Select" may
+have up to twelve options, {@Code "A"} to {@Code "L"}.
+@IndentedList
+
+@LI @SyntaxDiag { @Four code { "@ACell ..." } @ACell "..." }
+
+@LI @SyntaxDiag { @Four code { "@BCell ..." } @BCell "..." }
+
+@LI @SyntaxDiag { @Four code { "@CCell ..." } @CCell "..." }
+
+@LI @SyntaxDiag { @Four code { "@Skip"      } @Skip        }
+
+@LI @SyntaxDiag { @Four code {
+"@Sequence"
+      "A { ... }"
+      "B { ... }"
+      "C { ... }"
+} @Sequence A { @ACell A } B { @ACell B } C { @ACell C } }
+
+@LI @SyntaxDiag { @Four code {
+"@Select"
+      "A { ... }"
+      "B { ... }"
+      "C { ... }"
+} @Select A { @ACell A } B { @ACell B } C { @ACell C } }
+
+@LI @SyntaxDiag { @Four code { "@Optional ..." } @Optional @ACell "..." }
+
+@LI @SyntaxDiag { @Four code { "@OptionalDiverted ..." }
+	@OptionalDiverted @ACell "..." }
+
+@LI @SyntaxDiag { @Four code { "@Diverted ..." } @Diverted @ACell "..." }
+
+@LI @SyntaxDiag { @Four code {
+"@Loop"
+      "A { ... }"
+      "B { ... }"
+} @Loop A { @ACell A } B { @ACell B } }
+
+@LI @SyntaxDiag { @Four code { "@Repeat ..." } @Repeat @ACell "..." }
+
+@LI @SyntaxDiag { @Four code {
+"@LoopOpposite"
+      "A { ... }"
+      "B { ... }"
+} @LoopOpposite A { @ACell A } B { @ACell B } }
+
+@LI @SyntaxDiag { @Four code { "@RepeatOpposite ..." }
+	@RepeatOpposite @ACell "..." }
+
+@LI @SyntaxDiag { @Four code { "@RepeatDiverted ..." }
+	@RepeatDiverted @ACell "..." }
+
+@EndList
+The @Code "@Diag" symbol and to the {@Code "@DiagSetup"} setup
+file symbol have all of the options of {@Code "@Node"}, {@Code "@Link"},
+{@Code "@Tree"}, and {@Code "@HTree"}.  They also have the following
+options:
+@DP
+1fx @Break @Tab
+  hmargin { 1s }
+  # vmargin { 0.6vx }
+  @Fmth { @Col @Code A ! @Col @Code " " ! @Col @Code B ! @Col @Code " " !
+	  @Col 1.0c @Wide ! @Col C }
+  @Fmta { @Col @Code A ! @Col @Code "{" ! @Col @Code B ! @Col @Code "}" !
+	  @Col 1.0c @Wide ! @Col C }
+{
+@Rowh
+  A { "@Diag" }
+@Rowa
+  A { "   maxlabels" }
+  B { 200 }
+  C { any whole number }
+@Rowa
+  A { "   save" }
+  B { no }
+  C { @Code no or @Code yes }
+@Rowa
+  A { "   treehsep" }
+  B { 0.5f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   syntaxgap" }
+  B { 0.35f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   syntaxbias" }
+  B { 1.0f }
+  C { any length from Section {@NumberOf objects} }
+@Rowa
+  A { "   syntaxradius" }
+  B { 0.3f }
+  C { any length from Section {@NumberOf objects} }
+}
+@DP
+The following lists define all the ways to specify numbers, lengths,
+angles, points, and booleans.  Brief explanations appear to the right,
+with the symbols' precedences in parentheses.
+@DP
+1fx @Break @Tab
+  # vmargin { 0.6vx }
+  @Fmth { @Col { &@DisplayIndent     A } ! @Col   }
+  @Fmta { @Col { &@DisplayIndent &2s A } ! @Col B }
+{
+
+@Rowh A { @I number } vmargin { 0.2vx }
+@Rowh
+@Rowa
+  A { {@Sym minus}27.56 }
+  B { or any literal number }
+@Rowa
+  A { @Code sqrt @I number }
+  B { square root (99) }
+@Rowa
+  A { @Code abs @I number }
+  B { absolute value (99) }
+@Rowa
+  A { @Code ceiling @I number }
+  B { least integer greater than or equal to (99) }
+@Rowa
+  A { @Code floor @I number }
+  B { greatest integer less than or equal to (99) }
+@Rowa
+  A { @Code truncate @I number }
+  B { delete fractional part (99) }
+@Rowa
+  A { @Code round @I number }
+  B { round to nearest integer (99) }
+@Rowa
+  A { @Code sin @I angle }
+  B { sine of angle measured in degrees (99) }
+@Rowa
+  A { @Code cos @I angle }
+  B { cosine of angle measured in degrees (99) }
+@Rowa
+  A { @I number @Code atan @I number }
+  B { arc tangent of first over second (98) }
+@Rowa
+  A { @I number @Code exp @I number }
+  B { first number raised to second number (98) }
+@Rowa
+  A { @I number @Code log @I number }
+  B { logarithm of second number to base first (98) }
+@Rowa
+  A { @I number @Code rand @I number }
+  B { random real number in this range inclusive (98) }
+@Rowa
+  A { @I number @Code max @I number }
+  B { the larger of two numbers (98) }
+@Rowa
+  A { @I number @Code min @I number }
+  B { the smaller of two numbers (98) }
+@Rowa
+  A { @I number @Code "*" @I number }
+  B { the product of two numbers (97) }
+@Rowa
+  A { @I number @Code "/" @I number }
+  B { real-valued division (96, left associative) }
+@Rowa
+  A { @I length @Code "/" @I length }
+  B { the ratio of two lengths (96, left associative) }
+@Rowa
+  A { @I angle @Code "/" @I angle }
+  B { the ratio of two angles (96, left associative) }
+@Rowa
+  A { @I number @Code idiv @I number }
+  B { integer division of two numbers (96, left associative) }
+@Rowa
+  A { @I number @Code mod @I number }
+  B { integer remainder when first divided by second (96) }
+@Rowa
+  A { @I number @Code "+" @I number }
+  B { sum of two numbers (96, left associative) }
+@Rowa
+  A { @Code "+" @I number }
+  B { identity operation (96) }
+@Rowa
+  A { @I number @Sym minus @I number }
+  B { difference of two numbers (96, left associative) }
+@Rowa
+  A { @Sym minus @I number }
+  B { negation (96) }
+@Rowa
+  A { @Code sides }
+  B { ({@Code outline} only) value of the node's @Code sides option }
+
+@Rowh
+@Rowh
+@Rowh
+@Rowh
+@Rowh A { @I length } vmargin { 0.2vx }
+@Rowh
+@Rowa
+  A { 0 }
+  B { zero }
+@Rowa
+  A { @Code xsize }
+  B { ({@Code outline} only) distance to right boundary }
+@Rowa
+  A { @Code ysize }
+  B { ({@Code outline} only) distance to top boundary }
+@Rowa
+  A { @Code xmark }
+  B { ({@Code outline} only) distance to column mark }
+@Rowa
+  A { @Code ymark }
+  B { ({@Code outline} only) distance to row mark }
+@Rowa
+  A { @Code margin }
+  B { ({@Code outline} only) value of the node's @Code margin option }
+@Rowa
+  A { @Code shadow }
+  B { ({@Code outline} only) value of the node's @Code shadow option }
+@Rowa
+  A { @I number @Code i }
+  B { @I number inches (100) }
+@Rowa
+  A { @I number @Code c }
+  B { @I number centimetres (100) }
+@Rowa
+  A { @I number @Code p }
+  B { @I number points (100) }
+@Rowa
+  A { @I number @Code m }
+  B { @I number ems (100) }
+@Rowa
+  A { @I number @Code s }
+  B { @Code 1s is the current width of a space (100) }
+@Rowa
+  A { @I number @Code v }
+  B { @Code 1v is the current inter-line space (100) }
+@Rowa
+  A { @I number @Code f }
+  B { @Code 1f is the size of the current font (100) }
+@Rowa
+  A { @Code "xcoord" @I point }
+  B { the @I x coordinate of the point (99) }
+@Rowa
+  A { @Code "ycoord" @I point }
+  B { the @I y coordinate of the point (99) }
+@Rowa
+  A { @Code abs @I length }
+  B { absolute value (99) }
+@Rowa
+  A { @I length @Code rand @I length }
+  B { random real length in this range inclusive (98) }
+@Rowa
+  A { @I length @Code max @I length }
+  B { the larger of two lengths (98) }
+@Rowa
+  A { @I length @Code min @I length }
+  B { the smaller of two lengths (98) }
+@Rowa
+  A { @I point @Code "distance" @I point }
+  B { (non-negative) distance between two points (98) }
+@Rowa
+  A { @I length @Code "*" @I number }
+  B { length multiplied by number (97) }
+@Rowa
+  A { @I number @Code "*" @I length }
+  B { length multiplied by number (97) }
+@Rowa
+  A { @I length @Code "/" @I number }
+  B { length divided by number (96, left associative) }
+@Rowa
+  A { @I length @Code "+" @I length }
+  B { sum of two lengths (96, left associative) }
+@Rowa
+  A { @Code "+" @I length }
+  B { identity operation (96) }
+@Rowa
+  A { @I length @Sym minus @I length }
+  B { difference of two lengths (96, left associative) }
+@Rowa
+  A { @Sym minus @I length }
+  B { negation (96) }
+
+@Rowh
+@Rowh
+@Rowh
+@Rowh
+@Rowh A { @I angle } vmargin { 0.2vx }
+@Rowh
+@Rowa
+  A { @I number @Code d }
+  B { @I number degrees (100) }
+@Rowa
+  A { @I number }
+  B { @I number degrees (@Code d is optional) (100) }
+@Rowa
+  A { @Code parallel }
+  B { ({@Code labelangle} options only) angle parallel to curve at label point }
+@Rowa
+  A { @Code antiparallel }
+  B { ({@Code labelangle} options only) angle antiparallel to curve at label point }
+@Rowa
+  A { @Code perpendicular }
+  B { ({@Code labelangle} options only) angle perpendicular to curve at label point }
+@Rowa
+  A { @Code antiperpendicular }
+  B { ({@Code labelangle} options only) angle antiperpendicular to curve at label point }
+@Rowa
+  A { {@I label}{@Code "??ANGLE"} }
+  B { angle parallel to curve at {@I label} if known, else @Code "0d" (99) }
+@Rowa
+  A { @Code anglefix @I angle }
+  B { @I angle normalized to between @Code 0d inclusive and @Code 360d exclusive (99) }
+@Rowa
+  A { @Code abs @I angle }
+  B { absolute value (99) }
+@Rowa
+  A { @I length @Code atan @I length }
+  B { arc tangent of first over second (98) }
+@Rowa
+  A { @I point @Code "angleto" @I point }
+  B { angle from first point to second (98) }
+@Rowa
+  A { @I angle @Code rand @I angle }
+  B { random angle in this range inclusive (98) }
+@Rowa
+  A { @I angle @Code max @I angle }
+  B { the larger of two angles (98) }
+@Rowa
+  A { @I angle @Code min @I angle }
+  B { the smaller of two angles (98) }
+@Rowa
+  A { @I angle @Code "*" @I number }
+  B { angle multiplied by number (97) }
+@Rowa
+  A { @I number @Code "*" @I angle }
+  B { angle multiplied by number (97) }
+@Rowa
+  A { @I angle @Code "/" @I number }
+  B { division of angle by number (96, left associative) }
+@Rowa
+  A { @I angle @Code "+" @I angle }
+  B { sum of two angles (96, left associative) }
+@Rowa
+  A { @Code "+" @I angle }
+  B { identity operation (96) }
+@Rowa
+  A { @I angle @Sym minus @I angle }
+  B { difference of two angles (96, left associative) }
+@Rowa
+  A { @Sym minus @I angle }
+  B { negation (96) }
+@Rowa
+  A { @Code angle }
+  B { ({@Code outline} only) value of the node's @Code angle option }
+
+
+@Rowh
+@Rowh
+@Rowh
+@Rowh
+@Rowh A { @I point } vmargin { 0.2vx }
+@Rowh
+@Rowa
+  A { @I label }
+  B { a previously defined label }
+@Rowa
+  A { {@I any}{@Code "??"}{@I label} }
+  B { {@I any}{@Code "@"}{@I label} if sensible, else {@I any} (99) }
+@Rowa
+  A { @Code "prev" }
+  B { the previous point in a shape }
+@Rowa
+  A { @I length  @Code "atangle"  @I angle }
+  B { point at distance and angle from origin (89) }
+@Rowa
+  A { @I "point/tag" @Code "boundaryatangle" @I angle }
+  B { @I {point}, or point on boundary of @I tag at @I angle (89) }
+@Rowa
+  A { @I point  @Code "**"  @I number }
+  B { multiplication of point by number (88) }
+@Rowa
+  A { @I point  @Code "++"  @I point }
+  B { vector sum of two points (87) }
+@Rowa
+  A { @I point  {@Sym minus}{@Sym minus}  @I point }
+  B { vector difference of two points (87) }
+@Rowa
+  A { @I {number, number} }
+  B { @I x and @I y coordinates with respect to base (70) }
+@Rowa
+  A { @I {length  length} }
+  B { @I x and @I y distance from origin (5) }
+@Rowa
+  A { @Code from }
+  B { ({@Code path} only) the value of the link's @Code from option }
+@Rowa
+  A { @Code to }
+  B { ({@Code path} only) the value of the link's @Code to option }
+
+@Rowh
+@Rowh
+@Rowh
+@Rowh
+@Rowh A { @I boolean } vmargin { 0.2vx }
+@Rowh
+@Rowa
+  A { @I number @Code "=" @I number }
+  B { @Eq { non = }; also between lengths (79) }
+@Rowa
+  A { @I number @Code "!=" @I number }
+  B { @Eq { non != }; also between lengths (79) }
+@Rowa
+  A { @I number @Code "==" @I number }
+  B { @Eq { non = } between angles (79) }
+@Rowa
+  A { @I number @Code "!==" @I number }
+  B { @Eq { non != } between angles (79) }
+@Rowa
+  A { @I number @Code "<=" @I number }
+  B { @Eq { non <= }; also between lengths (79) }
+@Rowa
+  A { @I number @Code "<" @I number }
+  B { @Eq { non < }; also between lengths (79) }
+@Rowa
+  A { @I number @Code ">=" @I number }
+  B { @Eq { non >= }; also between lengths (79) }
+@Rowa
+  A { @I number @Code ">" @I number }
+  B { @Eq { non > }; also between lengths (79) }
+@Rowa
+  A { @Code "not" @I boolean }
+  B { Logical not (78) }
+@Rowa
+  A { @I boolean @Code "and" @I boolean }
+  B { Logical and (77) }
+@Rowa
+  A { @I boolean @Code "or" @I boolean }
+  B { Logical or (76) }
+@Rowa
+  A { @I boolean @Code "xor" @I boolean }
+  B { Logical exclusive or (76) }
+
+}
+@DP
+A length is represented in PostScript by a single number on the operand
+stack; so is an angle.  Therefore all number operations can be applied
+to lengths and angles as well, but the results will not always be
+useful.  For example, rounding a length to the nearest integer is
+not a useful thing to do because the result depends on the basic unit
+(what does 1 equal as a length?) which is implementation-dependent and
+genuinely subject to change.  Rounding the @I ratio of two lengths does
+make sense.  The above is an attempt to list only the useful operations;
+but if you really need the logarithm of an angle, you can have it.
+@PP
+Angles are a little more amenable to this kind of thing because they are
+always measured in degrees.  However, angles suffer from the problem that
+{@Code 0d} is really the same angle as {@Code 360d}.  For this reason,
+separate equality and inequality operators for angles are provided which
+ignore multiples of {@Code 360d}, and less than and similar relations
+are not defined for angles, because they inherently are not well
+defined.  See also the @Code anglefix symbol above.
+@PP
+A point is represented by two lengths (which are numbers) on the
+stack.  Those familiar with PostScript and willing to sacrifice portability
+and increase their risk of error can therefore write, for example,
+@OneCol { @I point @Code "exch" } to obtain the reflection of a point about
+the main diagonal, and so on.
+@PP
+The following may have a result of any type, depending on
+their options.  The options and result may be a
+sequence of things as required in shapes, including @Code "[]" and
+so forth.
+@IndentedList
+@LI @OneRow lines @Break {
+@Code if
+    @Code "cond {" @I boolean @Code "}"
+    @Code "then {" @I anything @Code "}"
+    @Code "else {" @I anything @Code "}"
+}
+@LI @OneRow lines @Break {
+@I angle @Code quadcase
+    @Code "0 {" @I anything @Code "}"
+    @Code "0-90 {" @I anything @Code "}"
+    @Code "90 {" @I anything @Code "}"
+    @Code "90-180 {" @I anything @Code "}"
+    @Code "180 {" @I anything @Code "}"
+    @Code "180-270 {" @I anything @Code "}"
+    @Code "270 {" @I anything @Code "}"
+    @Code "270-360 {" @I anything @Code "}"
+}
+@LI @OneRow lines @Break {
+@I number @Code signcase
+    @Code "neg {" @I anything @Code "}"
+    @Code "zero {" @I anything @Code "}"
+    @Code "pos {" @I anything @Code "}"
+}
+@LI @OneRow lines @Break {
+@Code "xloop from {" @I number "} to {" @I number "} by {" @I number "} do {"
+    @I anything
+@Code "}"
+}
+@LI @OneRow lines @Break {
+@Code "yloop from {" @I number "} to {" @I number "} by {" @I number "} do {"
+    @I anything
+@Code "}"
+}
+@LI @OneRow lines @Break {
+@Code "zloop from {" @I number "} to {" @I number "} by {" @I number "} do {"
+    @I anything
+@Code "}"
+}
+@EndList
+The @Code "if" symbol returns @Code "then" or @Code "else" depending on
+the value of {@Code "cond"}, and @Code "signcase" returns {@Code "neg"},
+{@Code zero}, or {@Code pos} depending on whether @I number (which
+may also be an angle or a length) is negative, zero, or positive.  The
+@Code "quadcase" symbol decides whether the given angle points in
+one of the four horizontal or vertical directions, or into the quadrants
+between them, and returns the appropriate option.  Don't be misled by
+the unorthodox option names; it is not possible to give your own
+ranges, only these ones.
+@PP
+The loops return a sequence of
+repetitions of {@I anything}; any occurrences of {@Code x} in
+{@Code xloop} will be replaced by the current value of the loop counter,
+and similarly for the other loops.
+@PP
+Symbols not covered in this summary are the retagging symbol @Code "::"
+(Section {@NumberOf dia_tags}); the symbols available within the
+{@Code "@Tree"} symbol (Section {@NumberOf dia_posi}); and {@Code ":<"},
+{@Code ":="}, {@Code "@ShowPoints"}, {@Code "@ShowTags"}, and
+{@Code "@ShowDirections"} from Section {@NumberOf dia_defi}.
+@End @Section

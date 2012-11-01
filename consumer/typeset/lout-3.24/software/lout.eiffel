@@ -1,0 +1,8 @@
+LOUT.EIFFEL - EIFFEL PROGRAM PRINTING IN LOUT DOCUMENTS (VERSION 1.1)
+
+The package known as lout.eiffel has now been folded into the main
+distribution.  If you have Version 3.18 of Lout you can already
+format Eiffel.
+
+Jeff Kingston
+26 February 2000

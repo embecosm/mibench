@@ -1,0 +1,65 @@
+@Section
+   @Title { "@SetColour" and "@SetColor" }
+   @Tag { colour }
+@Begin
+@PP
+The @@SetColour and @@SetColor symbols,
+setcolour.sym @Index { @@SetColour symbol }
+setcolor.sym @Index { @@SetColor symbol }
+which have identical effect, return their right parameter in
+the colour specified by their left parameter.  The form of
+the left parameter is implementation-dependent; in Basser Lout
+it must be an object whose value is a sequence of words comprising
+a PostScript command for setting colour.  For example,
+@ID @Code "{ 1.0 0.0 0.0 setrgbcolor } @SetColour { hello, world }"
+produces the red result
+@ID {
+  @BackEnd @Case {
+    PostScript @Yield {
+      { 1.0 0.0 0.0 setrgbcolor } @SetColour { hello, world }
+    }
+    PDF @Yield {
+      { 1.0 0.0 0.0 rg 1.0 0.0 0.0 RG } @SetColour { hello, world }
+    }
+  }
+}
+Of course, a colour output device is needed to see the effect; on
+a monochrome device the result will be some shade of grey.  The
+@@SetColour command will not accept an empty left parameter
+(it refuses to believe that this could cause a change of colour),
+but otherwise it trusts the user to supply something sensible.
+@PP
+The @@SetColour command accepts the special value {@Code "nochange"}
+for the left parameter.  This value causes the right parameter to have
+the colour it would have had without the @@SetColour command.
+@PP
+There is no default colour, so the user must ensure that the root galley
+or each of its components is enclosed in a @@SetColour symbol whose
+left parameter is not {@Code "nochange"}.
+@PP
+Lout makes no attempt to understand colour, it simply prints
+the PostScript commands when appropriate.  This has the advantage
+of permitting access to any of PostScript's colour models (some
+require initialization which can be supplied using @@PrependGraphic),
+but the disadvantage of offering no way to make relative changes
+(`as before only redder,' and so on).
+@PP
+For those who wish to obtain colour without working very hard,
+the @Code setrgbcolor command used above is available in every
+version of PostScript, requires no initialization, and is simple
+to use.  The three numbers, which range from 0.0 to 1.0, determine
+the intensity of red, green, and blue respectively.  Some useful
+values for the left parameter are
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col @I B }
+{
+@Rowa A { 1.0 0.0 0.0 setrgbcolor } B { red }
+@Rowa A { 0.0 1.0 0.0 setrgbcolor } B { green }
+@Rowa A { 0.0 0.0 1.0 setrgbcolor } B { blue }
+@Rowa A { 1.0 1.0 1.0 setrgbcolor } B { white }
+@Rowa A { 0.5 0.5 0.5 setrgbcolor } B { grey }
+@Rowa A { 0.0 0.0 0.0 setrgbcolor } B { black }
+}
+Colouring an object white is useful for producing an empty space
+whose size is that of some object.
+@End @Section

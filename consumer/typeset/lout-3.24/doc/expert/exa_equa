@@ -1,0 +1,149 @@
+@Section
+   @Title { An equation formatting package }
+   @Tag { eq }
+@Begin
+@PP
+In this section we describe the design and implementation of the Eq
+eq. @Index { Eq equation formatting package }
+equation formatting package.  Equation formatting makes a natural first
+example, partly because its requirements have strongly influenced the
+design of Lout, and partly because no cross references or galleys are
+required.
+@PP
+To the author's knowledge, Eq is the first equation formatter to be
+implemented as a collection of high-level definitions.  This approach
+has significant advantages:  the basics of language and layout are
+trivial, so the implementor can concentrate on fine-tuning; and the
+definitions, being readily available, can be improved, extended, or even
+replaced.
+@PP
+As described in the User's Guide @Cite { $kingston1995lout.user }, an
+equation is entered in a format based on the one introduced by the eqn
+language of Kernighan and Cherry @Cite { $kernighan1975eqn }:
+kernighan.b @Index { Kernighan, B. }
+cherry.l @Index { Cherry, L. }
+@ID @Code {
+"@Eq { { x sup 2  +  y sup 2 }  over  2 }"
+}
+The result is
+@ID @Eq { { x sup 2  +  y sup 2 }  over  2 }
+In outline, the definition of the @Code "@Eq" symbol is
+eq.example @Index { @Code "@Eq" example }
+@ID @Code {
+"export  sup  over \"+\"  \"2\"  \"<=\""
+"def @Eq"
+"   body @Body"
+"{"
+"   def sup precedence 60 left x right y { ... }"
+"   def over precedence 54 left x right y { ... }"
+"   def \"2\" { Base @Font \"2\" }"
+"   def \"+\" { {Symbol Base} @Font \"+\" }"
+"   def \"<=\" { {Symbol Base} @Font \"\\243\" }"
+"   ..."
+""
+"   Slope @Font 1.2f @Break 0c @Space @Body"
+"}"
+}
+A body parameter is used to restrict the visibility of the equation
+formatting symbols (there are hundreds of them).  The equation as a whole
+is set in Slope (i.e. Italic) font, and symbols such as @Code "\"2\"" and
+@Code "\"+\"" are defined when other fonts are needed.  Precedences are
+used to resolve ambiguities such as {@Code "a sup b over c"}.  Eq takes
+all spacing decisions on itself, so to prevent white space
+typed by the user from interfering, the equation is enclosed in
+{@Code "0c @Space"}.  We will discuss the {@Code "1.2f @Break"} later.
+@PP
+Thus have we disposed of the language design part of the equation
+formatting problem; it remains now to define the twenty or so symbols
+with parameters, and get the layout right.
+@PP
+Every equation has an {@I axis}:  an imaginary horizontal line through
+the centre of variables, through the bar of built-up fractions, and so
+on.  We can satisfy this requirement by ensuring that the result of each
+symbol has a single row mark, on the axis.  For example, the
+superscripting symbol is defined as follows:
+sup.example @Index { @Code "sup" example }
+@ID @Code {
+"def sup"
+"    precedence 60"
+"    associativity left"
+"    left x"
+"    named gap { @SupGap }"
+"    right y"
+"{"
+"    @HContract @VContract {"
+"        |  @Smaller y"
+"        ^/gap  x"
+"    }"
+"}"
+}
+The @Code "@VContract" and @Code "^/" symbols together ensure that the axis
+of the result is the axis of the left parameter.  A @Code "gap"
+parameter has been provided for varying the height of the superscript,
+with default value @Code "@SupGap"  defined elsewhere as
+{@Code "0.40fk"}.  It is important that such gaps be expressed in units
+that vary with the font size, so that they remain correct when the size
+changes.  Collecting the default values into symbols like @Code
+"@SupGap" ensures consistency and assists when tuning the values.  Here
+is another characteristic definition:
+over.example @Index { @Code "over" example }
+@ID @Code {
+"def over"
+"    precedence 54"
+"    associativity left"
+"    left x"
+"    named gap { 0.2f }"
+"    right y"
+"{"
+"    @HContract @VContract {"
+"        |0.5rt  @OneCol x"
+"        ^//gap  @HLine"
+"        //gap  |0.5rt @OneCol y"
+"    }"
+"}"
+}
+Both parameters are centred, since we do not know which will be the
+wider; we use @@OneCol to make sure that the entire parameter is
+centred, not just its first column, and @@HContract ensures that the
+fraction will never expand to fill all the available space, as Lout objects
+have a natural tendency to do (Section {@NumberOf size}).  @Code "@HLine"
+is a horizontal line of the width of the column:
+hline.example @Index { @Code "@Hline" example }
+@ID @Code {
+"def @HLine"
+"    named line { \"0.05 ft setlinewidth\" }"
+"{  "
+"    { \"0 0 moveto xsize 0 lineto\" line \"stroke\" } @Graphic {}"
+"}"
+}
+Here we are relying on the expanding tendency just mentioned.
+@PP
+The remaining symbols are quite similar to these ones.  We conclude with
+a few fine points of mathematical typesetting mentioned by a leading
+authority, D. E. Knuth @Cite { $knuth1984tex }.
+knuth.d @Index { Knuth, D. }
+@PP
+Some symbols, such as @Eq {lessequal} and @Eq { notequal }, should have a
+thick space on each side; others, such as @Eq {plus} and @Eq {minus},
+have a medium space; others have a thin space on the right only.  This
+would be easy to do except that these spaces are not wanted in
+superscripts and subscripts:
+@ID @Eq { r sup n+1 - 1 }
+In effect, the definition of such symbols changes depending on the
+context; but Lout does not permit such a change.  Luckily, the so-called
+`style' information set by the @@Font, @@Break, and @@Space symbols can
+change in this way.  Accordingly, Eq uses the @Code y unit, which is
+part of style, for these spaces:
+@ID @Code {
+"def @MedGap { 0.20y }"
+""
+"def \"+\" { &@MedGap plus &@MedGap }"
+""
+"def @HSqueeze right x { 0.2f @YUnit x }"
+}
+In the equation as a whole, the y unit is initially set to
+{@Code 1f}, and so @Code "@MedGap" ordinarily supplies 20% of this
+amount.  But superscripts and subscripts are enclosed in the
+@Code "@HSqueeze" symbol, which, by changing the y unit, ensures that
+any @Code "@MedGap" within them is much smaller than usual.
+@End @Section

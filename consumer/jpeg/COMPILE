@@ -1,0 +1,11 @@
+Compile Instructions
+--------------------
+1)  Change directories to jpeg-6a.
+2)  Type "make".  This will create the executables used by the scripts.
+
+Clean Instructions
+------------------
+1)  Change directories to jpeg-6a.
+2)  Type "make clean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

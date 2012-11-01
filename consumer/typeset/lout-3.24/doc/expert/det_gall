@@ -1,0 +1,388 @@
+@Section
+   @Title { Galleys and targets }
+   @Tag { targets }
+@Begin
+@PP
+The behaviour of galleys and their targets, as described in Section
+galley.feature.in.detail @SubIndex { in detail }
+targets.in.detail @SubIndex { in detail }
+{@NumberOf galleys}, can be summarized in three laws:
+@DP
+{@I {First Law}}:  The first target is the closest invocation of the
+target symbol, either preceding or following the invocation point of the
+galley as required, which has sufficient space to receive the first
+component;
+@DP
+{@I {Second Law}}:  Each subsequent target is the closest invocation of
+the target symbol, following the previous target and lying within the same
+galley, which has sufficient space to receive the first remaining component;
+@DP
+{@I {Third Law}}:  A receptive symbol that does not receive at least one
+component of any galley is replaced by @@Null.
+@DP
+The terms `closest,' `preceding,' and `following' refer to position in
+the final printed document.  This section explains the operation of
+these laws in Basser Lout.
+@PP
+When a galley cannot be fitted into just one target, Lout must find
+points in the galley where it can be split in two.  The object lying
+between two neighbouring potential split points is called a @I component
+component @Index { Components of a galley }
+of the galley.  By definition, a component cannot be split.
+@PP
+To determine the components of a galley, expand all symbols other than
+recursive and receptive ones, discard all @@Font, @@Break, @@Space,
+@@SetColor, @@SetColour, and @@Language symbols, perform paragraph
+breaking as required, and discard all redundant braces.  Then view the
+galley as a sequence of one or more objects separated by vertical
+concatenation symbols; these are the components and split points,
+except that concatenation symbols whose gaps are unbreakable
+(Section {@NumberOf concatenation}) are not eligible to be split
+points.  For example, given the definition
+@ID @OneRow @Code {
+"def @Section into { @SectionPlace&&preceding }"
+"    named @Title {}"
+"    right @Body"
+"{"
+"    15p @Font { @Title //0.7f }"
+"    //"
+"    @Body"
+"}"
+}
+the galley
+@ID @OneRow @Code {
+"@Section"
+"    @Title { Introduction }"
+"{ This is a subject that really"
+"needs no introduction. }"
+}
+becomes
+@ID @OneRow @Code {
+"Introduction"
+"//0.7f"
+"{}"
+"//"
+"This is a subject that really needs"
+"//1vx"
+"no introduction."
+}
+with four components.  If @Code "@Body" had been preceded by @Code "|1.0c" in
+the definition, the result would have been
+@ID @OneRow @Code {
+"Introduction"
+"//0.7f"
+"{}"
+"//"
+"|1.0c { This is a subject that really needs //1vx no introduction. }"
+}
+with @Code "//1vx" buried within one component and hence not a
+potential split point.  If @Code "0.7f" had been {@Code "0.7fu"},
+the gap would have been unbreakable and @Code "//0.7fu" would not
+have been a potential split point.
+@PP
+Version 3.03 has liberalized this somewhat in the following way.  When
+a component consists of a horizontal sequence of two or more objects
+@Eq { A sub 1 ,..., A sub n } separated by @Code "|" (not {@Code "||"},
+not {@Code "&"}), Lout will investigate the component to see whether
+it can be broken up.  It looks at each @Eq { A sub i } to see whether it
+is a vertical concatenation of objects @Eq { A sub i1 ,..., A sub im }; if
+two or more of the @Eq { A sub i } satisfy this condition, the component
+will not be broken up.  So now suppose we have just one @Eq { A sub i }
+which is a vertical concatenation.  Lout will break the component into
+one component for each of the @Eq { A sub i1 ,..., A sub im }, provided
+that they are separated by @Code "//" symbols (not {@Code "/"}), and
+provided this can be done without introducing any apparent change into
+the appearance of the component (this second rule will be satisfied if
+the other @Eq { A sub j } are not very large).  The example above
+satisfies all these rules and will be broken up into two components,
+so the @Code "//1vx" becomes a potential split point after all.
+@PP
+The lines of a paragraph become separate components if the paragraph
+occupies an entire component before breaking; otherwise they are
+enclosed in a @@OneRow symbol within one component.  The same is true of
+incoming components of other galleys.  If a @@Galley symbol occupies an
+entire component by the rules above, then the incoming components that
+replace it become components of their new home:
+@ID @Tab
+  @Fmta { @Col @Code A ! @Col lines @Break B ! @Col @Code C }
+{
+@Rowa
+   A {
+"An example"
+"//0.5c"
+"@Galley"
+"//0.5c"
+"@SomethingList"
+}
+  B {
+""
+@Eq { ==> }
+}
+   C {
+"An example"
+"//0.5c"
+"Incoming components"
+"//0.2c"
+"from some other galley"
+"//0.5c"
+"@SomethingList"
+}
+}
+Otherwise the incoming components are grouped within a @@OneRow symbol
+and lie within one component.
+@PP
+This distinction has a marked effect on the vertical concatenation
+b.unit.use @SubIndex { use in @Code "//1.1b" }
+symbol {@Code "//1.1b"}, which calls for more space than is available
+(Section {@NumberOf concatenation}).  There is no room for this symbol
+within any component, so it will force a split and be discarded in that
+case.  But it can be promoted to between two components.
+@PP
+Components may be separated by @Code "/" as well as by {@Code "//"},
+giving rise to column mark alignment between adjacent components:
+@ID @ShowVMark {
+@HContract @GreyBox { 1c @Wide ^| 1c @Wide 0.6c @High }
+/0.3c
+@HContract @GreyBox { 2c @Wide 0.6c @High }
+/0.3c
+@HContract @GreyBox { 0.5c @Wide ^| 0.8c @Wide 0.6c @High }
+}
+When aligned components are promoted into different targets, the meaning
+of alignment becomes very doubtful.  For example, what if the targets
+mark.alignment.in.detail @SubIndex { in detail }
+are in different columns of one page, or what if one lies within
+{@Code "90d @Rotate"}?
+@PP
+The truth is that @Code "/" causes all the objects that share a mark to
+have equal width:
+@ID @ShowVMark {
+@TightBox @HContract @GreyBox { 1c @Wide ^| 1c @Wide 0.6c @High }
+/0.3c
+@TightBox @HContract @GreyBox { 2c @Wide 0.6c @High }
+/0.3c
+@TightBox @HContract @GreyBox { 0.5c @Wide ^| 0.8c @Wide 0.6c @High }
+}
+This is a consequence of the `as wide as possible' rule (Section
+{@NumberOf size}).  Mark alignment occurs {@I incidentally}, whenever
+the fragments are placed into similar contexts.
+@PP
+In this connection we must also consider the special case of a @@Galley
+symbol which shares its column mark with some other object:
+@ID @OneRow @Code {
+"@Galley"
+"/0.2c"
+"@SomethingList"
+}
+(The @@Galley may or may not occupy an entire component; that doesn't
+matter here.)  If incoming components are separated by @Code "//" rather
+than by {@Code "/"}, the meaning is so doubtful that this is forbidden.  In
+fact, a galley whose components replace such a @@Galley must have a
+single column mark running its full length; that is, its components must
+all share a single column mark.  This mark will be merged with the
+column mark passing through each @@Galley that these components replace;
+all the objects on the resulting merged mark will have equal width.
+@PP
+The root galley, where everything collects immediately prior to output,
+root.galley.in.detail @SubIndex { in detail }
+is created automatically, not by a definition.  Its target is the output
+file, and its object is the entire input, which typically looks like this:
+@ID @OneRow @Code {
+"@PageList"
+"//"
+"@Text {"
+"  Body text of the document ..."
+"}"
+}
+where @Code "@PageList" expands to a sequence of pages containing
+@Code "@TextPlace" symbols (see Section {@NumberOf definitions}), and
+@Code "@Text" is a galley:
+@ID @OneRow @Code {
+"def @TextPlace { @Galley }"
+""
+"def @Text into { @TextPlace&&preceding }"
+"    right x"
+"{"
+"    x"
+"}"
+}
+The spot vacated by a galley -- its invocation point -- becomes a @@Null
+object, so this root galley is effectively @Code "@PageList" alone, as
+required.  The @Code "@Text" galley will find its first target preceding
+its invocation point, within {@Code "@PageList"}.
+@PP
+Printing {@PageMark rootg} the root galley on the output file is
+somewhat problematical,
+root.galley.printing @SubIndex { printing of }
+because Lout has no way of knowing how large the paper is.  Basser Lout
+simply prints one root galley component per page (except it skips
+components of height zero), and the user is responsible for ensuring
+that each component is page-sized.  Gaps between root galley
+components, even unbreakable ones, have no effect on the result.
+@PP
+Basser Lout will promote a component only after any receptive symbols
+components.promotion @SubIndex { promotion of }
+promotion @Index { Promotion of components }
+within it have been replaced, either by galleys or by @@Null, since
+until then the component is not complete.  A component which shares a
+mark with following components is held up until they are all complete,
+since until then their width is uncertain.
+@PP
+Consider a page with @Code "@TextPlace" and @Code "@FootSect" receptive
+symbols.  The rule just given will prevent the page from being printed
+until @Code "@TextPlace" is replaced by body text, quite rightly; but
+@Code "@FootSect" will also prevent its printing, even when there are no
+footnotes.
+@PP
+Basser Lout is keen to write out pages as soon as possible, to save memory,
+and it cannot afford to wait forever for non-existent footnotes.  A variant
+of the galley concept, called a @I {forcing galley},
+forcing.galley @Index { Forcing galley } {@PageMark forcing}
+is introduced to solve this problem.  A forcing galley is defined like this:
+@ID @OneRow @Code {
+"def @Text force into { @TextPlace&&preceding }"
+"   ..."
+}
+and so on.  When such a galley replaces a @@Galley symbol, Lout replaces
+every receptive symbol preceding the @@Galley by @@Null, thus ensuring that
+as soon as text enters a page, for example, everything up to and including
+the preceding page can be printed.  This does not take care of the very last
+page, but Basser Lout replaces all receptive symbols by @@Null when it realizes
+that its input has all been read, thus allowing the last page to print.
+@PP
+A forcing galley causes the Third Law to be applied earlier than
+expected, and this creates two problems.  First, the replacement by
+@@Null may be premature:  a galley may turn up later wanting one of the
+defunct targets.  Such galleys (entries in tables of contents are
+typical examples) are copied into the cross reference database and read
+in during the next run just before their targets are closed, and so they
+find their targets in the end.  Care must be taken to ensure that
+large galleys such as chapters and sections do not have defunct targets,
+since the cost of copying them to and from the database is unacceptably high.
+@PP
+It is actually an over-simplification to say that these replacements
+occur when the forcing galley replaces its @@Galley.  What really happens
+is that from this moment on Lout understands that it has the right to make
+these replacements, and it will do each one at the first moment when not
+doing it would hold things up.  So there is a short period of grace when
+galleys, such as the entries in tables of contents just alluded to,
+can sneak into these receptive symbols.
+@PP
+The @Code "into" and @Code "force into" forms are actually just abbreviations
+for the true way that galleys are defined, which
+is by giving the symbol that is to be a galley a parameter or nested
+target.sym @Index { @Code "@Target" symbol }
+definition with the special name {@Code "@Target"}:
+@ID @Code {
+"def @Text"
+"    right x"
+"{"
+"    def @Target { @TextPlace&&preceding }"
+""
+"    x"
+"}"
+}
+A forcing galley is obtained by using @Code "&&&" instead of
+{@Code "&&"}.  @Code "@Target" may be an arbitrary object,
+provided that it yields such a cross reference when evaluated.  In
+this way, different invocations may have different targets.
+@PP
+The forcing galley effect can be obtained in another way, by replacing
+the @Code "@Galley" symbol to which the galley is attached by
+{@Code "@ForceGalley"}.  The advantage of this form is that the galley
+can then be forcing at some places and not at others, using the formula
+@ID @OneRow @Code {
+"def @SomePlace right x"
+"{"
+"    x @Case {"
+"        noforce  @Yield @Galley"
+"        force    @Yield @ForceGalley"
+"    }"
+"}"
+}
+Now a galley may have @Code "@SomePlace" for its target, and if it
+happens to attach to
+@ID @Code "@SomePlace force"
+it will have the effect of a forcing galley, while if it happens to
+attach to
+@ID @Code "@SomePlace noforce"
+it will not.
+@PP
+Although it doesn't matter whether a galley is declared as a forcing
+galley or merely arrives at a {@Code "@ForceGalley"} symbol from the
+point of view of the effect on nearby targets, there is one way in
+which Lout treats the two cases differently.  If a forcing galley's
+first component does not fit into the available space, that component
+will be scaled vertically until it does.  The rationale for this is
+that forcing galleys are meant to carry the bulk of the document and
+cannot afford to be held up because the user has inadvertently included
+an over-high component, which for all Lout knows to the contrary may
+not fit on any page.  If this scaling is not wanted but forcing is,
+the galley may be declared not forcing but all its targets may be set
+to contain {@Code "@ForceGalley"}.
+@PP
+Within a galley, a symbol whose name is @@Enclose has a special
+enclose.sym @Index @@Enclose
+meaning:  when components of the galley replace a @@Galley or @@ForceGalley
+symbol, that symbol is first replaced by @@Enclose @@Galley or
+@@Enclose @@ForceGalley.  For example,
+@ID @Code @Verbatim {
+def @Figure into @FigurePlace&&following
+    right @Body
+{
+    def @Enclose
+        right x
+    {
+        @Box x
+    }
+
+    @Body
+}
+}
+causes each @@Galley or @@ForceGalley symbol that receives components of
+galley @Code "@Figure" to be replaced by {@Code "@Box @Galley"} or
+{@Code "@Box @ForceGalley"}, assuming an appropriate definition of
+@Code "@Box".  This is useful, for example, when producing multi-page
+boxed displays, figures, and tables.
+@PP
+An @@Enclose symbol may have only one parameter, which must be a
+right parameter.  It would not make sense to allow more parameters,
+since there is no suitable value to assign to them.  However, the
+@@Enclose symbol may contain inner definitions, and it may make use
+of any symbol that is available at that point, in the usual way.  The
+@@Enclose symbol may be a named parameter (itself with a right parameter)
+of the galley symbol, rather than an inner definition as shown above,
+if desired.
+@PP
+It makes sense for sorted galleys containing a @Code "@Merge" symbol
+(Section {@NumberOf sorted}) to also have an @Code "@Enclose" symbol.  The
+meaning is that after all merging is done, each resulting galley has
+an @Code "@Enclose" symbol which is applied in the usual way.  The value
+of this @Code "@Enclose" symbol will be the value of an @Code "@Enclose"
+symbol from one of the contributing galleys, but exactly which one
+is not defined.  So it is safest if all such @Code "@Enclose" symbols
+produce the same result.
+@PP
+A @Code "following" galley may fail to find a first target lying in a
+following component of the same galley as its invocation point.  This is
+a deficiency of Basser Lout, which occurs if the target has not been
+read from input at the time the galley tries to find it.  A workaround
+is to use a @Code "preceding" galley instead, defined like this:
+@ID @OneRow @Code {
+"def @AGalley into { @AGalleyPlace&&preceding }"
+"    right @Body"
+"{"
+"    //1.1b"
+"    @Body"
+"}"
+}
+and invoked like this:
+@ID @OneRow @Code {
+"@AGalleyPlace | @AGalley { content of galley }"
+"//"
+"..."
+"@AGalleyPlace"
+}
+The first @Code "@AGalleyPlace" receives only the initial empty object,
+since the @Code "//1.1b" forces a split; and the Second Law puts Basser
+Lout on the right track thereafter.
+@End @Section

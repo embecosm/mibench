@@ -1,0 +1,345 @@
+@SubSection
+    @Tag { objects.impl }
+    @Title { Implementation of objects and concatenation }
+@Begin
+@PP
+In this section we discuss the implementation of objects and concatenation,
+and especially mark alignment.  The first step is to use an operator
+precedence parser to convert input such as
+@ID @Code "a  |0.5i  b  /0.2i  c  |  d"
+into parse trees such as
+@ID @Eq {
+@Fig {
+@Tree {
+@Node @FCircle fraction
+@FirstSub {
+   @Node @FCircle bar
+   @FirstSub { @Node @FCircle a }
+   @NextSub  { @Node @FEllipse 0.5i }
+   @NextSub  { @Node @FCircle b }
+}
+@NextSub { @Node @FEllipse 0.2i }
+@NextSub {
+   @Node @FCircle bar
+   @FirstSub { @Node @FCircle c }
+   @NextSub  { @Node @FCircle   }
+   @NextSub  { @Node @FCircle d }
+}
+}
+}
+}
+Missing objects are replaced by empty objects, and sequences of
+concatenation operators are consolidated:
+@ID @Eq {
+@Fig {
+@Tree {
+@Node @FCircle bar
+@FirstSub { @Node @FCircle a }
+@NextSub { @Node @FEllipse 0.2i }
+@NextSub {
+   @Node @FCircle bar
+   @FirstSub { @Node @FCircle c     }
+   @NextSub  { @Node @FEllipse 0.3i }
+   @NextSub  { @Node @FCircle d     }
+}
+}
+}
+&2m ==> &2m
+@Fig {
+@Tree {
+@Node @FCircle bar
+@FirstSub { @Node @FCircle a     }
+@NextSub  { @Node @FEllipse 0.2i }
+@NextSub  { @Node @FCircle c     }
+@NextSub  { @Node @FEllipse 0.3i }
+@NextSub  { @Node @FCircle d     }
+}
+}
+}
+to make manifest their associativity and reduce the depth of the tree
+for efficiency later.
+@PP
+The required semantic information is the size of each subobject,
+consisting of four integers:  width to left and right of the
+distinguished column mark, and height above and below the distinguished
+row mark.  These numbers are always non-negative in Basser Lout, but
+this restriction is unnecessary and should be dropped.
+@PP
+For the leaves, which are simple words, the numbers are obtained from
+font tables.  For the higher levels we apply recursive rules.  Suppose
+that @Eq { hgap(x, g, y) } returns the desired distance between the
+column marks of objects @Eq { x } and @Eq { y } when they are separated by
+gap @Eq { g }:  @Eq { right(x) + length(g) + left(y) } when the gap mode is
+edge-to-edge, the larger of @Eq { length(g) } and
+@Eq { right(x) + left(y) } when the mode is mark-to-mark, and so on.  Given
+an object
+@ID @Eq {
+X = x sub 1 ````` bar g sub 1 ````` ... ````` { "-2p" @Font "^"}bar g sub i-1
+````` x sub i ````` ... ````` bar g sub n-1 ````` x sub n
+}
+we may calculate its size as follows:
+@ID @Eq {
+left(X) ^= left( x sub 1 ) + hgap( x sub 1 , g sub 1 , x sub 2 )
++ ... + hgap( x sub i-1 , g sub i-1 , x sub i )
+/1.4vx
+right(X) ^= hgap( x sub i , g sub i , x sub i+1 )
++ ... + hgap( x sub n-1 , g sub n-1 , x sub n ) + right( x sub n )
+/1.4vx
+"above"(X) ^= "above"(x sub 1 ) up ... up "above"(x sub n )
+/1.4vx
+"below"(X) ^= "below"(x sub 1 ) up ... up "below"(x sub n )
+}
+where @Eq { non up } returns the larger of its two parameters.  Similar
+formulas are easily derived for the other operators.
+@PP
+For purposes of exposition we will now make the simplifying
+assumptions that all gaps are {@Code "0i"}, all column marks lie at
+the left edge, and all row marks lie at the top edge.  Then the size
+of each object can be expressed by just two numbers, width and
+height, and the four formulas reduce to
+@ID @Eq {
+width( x sub 1 rel bar ... rel bar x sub n ) ^=
+width( x sub 1 ) + ... + width( x sub n )
+/1.4vx
+height( x sub 1 rel bar ... rel bar x sub n ) ^=
+height( x sub 1 ) up ... up height( x sub n )
+}
+The corresponding formulas for vertical concatenation are
+@ID @Eq {
+width( x sub 1 rel "/" ... rel "/" x sub n ) ^=
+width( x sub 1 ) up ... up width( x sub n )
+/1.4vx
+height( x sub 1 rel "/" ... rel "/" x sub n ) ^=
+height( x sub 1 ) + ... + height( x sub n )
+}
+According to these formulas, the height of
+@ID @Eq { @Fig { @Tree {
+@Node @FCircle fraction
+@LeftSub {
+   @Node @FCircle bar
+   @LeftSub  { @Node @FCircle a }
+   @RightSub { @Node @FCircle b }
+}
+@RightSub {
+   @Node @FCircle bar
+   @LeftSub  { @Node @FCircle c }
+   @RightSub { @Node @FCircle d }
+}
+}}}
+is
+@ID @Eq {
+[ height(a) up height(b)] + [ height(c) up height(d)]
+}
+which is correct, but for width they yield
+@ID @Eq {
+[ width(a) + width(b)] up [ width(c) + width(d)]
+}
+which is not, since it does not take the merging of column marks into
+account.  The asymmetry between horizontal and vertical has come
+about because the row entries, such as @Eq {a} and {@Eq {b}}, are
+adjacent in the tree, but the column entries, such as @Eq {a} and
+{@Eq {c}}, are not.  It would be possible to solve this cross-linking
+problem by augmenting the size information stored in each node to
+record the number of marks and the size of each, but the author has
+preferred the following method which makes structural changes to the
+tree instead.
+@PP
+If @Eq { a } and @Eq { c } share a column mark, they each might as well
+have width { @Eq {width(a) up width(c) }}, since all width calculations
+apply to entire columns.  Accordingly, we introduce a new operator,
+@Eq {COL}, defined by
+@ID @Eq { width( x sub 1 bin COL ... bin COL x sub n ) =
+width( x sub 1 ) up ... up width( x sub n )
+}
+and replace both @Eq { a } and @Eq { c } by {@Eq { a bin COL c }}.  To
+prevent @Eq { COL } operators from disturbing height calculations, we
+define a binary operator called @Eq { SPLIT } by
+@ID @Eq { width( x bin SPLIT y) ^= width(x)
+/1.4vx
+height( x bin SPLIT y) ^= height(y) }
+which switches height and width calculations onto different
+subtrees.  Then the transformation
+@ID @Eq {
+@Fig { @Tree {
+   @Node @FCircle a
+}}
+&2m ==> &2m
+@Fig { @Tree {
+   @Node @FEllipse SPLIT
+   @LeftSub {
+      @Node @FEllipse COL
+      @LeftSub  { @Node @FCircle a }
+      @RightSub { @Node @FCircle c }
+   }
+   @RightSub { @Node @FCircle a }
+}}
+}
+# where @Eq { S } denotes a @Eq { SPLIT } node and @Eq { C } denotes a
+# @Eq { COL } node,
+widens @Eq { a } to @Eq {width(a) up width(c) } without affecting its height;
+it is applied to every object that shares its column mark with at least
+one other object.  A similar transformation involving a @Eq { ROW } operator
+deals with shared row marks.  The effect on our little table is to replace
+@ID @Eq { @Fig { @Tree {
+@Node @FCircle fraction
+@LeftSub {
+   @Node @FCircle bar
+   @LeftSub  { @Node @FCircle a }
+   @RightSub { @Node @FCircle b }
+}
+@RightSub {
+   @Node @FCircle bar
+   @LeftSub  { @Node @FCircle c }
+   @RightSub { @Node @FCircle d }
+}
+}}}
+by
+@ID @Eq { @Fig maxlabels { "70" } { @Tree hmargin { "0.1c" } {
+@Node @FCircle fraction
+@FirstSub {
+   @Node @FCircle bar
+   @FirstSub  {
+      @Node @FEllipse SPLIT
+      @FirstSub {
+         @Node @FEllipse COL
+         @FirstSub  { @Node @FCircle a }
+         @NextSub { @Node @FCircle c }
+      }
+      @NextSub {
+         @Node @FEllipse ROW
+         @FirstSub  { @Node @FCircle a }
+         @NextSub { @Node @FCircle b }
+      }
+   }
+   @NextSub {
+      @Node @FEllipse SPLIT
+      @FirstSub {
+         @Node @FEllipse COL
+         @FirstSub  { @Node @FCircle b }
+         @NextSub { @Node @FCircle d }
+      }
+      @NextSub {
+         @Node @FEllipse ROW
+         @FirstSub  { @Node @FCircle a }
+         @NextSub { @Node @FCircle b }
+      }
+   }
+}
+@NextSub {
+   @Node @FCircle bar
+   @FirstSub  {
+      @Node @FEllipse SPLIT
+      @FirstSub {
+         @Node @FEllipse COL
+         @FirstSub  { @Node @FCircle a }
+         @NextSub { @Node @FCircle c }
+      }
+      @NextSub {
+         @Node @FEllipse ROW
+         @FirstSub  { @Node @FCircle c }
+         @NextSub { @Node @FCircle d }
+      }
+   }
+   @NextSub {
+      @Node @FEllipse SPLIT
+      @FirstSub {
+         @Node @FEllipse COL
+         @FirstSub  { @Node @FCircle b }
+         @NextSub { @Node @FCircle d }
+      }
+      @NextSub {
+         @Node @FEllipse ROW
+         @FirstSub  { @Node @FCircle c }
+         @NextSub { @Node @FCircle d }
+      }
+   }
+}
+}}}
+In fact, common subexpressions are identified (trivially) and the result
+is a directed acyclic graph; each affected leaf has two parents, one for
+width and one for height; and each @Eq { COL } or @Eq { ROW } node has
+one parent and one child for each object lying on the corresponding
+mark.  The data structure roughly doubles in size, and this occurs only
+rarely in practice.
+@PP
+This method can cope with any legal input, including
+@ID @OneRow @Code {
+"{  a  //  c  |  d  }  |  {  b  /  e  }"
+"/  {  f  /  i  }  |  {  g  |  h  //  j  }"
+}
+which produces overlapping spanning columns:
+@ID @I @Fig {
+    @FBox margin { 0.2c } width { 1.6c } 1.2f @Font a |
+    @FBox margin { 0.2c } width { 0.6c } 1.2f @Font b |
+//  @FBox margin { 0.2c } width { 0.6c } 1.2f @Font c |
+    @FBox margin { 0.2c } width { 0.6c } 1.2f @Font d |
+    @FBox margin { 0.2c } width { 0.6c } 1.2f @Font e |
+//  @FBox margin { 0.2c } width { 0.6c } 1.2f @Font f |
+    @FBox margin { 0.2c } width { 0.6c } 1.2f @Font g |
+    @FBox margin { 0.2c } width { 0.6c } 1.2f @Font h |
+//  @FBox margin { 0.2c } width { 0.6c } 1.2f @Font i |
+    @FBox margin { 0.2c } width { 1.6c } 1.2f @Font j |
+}
+The boxes have been added to clarify the structure.  The width of this
+object is formally
+@ID @Eq { ((width(a) up (x + y)) + z) up (x + ((y + z) up width(j))) }
+where
+@IL
+@ListItem @Eq { x = width(c) up width(`f`) up width(i) }
+@ListItem @Eq { y = width(d`) up width(g) }
+@ListItem @Eq { z = width(b) up width(e) up width(h) }
+@EL
+It seems clear that @Eq { y } at least must appear twice in any
+expression for the width of this object made out of simple addition
+and maxing operations, showing that an ordinary tree
+structure is insufficient for overlapping spanning columns.  The Basser
+Lout interpreter actually rejects such structures, owing to the author's
+doubts about the implementability of @I Constrained and @I AdjustSize
+(Section {@NumberOf constraints}) on them; but with hindsight this caution
+was unnecessary.
+@PP
+The directed acyclic graph is ordered in the sense that the order of
+the edges entering and leaving each node matters.  The structure is
+highly dynamic, and traversals both with and against the arrows are
+required.  After a few ad-hoc attempts to extend the usual tree
+representation had failed, the author developed a representation based
+on doubly linked lists of records denoting links, whose flexibility more
+than compensated for the somewhat excessive memory consumption.  For example,
+@ID @Eq { @Fig {
+       A:: @FCircle a   |2c                  |2c  B:: @FCircle b
+/1.5c  C:: @FCircle c   |    D:: @FCircle d
+// A @JoinFigures arrow { forward } C
+// A @JoinFigures arrow { forward } D
+// B @JoinFigures arrow { forward } D
+}}
+is represented by
+@CD @Eq { @Fig maxlabels { "300" } {
+A:: @DagBox mid { @BlackDot } base { a } |2c |2c |2c |2c
+B:: @DagBox mid { @BlackDot } base { b }
+/1c L:: @DagBox top { @BlackDot } mid { @BlackDot } base { LK }
+|   M:: @DagBox top { @BlackDot } mid { @BlackDot } base { LK }
+| | N:: @DagBox top { @BlackDot } mid { @BlackDot } base { LK }
+/1c
+C:: @DagBox top { @BlackDot } base { c } | |
+D:: @DagBox top { @BlackDot } base { d }
+// @TVShape nw { A@MID@CTR } ne { A@MID@CTR } sw {L@MID@CTR } se { M@MID@CTR }
+// @TVShape nw { L@TOP@CTR } ne { L@TOP@CTR } sw {C@TOP@CTR } se { C@TOP@CTR }
+// @TVShape nw { M@TOP@CTR } ne { N@TOP@CTR } sw {D@TOP@CTR } se { D@TOP@CTR }
+// @TVShape nw { B@MID@CTR } ne { B@MID@CTR } sw {N@MID@CTR } se { N@MID@CTR }
+}}
+where @Eq { LK } tags a record representing a link.  The first list
+in any node contains all the incoming links, the second contains the
+outgoing ones.  The node serves as the header for both lists.  The
+required operations reduce to simple appends, deletes, and traversals
+of doubly linked lists, all having small constant cost.  There is a
+highly tuned memory allocator, and care is taken to dispose of each node
+when the last incoming link is deleted, so that there is no need for
+garbage collection.
+@PP
+In normal use the number of nodes at higher levels of the dag is small
+in comparison with the leaves and their incoming links, so we may
+estimate the space complexity at about 60 bytes per input word (20 bytes
+per link, 40 per leaf node).  Careful optimization could easily halve
+this, but since memory is reclaimed after printing each page there is
+little need.
+@End @SubSection

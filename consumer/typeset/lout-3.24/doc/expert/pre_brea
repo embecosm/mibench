@@ -1,0 +1,154 @@
+@Section
+   @Title { "@Break" }
+   @Tag { break }
+@Begin
+@PP
+The @@Break symbol influences the appearance of paragraphs (Section
+{@NumberOf concatenation}), offering a fixed set of nine styles:
+@IL
+
+@LI {
+2i @Wide { |1rt @Code adjust @@Break @I object }
+adjust.break @Index { @Code adjust @@Break }
+|2m Break the paragraphs of {@I object} into lines, and apply @@PAdjust
+(Section {@NumberOf hadjust}) to every line except the last in
+each paragraph;
+}
+
+@LI {
+2i @Wide { |1rt @Code outdent @@Break @I object }
+outdent.break @Index { @Code outdent @@Break }
+|2m Like {@Code adjust}, except that @Code "2.0f @Wide {} &0i" is
+inserted at the beginning of every line except the first, creating
+an outdented paragraph;
+}
+
+@LI {
+2i @Wide { |1rt @Code ragged @@Break @I object }
+ragged.break @Index { @Code ragged @@Break }
+|2m Break the paragraphs of {@I object} into lines, but do not adjust
+the lines (`ragged right');
+}
+
+@LI {
+2i @Wide { |1rt @Code cragged @@Break @I object }
+cragged.break @Index { @Code cragged @@Break }
+|2m Like {@Code ragged}, except that each line will be centred with
+respect to the others;
+}
+
+@LI {
+2i @Wide { |1rt @Code rragged @@Break @I object }
+rragged.break @Index { @Code rragged @@Break }
+|2m Like {@Code ragged}, except that each line will be right-justified with
+respect to the others (`ragged left');
+}
+
+@LI {
+2i @Wide { |1rt @Code oragged @@Break @I object }
+oragged.break @Index { @Code oragged @@Break }
+|2m The obvious combination of {@Code ragged} and {@Code outdent};
+}
+
+@LI {
+2i @Wide { |1rt @Code lines @@Break @I object }
+lines.break @Index { @Code lines @@Break }
+|2m Break the paragraphs of {@I object} into lines at the same points
+that they are broken into lines in the input, and also at concatenation
+symbols of the form {@Code "&"}{@I k}{@Code "b"} for any {@I k} greater
+than 1.  Do not adjust the lines.  Any spaces at the start of a line
+other than the first line will appear in the output;
+}
+
+@LI {
+2i @Wide { |1rt @Code clines @@Break @I object }
+clines.break @Index { @Code clines @@Break }
+|2m Break the paragraphs of {@I object} into lines as for @Code "lines"
+@@Break, then centre each line with respect to the others;
+}
+
+@LI {
+2i @Wide { |1rt @Code rlines @@Break @I object }
+rlines.break @Index { @Code rlines @@Break }
+|2m Break the paragraphs of {@I object} into lines as for @Code "lines"
+@@Break, then right-justify each line with respect to the others.
+}
+
+@EL
+If the paragraph was an entire component of a galley, so will each of
+its lines be; otherwise the lines are enclosed in a {@Code "@OneRow"}
+symbol after breaking.
+@PP
+The length of the gap used to separate the lines produced by paragraph
+breaking is always {@Code 1v}.  However, the @Code v unit itself and the
+v.unit.effect @SubIndex { effect on paragraph breaking }
+gap mode may be changed:
+@IL
+
+@LI {
+2i @Wide { |1rt @I gap @Code "@Break" @I object }
+|2m Within {@I object}, take the value of the @Code "v" unit to be the
+length of {@I gap};
+}
+
+@LI {
+2i @Wide { |1rt + & @I gap @Code "@Break" @I object }
+|2m Within {@I object}, take the value of the @Code "v" unit to be
+larger by the length of @I gap than it would otherwise have been;
+}
+
+@LI {
+2i @Wide { |1rt -- & @I gap @Code "@Break" @I object }
+|2m Within {@I object}, take the value of the @Code "v" unit to be
+smaller by the length of @I gap than it would otherwise have been.
+}
+
+@EL
+In each case, the mode of @I gap is adopted within {@I object}.
+@PP
+The @@Break symbol also controls hyphenation:
+@IL
+
+@LI {
+2i @Wide { |1rt @Code "hyphen @Break" @I object }
+hyphen.break @Index { @Code hyphen @@Break }
+|2m Permit hyphenation within the paragraphs of {@I object};
+}
+
+@LI {
+2i @Wide { |1rt @Code "nohyphen @Break" @I object }
+nohyphen.break @Index { @Code nohyphen @@Break }
+|2m Prohibit hyphenation within the paragraphs of {@I object}; all
+hyphenation gaps without exception revert to edge-to-edge mode.
+}
+
+@EL
+The @@Break also has options which control widow and orphan lines:
+@IL
+
+@LI {
+2i @Wide { |1rt @Code "unbreakablefirst @Break" @I object }
+hyphen.break @Index { @Code hyphen @@Break }
+|2m Prevent column and page breaks (i.e. prevent a galley from splitting)
+between the first and second lines of the paragraphs of {@I object};
+}
+
+@LI {
+2i @Wide { |1rt @Code "unbreakablelast @Break" @I object }
+nohyphen.break @Index { @Code nohyphen @@Break }
+|2m Prevent column and page breaks between the last and second
+last lines of the paragraphs of {@I object}.
+}
+
+@EL
+These options work by adding the @Code "u" (unbreakable) suffix to the
+appropriate gaps during paragraph breaking, so their precise effect is
+as described for this suffix.  These options may be countermanded by
+@Code "breakablefirst @Break" and @Code "breakablelast @Break".
+@PP
+Several options may be given to the @@Break symbol simultaneously, in
+any order.  For example,
+@ID @Code "{ adjust 1.2fx hyphen }  @Break  ..."
+is a typical initial value.  There may be empty objects and @@Null objects
+in the left parameter of @@Break; these are ignored.
+@End @Section

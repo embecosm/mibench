@@ -1,0 +1,151 @@
+@Section
+    @Title { Page margins, page boxes, and page backgrounds }
+    @Tag { margins }
+@Begin
+@PP
+There are six options for setting the top and bottom margins on each
+margins. @RawIndex { margins }
+margins.in.pages @SubIndex { in pages }
+top.margin @Index @Code "@TopMargin"
+foot.margin @Index @Code "@FootMargin"
+odd.left.margin @Index @Code "@OddLeftMargin"
+odd.right.margin @Index @Code "@OddRightMargin"
+even.left.margin @Index @Code "@EvenLeftMargin"
+even.right.margin @Index @Code "@EvenRightMargin"
+page, and the left and right margins on odd and even pages.  Here they
+are with their default values:
+@ID @OneRow @Code {
+"@TopMargin { 2.50c }"
+"@FootMargin { 2.50c }"
+"@OddLeftMargin { 2.50c }"
+"@OddRightMargin { 2.50c }"
+"@EvenLeftMargin { 2.50c }"
+"@EvenRightMargin { 2.50c }"
+}
+When setting these options you must ensure that
+@ID @Eq { @Code "@OddLeftMargin" + @Code "@OddRightMargin" =
+@Code "@EvenLeftMargin" + @Code "@EvenRightMargin" }
+In other words, the total margin on odd pages must be the same as on
+even pages.
+@PP
+In addition, four options are provided which add extra left and right
+margins to the page @I body (that is, everything but the running headers
+and footers):
+@ID @OneRow @Code {
+"@OddLeftBodyMargin { 0c }"
+"@OddRightBodyMargin { 0c }"
+"@EvenLeftBodyMargin { 0c }"
+"@EvenRightBodyMargin { 0c }"
+}
+The default is to add no page body margins, as shown.  Most people who
+use page body margins would change only @Code "@OddRightBodyMargin" and
+{@Code "@EvenLeftBodyMargin"}, since those are the outside margins.  As
+for ordinary margins, the total (left plus right) page body margin must
+be the same on odd and even pages.  Margin notes
+(Section {@NumberOf marginnotes}) occupy body margin space.
+@PP
+You can have a box drawn around each page if you wish.  Here are the
+relevant options and their default values:
+@ID @OneRow @Code {
+"@PageBoxType { None }"
+"@PageBoxMargin { 1.00c }"
+"@PageBoxLineWidth {}"
+"@PageBoxPaint { None }"
+"@PageBoxShadow { 0.06c }"
+}
+You get boxes by changing the @Code "@PageBoxType" option:
+page.box.type @Index @Code "@PageBoxType"
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col @CC B }
+{
+@Rowa
+    A { "@PageBoxType { None }" }
+    B { (no box) }
+@Rowa
+@Rowa
+    A { "@PageBoxType { Box }" }
+    B { @Box 1.0c @Wide 1.4c @High }
+@Rowa
+@Rowa
+    A { "@PageBoxType { CurveBox }" }
+    B { @CurveBox 1.0c @Wide 1.4c @High }
+@Rowa
+@Rowa
+    A { "@PageBoxType { ShadowBox }" }
+    B { @ShadowBox 1.0c @Wide 1.4c @High }
+}
+Page boxes reduce the amount of space available to the page contents,
+so your columns will become somewhat narrower and shorter when you
+introduce them.
+@PP
+The {@Code "@PageBoxMargin"}, {@Code "@PageBoxLineWidth"},
+{@Code "@PageBoxPaint"}, and {@Code "@PageBoxShadow"} options affect
+the page box exactly as the {@Code margin}, {@Code linewidth},
+{@Code paint}, and {@Code shadow} options described
+for other boxes in Section {@NumberOf boxes} do.  For example,
+@ID @OneRow @Code {
+"@PageBoxType { CurveBox }"
+"@PageBoxMargin { 1.0c }"
+"@PageBoxPaint { grey }"
+}
+draws a curved box, painted grey, around each page, with a one
+centimetre margin between its boundary and the page contents.  If the
+left margin is 2.5 centimetres, say, this gives a total left margin
+from the page edge to the page contents of 3.5 centimetres.
+@PP
+More generally, you can enclose each page in any object at all, by
+means of the @Code "@PageEnclose" option:
+@ID @Code {
+"@PageEnclose { @Body }"
+}
+Within this option, @Code "@Body" stands for the page, and it must
+occur exactly once.  You could place a curved box around each page,
+for example, by writing
+@ID @Code {
+"@PageEnclose { @CurveBox @Body }"
+}
+This is of course also available from the @Code "@PageBox" symbols, but
+with @Code "@PageEnclose" there are infinitely many other possibilities.
+@PP
+Finally, it is possible to have something other than the usual white
+background on the page, using the @Code "@PageBackground" option:
+page.background @Index @Code "@PageBackground"
+@ID @Code {
+"@PageBackground { @Scale 60d @Rotate lightgrey @Colour DRAFT }"
+}
+The value of the option is an object which is drawn on each page,
+within the margins, before the page contents are drawn.  This
+example draws a large word DRAFT in light grey diagonally across each
+page:
+@ID @Box margin { 0c } 0.2 @Scale @IncludeGraphic draft.eps
+You have to find a suitable angle by experiment.  As Section
+{@NumberOf scaling} explains, @Code "@Scale" with no scale factor
+only takes account of the available horizontal space, not the
+available vertical space, so if your angle is too steep the result
+will be too tall for the page and you will get a regrettably obscure
+warning message about a `broken size constraint.'  The solution is
+to try a smaller angle.
+@PP
+Another useful page background draws marks to show where the margins
+boundarymarks @Index @Code "@BoundaryMarks"
+cut.marks @Index { cut marks }
+lie:
+@ID @Code "@PageBackground { @BoundaryMarks }"
+produces something like this around each page:
+@DP @DP
+@ID { |@DisplayIndent 3c @High 2c @Wide @HExpand @VExpand @BoundaryMarks }
+@DP @DP
+The @Code "@BoundaryMarks" symbol has options for controlling the
+line width (thickness), the line length, and the gap between the
+ends of the lines and the corner of the text area:
+@ID @OneRow @Code {
+"@PageBackground {"
+"    @BoundaryMarks"
+"        linewidth { 0.2p }"
+"        length { 0.5c }"
+"        gap { 0.5c }"
+"}"
+}
+This shows the default values:  0.2 points for line width,
+0.5 centimetres for the others.
+@End @Section

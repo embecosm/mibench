@@ -1,0 +1,12 @@
+@Section
+   @Title { "@Background" }
+   @Tag { background }
+@Begin
+@PP
+background.sym @Index { @@Background symbol }
+The @@Background symbol will print its left parameter in the
+background of its right parameter.  That is, the result has
+the size of the right parameter, but the left parameter will
+be printed first in the same space, with its marks aligned with
+the marks of the right parameter.
+@End @Section

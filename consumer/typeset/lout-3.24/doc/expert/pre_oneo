@@ -1,0 +1,62 @@
+@Section
+   @Title { "@OneOf" }
+   @Tag { oneof }
+@Begin
+@PP
+oneof.sym @Index { @@OneOf symbol }
+The @@OneOf symbol returns one of the sequence of objects which is
+its right parameter as its result:
+@ID @Code @Verbatim {
+@OneOf {
+    @ResultA
+    @ResultB
+    @ResultC
+}
+}
+The choice is made to ensure that whatever galley target is required
+at the moment is found.  For example, if we are evaluating @@OneOf
+as part of an attempt to attach a galley whose target is
+{@Code "@SomeTarget"}, then the result above will be
+{@Code "@ResultA"} if it contains {@Code "@SomeTarget"}, or else
+{@Code "@ResultB"} if it contains {@Code "@SomeTarget"}, or else
+{@Code "@ResultC"} (whether or not it contains the target, or
+if there is no target).
+@PP
+Use of @@OneOf in conjunction with recursive symbols can lead
+to problems.  Consider this example:
+@ID @Code {
+"def @Recursive {"
+""
+"    def @ChoiceA { @APlace // @Recursive }"
+""
+"    def @ChoiceB { @BPlace // @Recursive }"
+""
+"    @OneOf {"
+"        @ChoiceA"
+"        @ChoiceB"
+"    }"
+"}"
+}
+Lout believes that expanding @Code "@Recursive" is the right thing
+to do when searching for either of the galley targets {@Code "@APlace"}
+and {@Code "@BPlace"}.  When searching for @Code "@BPlace" this leads
+Lout to expand {@Code "@Recursive"}, then {@Code "@ChoiceA"}, then
+the {@Code "@Recursive"} symbol within {@Code "@ChoiceA"}, and so on
+infinitely.  This problem can be avoided by attaching a
+@Code "@NotRevealed" symbol to each of the inner @Code "@Recursive"
+symbols:  these are then not available for expansion until a
+decision has been made to expand the symbol they lie within.  In
+this particular example it would be simpler to write
+@ID @Code {
+"def @Recursive {"
+""
+"    @OneOf {"
+"        @APlace"
+"        @BPlace"
+"    }"
+"    // @Recursive"
+"}"
+}
+but this factoring is not possible when the recursive calls have
+parameters that are required to differ in the two cases.
+@End @Section

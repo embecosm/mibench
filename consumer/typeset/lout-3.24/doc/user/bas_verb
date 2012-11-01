@@ -1,0 +1,49 @@
+@Section
+   @Title { Verbatim text }
+   @Tag { verbatim }
+@Begin
+@PP
+The @Code "@Verbatim" symbol
+@FootNote { Prior to Version 3.13 the @Code "@Verbatim" symbol was
+implemented in a way that restricted its availability to Unix
+systems only.  This restriction no longer applies. }
+prints the following object exactly as
+verbatim.sym @Index @Code "@Verbatim"
+it appears in the input file.  All special meanings for characters,
+symbols, etc. are turned off; there is one result line for
+each input line.  For example,
+@ID @Code @Verbatim {
+@IndentedDisplay @Verbatim {
+A line of "verbatim" text
+Another line, with a \ character
+}
+}
+has result
+@IndentedDisplay @Verbatim {
+A line of "verbatim" text
+Another line, with a \ character
+}
+Use @Code "@F @Verbatim { ... }" to get the result in a fixed-width font.
+@PP
+If the verbatim text contains @Code "{" or @Code "}" characters, then
+they should either be balanced or else you need to use the alternative
+form
+@ID @Code {
+"@Verbatim @Begin"
+"..."
+"@End @Verbatim"
+}
+so that there is no doubt about where the verbatim text ends.  Although
+we have said that there are no special meanings, there is one exception
+to this rule:  @Code "@Include" and @Code "@SysInclude" commands are
+recognized, allowing all or part of the verbatim text to come from some
+other file.
+@PP
+Occasionally the first line of some verbatim text begins with some
+spaces that have to be preserved.  This is a problem for @Code "@Verbatim"
+because it ignores all white spaces following the opening brace and
+all white spaces preceding the closing brace.  However, the alternative
+@Code "@RawVerbatim" symbol stops ignoring white spaces at the opening
+as soon as a newline character is reached; in other words, it will
+preserve all white spaces following the first newline.
+@End @Section

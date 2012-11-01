@@ -1,0 +1,1522 @@
+# Croatian translation for MAD.
+# Mario Horvat <marioh@ugrad.unimelb.edu.au>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mad 0.12.0a\n"
+"POT-Creation-Date: 2001-11-08 20:55-0800\n"
+"PO-Revision-Date: 2001-10-30 10:41-08:00\n"
+"Last-Translator: Mario Horvat <marioh@ugrad.unimelb.edu.au>\n"
+"Language-Team: Croatian <marioh@ugrad.unimelb.edu.au>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: audio_oss.c:188
+msgid "no supported audio format available"
+msgstr "nijedan podrzani audio format nije dostupan"
+
+#: audio_sun.c:158
+msgid "unsupported bit depth"
+msgstr ""
+
+#: audio_win32.c:58
+#, fuzzy
+msgid "error getting error text"
+msgstr "greska u pristupanju poruka o greskama"
+
+#: audio_win32.c:77
+msgid "failed to create synchronization object"
+msgstr "stvaranje sinkroniziranog objekta nije uspjelo"
+
+#: audio_win32.c:242
+#, fuzzy
+msgid "wait abandoned"
+msgstr "cekaj prekid"
+
+#: audio_win32.c:246
+#, fuzzy
+msgid "wait timeout"
+msgstr "cekaj timeout"
+
+#: audio_win32.c:251
+#, fuzzy
+msgid "wait failed"
+msgstr "cekaj nije usplelo"
+
+#: audio_win32.c:408
+msgid "failed to close synchronization object"
+msgstr "zatvaranje sinkroniziranog objekta nije uspjelo"
+
+#: getopt.c:681
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: opcija `%s' je nejasna\n"
+
+#: getopt.c:706
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: opcija `--%s' nedozvoljava argument\n"
+
+#: getopt.c:711
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: opcija `%c%s' nedozvoljava argument\n"
+
+#: getopt.c:729 getopt.c:902
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: opcija `%s' zahtjeva argument\n"
+
+#. --option
+#: getopt.c:758
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: neprepoznatljiva opcija `--%s'\n"
+
+#. +option or -option
+#: getopt.c:762
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: neprepoznatljiva opcija `%c%s'\n"
+
+#. 1003.2 specifies the format of this message.
+#: getopt.c:788
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: ilegalna opcija -- %c\n"
+
+#: getopt.c:791
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: nevazeca opcija -- %c\n"
+
+#. 1003.2 specifies the format of this message.
+#: getopt.c:821 getopt.c:951
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: opcija zahtjeva argument -- %c\n"
+
+#: getopt.c:868
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: opcija `-W %s' je nejasna\n"
+
+#: getopt.c:886
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: opcija `-W %s' nedozvoljava argument\n"
+
+#: madmix.c:252
+#, fuzzy, c-format
+msgid "Usage: %s input1 [input2 ...]\n"
+msgstr "Koristenje: %s input1 [input2 ...]\n"
+
+#: madmix.c:272 madplay.c:557 madtime.c:211
+#, c-format
+msgid "Build options: %s\n"
+msgstr "Opcije za kompajliranje: %s\n"
+
+#: madmix.c:292
+#, c-format
+msgid "%s: unknown output format type"
+msgstr "%s: nepoznat autput format"
+
+#: madmix.c:318
+msgid "not enough memory to allocate mixing buffers"
+msgstr "nema dovoljno memorije za alokaciju mix buffer-a"
+
+#: madmix.c:322
+#, c-format
+msgid "mixing %d streams\n"
+msgstr "mixira %d strimove\n"
+
+#: madplay.c:112
+#, c-format
+msgid "Usage: %s [OPTIONS] FILE [...]\n"
+msgstr "Koristenje: %s [OPCIJE] DATOTEKA [...]\n"
+
+#: madplay.c:115
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Probajte `%s' --help' za vise informacija.\n"
+
+#: madplay.c:119
+msgid "Decode and play MPEG audio FILE(s).\n"
+msgstr "Dekodiranje i pustanje MPEG audio DATOTEKA.\n"
+
+#. the following usage text should agree with the option names
+#: madplay.c:123
+msgid ""
+"\n"
+"Verbosity:\n"
+msgstr ""
+"\n"
+"Opsirnost:\n"
+
+#: madplay.c:124
+msgid "  -v, --verbose              show status while decoding\n"
+msgstr "  -v, --verbose              pokazi status pri dekodiranju\n"
+
+#: madplay.c:125
+msgid "  -q, --quiet                be quiet but show warnings\n"
+msgstr "  -q, --quiet                diskretno, ali pokazuje upozorenja\n"
+
+#: madplay.c:126
+msgid "  -Q, --very-quiet           be quiet and do not show warnings\n"
+msgstr "  -Q, --very-quiet           diskretno, nepokazuje upozorenja\n"
+
+#: madplay.c:128
+msgid ""
+"\n"
+"Decoding:\n"
+msgstr ""
+
+#: madplay.c:129
+msgid "      --downsample           reduce output sample rate 2:1\n"
+msgstr ""
+
+#: madplay.c:130
+msgid "  -i, --ignore-crc           ignore CRC errors\n"
+msgstr ""
+
+#: madplay.c:132
+msgid ""
+"\n"
+"Audio output:\n"
+msgstr ""
+"\n"
+"Audio autput:\n"
+
+#: madplay.c:133
+msgid ""
+"  -o, --output=[TYPE:]PATH   send output to PATH with format TYPE (see "
+"below)\n"
+msgstr ""
+"  -o, --output=[TIP:]PATH    posalji autput u PATH koji je formata TIP\n"
+"                               (pogledajte ispod)\n"
+
+#: madplay.c:135
+msgid "  -b, --bit-depth=DEPTH      request DEPTH bits per sample\n"
+msgstr ""
+
+#: madplay.c:136
+msgid "  -d, --no-dither            do not dither output PCM samples\n"
+msgstr "  -d, --no-dither            nemoj podrhtati autput PCM samplove\n"
+
+#: madplay.c:138
+#, c-format
+msgid "      --fade-in[=DURATION]   fade-in songs over DURATION (default %s)\n"
+msgstr ""
+"      --fade-in[=TRAJANJE]   poslabi-unutar pjesme za TRAJANJE vremena\n"
+"                               (standradno %s)\n"
+
+#: madplay.c:142
+#, c-format
+msgid ""
+"      --fade-out[=DURATION]  fade-out songs over DURATION (default %s)\n"
+msgstr ""
+"      --fade-out[=TRAJANJE]  poslabi-van pjesme za TRAJANJE vremena\n"
+"                               (standardno %s)\n"
+
+#: madplay.c:144
+msgid "  -g, --gap=DURATION         set inter-song gap to DURATION\n"
+msgstr ""
+"  -g, --gap=TRAJANJE         namjest razmak izmedju pjesama na TRAJANJE\n"
+
+#: madplay.c:145
+msgid "  -x, --cross-fade           cross-fade songs (use with negative gap)\n"
+msgstr ""
+"  -x, --cross-fade           unakrsno-umjesaj pjesme (koristi sa negativnim\n"
+"                               razmakom)\n"
+
+#: madplay.c:148
+msgid "  -a, --attenuate=DECIBELS   attenuate signal by DECIBELS (-)\n"
+msgstr ""
+
+#: madplay.c:149
+msgid "  -a, --amplify=DECIBELS     amplify signal by DECIBELS (+)\n"
+msgstr ""
+
+#: madplay.c:151
+msgid ""
+"\n"
+"Channel selection:\n"
+msgstr ""
+"\n"
+"Selekcija Kanala:\n"
+
+#: madplay.c:152
+msgid "  -1, --left                 output first (left) channel only\n"
+msgstr "  -1, --left                 autput prvi, samo (ljevi) kanal\n"
+
+#: madplay.c:153
+msgid "  -2, --right                output second (right) channel only\n"
+msgstr "  -2, --right                autput drugi, samo (desni) kanal\n"
+
+#: madplay.c:155
+msgid ""
+"  -m, --mono                 mix left and right channels for monaural "
+"output\n"
+msgstr ""
+"  -m, --mono                 umixaj ljevi i desni kanal za monaural\n"
+"                               (ne stereo) autput\n"
+
+#: madplay.c:157
+msgid "  -S, --stereo               force stereo output\n"
+msgstr ""
+
+#: madplay.c:160
+msgid ""
+"\n"
+"Experimental:\n"
+msgstr ""
+"\n"
+"Experimantalno:\n"
+
+#: madplay.c:161
+msgid ""
+"      --external-mix         output pre-synthesis samples for external "
+"mixer\n"
+msgstr ""
+"      --external-mix         autput nopromjenjeni primjer za externe mixere\n"
+
+#: madplay.c:163
+msgid "      --experimental         enable experimental filter\n"
+msgstr "      --experimental         primjeni experimentalni filter\n"
+
+#: madplay.c:166
+msgid ""
+"\n"
+"Playback:\n"
+msgstr ""
+"\n"
+"Pustanje:\n"
+
+#: madplay.c:167
+msgid "  -s, --start=TIME           skip to begin at TIME (HH:MM:SS.DDD)\n"
+msgstr "  -s, --start=VRIJEME        skoci na VRIJEME (SS:MM:SS.SSS)\n"
+
+#: madplay.c:169
+msgid "  -t, --time=DURATION        play only for DURATION (HH:MM:SS.DDD)\n"
+msgstr "  -t, --time=TRAJANJE        pusti samo za TRAJANE (SS:MM:SS.SSS)\n"
+
+#: madplay.c:171
+msgid "  -z, --shuffle              randomize file list\n"
+msgstr "  -z, --shuffle              nerazborito sortiraj datoteke\n"
+
+#: madplay.c:172
+msgid "  -r, --repeat[=MAX]         play files MAX times, or indefinitely\n"
+msgstr "  -r, --repeat[=MAX]         pusti datoteke MAX puta, ili neodredeno\n"
+
+#: madplay.c:175
+msgid "      --tty-control          enable keyboard controls\n"
+msgstr ""
+
+#: madplay.c:176
+msgid "      --no-tty-control       disable keyboard controls\n"
+msgstr ""
+
+#: madplay.c:179
+msgid ""
+"\n"
+"Miscellaneous:\n"
+msgstr ""
+"\n"
+"Nesortirano\n"
+
+#: madplay.c:180
+msgid "  -V, --version              display version number and exit\n"
+msgstr "  -V, --version              pokazi verziju i izadji\n"
+
+#: madplay.c:181
+msgid "      --license              show copyright/license message and exit\n"
+msgstr "      --license              pokazi patent/licencu i izadji\n"
+
+#: madplay.c:183
+msgid "  -h, --help                 display this help and exit\n"
+msgstr "  -h, --help                 pokazi pomoc i izadji\n"
+
+#: madplay.c:185
+#, fuzzy
+msgid ""
+"\n"
+"Supported output formats:\n"
+msgstr ""
+"\n"
+"Podrzavani autput formati:\n"
+
+#: madplay.c:186
+#, fuzzy
+msgid "  cdda    CD audio, 16-bit 44100 Hz stereo PCM (*.cdr, *.cda)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, 16-bitni PCM format (*.wav)\n"
+
+#: madplay.c:187
+#, fuzzy
+msgid "  aiff    Audio IFF, [16-bit] PCM (*.aif, *.aiff)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, 16-bitni PCM format (*.wav)\n"
+
+#: madplay.c:188
+#, fuzzy
+msgid "  wave    Microsoft RIFF/WAVE, [16-bit] PCM (*.wav)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, 16-bitni PCM format (*.wav)\n"
+
+#: madplay.c:189
+msgid "  snd     Sun/NeXT audio, 8-bit ISDN mu-law (*.au, *.snd)\n"
+msgstr "  snd     Sun/NeXT audio, 8-bitni ISDN µ-law (*.au, *.snd)\n"
+
+#: madplay.c:190
+#, fuzzy
+msgid "  raw     binary [16-bit] host-endian linear PCM\n"
+msgstr "  raw     binarni sa predznakom (+/-) 16-bitni linearni PCM\n"
+
+#: madplay.c:192
+#, fuzzy
+msgid "  hex     ASCII hexadecimal [24-bit] linear PCM\n"
+msgstr "  hex     hexadecimalni sa predznakom (+/-) 24-bitni linearni PCM\n"
+
+#: madplay.c:195
+msgid ""
+"  esd     Enlightened Sound Daemon [16-bit] (give speaker host as PATH)\n"
+msgstr ""
+
+#: madplay.c:198
+msgid "  null    no output (decode only)\n"
+msgstr "  null    bez autputa (samo dekodiraj)\n"
+
+#: madplay.c:345
+#, c-format
+msgid "invalid %s specification \"%s\""
+msgstr "nevazeca %s specifikacija \"%s\""
+
+#: madplay.c:348
+#, c-format
+msgid "%s must be positive"
+msgstr "%s mora biti pozitivan"
+
+#: madplay.c:393
+#, fuzzy, c-format
+msgid "invalid decibel specification \"%s\""
+msgstr "nevazeca %s specifikacija \"%s\""
+
+#: madplay.c:396
+#, c-format
+msgid "decibel value must be in the range %+d to %+d"
+msgstr ""
+
+#: madplay.c:442
+#, fuzzy, c-format
+msgid "invalid bit depth \"%s\""
+msgstr "nevazeci broj ponavljanja \"%s\""
+
+#: madplay.c:469
+msgid "gap time"
+msgstr "vrijeme razmaka"
+
+#: madplay.c:484
+msgid "fade-in time"
+msgstr "poslabi-unutra (vrijeme)"
+
+#: madplay.c:498
+msgid "multiple output destinations not supported"
+msgstr "vise odredista za autput nije podrzano"
+
+#: madplay.c:504
+#, c-format
+msgid "unknown output format type for \"%s\""
+msgstr "nepoznati autput format za \"%s\""
+
+#: madplay.c:513
+msgid "fade-out time"
+msgstr "poslabi-van (vrijeme)"
+
+#: madplay.c:532
+#, c-format
+msgid "invalid repeat count \"%s\""
+msgstr "nevazeci broj ponavljanja \"%s\""
+
+#: madplay.c:537
+msgid "start time"
+msgstr "pocetno vrijeme"
+
+#: madplay.c:546
+msgid "playing time"
+msgstr "vrijeme trajanja"
+
+#: madplay.c:556
+#, c-format
+msgid "`%s --license' for licensing information.\n"
+msgstr "`%s --licenca' za informacije o licenci.\n"
+
+#: madplay.c:623
+msgid "cross-fade ignored without gap"
+msgstr "unakrsno-mjesanje ignorirano bez razmaka"
+
+#: madplay.c:625
+msgid "cross-fade ignored without negative gap"
+msgstr "unakrsno-mjesanje ignorirano bez negativnog razmaka"
+
+#: madtime.c:123
+#, c-format
+msgid "%s: Not a regular file\n"
+msgstr "%s: Nije prepoznatljiva datoteka\n"
+
+#: madtime.c:177
+#, c-format
+msgid "%8.1f MB  %c%3u kbps  %s  %s\n"
+msgstr "%8.1f MB  %c%3u kbps  %s  %s\n"
+
+#: madtime.c:184
+#, c-format
+msgid "Usage: %s [-s] FILE [...]\n"
+msgstr "Koristenje: %s [-s] DATOTEKA [...]\n"
+
+#: madtime.c:278
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: player.c:517
+msgid "Title"
+msgstr "Naslov"
+
+#. Subtitle
+#. Copyright
+#. Produced
+#: player.c:521
+msgid "Composer"
+msgstr "Kompositor"
+
+#: player.c:522
+msgid "Artist"
+msgstr "Umjetnik"
+
+#: player.c:523
+msgid "Orchestra"
+msgstr ""
+
+#: player.c:524
+msgid "Conductor"
+msgstr ""
+
+#: player.c:525
+msgid "Lyricist"
+msgstr ""
+
+#: player.c:526
+msgid "Album"
+msgstr ""
+
+#: player.c:527
+msgid "Year"
+msgstr "Godina"
+
+#: player.c:528
+msgid "Track"
+msgstr "Pjesma"
+
+#: player.c:529
+msgid "Publisher"
+msgstr "Izdavac"
+
+#: player.c:530
+msgid "Genre"
+msgstr "Stil"
+
+#: player.c:531
+#, fuzzy
+msgid "Station"
+msgstr "Latin"
+
+#: player.c:532
+#, fuzzy
+msgid "Encoder"
+msgstr "Enkodirano"
+
+#: player.c:573 version.c:37
+msgid "Copyright (C)"
+msgstr "Autorsko Pravo ©"
+
+#: player.c:573
+msgid "Produced (P)"
+msgstr ""
+
+#: player.c:630
+msgid "Comment"
+msgstr "Komentar"
+
+#: player.c:649
+#, fuzzy
+msgid "not enough memory to display tag"
+msgstr "nema dovoljno memorije za alokaciju filtera"
+
+#: player.c:662
+msgid "I"
+msgstr "I"
+
+#: player.c:662
+msgid "II"
+msgstr "II"
+
+#: player.c:662
+msgid "III"
+msgstr "III"
+
+#: player.c:664
+msgid "single channel"
+msgstr "jedan kanal"
+
+#: player.c:664
+msgid "dual channel"
+msgstr "dualni kanal"
+
+#: player.c:664
+msgid "joint stereo"
+msgstr "spojeni stereo"
+
+#: player.c:664
+msgid "stereo"
+msgstr "stereo"
+
+#: player.c:733
+msgid " (LR)"
+msgstr " (LR)"
+
+#: player.c:737
+msgid " (MS)"
+msgstr " (MS)"
+
+#: player.c:741
+msgid " (I)"
+msgstr " (I)"
+
+#: player.c:745
+msgid " (MS+I)"
+msgstr " (MS+I)"
+
+#: player.c:750
+#, c-format
+msgid "%s Layer %s, %s%u kbps%s, %u Hz, %s%s, %s"
+msgstr "%s Kodek %s, %s%u kbps%s, %u Hz, %s%s, %s"
+
+#: player.c:752
+msgid "VBR (avg "
+msgstr "VBR (avg "
+
+#: player.c:755
+msgid ")"
+msgstr ")"
+
+#: player.c:757
+msgid "CRC"
+msgstr "CRC"
+
+#: player.c:757
+msgid "no CRC"
+msgstr "bez CRC"
+
+#: player.c:809
+msgid "no channel selected for dual channel; using first"
+msgstr "kanal nije izabran za dualni mod; koristen prvi"
+
+#: player.c:825
+#, fuzzy, c-format
+msgid "using output sample frequency %u Hz"
+msgstr "rezervirana vrijednost frekvencije primjera"
+
+#: player.c:850
+msgid "mono output not available; forcing stereo"
+msgstr ""
+
+#: player.c:852
+msgid "stereo output not available; using first channel (use -m to mix)"
+msgstr ""
+
+#: player.c:859
+#, c-format
+msgid "sample frequency %u Hz not available; closest %u Hz"
+msgstr "frekvecija primjera %u Hz nije moguca; najbliza %u Hz"
+
+#: player.c:866
+#, c-format
+msgid "bit depth %u not available; using %u"
+msgstr ""
+
+#: player.c:890
+msgid "not enough memory to allocate resampling buffer"
+msgstr "nema dovoljno memorije za obradu buffer-a"
+
+#: player.c:899
+#, c-format
+msgid "cannot resample %u Hz to %u Hz"
+msgstr "obrada %u Hz na %u Hz nemoguca"
+
+#: player.c:908
+#, c-format
+msgid "resampling %u Hz to %u Hz"
+msgstr "obrada %u Hz na %u Hz u toku"
+
+#: player.c:980
+#, fuzzy
+msgid "not enough memory to allocate tag data buffer"
+msgstr "nema dovoljo memorije za alokaciju tag buffer-a"
+
+#: player.c:1000
+#, fuzzy
+msgid "EOF while reading tag data"
+msgstr "EOF pri ucitavanju tag-a"
+
+#: player.c:1064
+#, fuzzy, c-format
+msgid "frame %lu: %s"
+msgstr "frame %lu: %s"
+
+#: player.c:1120
+msgid "not enough memory to allocate input buffer"
+msgstr "nema dovoljno memorije za alokaciju input buffer-a"
+
+#: player.c:1200 player.c:1204
+msgid "stdin"
+msgstr "stdin"
+
+#: player.c:1200
+msgid "is a tty"
+msgstr ""
+
+#: player.c:1268
+#, c-format
+msgid "%lu frames decoded (%s), %s dB peak amplitude, %lu clipped samples\n"
+msgstr ""
+
+#: player.c:1530
+msgid "Stopped"
+msgstr ""
+
+#: player.c:1530
+msgid "Paused"
+msgstr ""
+
+#: player.c:1590
+msgid "[Overall Time]"
+msgstr ""
+
+#: player.c:1597
+msgid "[Current Time Remaining]"
+msgstr ""
+
+#: player.c:1602
+msgid "[Current Time]"
+msgstr ""
+
+#: player.c:1903
+msgid "not enough memory to allocate sample buffer"
+msgstr "nema dovoljno memorije za alokaciju buffer-a"
+
+#: player.c:1967
+msgid "not enough memory to allocate filters"
+msgstr "nema dovoljno memorije za alokaciju filtera"
+
+#: player.c:1987
+#, fuzzy
+msgid "lead-in"
+msgstr "lead-in"
+
+#: version.c:42
+msgid "MPEG Audio Decoder"
+msgstr "MPEG Audio Dekoder"
+
+#: version.c:55
+#, c-format
+msgid ""
+"This program is free software; you can redistribute it and/or modify it\n"
+"under the terms of the GNU General Public License as published by the\n"
+"Free Software Foundation; either version 2 of the License, or (at your\n"
+"option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"59 Temple Place, Suite 330, Boston, MA 02111-1307 USA\n"
+"\n"
+"If you would like to negotiate alternate licensing terms, you may do so\n"
+"by contacting the author: %s <%s>\n"
+msgstr ""
+"Ovaj program je besplatan; mozete ga razdjeliti i/ili mjenjati pod GNU\n"
+"GPL-om koja je objavljena od strane Free Software Foundation-a; pod\n"
+"licencom verzije 2, ili (po vasem izboru) bilo kojom drugom verzijom.\n"
+"\n"
+"Ovaj program je djeljen pod nadom da ce biti koristan, ali BEZ IKAKVE\n"
+"GARANCIJE; tek bez garancije SPREMNOSTI ZA PRODAJU ili ISPRAVNOSTI ZA\n"
+"POSEBNU SVRHU. Pogledajte GNU GPL za vise detalja.\n"
+"\n"
+"Trebali ste primiti kopiju GNU GPL-a sa ovom datotekom; ako ne, pisite\n"
+"Free Software Foundation-u, Inc., 59 Temple Place, Suite 33, Boston, MA\n"
+"02111-1307 USA\n"
+"\n"
+"Ako bih ste htjeli dogovoriti drukcija prava, mozete to izvrsiti\n"
+"kontaktirajuci autora: %s <%s>\n"
+
+#~ msgid "not enough memory"
+#~ msgstr "nema dovoljno memorije"
+
+#~ msgid "lost synchronization"
+#~ msgstr "izgubljena sinkronizacija"
+
+#~ msgid "reserved header layer value"
+#~ msgstr "rezervirana vrijednost potpisa kodeka"
+
+#~ msgid "forbidden bitrate value"
+#~ msgstr "nedozvoljena bit/sec vrijednost"
+
+#~ msgid "reserved sample frequency value"
+#~ msgstr "rezervirana vrijednost frekvencije primjera"
+
+#~ msgid "reserved emphasis value"
+#~ msgstr "rezervirana emfazna vrijednost"
+
+#~ msgid "CRC check failed"
+#~ msgstr "CRC provjera neuspjesna"
+
+#~ msgid "forbidden bit allocation value"
+#~ msgstr "nedozvoljena alokacija bit vrijednosti"
+
+#~ msgid "bad scalefactor index"
+#~ msgstr "krivi omjerni index"
+
+#~ msgid "bad frame length"
+#~ msgstr "kriva duzina frame-a"
+
+#, fuzzy
+#~ msgid "bad big_values count"
+#~ msgstr "krivi broj velke_vrijednosti"
+
+#, fuzzy
+#~ msgid "reserved block_type"
+#~ msgstr "rezervirani block_type"
+
+#, fuzzy
+#~ msgid "bad scalefactor selection info"
+#~ msgstr "krivi omjerni index"
+
+#~ msgid "bad main_data_begin pointer"
+#~ msgstr "krivi glavni_pocetak_date pointer"
+
+#~ msgid "bad audio data length"
+#~ msgstr "kriva duzina audio date"
+
+#~ msgid "bad Huffman table select"
+#~ msgstr "krivi izbor iz Huffman tabele"
+
+#, fuzzy
+#~ msgid "incompatible block_type for JS"
+#~ msgstr "inkompatibilan block_type za MS"
+
+#~ msgid "Copyright (C) %s %s"
+#~ msgstr "Autorsko Pravo © %s %s"
+
+#~ msgid ""
+#~ " Title: %-30s  Artist: %s\n"
+#~ " Album: %-30s   Genre: %s\n"
+#~ msgstr ""
+#~ "Naslov: %-30s  Umjetnik: %s\n"
+#~ " Album: %-30s      Stil: %s\n"
+
+#~ msgid "  Year: %-4s  Track: %-3u               Comment: %s\n"
+#~ msgstr "Godina: %-4s  Pjesma: %-3u               Komentar: %s\n"
+
+#~ msgid "  Year: %-4s                           Comment: %s\n"
+#~ msgstr "Godina: %-4s                            Komentar: %s\n"
+
+#~ msgid "invalid header"
+#~ msgstr "nerazumljiv pocetak datoteke"
+
+#~ msgid "ID3: version 2.%u.%u not supported\n"
+#~ msgstr "ID3: verzija 2.%u.%u nije podrzana\n"
+
+#~ msgid "ID3: version 2.%u.%u, flags 0x%02x, size %lu bytes\n"
+#~ msgstr "ID3: vezija 2.%u.%u, flags 0x%02x, velicina %lu bajtova\n"
+
+#~ msgid "ID3: unknown flags 0x%02x\n"
+#~ msgstr "ID3: nepoznati flag-ovi 0x%02x\n"
+
+#~ msgid "ID3: extended header flags 0x%04x, %lu bytes padding\n"
+#~ msgstr "ID3: produzen header flags 0x%04x, %lu byte-ova podstave\n"
+
+#~ msgid "ID3: total frame CRC 0x%04lx\n"
+#~ msgstr "ID3: totalni frame CRC 0x%04lx\n"
+
+#~ msgid "ID3: experimental tag\n"
+#~ msgstr "ID3: experimantalni tag\n"
+
+#, fuzzy
+#~ msgid "ID3: unhandled %s (%s): flags 0x%04x, %lu bytes\n"
+#~ msgstr "ID3: nepodrzava %s (%s): flag-ove 0x%04x, %lu bytes\n"
+
+#~ msgid "ID3: unknown frame \"%s\" (flags 0x%04x; %lu bytes)\n"
+#~ msgstr "ID3: nepoznati frame \"%s\" (flags 0x%04x; %lu bytes)\n"
+
+#~ msgid "Remix"
+#~ msgstr "Remix"
+
+#~ msgid "Cover"
+#~ msgstr "Cover"
+
+#~ msgid "ID3: %s: no data\n"
+#~ msgstr "ID3: %s: nema date\n"
+
+#~ msgid "ID3: %s: Unicode\n"
+#~ msgstr "ID3: %s: Unicode\n"
+
+#~ msgid "ID3: %s: not enough memory\n"
+#~ msgstr "ID3: %s: nema dovoljno memorije\n"
+
+#~ msgid "ID3: %s: bad format\n"
+#~ msgstr "ID3: %s: los format\n"
+
+#~ msgid "Recommended buffer size"
+#~ msgstr "Predporucena velicina buffer-a"
+
+#~ msgid "Play counter"
+#~ msgstr "Broj pustanja"
+
+#~ msgid "Audio encryption"
+#~ msgstr "Audio enkripcija"
+
+#~ msgid "Encrypted meta frame"
+#~ msgstr "Enkriptirana meta frame"
+
+#~ msgid "Equalization"
+#~ msgstr "Ujednacenje"
+
+#~ msgid "Event timing codes"
+#~ msgstr "Vremenski kod dogadjaja"
+
+#~ msgid "General encapsulated object"
+#~ msgstr "Generalni objekat"
+
+#~ msgid "Involved people list"
+#~ msgstr "Lista ljudi koji su pridonjeli projektu"
+
+#~ msgid "Linked information"
+#~ msgstr "Dalnja informacija"
+
+#~ msgid "Music CD Identifier"
+#~ msgstr "Musicki CD identifikator"
+
+#~ msgid "MPEG location lookup table"
+#~ msgstr "lokacaija MPEG tebele"
+
+#~ msgid "Attached picture"
+#~ msgstr "Prikacena slika"
+
+#~ msgid "Popularimeter"
+#~ msgstr "Popularnost"
+
+#~ msgid "Reverb"
+#~ msgstr "Opis"
+
+#~ msgid "Relative volume adjustment"
+#~ msgstr "Relativno zvucno podesavanje"
+
+#~ msgid "Synchronized lyric/text"
+#~ msgstr "Sinkronizirane rijeci/text"
+
+#~ msgid "Synced tempo codes"
+#~ msgstr "Sinkronizirane tempo brojke"
+
+#~ msgid "Album/Movie/Show title"
+#~ msgstr "Album/Film/Show naslov"
+
+#~ msgid "BPM (Beats Per Minute)"
+#~ msgstr "BPM (Beat-ova Po Minuti)"
+
+#~ msgid "Content type"
+#~ msgstr "Tip sadrzaja"
+
+#~ msgid "Copyright message"
+#~ msgstr "Poraka o autorskom pravu"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Playlist delay"
+#~ msgstr "Playlist odgoda"
+
+#~ msgid "File type"
+#~ msgstr "Tip datoteke"
+
+#~ msgid "Initial key"
+#~ msgstr "Pocetni kljuc"
+
+#~ msgid "Language(s)"
+#~ msgstr "Jezik/ci"
+
+#~ msgid "Length"
+#~ msgstr "Duzina"
+
+#~ msgid "Media type"
+#~ msgstr "Tip medija"
+
+#~ msgid "Original artist(s)/performer(s)"
+#~ msgstr "Originalni umjetnik(ci)/nastupnik(ci)"
+
+#~ msgid "Original filename"
+#~ msgstr "Originalna datoteka"
+
+#~ msgid "Original lyricist(s)/text writer(s)"
+#~ msgstr "Originalni pisac(ci) rijeci/texta"
+
+#~ msgid "Original release year"
+#~ msgstr "Godina izdanja"
+
+#~ msgid "Original album/Movie/Show title"
+#~ msgstr "Originalni naslov Albuma/Filma/Serije"
+
+#~ msgid "Lead artist(s)/Lead performer(s)/Soloist(s)/Performing group"
+#~ msgstr "Glavni umjetnik(ci)/Vodja grupe/Grupa"
+
+#~ msgid "Band/Orchestra/Accompaniment"
+#~ msgstr "Bend/Sastav/Podrzni svirac"
+
+#~ msgid "Conductor/Performer refinement"
+#~ msgstr "Dirigent/Nastupnik"
+
+#~ msgid "Interpreted, remixed, or otherwise modified by"
+#~ msgstr "Interpretirano, mixano, ili mjenjano od strane"
+
+#~ msgid "Part of a set"
+#~ msgstr "Dio seta"
+
+#~ msgid "ISRC (International Standard Recording Code)"
+#~ msgstr "ISRC (International Standard Recording Code)"
+
+#~ msgid "Recording dates"
+#~ msgstr "Datumi snimanja"
+
+#~ msgid "Track number/Position in set"
+#~ msgstr "Broj Pjesme/Pozicija u setu"
+
+#~ msgid "Size"
+#~ msgstr "Velicina"
+
+#~ msgid "Software/Hardware and settings used for encoding"
+#~ msgstr "Konfiguracija Programa/Instrumenata koristen za endokiranje"
+
+#~ msgid "Content group description"
+#~ msgstr "Opis grupe"
+
+#~ msgid "Title/Songname/Content description"
+#~ msgstr "Naslov/Ime Pjesme/Opis sadrzaja"
+
+#~ msgid "Subtitle/Description refinement"
+#~ msgstr "Podnaslov/Opis"
+
+#~ msgid "Lyricist/Text writer"
+#~ msgstr "Pisac rijeci/Texta"
+
+#~ msgid "User defined text information frame"
+#~ msgstr "Dodatne informacije od strane korisnika"
+
+#~ msgid "Unique file identifier"
+#~ msgstr "Specijalna identifikacija datoteke"
+
+#~ msgid "Unsychronized lyric/text transcription"
+#~ msgstr "Nesinkronizirane rijeci/text prepisa"
+
+#~ msgid "Official audio file webpage"
+#~ msgstr "Sluzbena internet stranica audio datoteke"
+
+#~ msgid "Official artist/performer webpage"
+#~ msgstr "Sluzbena internet stranica umjetnika/nastupnika"
+
+#~ msgid "Official audio source webpage"
+#~ msgstr "Sluzbena internet stranica audio podrijetla"
+
+#~ msgid "Commercial information"
+#~ msgstr "Komercialna informacija"
+
+#~ msgid "Copyright/Legal information"
+#~ msgstr "Autorsko pravo/Legalna informacija"
+
+#~ msgid "Publishers official webpage"
+#~ msgstr "Sluzbena internet stranica izdavaca"
+
+#~ msgid "User defined URL link frame"
+#~ msgstr "Linkovi definirani od strane korisnika"
+
+#~ msgid "Commercial frame"
+#~ msgstr "Komercialni prozor"
+
+#~ msgid "Encryption method registration"
+#~ msgstr "Registracija metode enkripcije"
+
+#~ msgid "Group identification registration"
+#~ msgstr "Registracija identifikacije grupe"
+
+#~ msgid "Ownership frame"
+#~ msgstr "Vlasnicki prozor"
+
+#~ msgid "Position synchronisation frame"
+#~ msgstr "Prozor sinkronizacije pozicije"
+
+#~ msgid "Private frame"
+#~ msgstr "Privatni prozor"
+
+#~ msgid "Synchronized tempo codes"
+#~ msgstr "Sinkronizirane tempo vrijednosti"
+
+#~ msgid "File owner/licensee"
+#~ msgstr "Vlasnik/Ovlastenik Datoteke"
+
+#~ msgid "Lead performer(s)/Soloist(s)"
+#~ msgstr "Glavni nastupni(ci)"
+
+#~ msgid "Internet radio station name"
+#~ msgstr "Ime Internet radio stanice"
+
+#~ msgid "Internet radio station owner"
+#~ msgstr "Vlasnik Internet radio stanice"
+
+#~ msgid "Terms of use"
+#~ msgstr "Pravila koristenja"
+
+#~ msgid "Official Internet radio station homepage"
+#~ msgstr "Sluzbena internet stranica Internet radio stanice"
+
+#~ msgid "Payment"
+#~ msgstr "Placanje"
+
+#~ msgid "Blues"
+#~ msgstr "Blues"
+
+#~ msgid "Classic Rock"
+#~ msgstr "Clasicni Rock"
+
+#~ msgid "Dance"
+#~ msgstr "Dance"
+
+#~ msgid "Disco"
+#~ msgstr "Disko"
+
+#~ msgid "Funk"
+#~ msgstr "Funk"
+
+#~ msgid "Grunge"
+#~ msgstr "Grunge"
+
+#~ msgid "Hip-Hop"
+#~ msgstr "Hip-Hop"
+
+#~ msgid "Jazz"
+#~ msgstr "Jazz"
+
+#~ msgid "Metal"
+#~ msgstr "Metal"
+
+#~ msgid "New Age"
+#~ msgstr "Novokomponovani"
+
+#~ msgid "Oldies"
+#~ msgstr "Stare"
+
+#~ msgid "Other"
+#~ msgstr "Druge"
+
+#~ msgid "Pop"
+#~ msgstr "Pop"
+
+#~ msgid "R&B"
+#~ msgstr "R&B"
+
+#~ msgid "Rap"
+#~ msgstr "Rap"
+
+#~ msgid "Reggae"
+#~ msgstr "Raggae"
+
+#~ msgid "Rock"
+#~ msgstr "Rock"
+
+#~ msgid "Techno"
+#~ msgstr "Techno"
+
+#~ msgid "Industrial"
+#~ msgstr "Industrial"
+
+#~ msgid "Alternative"
+#~ msgstr "Alternative"
+
+#~ msgid "Ska"
+#~ msgstr "Ska"
+
+#~ msgid "Death Metal"
+#~ msgstr "Death Metal"
+
+#~ msgid "Pranks"
+#~ msgstr "Pranks"
+
+#~ msgid "Soundtrack"
+#~ msgstr "Soundtrack"
+
+#~ msgid "Euro-Techno"
+#~ msgstr "Euro-Techno"
+
+#~ msgid "Ambient"
+#~ msgstr "Ambient"
+
+#~ msgid "Trip-Hop"
+#~ msgstr "Trip-Hop"
+
+#~ msgid "Vocal"
+#~ msgstr "Vocal"
+
+#~ msgid "Jazz+Funk"
+#~ msgstr "Jazz+Funk"
+
+#~ msgid "Fusion"
+#~ msgstr "Fusion"
+
+#~ msgid "Classical"
+#~ msgstr "Clssical"
+
+#~ msgid "Instrumental"
+#~ msgstr "Instrumentalni"
+
+#~ msgid "Acid"
+#~ msgstr "Acid"
+
+#~ msgid "House"
+#~ msgstr "House"
+
+#~ msgid "Game"
+#~ msgstr "Game"
+
+#~ msgid "Sound Clip"
+#~ msgstr "Sound Clip"
+
+#~ msgid "Gospel"
+#~ msgstr "Gospel"
+
+#~ msgid "Noise"
+#~ msgstr "Noise"
+
+#~ msgid "AlternRock"
+#~ msgstr "AlternRock"
+
+#~ msgid "Bass"
+#~ msgstr "Bass"
+
+#~ msgid "Soul"
+#~ msgstr "Soul"
+
+#~ msgid "Punk"
+#~ msgstr "Punk"
+
+#~ msgid "Space"
+#~ msgstr "Space"
+
+#~ msgid "Meditative"
+#~ msgstr "Mediative"
+
+#~ msgid "Instrumental Pop"
+#~ msgstr "Instrumentalni Pop"
+
+#~ msgid "Instrumental Rock"
+#~ msgstr "Instrumentalni Rock"
+
+#~ msgid "Ethnic"
+#~ msgstr "Ethnic"
+
+#~ msgid "Gothic"
+#~ msgstr "Gothic"
+
+#~ msgid "Darkwave"
+#~ msgstr "Darkwave"
+
+#~ msgid "Techno-Industrial"
+#~ msgstr "Techo-Industrial"
+
+#~ msgid "Electronic"
+#~ msgstr "Electronic"
+
+#~ msgid "Pop-Folk"
+#~ msgstr "Pop-Folk"
+
+#~ msgid "Eurodance"
+#~ msgstr "Eurodance"
+
+#~ msgid "Dream"
+#~ msgstr "Dream"
+
+#~ msgid "Southern Rock"
+#~ msgstr "Southern Rock"
+
+#~ msgid "Comedy"
+#~ msgstr "Comedy"
+
+#~ msgid "Cult"
+#~ msgstr "Cult"
+
+#~ msgid "Gangsta"
+#~ msgstr "Gangsta"
+
+#~ msgid "Top 40"
+#~ msgstr "Top 40"
+
+#~ msgid "Christian Rap"
+#~ msgstr "Christian Rap"
+
+#~ msgid "Pop/Funk"
+#~ msgstr "Pop/Funk"
+
+#~ msgid "Jungle"
+#~ msgstr "Jungle"
+
+#~ msgid "Native American"
+#~ msgstr "Native American"
+
+#~ msgid "Cabaret"
+#~ msgstr "Cabaret"
+
+#~ msgid "New Wave"
+#~ msgstr "New Wave"
+
+#, fuzzy
+#~ msgid "Psychedelic"
+#~ msgstr "Psychadelic"
+
+#~ msgid "Rave"
+#~ msgstr "Rave"
+
+#~ msgid "Showtunes"
+#~ msgstr "Showtunes"
+
+#~ msgid "Trailer"
+#~ msgstr "Trailer"
+
+#~ msgid "Lo-Fi"
+#~ msgstr "Lo-Fi"
+
+#~ msgid "Tribal"
+#~ msgstr "Tribal"
+
+#~ msgid "Acid Punk"
+#~ msgstr "Acid Punk"
+
+#~ msgid "Acid Jazz"
+#~ msgstr "Acid Jazz"
+
+#~ msgid "Polka"
+#~ msgstr "Polka"
+
+#~ msgid "Retro"
+#~ msgstr "Retro"
+
+#~ msgid "Musical"
+#~ msgstr "Musical"
+
+#~ msgid "Rock & Roll"
+#~ msgstr "Rock & Roll"
+
+#~ msgid "Hard Rock"
+#~ msgstr "Hard Rock"
+
+#~ msgid "Folk"
+#~ msgstr "Folk"
+
+#, fuzzy
+#~ msgid "Folk/Rock"
+#~ msgstr "Folk-Rock"
+
+#~ msgid "National Folk"
+#~ msgstr "National Folk"
+
+#~ msgid "Swing"
+#~ msgstr "Swing"
+
+#, fuzzy
+#~ msgid "Fast-Fusion"
+#~ msgstr "Fast Fusion"
+
+#~ msgid "Bebob"
+#~ msgstr "Bebob"
+
+#~ msgid "Revival"
+#~ msgstr "Revival"
+
+#~ msgid "Celtic"
+#~ msgstr "Celtic"
+
+#~ msgid "Bluegrass"
+#~ msgstr "Bluegrass"
+
+#~ msgid "Avantgarde"
+#~ msgstr "Avantgarde"
+
+#~ msgid "Gothic Rock"
+#~ msgstr "Gothic Rock"
+
+#~ msgid "Progressive Rock"
+#~ msgstr "Progressive Rock"
+
+#~ msgid "Psychedelic Rock"
+#~ msgstr "Psychedelic Rock"
+
+#~ msgid "Symphonic Rock"
+#~ msgstr "Symphonic Rock"
+
+#~ msgid "Slow Rock"
+#~ msgstr "Slow Roc"
+
+#~ msgid "Big Band"
+#~ msgstr "Big Band"
+
+#~ msgid "Chorus"
+#~ msgstr "Chorus"
+
+#~ msgid "Easy Listening"
+#~ msgstr "Easy Listening"
+
+#~ msgid "Acoustic"
+#~ msgstr "Acustic"
+
+#~ msgid "Humour"
+#~ msgstr "Humour"
+
+#~ msgid "Speech"
+#~ msgstr "Speech"
+
+#~ msgid "Chanson"
+#~ msgstr "Chanson"
+
+#~ msgid "Opera"
+#~ msgstr "Opera"
+
+#~ msgid "Chamber Music"
+#~ msgstr "Chamber Music"
+
+#~ msgid "Sonata"
+#~ msgstr "Sonata"
+
+#~ msgid "Symphony"
+#~ msgstr "Symphony"
+
+#~ msgid "Booty Bass"
+#~ msgstr "Boot Bass"
+
+#~ msgid "Primus"
+#~ msgstr "Primus"
+
+#~ msgid "Porn Groove"
+#~ msgstr "Porn Groove"
+
+#~ msgid "Satire"
+#~ msgstr "Satire"
+
+#~ msgid "Slow Jam"
+#~ msgstr "Slow Jam"
+
+#~ msgid "Club"
+#~ msgstr "Club"
+
+#~ msgid "Tango"
+#~ msgstr "Tango"
+
+#~ msgid "Samba"
+#~ msgstr "Samba"
+
+#~ msgid "Folklore"
+#~ msgstr "Folklore"
+
+#~ msgid "Ballad"
+#~ msgstr "Ballad"
+
+#~ msgid "Power Ballad"
+#~ msgstr "Power Ballad"
+
+#~ msgid "Rhythmic Soul"
+#~ msgstr "Rhytmic Soul"
+
+#~ msgid "Freestyle"
+#~ msgstr "Freestyle"
+
+#~ msgid "Duet"
+#~ msgstr "Duet"
+
+#~ msgid "Punk Rock"
+#~ msgstr "Punk Rock"
+
+#~ msgid "Drum Solo"
+#~ msgstr "Drum Solo"
+
+#, fuzzy
+#~ msgid "A Cappella"
+#~ msgstr "A capella"
+
+#~ msgid "Euro-House"
+#~ msgstr "Euro-House"
+
+#~ msgid "Dance Hall"
+#~ msgstr "Dance Hall"
+
+#, fuzzy
+#~ msgid "Club-House"
+#~ msgstr "Euro-House"
+
+#, fuzzy
+#~ msgid "BritPop"
+#~ msgstr "Pop"
+
+#, fuzzy
+#~ msgid "Christian Gangsta Rap"
+#~ msgstr "Christian Rap"
+
+#, fuzzy
+#~ msgid "Heavy Metal"
+#~ msgstr "Death Metal"
+
+#, fuzzy
+#~ msgid "Black Metal"
+#~ msgstr "Death Metal"
+
+#, fuzzy
+#~ msgid "Crossover"
+#~ msgstr "Cover"
+
+#, fuzzy
+#~ msgid "Christian Rock"
+#~ msgstr "Christian Rap"
+
+#, fuzzy
+#~ msgid "Salsa"
+#~ msgstr "Samba"
+
+#, fuzzy
+#~ msgid "Thrash Metal"
+#~ msgstr "Death Metal"
+
+#, fuzzy
+#~ msgid "Anime"
+#~ msgstr "Vrijeme"
+
+#, fuzzy
+#~ msgid "JPop"
+#~ msgstr "Pop"
+
+#~ msgid "bad main data length"
+#~ msgstr "kriva duzina glavne date"
+
+#~ msgid "1 frame decoded (%s)\n"
+#~ msgstr "1 fame dekodiran (%s)\n"
+
+#~ msgid "%lu frames decoded (%s)\n"
+#~ msgstr "%lu frame-ova dekodirano (%s)\n"
+
+#~ msgid "required number of channels not available"
+#~ msgstr "trazeni broj kanala nije dostupan"
+
+#~ msgid "sample speed not available"
+#~ msgstr "brzina primjera nije dostupna"

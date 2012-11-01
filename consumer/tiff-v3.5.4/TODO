@@ -1,0 +1,9 @@
+#	$Header: /home/mguthaus/.cvsroot/mibench/consumer/tiff-v3.5.4/TODO,v 1.1.1.1 2000/11/06 19:52:22 mguthaus Exp $
+
+o remove lzw compression flags from tools, update man pages
+o gif2tiff segaulting on selected images
+o tiffcmp read data by strip/tile instead of scanline
+o YCbCr sampling support
+o extracate colorspace conversion support
+o look at isolating all codecs from TIFF library
+o JPEG colormode order dependency problem

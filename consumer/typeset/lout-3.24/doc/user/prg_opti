@@ -1,0 +1,106 @@
+@Section
+   @Title { Changing the appearance of a program }
+   @Tag { prg_opti }
+@Begin
+@PP
+The {@Code "@CP"}, {@Code "@Eiffel"} etc. symbols have a number of
+options for changing the appearance of the printed program.  These
+options are the same for all symbols, although their default values
+may vary.  The @Code "style" option changes the printing style; its
+value may be {@Code "fixed"} (fixed-width font), {@Code "varying"}
+(varying-width font), or {@Code "symbol"} (varying-width font with
+mathematical symbols used for some operators).  Its default value
+depends on the language, and may be found in the fourth column of
+the table at the start of this chapter.  The example in the previous
+section was in @Code fixed style; we can switch styles like this:
+@ID @OneRow @Code {
+"@CP"
+"    style { varying }"
+"{"
+"#include <stdio.h>"
+""
+"treeprint(p)        /* print tree p recursively */"
+"struct tnode *p;"
+"{"
+"        if (p != NULL) {"
+"                treeprint(p->left);"
+"                printf(\"%4d %s\\n\", p->count, p->word);"
+"                treeprint(p->right);"
+"        }"
+"}"
+"}"
+}
+The result in this case will be
+@ID @OneRow @CP style { varying }
+{
+#include <stdio.h>
+
+treeprint(p)        /* print tree p recursively */
+struct tnode *p;
+{
+        if (p != NULL) {
+                treeprint(p->left);
+                printf("%4d %s\n", p->count, p->word);
+                treeprint(p->right);
+        }
+}
+}
+If we use @Code "style { symbol }" we get this:
+@ID @OneRow @CP style { symbol }
+{
+#include <stdio.h>
+
+treeprint(p)        /* print tree p recursively */
+struct tnode *p;
+{
+        if (p != NULL) {
+                treeprint(p->left);
+                printf("%4d %s\n", p->count, p->word);
+                treeprint(p->right);
+        }
+}
+}
+with mathematical symbols replacing some of the operators.
+@PP
+The {@Code "@CP"}, {@Code "@Eiffel"} etc. symbols have additional options
+which allow a finer control over the style.  Here they all are, with their
+default values:
+@ID @OneRow @Code {
+"@CP         [ or @Eiffel, @Blue, etc. ]"
+"    style { fixed }"
+"    numbered { No }"
+"    font { Courier }"
+"    size { -1.0p }"
+"    line { 1.0vx }"
+"    tabin { 8 }"
+"    tabout { 8s }"
+"    identifiers { Base }"
+"    keywords { Base }"
+"    operators { Base }"
+"    numbers { Base }"
+"    strings { Base }"
+"    comments { Base }"
+"{"
+"    ..."
+"}"
+}
+We are already familiar with {@Code "style"}.  After that comes
+{@Code "numbered"}, whose value may be {@Code "No"} (the default),
+{@Code "Yes"}, or a number, and which determines whether or not
+line numbers are to be added and if so the value of the first
+one.  Next we have
+{@Code "font"}, which determines the font family to use, {@Code "size"},
+the font size to use, and {@Code "line"}, the inter-line spacing.  The
+default value for @Code "size" asks for one point smaller than in the
+surrounding document; this was done to compensate for Courier's relatively
+large appearance compared to other fonts of the same nominal size.
+@PP
+The @Code "tabin" and @Code "tabout" options are the subject of
+Section {@NumberOf tabs}.  After them come six options giving the
+particular font faces in which to print identifiers, keywords, operators,
+numbers, strings, and comments.  {@Code "Base"} means the basic face; other
+commonly available choices are {@Code "Slope"} and {@Code "Bold"}.  These
+options may all be set to different faces if desired.  The default values
+shown are correct for @Code "style { fixed }" only; the other styles
+have other defaults (Section {@NumberOf cpsetup}).
+@End @Section

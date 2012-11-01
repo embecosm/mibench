@@ -1,0 +1,113 @@
+@SubSection
+    @Tag { recursion }
+    @Title { Recursion and page layout }
+@Begin
+@PP
+Design and implementation should proceed together in exploratory projects,
+since otherwise the design too easily becomes unrealistic.  Sometimes the
+implementation does more than its designer intended.  The author wrote the
+following purely as a testing scaffold:
+@ID @OneRow @Code {
+"def @Page right x"
+"{"
+"    8i @Wide 11i @High"
+"    {"
+"        //1i  ||1i  x  ||1i"
+"        //1i"
+"    }"
+"}"
+}
+Only afterwards did he realize its significance:  the concept of a page
+had been defined outside the implementation, removing the need for
+commands for setting page width and height, margins, and so on.
+@PP
+Defining a sequence of pages is harder, since their number is not known
+in advance.  A simple version of this same problem is afforded by the
+leaders found in tables of contents:
+@ID {
+4i @Wide { Chapter 7  @Leaders  53 }
+}
+This seemed to require recursion, specifically the definition
+@ID @Code {
+"def @Leaders { ..   @Leaders }"
+}
+Note that both @Code ".." and @Code "@Leaders" are objects, so the two
+spaces separating them are significant.  No base case is given, and indeed
+we have no boolean or conditional operators with which to express it;
+but we can adopt the implicit base `if space is not sufficient, delete
+{@Code "@Leaders"} and any preceding space'.  Then the expression
+@ID @Code "4i @Wide { Chapter 7  @Leaders  53 }"
+will produce the object shown above.  It is hard to see how this base
+could be made explicit, without violating the general principle of
+keeping all size information internal.  In the implementation,
+@Code "@Leaders" remains unexpanded while sizes are being
+calculated; then it is treated similarly to a receptive symbol, with
+its body as an incoming galley (Section {@NumberOf flushing}).
+@PP
+With this settled, it is now clear how to define a document which is a
+numbered sequence of pages.  Let @Code "@Next" be a prefix operator
+which returns its parameter plus one.  Then
+@ID @OneRow @Code {
+"def @PageList"
+"    right @PageNum"
+"{"
+"    @Page {"
+"          |0.5rt - @PageNum -"
+"          //1v   @TextPlace"
+"          //1rt  @FootSect"
+"    }"
+"    //"
+"    @PageList @Next @PageNum"
+"}"
+}
+when invoked in the expression {@Code "@PageList 1"}, has for its result
+the potentially infinite object
+@ID @OneRow {
+@LittlePage {
+|0.5rt - 1 -
+//1.2vx @Code "@TextPlace"
+//1rt @Code "@FootSect"
+}
+//
+@LittlePage {
+|0.5rt - 2 -
+//1.2vx @Code "@TextPlace"
+//1rt @Code "@FootSect"
+}
+//0.2c
+8p @Font @Code "@PageList 3"
+}
+Similarly, we may define @Code "@FootSect" like this:
+@ID @OneRow @Code {
+"def @FootSect"
+"{"
+"    def @FootList"
+"        right @Num"
+"    {"
+"        @FootPlace"
+"        //1v"
+"        @FootList @Next @Num"
+"    }"
+""
+"    1i @Wide @HLine"
+"    //1v"
+"    @FootList 1"
+"}"
+}
+so that an invocation of @Code "@FootSect" produces
+@ID @OneRow @Code {
+1i @Wide @HLine
+"@FootPlace"
+"@FootPlace"
+"@FootPlace"
+"..."
+}
+The expansion process is very similar to a BNF derivation, and would be
+attempted only on demand.
+@PP
+Clearly, deciding which expansions to take and replacing @Code "@TextPlace"
+and {@Code "@FootPlace"} by the appropriate actual text will not be easy;
+this is the subject of Section {@NumberOf galleys}.  The important point
+for now is that we have here a very simple and flexible method of specifying
+the layout of pages, which requires no specialized language features.
+@End @SubSection

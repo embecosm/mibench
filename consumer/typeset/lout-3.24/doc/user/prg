@@ -1,0 +1,110 @@
+@Chapter
+  @Title { Computer Programs }
+  @Tag { cprint }
+@Begin
+@LP
+This chapter describes how to typeset computer program text using Lout
+in conjunction with the @Code prg2lout
+prg2lout. @Index { @Code prg2lout filter program }
+@FootNote {
+Prior to Version 3.18 of Lout, this chapter described how to typeset
+programs written in the C programming language using the
+@Code c2lout filter, and Eiffel programs using the @Code eif2lout
+filter.  These have now been withdrawn and replaced by {@Code prg2lout},
+which handles multiple languages.  Ordinary Lout documents require no
+modifications as a result of this change.
+}
+filter program, which is always installed wherever Lout is.
+@PP
+It is possible to simply print out one or more program files independently
+of any document.  Alternatively, the program text may be printed as part of
+a larger Lout document.  Either way, Lout does not lay out the programs in
+the sense of choosing line breaks and indenting; it uses whatever line
+breaks and indenting you give to the program.  What Lout does do is cope
+with characters in the program text that it would ordinarily either reject
+or interpret in some way (braces and so on), ensuring that you can include
+program texts with absolutely no modifications; plus, if you wish, Lout
+will print keywords in bold, identifiers in italics, add line numbers, etc.
+@PP
+At the time of writing, the available programming languages are:
+eiffel. @Index { Eiffel program printing }
+c. @Index { C and C++ program printing }
+blue. @Index { Blue program printing }
+perl. @Index { Perl program printing }
+pod. @Index { Pod (for Perl) printing }
+@CD @Tbl
+    mv { 0.5vx }
+    af { Italic }
+    arb { yes }
+    aformat { @Cell A | @Cell B | @Cell C | @Cell D | @Cell E }
+    bformat { @Cell A | @Cell @Code B | @Cell @Code C | @Cell @Code D | @Cell E }
+{
+@Rowa
+    A { Language name }
+    B { Setup file name }
+    C { Lout symbol }
+    D { Default style }
+    E { ` ' escapes }
+@Rowb
+    A { C, C++ }
+    B { cprint }
+    C { "@CP" }
+    D { fixed }
+    E { No }
+@Rowb
+    A { Eiffel }
+    B { eiffel }
+    C { "@Eiffel" }
+    D { varying }
+    E { Yes }
+@Rowb
+    A { Blue }
+    B { blue }
+    C { "@Blue" }
+    D { varying }
+    E { Yes }
+@Rowb
+    A { Perl }
+    B { perl }
+    C { "@Perl" }
+    D { fixed }
+    E { No }
+@Rowb
+    A { Pod }
+    B { pod }
+    C { "@Pod" }
+    D { varying }
+    E { No }
+@Rowb
+    A { Python }
+    B { python }
+    C { "@Python" }
+    D { varying }
+    E { No }
+}
+C and C++ are handled together since, for formatting purposes, they
+differ only in that C++ has some additional keywords plus an extra
+way to make comments.  Whenever we mention C from now on, we mean
+both C and C++.  See Section {@NumberOf prg_perl} for more on Perl
+and its handmaiden Pod.  The second to fifth columns of this table will be
+explained at various points later in this chapter.
+@PP
+The list of languages is likely to expand, because the @Code "prg2lout"
+program has been designed to make it relatively easy to add new languages
+(you don't have to write executable code, just declare a lot of records
+describing your language).  Consult the instructions at the top of the
+source file of that program ({@I prg2lout.c}) if you want to try it yourself.
+@BeginSections
+@Include { prg_lone }
+@Include { prg_embe }
+@Include { prg_opti }
+@Include { prg_chan }
+@Include { prg_tabs }
+@Include { prg_form }
+@Include { prg_comm }
+@Include { prg_prog }
+@Include { prg_pipe }
+@Include { prg_erro }
+@Include { prg_perl }
+@EndSections
+@End @Chapter

@@ -1,0 +1,57 @@
+#
+# Makefile for md5sum
+#
+# created by Peter Simons <simons@peti.rhein.de>
+#
+# Amiga SAS/C 6.5x version by Rob Knop <rknop@mop.caltech.edu>
+
+#
+# Labels:
+# =======
+#
+CC = sc
+LD = slink
+PGPSRC = //src
+OBJS = md5sum.o md5.o getopt.o
+
+# On a big-endian system (e.g. Motorola), uncomment the following line:
+BYTEORDER= DEF=HIGHFIRST
+
+
+# Compiler flags:
+# ===============
+#
+# Define one of the following symbols to archive the described effect:
+#
+# Modify this to complile for 68000 or 68020 processors
+#
+#CPUFLAGS = CPU=ANY
+CPUFLAGS = CPU=68020
+
+CFLAGS = $(BYTEORDER) OPT OPTTIME OPTINLOCAL OPTCOMP=5 OPTDEP=5 OPTRDEP=5 INCDIR=$(PGPSRC) $(CPUFLAGS) DEF=AMIGA
+
+# Linker flags:
+# =============
+#
+LDFLAGS  = LIB LIB:sc.lib LIB:amiga.lib
+
+
+#
+# Targets
+#
+md5sum: $(OBJS)
+	$(LD) lib:c.o $(OBJS) TO md5sum $(LDFLAGS)
+
+
+md5sum.o: md5sum.c $(PGPSRC)/md5.h $(PGPSRC)/getopt.h
+        $(CC) NOLINK md5sum.c OBJNAME=md5sum.o $(CFLAGS)
+
+
+md5.o: $(PGPSRC)/md5.c $(PGPSRC)/md5.h
+	$(CC) NOLINK $(PGPSRC)/md5.c OBJNAME=md5.o $(CFLAGS)
+
+getopt.o: $(PGPSRC)/getopt.c $(PGPSRC)/getopt.h
+        $(CC) NOLINK $(PGPSRC)/getopt.c OBJNAME=getopt.o $(CFLAGS)
+
+clean:
+	delete md5sum md5sum.o md5.o getopt.o

@@ -1,0 +1,51 @@
+@Section
+   @Title { Placing arbitrary objects on the graph }
+   @Tag { arbobj }
+@Begin
+@PP
+As we have just seen, the repertoire of symbols that @Code "@Data" is
+able to place on the graph is quite limited.  However, there is a way
+to place any number of arbitrary Lout objects anywhere on the graph,
+using the @Code objects option to the @Code "@Graph" symbol:
+@ID @OneRow @Code {
+"@Graph"
+"    objects {"
+"        @CTR at {2.5  6.0}  @Eq { y = x sup 2 }"
+"        @CTR at {4.5  7.0}  @Eq { y = x sup 3 }"
+"    }"
+}
+where we have used the @Code "@Eq" symbol from Chapter {@NumberOf equations}
+twice to place two equations onto the graph at the points {@Code "2.5  6.0"}
+and {@Code "4.5 7.0"} respectively.  An example result appears in the next
+section.
+@PP
+In addition to {@Code "@CTR"}, there are eight other symbols which may
+be used within the @Code "objects" option in the same way:  {@Code "@NW"},
+{@Code "@SW"}, {@Code "@SE"}, {@Code "@NE"}, {@Code "@N"}, {@Code "@W"},
+{@Code "@S"}, and {@Code "@E"}.  These place the object just to the
+northwest of the point, to the southwest, and so on instead of centring
+it over the point.  By `to the northwest' we mean that the object's bottom
+right corner coincides with the point, and similarly for the other symbols.
+@PP
+Each of these symbols has a @Code "margin" option which enlarges the
+object by adding a margin around it before placing it:
+@ID @Code "@NW at {2.5  6.0} margin { 0.3 ft }  @Eq { y = x sup 2 }"
+shows the default value, 0.3 times the current font size.  As the margin
+is increased, the object moves further away from the point.
+@PP
+The major advantage of the @Code "objects" option over the @Code "@Data"
+symbol is that arbitrary Lout objects may be used.  The @Code "@Data"
+symbol however is able to place many copies of its symbols onto the graph,
+and also allow for them when connecting points together with lines.  Also,
+the points within the @Code "objects" option are not taken into account
+when deciding on the permissible range of x and y values, whereas the
+points within the @Code "@Data" symbol are.  Altogether it seems best
+to use the @Code "@Data" symbol for the bulk of the data points, and to
+use the @Code "objects" option for adding a small number of labels or
+other decorations.
+@PP
+The @Code "objects" option may contain @Code "@Graph" symbols, but in
+that case, owing to a deficiency in the implementation, those symbols
+will need to have their @Code save options (Section {@NumberOf grerrors})
+set to {@Code yes}.
+@End @Section

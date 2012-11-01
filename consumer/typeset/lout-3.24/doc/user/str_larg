@@ -1,0 +1,179 @@
+@Section
+    @Title { Large-scale structure:  chapters, sections, etc. }
+    @RunningTitle { Large-scale structure }
+    @Tag { largescale }
+@Begin
+@PP
+Lout's large-scale structure symbols vary with the type of document
+large.scale. @Index { large-scale structure }
+({@Code "@Chapter"} for books, @Code "@Overhead" for overhead
+transparencies, etc.), but they all work in the same way.  Here is a
+typical example, {@Code "@Section"}, as it would actually be used:
+@ID @OneRow @Code {
+"@Section"
+"    @Title { Allocation of teachers }"
+"@Begin"
+"@PP"
+"Apart from the usual need to avoid clashes, the allocation of teachers must"
+"ensure that no teacher teaches more than seven periods per day, or ..."
+"@End @Section"
+}
+First comes the symbol itself, then any options in the usual way, and
+then the following object, enclosed in @Code "@Begin" and
+{@Code "@End @Section"}.  The following object, also called the body
+of the section, may contain paragraphs, displays, and all the other
+features as usual.  The body should begin with a paragraph symbol,
+which may be @Code "@PP" or @Code "@LP" as you prefer.  The result is
+a section like the present one, automatically numbered, with the
+@Code "@Title" option for its heading, preceded by a conditional new
+title. @Index @Code "@Title"
+page symbol (Section {@NumberOf paragraphs}).
+@PP
+When @Code "@Section" symbols are used within an ordinary document, they
+must be bracketed by @Code "@BeginSections" and @Code "@EndSections"
+symbols, like this:
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"preceding text"
+"@BeginSections"
+"@Section ... @End @Section"
+"@Section ... @End @Section"
+"..."
+"@Section ... @End @Section"
+"@EndSections"
+"@End @Text"
+}
+This arrangement is reminiscent of the one for lists, and, as for
+lists, there may be no paragraph or new page symbols before, between,
+or after the sections.  To change the gap between sections, you need
+to change the @Code "@SectionGap" option in the setup file, as explained
+in Chapter {@NumberOf types}.  If you just want a new page before one
+section, not all sections, place @Code "@NP" at the very end of the
+previous section, just before its {@Code "@End @Section"}.
+@PP
+The @Code "@Begin ... @End @Section" that brackets the body of each
+section may be abbreviated to {@Code "{ ... }"}.  However, the long
+form is recommended because it helps Lout to detect missing or extra
+braces within the body of the section.
+@PP
+All large-scale structure symbols have a @Code "@Tag" option, whose
+use is explained in Section {@NumberOf cross}, and a @Code "@RunningTitle"
+runningtitle. @Index @Code "@RunningTitle"
+option.  If running page headers have been requested, @Code "@RunningTitle"
+will be used if it is given, otherwise @Code "@Title" will be used for the
+running header.  For example, the present section begins like this:
+@ID @OneRow @Code {
+"@Section"
+"    @Title { Large-scale structure:  chapters, sections, etc. }"
+"    @RunningTitle { Large-scale structure }"
+"    @Tag { largescale }"
+"@Begin"
+"..."
+}
+The point is that the section title is rather long for a running
+title, and so we use @Code "@RunningTitle" to get an abbreviated
+version of it.
+@PP
+Section titles typically appear in Bold face in the section heading,
+but in Roman face in tables of contents and running page headers.  So
+if part of your title is in italics, enclose it in @Code "@II" rather
+than just @Code "@I" to ensure that you get the right kind of italics
+in both contexts.
+@PP
+All large-scale structure symbols also have an @Code "@InitialLanguage"
+option which sets the current language for the duration of that
+symbol.  However, footnotes, endnotes, figures, tables, references,
+and index entries are set in the initial language of the document as
+a whole, unless you change their language explicitly using the
+@Code "@Language" symbol.
+@PP
+The remainder of this section describes the setup file options for
+controlling the appearance of large-scale structure symbols.  (For an
+introduction to setup files, consult Section {@NumberOf setup}.)  These
+options mainly appear in the third @Code "@Use" clause, since exactly which
+large-scale structure symbols exist depends on the type of document.  For
+example, here are the setup file options from the @Code "doc" setup file
+relating to appendices:
+@ID @OneRow @Code {
+"@AppendixWord { appendix }"
+"@AppendixNumbers { UCAlpha }"
+"@FirstAppendixNumber { 1 }"
+"@AppendixHeadingFont { Bold }"
+"@AppendixHeadingBreak { ragged 1.2fx nohyphen }"
+"@AppendixHeadingFormat { number @DotSep title }"
+"@AppendixGap { 2.0v @OrIfPlain 2f }"
+"@AppendixInContents { Yes }"
+"@AppendixNumInTheorems { No }"
+"@AppendixNumInDisplays { Yes }"
+"@AppendixNumInFigures { No }"
+"@AppendixNumInTables { No }"
+"@AppendixPrefix { }"
+}
+There are similar options for each large-scale structure symbol.  Here is
+a brief explanation.
+@PP
+@Code "@AppendixWord" contains the word that is to be prefixed to the
+appendix number in full headings.  The special value @Code appendix
+produces Appendix or its equivalent translated into the current
+language.  Any other value produces itself.
+@PP
+@Code "@AppendixNumbers" determines the style of numbering of appendices,
+and may be {@Code Arabic}, {@Code Roman}, {@Code UCRoman}, {@Code Alpha},
+{@Code UCAlpha}, or {@Code None} meaning unnumbered.  Most common is
+{@Code Arabic}, but appendices traditionally use upper-case
+letters, hence the value {@Code UCAlpha} given above.
+@PP
+@Code "@FirstAppendixNumber { 1 }" is the number (always in Arabic) to
+assign to the first appendix.  It is almost always 1, but a few people
+like to start their numbering from 0; this is only possible if the
+style of numbering specified by @Code "@AppendixNumbers" is {@Code Arabic}.
+@PP
+@Code "@AppendixHeadingFont" and @Code "@AppendixHeadingBreak" specify
+the font and paragraph breaking style to be applied to the appendix
+heading (relative to {@Code "@InitialFont"} and {@Code "@InitialBreak"});
+the default values shown above produce Bold in the current font family
+and size, and ragged breaking without hyphenation.
+@PP
+@Code "@AppendixHeadingFormat" defines the format of the appendix
+heading.  Within it, the symbols @Code number and @Code title stand for the
+appendix number (including the appendix word) and title respectively.  The
+@Code "@DotSep" symbol produces a dot and two spaces, except when there is
+no number, when it produces nothing.  For example, to draw a full-width
+rule under the heading, change this option to
+@ID @Code "@AppendixHeadingFormat { number @DotSep title @LP @FullWidthRule }"
+Arbitrary formats are acceptable.
+@PP
+@Code "@AppendixGap" determines the vertical space to leave between
+appendices; the default above leaves {@Code 2v}, except that when plain
+text output is in effect it leaves @Code 2f instead.  To get a new page
+between appendices, use the magic value {@Code 2b}, which is raw Lout for
+new page.  In books, the major components (preface, introduction, tables
+of contents, parts, chapters, appendices, and indexes) always start on a
+new page and there is nothing you can do to change that.
+@PP
+@Code "@AppendixInContents" determines whether the appendix will be listed
+in the table of contents, and may be @Code "Yes" or {@Code No}.  The
+next few options determine whether an appendix number will be included
+in the numbers assigned to theorems etc., numbered displays, figures,
+and tables.
+@PP
+There is a @Code "@StructPageNums" setup file option which determines
+whether page numbers will include the numbers of large-scale structure
+symbols.  If it is {@Code "Yes"}, @Code "@AppendixPrefix" is prefixed
+to all page numbers of pages containing appendices.  For example, setting
+@Code "@AppendixPrefix" to @Code { APP- } produces page
+numbers APP-A-1, APP-A-2, and so on.  The object separating each element
+of such compound numbers is determined by the @Code "@NumberSeparator"
+numberseparator. @Index @Code "@NumberSeparator"
+setup file option, which has default value @Code "." but which can easily
+be set to @Code "-" or @Code "--" if desired.
+@PP
+Running page headers above appendices always include the title of
+the appendix, so there is no option for specifying whether to do so or
+not.  But for subappendices and other such smaller units, the choice of
+whether to mention them in running headers is left to the user:
+@ID @Code "@SubAppendixNumInRunners { Yes }"
+Despite the misleading name, this option determines whether the entire
+subappendix @I title as well as number will be used as a running header.
+@End @Section

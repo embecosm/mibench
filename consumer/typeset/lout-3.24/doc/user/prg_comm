@@ -1,0 +1,25 @@
+@Section
+   @Title { Embedding Lout commands within program comments }
+   @Tag { cpcomm }
+@Begin
+@PP
+It is possible to embed Lout text inside program comments.  How this
+is done could in principle vary from language to language, but in
+every language supported so far it is done by starting off the comment
+with an @Code "@" character.  If the language has several ways to get
+a comment, this will work every way.  The entire comment after the @Code "@"
+character should then be Lout text.  For example, to force Lout to start
+a new page at some point within a C program, place
+@ID @Code "/*@ @NP */"
+at that point.  (In this case you can also simply include a formfeed
+character without any comment; see Section {@NumberOf formfeed}
+for more on this.)  Or, to make a heading in an Eiffel program, do this:
+@ID @Code "--@ @Display @Heading { treeprint }"
+(Eiffel comments begin with @Code "--" and end at the end of the
+line.)  Other possible uses for this feature include index entries and
+margin notes.  Incredible as it may seem, you can even write
+@ID @Code "/*@ @CD @Heading { Function @CP { treeprint() } } */"
+with a @Code "@CP" symbol and some C code inside the Lout code
+inside the C code.  You probably can't go further, however, at least
+not in C, since that would require a C comment inside a C comment.
+@End @Section

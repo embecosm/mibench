@@ -1,0 +1,109 @@
+@Section
+   @Title { Filtered right and body parameters }
+   @Tag { filters }
+@Begin
+@PP
+A right or body parameter may be filtered by some other computer
+program before being included by Lout.  As an example of such a program
+we will use the Unix @Code sort command:
+@ID @Code "sort  -o outfile  infile"
+This causes file @Code outfile to contain a sorted copy of file
+{@Code infile}.  We incorporate this into a Lout definition as follows:
+@ID @OneRow @Code {
+"def @Sort"
+"    named @Options {}"
+"    right x"
+"{"
+"    def @Filter { sort @Options  -o @FilterOut  @FilterIn }"
+""
+"    lines @Break x"
+"}"
+}
+The presence within @Code "@Sort" of a definition of a symbol called
+@Code "@Filter" tells Lout that the right parameter of @Code "@Sort"
+is to be filtered before inclusion.  When @Code "@Sort" is invoked,
+@Code "@Filter" is evaluated and its value executed as a system
+command.  In addition to the symbols ordinarily available within the
+body of {@Code "@Filter"}, there are three others:
+@VeryWideTaggedList
+@TI { @Code "@FilterIn" } {
+the name of a file which will, at the time the system command is
+executed, contain the actual right or body parameter of the
+symbol, exactly as it appears in the input file;
+}
+@TI { @Code "@FilterOut" } {
+the name of a file of Lout text whose contents Lout will read after
+the system command has finished, as a replacement for what was put
+into file {@Code "@FilterIn"};
+}
+@TI { @Code "@FilterErr" } {
+the name of a file that Lout will attempt to read after the system
+command has finished, containing error messages produced by the
+command that Lout will pass on to the user as non-fatal errors.  Use
+of this file is optional.
+}
+@EndList
+It is a fatal error for the system command to return a non-zero status.
+@PP
+Now the @Code sort command has options @Code -u for deleting duplicate
+lines, and @Code -r for reversing the sorting order.  So the result of
+@ID @OneRow @Code {
+"@Sort"
+"    @Options { -r -u }"
+"{"
+"Austen, Jane"
+"Dickens, Charles"
+"Eliot, George"
+"Hardy, Thomas"
+"Bront{@Char edieresis}, Charlotte"
+"}"
+}
+is
+@ID @OneRow lines @Break
+{
+Hardy, Thomas
+Eliot, George
+Dickens, Charles
+Bront{@Char edieresis}, Charlotte
+Austen, Jane
+}
+Unlike all the other examples in this manual, this output
+is simulated.  This was done so that the ability to format this
+manual is not dependent on the existence of the Unix {@Code "sort"}
+command, and it highlights the fact that filtered actual parameters
+are by their nature of uncertain portability.
+@PP
+There is no need for an actual filtered parameter to obey the lexical
+rules of Lout, since it is passed directly to the other program.  However,
+Lout must be able to work out where the parameter ends, which gives
+rise to the following rules.  As with a body parameter, a symbol
+@Code "@Sym" with a filtered parameter must be invoked in either the
+form @Code "@Sym { ... }" or the form {@Code "@Sym @Begin ... @End @Sym"},
+plus options as usual.  In the former case, braces within the
+actual parameter must match; in the latter case, the actual parameter
+may not contain {@Code "@End"}.
+@PP
+If an actual filtered parameter contains @@Include, this is taken to
+begin a Lout @@Include directive in the usual form (Section
+{@NumberOf include}):
+@ID @OneRow @Code {
+"@Sort {"
+"Austen, Jane"
+"@Include { authors }"
+"Hardy, Thomas"
+"}"
+}
+The included file becomes part of {@Code "@FilterIn"}, but any braces,
+@@Include, or @@End within it are not noticed by Lout.
+@PP
+The first character of file @Code "@FilterIn" will be the first
+non-white space character following the opening @Code "{" or @@Begin,
+or the first character of an included file if @@Include comes first.  The
+second-last character of file @Code "@FilterIn" will be the last non-white
+space character preceding the closing @Code "}" or {@Code "@End @Sym"},
+or the last character of an included file if @@Include comes last.  One
+newline character is always appended and is the last character of file
+{@Code "@FilterIn"}.  This effects a compromise between the Lout convention,
+that spaces following @Code "{" or preceding @Code "}" are not significant,
+with the Unix convention that all text files end with a newline character.
+@End @Section

@@ -1,0 +1,14 @@
+#!/bin/sh
+# Moritz Willers
+# 21. September 1993
+# Version 0.2
+#
+# Usage:
+#
+USAGE='Usage: configureTeX [-r]'
+#
+# configureTeX is the same as running configure with the -t switch.
+# It is provided solely for backwards compatibility with previous
+# distributions of nextispell.
+#
+./configure -t $*

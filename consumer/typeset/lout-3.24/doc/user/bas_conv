@@ -1,0 +1,75 @@
+@Section
+   @Title { Alternative conventions for white space }
+   @Tag { white }
+@Begin
+@PP
+As Section {@NumberOf spaces} explains, when two objects are separated
+by one or more white space characters (spaces, tabs, and newlines), this
+same amount of white space will separate the two objects in the output.
+@PP
+Two other conventions for interpreting these white spaces have been
+used in other document formatting systems.  Roughly, they are:
+@ID @Tab
+    @Fmta { @Col A ! @Col B }
+{
+@Rowa
+    A { troff }
+    B { Like Lout, except that at every point where a sentence ends at
+the end of an input line, add one extra space in the output. }
+@Rowa
+    A { @TeX }
+    B { Replace all sequences of two or more white spaces by one.  Then,
+at every point where a sentence ends, whether or not it is at the end
+of a line, add one extra space in the output. }
+}
+Lout offers these two alternative conventions by means of the
+initialspace. @Index { @Code "@InitialSpace" option }
+@Code "@InitialSpace" option.  This is similar to the
+@Code "@InitialFont" option described at the end of Section
+{@NumberOf fonts}, in that you can set it at the beginning of your
+document, like this:
+@ID @Code {
+"@SysInclude { doc }"
+"@Document"
+"    @InitialSpace { lout }"
+"//"
+"@Text @Begin"
+"..."
+"@End @Text"
+}
+or you can set it in the setup file.  The above example shows the
+default value, {@Code lout}, which produces Lout's usual spacing;
+lout.space @Index { @Code lout spacing }
+troff.space @Index { @Code troff spacing }
+tex.space @Index { @Code tex (@LaTeX) spacing }
+the alternative values are @Code "troff" and {@Code "tex"}.
+@PP
+How to tell whether a sentence has ended is a vexed question.  For
+the @Code "troff" method, Lout looks for a word at the end of a line
+ending in one of `.', `:', `?', or `!' optionally followed by either
+a right quote character or a right parenthesis.  Actually, this depends
+on the current language (Section {@NumberOf languages}); the rule just
+given is for English, and other languages may differ.
+@PP
+The @Code "tex" rule for where a sentence ends is slightly more
+complicated.  Lout looks for a word, not necessarily at the end
+of an input line, which ends as described for @Code "troff" but
+in addition has a lower-case letter preceding that.
+@PP
+In all cases you must use a paragraph symbol, such as @Code "@PP" or
+{@Code "@LP"}, to separate your paragraphs.  The common convention of
+other systems, that a blank line marks a paragraph, is never true of Lout.
+@PP
+Whatever rule is adopted, there are occasional exceptions where you
+will have to indicate explicitly whether you want an ordinary space
+or a between-sentences space.  For this there are two symbols,
+@Code "~" (ordinary space) and {@Code "~~"} (between-sentences
+space).  For example,
+@ID @Code "Dr.~Kingston"
+will produce an ordinary space between the two words, even with
+@Code "tex" which would otherwise consider that spot to be the end
+of a sentence.  Spaces adjacent to these two symbols have no effect on
+the result.  Please note however that @Code "~" produces an
+unbreakable space (that is, one that will never be replaced by the end of
+a line) in contrast to just leaving a space, which is breakable.
+@End @Section

@@ -1,0 +1,28 @@
+SGI port has been tested by me (nik@tiuk.ti.com) on a machine
+at Cambridge via an account kindly provided by Tony Robinson.
+(It compiles, links, can handle say --help and write a .au file
+ which I can play on my sun. I can't hear it as it is 25 miles away...).
+(Both the "gcc" and the "cc" that were available worked.)
+
+This is with some version of irix4.
+
+A number of people have had trouble with irix5.x.
+
+Attached is most "helpful" email I have seen. As I don't have
+even telnet access to an irix5 machine I can't comment.
+
+>cfe: Error: ...: Cannot open file audio.h for #include
+
+You have an IRIX 5.2 system without the optional Digital Media
+Developers Option. As of IRIX 5, the audio libraries are no longer
+supplied with the IDO. As of IRIX 5.3 they will be back.
+
+In the meantime, read  relnotes IRIX 1  carefully, install
+irix4_eoe1 from the base IRIX CD and irix4_dev.* from the IDO,
+and compile under IRIX 4 compatibility mode.
+
+The <sys/audio.h> is misleading: it is for a 4D/20 audio system only.
+
+   Walter Roberson          roberson@ibd.nrc.ca
+
+

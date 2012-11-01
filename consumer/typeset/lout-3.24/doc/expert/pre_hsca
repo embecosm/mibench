@@ -1,0 +1,34 @@
+@Section
+   @Title { "@HScale" and "@VScale" }
+   @Tag { hscale }
+@Begin
+@PP
+hscale. @Index { @@HScale symbol }
+vscale. @Index { @@VScale symbol }
+scaling @Index { Scaling of object }
+@@HScale causes its right parameter to expand to fill the space available,
+by geometricallly scaling it:
+@ID @Code {
+"4i @Wide @HScale { 1 2 3 4 5 6 7 8 }"
+}
+has result
+@ID {
+4i @Wide @HScale { 1 2 3 4 5 6 7 8 }
+}
+and
+@ID @Code {
+"0.5i @Wide @HScale { 1 2 3 4 5 6 7 8 }"
+}
+has result
+@ID {
+0.5i @Wide @HScale { 1 2 3 4 5 6 7 8 }
+}
+@@HScale first applies @@HContract to its parameter, then horizontally
+scales it to the actual size.  The principal mark of the right parameter
+has no effect on the result; the parameter is scaled to the actual size
+and positioned to fill the space available.  (Taking account of alignment
+of the principal mark only causes trouble in practice.)
+@PP
+@@VScale is similar, but in a vertical direction.  @@HScale and @@VScale
+each have both a @@OneCol and a @@OneRow effect.
+@End @Section

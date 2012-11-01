@@ -1,0 +1,26 @@
+@Section
+   @Title { The empty object }
+   @Tag { empty }
+@Begin
+@PP
+It is possible to produce examples in which an object is clearly
+empty. @Index { empty object }
+missing:
+@ID @Code "{ @I   }"
+The @Code "@I" symbol is supposed to italicize the following object,
+but in this example there isn't one.  A more plausible example is
+@ID @OneRow @Code {
+"@PP"
+"@PP"
+}
+There are supposed to be paragraph objects between paragraph symbols,
+but here there aren't.
+@PP
+Wherever an object is clearly missing, Lout inserts an @I { empty object },
+which is a rectangle of size zero by zero that prints as nothing.  Here
+are two other ways to get an empty object:
+@ID @Code "{}     \"\""
+Braces always enclose an object, so Lout is obliged to insert an empty
+object between them; the two double quotes make a word with no characters
+in it, which is taken to be an empty object.
+@End @Section

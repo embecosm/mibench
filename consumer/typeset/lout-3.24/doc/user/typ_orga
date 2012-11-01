@@ -1,0 +1,93 @@
+@Section
+   @Title { Organizing large documents }
+   @Tag { organizing }
+@Begin
+@PP
+It is not a good plan to store a large document in a single large
+organizing.large @Index { organizing large documents }
+file.  It takes too long to find things in it, and if some catastrophe
+occurs, you lose the lot.  Lout encourages you to break documents into
+pieces by its willingness to read a sequence of files
+({@Code "lout file1 file2 ..."}).  For large documents, the following
+plan is recommended.
+@PP
+Suppose you are making a book whose third chapter contains sections on
+banksias, grevilleas, acacias, and eucalypts.  Place each section, from
+@Code "@Section" to {@Code "@End @Section"}, in a separate file, making
+four files called, say, {@Code banksias}, {@Code grevilleas},
+{@Code acacias}, and {@Code eucalypts}.  Then make a single file for the
+chapter as a whole whose contents are as follows:
+@ID @OneRow @Code {
+"@Chapter"
+"    @Title { Australian Native Plants }"
+"@Begin"
+"Australian native plants provide a distinctive identity to the garden.  Although"
+"less colourful than their European alternatives, some banksias and grevilleas do"
+"flower strongly, and of course the acacias (wattles) are unsurpassable in late winter."
+"@BeginSections"
+"@Include { banksias }"
+"@Include { grevilleas }"
+"@Include { acacias }"
+"@Include { eucalypts }"
+"@EndSections"
+"@End @Chapter"
+}
+The @Code "@Include" symbol causes Lout to read the file whose name follows
+include. @Index @Code "@Include"
+it between braces, just as though the contents of that file had been included
+at that point.
+@PP
+With this arrangement you can easily rearrange the order of the
+sections:  just swap their @Code "@Include" lines.  You should be using
+Lout's automatic cross referencing features (Section {@NumberOf cross}),
+so you don't have to worry about keeping cross references up to date.  You
+can also temporarily delete a section by placing a @Code "#" character at
+the start of its line:
+@ID @Code "# @Include { acacias }"
+This works because @Code "#" is the @I { comment character }:  Lout will
+comment. @Index { comments }
+ignore this character (unless enclosed in double quotes) and everything
+following it up to the end of the line.  You can even temporarily delete
+every section except the one you are working on at the moment, using
+these comments.
+@PP
+Suppose now that this chapter file is called @Code { natives }, and you
+have others called @Code { preface }, @Code { flowers }, etc.  Then you
+can make one file (call it @Code { garden }) for the whole book like this:
+@ID @OneRow @Code {
+"@SysInclude { book }"
+"@Book"
+"    @Title { The Australian Garden }"
+"    @Author { Martha S. Vineyard }"
+"//"
+"@Include { preface }"
+"@Include { flowers }"
+"@Include { shrubs }"
+"@Include { natives }"
+"@Include { trees }"
+}
+You can play the same tricks here:  swap chapters around, or temporarily
+delete one or more with a {@Code "#"}.  When a chapter is finished
+you can temporarily delete it to save formatting time and paper, and
+bring it back at the end.  To format the book, use
+@Code "lout garden > out.ps"
+in Unix.  Lout will read each @Code "@Include" file as it comes to it,
+and if it finds an @Code "@Include" of a section while reading a chapter
+file, it will read the section too.
+@PP
+If the order of your chapters is fairly stable, it might be advantageous
+to use the @Code "@BypassNumber" option of @Code "@Chapter" (described
+in Appendix {@NumberOf bypass}) to fix the numbers of all your chapters,
+so that you get correct chapter numbers even when formatting one
+chapter at a time.
+@PP
+If you decide to store chapters in separate Unix directories, make sure
+that any @Code "/" characters in the file names are enclosed in double
+quotes:
+@ID @Code "@Include { \"natives.dir/acacias\" }"
+Be careful not to give the directory the same name as your chapter
+file.  You might also find it useful to construct your book
+@I { top-down }, as computer scientists call it, laying out all the
+chapters and sections as empty skeletons and filling their contents in
+later.
+@End @Section

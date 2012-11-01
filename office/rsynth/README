@@ -1,0 +1,262 @@
+
+This is a text to speech system produced by integrating various pieces
+of code and tables of data, which are all (I believe) in the public domain.
+
+The bulk of the intergration was done by myself, that is Nick Ing-Simmons.
+I can be reached via my employer at nik@tiuk.ti.com.
+
+THIS PACKAGE HAS NO CONNECTION WITH TEXAS INSTRUMENTS; IT IS A PRIVATE
+PROJECT OF MY OWN.
+
+Despite the E-mail address (which is via TI's US operation) I actually
+work in the UK.
+
+Ideally you should have obtained and installed GNU gdbm (I use version 1.7.3).
+If you have it but cannot install it see below.
+
+For best quality it is highly desirable to use one of the dictionaries
+suggested below.
+
+The package now uses GNU autoconf-2.0 to build a configure script.
+The generic install instructions are in INSTALL, but basically 
+it works like this :
+
+configure 
+make 
+make check 
+say --help
+say Something of your choice 
+make -n install  # see what it is going to do 
+make install     # copy program(s) to /usr/local/bin 
+
+configure --help and INSTALL file explain configure options
+which may help.
+
+To allow the package to be built when installer cannot install the 
+GNU gdbm package in the "normal" place you can specify a pathname 
+to the gdbm source directory as follows :
+
+configure --with-gdbm=<path-to-gdbm>
+
+e.g.
+
+configure --with-gdbm=$HOME/gdbm
+
+Currently there are the following drivers:
+
+1. Sun SPARCStations - written & tested by me (nik@tiuk.ti.com)
+   on SunOS4.1.3 and Solaris2.3
+2. Linux - see README.linux
+3. NeXT 
+4. SGI - this builds on "mips-sgi-irix4.0.5H"
+   see README.sgi for (a bit) more detail.
+
+5. HPUX
+
+6. Any machine for which a nas/netaudio port exists.
+   And for which configure can find the include files and libraries.
+
+   (Nas "net audio server" does for audio what X11 does for graphics
+    it is available from ftp.x.org:/contrib/audio/nas .)
+
+Dictionaries:
+   THIS VERSION WILL NOT USE THE SAME DICTIONARY AS PREVIOUS VERSIONS.
+   The change was to allow at least one dictionary with a non-restrictive
+   copyright to be used. 
+
+      Dictionaries convert words in "text" to phonemes in "arpabet"
+      symbols. The arpabet symbols are then "expanded" into an ASCII
+      representation of the IPA. The IPA representation is inherited
+      from the "Computer Usable Version of Oxford Advanced Learners 
+      Dictionary" (CUVOLAD). The CUVOLAD was used directly by previous 
+      releases of rsynth. CUVOLAD is available from Oxford Text Archive.
+
+      Dictionary databases can be built from either of two ftp'able 
+      sources:
+   
+      1. The Carnegie Mellon Pronouncing Dictionary [cmudict.0.1] is Copyright
+         1993 by Carnegie Mellon University. Use of this dictionary, for any
+         research or commercial purpose, is completely unrestricted.  If you
+         make use of or redistribute this material, we would appreciate
+         acknowlegement of its origin.
+
+         ftp://ftp.cs.cmu.edu:project/fgdata/dict
+              Latest seems to be cmudict.0.3.Z
+
+      2. "beep" from 
+         ftp://svr-ftp.eng.cam.ac.uk/comp.speech/data
+              Latest seems to be beep-0.4.tar.gz
+
+         This is a direct desendant of CUVOLAD (british pronounciation)  
+         (as used by previous releases of rsynth), and so 
+         has a more restrictive copyright than CMU dictionary. 
+
+      dict.c looks for bDict.db by default. b is for british e.g. beep
+      I use aDict.db for CMU (american) dictionary.
+      You can then :
+
+      say -d a schedule  # sked...
+      say -d b schedule  # shed...
+
+      It is simplest to obtain dictionaries prior to configuring the 
+      package and tell it where the source are at configure time:
+
+
+      configure --with-aDict=../dict/cmudict.0.3 --with-bDict=../dict/beep-0.4
+
+      If you have already built/installed the package you can 
+      gdbm from it as follows:
+
+      mkdictdb main-dictionary-file bDict.db 
+      mv bDict.db /usr/local/lib 
+
+      Expect a few messages from mkdictdb about words it does not like
+      in either dictionary.
+
+
+It should not be too hard to port it to other hardware.  For a discussion of
+these issues see PORTING.
+
+Use say --help to get a list of command line options.
+
+SPARCStation-10 can play audio at rates other than 8000Hz, so if -r is
+used with an acceptable rate it still plays.
+If you have '10 then "man 4 dbri" explains legal rates.
+
+
+The components (top down ) :
+
+   say.c / say.h
+
+      C main() function.
+      Initializes lower layers and then converts words from
+      command line or "stdin" to phonemes.
+      Some "normalization" of the text is performed, in particular
+      numbers can be represented as sequences of digits.
+
+
+   dict.c / dict.h
+
+      As of this release uses a GNU "gdbm" database which has been 
+      pre-loaded with a pronounciation dictionary.
+
+      
+   text.c / english.c / text.h
+
+      An implementation of US Naval Research Laboratory rules
+      for converting english (american?) text to phonemes.
+
+      Based on the version on the comp.speech archives, main changes
+      were in the encoding of the phonemes from the so called "arpabet"
+      to a more concise form used in the above dictionary.
+      This form (which is nmemonic if  you know the International Phonetic
+      Alphabet), is described in the dictionary documentation. It is
+      also very close to that described in the postings by Evan Kirshenbaum
+      (evan@hplerk.hpl.hp.com)  to sci.lang and alt.usage.english. (The
+      differences are in the vowels and are probably due to the differences
+      between Britsh and American english).
+
+
+   saynum.c
+
+      Code for "saying" numbers derived from same source as above.
+      It has been modified to call the higher level routines recursively
+      rather producing phonemes directly. This will allow any systematic
+      changes (e.g. British vs American switch) to affect numbers without
+      having to change this module.
+
+
+   holmes.c / holmes.h / elements.c / elements.def
+
+      My implementation of a phoneme to "vocal tract parameters" system
+      described by Holmes et. al. [1]
+
+      The original used an Analogue Hardware synthesizer.
+
+   nsynth.c / nsynth.h / def_pars.c
+
+      My recoding of the version of the "Klatt" synthesizer, described
+      in Klatt [2]. I obtained C source code from Jon Iles who had
+      modified the version originally posted to  "comp.speech".
+      I have extensively re-coded it in my C style as opposed to Klatt's
+      "original" which showed its FORTRAN ancestry.
+
+      In my (non-expert) opinion, the changes are extensive enough
+      to avoid any copyright on the original.
+
+      Only as small subset of the functionality of the synthesizer is
+      used by the "holmes.c" driver.
+
+    
+    hplay.c / hplay.h
+
+      hplay.h describes a common interface.
+      hplay.c is a link to play/xxxplay.c
+
+
+Acknowledgements :
+
+Particular thanks to  
+     Tony Robinson     ajr@eng.cam.ac.uk
+
+     for providing FTP site for alpha testing, and telnet access to a
+     variety of machines.
+
+   Many thanks to
+
+     Axel Belinfante   Axel.Belinfante@cs.utwente.nl  (World Wide Web)
+
+     Jon Iles          J.P.Iles@cs.bham.ac.uk
+
+     Rob Hooft         hooft@EMBL-Heidelberg.de       (linux stuff)
+
+     Thierry Excoffier exco@ligiahp3.univ-lyon1.fr    (playpipe for hpux)
+     Markus Gyger      mgyger@itr.ch                  (HPUX port)
+
+     Ben Stuyts        ben@stuyts.nl                  (NeXT port)
+
+     Stephen Hocking <sysseh@devetir.qld.gov.au>      (Preliminary Netaudio port)
+     Greg Renda      <greg@ncd.com>                   (Netaudio cleanup)
+     Tracey Bernath  <bernath@bnr.ca>                 (Netaudio testing)
+
+     "Tom Benoist"   <ben@ifx.com>                    (SGI Port)
+     Andrew Anselmo  <anselmo@ERXSG.rl.plh.af.mil>    (SGI testing)
+     Mark Hanning-Lee <markhl@iris-355.jpl.nasa.gov>  (SGI testing)
+
+   for assisting me in puting this package together.
+
+
+References :
+
+   [1] Holmes J. N., Mattingly I, and Shearme J. (1964)
+       "Speech Synthesis by Rule" , Language Speech 7, 127-143
+
+   [2] Dennis H. Klatt  (1980)
+       "Software for a Cascade/Parallel Formant Synthesizer",
+       J. Acoust. Soc. Am. 67(3), March 1980.
+
+
+Sources :
+
+OXFORD TEXT ARCHIVE
+
+The Oxford Text Archive has for several years maintained copies of several
+machine-readable dictionaries along with its extensive (if
+unsystematic) collections of other machine-readable texts. This document
+gives some further details of the various dictionaries available, and
+summarises the conditions under which copies of them are currently
+distributed.
+
+The Oxford Text Archive Shortlist  (available on request via electronic
+mail and by FTP) gives up to date brief details of all texts held in
+the Archive. Send electronic mail to ARCHIVE@VAX.OXFORD.AC.UK. For
+anonymous FTP, look in the directory ota on ota.ox.ac.uk (129.67.1.165)
+
+
+Internet newsgroups :
+
+comp.speech and its archive on svr-ftp.eng.cam.ac.uk
+  (Many of starting point sources).
+                                      
+sci.lang
+  (For ASCII IPA)

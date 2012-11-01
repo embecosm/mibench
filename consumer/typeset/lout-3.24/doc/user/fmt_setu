@@ -1,0 +1,209 @@
+@Section
+    @Title { Setup files }
+    @Tag { setup }
+@Begin
+@PP
+As mentioned briefly in Section {@NumberOf start}, each Lout document
+begins with an instruction to include (i.e. to read) a @I { setup file }:
+setup.file @Index { setup file }
+sysinclude. @Index @Code "@SysInclude"
+system.include @Index { system include directory }
+doc.file @Index { @Code "doc" file }
+@ID @Code "@SysInclude { doc }"
+The setup file's name in this example is @Code { doc }, and the @Code Sys
+in @Code "@SysInclude" means that @Code doc is stored in the @I { Lout
+system include directory }, which is where all the standard setup files
+are kept.  Each document type (Chapter {@NumberOf types}) has its own
+setup file, and each specialized package (for equations, tables, and
+so on) has a setup file too.
+@PP
+To change the overall format of a document, you need to create your own
+setup file by copying and modifying one of the standard ones.  We will
+assume that you are making an ordinary document, with the @Code doc
+setup file, but a similar procedure works for any setup file.
+@PP
+You first need to find out the name of the Lout system include
+directory, by typing
+@ID @Code "lout  -V"
+in Unix.  This causes Lout to print out various facts about itself.  Then,
+supposing that this tells you that the Lout system include directory
+is @Code { "/usr/lout/include" }, type the Unix command
+@ID @Code "cp  /usr/lout/include/doc  mydoc"
+to place a copy of the @Code doc setup file in your directory,
+mydoc.file @Index { @Code "mydoc" file }
+renaming it @Code {mydoc}.  Since @Code "doc" is read-only, you may
+also need to change the mode of @Code mydoc to be writable (by
+@Code "chmod +w mydoc" in Unix).  Now replace
+@ID @Code "@SysInclude { doc }"
+at the beginning of your document by
+@ID @Code "@Include { mydoc }"
+and Lout will read @Code mydoc as the setup file instead of
+@Code { doc }.  Since the two files are at present identical, this has
+changed nothing so far; but now any changes you make to @Code mydoc
+will affect your document.  Notice the use of @Code "@Include"
+rather than @Code { "@SysInclude" }; @Code "@Include" will search your
+current directory for @Code { mydoc }, whereas @Code "@SysInclude"
+searches only the system directory.
+@PP
+The remainder of this section is a tour through @Code {doc},
+explaining the various parts and how to modify them.  The first lines
+that actually do anything are these:
+@ID @OneRow @Code {
+"@SysInclude { langdefs }"
+"@SysInclude { bsf }"
+"@SysInclude { dsf }"
+"@SysInclude { docf }"
+}
+We already know that @Code "@SysInclude" causes Lout to read a file from
+the Lout system include directory.  File @Code langdefs
+langdefs.file @Index { @Code "langdefs" file }
+tells Lout what languages there are, and files @Code "bsf" and
+@Code "dsf" contain
+bsf.file @Index { @Code "bsf" file }
+dsf.file @Index { @Code "dsf" file }
+the definitions of the BasicSetup and DocumentSetup packages, in which
+all the symbols of the first two chapters of this guide are defined.  File
+@Code "docf" contains extra definitions specific to
+docf.file @Index { @Code "docf" file }
+ordinary documents (as distinct from technical reports, books, or the
+other document types of Chapter {@NumberOf types}).  So this line
+will be different in the setup files for those other types.
+@PP
+The next line is
+@ID @Code {
+"@Include { mydefs }"
+}
+This searches your current directory for a file called @Code { mydefs },
+which (as Section {@NumberOf definitions} explains) is intended to hold
+your own personal set of definitions of new symbols.  It does no harm
+if there is no @Code "mydefs" file in your current directory, because
+@Code "@Include" then searches the Lout system include directory for
+it, and there is an empty @Code mydefs file there.  When using your own
+setup file, you might prefer to delete @Code "@Include { mydefs }" and
+put your definitions in its place, so that you have one file of setup
+material rather than two.
+@PP
+Next we come to the BasicSetup @Code "@Use" clause.  It looks like this:
+use. @Index @Code "@Use"
+@ID @OneRow @Code @Verbatim {
+@Use { @BasicSetup
+  # @InitialFont { Times Base 12p }
+  # @InitialBreak { {adjust 1.20fx hyphen} @OrIfPlain {ragged 1fx nohyphen} }
+  # @InitialSpace { lout }
+  # @InitialLanguage { English }
+  # @InitialColour { black }
+  # @OptimizePages { No }
+  # @HeadingFont { Bold }
+  # @ParaGap { 1.3vx @OrIfPlain 1f }
+  # @ParaIndent { 2.00f @OrIfPlain 5s }
+}
+}
+@Code "@BasicSetup" is a symbol, and @Code { "@InitialFont" },
+basic.layout @Index @Code "@BasicSetup"
+@Code { "@InitialBreak" }, etc. are its options.  There are more options
+than we've shown; the display above just shows the first
+few.  You change the overall format of your document by changing
+these options.
+@PP
+As it stands, the options are all hidden within comments, so the
+default values (shown within braces) are in force.  To change an
+option, delete the @Code "#" and change the value between
+braces.  For example, to set the document in Helvetica 10 point
+font, change the @Code { "@InitialFont" } line to
+@ID @Code "@InitialFont { Helvetica Base 10p }"
+We won't go through all the options now, since they are the subject of
+following sections.
+@PP
+The @Code "@OrIfPlain" symbol that appears within some setup file
+options is used to set the value of the option differently when
+plain text output (Section {@NumberOf plain}) is being produced.  For
+example, the default value of @Code "@InitialBreak" is usually
+{@Code "adjust 1.20fx hyphen"}, but when plain text is being produced
+it switches to {@Code "ragged 1fx nohyphen"}.  When changing such
+options you can leave the @Code "@OrIfPlain" symbol there and change
+one or both of the alternative values as you wish.
+@PP
+Next comes a similar @Code "@Use" clause, for the DocumentSetup package:
+@ID @OneRow @Code {
+"@Use { @DocumentSetup"
+"  # @PageType { A4 @OrIfPlain Other }"
+"  # @PageWidth { 80s }"
+"  # @PageHeight { 66f }"
+"  # @PageOrientation { Portrait }"
+"  # @PageBackground {}"
+"  # @TopMargin { 2.5c @OrIfPlain 6f }"
+"}"
+}
+This one has many options, starting with options for page
+layout as shown, then going on to figures and tables, tables of
+contents, etc.
+@PP
+The standard setup files are all much the same up to this point; the
+main variation is that in some files, some options are already set.  The
+@Code "slides" setup file, for example, contains
+@ID @Code "@InitialFont { Times Base 20p }"
+so that overhead transparencies will have a large font size.  However,
+now comes a third @Code "@Use" clause whose symbol and options depend
+on the document type.  For ordinary documents (i.e. in the @Code "doc"
+setup file) this clause is
+@ID @OneRow @Code {
+"@Use { @OrdinarySetup"
+"  # @IndexWord { index }"
+"  # @AppendixWord { appendix }"
+"  # @SectionNumbers { Arabic }"
+"  # @AppendixNumbers { UCAlpha }"
+"  # @SectionHeadingFont { Bold }"
+"}"
+}
+Once again this is just some of the options.  In the @Code slides
+setup file for overhead transparencies, we find this:
+@ID @OneRow @Code {
+"@Use { @OverheadSetup"
+"  # @DateLine { No }"
+"  # @ContentsWord { contents }"
+"  # @FirstOverheadNumber { 1 }"
+"  # @OverheadNumbers { Arabic }"
+"  # @TitlePageFont { Helvetica Base 1.5f }"
+"  # @OverheadHeadingFont { Bold }"
+"  # @OverheadInContents { No }"
+"}"
+}
+In general this third @Code "@Use" clause assigns values to options
+specific to the document type we are using, whereas the first and
+second @Code "@Use" clauses assign values to options that are relevant to many
+or all document types.
+@PP
+The setup file ends with a comment identifying a spot where database
+declarations may
+database.dec @Index { database declarations, where to put }
+be put, and two such declarations, one for fonts and the other for
+reference printing styles.
+@PP
+The setup files used with other packages, such as C and C++ program printing,
+diagrams, and graphs, are similar to the @Code { doc } setup file we
+have just gone through.  They contain a @@SysInclude line analogous to
+@Code "@SysInclude { dsf }" for reading the package's definition, followed
+by a @@Use clause for setting the package's options.  The same procedure
+is followed for changing these options.  For example, to change the
+options of the @Code "diag" package, copy file @Code "diag" from the
+Lout system include directory to your directory, replace the
+@ID @Code "@SysInclude { diag }"
+line at the top of your document by {@Code "@Include { mydiag }"}, then
+edit @Code "mydiag" and change the options as you wish.
+@PP
+If you are using several packages and you would like a single setup file,
+that is quite easy to arrange.  For example, suppose you have
+@ID @Code {
+"@Include { mydoc }"
+"@Include { mydiag }"
+"@Include { mycprint }"
+}
+To create a single setup file, just concatenate these three files into
+one file (call it @Code { mysetup }, say), and replace the three lines by
+@ID @Code {
+"@Include { mysetup }"
+}
+As explained earlier, you can even replace the @Code "@Include { mydefs }"
+line within the setup file by the actual definitions, giving just one
+file of setup material for the entire document.
+@End @Section

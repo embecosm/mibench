@@ -1,0 +1,689 @@
+;Last Modified:  16-APR-1992 09:06:30.46
+	.title  fprims  Fast Multiple Precision Primitives
+	.ident  /V1.7B/
+;+
+; **-FPRIMS-Fast Multiple Precision Primitives
+;
+; Facility:     PGP
+;
+; Language:     Macro-32
+;
+; Functional Description:
+;
+; This module contains fast multiple precision routines for operating on arrays
+; of long words. Error checking is minimised at the expense of speed.
+;
+; Restrictions:
+;
+; This code is shareable but NOT reentrant as written because of static data.
+; A reentrant version of this module could be written but it would be slower!
+;
+; Version:      1
+;
+; Original:     00A     Date:   17-Sep-1991     Author: Hugh A.J. Kennedy
+;
+; Based on FPRIMS.ASM written by Zhahai Stewart for the Intel 8086
+; architecture.
+;
+; Modification: 02A     Date:   27-Sep-1991     Author: Hugh A.J. Kennedy.
+;
+; Add fast multiply routine, P_SMUL.
+; Re-organise code slightly.
+; Ammend/clarify copyright and license statement.
+; Add checking for maximum precision exceeded, display a warning message
+; and bomb!
+;
+; Modification: 03A     Date:   16-Mar-1992     Author: Hugh A.J. Kennedy.
+;
+; Sniff for MSB in P_SMUL. In this way, avoid multiplies by leading zeroes
+; (not efficient).
+;
+; Modification: 05A     Date:   17-Mar-1992     Author: Hugh A.J. Kennedy.
+;
+; Encode entire double precision multiply in VAX assembler.
+; Correct some minor problems with handling embedded zeroes.
+;
+; Modification: 06A     Date:   17-Mar-1992     Author: Hugh A.J. Kennedy
+;
+; Align everything for speed. VAXen like stuff on 64-bit, or at least 32-bit
+; boundaries. Therefore, we align the add, subtract and rotate tables and then
+; we align the multiply loops. The extra NOPs used to pad these loops are of
+; negligable cost because they already exist in the memory buffer. When the
+; following instruction is aligned, it executes MUCH faster.
+;
+; Modification: 07A     Date:   24-Mar-1991     Author: Hugh A.J. Kennedy.
+;
+; Implement fast compare.
+;-
+
+	.sbttl  Copyright Notice And License To Use
+;
+;                 Copyright (c) 1991-1992, All Rights Reserved by
+;                            Hugh A.J. Kennedy.
+;
+;       A license to use and adapt this software without payment is hereby 
+;       granted subject to the following conditions:
+;
+;       1) It may only be copied with the inclusion of this copyright
+;       notice in the program source with these associated conditions.
+;
+;       2) No title to or ownership of this software is hereby 
+;       transferred.
+;
+;       3) The  information  in this software is subject  to change 
+;       without notice and should  not be construed as a  commitment  by  
+;       Hugh Kennedy.
+;
+;       4) The author assumes no liability for any damages arising from the 
+;       use of this software, even if said damages  arises from defects in 
+;       this software.
+;
+;       5) No warranty as to merchantability or fitness of purpose is 
+;       expressed or implied.
+;
+;       6) Any modifications to this source must be clearly identified as
+;       such and added to the modification history.
+;
+;       7) These routines may not be incorporated in a commercial cryptographic
+;       product.
+;
+; If you can not comply with these conditions, you *must* contact the author
+; and obtain permission other wise you are in violation of copyright.
+
+	.sbttl  Misc Macros & Definitions
+;
+; Assembly Parameters
+;
+max_unit_prec   =       72                      ; Maximum unit precision
+supersniffer    =       1                       ; Enable bit msb locator.
+;
+; The following parameter is dependent on the kind of VAX you are running on
+; and should be defined if the execution time of the SOBGTR loop control
+; instruction and the appropriate operation (ADWC or SBWC) from cache is much
+; less than the execution time in main memory. If you have a slow VAX you
+; should comment the following line out to use a vector of instructions.
+;
+novector        =       1                       ; Use loops rather than vectors.
+
+.macro  ascid   .string
+;+
+; *-ASCID-Build An ASCII String Referenced By Descriptor
+;
+; Functional Description:
+;
+;       This macro is a little like the system supplied .ASCID directive
+; but it uses a separate program section to store the ASCII data.
+;
+; Arguments:
+;
+;       STRING          String to create
+;-
+	.nocross
+
+	.save_psect
+
+	.psect  puret
+
+$$$t0   =       .
+	.ascii  @.string@
+$$$t1   =       .-$$$t0
+
+	.restore_psect
+
+	.word   $$$t1
+	.byte   dsc$k_dtype_t
+	.byte   dsc$k_class_s
+	.address -
+		$$$t0
+	.cross
+
+.endm   ascid
+
+	.sbttl  Misc Data Areas
+;
+; Misc. Data Areas
+;
+	.psect  impurd,con,lcl,noshr,exe,rd,wrt,long
+
+;
+; This data is static and is used to hold the current precision established
+; by P_SETP for other calls to this library.
+;
+.if not_defined novector
+
+addoff:                                         ; Offset into add table.
+	.blkl   1                               ; also for sub and rot.
+.endc
+
+precis:                                         ; Precision in longwords.
+	.blkl   1
+
+	.psect  pure,con,rel,shr,exe,rd,nowrt,quad
+
+	.align  quad
+
+.if not_defined novector
+
+prectoobig:
+	ascid   <PGP (FPRIMS) - Requested precision (!ZL) exceeds capacity (!ZL)>
+
+.endc
+
+	.sbttl  Start of Code
+
+	.sbttl  P_CMP           Compare two very long integers
+;+
+; **-P_COMP-Compare two very long integers
+;
+; Functional Description:
+;
+; This procedure is invoked to compare two extended precision unsigned
+; integers.
+;
+; Calling Sequence
+;
+;       short P_CMP ( r1, r2)
+;
+; Parameters:
+;
+;       R1      ->      Extended Precision Integer 1
+;       R2      ->      Extended Precision Integer 2
+;
+; Implicit Inputs:
+;
+;       PRECIS          lr*r    Precision expresses in longs.
+;
+; Returns:
+;
+;       -1      if r1 < r2
+;        0      if r1 = r2
+;       +1      if r1 > r2
+;
+
+;-
+
+	.align  long
+
+	.entry  p_cmp,^m<r2>
+
+	movl    4(ap),r1                        ; R1 -> Sum.
+	movl    8(ap),r2                        ; R2 -> Addend.
+	movl    precis,r0                       ; R0 = Precision.
+	moval   (r1)[r0],r1                     ; Get MS longwords.
+	moval   (r2)[r0],r2                     ; Get MS longwords.
+.align  long    1                               ; Align loop with NOPS.
+10$:    cmpl    -(r1),-(r2)                     ; Compare.
+	bnequ   20$                             ; If ne, then exit loop.
+	sobgtr  r0,10$                          ; Loop until done.
+	ret                                     ; R0 = zero so R1 = R2.
+20$:
+	bgtru   30$                             ; If R1 > R2 then branch.
+	movw    #-1,r0                          ; Flag <.
+	ret
+30$:
+	movw    #1,r0                           ; Flag >.
+	ret
+
+	.sbttl  P_ADDC          Add two very long integers with carry
+;+
+; **-P_ADDC-Add very long integers
+;
+; Functional Description:
+;
+; This procedure is invoked to add two very long integers with carry. Each
+; integer is represented as an array of longwords, least significant first.
+;
+; Calling Sequence:
+;
+;       P_ADDC  sum,addend,carry
+;
+; Parameters:
+;
+;       sum             lm*r            Sum.
+;       addend          lr*r            Addend.
+;       carry           lr*v            Carry bit.
+;
+; Implicit Inputs:
+;
+;       Addoff          This is used as an offset into the various tables
+;                       of adds, subtracts and rotates to implement the
+;                       operation to the requested precsion.
+;
+; Status Returns:
+;
+;       R0      Resulting carry bit.
+;-
+
+	.align  long
+
+	.entry  p_addc,^m<r2,r3>
+
+	movl    4(ap),r1                        ; R1 -> Sum.
+	movl    8(ap),r2                        ; R2 -> Addend.
+
+.if defined novector
+
+	movl    precis,r3                       ; R3 = Precision.
+	subl3   12(ap),#0,r0                    ; Set carry bit.
+	.align  quad,1                          ; Align loop with NOPs
+10$:    adwc    (r2)+,(r1)+                     ; Add with carry one longword.
+	.align  quad,1                          ; Align next instruction.
+	sobgtr  r3,10$                          ; Loop until done.
+
+.iff ; novector
+
+	moval   10$,r3
+	addl2   addoff,r3                       ; Jump into table.
+	subl3   12(ap),#0,r0                    ; Set carry bit.
+	jmp     (r3)
+
+	.align  quad
+
+10$:
+	.rept   max_unit_prec
+$$$     =       .
+	adwc    (r2)+,(r1)+                     ; Add with carry one longword.
+	nop
+addsiz  =       .-$$$
+	.endr
+
+.endc ; novector
+
+	clrl    r0                              ; Assume carry clear.
+	bcc     20$                             ; Carry set?
+	incl    r0                              ; Flag carry was set.
+20$:    ret
+
+	.sbttl  P_SUBB  Subtract very long integers with borrow
+;+
+; **-P_SUBB-Subtract very long integers
+;
+; Functional Description:
+;
+; This procedure is invoked to add subtract very long integers with carry. Each
+; integer is represented as an array of longwords, least significant first.
+;
+; Calling Sequence:
+;
+;       P_SUBB  diff,sub,borrow
+;
+; Parameters:
+;
+;       diff            lm*r            Difference
+;       sub             lr*r            Subtrahend.
+;       borrow          lr*v            Borrow bit.
+;
+; Implicit Inputs:
+;
+;       Addoff          This is used as an offset into the various tables
+;                       of adds, subtracts and rotates to implement the
+;                       operation to the requested precsion.
+;
+; Status Returns:
+;
+;       R0      Resulting carry bit.
+;-
+
+	.align  long
+
+	.entry  p_subb,^m<r2,r3>
+
+	movl    4(ap),r1                        ; R1 -> Difference.
+	movl    8(ap),r2                        ; R2 -> Minuend.
+
+.if defined novector
+
+	movl    precis,r3                       ; R3 = No. of longs.
+	subl3   12(ap),#0,r0                    ; Set borrow bit.
+	.align  quad,1                          ; Align loop with NOPs.
+10$:    sbwc    (r2)+,(r1)+                     ; Subtract with borrow one long.
+	.align  quad,1                          ; Align with NOPs.
+	sobgtr  r3,10$                          ; Loop through.
+
+.iff ; novector
+
+	moval   10$,r3
+	addl2   addoff,r3                       ; Jump into table.
+	subl3   12(ap),#0,r0                    ; Set borrow bit.
+	jmp     (r3)
+
+	.align  quad
+10$:
+	.rept   max_unit_prec
+	sbwc    (r2)+,(r1)+                     ; Subtract w/carry one longword.
+	nop
+	.endr
+
+.endc ; novector
+
+	clrl    r0                              ; Assume carry clear.
+	bcc     20$                             ; Carry set?
+	incl    r0                              ; Flag carry was set.
+20$:    ret
+
+	.sbttl  P_ROTL  Rotate left a very long integer with carry.
+;+
+; **-P_ROTL-Rotate left one bit very long integers
+;
+; Functional Description:
+;
+; This procedure is invoked to rotate left one bit (e.g. divide by 2) very 
+; long integers with carry. Each integer is represented as an array of 
+; longwords, least significant first. Note that we use the add with carry
+; instruction here because the VAX (unlike the dear old PDP-11) lacks a
+; rotate instruction that includes the carry bit.
+;
+; Calling Sequence:
+;
+;       P_ROTL  num,carry
+;
+; Parameters:
+;
+;       num             lm*r            Number to be shifted
+;       carry           lr*v            Carry bit.
+;
+; Implicit Inputs:
+;
+;       Addoff          This is used as an offset into the various tables
+;                       of adds, subtracts and rotates to implement the
+;                       operation to the requested precsion.
+;
+; Status Returns:
+;
+;       R0      Resulting carry bit.
+;-
+
+	.align  long
+
+	.entry  p_rotl,^m<r3>
+
+	movl    4(ap),r1                        ; R1 -> Sum.
+
+.if defined novector
+
+	movl    precis,r3                       ; R3 = No. of longwords.
+	subl3   8(ap),#0,r0                     ; Set carry bit.
+	.align  quad,1                          ; Align loop with NOPs
+10$:    adwc    (r1),(r1)+                      ; Add to itself with carry.
+	.align  quad,1                          ; Align with NOPs.
+	sobgtr  r3,10$                          ; Loop until done.
+
+.iff ; novector
+
+	moval   10$,r3
+	addl2   addoff,r3                       ; Jump into table.
+	subl3   8(ap),#0,r0                     ; Set carry bit.
+	jmp     (r3)
+
+	.align  quad
+10$:
+	.rept   max_unit_prec
+	adwc    (r1),(r1)+                      ; *2+carry.
+	nop
+	.endr
+
+.endc ; novector
+	clrl    r0                              ; Assume carry clear.
+	bcc     20$                             ; Carry set?
+	incl    r0                              ; Flag carry was set.
+20$:    ret
+
+	.sbttl  P_DMUL  Extended Multiple Precision Multiply
+;*
+; **-P_DMUL-Extended Multiple Precision Multiply
+;
+; Functional Description:
+;
+; This procedure multiplies an unsigned single precision multiplier by a 
+; single precision multiplicand. The product register is double precision.
+; It is expected that the length of the single precision multiplier and
+; multiplicand has been previously set by a call to P_SETP. Note that the
+; entire length of the product register is zeroed - so it must be a full
+; double precision size.
+;
+; Calling Sequence:
+;
+;       P_DMUL  prod, multiplicand, multiplier
+;
+; Parameters:
+;
+;       prod            lw*r    Product.
+;       multuplicand    lr*r    Multiplicand
+;       multiplier      lr*r    Multiplier
+;
+; Implicit Inputs:
+;
+;       PRECIS          lr*r    Precision expresses in longs.
+;
+; Status Returns:
+;
+;       None.
+;-
+
+	.align  long
+
+	.entry  p_dmul,^m<r2,r3,r4,r5,r6,r7,r8,r9,r10,r11>
+
+	movl    4(ap),r8                        ; R8 -> Product.
+	beql    49$                             ; If eq, not specified.
+	movl    precis,r10                      ; R10 = Precision (longs)
+	ashl    #3,r10,r2                       ; R0 = No. of bytes to zero.
+	movc5   #0,#0,#0,r2,(r8)                ; Zero product buffer.
+	movl    8(ap),r3                        ; R3 -> Multiplicand.
+	beql    49$                             ; If eq, not specified.
+	pushl   r3                              ; Save for posterity.
+	movl    12(ap),r11                      ; R11 -> Multiplier.
+	beql    49$                             ; If eq, not specified.
+	movl    r10,r12                         ; R12 = Multiplicand prec.
+
+.if     defined SUPERSNIFFER
+
+;
+; Here we calculate the effective maximum precision for the multiply by
+; locating the long containing the most significant bit of the multiplier
+; and the multiplicand.
+;
+	moval   (r11)[r10],r0                   ; Supersniffer...
+	.align  quad,1                          ; Align with nops
+45$:    tstl    -(r0)                           ; Examine next long.
+	bneq    50$                             ; If ne, then we found msb.
+	sobgtr  r10,45$                         ; Loop until done.
+49$:    ret                                     ; Multiplier = 0!
+50$:
+	moval   (r3)[r12],r0                    ; Supersniffer...
+	.align  quad,1                          ; Align with nops
+55$:    tstl    -(r0)                           ; Examine next long.
+	bneq    200$                            ; If ne, then we found msb.
+	sobgtr  r12,55$                         ; Loop until done.
+	ret                                     ; Multiplicand = 0!
+.iff
+
+	brb     200$
+49$:
+	ret
+
+.endc   ; SUPERSNIFFER
+
+;
+; Multiplier Loop
+;
+; R12 = Count of multiplicand longs to process.
+; R11 -> Next long of multiplier.
+; R10 = Count of multiplier longs to process.
+; R8 -> Next long of product.
+;
+	.align  quad,1                          ; Align with nops
+200$:   movl    r12,r5                          ; Multiplicand precision.
+	moval   (r8)+,r4                        ; R4 -> Next long of product.
+	movl    (sp),r3                         ; R3 -> 1st multiplier long.
+	movl    (r4),r0                         ; R0,R1 = Partial Sum.
+	movl    4(r4),r1
+	clrl    r7                              ; Zero look-ahead carry.
+;
+; Perform an extended multiply of two unsigned numbers. This means that
+; we have to compensate the hi-order product because either the multiplier
+; or the multiplicand may be apparently a negative number. EMUL is a signed
+; multiply - so we must be careful. Also, the EMUL longword addend is sign 
+; extended before adding into the product so we have to add the hard way.
+;
+; R6 =          Current Multiplicand
+; R2 =          Multiplier
+; R4 ->         Current quadword of partial product.
+; R0,R1 =       Partial sum to which product is added
+; R7 =          Lookahead carry. This gets set if we try to carry after adding
+;               the partial product to the partial sum. This gets a little more
+;               complicated because here we are setting the high-order long of
+;               the next quadword to be operated on.
+;
+; Essentially the algorithm is as follows:
+;
+; 0) R0,R1 = (R4)               ; Save current partial sum.
+; 1) R6 = Next longword of multiplicand.
+; 2) (R4) = R6 * R2             ; quad result compensating for negative numbers)
+; 3) (R4) = (R4) + R0,R1        ; add back partial sum.
+; 4) R7 = Carry bit.
+; 5) R4 = R4 + 4                ; Point to next long.
+; 6) R1 = 4(R4) + R7            ; Propagate carry to high order of next partial
+;                               ; sum.
+; 7) Loop back to step 1 until multiplicand completely processed.
+;
+	movl    (r11)+,r2                       ; R2 = Multiplier.
+	beql    999$                            ; If eq, not specified.
+	blss    1500$                           ; This unfolds the compensation
+						; test out of the loop.
+;
+; This version of the multiply loop is entered when the multiplier is positive
+; saving three instructions per unit of precision.
+;
+	.align  quad,1                          ; Align with NOPs.
+500$:   movl    (r3)+,r6                        ; R6 = Current multplicand.
+	emul    r2,r6,#0,(r4)                   ; Multiply (64-bit result).
+;
+; Because we have removed leading zeroes, multiplication by zero is very
+; unlikely, 1 in 2^32 or so. It is therefore easier to perform the test after
+; the EMUL (looking at the zero product) that the multiplicand was zero so we 
+; don't need any special case logic later to adjust the product pointer.
+;
+	beql    550$                            ; If result eq, skip.
+	tstl    r6                              ; Was multiplicand negative?
+	bgeq    550$                            ; No, skip.
+	addl2   r2,4(r4)                        ; Yes, compensate.
+550$:   addl2   r0,(r4)+                        ; Accumulate.
+	adwc    r1,(r4)+
+	movl    (r4),r1                         ; R1 = Next hi-end partial sum.
+	adwc    r7,r1                           ; Add carry if needed.
+	clrl    r7                              ; Reset lookahead register.
+	adwc    #0,r7                           ; Save lookahead carry.
+	movl    -(r4),r0                        ; R0 = Next lo-end partial.
+	sobgtr  r5,500$                         ; More units?
+999$:   sobgtr  r10,200$                        ; Nope, go get next multiplier
+	ret
+;
+; This version of the above multiply loop is entered when the multiplier is
+; negative - and we must compensate by adding the multiplicand to the hi-order
+; product. This saves a test and a conditional branch per unit of precision.
+;
+	.align  quad,1                          ; Align with NOPs.
+1500$:
+	movl    (r3)+,r6                        ; R6 = Current multplicand.
+	emul    r2,r6,#0,(r4)                   ; Multiply (64-bit result).
+;
+; Because we have removed leading zeroes, multiplication by zero is very
+; unlikely, 1 in 2^32 or so. It is therefore easier to perform the test after
+; the EMUL (looking at the zero product) that the multiplicand was zero so we 
+; don't need any special case logic later to adjust the product pointer.
+;
+	beql    1560$                           ; If result eq, skip.
+	tstl    r6                              ; Was multiplicand negative?
+	bgeq    1550$                           ; No, skip.
+	addl2   r2,4(r4)                        ; Yes, compensate.
+1550$:
+; As documented above, we unfolded the following to save instructions
+;       tstl    r2                              ; Multiplier negative?
+;       bgeq    1560$                           ; No, skip.
+	addl2   r6,4(r4)                        ; Yes, compensate.
+1560$:  addl2   r0,(r4)+                        ; Accumulate.
+	adwc    r1,(r4)+                        ; R1 = High-end partial sum.
+	movl    (r4),r1                         ; R1 = Next hi-end partial sum.
+	adwc    r7,r1                           ; Add carry if needed.
+	clrl    r7                              ; Reset lookahead register.
+	adwc    #0,r7                           ; Save lookahead carry.
+	movl    -(r4),r0                        ; R0 = Next lo-end partial.
+	sobgtr  r5,1500$                        ; More units?
+	sobgtr  r10,200$                        ; Nope, go get next multiplier
+	ret
+
+	.sbttl  P_SETP          Set Precison.
+;+
+; **-P_SETP-Set Precision
+;
+; Functional Description:
+;
+; This procedure is invoked to set the operating precision of the package.
+;
+; Calling Sequence:
+;
+;       P_SETP  nbits
+;
+; Parameters:
+;
+;       nbits           rw*v    Number of bits in number.
+;
+; Implicit Outputs:
+;
+;       Precis          Set to the number of longwords required to implement
+;                       the requested precision.
+;       Addoff          This is used as an offset into the various tables
+;                       of adds, subtracts and rotates to implement the
+;                       operation to the requested precsion.
+;
+; Status Returns:
+;
+;       None.
+;
+; Side Effects:
+;
+;       If the maximum precision set in 32-bit units by the assembly
+;       parameter "max_unit_prec" is exceeded, a message to that effect will
+;       be displayed and the program will terminate with a fatal error.
+;-
+
+	.entry  p_setp,^m<>
+
+	movzwl  4(ap),r1                        ; R1 = No. of bits.
+	addl2   #31,r1                          ; Round up to next long word.
+	ashl    #-5,r1,r1                       ; R1 = No. of 32 bit words.
+	movl    r1,precis                       ; Save precision.
+
+.if not_defined novector
+
+	subl3   r1,#max_unit_prec,r0            ; R0 = Number of steps reqd.
+	blss    10$                             ; If > 0 then exit.
+	mull3   #addsiz,r0,addoff               ; Get add table offset.
+
+.iftf ; novector
+
+	ret
+
+.ift ; novector
+
+10$:                                            ; Table size exceeded!
+	movab   -80(sp),sp                      ; Output buffer.
+	pushab  (sp)                            ; Build descriptor
+	movzwl  #80,-(sp)
+	clrl    -(sp)                           ; Receive return length.
+	pushl   #max_unit_prec                  ; Compiled max table size.
+	pushl   r1                              ; Requested table size.
+	pushaq  8+4(sp)                         ; -> Output buffer descriptor.
+	pushaw  12(sp)                          ; -> Returned length.
+	pushaq  prectoobig                      ; -> FAO control string.
+	calls   #5,g^sys$fao                    ; Format output string.
+	movl    (sp)+,(sp)                      ; Set actual buffer size.
+	pushaq  (sp)                            ; -> Output buffer descr.
+	calls   #1,g^lib$put_output             ; Output message.
+	$exit_s -                               ; Exit with severe error.
+		code=#4
+
+.endc ; novector
+
+	.end

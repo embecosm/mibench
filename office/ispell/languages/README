@@ -1,0 +1,139 @@
+	       HOW TO INSTALL LANGUAGES BESIDES ENGLISH
+				   
+Ispell can support most European languages as well as English.  It
+even supports British English.  But it doesn't come with dictionaries
+for those languages (except British), because as an English speaker
+I'm not qualified to maintain them.  This file contains instructions
+on how to install dictionaries for other languages.
+
+The instructions below look long and complicated.  Actually, the
+process is very simple, but I wanted to be sure to explain everything
+in detail and give lots of examples.  Once you understand the process,
+you should be able to do it in less time than it takes to read this file.
+
+For each language you wish to install, perform the following steps:
+
+1.  If necessary, create a new subdirectory of "languages" to hold
+    your dictionary.  Traditionally, the subdirectories are named
+    after the native word for the language, with accented characters
+    downgraded to simple ASCII.  For example, the French dictionary
+    would go in "languages/francais", with the c-cedilla lost in
+    translation.
+
+    If you are making a new directory, copy the Makefile from
+    "languages/nederlands", which is a good prototype, and change
+    "nederlands" to the name of your language.  No other changes
+    should be necessary unless you have a much more complex setup.
+    (See the "deutsch" and "american" subdirectories for examples of
+    how to do fancier things).
+
+2.  Find a word list for the language.  Usually, the best way to find
+    a list is either to look in languages/Where, or to ask around in
+    your local country.  Check to see if the word list comes with an
+    affix file (*.aff).  If it does, you're often better off using
+    that affix file, even if one came with ispell.  The files should
+    go in the directory you created in step 1.
+
+    Many word lists available on the Internet are already "munched"
+    for use with ispell.  A "munched" list can be identified by
+    looking for slash ("/") characters at the ends of words, such as
+    those found in the English dictionary "languages/english/english.0".
+    If your list isn't munched, you will probably want to munch it
+    before you complete installation.  See step 5 below for
+    instructions.
+
+    For example, if you are installing Dutch (Nederlands) support, you
+    need to have a file named "nederlands.aff" and a word list.  The
+    Makefile assumes that the word list is named "nederlands.sml", but
+    you can change this.  Put both files in "languages/nederlands".
+
+3.  Depending on the language, you may have to add certain definitions
+    to your local.h file.  Remove the definition of NO8BIT, so that
+    you will be able to support ISO Latin-1 characters.  If your affix
+    file uses both upper- and lower-case flag characters, add a line
+    reading "#define MASKBITS 64" (or 128 or 256).
+
+4.  Now comes the hard part.  You must add a language definition to
+    the LANGUAGES variable.  If necessary, refer to the file
+    "config.X" for the complete syntax of this variable.  The default
+    value is:
+
+	#define LANGUAGES "{american,MASTERDICTS=american.med+,HASHFILES=americanmed+.hash,EXTRADICT=/usr/dict/words}"
+
+    which builds only the American dictionary.  You must extend this
+    so that it builds your favorite language(s) as well.
+
+    WARNING WARNING WARNING:  The LANGUAGES variable *must* be written
+    as a single line.  You cannot use backslash-newline or any other
+    method to continue it.  It's going to look ugly in your local.h
+    file, but there's no way around it.
+
+    In the simplest case, you can just add your language in curly
+    braces.  For example, if you are building a Swedish dictionary
+    from a word list named "svenska.sml" and an affix file named
+    "svenska.aff", just change LANGUAGES to read:
+
+	#define LANGUAGES "{american,MASTERDICTS=american.med+,HASHFILES=americanmed+.hash,EXTRADICT=/usr/dict/words} {svenska}"
+
+    In more complex cases, you might need to override certain Makefile
+    variables.  For example, if you also wanted to build a Norwegian
+    dictionary from a word list named "words.norwegian" and an affix
+    file named "norsk8.aff", you would extend the above definition as
+    follows:
+
+	#define LANGUAGES "{american,MASTERDICTS=american.med+,HASHFILES=americanmed+.hash,EXTRADICT=/usr/dict/words} {svenska} {norsk,DICTIONARY=words.norwegian,AFFIXES=norsk8.aff}"
+
+    Incidentally, from ispell's point of view, British and American
+    English are just two other languages.  If you want a British
+    dictionary as well as an American one, just add a "british" entry
+    to LANGUAGES that parallels the "american" one.
+
+    Finally, if you wanted to build your own language without the
+    English dictionaries, you could omit the American part.  For
+    example, a Danish installation might choose:
+
+	#define LANGUAGES "{dansk}"
+
+    In this case, you will also want to add:
+
+	#define MASTERHASH "dansk.hash"
+
+    so that final installation will proceed correctly.
+
+5.  If your word list has already been "munched", you can skip this
+    step.  Otherwise, you should munch it before proceeding.  Start by
+    typing "make munchable" in the master ispell directory.  Then cd
+    into the directory for your language, and run munchlist with
+    stdout directed into a temporary file.  You *must* remember to set
+    TMPDIR to the name of a directory with lots of free space, or
+    munchlist will fail.  This step takes a long time, so take a lunch
+    break here.
+
+    Some languages have their affix files distributed as "xxx.7bit"
+    rather than "xxx.aff".  You can either use the ".7bit" version
+    directly, or use "make xxx.aff" to create the corresponding ".aff"
+    file.
+
+    For example, a German installation with the dictionary stored in
+    "deutsch.sml" would run munchlist as follows (assuming C-shell
+    syntax and assuming the /var/tmp has several tens of megabytes of
+    free space):
+
+	% setenv TMPDIR /var/tmp
+	% make deutsch.aff
+	% munchlist -l deutsch.aff deutsch.sml > deutsch.munched
+
+    Once you've successfully run munchlist, back up your original
+    dictionary (or throw it away, if you don't mind having to go back
+    to the Internet if something goes wrong) and rename the munched
+    version to your "master" name:
+
+	% mv deutsch.sml deutsch.bak
+	% gzip -9 deutsch.bak
+	% mv deutsch.munched deutsch.sml
+
+6.  You are now all set up to build ispell with multiple languages.
+    Cd into the master ispell directory and type "make all".  After
+    the make completes, test ispell on a small file.  If everything
+    goes properly, type "make install" to install the dictionaries,
+    and you're done.

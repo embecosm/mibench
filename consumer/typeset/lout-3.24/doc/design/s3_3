@@ -1,0 +1,143 @@
+@SubSection
+    @Tag { modules }
+    @Title { Modules }
+@Begin
+@PP
+It is well accepted that the visibility of symbols is not adequately
+controlled by Algol block structure.  The author is aware of several
+major problems of this kind in document formatting.
+@PP
+One problem is that some symbols should be visible only within
+restricted parts of a document.  For example, we naturally expect
+equation formatting to be accomplished like this:
+@ID @OneRow @Code {
+"surrounding text"
+"@Eq { {x sup 2  +  1} over 4 }"
+"surrounding text"
+}
+with the symbols {@Code "sup"}, {@Code "over"}, etc., visible only within
+the equation, not in the surrounding text.
+@PP
+It seems natural to define these symbols within {@Code "@Eq"}, since
+they are local to equations.  It only remains then to decree that
+symbols local to @Code "@Eq" are to be visible within its actual right
+parameter, and this is done by replacing the right formal parameter with a
+@I body parameter:
+@ID @OneRow @Code {
+"export sup over"
+"def @Eq"
+"    body @Body"
+"{"
+"    def sup ..."
+"    def over ..."
+""
+"    Slope @Font @Body"
+"}"
+}
+The @Code export clause lists the identifiers which are permitted to be
+visible outside their usual range, the body of {@Code "@Eq"}; and the
+@Code body declaration imports them into (makes them visible within)
+the actual right parameter of each invocation of {@Code "@Eq"}.  This
+arrangement has proven very convenient for defining a variety of
+special-purpose packages.
+@PP
+Another problem arises when global symbols, such as the ones used for
+headings and paragraph separators, call on values that the non-expert
+user will need to modify, such as the initial font or paragraph
+indent.  These values are like parameters of the document as a whole, so
+it is natural to try this:
+@ID @OneRow @Code {
+"export @Heading @PP ..."
+"def @BookLayout"
+"    named @InitialFont { Times Base 12p }"
+"    named @InitialBreak { adjust 14p }"
+"    named @ColumnWidth { 6i }"
+"    ..."
+"{"
+"    def @Heading ..."
+"    def @PP ..."
+"}"
+}
+Now @Code "@Heading" and @Code "@PP" may invoke @Code "@InitialFont"
+and the other parameters.  To make @Code "@Heading" and @Code "@PP"
+visible throughout the document, we need only add a body parameter to
+@Code "@BookLayout" and present the entire document as
+@ID @OneRow @Code {
+"@BookLayout"
+"    @InitialFont { Helvetica Base 10p }"
+"    @InitialBreak { adjust 12p }"
+"{"
+"    The document."
+"}"
+}
+but for practical reasons given below we prefer not to enclose the
+entire document in braces.  Instead, we write
+@ID @OneRow @Code {
+"@Use { @BookLayout"
+"    @InitialFont { Helvetica Base 10p }"
+"    @InitialBreak { adjust 12p }"
+"}"
+"The document."
+}
+which has the same effect:  @Code "@Use" makes the exported symbols of
+@Code "@BookLayout" visible for the remainder of the document, and is
+permitted only at the beginning.
+@PP
+The third feature that affects visibility, and which will prove useful
+for cross referencing (Section {@NumberOf cross}), is the @Code "@Open"
+symbol.  It makes the exported symbols of its left parameter visible
+within its right parameter, and is therefore similar to the Pascal @Code
+with statement.
+@PP
+It could be argued that Lout is over-supplied with these visibility modifying
+features: the body parameter, @Code "@Use" and @Code "@Open" do not seem
+sufficiently different from each another.  The @Code "@Open" symbol is
+the most general, being capable of replacing the other two.  For
+example,
+@ID @OneRow @Code {
+"@Use { x }"
+"@Use { y }"
+"Body of document"
+}
+can be replaced by
+@ID @OneRow @Code {
+"x @Open {"
+"y @Open {"
+"Body of document"
+"}}"
+}
+and, taking the @Code "@Eq" symbol above as example, we could eliminate
+its body parameter, add
+@ID @Code "def @Body right x { Slope @Font x }"
+to the exported definitions of {@Code "@Eq"}, and replace
+@ID @Code "@Eq { object }"
+by
+@ID @Code "@Eq @Open { @Body { object } }"
+If @Code "@Eq" is a galley (Section {@NumberOf galleys}), @Code "@Body"
+must take over that function.  But one would not want to write these
+clumsy expressions in practice, and the enclosure of large quantities
+of input in extra braces could cause Basser Lout to run out of memory
+(Section {@NumberOf lookahead}).
+@PP
+A quite separate kind of visibility problem arises when expert
+users wish to define an object or operator for repeated use within, say,
+equations:
+@ID @Code "def isum { sum from i=1 to n }"
+As it stands this can only be placed within the @Code "@Eq" package itself, 
+where @Code "sum" and the other symbols are visible, but it is not desirable
+to modify the source code of a standard package.  Lout provides an
+@Code "import" clause to solve this problem:
+@ID @OneRow @Code {
+"import @Eq"
+"def isum { sum from i=1 to n }"
+}
+may appear after @Code "@Eq" is defined, and it will make the exported symbols
+of @Code "@Eq" visible within the body of {@Code "isum"}.  This feature
+complicates the treatment of environments (Section {@NumberOf defs.impl}),
+and even introduces an insecurity, when @Code isum is invoked outside an
+equation.  A simpler approach would be to allow only one symbol in an
+@Code import clause, and treat the following definition exactly like a
+local definition of that symbol; but then it would not be possible
+to define symbols using the resources of more than one of the standard
+packages.
+@End @SubSection

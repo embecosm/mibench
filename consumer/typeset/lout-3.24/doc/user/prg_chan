@@ -1,0 +1,134 @@
+@Section
+   @Title { Changing the appearance of all programs simultaneously }
+   @Tag { cpsetup }
+@Begin
+@PP
+We have just seen that the {@Code "@CP"}, {@Code "@Eiffel"} etc. symbols
+have many options for changing the appearance of the program text.  However,
+most people would not want to have a different style for every program text
+in their document; they want to define the style once at the start, and have
+all their program texts come out in that style without laboriously setting
+options on every symbol.  You do this by copying the setup file and
+changing it.
+@PP
+For general information about how to make your own setup file, consult
+Section {@NumberOf setup}.  The options that determine the default
+values are in the @Code "@Use" clause which occupies most of the setup
+file.  Here is part of the @Code "@Use" clause from {@Code cprint}:
+cprint. @Index @Code "@CPSetup"
+@ID @Code @Tbl
+   mv { 0.5vx }
+   aformat { @Cell A | @Cell B | @Cell C }
+   bformat { @Cell { "    #" A } | @Cell { "{" B } | @Cell "}" }
+{
+@Rowa A { "@Use {  @CPSetup" }
+@Rowb A { "pipe" } B {          }
+@Rowb A { "numbered" } B { No         }
+@Rowb A { "style" } B { fixed         }
+
+@Rowa 
+@Rowb A { "fixedfont" }			B { Courier  }
+@Rowb A { "fixedsize" }			B { -1.0p         }
+@Rowb A { "fixedline" }			B { 1.0vx         }
+@Rowb A { "fixedtabin" }		B { 8		  }
+@Rowb A { "fixedtabout" }		B { 8s		  }
+
+@Rowa 
+@Rowb A { "fixedidentifiers" }		B { Base  }
+@Rowb A { "fixedkeywords" }		B { Base  }
+@Rowb A { "fixedoperators" }		B { Base  }
+@Rowb A { "fixednumbers" }		B { Base  }
+@Rowb A { "fixedstrings" }		B { Base  }
+@Rowb A { "fixedcomments" }		B { Base  }
+@Rowb A { "fixedlinenumbers" }		B { Base  }
+
+@Rowa 
+@Rowb A { "fixedidentifiersformat" }	B { "@Body"  }
+@Rowb A { "fixedkeywordsformat" }	B { "@Body"  }
+@Rowb A { "fixedoperatorsformat" }	B { "@Body"  }
+@Rowb A { "fixednumbersformat" }	B { "@Body"  }
+@Rowb A { "fixedstringsformat" }	B { "@Body"  }
+@Rowb A { "fixedcommentsformat" }	B { "@Body"  }
+@Rowb A { "fixedlinenumbersformat" }	B { "@Body"  }
+
+@Rowa 
+@Rowa A { "..." }
+
+@Rowa 
+@Rowa A { "}" }
+}
+The @Code pipe option will be explained in Section {@NumberOf pipes}.  The
+options whose name begins with @Code "fixed" apply only when
+@Code style is {@Code fixed}; there are corresponding options, not
+shown, which apply when @Code style is {@Code varying} and {@Code symbol}.
+@PP
+We can see in this extract that the default value of @Code style is
+{@Code fixed}, and of @Code "numbers" is {@Code No}.  We can also see the
+default font family, font face, font size,
+line spacing, and tab settings when the style is {@Code "fixed"}.  The
+font family name for @Code "fixed" style is {@Code "Courier"}, but for the
+other styles (not shown) it is empty.  This causes the @Code "fixed" style
+to always switch to Courier, and the other styles to use the same font
+family as in the surrounding document.
+@PP
+The options from @Code "fixedidentifiers" to @Code "fixedlinenumbers" allow
+you to set the font face to use for each of these parts of your
+program.  People who want fixed-width fonts do not usually want very
+exciting font faces either, so the default values above are all
+{@Code "Base"}, but for the {@Code varying} and {@Code symbol} styles,
+the default identifier face is {@Code Slope}, the default keyword
+face is {@Code Bold}, and so on.  You can actually give a family name
+before the face name in these options, allowing you to switch font
+families for different parts of the program if you wish.
+@PP
+The @Code fixedidentifiersformat option allows you to make a more
+radical change to the format of identifiers than just the font.  Within
+this option, @Code "@Body" stands for the identifier being formatted, and
+by applying Lout symbols to it, you apply them to every identifier.  For
+example,
+@ID @Code "fixedidentifiersformat { red @Colour @Body }"
+will cause identifiers to be printed red.
+@FootNote {
+@Code "@Colour" is not a Lout primitive like, say, {@Code "@Font"}; it is
+defined when you write @Code "@SysInclude { doc }" or the equivalent for
+the other document types.  This is true of quite a few generally useful
+symbols, including {@Code "@Box"} and {@Code "@I"}.  If you want to use
+these symbols here, you must include your setup file @I after
+@Code "@SysInclude { doc }" or whatever, the reverse of the usual
+arrangement, so that they are defined before Lout reads your setup
+file.  This reversal is carried out automatically when formatting
+programs independently of any document, so you can use these symbols
+in a setup file given by a @Code { -S } command line flag.
+}  If you do use exotic formats, remember that in some programming languages,
+comments and even strings may occupy more than one line:  {@Code "@Box"},
+for example, will give a logical but probably unwanted result when
+formatting a multi-line string.
+@PP
+As always with setup files, to change a default value, delete the preceding
+@Code "#" and change the part between braces.  For example, suppose you are
+happy with @Code "fixed" except that you want bold keywords.  Then one line
+needs to be changed, to
+@ID @Code "fixedkeywords { Bold }"
+Or suppose you like @Code "varying" as it stands, but would like it to be
+the default style rather than {@Code "fixed"}.  Again, only one line needs
+to be changed, to {@Code "style { varying }"}.
+@PP
+It is probably not a good idea to change the default value of
+@Code { numbered } to {@Code Yes}, because small fragments of
+code within paragraphs will then get line numbers as well as large
+displayed programs.  If you do have many large numbered programs as
+well as small fragments, a better approach would be to place
+@ID @OneRow @Code @Verbatim {
+import @CPSetup
+macro @NCP { @CP numbered { Yes } }
+}
+(or the equivalent for your language) in your @Code mydefs file, so that
+you can type @Code "@NCP" instead of {@Code "@CP numbered { Yes }"}.
+@PP
+The setup files for the other languages are identical to this one, except
+that the symbol after @Code "@Use" is different, and some of the
+default values may be different.  Changing an option affects only the
+language of that setup file; if you have multiple languages you can
+have multiple setup files and change their options quite independently
+of each other.
+@End @Section

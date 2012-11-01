@@ -1,0 +1,712 @@
+gcc -static -o ./genconf genconf.c
+gcc -static -o ./echogs echogs.c
+./echogs -w devs.tr - -include unix_.dev
+./echogs -a devs.tr - level2.dev pdf.dev pipe.dev
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - pbm.dev pbmraw.dev pgm.dev pgmraw.dev pgnm.dev pgnmraw.dev pnm.dev pnmraw.dev ppm.dev ppmraw.dev
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - 
+./echogs -a devs.tr - pdfwrite.dev pswrite.dev epswrite.dev pxlmono.dev pxlcolor.dev
+gcc -static -o ./genarch genarch.c
+ ./genarch arch.h
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gp_nofb.c
+./echogs -w gconfig_.h -x 2f2a -s This file was generated automatically. -s -x 2a2f
+if ( test -f /usr/include/dirent.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_DIRENT_H; else true; fi
+if ( test -f /usr/include/ndir.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_NDIR_H; else true; fi
+if ( test -f /usr/include/sys/dir.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_SYS_DIR_H; else true; fi
+if ( test -f /usr/include/sys/ndir.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_SYS_NDIR_H; else true; fi
+if ( test -f /usr/include/sys/time.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_SYS_TIME_H; else true; fi
+if ( test -f /usr/include/sys/times.h ); then 	 ./echogs -a gconfig_.h -x 23 define HAVE_SYS_TIMES_H; else true; fi
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gp_unix.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gp_unifs.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gp_unifn.c
+./echogs -e .dev -w- -l-obj unix_ gp_nofb.o gp_unix.o gp_unifs.o gp_unifn.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c seexec.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zchar1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcharout.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfont1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmisc1.c
+./echogs -e .dev -w- -l-obj psf1read seexec.o zchar1.o zcharout.o zfont1.o zmisc1.o
+./echogs -e .dev -a- psf1read -oper zchar1 zfont1 zmisc1
+./echogs -e .dev -a- psf1read -ps gs_type1
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iutil2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmisc2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zusparam.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zvmem2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zdps1.c
+./echogs -e .dev -w- -l-obj dps2int zvmem2.o zdps1.o
+./echogs -e .dev -a- dps2int -oper zvmem2 zdps1_l2
+./echogs -e .dev -a- dps2int -ps gs_dps1
+./echogs -e .dev -w- -l-obj psl2int iutil2.o zmisc2.o zusparam.o
+./echogs -e .dev -a- psl2int -include dps2int
+./echogs -e .dev -a- psl2int -oper zmisc2 zusparam
+./echogs -e .dev -a- psl2int -ps gs_lev2 gs_res
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zchar42.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfont42.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gstype42.c
+./echogs -e .dev -w- -l-obj ttflib gstype42.o
+./echogs -e .dev -w- -l-obj type42 zchar42.o zcharout.o zfont42.o
+./echogs -e .dev -a- type42 -include ttflib	
+./echogs -e .dev -a- type42 -oper zchar42 zfont42
+./echogs -e .dev -a- type42 -ps gs_typ42
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcid.c
+./echogs -e .dev -w- -l-obj cidfont zcid.o
+./echogs -e .dev -a- cidfont -include psf1read psl2int type42
+./echogs -e .dev -a- cidfont -ps gs_cidfn
+./echogs -e .dev -a- cidfont -oper zcid
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcie.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcrd.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscie.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxctable.c
+./echogs -e .dev -w- -l-obj cielib gscie.o gxctable.o
+./echogs -e .dev -w- -l-obj cie zcie.o zcrd.o
+./echogs -e .dev -a- cie -oper zcie_l2 zcrd_l2
+./echogs -e .dev -a- cie -include cielib
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfcmap.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsfcmap.c
+./echogs -e .dev -w- -l-obj cmaplib gsfcmap.o
+./echogs -e .dev -w- -l-obj cmapread zfcmap.o
+./echogs -e .dev -a- cmapread -include cmaplib psl2int
+./echogs -e .dev -a- cmapread -oper zfcmap
+./echogs -e .dev -a- cmapread -ps gs_cmap
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gschar0.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsfont0.c
+./echogs -e .dev -w- -l-obj psf0lib gschar0.o gsfont0.o
+./echogs -e .dev -a- psf0lib -include cmaplib
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zchar2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfont0.c
+./echogs -e .dev -w- -l-obj psf0read zchar2.o zfcmap.o zfont0.o
+./echogs -e .dev -a- psf0read -oper zfont0 zchar2 zfcmap
+./echogs -e .dev -w- -l-obj compfont -include psf0lib psf0read
+cp jpeg-6a/jpeglib.h jlib6.h
+cp gsjconf.h jconfig.h
+cp jpeg-6a/jmorecfg.h jmcorig.h
+cp gsjmorec.h jmorecfg.h
+cp jlib6.h jpeglib.h
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sdctc.c
+cp jpeg-6a/jerror.h jerror.h
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sjpegc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sdcte.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sjpege.c
+cp jpeg-6a/jinclude.h jinclude.h
+cp jpeg-6a/jversion.h jversion.h
+cp jpeg-6a/jcomapi.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcomapi.c
+rm -f jcomapi.c
+cp jpeg-6a/jutils.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jutils.c
+rm -f jutils.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sjpegerr.c
+cp jpeg-6a/jmemmgr.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jmemmgr.c
+rm -f jmemmgr.c
+./echogs -e .dev -w- -l-obj jpegc jcomapi.o jutils.o sjpegerr.o jmemmgr.o
+cp jpeg-6a/jcapimin.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcapimin.c
+rm -f jcapimin.c
+cp jpeg-6a/jcapistd.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcapistd.c
+rm -f jcapistd.c
+cp jpeg-6a/jcinit.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcinit.c
+rm -f jcinit.c
+cp jpeg-6a/jccoefct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jccoefct.c
+rm -f jccoefct.c
+cp jpeg-6a/jccolor.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jccolor.c
+rm -f jccolor.c
+cp jpeg-6a/jcdctmgr.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcdctmgr.c
+rm -f jcdctmgr.c
+cp jpeg-6a/jchuff.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jchuff.c
+rm -f jchuff.c
+cp jpeg-6a/jcmainct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcmainct.c
+rm -f jcmainct.c
+cp jpeg-6a/jcmarker.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcmarker.c
+rm -f jcmarker.c
+cp jpeg-6a/jcmaster.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcmaster.c
+rm -f jcmaster.c
+cp jpeg-6a/jcparam.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcparam.c
+rm -f jcparam.c
+cp jpeg-6a/jcprepct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcprepct.c
+rm -f jcprepct.c
+cp jpeg-6a/jcsample.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jcsample.c
+rm -f jcsample.c
+cp jpeg-6a/jfdctint.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jfdctint.c
+rm -f jfdctint.c
+./echogs -e .dev -w- -l-obj jpege6 jcapimin.o jcapistd.o jcinit.o
+./echogs -e .dev -a- jpege6 -include jpegc
+./echogs -e .dev -a- jpege6 -obj jccoefct.o jccolor.o jcdctmgr.o 
+./echogs -e .dev -a- jpege6 -obj jchuff.o jcmainct.o jcmarker.o jcmaster.o
+./echogs -e .dev -a- jpege6 -obj jcparam.o jcprepct.o jcsample.o jfdctint.o
+cp jpege6.dev jpege.dev
+./echogs -e .dev -w- -l-obj sdcte sdctc.o sjpegc.o sdcte.o sjpege.o
+./echogs -e .dev -a- sdcte -include jpege
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfdctc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfdcte.c
+./echogs -e .dev -w- -l-obj dcte -include sdcte
+./echogs -e .dev -a- dcte -obj zfdctc.o zfdcte.o
+./echogs -e .dev -a- dcte -oper zfdcte
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sdctd.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sjpegd.c
+cp jpeg-6a/jdapimin.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdapimin.c
+rm -f jdapimin.c
+cp jpeg-6a/jdapistd.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdapistd.c
+rm -f jdapistd.c
+cp jpeg-6a/jdinput.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdinput.c
+rm -f jdinput.c
+cp jpeg-6a/jdphuff.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdphuff.c
+rm -f jdphuff.c
+cp jpeg-6a/jdcoefct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdcoefct.c
+rm -f jdcoefct.c
+cp jpeg-6a/jdcolor.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdcolor.c
+rm -f jdcolor.c
+cp jpeg-6a/jddctmgr.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jddctmgr.c
+rm -f jddctmgr.c
+cp jpeg-6a/jdhuff.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdhuff.c
+rm -f jdhuff.c
+cp jpeg-6a/jdmainct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdmainct.c
+rm -f jdmainct.c
+cp jpeg-6a/jdmarker.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdmarker.c
+rm -f jdmarker.c
+cp jpeg-6a/jdmaster.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdmaster.c
+rm -f jdmaster.c
+cp jpeg-6a/jdpostct.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdpostct.c
+rm -f jdpostct.c
+cp jpeg-6a/jdsample.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jdsample.c
+rm -f jdsample.c
+cp jpeg-6a/jidctint.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Ijpeg-6a jidctint.c
+rm -f jidctint.c
+./echogs -e .dev -w- -l-obj jpegd6 jdapimin.o jdapistd.o jdinput.o jdphuff.o
+./echogs -e .dev -a- jpegd6 -include jpegc
+./echogs -e .dev -a- jpegd6 -obj jdcoefct.o jdcolor.o
+./echogs -e .dev -a- jpegd6 -obj jddctmgr.o jdhuff.o jdmainct.o jdmarker.o
+./echogs -e .dev -a- jpegd6 -obj jdmaster.o jdpostct.o jdsample.o jidctint.o
+cp jpegd6.dev jpegd.dev
+./echogs -e .dev -w- -l-obj sdctd sdctc.o sjpegc.o sdctd.o sjpegd.o
+./echogs -e .dev -a- sdctd -include jpegd
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfdctd.c
+./echogs -e .dev -w- -l-obj dctd -include sdctd
+./echogs -e .dev -a- dctd -obj zfdctc.o zfdctd.o
+./echogs -e .dev -a- dctd -oper zfdctd
+./echogs -e .dev -w- -l-obj dct -include dcte dctd
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zdevice2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ziodev2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmedia2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zdevcal.c
+./echogs -e .dev -w- -l-obj devctrl zdevice2.o ziodev2.o zmedia2.o zdevcal.o
+./echogs -e .dev -a- devctrl -oper zdevice2_l2 ziodev2_l2 zmedia2_l2
+./echogs -e .dev -a- devctrl -iodev null ram calendar
+./echogs -e .dev -a- devctrl -ps gs_setpd
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iscanbin.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zbseq.c
+./echogs -e .dev -w- -l-obj btoken iscanbin.o zbseq.o
+./echogs -e .dev -a- btoken -oper zbseq_l2
+./echogs -e .dev -a- btoken -ps gs_btokn
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscolor1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsht1.c
+./echogs -e .dev -w- -l-obj cmyklib gscolor1.o gsht1.o
+./echogs -e .dev -a- cmyklib -init gscolor1
+./echogs -w gconfigv.h -x 23 define USE_ASM -x 2028 -q -0 -x 29
+./echogs -a gconfigv.h -x 23 define USE_FPU -x 2028 -q 1-0 -x 29
+./echogs -a gconfigv.h -x 23 define EXTEND_NAMES 0
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage3.c
+./echogs -e .dev -w- -l-obj colimlib gximage3.o
+./echogs -e .dev -a- colimlib -init gximage3
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcolor1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zht1.c
+./echogs -e .dev -w- -l-obj cmykread zcolor1.o zht1.o
+./echogs -e .dev -a- cmykread -oper zcolor1 zht1
+./echogs -e .dev -w- -l-obj color -include cmyklib colimlib cmykread
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zupath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ibnum.c
+./echogs -e .dev -w- -l-obj upath zupath.o ibnum.o
+./echogs -e .dev -a- upath -oper zupath_l2
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsdps1.c
+./echogs -e .dev -w- -l-obj dps2lib gsdps1.o
+./echogs -e .dev -w- -l-obj dps2read ibnum.o zchar2.o
+./echogs -e .dev -a- dps2read -include dps2int
+./echogs -e .dev -a- dps2read -oper ireclaim_l2 zchar2_l2
+./echogs -e .dev -a- dps2read -ps gs_dps2
+./echogs -e .dev -w- -l-obj dpsand2 -include btoken color upath dps2lib dps2read
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c scantab.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sfilter2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfdecode.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c scfd.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c scfdtab.c
+./echogs -e .dev -w- -l-obj cfd scfd.o scfdtab.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c slzwd.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c slzwc.c
+./echogs -e .dev -w- -l-obj lzwd slzwd.o slzwc.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c spdiff.c
+./echogs -e .dev -w- -l-obj pdiff spdiff.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c spngp.c
+./echogs -e .dev -w- -l-obj pngp spngp.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c srld.c
+./echogs -e .dev -w- -l-obj rld srld.o
+./echogs -e .dev -w- -l-obj fdecode scantab.o sfilter2.o zfdecode.o
+./echogs -e .dev -a- fdecode -include cfd lzwd pdiff pngp rld
+./echogs -e .dev -a- fdecode -oper zfdecode
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfilter2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c scfe.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c scfetab.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c shc.c
+./echogs -e .dev -w- -l-obj cfe scfe.o scfetab.o shc.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c slzwce.c
+./echogs -e .dev -w- -l-obj lzwe slzwce.o slzwc.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c srle.c
+./echogs -e .dev -w- -l-obj rle srle.o
+./echogs -e .dev -w- -l-obj filter -include fdecode
+./echogs -e .dev -a- filter -obj zfilter2.o
+./echogs -e .dev -a- filter -include cfe lzwe rle
+./echogs -e .dev -a- filter -oper zfilter2
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c imainarg.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsargs.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c imain.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c icontext.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c idebug.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c idict.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c idparam.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iinit.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c interp.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iparam.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ireclaim.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iscan.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iscannum.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c istack.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iutil.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sfilter1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sstring.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c stream.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zarith.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zarray.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcontrol.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zdict.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfile.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfileio.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfilter.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfname.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfproc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zgeneric.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ziodev.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmisc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zpacked.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zrelbit.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zstack.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zstring.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zsysvm.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ztoken.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ztype.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zvmem.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zchar.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcolor.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zdevice.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfont.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfont2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zgstate.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zht.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zimage.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zmatrix.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zpaint.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zpath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ialloc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c igc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c igcref.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c igcstr.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c ilocate.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iname.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c isave.c
+./echogs -e .dev -w- -l-obj isupport ialloc.o igc.o igcref.o igcstr.o
+./echogs -e .dev -a- isupport -obj ilocate.o iname.o isave.o
+./echogs -e .dev -a- isupport -init igcref
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sfxstdio.c
+./echogs -e .dev -w- -l-obj sfile sfxstdio.o
+./echogs -e .dev -w- -l-obj psbase imainarg.o gsargs.o imain.o
+./echogs -e .dev -a- psbase -obj gconfig.o gscdefs.o iconfig.o  iccinit0.o
+./echogs -e .dev -a- psbase -obj icontext.o idebug.o idict.o idparam.o
+./echogs -e .dev -a- psbase -obj iinit.o interp.o iparam.o ireclaim.o
+./echogs -e .dev -a- psbase -obj iscan.o iscannum.o istack.o iutil.o
+./echogs -e .dev -a- psbase -obj scantab.o sfilter1.o sstring.o stream.o
+./echogs -e .dev -a- psbase -obj zarith.o zarray.o zcontrol.o zdict.o
+./echogs -e .dev -a- psbase -oper zarith zarray zcontrol zdict
+./echogs -e .dev -a- psbase -obj zfile.o zfileio.o zfilter.o zfname.o zfproc.o
+./echogs -e .dev -a- psbase -oper zfile zfileio zfilter zfproc
+./echogs -e .dev -a- psbase -obj zgeneric.o ziodev.o zmath.o zmisc.o zpacked.o
+./echogs -e .dev -a- psbase -oper zgeneric ziodev zmath zmisc zpacked
+./echogs -e .dev -a- psbase -obj zrelbit.o zstack.o zstring.o zsysvm.o
+./echogs -e .dev -a- psbase -oper zrelbit zstack zstring zsysvm
+./echogs -e .dev -a- psbase -obj ztoken.o ztype.o zvmem.o
+./echogs -e .dev -a- psbase -oper ztoken ztype zvmem
+./echogs -e .dev -a- psbase -obj zchar.o zcolor.o zdevice.o zfont.o zfont2.o
+./echogs -e .dev -a- psbase -oper zchar zcolor zdevice zfont zfont2
+./echogs -e .dev -a- psbase -obj zgstate.o zht.o zimage.o zmatrix.o zpaint.o zpath.o
+./echogs -e .dev -a- psbase -oper zgstate zht zimage zmatrix zpaint zpath
+./echogs -e .dev -a- psbase -iodev stdin stdout stderr lineedit statementedit
+./echogs -e .dev -a- psbase -include isupport rld rle sfile
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sbcp.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfbcp.c
+./echogs -e .dev -w- -l-obj bcp sbcp.o zfbcp.o
+./echogs -e .dev -a- bcp -oper zfbcp
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zhsb.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gshsb.c
+./echogs -e .dev -w- -l-obj hsblib gshsb.o
+./echogs -e .dev -w- -l-obj hsb zhsb.o
+./echogs -e .dev -a- hsb -include hsblib
+./echogs -e .dev -a- hsb -oper zhsb
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zpath1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gspath1.c
+./echogs -e .dev -w- -l-obj path1lib gspath1.o
+./echogs -e .dev -w- -l-obj path1 zpath1.o
+./echogs -e .dev -a- path1 -include path1lib
+./echogs -e .dev -a- path1 -oper zpath1
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gstype1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxtype1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxhint1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxhint2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxhint3.c
+./echogs -e .dev -w- -l-obj psf1lib gstype1.o
+./echogs -e .dev -a- psf1lib gxtype1.o gxhint1.o gxhint2.o gxhint3.o
+./echogs -e .dev -a- psf1lib -init gstype1
+./echogs -e .dev -w- -l-obj type1 -include psf1lib psf1read
+./echogs -e .dev -w- -l-obj level1 -include psbase bcp hsb path1 type1
+./echogs -e .dev -a- level1 -emulator PostScript PostScriptLevel1
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscolor2.c
+./echogs -e .dev -w- -l-obj psl2cs gscolor2.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gspcolor.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclip2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpcmap.c
+./echogs -e .dev -w- -l-obj patlib -include cmyklib psl2cs
+./echogs -e .dev -a- patlib -obj gspcolor.o gxclip2.o gxpcmap.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zpcolor.c
+./echogs -e .dev -w- -l-obj patread zpcolor.o
+./echogs -e .dev -a- patread -oper zpcolor_l2
+./echogs -e .dev -w- -l-obj pattern -include patlib patread
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage4.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage5.c
+./echogs -e .dev -w- -l-obj psl2lib gximage4.o gximage5.o
+./echogs -e .dev -a- psl2lib -init gximage4 gximage5
+./echogs -e .dev -a- psl2lib -include colimlib psl2cs
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcolor2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcsindex.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zht2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zimage2.c
+./echogs -e .dev -w- -l-obj psl2read zcolor2.o zcsindex.o zht2.o zimage2.o
+./echogs -e .dev -a- psl2read -include psl2int dps2read
+./echogs -e .dev -a- psl2read -oper zcolor2_l2 zcsindex_l2
+./echogs -e .dev -a- psl2read -oper zht2_l2 zimage2_l2
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zcssepr.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscsepr.c
+./echogs -e .dev -w- -l-obj seprlib gscsepr.o
+./echogs -e .dev -w- -l-obj sepr zcssepr.o
+./echogs -e .dev -a- sepr -oper zcssepr_l2
+./echogs -e .dev -a- sepr -include seprlib
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sbhc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c sbwbs.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c shcgen.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c smtf.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c zfilterx.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c spcxd.c
+./echogs -e .dev -w- -l-obj pcxd spcxd.o
+./echogs -e .dev -w- -l-obj xfilter sbhc.o sbwbs.o shcgen.o smtf.o  zfilterx.o
+./echogs -e .dev -a- xfilter -include pcxd
+./echogs -e .dev -a- xfilter -oper zfilterx
+./echogs -e .dev -w- -l-obj level2 -include cidfont cie cmapread compfont
+./echogs -e .dev -a- level2 -include dct devctrl dpsand2 filter
+./echogs -e .dev -a- level2 -include level1 pattern psl2lib psl2read
+./echogs -e .dev -a- level2 -include sepr type42 xfilter
+./echogs -e .dev -a- level2 -emulator PostScript PostScriptLevel2
+./echogs -e .dev -w- -l-obj pdffonts -ps gs_mex_e gs_mro_e gs_pdf_e gs_wan_e
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib zfzlib.c
+./echogs -w zutil.h -x 23 define verbose -s - -1
+./echogs -a zutil.h -+R zlib/zutil.h
+cp zlib/zutil.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib zutil.c
+rm -f zutil.c
+./echogs -e .dev -w- -l-obj zlibc zutil.o
+cp zlib/adler32.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib adler32.c
+rm -f adler32.c
+cp zlib/deflate.h deflate.h
+cp zlib/deflate.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib deflate.c
+rm -f deflate.c
+cp zlib/trees.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib trees.c
+rm -f trees.c
+./echogs -e .dev -w- -l-obj zlibe_0 adler32.o deflate.o trees.o
+./echogs -e .dev -a- zlibe_0 -include zlibc
+cp zlibe_0.dev zlibe.dev
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib szlibc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib szlibe.c
+./echogs -e .dev -w- -l-obj szlibe szlibc.o szlibe.o
+./echogs -e .dev -a- szlibe -include zlibe
+cp zlib/infblock.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib infblock.c
+rm -f infblock.c
+cp zlib/infcodes.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib infcodes.c
+rm -f infcodes.c
+cp zlib/inffast.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib inffast.c
+rm -f inffast.c
+cp zlib/inflate.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib inflate.c
+rm -f inflate.c
+cp zlib/inftrees.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib inftrees.c
+rm -f inftrees.c
+cp zlib/infutil.c .
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib infutil.c
+rm -f infutil.c
+./echogs -e .dev -w- -l-obj zlibd_0 infblock.o infcodes.o inffast.o
+./echogs -e .dev -a- zlibd_0 -obj inflate.o inftrees.o infutil.o
+./echogs -e .dev -a- zlibd_0 -include zlibc
+cp zlibd_0.dev zlibd.dev
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -I. -Izlib szlibd.c
+./echogs -e .dev -w- -l-obj szlibd szlibc.o szlibd.o
+./echogs -e .dev -a- szlibd -include zlibd
+./echogs -e .dev -w- -l-obj fzlib -include szlibe szlibd
+./echogs -e .dev -a- fzlib -obj zfzlib.o
+./echogs -e .dev -a- fzlib -oper zfzlib
+./echogs -e .dev -w- -l-obj pdfread -include fzlib
+./echogs -e .dev -a- pdfread -ps gs_pdf gs_l2img
+./echogs -e .dev -a- pdfread -ps pdf_base pdf_draw pdf_font pdf_main pdf_sec
+./echogs -e .dev -a- pdfread -ps pdf_2ps
+./echogs -e .dev -w- -l-obj pdfmin -include psbase color dps2lib dps2read
+./echogs -e .dev -a- pdfmin -include fdecode type1
+./echogs -e .dev -a- pdfmin -include pdffonts psl2lib psl2read pdfread
+./echogs -e .dev -a- pdfmin -emulator PDF
+./echogs -e .dev -w- -l-obj cff -ps gs_cff
+./echogs -e .dev -w- -l-obj ttfont -include type42
+./echogs -e .dev -a- ttfont -ps gs_mro_e gs_wan_e gs_ttf
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gstype2.c
+./echogs -e .dev -w- -l-obj psf2lib gstype2.o
+./echogs -e .dev -a- psf2lib gxtype1.o gxhint1.o gxhint2.o gxhint3.o
+./echogs -e .dev -a- psf2lib -init gstype2
+./echogs -e .dev -w- -l-obj type2 -include psf2lib
+./echogs -e .dev -w- -l-obj pdf -include pdfmin cff cidfont cie cmapread compfont dctd
+./echogs -e .dev -a- pdf -include ttfont type2
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpipe.c
+./echogs -e .dev -w- -l-obj pipe gdevpipe.o
+./echogs -e .dev -a- pipe -iodev pipe
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpbm.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevprn.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclist.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclbits.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclpage.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclread.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclrect.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclfile.c
+./echogs -e .dev -w- -l-obj clfile gxclfile.o
+./echogs -e .dev -w- -l-obj clbase gxclist.o gxclbits.o gxclpage.o
+./echogs -e .dev -a- clbase -obj gxclread.o gxclrect.o stream.o
+./echogs -e .dev -a- clbase -include clfile cfe cfd rle rld
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclimag.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxclpath.c
+./echogs -e .dev -w- -l-obj clpath gxclimag.o gxclpath.o
+./echogs -e .dev -a- clpath -include psl2cs
+./echogs -e .dev -a- clpath -init climag clpath
+./echogs -e .dev -w- -l-obj clist -include clbase clpath
+./echogs -e .dev -w- -l-obj page gdevprn.o
+./echogs -e .dev -a- page -include clist
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pbm gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pbmraw gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pgm gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pgmraw gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pgnm gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pgnmraw gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pnm gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj pnmraw gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj ppm gdevpbm.o
+./echogs -e .dev -w- -l-dev -F -s -l-include -lpage -l-obj ppmraw gdevpbm.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpdf.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpdfi.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpdfm.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpdfp.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpdft.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpsdf.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpstr.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -fomit-frame-pointer gsflip.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevvec.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevbbox.c
+./echogs -e .dev -w- -l-obj bbox gdevbbox.o
+./echogs -e .dev -w- -l-obj vector gdevvec.o
+./echogs -e .dev -a- vector -include bbox
+./echogs -e .dev -w- -l-dev -F -s -l-obj pdfwrite gdevpdf.o gdevpdfi.o gdevpdfm.o
+./echogs -e .dev -a- pdfwrite gdevpdfp.o gdevpdft.o gdevpsdf.o gdevpstr.o
+./echogs -e .dev -a- pdfwrite gsflip.o scantab.o sfilter2.o sstring.o
+./echogs -e .dev -a- pdfwrite -ps gs_pdfwr
+./echogs -e .dev -a- pdfwrite -include cmyklib cfe dcte lzwe rle vector
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevps.c
+./echogs -e .dev -w- -l-dev -F -s -l-obj pswrite gdevps.o gdevpsdf.o gdevpstr.o
+./echogs -e .dev -a- pswrite scantab.o sfilter2.o
+./echogs -e .dev -a- pswrite -include vector
+./echogs -e .dev -w- -l-dev -F -s -l-obj epswrite gdevps.o gdevpsdf.o gdevpstr.o
+./echogs -e .dev -a- epswrite scantab.o sfilter2.o
+./echogs -e .dev -a- epswrite -include vector
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevpx.c
+./echogs -e .dev -w- -l-dev -F -s -l-obj pxlmono gdevpx.o
+./echogs -e .dev -a- pxlmono -include vector
+./echogs -e .dev -w- -l-dev -F -s -l-obj pxlcolor gdevpx.o
+./echogs -e .dev -a- pxlcolor -include vector
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsalloc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsbitops.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsbittab.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gschar.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscolor.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscoord.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsdevice.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsdevmem.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsdparam.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsfont.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsht.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gshtscr.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsimage.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsimpath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsinit.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsiodev.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsline.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsmatrix.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsmemory.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsmisc.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gspaint.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsparam.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gspath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsstate.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsutil.c
+./echogs -w libs.dev gsalloc.o gsbitops.o gsbittab.o
+./echogs -a libs.dev gschar.o gscolor.o gscoord.o gsdevice.o gsdevmem.o
+./echogs -a libs.dev gsdparam.o gsfont.o gsht.o gshtscr.o
+./echogs -a libs.dev gsimage.o gsimpath.o gsinit.o gsiodev.o
+./echogs -a libs.dev gsline.o gsmatrix.o gsmemory.o gsmisc.o
+./echogs -a libs.dev gspaint.o gsparam.o gspath.o gsstate.o gsutil.o
+./echogs -e .dev -a- libs -init gscolor
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxacpath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxbcache.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxccache.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxccman.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxcht.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxcmap.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxcpath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxdcconv.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxdcolor.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxdither.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxfill.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxht.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage0.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gximage2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpaint.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpath.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpath2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpcopy.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpdash.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxpflat.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxsample.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gxstroke.c
+./echogs -w libx.dev gxacpath.o gxbcache.o
+./echogs -a libx.dev gxccache.o gxccman.o gxcht.o gxcmap.o gxcpath.o
+./echogs -a libx.dev gxdcconv.o gxdcolor.o gxdither.o gxfill.o gxht.o
+./echogs -a libx.dev gximage.o gximage0.o gximage1.o gximage2.o
+./echogs -a libx.dev gxpaint.o gxpath.o gxpath2.o gxpcopy.o
+./echogs -a libx.dev gxpdash.o gxpflat.o gxsample.o gxstroke.o
+./echogs -e .dev -a- libx -init gximage1 gximage2
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevabuf.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevddrw.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevdflt.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevnfwd.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevmem.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm1.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm2.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm4.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm8.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm16.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm24.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevm32.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevmpla.c
+./echogs -w libd.dev gdevabuf.o gdevddrw.o gdevdflt.o gdevnfwd.o
+./echogs -a libd.dev gdevmem.o gdevm1.o gdevm2.o gdevm4.o gdevm8.o
+./echogs -a libd.dev gdevm16.o gdevm24.o gdevm32.o gdevmpla.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c siscale.c
+./echogs -e .dev -w- -l-obj iscale siscale.o
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gdevmrop.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gsrop.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c -fomit-frame-pointer gsroptab.c
+./echogs -e .dev -w- -l-obj roplib gdevmrop.o gsrop.o gsroptab.o
+./echogs -e .dev -a- roplib -init roplib
+./echogs -e .dev -w- -l-obj libcore
+./echogs -e .dev -a- libcore -dev nullpage
+./echogs -e .dev -a- libcore -include libs libx libd iscale roplib
+./genconf devs.tr libcore.dev -h gconfxx.h -p "%s&s&&" -pl "&-l%s&s&&" -pL "&-L%s&s&&" -ol ld.tr
+./echogs -a gconfxx.h -x 23 define -s -u GS_LIB_DEFAULT -x 2022 ../share/ghostscript/5.0:../share/ghostscript/fonts -x 22
+./echogs -a gconfxx.h -x 23 define -s -u SEARCH_HERE_FIRST -s 1
+./echogs -a gconfxx.h -x 23 define -s -u GS_DOCDIR -x 2022 ../share/ghostscript/5.0/doc -x 22
+./echogs -a gconfxx.h -x 23 define -s -u GS_INIT -x 2022 gs_init.ps -x 22
+./echogs -a gconfxx.h -x 23 define -s -u GS_REVISION -s 500
+./echogs -a gconfxx.h -x 23 define -s -u GS_REVISIONDATE -s 19970606
+./echogs -a gconfxx.h 
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gs.c
+rm -f gconfig.h
+rm -f gconfig.c
+cp gconfxx.h gconfig.h
+cp gconf.c gconfig.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gconfig.c
+rm -f gconfig.h
+rm -f gconfig.c
+rm -f gconfig.h
+rm -f gscdefs.c
+cp gconfxx.h gconfig.h
+cp gscdef.c gscdefs.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c gscdefs.c
+rm -f gconfig.h
+rm -f gscdefs.c
+rm -f gconfig.h
+rm -f iconfig.c
+cp gconfxx.h gconfig.h
+cp iconf.c iconfig.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iconfig.c
+rm -f gconfig.h
+rm -f iconfig.c
+gcc -static  -O3 -Dconst= -Wall -Wpointer-arith -Wstrict-prototypes  -c iccinit0.c
+./echogs -w ldt.tr -n - gcc -static -lm   -o gs
+./echogs -a ldt.tr -n -s gs.o -s
+cat ld.tr >>ldt.tr
+./echogs -a ldt.tr -s - 
+LD_RUN_PATH=; export LD_RUN_PATH;  XCFLAGS= XINCLUDE= XLDFLAGS= XLIBDIRS= XLIBS=  FEATURE_DEVS= DEVICE_DEVS= DEVICE_DEVS1= DEVICE_DEVS2= DEVICE_DEVS3=  DEVICE_DEVS4= DEVICE_DEVS5= DEVICE_DEVS6= DEVICE_DEVS7= DEVICE_DEVS8=  DEVICE_DEVS9= DEVICE_DEVS10= DEVICE_DEVS11= DEVICE_DEVS12=  DEVICE_DEVS13= DEVICE_DEVS14= DEVICE_DEVS15=  /bin/sh <ldt.tr
+*** Exit 1

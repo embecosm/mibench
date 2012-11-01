@@ -1,0 +1,59 @@
+@Section
+    @Title { Changing the appearance of rows }
+    @Tag { tbl_rows }
+@Begin
+@PP
+We've seen that the @Code aformat option of @Code "@Tbl" determines the
+format of the rows introduced by the @Code "@Rowa" symbol.  There are
+eight row format options: {@Code aformat},
+row.formats @Index { row formats in tables }
+{@Code bformat}, and so on up to {@Code hformat}, and for each there
+is a corresponding {@Code "@Row"} symbol:  {@Code "@Rowa"}, {@Code "@Rowb"},
+and so on:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    aformat { @Cell @I A  |  @Cell @I B }
+    bformat { @Cell A  |  @Cell B }
+{
+@Rowa
+    A { Name }
+    B { Nationality }
+@Rowb
+    A { Austen }
+    B { English }
+@Rowb
+    A { Balzac }
+    B { French }
+}
+}
+The result of this is
+@CD @OneRow @Tbl
+    aformat { @Cell @I A  |  @Cell @I B }
+    bformat { @Cell A  |  @Cell B }
+{
+@Rowa
+    A { Name }
+    B { Nationality }
+@Rowb
+    A { Austen }
+    B { English }
+@Rowb
+    A { Balzac }
+    B { French }
+}
+The first row, being a {@Code "@Rowa"}, is formatted using
+{@Code aformat}; the others, being {@Code "@Rowb"} symbols, are
+formatted using {@Code bformat}.
+@PP
+In addition to the eight @Code format options of {@Code "@Tbl"}, it is
+possible to specify the format of a row at the row itself, using the
+@Code "@Row" symbol like this:
+@ID @OneRow @Code @Verbatim {
+@Row
+    format { @Cell @B A | @Cell paint { lightgrey } B }
+    A { ... }
+    B { ... }
+}
+All formats must contain the same number of cells, otherwise the table
+will not be rectangular.
+@End @Section

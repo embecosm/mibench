@@ -1,0 +1,361 @@
+@Section
+    @Tag { dia_defi }
+    @Title { Expert usage:  defining new shapes }
+@Begin
+@PP
+@@Diag permits you to create your own node outlines and link paths, by
+giving non-standard values to the @Code outline and @Code path
+options.  This section shows how to do this for very simple shapes
+only; the following section introduces the large repertoire of geometrical
+symbols that @@Diag offers for helping you create complex shapes.
+@PP
+As explained earlier, a node outline is drawn over its {@I base}, which
+is a rectangle containing the following object plus margins.  The base
+defines a coordinate system with the point (0, 0) at the bottom left
+corner, and @Eq { (xsize, ysize) } at the top right:
+@CD @OneRow @Diag {
+@Box
+    nodelabelmargin { 0.3f }
+    blabel { @Eq { ysize } }
+    blabelprox { E }
+    clabel { @Eq { 0 } }
+    clabelprox { E }
+    dlabel { @Eq { xsize } }
+    dlabelprox { N }
+    alabel { @Eq { 0 } }
+    alabelpos { SW }
+    alabelprox { N }
+    paint { lightgrey }
+    outlinestyle { noline }
+    margin { 0c }
+{ 3c @Wide 2c @High }
+//0.5c
+}
+The value of the @Code outline option is a sequence of points defined in
+this coordinate system:
+@ID {
+@Code {
+"@Node"
+"    outline {"
+"        0 0"
+"        xsize 0"
+"        0 ysize"
+"        0 0"
+"    }"
+}
+||7ct
+@Diag {
+@Box
+    margin { 0c }
+    outlinestyle { noline }
+    paint { lightgrey }
+@Node
+    outline {
+        0 0
+        xsize 0
+        0 ysize
+        0 0
+    }
+    margin { 0c }
+{ 3c @Wide 2c @High }
+}
+}
+As shown, the resulting outline is created by joining each point to the
+next with a straight line.  It is conventional to proceed anticlockwise
+around the outline, but you may start anywhere.
+@PP
+The {@Code paint}, {@Code outlinestyle}, {@Code outlinedashlength},
+and {@Code outlinewidth} options of @Code "@Node" work for user-defined
+outlines exactly as they do for the standard ones:
+@ID {
+@Code {
+"@Node"
+"    outline {"
+"        0 0"
+"        xsize 0"
+"        0 ysize"
+"        0 0"
+"    }"
+"    paint { lightgrey }"
+"    outlinestyle { solid dashed }"
+}
+||7ct
+@Diag {
+@Node
+    outline {
+        0 0
+        xsize 0
+        0 ysize
+        0 0
+    }
+    paint { lightgrey }
+    outlinestyle { solid dashed }
+    margin { 0c }
+{ 3c @Wide 2c @High }
+}
+}
+Each line in the outline is one segment for {@Code outlinestyle}.
+@PP
+If two points in an outline are separated by {@Code "[]"}, no line is
+drawn between them, and the outline is treated as two separate,
+disconnected regions when painting.
+@PP
+Two points may also be separated by {@Code "["}{@I point}{@Code "]"},
+where @I point stands for any point.  This causes the two points to be
+joined by an arc whose centre is at the given point:
+@ID {
+@Code {
+"@Node"
+"    outline {"
+"        0 0"
+"        ysize 0"
+"        [ 0 0 ]"
+"        0 ysize"
+"        0 0"
+"    }"
+}
+||7ct
+@Diag {
+@Box
+    margin { 0c }
+    outlinestyle { noline }
+    paint { lightgrey }
+@Node
+    outline {
+        0 0
+        ysize 0
+        [ 0 0 ]
+        0 ysize
+        0 0
+    }
+    margin { 0c }
+{ 3c @Wide 2c @High }
+}
+}
+The arc will be circular if possible, otherwise it will be part of
+elliptical. @Index { elliptical arcs }
+an ellipse whose axes are oriented horizontally and vertically.  The
+arc goes anticlockwise; to get a clockwise arc, use
+{@Code "["}{@I point}{@Code " clockwise]"}.
+@PP
+Two points may be separated by
+@Eq { [x sub 1 ``` y sub 1 ```  x sub 2 ``` y sub 2 & ] }, which requests
+that a Bezier curve be drawn between them with control points
+bezier.curve @Index { Bezier curve }
+@Eq { (x sub 1 & , y sub 1 & ) } and
+@Eq { (x sub 2 & , y sub 2 & ) }:
+@CD @Diag {
+@Node
+    outline {
+        A:: { xsize*0.2 ysize*0.5 }
+        B:: { xsize*0.4 ysize*0.9 }
+        C:: { xsize*0.9 ysize*0.4 }
+        D:: { xsize*0.3 ysize*0.1 }
+        A B C D A
+    }
+    alabelpos { A }
+    blabelpos { B }
+    clabelpos { C }
+    dlabelpos { D }
+    alabelprox { SE }
+    blabelprox { SW }
+    clabelprox { SW }
+    dlabelprox { NW }
+    outlinestyle { cdashed cdashed cdashed noline }
+    alabel { @Eq { ( x sub 0 , y sub 0 ) } }
+    blabel { @Eq { ( x sub 1 , y sub 1 ) } }
+    clabel { @Eq { ( x sub 2 , y sub 2 ) } }
+    dlabel { @Eq { ( x sub 3 , y sub 3 ) } }
+{ 6c @Wide 2c @High }
+//
+@Link
+    path { A [B C] D }
+}
+The curve is attracted toward the control points, without reaching
+them; it is tangent to the straight line from the start point to the
+first control point, and from the second control point to the finishing
+point, and it lies wholly inside the quadrilateral formed by the four
+points.  Owing to the author's laziness, dashes and dots do not fit as
+neatly onto Bezier curves as they do onto lines and arcs.
+@PP
+Tags (Section {@NumberOf dia_tags}) may be assigned to points within
+the outline option, like this:
+@ID {
+@Code {
+"@Node"
+"    outline {"
+"        LR:: { xsize 0 }"
+"        UL:: { 0 ysize }"
+"        0 0  LR  UL  0 0"
+"    }"
+}
+||7ct
+@Diag {
+//0.5f
+@ShowTags @Node
+    outline {
+        LR:: { xsize 0 }
+        UL:: { 0 ysize }
+        0 0  LR  UL  0 0
+    }
+    { 2c @High 3c @Wide }
+}
+}
+The tagged point does not have to lie on the outline, and it
+is not automatically added to the outline.  Once defined, a
+tag stands for a point in the usual way; it may be used later in the
+outline, as was done above, relabelled, and so on, exactly like the tags
+of the standard nodes.
+@PP
+Once a point has been tagged, a @I direction may be associated
+with it, to inform @@Diag which way the outline or
+link path is going at that point.  The standard outlines have directions:
+@ID {
+@Code {
+"@Ellipse { 3c @Wide 1c @High }"
+}
+||7ct
+@Diag {
+//0.5f
+@ShowTags @ShowDirections @Ellipse { 3c @Wide 1c @High }
+}
+}
+@Code CTR has no direction.  If available, direction information
+is used when placing labels, in the proximity step (by {@Code above}, for
+example) and in the angle step if the label is aligned, perpendicular,
+parallel, or antiparallel.  A direction is given using the
+@Code ":<" symbol within an outline:
+@ID {
+@Code {
+"@Node"
+"    outline {"
+"        LR:: { xsize 0 }"
+"        LR:< 0d"
+"        UL:: { 0 ysize }"
+"        UL:< 270d"
+"        0 0 LR UL 0 0"
+"    }"
+}
+||7ct
+@Diag {
+//0.5f
+@ShowTags @ShowDirections @Node
+    outline {
+        LR:: { xsize 0 }
+        LR:< 0d
+        UL:: { 0 ysize }
+        UL:< 270d
+        0 0 LR UL 0 0
+    }
+    { 2c @High 3c @Wide }
+}
+}
+It is often helpful when creating outlines to check where the tagged
+points and directions really are, by printing them out as is done
+above.  For this there is a @Code "@ShowTags" symbol whose result is
+the following (arbitrary) object with its tagged points visible, and
+a @Code "@ShowDirections" symbol which works similarly and shows the
+directions.  The diagram above was printed using
+{@Code "@ShowTags @ShowDirections @Node ..."}.  There is also a
+@Code "@ShowPoints" symbol which is like @Code "@ShowTags" except
+that it omits the tags, just placing circles on the points.
+@PP
+Link paths are similar to node outlines, created
+using the @Code path option of @Code "@Link" instead of the
+@Code outline option of {@Code "@Node"}.  The major difference is that
+links have no base, so @Code xsize and @Code ysize cannot be
+used.  Indeed, even @Code "0 0" does not have any useful
+meaning inside a link path.
+@PP
+Within a link path, the symbols @Code from and @Code to denote the
+values of the link's @Code from and @Code to options, and these
+form the basis of constructing the link path:
+@ID {
+@Code {
+"@Link"
+"    path {"
+"        FROM:: from"
+"        TO:: to"
+"        FROM TO"
+"    }"
+}
+||7ct
+{
+//1.0c
+@VContract @Diag {
+3c @Wide 1c @High
+//
+@ShowTags @Link
+    path {
+        FROM:: from
+        TO:: to
+        FROM TO
+    }
+    from { 0,1 }
+    to { 1,0 }
+}
+}
+}
+This simple example creates two tagged points and joins them with
+a straight line.  If you want a link that can carry arrowheads, it is
+best to ensure that it creates @Code FROM and @Code TO tags, with
+directions pointing along the link from @Code FROM to @Code TO at
+both points, since then the default values of the various arrow
+options will do the rest.  Similarly, if you want labels you need to
+define {@Code LFROM}, {@Code LMID}, and {@Code LTO} labels, ideally
+also with directions.
+@PP
+Once the outline or path is complete, unless it is really a one-off
+production the best thing to do with it is to add it to your
+extend. @Index { @Code extend keyword }
+@Code "mydefs" file in the following form:
+@ID @OneRow @Code {
+"extend @DiagSetup @Diag"
+"macro @MyNode {"
+"    @Node"
+"        outline {"
+"            LR:: { xsize 0 }"
+"            LR:< 0d"
+"            UL:: { 0 ysize }"
+"            UL:< 270d"
+"            0 0 LR UL 0 0"
+"        }"
+"}"
+}
+This says that we are `extending' the @@Diag symbol by adding a new
+symbol, {@Code "@MyNode"}, which stands for what follows it between
+braces.  @Code "@MyNode" will then behave exactly like @Code "@Circle"
+and the other standard node symbols.  The same pattern works for links:
+@ID @OneRow @Code {
+"extend @DiagSetup @Diag"
+"macro @MyLink {"
+"    @Link"
+"        path {"
+"            FROM:: from"
+"            TO:: to"
+"            FROM TO"
+"        }"
+"}"
+}
+If it is worth the effort to construct a new outline or link path, it
+is worth packaging it like this and thinking up a good name for it,
+for then it will be available, easily, forever.
+@PP
+This same approach is also useful to define common combinations of
+options, even when there is no new outline or path:
+@ID @OneRow @Code {
+"extend @DiagSetup @Diag"
+"macro @BigOctagon {"
+"    @Polygon"
+"        sides { 8 }"
+"        hsize { 5c }"
+"        vsize { 5c }"
+"        font { Bold }"
+"}"
+}
+Such definitions are very useful if the combinations occur
+frequently.  Any options not mentioned have their usual default values,
+and may be set in the usual way:
+@ID @Code "@BigOctagon outlinestyle { dashed } ..."
+Attempts to reset an already set option will elicit a warning message.
+@End @Section

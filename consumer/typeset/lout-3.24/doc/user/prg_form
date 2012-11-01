@@ -1,0 +1,54 @@
+@Section
+   @Title { Dealing with formfeed characters in programs }
+   @Tag { formfeed }
+@Begin
+@PP
+The formfeed (Control-L) character is traditionally taken to be a
+request to start a new page.  This is explicitly recognized by the
+formal definition of the C language and many others, which treat
+this character as white space from a language point of view, with
+the understanding that it will cause a page break when printed.
+@PP
+There are no @Code { prg2lout } options for dealing with formfeed
+characters.  They will be converted into @Code "@NP" (new page)
+symbols, causing a new page or column to be begun in the printing.
+@PP
+Whether formfeed characters end their line or not is a problem.  Consider
+this example, where @Code "^L" stands for one formfeed character:
+@ID @Code @Verbatim {
+abc
+def^Lghi
+jhk
+}
+How many lines does this example contain?  Your text editor would
+probably say `three', but when you print it you will see four.  It
+is not desirable to have printed programs (especially those with
+line numbers attached) disagreeing with text editors about line
+numbers.  The solution adopted by @Code { prg2lout } to this
+problem is to treat the formfeed character as including a newline,
+but to assign the same line number to both parts of the original line
+(the parts before and after the formfeed).  If the part after the
+formfeed is empty (that is, if the formfeed character is immediately
+followed by a newline or another formfeed), and if the formfeed is not
+inside any lexical unit, then the empty line after the formfeed will
+not be printed at all.
+@PP
+The most common case is that of a formfeed character, outside any
+lexical unit, on a line by itself.  Let's see what this rule
+produces in the following example of this case:
+@ID @Code @Verbatim {
+abc
+def
+^L
+ghi
+}
+There will be one blank line numbered 3 at the end of the first page,
+and a line numbered 4 and containing @Code ghi at the start of the
+next page.  The blank line is a necessity, at least when lines are
+being numbered, because we want the last line in the example to be
+numbered 4 to agree with text editors, but we don't want the line
+numbers on our print to skip from 2 on the first page to 4 on the
+second, because that would make readers anxious about the apparently
+missing line 3.  If you don't want that empty line, move the formfeed
+character to the end of the preceding line.
+@End @Section

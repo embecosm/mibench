@@ -1,0 +1,106 @@
+@Section
+    @Tag { dia_intr }
+    @Title { Introduction }
+@Begin
+@PP
+To use the @@Diag symbol you first need to include its setup file.  For
+example, suppose you have an ordinary document with tables:
+@ID @OneRow @Code {
+"@SysInclude { tbl }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+Change this to
+@ID @OneRow @Code {
+"@SysInclude { tbl }"
+"@SysInclude { diag }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+This provides everything you need for making diagrams.
+@PP
+The result of the @@Diag symbol is an object in the usual way.  A diagram
+is commonly made into a centred display, like this:
+@ID @OneRow @Code {
+"@CentredDisplay @Diag { ... }"
+}
+or into a floating figure, like this:
+@ID @OneRow @Code {
+"@Figure"
+"    @Caption { ... }"
+"@Diag {"
+"    ..."
+"}"
+}
+but it could be an entry in a table, a word in a paragraph, or anything
+else.
+@PP
+Most uses of @@Diag contain a @I { nodes part } and a @I { links part }:
+@ID @OneRow lines @Break {
+@Code "@Diag {"
+    @I { nodes part }
+    @Code "//"
+    @I { links part }
+@Code "}"
+}
+This reflects @@Diag's view of the world as consisting of {@I nodes}
+(circles, squares, and so on), which have to be put in their right
+places and then joined with @I links (lines, arrows).  The technical
+meaning of the {@Code "//"} symbol does not concern us here; it
+simply serves to divide the two parts.
+@PP
+For example, here is a nodes part containing two nodes separated by
+a @Code "@DP" symbol that (as usual) leaves some vertical space
+between them:
+@ID @OneRow @Tab
+  @Fmta { @Col 7c @Wide A ! @Col B }
+{
+@Rowa
+    A { @Code {
+"@Ellipse { Hello, world }"
+"@DP"
+"@Square @I x"
+} }
+    B { @Diag {
+@Ellipse { Hello, world }
+@DP
+@Square @I x 
+} }
+}
+Node symbols like @Code "@Ellipse" and @Code "@Square" follow a familiar
+pattern:  they consume the following object, which may be arbitrary, draw
+a shape around it, and give back the resulting object.  To insert links, the
+nodes must first be given names, called {@I tags}, using the @Code "::" symbol:
+@ID @OneRow @Code {
+"A:: @Ellipse { Hello, world }"
+"@DP"
+"B:: @Square @I x"
+}
+Then a link from @Code A to @Code B may be added to the links part:
+@ID @OneRow @Tab
+  @Fmta { @Col 7c @Wide A ! @Col B }
+{
+@Rowa
+    A { @Code {
+"@Diag {"
+"    A:: @Ellipse { Hello, world }"
+"    @DP"
+"    B:: @Square @I x"
+"    //"
+"    @Link from { A } to { B }"
+"}"
+} }
+    B { @Diag {
+A:: @Ellipse { Hello, world }
+@DP
+B:: @Square @I x 
+//
+@Link from { A } to { B }
+} }
+}
+Subsequent examples will often omit the enclosing {@Code "@Diag { }"}.
+@End @Section

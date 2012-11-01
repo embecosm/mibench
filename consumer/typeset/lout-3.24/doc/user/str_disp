@@ -1,0 +1,94 @@
+@Section
+   @Title { Displays }
+   @Tag { displays }
+@Begin
+@PP
+The @Code "@Display" symbol displays the following object in the centre
+displays. @Index displays
+display. @Index @Code "@Display"
+of the page or column:
+@ID @Code "@Display @I { Invitation to Afternoon Tea }"
+has result
+@Display @I { Invitation to Afternoon Tea }
+Space is inserted automatically above and below the display; no
+paragraph symbols are needed.
+@PP
+To make the display appear at the left margin instead of centred, use
+leftdisplay. @Index @Code "@LeftDisplay"
+{@Code "@LeftDisplay"} instead of {@Code "@Display"}.  To make an indented
+display, use {@Code "@IndentedDisplay"} or {@Code "@QuotedDisplay"};
+indenteddisplay. @Index @Code "@IndentedDisplay"
+quoteddisplay. @Index @Code "@QuotedDisplay"
+the latter indents at the right margin as well as at the left. There are
+also @Code "@CentredDisplay" and @Code "@CenteredDisplay" symbols which
+centreddisplay. @Index @Code "@CentredDisplay"
+centereddisplay. @Index @Code "@CenteredDisplay"
+centre the display just like {@Code "@Display"} does, and
+rightdisplay. @Index @Code "@RightDisplay"
+@Code "@RightDisplay" which right-justifies the display.
+@PP
+If you use displays frequently you might prefer abbreviated forms of
+their names.  These are made from @Code "@" and the capital letters of
+d. @Index @Code "@D"
+ld. @Index @Code "@LD"
+id. @Index @Code "@ID"
+qd. @Index @Code "@QD"
+cd. @Index @Code "@CD"
+the full name:  {@Code "@D"}, {@Code "@LD"}, {@Code "@ID"}, {@Code "@QD"},
+and {@Code "@CD"}.  Owing to a clash with the name of another symbol,
+{@Code "@RightDisplay"} has no abbreviation.
+@PP
+Displays often need to be set using a different font, paragraph
+breaking style, and so on to the surrounding text.  It's best to set
+out such displays like this:
+@ID @OneRow @Code {
+"@CentredDisplay @I clines @Break {"
+"Invitation to Afternoon Tea"
+"with"
+"Mr. and Mrs. Gilbert Newington-Smith"
+"}"
+}
+You can have as many of these symbols as you like, including specialized
+ones like {@Code "@CurveBox"} and {@Code "@Tbl"}.  The only rule is that
+the display symbol must come first:  @Code "@I @Display ..." is wrong.
+@PP
+It's not a good idea to have one display immediately followed by
+another one, because there will be too much vertical space between
+them.  Use a list instead (Section {@NumberOf lists}).  Displays
+at the ends of paragraphs look awkward and are best avoided.
+@PP
+A display may come out partly on one page or column and partly on
+the next, if it has places where it obviously can be broken in two.  For
+example, a display which is an ordinary paragraph of text might be
+broken in two between any two lines.  To force a display to keep
+together on one page or column, use the @Code "@OneRow" symbol like
+this:  @Code "@Display @OneRow { ... }".
+@PP
+Other display symbols produce aligned and numbered displays, and raw
+displays (i.e.  without vertical space).  Although these can display any
+object as usual, in practice they are used for mathematics, so they are
+described in Section {@NumberOf mathdisplays}.
+@PP
+Three setup file options control the appearance of displays.  (For a
+general introduction to setup files and their options, consult
+Section {@NumberOf setup}.)  Here they are with their default values:
+@ID @OneRow @Code {
+"@DisplayGap { 1.00v }"
+"@DefaultIndent { 0.5rt }"
+"@DisplayIndent { 2.00f }"
+}
+@Code "@DisplayGap" is the amount of vertical space inserted before and
+display.gap. @Index @Code "@DisplayGap"
+after displays, and may be any length (Section {@NumberOf objects}).  The
+default value, @Code {"1.00v"}, is equal to the current inter-line spacing.
+@PP
+@Code "@DefaultIndent" is the indent produced by
+default.indent @Index @Code "@DefaultIndent"
+{@Code "@Display"}; {@Code "0.5rt"} produces centring, although why it does
+so is beyond our scope
+@Cite { $kingston1995lout.expert }.  @Code "@DisplayIndent" is the
+display.indent. @Index @Code "@DisplayIndent"
+indent for {@Code "@IndentedDisplay"}, and used at both margins by
+{@Code "@QuotedDisplay"}.  Its default value, {@Code "2.00f"}, is twice
+the current font size.
+@End @Section

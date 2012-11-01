@@ -1,0 +1,43 @@
+@Section
+   @Title { "@HShift" and "@VShift" }
+   @Tag { hshift }
+@Begin
+@PP
+The @@HShift symbol
+hshift.sym @Index { @@HShift symbol }
+returns its right parameter with principal mark shifted as prescribed
+by its left parameter:
+@IL
+
+@LI {
+2i @Wide { |1rt @Code + & @I length @@HShift @I object }
+|2m Principal mark shifted to the right by {@I length};
+}
+
+@LI {
+2i @Wide { |1rt @Code - & @I length @@HShift @I object }
+|2m Principal mark shifted to the left by {@I length};
+}
+
+@LI {
+2i @Wide { |1rt @I length @@HShift @I object }
+|2m Principal mark shifted so as to lie @I length to the right
+of the left edge of {@I object};
+}
+
+@EL
+In each chase @@HShift includes a @@OneCol effect.
+@PP
+The units of measurement of @I length may be {@Code "c"}, {@Code "i"},
+{@Code "p"}, {@Code "m"}, {@Code "f"}, {@Code "s"}, {@Code "v"}, or
+{@Code "w"}.  In the latter case, @Code "1w" is taken to be the width
+of the right parameter, so that, for example, @Code "0.5w @HShift" will
+centre the principal column mark within the right parameter.
+@PP
+vshift.sym @Index { @@VShift symbol }
+The @@VShift symbol is similar except that it applies vertically to the
+principal row mark:  @Code + & @I length shifts it down, @Code - & @I
+length shifts it up, and @I length shifts it to @I length below the top
+edge of the object.  With @@VShift, @Code "1w" is taken to be the height
+of the right parameter.
+@End @Section

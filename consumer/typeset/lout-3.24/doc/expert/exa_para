@@ -1,0 +1,236 @@
+@Section
+   @Title { Paragraphs, displays, and lists }
+   @Tag { paras }
+@Begin
+@PP
+The remaining sections of this chapter are all based on Version 2 of
+the DocumentLayout package.  Version 3, which is similar but more elaborate,
+is described from the user's perspective in the
+document.layout @Index { DocumentLayout package }
+User's Guide @Cite { $kingston1995lout.user }.  In 26 pages of Lout, the
+DocumentLaytout package defines many features required in the formatting
+of simple documents, technical reports, and books, including displays,
+lists, page layout, cross references, tables of contents, footnotes,
+figures, tables, references, chapters, sections, and sorted indexes.
+@PP
+The symbols used for separating paragraphs and producing displays and
+document.layout.paras @SubIndex { paragraphs }
+lists may lack the excitement of more exotic features, but they can
+teach some important lessons about robust design.  The following macro
+for separating paragraphs produces a 0.3 cm vertical space and a 1 cm
+indent on the following line, and is clearly on the right track:
+@ID @Code "macro  @PP  { //0.3c &1c }"
+Nevertheless it has several major problems.
+@PP
+The @Code "&" symbol is subject to widening during line adjustment, so
+it should be replaced by {@Code "1c @Wide {}"}.  But then white space
+following the symbol will affect the result, so an extra @Code "&0i" must
+be added.  If the document is printed double spaced, this paragraph gap
+will fail to widen:  it should be expressed in terms of the @Code "v" unit,
+with mark-to-mark spacing mode.  Similarly, the paragraph indent should
+probably be made proportional to the font size.
+@PP
+`Magic numbers' like @Code "0.3c" should not be buried in definitions
+where they cannot be changed easily, or kept consistent with similar
+definitions during tuning.  They are much better placed as symbols,
+possibly parameters of the enclosing package:
+@ID @Code {
+"def @DocumentLayout" pp.example @Index { @Code "@PP" example }
+"    named @ParaGap { 1.3vx }"
+"    named @ParaIndent { 2f }"
+"    ..."
+"@Begin"
+""
+"    macro @PP { //@ParaGap @ParaIndent @Wide &0i }"
+"    macro @LP { //@ParaGap }"
+"    ..."
+"@End @DocumentLayout"
+}
+and we have arrived at the definition of @Code "@PP" as it appears in
+the DocumentLayout package.
+@PP
+A display is a table in which the first column is blank:
+document.layout.displays @SubIndex { displays }
+@ID lines @Break {
+@I { preceding text }
+@Code "//@DispGap |@DispIndent"  @I display
+@Code "//@DispGap"
+@I { following text }
+}
+Edge-to-edge is the appropriate spacing mode before and after displays,
+since the display could be a table or figure whose mark does not
+correspond to a baseline.  Thus, @Code "1v" is a reasonable value for
+{@Code "@DispGap"}.
+@PP
+The ordinary user cannot be expected to type the Lout source shown
+above; a more appropriate syntax is
+indented.display.example @Index { @Code "@IndentedDisplay" example }
+@ID lines @Break {
+@I { preceding text }
+@Code "@IndentedDisplay {"  @I display  @Code "}"
+@I { following text }
+}
+This presents a problem:  if @Code "@IndentedDisplay" is made a definition
+with a right parameter, its result will be an object separated from the
+surrounding text only by white space, hence part of the paragraph; while
+if it is a macro, the final @Code "//@DispGap" cannot be included in it.
+ The solution adopted in the DocumentLayout package uses a galley and a macro:
+@ID @Code {
+"    def @DispPlace { @Galley }"
+"    def @Disp into { @DispPlace&&preceding }"
+"        right x"
+"    {"
+"        @OneRow x"
+"    }"
+""
+"    macro @IndentedDisplay"
+"    {"
+"        //@DispGap  |@DispIndent  @DispPlace  |"
+"        //@DispGap  //  @Disp"
+"    }"
+}
+@Code "@DispPlace" and @Code "@Disp" are not exported, so there is
+no danger of a name clash with some other symbol.  The ordinary user's
+syntax expands to
+@ID lines @Break {
+@I { preceding text }
+@Code "//@DispGap  |@DispIndent  @DispPlace  |"
+@Code "//@DispGap  //  @Disp {" @I display @Code "}"
+@I { following text }
+}
+and the @Code "@Disp" galley appears at the preceding
+{@Code "@DispPlace"}, being itself replaced by @@Null.  The @Code "//"
+symbol protects the preceding @Code "//@DispGap" from being deleted by
+this @@Null when there is no following text.
+@PP
+An automatically numbered list
+document.layout.lists @SubIndex { lists }
+numbered @Index { Numbered list }
+could have an arbitrarily large number of
+items, so, by analogy with sequences of pages, we see immmediately that
+recursion must be involved:
+@ID @Code {
+"def @List right num"
+"{"
+"    @DispIndent @Wide num.  |  @ItemPlace"
+"    //@DispGap @List @Next num"
+"}"
+}
+Notice how the @@Next symbol works in conjunction with the recursion to
+produce an ascending sequence of numbers; the result of @Code "@List 1"
+will be
+@ID @Code {
+"1.   @ItemPlace"
+"2.   @ItemPlace"
+"3.   @ItemPlace"
+"..."
+}
+We can follow this with items which are galleys targeted to
+{@Code "@ItemPlace&&preceding"}, and @Code "@List" will expand just
+enough to accommodate them.
+@PP
+The usual problem with recursive-receptive symbols now arises:  there is
+always one unexpanded {@Code "@List"}, and until it can be removed the
+galley containing it will appear to be incomplete and will be prevented at
+that point from flushing into its parent (see page {@PageOf forcing}).  We
+adopt the usual solution:  a forcing galley into a later target will
+replace the last @Code "@List" by @@Null.  This brings us to the
+definitions as they appear in DocumentLayout:
+indented.list.example @Index { @Code "@IndentedList" example }
+@IndentedList
+@LI @Code {
+"def @ItemPlace { @Galley }"
+"def @ListItem into { @ItemPlace&&preceding }"
+"    right x"
+"{ x }"
+}
+@LI @Code {
+"def @EndListPlace { @Galley }"
+"def @EndList force into { @EndListPlace&&preceding }"
+"{}"
+}
+@LI @Code {
+"def @RawIndentedList"
+"   named style right tag {}"
+"   named indent { @DispIndent }"
+"   named gap { @DispGap }"
+"   named start { 1 }"
+"{"
+"    def @IList right num"
+"    {"
+"        indent @Wide {style num} | @ItemPlace"
+"        //gap @IList @Next num"
+"    }"
+""
+"    @IList start  //  @EndListPlace"
+"}"
+}
+@EndList
+Now given the input
+@ID @Code {
+"@RawIndentedList"
+"@ListItem { first item }"
+"@ListItem { second item }"
+"..."
+"@ListItem { last item }"
+"@EndList"
+}
+@Code "@RawIndentedList" will expand to receive the items, and will be
+closed off by {@Code "@EndList"}.
+@PP
+The {@Code indent}, {@Code gap}, and {@Code start} parameters are
+straightforward (note that the burden of typing @Code 1 has been lifted
+from the ordinary user), but the @Code style parameter has a parameter
+of its own (see page {@PageOf strange}).  It is used like this:
+@ID @Code {
+"def @RawNumberedList { @RawIndentedList style { tag. } }"
+"def @RawParenNumberedList { @RawIndentedList style { (tag) } }"
+}
+In {@Code "@RawNumberedList"}, @Code "style" is given the value
+{@Code "tag."}, where @Code tag is its own right parameter, so the value
+of @Code "{style num}" within @Code "@IList" is {@Code "num."}; while in
+{@Code "@RawParenNumberedList"}, @Code "{style num}" is {@Code "(num)"}.  In
+this way we achieve an unlimited variety of numbering formats without
+having to rewrite @Code "@RawIndentedList" over and over.
+@PP
+These list symbols are objects without surrounding space, so macros
+similar to those used for displays are needed:
+@ID @Code {
+"macro @NumberedList { //@DispGap @RawNumberedList //@DispGap }"
+"macro @ParenNumberedList { //@DispGap @RawParenNumberedList //@DispGap }"
+}
+and so on.
+@PP
+Lists numbered by Roman numerals
+roman @Index { Roman numerals }
+present a problem, because @@Next will
+not increment Roman numerals.  Instead, they must be stored in a
+database:
+@ID @Code {
+"def @Roman"
+"    left @Tag"
+"    right @Val"
+"{ @Val }"
+""
+"@SysDatabase @Roman { standard }"
+}
+@Code "@SysDatabase" is preferred over @Code "@Database" here because
+this database should be kept in a standard place and shared by
+everyone.  The database itself, a file called @Code "standard.ld" in
+Basser Lout, contains invocations of {@Code "@Roman"}, each enclosed in
+braces:
+@ID @Code {
+"{ 1 @Roman i }"
+"{ 2 @Roman ii }"
+"..."
+"{ 100 @Roman c }"
+}
+Then @Code "@Roman&&12" for example has value {@Roman&&12}, and
+@ID @Code {
+"def @RawRomanList { @RawIndentedList style { {@Roman&&tag}. } }"
+}
+produces a list numbered by Roman numerals.  The counting still
+proceeds in Arabic, but each Arabic numeral is converted to Roman by the
+cross reference.  Since arbitrary objects may be stored in databases,
+arbitrary finite sequences of objects may be `counted' in this way.
+@End @Section

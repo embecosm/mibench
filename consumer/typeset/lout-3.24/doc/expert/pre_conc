@@ -1,0 +1,325 @@
+@Section
+   @Title { Concatenation symbols and paragraphs }
+   @Tag { concatenation }
+@Begin
+@PP
+There are ten concatenation symbols, in three families:
+concatenation. @Index { Concatenation symbols }
+@ID @Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @Code A ! @Col @Code B ! @Col @Code C ! @Col @Code D ! @Col E }
+{
+@Rowa A { "/" } B { "^/" } C { "//" } D { "^//" } E { Vertical concatenation }
+@Rowa A { "|" } B { "^|" } C { "||" } D { "^||" } E { Horizontal concatenation }
+@Rowa A { "&" } B { "^&" } C {      } D {       } E {In-paragraph concatenation}
+}
+Each symbol produces an object which combines together the two
+parameters.  The right parameter must be separated from the symbol by at
+least one white space character.
+@PP
+The vertical concatenation symbol @Code "/" places its left parameter
+vertical.concatenation @Index { Vertical concatenation }
+above its right parameter with their column marks aligned.  If one
+parameter has more column marks than the other, empty columns are
+inserted at the right to equalize the numbers.  The variant @Code "//"
+ignores column marks and left-justifies the objects.
+@PP
+The horizontal concatenation symbols @Code "|" and @Code "||" are horizontal
+horizontal.concatenation @Index { Horizontal concatenation }
+analogues of @Code "/" and {@Code "//"}:  they place their two parameters side
+by side, with row mark alignment or top-justification respectively.  The
+in.paragraph.concatenation @Index { In-paragraph concatenation }
+in-paragraph concatenation symbol @Code "&" produces horizontal concatenation
+within a paragraph; its special properties are treated in detail at the
+end of this section.
+@PP
+The concatenation symbols in any one family are @I { mutually associative },
+which means that
+@ID {
+@Code "{"  @I x  {@Code "|"}{@I p}  @I y  @Code "}"  {@Code "|"}{@I q}  @I z
+}
+is always the same as
+@ID {
+@I x  {@Code "|"}{@I p}  @Code "{"  @I y  {@Code "|"}{@I q}  @I z  @Code "}"
+}
+for any objects {@I x}, {@I y}, and {@I z}, any gaps @I p and @I q (defined
+below), and any choice of {@Code "|"}, {@Code "^|"}, {@Code "||"}, and
+{@Code "^||"}.  In practice we always omit such braces, since they are
+redundant and can be misleading.  The result of the complete sequence of
+concatenations will be called the {@I{whole concatenation object}}, and
+the objects which make it up will be called the {@I components}.
+@PP
+One mark is designated as the @I { principal mark }, usually the mark of
+principal.mark @Index { Principal mark }
+the first component.  A later mark can be chosen for this honour by
+attaching {@Code "^"} to the preceding concatenation symbol.  See Section
+{@NumberOf onerow} for examples.
+@PP
+A {@I gap},
+gap @Index Gap
+specifying the distance between the two
+parameters, may follow any concatenation symbol.  There may be no spaces
+between a concatenation symbol and its gap.  A missing gap is taken
+to be {@Code 0ie}.  The gap is effectively a third parameter of the
+concatenation symbol, and it may be an arbitrary object provided that it
+evaluates to a juxtaposition of simple words.  In general, the gap must
+be enclosed in braces, like this:
+@ID @Code {
+"//{  @Style&&mystyle @Open { @TopMargin }  }"
+}
+but the braces may be omitted when the object is a juxtaposition of
+simple words or an invocation of a symbol without parameters, as in
+@Code "//0.3vx" and {@Code "||@Indent"}.
+@PP
+A gap consists of a length plus a gap mode plus an optional indication
+of unbreakability.  A @I length
+length @Index { Length }
+is represented by an decimal number (which may not be negative) followed
+by a unit of measurement.  For example, @Code "2.5c" represents the
+length 2.5 centimetres.  Figure {@NumberOf units} gives the full selection
+of units of measurement.
+c.unit @Index { @Code c unit }
+p.unit @Index { @Code p unit }
+m.unit @Index { @Code m unit }
+f.unit @Index { @Code f unit }
+s.unit @Index { @Code s unit }
+v.unit @Index { @Code v unit }
+w.unit @Index { @Code w unit }
+b.unit @Index { @Code b unit }
+r.unit @Index { @Code r unit }
+d.unit @Index { @Code d unit }
+
+@Figure
+   @Caption { The thirteen units of measurement provided by Lout. }
+   @Tag { units }
+@Begin
+   @Tab
+      vmargin { 0.3v }
+      side { yes }
+      @Fmta { @Col @Code A ! @Col B }
+   {
+      @Rowa above { yes } A { c } B { Centimetres. }
+      @Rowa A { i } B { Inches.
+}
+      @Rowa A { p } B { Points ({@Code 72p} = {@Code 1i}).
+}
+      @Rowa A { m } B { Ems ({@Code 12m} = {@Code 1i}).
+}
+      @Rowa A { f } B {
+One @Code f equals the size of the current font, as specified by
+the @@Font symbol (Section {@NumberOf font}).  This unit is
+appropriate for lengths that should change with the font size.
+}
+      @Rowa A { s } B {
+One @Code s equals the preferred gap between two words in the
+current font, as specified in the definition of the font, or by the
+@@Space symbol (Section {@NumberOf break}).
+}
+      @Rowa A { v } B {
+One @Code v equals the current gap between lines introduced during
+paragraph breaking, as specified by the @@Break symbol (Section
+{@NumberOf break}).  This unit is appropriate for lengths, such as the
+spaces between paragraphs, which should change with the inter-line gap.
+}
+      @Rowa A { w } B {
+One @Code w equals the width of the following component, or its height if the
+symbol is vertical concatenation.
+}
+      @Rowa A { b } B {
+One @Code b equals the width of the whole concatenation object,
+or its height if the symbol is vertical concatenation.
+}
+      @Rowa A { r } B {
+One @Code r equals one @Code b minus one {@Code w}.  This unit is used
+for centring, and for left and right justification.
+}
+      @Rowa A { d } B {
+Degrees.  This unit may only be used with the @Code "@Rotate" symbol.
+}
+      @Rowa A { y } B {
+One @Code y equals the current value set by the @Code "@YUnit"
+symbol (Section {@NumberOf yunit}).  This unit is not used internally
+by Lout; it is included for the convenience of application packages.
+}
+      @Rowa below { yes } A { z } B {
+One @Code z equals the current value set by the @Code "@ZUnit"
+symbol (Section {@NumberOf yunit}).  This unit is not used internally
+by Lout; it is included for the convenience of application packages.
+}
+   }
+@End @Figure
+
+@PP
+After the length comes an optional @I {gap mode},
+gap.mode @Index { Gap mode }
+which is a single letter following the length, indicating how the length
+is to be measured.  As shown in Figure {@NumberOf gapmodes},
+
+@Figure
+   @Tag { gapmodes }
+   @Caption { The six gap modes provided by Lout. }
+@Begin
+@Fig {
+{ /2.5vx Edge-to-edge |0.3i   {@Code "|"} &1p {@I l} &1p {@Code e}
+  /4vx Hyphenation    |0.3i   {@Code "|"} &1p {@I l} &1p {@Code h}
+  /4vx Overstrike     |0.3i   {@Code "|"} &1p {@I l} &1p {@Code o}
+  /4vx Mark-to-mark   |0.3i   {@Code "|"} &1p {@I l} &1p {@Code x}
+  /4vx Kerning        |0.3i   {@Code "|"} &1p {@I l} &1p {@Code k}
+  /4vx Tabulation     |0.3i   {@Code "|"} &1p {@I l} &1p {@Code t}
+}
+||0.5i
+@Box margin { 0c } 6c @Wide 13.2c @High 9p @Font
+{
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 2.2c @Wide 1.4c @High } @Put { @DoubleArrow 1.8c }
+     @At { 2.2c @Wide 1.6c @High } @Put { 1.8c @Wide { &0.5rt @I l } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 2.2c @Wide 1.4c @High } @Put { @DoubleArrow 1.8c }
+     @At { 2.2c @Wide 1.6c @High } @Put { 1.8c @Wide { &0.5rt @I l } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High } @Put { 3.3c @Wide { &0.5rt @I l } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High }
+	@Put 3.3c @Wide { |0.5rt { max( {@I {l, a+b+l"/10"}}) } }
+     @At { 1.2c @Wide 0.4c @High } @Put { @DoubleArrow 1.0c }
+     @At { 1.2c @Wide 0.2c @High } @Put { 1.0c @Wide { &0.5rt @I a } }
+     @At { 4c   @Wide 0.4c @High } @Put { @DoubleArrow 0.5c }
+     @At { 4c   @Wide 0.2c @High } @Put { 0.5c @Wide { &0.5rt @I b } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High }
+	@Put { 3.3c @Wide { |0.5rt max( {@I {l, a, b}})}}
+     @At { 1.2c @Wide 0.4c @High } @Put { @DoubleArrow 1.0c }
+     @At { 1.2c @Wide 0.2c @High } @Put { 1.0c @Wide { &0.5rt @I a } }
+     @At { 4c   @Wide 0.4c @High } @Put { @DoubleArrow 0.5c }
+     @At { 4c   @Wide 0.2c @High } @Put { 0.5c @Wide { &0.5rt @I b } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 0.0c @Wide 1.6c @High } @Put { @DoubleArrow 4.0c }
+     @At { 2.8c @Wide 1.8c @High } @Put { @I l }
+  }
+  //5vx
+  @DoubleArrow 6c
+  //0.1c |0.5rt @I { current bound }
+}
+
+}
+@End @Figure
+with edge-to-edge gap mode
+edge.to.edge @Index { Edge-to-edge gap mode }
+e.gap.mode @Index { @Code e gap mode }
+the length @I l is measured from the trailing edge
+of the first object to the leading edge of the second.  Edge-to-edge is the
+default mode:  the @Code e may be omitted.  Hyphenation gap mode is
+hyphenation.gap @Index { Hyphenation gap mode }
+h.gap.mode @Index { @Code h gap mode }
+similar, except as explained at the end of this section.
+@PP
+Mark-to-mark,
+mark.to.mark @Index { Mark-to-mark gap mode }
+x.gap.mode @Index { @Code x gap mode }
+overstrike,
+overstrike @Index { Overstrike gap mode }
+o.gap.mode @Index { @Code o gap mode }
+and kerning
+kerning.mode @Index { Kerning gap mode }
+k.gap.mode @Index { @Code k gap mode }
+measure the length from the last mark
+of the first object to the first mark of the second.  In the case of
+mark-to-mark, if the length is too small to prevent the objects
+almost overlapping, it is widened until they no longer do.  (The extra
+@I { "l/10" } is not applied when plain text output is in effect.)  Kerning
+also widens, with the aim of preventing the mark of either object from
+overlapping the other object; this mode is used for subscripts and
+superscripts.
+@PP
+tabulation @Index { Tabulation gap mode }
+t.gap.mode @Index { @Code t gap mode }
+centring @Index { Centring }
+right.justif @Index { Right justification }
+Tabulation ignores the first object and places the leading edge of the
+second object at a distance @I l from the left edge of the whole
+concatenation object.  It is the main user of the @Code b and @Code r
+units of measurement; for example, @Code "|1rt" will right-justify the
+following component, and @Code "|0.5rt" will centre it.
+@PP
+The value @Code "|0rt" separating the first and second items in a
+sequence of horizontally concatenated objects is somewhat special in
+that it denotes left justification of the object to its left in the
+available space.  This is identical with @Code "|0ie" when the object to
+the left also has the principal mark; but when it does not, @Code "|0rt"
+will cause the object to the left to appear further to the left than it
+would otherwise have done, if space to do so is available.
+@PP
+A gap is optionally concluded with an indication of unbreakability,
+which is a letter @Code "u" appended to the gap.  A paragraph will
+never be broken at an unbreakable gap, nor will a galley be broken
+across two targets at such a gap.  Basser Lout's implementation is
+slightly defective in that it ignores any unbreakable indication
+in the gap separating the first component promoted into any target
+from the second.
+@PP
+When two objects are separated only by zero or more white space
+white.space.when @SubIndex { when significant }
+space.f.when @SubIndex { when significant }
+characters (spaces, tabs, newlines, and formfeeds), Lout inserts
+{@Code "&"}{@I k}{@Code "s"} between the two objects, where @I k is the
+number of spaces.  Precisely, @I k is determined by discarding all space
+characters and tabs that precede newlines (these are invisible so are
+better ignored), then counting 1 for each newline, formfeed or space,
+and 8 for each tab character.  The gap will be unbreakable if @I k
+is zero.
+@PP
+A sequence of two or more objects separated by @Code "&" symbols is a
+paragraph.breaking.in.detail @SubIndex { in detail }
+{@I paragraph}.  Lout breaks paragraphs into lines automatically as
+required, by converting some of the @Code "&" symbols into
+{@Code "//1vx"}.  Unbreakable gaps are not eligible for this
+conversion.  `Optimal' line breaks are chosen, using a
+method adapted from @TeX @Cite { $knuth1984tex }.
+tex @RawIndex { @TeX }
+tex.optimal @SubIndex { optimal paragraph breaking }
+@PP
+If an @Code "&" symbol whose gap has hyphenation mode
+hyphenation @Index { Hyphenation gap mode }
+tex.hyphenation @SubIndex { hyphenation }
+is chosen for replacement by {@Code "//1vx"}, a hyphen will be appended to
+the preceding object, unless that object is a word which already ends with
+a hyphen.  For example,
+@ID @Code {
+Long words may be "hyph &0ih enat &0ih ed."
+}
+could have the following result, depending where the line breaks fall:
+@ID 2i @Wide {
+Long words may be hyph &0ih enat &0ih ed.
+}
+Basser Lout inserts hyphenation gaps automatically as required, again
+following the method of @TeX, which approximates the hyphenations in
+Webster's dictionary.  To prevent the hyphenation of a single word,
+enclose it in quotes.  Further control over paragraph breaking and
+hyphenation is provided by the @@Break and @@Space symbols (Sections
+{@NumberOf break} and {@NumberOf space}).
+@End @Section

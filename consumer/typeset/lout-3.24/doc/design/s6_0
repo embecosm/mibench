@@ -1,0 +1,18 @@
+@Section
+    @Title { Cross references }
+@Begin
+@PP
+Cross references, such as `see page 57' and `see Figure 5,' are a useful
+but highly error-prone feature of documents.  Scribe [7]
+introduced a method of keeping them up to date automatically as the
+document changes:  the user gives each referenced entity a tag, and
+operators are provided that return the page or sequence number of the
+entity with a given tag.
+@PP
+A cross reference takes an object (such as a page number) from one point
+in the document and copies it to another, and this generalization
+suggests other applications.  For example, a running header is copied
+from the title of a nearby chapter, and a reference is copied from a
+bibliographic database.  Making the unity of these applications manifest
+is an interesting language design problem.
+@BeginSubSections

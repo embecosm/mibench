@@ -1,0 +1,18 @@
+@Section
+   @Title { "@HLimited" and "@VLimited" }
+   @Tag { hlimited }
+@Begin
+@PP
+hlimited. @Index { @@HLimited symbol }
+vlimited. @Index { @@VLimited symbol }
+The @@HLimited symbol limits the width available to recursive
+and receptive symbols within its right parameter to whatever
+is available without increasing the existing size of the
+@@HLimited object.  So this symbol acts like @@Wide with
+respect to limiting the space occupied by recursive and receptive
+symbols, except that instead of enforcing a fixed constant limit,
+it enforces whatever size is already in place.
+@PP
+The @@VLimited symbol is exactly the same, except that it
+applies vertically rather than horizontally.
+@End @Section

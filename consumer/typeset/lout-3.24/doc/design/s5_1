@@ -1,0 +1,123 @@
+@SubSection
+    @Tag { galleys }
+    @Title { The galley abstraction }
+@Begin
+@PP
+Let us take the footnote as a representative example.  At some point in
+the document, we wish to write
+@ID @OneRow @Code {
+"preceding text"
+"@FootNote { footnote text }"
+"following text"
+}
+and we expect the formatter to remove the footnote from this context and
+place it at the bottom of the current page, possibly splitting some or
+all of it onto a following page if space is insufficient.
+@PP
+An object appears in the final document at the point it is invoked, but
+this basic property does not hold for footnotes:  the point of
+invocation and the point of appearance are different.  In some way, the
+footnote is attached to the document at both points, introducing a cross
+linking (Section {@NumberOf genesis}) that cannot be described in purely
+functional terms.
+@PP
+Since the interpretation of any object depends on an environment and
+style inherited from the context, the first question must be whether
+the footnote inherits them through the invocation point or through
+the point(s) of appearance.
+@PP
+If symbols are to be interpreted statically as heretofore, then environments
+must be inherited through the invocation point alone.  Dynamic inheritance
+through the point of appearance is enticing in some ways:  it might
+replace the body parameter, and it might help with automatic numbering,
+since the number of a footnote is known only at the point of appearance;
+but the implementation problems are severe, and static inheritance seems
+much simpler and more comprehensible to the user.  Style, at least its
+available width and height part, must of necessity be inherited through
+the point of appearance.  For consistency, the entire style should be
+inherited in this way.  There is a suggestive analogy here with actual
+parameters, which have a point of invocation from which they inherit an
+environment, and a point of appearance within the body of the enclosing
+definition, from which they inherit a style.  It may be possible to treat
+a footnote as the actual parameter of some symbol, therefore, although
+the details seem very obscure.
+@PP
+But the most profound consequence of having two types of attachment
+point is that it leads to two distinctive tree structures.  Considering
+invocation points only leads to static trees like this one:
+@ID @I @Fig margin { 0.3c } { @Tree {
+@Node @Ellipse { body text }
+@LeftSub { @Node @Ellipse footnote }
+@RightSub {
+   @Node @Ellipse figure
+   @FirstSub { @Node @Ellipse footnote }
+}
+}}
+which shows that the body text contains a footnote and a figure, the
+latter itself containing a footnote.  Considering points of appearance
+only gives a completely different, dynamic tree:
+@ID @I @Fig margin { 0.3c } { @Tree {
+@Node @Ellipse { sequence of pages }
+@FirstSub { @Node @Ellipse { body text } }
+@NextSub  { @Node @Ellipse { footnote  } }
+@NextSub  { @Node @Ellipse { figure    } }
+@NextSub  { @Node @Ellipse { footnote  } }
+}}
+The tree can be deeper, for example with sections appearing within
+chapters which appear within the body text, which appears within the
+final sequence of pages.  Document formatting languages generally shirk
+the issues raised by this dual tree structure, by making the dynamic
+tree built-in, by limiting one or both trees to two levels, and so on,
+providing a classic example of the impoverishing effect of failing to
+permit language features to attain their natural level of generality.
+@PP
+We are thus led to propose a second abstraction for document formatting,
+which we name the @I galley in recognition of its similarity to the
+galleys used in manual typesetting.  A galley consists of an object (such
+as a footnote) together with a sequence of places where that object may
+appear (such as the bottoms of the current and following pages).  Splitting
+occurs quite naturally when space at any place is insufficient to hold
+the entire object.
+@PP
+In Lout, a footnote galley and its place of appearance are defined
+as follows:
+@ID @OneRow @Code {
+"def @FootPlace { @Galley }"
+""
+"def @FootNote into { @FootPlace&&following }"
+"    right x"
+"{ x }"
+}
+The @Code "@FootPlace" symbol contains the special symbol {@Code "@Galley"},
+indicating that it is a point of appearance for a galley.  By placing
+invocations of @Code "@FootPlace" at the bottoms of pages, as in Section
+{@NumberOf recursion}, we define the desired points of appearance for
+footnotes.  Symbols whose body contains @Code "@Galley" either directly
+or indirectly are called receptive symbols, meaning receptive to
+galleys, and they are expanded only on demand.  The effect of the
+@Code "into" clause is to make each invocation of @Code "@FootNote" a
+galley whose object is the result of the invocation in the usual way,
+and whose sequence of points of appearance is specified by the @Code "into"
+clause; in this example, the sequence of all @Code "@FootPlace" symbols
+following the invocation point.
+@PP
+Lout permits galleys to be invoked within other galleys to arbitrary
+depth, so that one may have footnotes within figures within the body
+text galley, for example, creating arbitrary static trees.  Receptive
+symbols like @Code "@FootPlace" may appear within any galley, creating
+arbitrary dynamic trees as well.  The root of the dynamic tree, which
+would normally consist of the sequence of pages of the complete assembled
+document, is considered to be a galley whose point of appearance is the 
+output file.  Points of appearance may be @Code preceding or @Code following
+the invocation point; entries in tables of contents are the main users
+of {@Code preceding}.
+@PP
+The galley abstraction is adequate for all of the applications listed at
+the beginning of this section, except that there is no provision for
+sorting index entries and references.  Sorting of galleys has been added
+to Lout as a built-in feature, invoked by adding a special @Code "@Key"
+parameter to the galleys, and using its value as the sort key.  The author
+was at a loss to find any other way, or any useful generalization of this
+feature.  Its implementation will be discussed in Section
+{@NumberOf cross.impl}.
+@End @SubSection

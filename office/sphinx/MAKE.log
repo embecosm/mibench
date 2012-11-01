@@ -1,0 +1,352 @@
+make  all-recursive
+make[1]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx'
+Making all in src
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src'
+Making all in libsphinx2
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2'
+Making all in include
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2/include'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2/include'
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2'
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c CM_funcs.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c CM_funcs.c -o CM_funcs.o
+echo timestamp > CM_funcs.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c add-table.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c add-table.c -o add-table.o
+echo timestamp > add-table.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c agc_emax.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c agc_emax.c -o agc_emax.o
+echo timestamp > agc_emax.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c allphone.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c allphone.c -o allphone.o
+echo timestamp > allphone.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c areadchar.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c areadchar.c -o areadchar.o
+echo timestamp > areadchar.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c areaddouble.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c areaddouble.c -o areaddouble.o
+echo timestamp > areaddouble.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c areadfloat.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c areadfloat.c -o areadfloat.o
+echo timestamp > areadfloat.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c areadint.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c areadint.c -o areadint.o
+echo timestamp > areadint.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c areadshort.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c areadshort.c -o areadshort.o
+echo timestamp > areadshort.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c awritechar.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c awritechar.c -o awritechar.o
+echo timestamp > awritechar.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c awritedouble.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c awritedouble.c -o awritedouble.o
+echo timestamp > awritedouble.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c awritefloat.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c awritefloat.c -o awritefloat.o
+echo timestamp > awritefloat.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c awriteint.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c awriteint.c -o awriteint.o
+echo timestamp > awriteint.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c awriteshort.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c awriteshort.c -o awriteshort.o
+echo timestamp > awriteshort.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c bisearch.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c bisearch.c -o bisearch.o
+echo timestamp > bisearch.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c blk_cdcn_norm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c blk_cdcn_norm.c -o blk_cdcn_norm.o
+echo timestamp > blk_cdcn_norm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c cache_lm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c cache_lm.c -o cache_lm.o
+echo timestamp > cache_lm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c cdcn_init.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c cdcn_init.c -o cdcn_init.o
+echo timestamp > cdcn_init.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c cdcn_norm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c cdcn_norm.c -o cdcn_norm.o
+echo timestamp > cdcn_norm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c cdcn_update.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c cdcn_update.c -o cdcn_update.o
+echo timestamp > cdcn_update.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c cep_rw.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c cep_rw.c -o cep_rw.o
+echo timestamp > cep_rw.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c dict.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c dict.c -o dict.o
+echo timestamp > dict.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c eht_quit.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c eht_quit.c -o eht_quit.o
+echo timestamp > eht_quit.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c err.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c err.c -o err.o
+echo timestamp > err.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c fbs_main.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c fbs_main.c -o fbs_main.o
+echo timestamp > fbs_main.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c f2read.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c f2read.c -o f2read.o
+echo timestamp > f2read.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c f2write.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c f2write.c -o f2write.o
+echo timestamp > f2write.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c get_a_word.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c get_a_word.c -o get_a_word.o
+echo timestamp > get_a_word.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c hash.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c hash.c -o hash.o
+echo timestamp > hash.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c hmm_tied_r.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c hmm_tied_r.c -o hmm_tied_r.o
+echo timestamp > hmm_tied_r.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c kb_main.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c kb_main.c -o kb_main.o
+echo timestamp > kb_main.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c lab.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c lab.c -o lab.o
+echo timestamp > lab.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c linklist.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c linklist.c -o linklist.o
+echo timestamp > linklist.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c list.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c list.c -o list.o
+echo timestamp > list.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c live_norm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c live_norm.c -o live_norm.o
+echo timestamp > live_norm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c lm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c lm.c -o lm.o
+echo timestamp > lm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c lm_3g.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c lm_3g.c -o lm_3g.o
+echo timestamp > lm_3g.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c lmclass.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c lmclass.c -o lmclass.o
+echo timestamp > lmclass.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c logmsg.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c logmsg.c -o logmsg.o
+echo timestamp > logmsg.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c longio.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c longio.c -o longio.o
+echo timestamp > longio.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c nxtarg.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c nxtarg.c -o nxtarg.o
+echo timestamp > nxtarg.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c norm.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c norm.c -o norm.o
+echo timestamp > norm.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c pconf.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c pconf.c -o pconf.o
+echo timestamp > pconf.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c peek_length.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c peek_length.c -o peek_length.o
+echo timestamp > peek_length.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c phone.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c phone.c -o phone.o
+echo timestamp > phone.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c prime.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c prime.c -o prime.o
+echo timestamp > prime.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c r_agc_noise.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c r_agc_noise.c -o r_agc_noise.o
+echo timestamp > r_agc_noise.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c resfft.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c resfft.c -o resfft.o
+echo timestamp > resfft.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c salloc.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c salloc.c -o salloc.o
+echo timestamp > salloc.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c sc_cbook_r.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c sc_cbook_r.c -o sc_cbook_r.o
+echo timestamp > sc_cbook_r.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c sc_vq.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c sc_vq.c -o sc_vq.o
+echo timestamp > sc_vq.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c search.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c search.c -o search.o
+echo timestamp > search.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c searchlat.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c searchlat.c -o searchlat.o
+echo timestamp > searchlat.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c skipto.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c skipto.c -o skipto.o
+echo timestamp > skipto.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c str2words.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c str2words.c -o str2words.o
+echo timestamp > str2words.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c strcasecmp.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c strcasecmp.c -o strcasecmp.o
+echo timestamp > strcasecmp.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c time_align.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c time_align.c -o time_align.o
+echo timestamp > time_align.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c unlimit.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c unlimit.c -o unlimit.o
+echo timestamp > unlimit.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c util.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c util.c -o util.o
+echo timestamp > util.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include            -I../../include            -I../../include   -DFAST8B=1  -g -O2 -Wall -c uttproc.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../src/libsphinx2/include -I../../include -I../../include -DFAST8B=1 -g -O2 -Wall -c uttproc.c -o uttproc.o
+echo timestamp > uttproc.lo
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o libsphinx2.la -rpath /usr/local/lib -version-info 1:0:1 CM_funcs.lo add-table.lo agc_emax.lo allphone.lo areadchar.lo areaddouble.lo areadfloat.lo areadint.lo areadshort.lo awritechar.lo awritedouble.lo awritefloat.lo awriteint.lo awriteshort.lo bisearch.lo blk_cdcn_norm.lo cache_lm.lo cdcn_init.lo cdcn_norm.lo cdcn_update.lo cep_rw.lo dict.lo eht_quit.lo err.lo fbs_main.lo f2read.lo f2write.lo get_a_word.lo hash.lo hmm_tied_r.lo kb_main.lo lab.lo linklist.lo list.lo live_norm.lo lm.lo lm_3g.lo lmclass.lo logmsg.lo longio.lo nxtarg.lo norm.lo pconf.lo peek_length.lo phone.lo prime.lo r_agc_noise.lo resfft.lo salloc.lo sc_cbook_r.lo sc_vq.lo search.lo searchlat.lo skipto.lo str2words.lo strcasecmp.lo time_align.lo unlimit.lo util.lo uttproc.lo  
+mkdir .libs
+ar cru .libs/libsphinx2.a  CM_funcs.o add-table.o agc_emax.o allphone.o areadchar.o areaddouble.o areadfloat.o areadint.o areadshort.o awritechar.o awritedouble.o awritefloat.o awriteint.o awriteshort.o bisearch.o blk_cdcn_norm.o cache_lm.o cdcn_init.o cdcn_norm.o cdcn_update.o cep_rw.o dict.o eht_quit.o err.o fbs_main.o f2read.o f2write.o get_a_word.o hash.o hmm_tied_r.o kb_main.o lab.o linklist.o list.o live_norm.o lm.o lm_3g.o lmclass.o logmsg.o longio.o nxtarg.o norm.o pconf.o peek_length.o phone.o prime.o r_agc_noise.o resfft.o salloc.o sc_cbook_r.o sc_vq.o search.o searchlat.o skipto.o str2words.o strcasecmp.o time_align.o unlimit.o util.o uttproc.o 
+ranlib .libs/libsphinx2.a
+creating libsphinx2.la
+(cd .libs && rm -f libsphinx2.la && ln -s ../libsphinx2.la libsphinx2.la)
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2'
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2'
+Making all in libsphinx2fe
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2fe'
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include    -g -O2 -Wall -c fe_interface.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include -g -O2 -Wall -c fe_interface.c -o fe_interface.o
+echo timestamp > fe_interface.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include    -g -O2 -Wall -c fe_sigproc.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include -g -O2 -Wall -c fe_sigproc.c -o fe_sigproc.o
+echo timestamp > fe_sigproc.lo
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o libsphinx2fe.la -rpath /usr/local/lib -version-info 0:0:0 fe_interface.lo fe_sigproc.lo  
+mkdir .libs
+ar cru .libs/libsphinx2fe.a  fe_interface.o fe_sigproc.o 
+ranlib .libs/libsphinx2fe.a
+creating libsphinx2fe.la
+(cd .libs && rm -f libsphinx2fe.la && ln -s ../libsphinx2fe.la libsphinx2fe.la)
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2fe'
+Making all in libsphinx2ad
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2ad'
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include    -g -O2 -Wall -c cont_ad_base.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include -g -O2 -Wall -c cont_ad_base.c -o cont_ad_base.o
+echo timestamp > cont_ad_base.lo
+/bin/sh ../../libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include    -g -O2 -Wall -c ad_oss.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include -I../../include -g -O2 -Wall -c ad_oss.c -o ad_oss.o
+echo timestamp > ad_oss.lo
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o libsphinx2ad.la -rpath /usr/local/lib -version-info 0:0:0 cont_ad_base.lo ad_oss.lo  
+mkdir .libs
+ar cru .libs/libsphinx2ad.a  cont_ad_base.o ad_oss.o 
+ranlib .libs/libsphinx2ad.a
+creating libsphinx2ad.la
+(cd .libs && rm -f libsphinx2ad.la && ln -s ../libsphinx2ad.la libsphinx2ad.la)
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/libsphinx2ad'
+Making all in examples
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/examples'
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c tty-continuous.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-continuous  tty-continuous.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+mkdir .libs
+gcc -g -O2 -Wall -o sphinx2-continuous tty-continuous.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c tty-ptt.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-ptt  tty-ptt.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o sphinx2-ptt tty-ptt.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c batch.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-batch  batch.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o sphinx2-batch batch.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c server.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c srvcore.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-server  server.o srvcore.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o sphinx2-server server.o srvcore.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c client.c
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c clicore.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-client  client.o clicore.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o sphinx2-client client.o clicore.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c allphone-test.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o sphinx2-allphone  allphone-test.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o sphinx2-allphone allphone-test.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c adrec.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o adrec  adrec.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o adrec adrec.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c adpow.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o adpow  adpow.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o adpow adpow.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c cont_adseg.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o cont_adseg  cont_adseg.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o cont_adseg cont_adseg.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c cont_fileseg.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o cont_fileseg  cont_fileseg.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o cont_fileseg cont_fileseg.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c lm3g2dmp.c
+lm3g2dmp.c:366: warning: static declaration for `NewModel' follows non-static
+lm3g2dmp.c:997: warning: static declaration for `lm_init_oov' follows non-static
+lm3g2dmp.c:1032: warning: static declaration for `lm_add_word' follows non-static
+lm3g2dmp.c:1074: warning: static declaration for `lm_add' follows non-static
+lm3g2dmp.c:1098: warning: static declaration for `lm_delete' follows non-static
+lm3g2dmp.c:1144: warning: static declaration for `lm_set_current' follows non-static
+lm3g2dmp.c:1176: warning: static declaration for `lm_name2lm' follows non-static
+lm3g2dmp.c:1184: warning: static declaration for `get_current_lmname' follows non-static
+lm3g2dmp.c:1192: warning: static declaration for `lm_get_current' follows non-static
+lm3g2dmp.c:1197: warning: static declaration for `get_n_lm' follows non-static
+lm3g2dmp.c:1205: warning: static declaration for `dictwd_in_lm' follows non-static
+lm3g2dmp.c:1595: warning: static declaration for `lmSetStartSym' follows non-static
+lm3g2dmp.c:1603: warning: static declaration for `lmSetEndSym' follows non-static
+lm3g2dmp.c:1696: warning: static declaration for `lm3g_ug_score' follows non-static
+lm3g2dmp.c:1731: warning: static declaration for `lm3g_bg_score' follows non-static
+lm3g2dmp.c:1821: warning: static declaration for `lm3g_tg_score' follows non-static
+lm3g2dmp.c:1874: warning: static declaration for `lm3g_cache_reset' follows non-static
+lm3g2dmp.c:1904: warning: static declaration for `lm3g_cache_stats_dump' follows non-static
+lm3g2dmp.c:1909: warning: static declaration for `lm_next_frame' follows non-static
+lm3g2dmp.c:1914: warning: static declaration for `lm3g_raw_score' follows non-static
+lm3g2dmp.c:1595: warning: `lmSetStartSym' defined but not used
+lm3g2dmp.c:1603: warning: `lmSetEndSym' defined but not used
+lm3g2dmp.c:1032: warning: `lm_add_word' defined but not used
+lm3g2dmp.c:1144: warning: `lm_set_current' defined but not used
+lm3g2dmp.c:1192: warning: `lm_get_current' defined but not used
+lm3g2dmp.c:1184: warning: `get_current_lmname' defined but not used
+lm3g2dmp.c:1176: warning: `lm_name2lm' defined but not used
+lm3g2dmp.c:997: warning: `lm_init_oov' defined but not used
+lm3g2dmp.c:1197: warning: `get_n_lm' defined but not used
+lm3g2dmp.c:1205: warning: `dictwd_in_lm' defined but not used
+lm3g2dmp.c:1821: warning: `lm3g_tg_score' defined but not used
+lm3g2dmp.c:1696: warning: `lm3g_ug_score' defined but not used
+lm3g2dmp.c:1914: warning: `lm3g_raw_score' defined but not used
+lm3g2dmp.c:1874: warning: `lm3g_cache_reset' defined but not used
+lm3g2dmp.c:1904: warning: `lm3g_cache_stats_dump' defined but not used
+lm3g2dmp.c:1909: warning: `lm_next_frame' defined but not used
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o lm3g2dmp  lm3g2dmp.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o lm3g2dmp lm3g2dmp.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+gcc -DHAVE_CONFIG_H -I. -I. -I../.. -I../../include        -I../../src/libsphinx2/include        -I../../src/examples        -I../../include    -g -O2 -Wall -c raw2cep.c
+/bin/sh ../../libtool --mode=link gcc  -g -O2 -Wall  -o raw2cep  raw2cep.o ../../src/libsphinx2/libsphinx2.la 	../../src/libsphinx2fe/libsphinx2fe.la 	../../src/libsphinx2ad/libsphinx2ad.la 	-lm   
+gcc -g -O2 -Wall -o raw2cep raw2cep.o ../../src/libsphinx2/.libs/libsphinx2.a ../../src/libsphinx2fe/.libs/libsphinx2fe.a ../../src/libsphinx2ad/.libs/libsphinx2ad.a -lm
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src/examples'
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src'
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/src'
+Making all in model
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model'
+Making all in hmm
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm'
+Making all in 6k
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm/6k'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm/6k'
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm'
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/hmm'
+Making all in lm
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm'
+Making all in turtle
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm/turtle'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm/turtle'
+make[4]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm'
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model/lm'
+make[3]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model'
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/model'
+Making all in include
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/include'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/include'
+Making all in doc
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/doc'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/doc'
+Making all in scripts
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/scripts'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx/scripts'
+make[2]: Entering directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx'
+make[2]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx'
+make[1]: Leaving directory `/amd/tomasulo/z/mibench/mibench_CD-1.0/office/sphinx'

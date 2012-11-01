@@ -1,0 +1,26 @@
+:
+#
+# script to compile ANSI source with a K&R compiler and unproto.
+#
+
+while :
+do
+	case $1 in
+		-c)	;;
+		-o)	shift ;;
+		*.c)	break ;;
+		*)	arg="$arg $1" ;;
+	esac
+	shift
+done
+
+set -e
+
+f=$1
+shift
+b=`basename $f .c`
+
+cc -E -C -I. $arg $f | unproto/unproto | \
+	sed 's/^#[ 	]*\([0-9][0-9]*\)/#line \1 "'"\/tmp\/${b}.c"'"/' >/tmp/${b}.c
+cc -c $arg /tmp/${b}.c $*
+rm /tmp/${b}.c

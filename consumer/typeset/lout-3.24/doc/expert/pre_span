@@ -1,0 +1,58 @@
+@Section
+   @Title { "@StartHSpan","@StartVSpan", "@StartHVSpan", "@HSpan", and "@VSpan" }
+   @Tag { hspan }
+@Begin
+@PP
+starthspan.  @Index { @@StartHSpan symbol }
+startvspan.  @Index { @@StartVSpan symbol }
+starthvspan.  @Index { @@StartHVSpan symbol }
+hspan. @Index { @@HSpan symbol }
+vspan. @Index { @@VSpan symbol }
+These symbols work together to produce spanning columns and rows in
+a more flexible way than is possible in practice with @Code "//" and
+{@Code "||"}.  An object
+@ID @Code "@StartHSpan object"
+causes @Code object to be printed, but occupying all the horizontal space
+to the right on the row mark on which it lies up to and including the rightmost
+@@HSpan symbol on that mark not preceded by @@StartHVSpan, @@StartHSpan,
+@@StartVSpan, or @@VSpan.  The column mark of this spanning object is not
+constrained to align with any of the column marks of the columns it spans.
+@PP
+If there is no @@HSpan symbol anywhere to the right of @@StartHSpan, then
+the object spans only its own column.  This means that it occupies that
+column as usual but its mark is not constrained to align with those of the
+other objects in the column.
+@PP
+Similarly, the @@StartVSpan symbol causes its object to occupy all
+the vertical space below it on the column mark on which it lies, down to and
+including the bottommost @@VSpan symbol on that mark not preceded by a
+@@StartHVSpan, @@StartHSpan, @@StartVSpan, or @@HSpan; and if there 
+is no @@VSpan symbol anywhere below it on that mark, then the object
+spans only its own row, occupying its row but with its mark not constrained
+to align with the row mark.
+@PP
+The @@StartHVSpan symbol combines the effects of @@StartHSpan and
+@@StartVSpan, allowing an object to span both columns and rows
+simultaneously.  For example, in
+@ID @Code {
+"@StartHVSpan x  |  | @HSpan"
+"/"
+"@VSpan   |  |"
+}
+the object @Code x will occupy a rectangular area spanning three columns,
+two rows, and the gaps between them.
+@PP
+The objects lying in the region spanned should all be empty, or the
+@@HSpan and @@VSpan symbols can be used to document the spanning that
+is occurring.  At present there may be no galley targets or recursive symbols
+within the right parameter of @@StartHSpan, @@StartVSpan, or
+@@StartHVSpan.  However, the right parameter may otherwise be an
+arbitrary object, including paragraphs of text that require breaking.
+@PP
+If the right parameter of @@StartHSpan, @@StartVSpan, or @@StartHVSpan
+occupies more horizontal or vertical space than all of the spanned columns
+or rows combined require, the extra space goes into the last spanned column
+or row.  Overlapping spanning rows and columns are permitted.  Gaps spanned
+by span objects are unbreakable (their @Code "u" indicator is set
+automatically and cannot be revoked).
+@End @Section

@@ -1,0 +1,3976 @@
+#
+#
+#	Affix table for Spanish
+#
+# This table is a first cut at a description of the common affixes found
+# in the Spanish language.  It is definitely not final.  This is the
+# equivalent of a pre-alpha version.  The dictionary is not complete
+# either.
+#
+# Use at your own risk.  In principle, not many wrong spellings will be
+# accepted, but since it is so preliminary, ispell will complain about
+# many, many words.  This affix table does not deal with pronouns in
+# enclitic position, such as in da'melo.  This would produce an explosion
+# in the size of this file, even if only the unavoidable forms are
+# included and the file is very large already.  We state here the rule:
+# the resulting word follows the accenting rules.
+#
+# It seems unavoidable that extensions to ispell are required to
+# properly deal with this.
+#
+# This affix file uses both upper- and lower-case affix flags, so you
+# must #define MASKBITS 64 in your local.h file.
+#
+# Here's a record of flags used, in case you want to add new ones.
+#
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Used:      ****************RRR  ****  ************************  
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Available:                    --    -                         --
+#
+
+allaffixes on
+
+# Character-set definitions.  The special-character strings are appropriate
+# for use with the "-mm" nroff/troff macro package.  Users of other formatters
+# or macro packages will undoubtedly have to modify these definitions.
+#
+defstringtype "list" "nroff" ".list"
+
+wordchars	a	A
+stringchar	a\'	A\'
+wordchars	[b-e]	[B-E]
+stringchar	e\'	E\'
+wordchars	[f-i]	[F-I]
+stringchar	i\'	I\'
+wordchars	[j-n]	[J-N]
+stringchar	n\~	N\~
+wordchars	o	O
+stringchar	o\'	O\'
+wordchars	[p-u]	[P-U]
+stringchar	u\'	U\'
+stringchar	u\"	U\"
+wordchars	[v-z]	[V-Z]
+
+#
+# TeX/LaTeX `a la spanish.sty (It is the same as the default)
+#
+altstringtype "tex" "tex" ".tex" ".ltx" ".bib"
+
+altstringchar	\'a	a\'
+altstringchar	\'A	A\'
+altstringchar	\'e	e\'
+altstringchar	\'E	E\'
+altstringchar	\'i	i\'
+altstringchar	\'I	I\'
+altstringchar	\~n	n\~
+altstringchar	\~N	N\~
+altstringchar	\'o	o\'
+altstringchar	\'O	O\'
+altstringchar	\'u	u\'
+altstringchar	\'U	U\'
+altstringchar	\"u	u\"
+altstringchar	\"U	U\"
+
+#
+# TeX/LaTeX `a la FTC
+#
+altstringtype "ftc" "tex" ".tex" ".txc" ".lxc"
+
+altstringchar	\'a	a\'
+altstringchar	\'A	A\'
+altstringchar	\'e	e\'
+altstringchar	\'E	E\'
+altstringchar	\'i	i\'
+altstringchar	\'I	I\'
+altstringchar	\'n	n\~
+altstringchar	\'N	N\~
+altstringchar	\'o	o\'
+altstringchar	\'O	O\'
+altstringchar	\'u	u\'
+altstringchar	\'U	U\'
+altstringchar	\"u	u\"
+altstringchar	\"U	U\"
+
+#
+# Plain TeX
+#
+altstringtype "plaintex" "tex" ".tex"
+
+altstringchar	\\\'a	a\'
+altstringchar	\\\'A	A\'
+altstringchar	\\\'e	e\'
+altstringchar	\\\'E	E\'
+altstringchar	\\\'i	i\'
+altstringchar	\\\'I	I\'
+altstringchar	\\\~n	n\~
+altstringchar	\\\~N	N\~
+altstringchar	\\\'o	o\'
+altstringchar	\\\'O	O\'
+altstringchar	\\\'u	u\'
+altstringchar	\\\'U	U\'
+altstringchar	\\\"u	u\"
+altstringchar	\\\"U	U\"
+
+#
+# N/Troff with -ms/-me macros packages (I don't know this one)
+#
+#altstringtype "nroff" "nroff" ".nr" ".ms" ".me"
+
+#altstringchar	u\\*\:	\"u
+#altstringchar	U\\*\:	\"U
+
+#
+# N/Troff with -mm macros (nor this one)
+#
+#altstringtype "-mm" "nroff" ".nr" ".mm"
+
+#altstringchar	u\\*\:	\"u
+#altstringchar	U\\*\;	\"U
+
+#
+# Alternate forms for ISO latin1 charset
+#
+altstringtype "latin1" "tex" ".latin1" ".txt"
+
+altstringchar	\xe1	a\'
+altstringchar	\xc1	A\'
+altstringchar	\xe9	e\'
+altstringchar	\xc9	E\'
+altstringchar	\xed	i\'
+altstringchar	\xcd	I\'
+altstringchar	\xf1	n\~
+altstringchar	\xd1	N\~
+altstringchar	\xf3	o\'
+altstringchar	\xd3	O\'
+altstringchar	\xfa	u\'
+altstringchar	\xda	U\'
+altstringchar	\xfc	u\"
+altstringchar	\xdc	U\"
+
+prefixes
+
+flag *r:
+
+	.	>	RE
+
+flag *Y:
+
+	.	>	IN
+
+flag *p:
+
+	.	>	PRE
+
+flag *t:
+
+	.	>	TRANS
+
+
+suffixes
+
+# We do a general classification of verbs, regular and otherwise,
+# based on ``Esbozo de una nueva Grama'tica de la Lengua Espan~ola'',
+# 1973, 13th printing, 1991 by ``Comisio'n de Grama'tica, Real Academia
+# Espan~ola''. The flags are chosen according to the Esbozo.
+#
+# A problem with verbs in Spanish is that pronouns can be suffixed to
+# the verbal forms. This explodes the number of combinations possible.
+# But we cannot use option -C of ispell because:
+#
+#	- As far as we can determine, the are only 41 such pronouns or
+#	  combinations of two pronouns. It is accepted that more than
+#	  two can be combined, but such usages are understood to be
+#	  caused by lack of clarity of thought by the speaker.
+#
+#	- When the verbal form is combined with such suffixes, the
+#	  spelling of the verbal form can get an acute accent. The
+#	  acute accent indicates the stressed syllable when it is not
+#	  the default. Since adding such suffixes does not change the
+#	  stressed syllable, an accent mark might be needed. All forms
+#	  containing two such pronouns always have an acute accent, so
+#	  if the basic form did not have one, the spelling changes. A
+#	  single suffix does not add an accent to the infinitive but
+#	  two do.
+#
+# However, except for the infinitive, gerund, participle and
+# imperative, these forms, even if legal, are not in common use (see
+# `encl'itico' in Mar'ia Moliner). But all these forms, both usual and
+# unusual make for a large percentage of spelling errors in Spanish.
+# Including them would mean adding some 2400 forms per verb. The best
+# compromise would be to have all such combinations in the affix file
+# but only provide the most needed in the dictionary. In that case, if
+# they are used, ispell can show that it knows the rule and will show
+# how that form would be generated. This is more helpful that just
+# rejecting the word and letting the user guess if the spelling is
+# right anyway or not. Of course, separate flags would be needed for
+# required and optional forms. Please notice that once the rules are
+# added, having the dictionary accept all of them does not use more
+# room in memory or in the hash file, but munchlist would become a
+# crawling horror from the sewers of hell (or is it already? :-)
+#
+# The following combinations are then possible:
+#
+#       ME, TE, SE, NOS, OS 
+#       LO, LA, LE, LOS, LAS, LES
+#       (ME|TE|SE|NOS|OS)(LO!LA|LE|LOS|LAS|LES)
+#
+# 41 combinations. Nice, huh? The exact combinations that are available
+# depend on the kind of verb, but many verbs accept all of them. Some
+# verbs accept different combinations depending on the exact verbal
+# form. For most, if a combination is legal on some verbal form, it is
+# valid for all. For instance, the second and third lines only apply
+# to transitive verbs.
+#
+# It would be nice to have better pattern matching. e.g.
+#
+#       E [consonants]* I R     >       I$1IENDO
+#
+# Most of the boring rules below could be avoided that way and ispell
+# would probably go faster too, because there would be fewer flag
+# entries.  How to do it without penalizing languages that do not
+# benefit from this is the tricky part. German would benefit from this
+# too: 
+#
+#       [AEO] [consonants]*     >       f($1)$2E
+#
+# would produce st"adte from stadt if f(A) was "A. But we will leave
+# this for the time being.
+#
+# The solution we are aiming at is modifying ispell to support the
+# following syntax:
+#
+# flag A:
+#	A R		>	-R,NDO
+#	A R		>	-AR,A'NDO	>	E,F,G
+#	E R		>	-ER,IENDO
+#	E R		>	-ER,IE'NDO	>	E,F,G
+#	I R 		>	-R,ENDO
+#	I R 		>	-R,E'NDO	>	E,F,G
+#
+# flag -E:
+#	D O		>	ME
+#	D O		>	TE
+#	etc.
+#
+# The semantics is as follows. The word ama'ndome would only be produced
+# if there is a root amar with both flags A and E. The word ama'ndo is
+# invalid and is not generated. This is a way to create stems or invalid
+# intermediate words that are useful for postprocessing by other flags.
+#
+# Changes would affect the structure of the flag entries, parse.y,
+# tgood.c and possibly others. For Spanish, it is enough to have this
+# for suffixes. Prefixes are not needed (but can be used if available).
+#
+# Suppose that word ama'ndome is found. A flag entry (corresponding to
+# some rule defined under E) is found that says that the word is
+# acceptable if ama'ndo is in the dictionary. The word does not exist,
+# but E was marked with a minus sign. That fact is recorded in flagflags
+# just as FF_CROSSPRODUCT is. In that case, ama'ndo is checked again
+# and a flag entry is found saying that it can be generated from amar.
+# The flag entry has an indication in flagflags that says that the
+# word itself is unacceptable (that is another bit in flagflags) so
+# it is unavalaible on a normal check. The entry also indicates that
+# this is only valid when flags E, F *or* G are present together with
+# A, of course, in the root word.
+#
+# This would require keeping a MASKTYPE mask[MASKSIZE] per flag entry.
+# This is the ugly part. Maybe not, Every flagent already has a conds
+# array that can be pretty big, since it contains one byte per possible
+# char. That means in my setup 356 chars. So 4 or 8 additional bytes
+# will not too bad, especially if the necessary code can be compiled
+# out and since this would reduce the number of flag entries needed.
+# It can end up using less memory for Spanish, and a bit more for
+# other languages.
+#
+# This alpha version of the dictionary does not implement those changes
+# but they will be done. A useful extension is if the extension flag list
+# is prefixed by an *, the result of stripping and suffixing according to
+# this rule would be accepted too. This can be used in Spanish, for
+# example, to provide rules for plurals or feminines that can be
+# applied not only to roots in the dictionary but to past participles,
+# names derived from verbs, etc.
+
+# Irregularidades vocalicas
+
+flag *A:		# Variacisn e/i (I). Sslo afecta a verbos
+			# que terminan en -e-ir. Verbos afectados:
+			# servir, deservir y todos los terminados
+			# en -ebir, -edir, -egir, -eguir -emir,
+			# -enchir, -endir, -eqir, -estir, -etir y -emr.
+			# Erguir usa un trozo de esta regla (viase D)
+
+# Presente de Indicativo
+
+E R V I R		>	-ERVIR,IRVO
+E B I R			>	-EBIR,IBO
+E D I R			>	-EDIR,IDO
+E G I R			>	-EGIR,IJO
+E G U I R		>	-EGUIR,IGO
+E M I R			>	-EMIR,IMO
+E N C H I R		>	-ENCHIR,INCHO
+E N D I R		>	-ENDIR,INDO
+E N~ I R		>	-EN~IR,IN~O
+E R G U I R		>	-ERGUIR,IRGO
+E S T I R		>	-ESTIR,ISTO
+E T I R			>	-ETIR,ITO
+E I' R			>	-EI'R,I'O
+
+E R V I R		>	-ERVIR,IRVES
+E B I R			>	-EBIR,IBES
+E D I R			>	-EDIR,IDES
+E G I R			>	-EGIR,IGES
+E G U I R		>	-EGUIR,IGUES
+E M I R			>	-EMIR,IMES
+E N C H I R		>	-ENCHIR,INCHES
+E N D I R		>	-ENDIR,INDES
+E N~ I R		>	-EN~IR,IN~ES
+E R G U I R		>	-ERGUIR,IRGUES
+E S T I R		>	-ESTIR,ISTES
+E T I R			>	-ETIR,ITES
+E I' R			>	-EI'R,I'ES
+
+E R V I R		>	-ERVIR,IRVE
+E B I R			>	-EBIR,IBE
+E D I R			>	-EDIR,IDE
+E G I R			>	-EGIR,IGE
+E G U I R		>	-EGUIR,IGUE
+E M I R			>	-EMIR,IME
+E N C H I R		>	-ENCHIR,INCHE
+E N D I R		>	-ENDIR,INDE
+E N~ I R		>	-EN~IR,IN~E
+E R G U I R		>	-ERGUIR,IRGUE
+E S T I R		>	-ESTIR,ISTE
+E T I R			>	-ETIR,ITE
+E I' R			>	-EI'R,I'E
+
+E R V I R		>	-R,MOS		# Regular
+E B I R			>	-R,MOS
+E D I R			>	-R,MOS
+E G I R			>	-R,MOS
+E G U I R		>	-R,MOS
+E M I R			>	-R,MOS
+E N C H I R		>	-R,MOS
+E N D I R		>	-R,MOS
+E N~ I R		>	-R,MOS
+E R G U I R		>	-R,MOS
+E S T I R		>	-R,MOS
+E T I R			>	-R,MOS
+E I' R			>	-R,MOS
+
+E R V I R		>	-IR,I'S		# Regular
+E B I R			>	-IR,I'S
+E D I R			>	-IR,I'S
+E G I R			>	-IR,I'S
+E G U I R		>	-IR,I'S
+E M I R			>	-IR,I'S
+E N C H I R		>	-IR,I'S
+E N D I R		>	-IR,I'S
+E N~ I R		>	-IR,I'S
+E R G U I R		>	-IR,I'S
+E S T I R		>	-IR,I'S
+E T I R			>	-IR,I'S
+E I' R			>	-R,S
+
+E R V I R		>	-ERVIR,IRVEN
+E B I R			>	-EBIR,IBEN
+E D I R			>	-EDIR,IDEN
+E G I R			>	-EGIR,IGEN
+E G U I R		>	-EGUIR,IGUEN
+E M I R			>	-EMIR,IMEN
+E N C H I R		>	-ENCHIR,INCHEN
+E N D I R		>	-ENDIR,INDEN
+E N~ I R		>	-EN~IR,IN~EN
+E R G U I R		>	-ERGUIR,IRGUEN
+E S T I R		>	-ESTIR,ISTEN
+E T I R			>	-ETIR,ITEN
+E I' R			>	-EI'R,I'EN
+
+# Presente de Subjuntivo
+
+E R V I R		>	-ERVIR,IRVA
+E B I R			>	-EBIR,IBA
+E D I R			>	-EDIR,IDA
+E G I R			>	-EGIR,IJA
+E G U I R		>	-EGUIR,IGA
+E M I R			>	-EMIR,IMA
+E N C H I R		>	-ENCHIR,INCHA
+E N D I R		>	-ENDIR,INDA
+E N~ I R		>	-EN~IR,IN~A
+E R G U I R		>	-ERGUIR,IRGA
+E S T I R		>	-ESTIR,ISTA
+E T I R			>	-ETIR,ITA
+E I' R			>	-EI'R,I'A
+
+E R V I R		>	-ERVIR,IRVAS
+E B I R			>	-EBIR,IBAS
+E D I R			>	-EDIR,IDAS
+E G I R			>	-EGIR,IJAS
+E G U I R		>	-EGUIR,IGAS
+E M I R			>	-EMIR,IMAS
+E N C H I R		>	-ENCHIR,INCHAS
+E N D I R		>	-ENDIR,INDAS
+E N~ I R		>	-EN~IR,IN~AS
+E R G U I R		>	-ERGUIR,IRGAS
+E S T I R		>	-ESTIR,ISTAS
+E T I R			>	-ETIR,ITAS
+E I' R			>	-EI'R,I'AS
+
+E R V I R		>	-ERVIR,IRVAMOS
+E B I R			>	-EBIR,IBAMOS
+E D I R			>	-EDIR,IDAMOS
+E G I R			>	-EGIR,IJAMOS
+E G U I R		>	-EGUIR,IGAMOS
+E M I R			>	-EMIR,IMAMOS
+E N C H I R		>	-ENCHIR,INCHAMOS
+E N D I R		>	-ENDIR,INDAMOS
+E N~ I R		>	-EN~IR,IN~AMOS
+E R G U I R		>	-ERGUIR,IRGAMOS
+E S T I R		>	-ESTIR,ISTAMOS
+E T I R			>	-ETIR,ITAMOS
+E I' R			>	-EI'R,IAMOS
+
+E R V I R		>	-ERVIR,IRVA'IS
+E B I R			>	-EBIR,IBA'IS
+E D I R			>	-EDIR,IDA'IS
+E G I R			>	-EGIR,IJA'IS
+E G U I R		>	-EGUIR,IGA'IS
+E M I R			>	-EMIR,IMA'IS
+E N C H I R		>	-ENCHIR,INCHA'IS
+E N D I R		>	-ENDIR,INDA'IS
+E N~ I R		>	-EN~IR,IN~A'IS
+E R G U I R		>	-ERGUIR,IRGA'IS
+E S T I R		>	-ESTIR,ISTA'IS
+E T I R			>	-ETIR,ITA'IS
+E I' R			>	-EI'R,IA'IS
+
+E R V I R		>	-ERVIR,IRVAN
+E B I R			>	-EBIR,IBAN
+E D I R			>	-EDIR,IDAN
+E G I R			>	-EGIR,IJAN
+E G U I R		>	-EGUIR,IGAN
+E M I R			>	-EMIR,IMAN
+E N C H I R		>	-ENCHIR,INCHAN
+E N D I R		>	-ENDIR,INDAN
+E N~ I R		>	-EN~IR,IN~AN
+E R G U I R		>	-ERGUIR,IRGAN
+E S T I R		>	-ESTIR,ISTAN
+E T I R			>	-ETIR,ITAN
+E I' R			>	-EI'R,I'AN
+
+# Imperativo
+
+# E R V I R		>	-ERVIR,IRVE
+# E B I R		>	-EBIR,IBE
+# E D I R		>	-EDIR,IDE
+# E G I R		>	-EGIR,IGE
+# E G U I R		>	-EGUIR,IGUE
+# E M I R		>	-EMIR,IME
+# E N C H I R		>	-ENCHIR,INCHE
+# E N D I R		>	-ENDIR,INDE
+# E N~ I R		>	-EN~IR,IN~E
+# E R G U I R		>	-ERGUIR,IRGUE
+# E S T I R		>	-ESTIR,ISTE
+# E T I R		>	-ETIR,ITE
+# E I' R		>	-EI'R,I'E
+
+E R V I R		>	-R,D
+E B I R			>	-R,D
+E D I R			>	-R,D
+E G I R			>	-R,D
+E G U I R		>	-R,D
+E M I R			>	-R,D
+E N C H I R		>	-R,D
+E N D I R		>	-R,D
+E N~ I R		>	-R,D
+E S T I R		>	-R,D
+E T I R			>	-R,D
+E I' R			>	-R,D
+
+# Perfecto simple (indefinido)
+
+E R V I R		>	-IR,I'		# Regular
+E B I R			>	-IR,I'
+E D I R			>	-IR,I'
+E G I R			>	-IR,I'
+E G U I R		>	-IR,I'
+E M I R			>	-IR,I'
+E N C H I R		>	-IR,I'
+E N D I R		>	-IR,I'
+E N~ I R		>	-IR,I'
+E S T I R		>	-IR,I'
+E T I R			>	-IR,I'
+E I' R			>	-R,-
+
+E R V I R		>	-R,STE		# Regular
+E B I R			>	-R,STE
+E D I R			>	-R,STE
+E G I R			>	-R,STE
+E G U I R		>	-R,STE
+E M I R			>	-R,STE
+E N C H I R		>	-R,STE
+E N D I R		>	-R,STE
+E N~ I R		>	-R,STE
+E S T I R		>	-R,STE
+E T I R			>	-R,STE
+E I' R			>	-R,STE
+
+E R V I R		>	-ERVIR,IRVIO'
+E B I R			>	-EBIR,IBIO'
+E D I R			>	-EDIR,IDIO'
+E G I R			>	-EGIR,IGIO'
+E G U I R		>	-EGUIR,IGUIO'
+E M I R			>	-EMIR,IMIO'
+E N C H I R		>	-ENCHIR,INCHIO'	# Ver Pag. 276, nota 12
+E N D I R		>	-ENDIR,INDIO'
+E N~ I R		>	-EN~IR,IN~O'	# Ver Pag. 275
+E S T I R		>	-ESTIR,ISTIO'
+E T I R			>	-ETIR,ITIO'
+E I' R			>	-EI'R,IO'
+
+# E R V I R		>	-R,MOS		# Regular
+# E B I R		>	-R,MOS
+# E D I R		>	-R,MOS
+# E G I R		>	-R,MOS
+# E G U I R		>	-R,MOS
+# E M I R		>	-R,MOS
+# E N C H I R		>	-R,MOS
+# E N D I R		>	-R,MOS
+# E N~ I R		>	-R,MOS
+# E S T I R		>	-R,MOS
+# E T I R		>	-R,MOS
+# E I' R		>	-R,MOS
+
+E R V I R		>	-R,STEIS	# Regular
+E B I R			>	-R,STEIS
+E D I R			>	-R,STEIS
+E G I R			>	-R,STEIS
+E G U I R		>	-R,STEIS
+E M I R			>	-R,STEIS
+E N C H I R		>	-R,STEIS
+E N D I R		>	-R,STEIS
+E N~ I R		>	-R,STEIS
+E S T I R		>	-R,STEIS
+E T I R			>	-R,STEIS
+E I' R			>	-R,STEIS
+
+E R V I R		>	-ERVIR,IRVIERON
+E B I R			>	-EBIR,IBIERON
+E D I R			>	-EDIR,IDIERON
+E G I R			>	-EGIR,IGIERON
+E G U I R		>	-EGUIR,IGUIERON
+E M I R			>	-EMIR,IMIERON
+E N C H I R		>	-ENCHIR,INCHIERON	# See above
+E N D I R		>	-ENDIR,INDIERON
+E N~ I R		>	-EN~IR,IN~ERON		# See above
+E S T I R		>	-ESTIR,ISTIERON
+E T I R			>	-ETIR,ITIERON
+E I' R			>	-EI'R,IERON
+
+# Temas derivados del presente simple
+# Pretirito imperfecto de subjuntivo
+
+E R V I R		>	-ERVIR,IRVIERA
+E R V I R		>	-ERVIR,IRVIESE
+E B I R			>	-EBIR,IBIERA
+E B I R			>	-EBIR,IBIESE
+E D I R			>	-EDIR,IDIERA
+E D I R			>	-EDIR,IDIESE
+E G I R			>	-EGIR,IGIERA
+E G I R			>	-EGIR,IGIESE
+E G U I R		>	-EGUIR,IGUIERA
+E G U I R		>	-EGUIR,IGUIESE
+E M I R			>	-EMIR,IMIERA
+E M I R			>	-EMIR,IMIESE
+E N C H I R		>	-ENCHIR,INCHIERA	# See above
+E N C H I R		>	-ENCHIR,INCHIESE	# See above
+E N D I R		>	-ENDIR,INDIERA
+E N D I R		>	-ENDIR,INDIESE
+E N~ I R		>	-EN~IR,IN~ERA		# See above
+E N~ I R		>	-EN~IR,IN~ESE		# See above
+E S T I R		>	-ESTIR,ISTIERA
+E S T I R		>	-ESTIR,ISTIESE
+E T I R			>	-ETIR,ITIERA
+E T I R			>	-ETIR,ITIESE
+E I' R			>	-EI'R,IERA
+E I' R			>	-EI'R,IESE
+
+E R V I R		>	-ERVIR,IRVIERAS
+E R V I R		>	-ERVIR,IRVIESES
+E B I R			>	-EBIR,IBIERAS
+E B I R			>	-EBIR,IBIESES
+E D I R			>	-EDIR,IDIERAS
+E D I R			>	-EDIR,IDIESES
+E G I R			>	-EGIR,IGIERAS
+E G I R			>	-EGIR,IGIESES
+E G U I R		>	-EGUIR,IGUIERAS
+E G U I R		>	-EGUIR,IGUIESES
+E M I R			>	-EMIR,IMIERAS
+E M I R			>	-EMIR,IMIESES
+E N C H I R		>	-ENCHIR,INCHIERAS	# See above
+E N C H I R		>	-ENCHIR,INCHIESES	# See above
+E N D I R		>	-ENDIR,INDIERAS
+E N D I R		>	-ENDIR,INDIESES
+E N~ I R		>	-EN~IR,IN~ERAS		# See above
+E N~ I R		>	-EN~IR,IN~ESES		# See above
+E S T I R		>	-ESTIR,ISTIERAS
+E S T I R		>	-ESTIR,ISTIESES
+E T I R			>	-ETIR,ITIERAS
+E T I R			>	-ETIR,ITIESES
+E I' R			>	-EI'R,IERAS
+E I' R			>	-EI'R,IESES
+
+E R V I R		>	-ERVIR,IRVIE'RAMOS
+E R V I R		>	-ERVIR,IRVIE'SEMOS
+E B I R			>	-EBIR,IBIE'RAMOS
+E B I R			>	-EBIR,IBIE'SEMOS
+E D I R			>	-EDIR,IDIE'RAMOS
+E D I R			>	-EDIR,IDIE'SEMOS
+E G I R			>	-EGIR,IGIE'RAMOS
+E G I R			>	-EGIR,IGIE'SEMOS
+E G U I R		>	-EGUIR,IGUIE'RAMOS
+E G U I R		>	-EGUIR,IGUIE'SEMOS
+E M I R			>	-EMIR,IMIE'RAMOS
+E M I R			>	-EMIR,IMIE'SEMOS
+E N C H I R		>	-ENCHIR,INCHIE'RAMOS	# See above
+E N C H I R		>	-ENCHIR,INCHIE'SEMOS	# See above
+E N D I R		>	-ENDIR,INDIE'RAMOS
+E N D I R		>	-ENDIR,INDIE'SEMOS
+E N~ I R		>	-EN~IR,IN~E'RAMOS	# See above
+E N~ I R		>	-EN~IR,IN~E'SEMOS	# See above
+E S T I R		>	-ESTIR,ISTIE'RAMOS
+E S T I R		>	-ESTIR,ISTIE'SEMOS
+E T I R			>	-ETIR,ITIE'RAMOS
+E T I R			>	-ETIR,ITIE'SEMOS
+E I' R			>	-EI'R,IE'RAMOS
+E I' R			>	-EI'R,IE'SEMOS
+
+E R V I R		>	-ERVIR,IRVIERAIS
+E R V I R		>	-ERVIR,IRVIESEIS
+E B I R			>	-EBIR,IBIERAIS
+E B I R			>	-EBIR,IBIESEIS
+E D I R			>	-EDIR,IDIERAIS
+E D I R			>	-EDIR,IDIESEIS
+E G I R			>	-EGIR,IGIERAIS
+E G I R			>	-EGIR,IGIESEIS
+E G U I R		>	-EGUIR,IGUIERAIS
+E G U I R		>	-EGUIR,IGUIESEIS
+E M I R			>	-EMIR,IMIERAIS
+E M I R			>	-EMIR,IMIESEIS
+E N C H I R		>	-ENCHIR,INCHIERAIS	# See above
+E N C H I R		>	-ENCHIR,INCHIESEIS	# See above
+E N D I R		>	-ENDIR,INDIERAIS
+E N D I R		>	-ENDIR,INDIESEIS
+E N~ I R		>	-EN~IR,IN~ERAIS		# See above
+E N~ I R		>	-EN~IR,IN~ESEIS		# See above
+E S T I R		>	-ESTIR,ISTIERAIS
+E S T I R		>	-ESTIR,ISTIESEIS
+E T I R			>	-ETIR,ITIERAIS
+E T I R			>	-ETIR,ITIESEIS
+E I' R			>	-EI'R,IERAIS
+E I' R			>	-EI'R,IESEIS
+
+E R V I R		>	-ERVIR,IRVIERAN
+E R V I R		>	-ERVIR,IRVIESEN
+E B I R			>	-EBIR,IBIERAN
+E B I R			>	-EBIR,IBIESEN
+E D I R			>	-EDIR,IDIERAN
+E D I R			>	-EDIR,IDIESEN
+E G I R			>	-EGIR,IGIERAN
+E G I R			>	-EGIR,IGIESEN
+E G U I R		>	-EGUIR,IGUIERAN
+E G U I R		>	-EGUIR,IGUIESEN
+E M I R			>	-EMIR,IMIERAN
+E M I R			>	-EMIR,IMIESEN
+E N C H I R		>	-ENCHIR,INCHIERAN	# See above
+E N C H I R		>	-ENCHIR,INCHIESEN	# See above
+E N D I R		>	-ENDIR,INDIERAN
+E N D I R		>	-ENDIR,INDIESEN
+E N~ I R		>	-EN~IR,IN~ERAN		# See above
+E N~ I R		>	-EN~IR,IN~ESEN		# See above
+E S T I R		>	-ESTIR,ISTIERAN
+E S T I R		>	-ESTIR,ISTIESEN
+E T I R			>	-ETIR,ITIERAN
+E T I R			>	-ETIR,ITIESEN
+E I' R			>	-EI'R,IERAN
+E I' R			>	-EI'R,IESEN
+
+# Futuro de subjuntivo
+
+E R V I R		>	-ERVIR,IRVIERE
+E B I R			>	-EBIR,IBIERE
+E D I R			>	-EDIR,IDIERE
+E G I R			>	-EGIR,IGIERE
+E G U I R		>	-EGUIR,IGUIERE
+E M I R			>	-EMIR,IMIERE
+E N C H I R		>	-ENCHIR,INCHIERE	# See above
+E N D I R		>	-ENDIR,INDIERE
+E N~ I R		>	-EN~IR,IN~ERE		# See above
+E S T I R		>	-ESTIR,ISTIERE
+E T I R			>	-ETIR,ITIERE
+E I' R			>	-EI'R,IERE
+
+E R V I R		>	-ERVIR,IRVIERES
+E B I R			>	-EBIR,IBIERES
+E D I R			>	-EDIR,IDIERES
+E G I R			>	-EGIR,IGIERES
+E G U I R		>	-EGUIR,IGUIERES
+E M I R			>	-EMIR,IMIERES
+E N C H I R		>	-ENCHIR,INCHIERES	# See above
+E N D I R		>	-ENDIR,INDIERES
+E N~ I R		>	-EN~IR,IN~ERES		# See above
+E S T I R		>	-ESTIR,ISTIERES
+E T I R			>	-ETIR,ITIERES
+E I' R			>	-EI'R,IERES
+
+E R V I R		>	-ERVIR,IRVIE'REMOS
+E B I R			>	-EBIR,IBIE'REMOS
+E D I R			>	-EDIR,IDIE'REMOS
+E G I R			>	-EGIR,IGIE'REMOS
+E G U I R		>	-EGUIR,IGUIE'REMOS
+E M I R			>	-EMIR,IMIE'REMOS
+E N C H I R		>	-ENCHIR,INCHIE'REMOS	# See above
+E N D I R		>	-ENDIR,INDIE'REMOS
+E N~ I R		>	-EN~IR,IN~E'REMOS	# See above
+E S T I R		>	-ESTIR,ISTIE'REMOS
+E T I R			>	-ETIR,ITIE'REMOS
+E I' R			>	-EI'R,IE'REMOS
+
+E R V I R		>	-ERVIR,IRVIEREIS
+E B I R			>	-EBIR,IBIEREIS
+E D I R			>	-EDIR,IDIEREIS
+E G I R			>	-EGIR,IGIEREIS
+E G U I R		>	-EGUIR,IGUIEREIS
+E M I R			>	-EMIR,IMIEREIS
+E N C H I R		>	-ENCHIR,INCHIEREIS	# See above
+E N D I R		>	-ENDIR,INDIEREIS
+E N~ I R		>	-EN~IR,IN~EREIS		# See above
+E S T I R		>	-ESTIR,ISTIEREIS
+E T I R			>	-ETIR,ITIEREIS
+E I' R			>	-EI'R,IEREIS
+
+E R V I R		>	-ERVIR,IRVIEREN
+E B I R			>	-EBIR,IBIEREN
+E D I R			>	-EDIR,IDIEREN
+E G I R			>	-EGIR,IGIEREN
+E G U I R		>	-EGUIR,IGUIEREN
+E M I R			>	-EMIR,IMIEREN
+E N C H I R		>	-ENCHIR,INCHIEREN	# See above
+E N D I R		>	-ENDIR,INDIEREN
+E N~ I R		>	-EN~IR,IN~EREN		# See above
+E S T I R		>	-ESTIR,ISTIEREN
+E T I R			>	-ETIR,ITIEREN
+E I' R			>	-EI'R,IEREN
+
+# Formas no personales
+
+E R V I R		>	-R,DO			# Regular
+E B I R			>	-R,DO
+E D I R			>	-R,DO
+E G I R			>	-R,DO
+E G U I R		>	-R,DO
+E M I R			>	-R,DO
+E N C H I R		>	-R,DO
+E N D I R		>	-R,DO
+E N~ I R		>	-R,DO
+E S T I R		>	-R,DO
+E T I R			>	-R,DO
+E I' R			>	-R,DO
+
+E R V I R		>	-ERVIR,IRVIENDO
+E B I R			>	-EBIR,IBIENDO
+E D I R			>	-EDIR,IDIENDO
+E G I R			>	-EGIR,IGIENDO
+E G U I R		>	-EGUIR,IGUIENDO
+E M I R			>	-EMIR,IMIENDO
+E N C H I R		>	-ENCHIR,INCHIENDO	# See above
+E N D I R		>	-ENDIR,INDIENDO
+E N~ I R		>	-EN~IR,IN~ENDO		# See above
+E S T I R		>	-ESTIR,ISTIENDO
+E T I R			>	-ETIR,ITIENDO
+E I' R			>	-EI'R,IENDO
+
+
+flag *B:
+
+# Variacisn e/ie (III). 
+
+# Verbos de la primera conjugacisn, esquema -e-ar, terminaciones posibles:
+#
+#	-ebrar
+#	-edrar
+#	-egar
+#	-elar
+#	-emblar
+#	-embrar
+#	-emplar
+#	-endar
+#	-endrar
+#	-engar
+#	-ensar
+#	-entar
+#	-enzar
+#	-erbar
+#	-ernar
+#	-errar
+#	-ertar
+#	-esar
+#	-estar
+#	-estrar
+#	-etar
+#	-evar
+#	-ezar
+
+# Presente de indicativo
+
+E B R A R		>	-EBRAR,IEBRO
+E D R A R		>	-EDRAR,IEDRO
+E G A R			>	-EGAR,IEGO
+E L A R			>	-ELAR,IELO
+E M B L A R		>	-EMBLAR,IEMBLO
+E M B R A R		>	-EMBRAR,IEMBRO
+E M P L A R		>	-EMPLAR,IEMPLO
+E N D A R		>	-ENDAR,IENDO
+E N D R A R		>	-ENDRAR,IENDRO
+E N G A R		>	-ENGAR,IENGO
+E N S A R		>	-ENSAR,IENSO
+E N T A R		>	-ENTAR,IENTO
+E N Z A R		>	-ENZAR,IENZO
+E R B A R		>	-ERBAR,IERBO
+E R N A R		>	-ERNAR,IERNO
+E R R A R		>	-ERRAR,IERRO
+E R T A R		>	-ERTAR,IERTO
+E S A R			>	-ESAR,IESO
+E S T A R		>	-ESTAR,IESTO
+E S T R A R		>	-ESTRAR,IESTRO
+E T A R			>	-ETAR,IETO
+E V A R			>	-EVAR,IEVO
+E Z A R			>	-EZAR,IEZO
+
+E B R A R		>	-EBRAR,IEBRAS
+E D R A R		>	-EDRAR,IEDRAS
+E G A R			>	-EGAR,IEGAS
+E L A R			>	-ELAR,IELAS
+E M B L A R		>	-EMBLAR,IEMBLAS
+E M B R A R		>	-EMBRAR,IEMBRAS
+E M P L A R		>	-EMPLAR,IEMPLAS
+E N D A R		>	-ENDAR,IENDAS
+E N D R A R		>	-ENDRAR,IENDRAS
+E N G A R		>	-ENGAR,IENGAS
+E N S A R		>	-ENSAR,IENSAS
+E N T A R		>	-ENTAR,IENTAS
+E N Z A R		>	-ENZAR,IENZAS
+E R B A R		>	-ERBAR,IERBAS
+E R N A R		>	-ERNAR,IERNAS
+E R R A R		>	-ERRAR,IERRAS
+E R T A R		>	-ERTAR,IERTAS
+E S A R			>	-ESAR,IESAS
+E S T A R		>	-ESTAR,IESTAS
+E S T R A R		>	-ESTRAR,IESTRAS
+E T A R			>	-ETAR,IETAS
+E V A R			>	-EVAR,IEVAS
+E Z A R			>	-EZAR,IEZAS
+
+E B R A R		>	-EBRAR,IEBRA
+E D R A R		>	-EDRAR,IEDRA
+E G A R			>	-EGAR,IEGA
+E L A R			>	-ELAR,IELA
+E M B L A R		>	-EMBLAR,IEMBLA
+E M B R A R		>	-EMBRAR,IEMBRA
+E M P L A R		>	-EMPLAR,IEMPLA
+E N D A R		>	-ENDAR,IENDA
+E N D R A R		>	-ENDRAR,IENDRA
+E N G A R		>	-ENGAR,IENGA
+E N S A R		>	-ENSAR,IENSA
+E N T A R		>	-ENTAR,IENTA
+E N Z A R		>	-ENZAR,IENZA
+E R B A R		>	-ERBAR,IERBA
+E R N A R		>	-ERNAR,IERNA
+E R R A R		>	-ERRAR,IERRA
+E R T A R		>	-ERTAR,IERTA
+E S A R			>	-ESAR,IESA
+E S T A R		>	-ESTAR,IESTA
+E S T R A R		>	-ESTRAR,IESTRA
+E T A R			>	-ETAR,IETA
+E V A R			>	-EVAR,IEVA
+E Z A R			>	-EZAR,IEZA
+
+E B R A R		>	-R,MOS			# Regular
+E D R A R		>	-R,MOS
+E G A R			>	-R,MOS
+E L A R			>	-R,MOS
+E M B L A R		>	-R,MOS
+E M B R A R		>	-R,MOS
+E M P L A R		>	-R,MOS
+E N D A R		>	-R,MOS
+E N D R A R		>	-R,MOS
+E N G A R		>	-R,MOS
+E N S A R		>	-R,MOS
+E N T A R		>	-R,MOS
+E N Z A R		>	-R,MOS
+E R B A R		>	-R,MOS
+E R N A R		>	-R,MOS
+E R R A R		>	-R,MOS
+E R T A R		>	-R,MOS
+E S A R			>	-R,MOS
+E S T A R		>	-R,MOS
+E S T R A R		>	-R,MOS
+E T A R			>	-R,MOS
+E V A R			>	-R,MOS
+E Z A R			>	-R,MOS
+
+E B R A R		>	-AR,A'IS		# Regular
+E D R A R		>	-AR,A'IS
+E G A R			>	-AR,A'IS
+E L A R			>	-AR,A'IS
+E M B L A R		>	-AR,A'IS
+E M B R A R		>	-AR,A'IS
+E M P L A R		>	-AR,A'IS
+E N D A R		>	-AR,A'IS
+E N D R A R		>	-AR,A'IS
+E N G A R		>	-AR,A'IS
+E N S A R		>	-AR,A'IS
+E N T A R		>	-AR,A'IS
+E N Z A R		>	-AR,A'IS
+E R B A R		>	-AR,A'IS
+E R N A R		>	-AR,A'IS
+E R R A R		>	-AR,A'IS
+E R T A R		>	-AR,A'IS
+E S A R			>	-AR,A'IS
+E S T A R		>	-AR,A'IS
+E S T R A R		>	-AR,A'IS
+E T A R			>	-AR,A'IS
+E V A R			>	-AR,A'IS
+E Z A R			>	-AR,A'IS
+
+E B R A R		>	-EBRAR,IEBRAN
+E D R A R		>	-EDRAR,IEDRAN
+E G A R			>	-EGAR,IEGAN
+E L A R			>	-ELAR,IELAN
+E M B L A R		>	-EMBLAR,IEMBLAN
+E M B R A R		>	-EMBRAR,IEMBRAN
+E M P L A R		>	-EMPLAR,IEMPLAN
+E N D A R		>	-ENDAR,IENDAN
+E N D R A R		>	-ENDRAR,IENDRAN
+E N G A R		>	-ENGAR,IENGAN
+E N S A R		>	-ENSAR,IENSAN
+E N T A R		>	-ENTAR,IENTAN
+E N Z A R		>	-ENZAR,IENZAN
+E R B A R		>	-ERBAR,IERBAN
+E R N A R		>	-ERNAR,IERNAN
+E R R A R		>	-ERRAR,IERRAN
+E R T A R		>	-ERTAR,IERTAN
+E S A R			>	-ESAR,IESAN
+E S T A R		>	-ESTAR,IESTAN
+E S T R A R		>	-ESTRAR,IESTRAN
+E T A R			>	-ETAR,IETAN
+E V A R			>	-EVAR,IEVAN
+E Z A R			>	-EZAR,IEZAN
+
+# Presente de subjuntivo
+
+E B R A R		>	-EBRAR,IEBRE
+E D R A R		>	-EDRAR,IEDRE
+E G A R			>	-EGAR,IEGUE
+E L A R			>	-ELAR,IELE
+E M B L A R		>	-EMBLAR,IEMBLE
+E M B R A R		>	-EMBRAR,IEMBRE
+E M P L A R		>	-EMPLAR,IEMPLE
+E N D A R		>	-ENDAR,IENDE
+E N D R A R		>	-ENDRAR,IENDRE
+E N G A R		>	-ENGAR,IENGUE
+E N S A R		>	-ENSAR,IENSE
+E N T A R		>	-ENTAR,IENTE
+E N Z A R		>	-ENZAR,IENCE
+E R B A R		>	-ERBAR,IERBE
+E R N A R		>	-ERNAR,IERNE
+E R R A R		>	-ERRAR,IERRE
+E R T A R		>	-ERTAR,IERTE
+E S A R			>	-ESAR,IESE
+E S T A R		>	-ESTAR,IESTE
+E S T R A R		>	-ESTRAR,IESTRE
+E T A R			>	-ETAR,IETE
+E V A R			>	-EVAR,IEVE
+E Z A R			>	-EZAR,IECE
+
+E B R A R		>	-EBRAR,IEBRES
+E D R A R		>	-EDRAR,IEDRES
+E G A R			>	-EGAR,IEGUES
+E L A R			>	-ELAR,IELES
+E M B L A R		>	-EMBLAR,IEMBLES
+E M B R A R		>	-EMBRAR,IEMBRES
+E M P L A R		>	-EMPLAR,IEMPLES
+E N D A R		>	-ENDAR,IENDES
+E N D R A R		>	-ENDRAR,IENDRES
+E N G A R		>	-ENGAR,IENGUES
+E N S A R		>	-ENSAR,IENSES
+E N T A R		>	-ENTAR,IENTES
+E N Z A R		>	-ENZAR,IENCES
+E R B A R		>	-ERBAR,IERBES
+E R N A R		>	-ERNAR,IERNES
+E R R A R		>	-ERRAR,IERRES
+E R T A R		>	-ERTAR,IERTES
+E S A R			>	-ESAR,IESES
+E S T A R		>	-ESTAR,IESTES
+E S T R A R		>	-ESTRAR,IESTRES
+E T A R			>	-ETAR,IETES
+E V A R			>	-EVAR,IEVES
+E Z A R			>	-EZAR,IECES
+
+E B R A R		>	-AR,EMOS		# Regular
+E D R A R		>	-AR,EMOS
+E G A R			>	-AR,UEMOS
+E L A R			>	-AR,EMOS
+E M B L A R		>	-AR,EMOS
+E M B R A R		>	-AR,EMOS
+E M P L A R		>	-AR,EMOS
+E N D A R		>	-AR,EMOS
+E N D R A R		>	-AR,EMOS
+E N G A R		>	-AR,UEMOS
+E N S A R		>	-AR,EMOS
+E N T A R		>	-AR,EMOS
+E N Z A R		>	-ZAR,CEMOS
+E R B A R		>	-AR,EMOS
+E R N A R		>	-AR,EMOS
+E R R A R		>	-AR,EMOS
+E R T A R		>	-AR,EMOS
+E S A R			>	-AR,EMOS
+E S T A R		>	-AR,EMOS
+E S T R A R		>	-RAR,EMOS
+E T A R			>	-AR,EMOS
+E V A R			>	-AR,EMOS
+E Z A R			>	-ZAR,CEMOS
+
+E B R A R		>	-AR,E'IS		# Regular
+E D R A R		>	-AR,E'IS
+E G A R			>	-AR,UE'IS
+E L A R			>	-AR,E'IS
+E M B L A R		>	-AR,E'IS
+E M B R A R		>	-AR,E'IS
+E M P L A R		>	-AR,E'IS
+E N D A R		>	-AR,E'IS
+E N D R A R		>	-AR,E'IS
+E N G A R		>	-AR,UE'IS
+E N S A R		>	-AR,E'IS
+E N T A R		>	-AR,E'IS
+E N Z A R		>	-ZAR,CE'IS
+E R B A R		>	-AR,E'IS
+E R N A R		>	-AR,E'IS
+E R R A R		>	-AR,E'IS
+E R T A R		>	-AR,E'IS
+E S A R			>	-AR,E'IS
+E S T A R		>	-AR,E'IS
+E S T R A R		>	-AR,E'IS
+E T A R			>	-AR,E'IS
+E V A R			>	-AR,E'IS
+E Z A R			>	-ZAR,CE'IS
+
+E B R A R		>	-EBRAR,IEBREN
+E D R A R		>	-EDRAR,IEDREN
+E G A R			>	-EGAR,IEGUEN
+E L A R			>	-ELAR,IELEN
+E M B L A R		>	-EMBLAR,IEMBLEN
+E M B R A R		>	-EMBRAR,IEMBREN
+E M P L A R		>	-EMPLAR,IEMPLEN
+E N D A R		>	-ENDAR,IENDEN
+E N D R A R		>	-ENDRAR,IENDREN
+E N G A R		>	-ENGAR,IENGUEN
+E N S A R		>	-ENSAR,IENSEN
+E N T A R		>	-ENTAR,IENTEN
+E N Z A R		>	-ENZAR,IENCEN
+E R B A R		>	-ERBAR,IERBEN
+E R N A R		>	-ERNAR,IERNEN
+E R R A R		>	-ERRAR,IERREN
+E R T A R		>	-ERTAR,IERTEN
+E S A R			>	-ESAR,IESEN
+E S T A R		>	-ESTAR,IESTEN
+E S T R A R		>	-ESTRAR,IESTREN
+E T A R			>	-ETAR,IETEN
+E V A R			>	-EVAR,IEVEN
+E Z A R			>	-EZAR,IECEN
+
+
+# Imperativo
+
+# E B R A R		>	-EBRAR,IEBRA
+# E D R A R		>	-EDRAR,IEDRA
+# E G A R		>	-EGAR,IEGA
+# E L A R		>	-ELAR,IELA
+# E M B L A R		>	-EMBLAR,IEMBLA
+# E M B R A R		>	-EMBRAR,IEMBRA
+# E M P L A R		>	-EMPLAR,IEMPLA
+# E N D A R		>	-ENDAR,IENDA
+# E N D R A R		>	-ENDRAR,IENDRA
+# E N G A R		>	-ENGAR,IENGA
+# E N S A R		>	-ENSAR,IENSA
+# E N T A R		>	-ENTAR,IENTA
+# E N Z A R		>	-ENZAR,IENZA
+# E R B A R		>	-ERBAR,IERBA
+# E R N A R		>	-ERNAR,IERNA
+# E R R A R		>	-ERRAR,IERRA
+# E R T A R		>	-ERTAR,IERTA
+# E S A R		>	-ESAR,IESA
+# E S T A R		>	-ESTAR,IESTA
+# E S T R A R		>	-ESTRAR,IESTRA
+# E T A R		>	-ETAR,IETA
+# E V A R		>	-EVAR,IEVA
+# E Z A R		>	-EZAR,IEZA
+
+E B R A R		>	-R,D			# Regular
+E D R A R		>	-R,D
+E G A R			>	-R,D
+E L A R			>	-R,D
+E M B L A R		>	-R,D
+E M B R A R		>	-R,D
+E M P L A R		>	-R,D
+E N D A R		>	-R,D
+E N D R A R		>	-R,D
+E N G A R		>	-R,D
+E N S A R		>	-R,D
+E N T A R		>	-R,D
+E N Z A R		>	-R,D
+E R B A R		>	-R,D
+E R N A R		>	-R,D
+E R R A R		>	-R,D
+E R T A R		>	-R,D
+E S A R			>	-R,D
+E S T A R		>	-R,D
+E S T R A R		>	-R,D
+E T A R			>	-R,D
+E V A R			>	-R,D
+E Z A R			>	-R,D
+
+# Verbos de la segunda conjugacisn, esquema -e-er, terminaciones:
+#
+#	-eder
+#	-ender
+#	-erder (todos)
+#       -erer  (querer y sus compuestos, que tienen otras irregularidades, 
+#		como un perfecto fuerte)
+#	-erner (todos)
+#	-erter (todos)
+#
+# Tener y sus derivados estan tratados en M.
+
+# Presente de indicativo
+
+E D E R			>	-EDER,IEDO
+E N D E R		>	-ENDER,IENDO
+E R D E R		>	-ERDER,IERDO
+E R E R			>	-ERER,IERO
+E R N E R		>	-ERNER,IERNO
+E R T E R		>	-ERTER,IERTO
+
+E D E R			>	-EDER,IEDES
+E N D E R		>	-ENDER,IENDES
+E R D E R		>	-ERDER,IERDES
+E R E R			>	-ERER,IERES
+E R N E R		>	-ERNER,IERNES
+E R T E R		>	-ERTER,IERTES
+
+E D E R			>	-EDER,IEDE
+E N D E R		>	-ENDER,IENDE
+E R D E R		>	-ERDER,IERDE
+E R E R			>	-ERER,IERE
+E R N E R		>	-ERNER,IERNE
+E R T E R		>	-ERTER,IERTE
+
+E D E R			>	-R,MOS			# Regular
+E N D E R		>	-R,MOS
+E R D E R		>	-R,MOS
+E R E R			>	-R,MOS
+E R N E R		>	-R,MOS
+E R T E R		>	-R,MOS
+
+E D E R			>	-ER,E'IS		# Regular
+E N D E R		>	-ER,E'IS
+E R D E R		>	-ER,E'IS
+E R E R			>	-ER,E'IS
+E R N E R		>	-ER,E'IS
+E R T E R		>	-ER,E'IS
+
+E D E R			>	-EDER,IEDEN
+E N D E R		>	-ENDER,IENDEN
+E R D E R		>	-ERDER,IERDEN
+E R E R			>	-ERER,IEREN
+E R N E R		>	-ERNER,IERNEN
+E R T E R		>	-ERTER,IERTEN
+
+# Presente de subjuntivo
+
+E D E R			>	-EDER,IEDA
+E N D E R		>	-ENDER,IENDA
+E R D E R		>	-ERDER,IERDA
+E R E R			>	-ERER,IERA
+E R N E R		>	-ERNER,IERNA
+E R T E R		>	-ERTER,IERTA
+
+E D E R			>	-EDER,IEDAS
+E N D E R		>	-ENDER,IENDAS
+E R D E R		>	-ERDER,IERDAS
+E R E R			>	-ERER,IERAS
+E R N E R		>	-ERNER,IERNAS
+E R T E R		>	-ERTER,IERTAS
+
+E D E R			>	-ER,AMOS		# Regular
+E N D E R		>	-ER,AMOS
+E R D E R		>	-ER,AMOS
+E R E R			>	-ER,AMOS
+E R N E R		>	-ER,AMOS
+E R T E R		>	-ER,AMOS
+
+E D E R			>	-ER,A'IS		# Regular
+E N D E R		>	-ER,A'IS
+E R D E R		>	-ER,A'IS
+E R E R			>	-ER,A'IS
+E R N E R		>	-ER,A'IS
+E R T E R		>	-ER,A'IS
+
+E D E R			>	-EDER,IEDAN
+E N D E R		>	-ENDER,IENDAN
+E R D E R		>	-ERDER,IERDAN
+E R E R			>	-ERER,IERAN
+E R N E R		>	-ERNER,IERNAN
+E R T E R		>	-ERTER,IERTAN
+
+# Imperativo
+
+# E D E R		>	-EDER,IEDE
+# E N D E R		>	-ENDER,IENDE
+# E R D E R		>	-ERDER,IERDE
+# E R E R		>	-ERER,IERE
+# E R N E R		>	-ERNER,IERNE
+# E R T E R		>	-ERTER,IERTE
+
+E D E R			>	-R,D			# Regular
+E N D E R		>	-R,D
+E R D E R		>	-R,D
+E R E R			>	-R,D
+E R N E R		>	-R,D
+E R T E R		>	-R,D
+
+# Perfecto
+
+E R E R			>	-ERER,ISE
+E R E R			>	-ERER,ISISTE
+E R E R			>	-ERER,ISO
+E R E R			>	-ERER,ISIMOS
+E R E R			>	-ERER,ISISTEIS
+E R E R			>	-ERER,ISIERON
+
+# Imperfecto de subjuntivo
+
+E R E R			>	-ERER,ISIERA
+E R E R			>	-ERER,ISIESE
+E R E R			>	-ERER,ISIERAS
+E R E R			>	-ERER,ISIESES
+E R E R			>	-ERER,ISIE'RAMOS
+E R E R			>	-ERER,ISIE'SEMOS
+E R E R			>	-ERER,ISIERAIS
+E R E R			>	-ERER,ISIESEIS
+E R E R			>	-ERER,ISIERAN
+E R E R			>	-ERER,ISIESEN
+
+# Futuro de subjuntivo
+
+E R E R			>	-ERER,ISIERE
+E R E R			>	-ERER,ISIERES
+E R E R			>	-ERER,ISIE'REMOS
+E R E R			>	-ERER,ISIEREIS
+E R E R			>	-ERER,ISIEREN
+
+# Verbos de la tercera conjugacisn, esquema -e-ir, terminaciones:
+#
+#	-endir
+#	-ernir
+
+# Presente de indicativo
+
+E N D I R		>	-ENDIR,IENDO
+E R N I R		>	-ERNIR,IERNO
+
+E N D I R		>	-ENDIR,IENDES
+E R N I R		>	-ERNIR,IERNES
+
+E N D I R		>	-ENDIR,IENDE
+E R N I R		>	-ERNIR,IERNE
+
+E N D I R		>	-R,MOS			# Regular
+E R N I R		>	-R,MOS
+
+E N D I R		>	-IR,I'S			# Regular
+E R N I R		>	-IR,I'S
+
+E N D I R		>	-ENDIR,IENDEN
+E R N I R		>	-ERNIR,IERNEN
+
+# Presente de subjuntivo
+
+E N D I R		>	-ENDIR,IENDA
+E R N I R		>	-ERNIR,IERNA
+
+E N D I R		>	-ENDIR,IENDAS
+E R N I R		>	-ERNIR,IERNAS
+
+E N D I R		>	-IR,AMOS		# Regular
+E R N I R		>	-IR,AMOS
+
+E N D I R		>	-IR,A'IS		# Regular
+E R N I R		>	-IR,A'IS
+
+E N D I R		>	-ENDIR,IENDAN
+E R N I R		>	-ERNIR,IERNAN
+
+# Imperativo
+
+# E N D I R		>	-ENDIR,IENDE
+# E R N I R		>	-ERNIR,IERNE
+
+E N D I R		>	-R,D			# Regular
+E R N I R		>	-R,D
+
+
+flag *C:
+
+# Variacisn o/ue (IV)
+
+# Verbos de la primera conjugacisn, esquema -o-ar, terminaciones:
+
+#	-obar
+#	-oblar
+#	-ocar
+#	-odar
+#	-ogar
+#	-olar
+#	-olcar
+#	-oldar		Cuidado con regoldar!!
+#	-olgar		Todos
+#	-ollar		Cuidado con degollar!!
+#	-oltar
+#	-onar
+#	-ontar
+#	-ontrar		Todos
+#	-onzar		Cuidado con avergonzar!!
+#	-on~ar
+#	-orar		Cuidado con engorar!!
+#	-orcar
+#	-ordar
+#	-ornar
+#	-ortar
+#	-orzar
+#	-osar
+#	-ostar
+#	-ostrar
+#	-ovar
+
+# El cambio o/ue requiere la introduccisn de diiresis si habma una
+# g antes de la o. Sslo cuatro terminaciones parecen tener verbos
+# con esta caractermstica (de acuerdo con el esbozo) y se han dado
+# ejemplos en esos casos.
+
+# Presente de indicativo
+
+O B A R			>	-OBAR,UEBO
+O B L A R		>	-OBLAR,UEBLO
+O C A R			>	-OCAR,UECO
+O D A R			>	-ODAR,UEDO
+O G A R			>	-OGAR,UEGO
+O L A R			>	-OLAR,UELO
+O L C A R		>	-OLCAR,UELCO
+G O L D A R		>	-OLDAR,U"ELDO
+[^G] O L D A R		>	-OLDAR,UELDO
+O L G A R		>	-OLGAR,UELGO
+G O L L A R		>	-OLLAR,U"ELLO
+[^G] O L L A R		>	-OLLAR,UELLO
+O L T A R		>	-OLTAR,UELTO
+O N A R			>	-ONAR,UENO
+O N T A R		>	-ONTAR,UENTO
+O N T R A R		>	-ONTRAR,UENTRO
+G O N Z A R		>	-ONZAR,U"ENZO
+[^G] O N Z A R		>	-ONZAR,UENZO
+O N~ A R		>	-ON~AR,UEN~O
+G O R A R		>	-ORAR,U"ERO
+[^G] O R A R		>	-ORAR,UERO
+O R C A R		>	-ORCAR,UERCO
+O R D A R		>	-ORDAR,UERDO
+O R N A R		>	-ORNAR,UERNO
+O R T A R		>	-ORTAR,UERTO
+O R Z A R		>	-ORZAR,UERZO
+O S A R			>	-OSAR,UESO
+O S T A R		>	-OSTAR,UESTO
+O S T R A R		>	-OSTRAR,UESTRO
+O V A R			>	-OVAR,UEVO
+
+O B A R			>	-OBAR,UEBAS
+O B L A R		>	-OBLAR,UEBLAS
+O C A R			>	-OCAR,UECAS
+O D A R			>	-ODAR,UEDAS
+O G A R			>	-OGAR,UEGAS
+O L A R			>	-OLAR,UELAS
+O L C A R		>	-OLCAR,UELCAS
+G O L D A R		>	-OLDAR,U"ELDAS
+[^G] O L D A R		>	-OLDAR,UELDAS
+O L G A R		>	-OLGAR,UELGAS
+G O L L A R		>	-OLLAR,U"ELLAS
+[^G] O L L A R		>	-OLLAR,UELLAS
+O L T A R		>	-OLTAR,UELTAS
+O N A R			>	-ONAR,UENAS
+O N T A R		>	-ONTAR,UENTAS
+O N T R A R		>	-ONTRAR,UENTRAS
+G O N Z A R		>	-ONZAR,U"ENZAS
+[^G] O N Z A R		>	-ONZAR,UENZAS
+O N~ A R		>	-ON~AR,UEN~AS
+G O R A R		>	-ORAR,U"ERAS
+[^G] O R A R		>	-ORAR,UERAS
+O R C A R		>	-ORCAR,UERCAS
+O R D A R		>	-ORDAR,UERDAS
+O R N A R		>	-ORNAR,UERNAS
+O R T A R		>	-ORTAR,UERTAS
+O R Z A R		>	-ORZAR,UERZAS
+O S A R			>	-OSAR,UESAS
+O S T A R		>	-OSTAR,UESTAS
+O S T R A R		>	-OSTRAR,UESTRAS
+O V A R			>	-OVAR,UEVAS
+
+O B A R			>	-OBAR,UEBA
+O B L A R		>	-OBLAR,UEBLA
+O C A R			>	-OCAR,UECA
+O D A R			>	-ODAR,UEDA
+O G A R			>	-OGAR,UEGA
+O L A R			>	-OLAR,UELA
+O L C A R		>	-OLCAR,UELCA
+G O L D A R		>	-OLDAR,U"ELDA
+[^G] O L D A R		>	-OLDAR,UELDA
+O L G A R		>	-OLGAR,UELGA
+G O L L A R		>	-OLLAR,U"ELLA
+[^G] O L L A R		>	-OLLAR,UELLA
+O L T A R		>	-OLTAR,UELTA
+O N A R			>	-ONAR,UENA
+O N T A R		>	-ONTAR,UENTA
+O N T R A R		>	-ONTRAR,UENTRA
+G O N Z A R		>	-ONZAR,U"ENZA
+[^G] O N Z A R		>	-ONZAR,UENZA
+O N~ A R		>	-ON~AR,UEN~A
+G O R A R		>	-ORAR,U"ERA
+[^G] O R A R		>	-ORAR,UERA
+O R C A R		>	-ORCAR,UERCA
+O R D A R		>	-ORDAR,UERDA
+O R N A R		>	-ORNAR,UERNA
+O R T A R		>	-ORTAR,UERTA
+O R Z A R		>	-ORZAR,UERZA
+O S A R			>	-OSAR,UESA
+O S T A R		>	-OSTAR,UESTA
+O S T R A R		>	-OSTRAR,UESTRA
+O V A R			>	-OVAR,UEVA
+
+O B A R			>	-R,MOS			# Regular
+O B L A R		>	-R,MOS
+O C A R			>	-R,MOS
+O D A R			>	-R,MOS
+O G A R			>	-R,MOS
+O L A R			>	-R,MOS
+O L C A R		>	-R,MOS
+O L D A R		>	-R,MOS
+O L G A R		>	-R,MOS
+O L L A R		>	-R,MOS
+O L T A R		>	-R,MOS
+O N A R			>	-R,MOS
+O N T A R		>	-R,MOS
+O N T R A R		>	-R,MOS
+O N Z A R		>	-R,MOS
+O N~ A R		>	-R,MOS
+O R A R			>	-R,MOS
+O R C A R		>	-R,MOS
+O R D A R		>	-R,MOS
+O R N A R		>	-R,MOS
+O R T A R		>	-R,MOS
+O R Z A R		>	-R,MOS
+O S A R			>	-R,MOS
+O S T A R		>	-R,MOS
+O S T R A R		>	-R,MOS
+O V A R			>	-R,MOS
+
+O B A R			>	-AR,A'IS		# Regular
+O B L A R		>	-AR,A'IS
+O C A R			>	-AR,A'IS
+O D A R			>	-AR,A'IS
+O G A R			>	-AR,A'IS
+O L A R			>	-AR,A'IS
+O L C A R		>	-AR,A'IS
+O L D A R		>	-AR,A'IS
+O L G A R		>	-AR,A'IS
+O L L A R		>	-AR,A'IS
+O L T A R		>	-AR,A'IS
+O N A R			>	-AR,A'IS
+O N T A R		>	-AR,A'IS
+O N T R A R		>	-AR,A'IS
+O N Z A R		>	-AR,A'IS
+O N~ A R		>	-AR,A'IS
+O R A R			>	-AR,A'IS
+O R C A R		>	-AR,A'IS
+O R D A R		>	-AR,A'IS
+O R N A R		>	-AR,A'IS
+O R T A R		>	-AR,A'IS
+O R Z A R		>	-AR,A'IS
+O S A R			>	-AR,A'IS
+O S T A R		>	-AR,A'IS
+O S T R A R		>	-AR,A'IS
+O V A R			>	-AR,A'IS
+
+O B A R			>	-OBAR,UEBAN
+O B L A R		>	-OBLAR,UEBLAN
+O C A R			>	-OCAR,UECAN
+O D A R			>	-ODAR,UEDAN
+O G A R			>	-OGAR,UEGAN
+O L A R			>	-OLAR,UELAN
+O L C A R		>	-OLCAR,UELCAN
+G O L D A R		>	-OLDAR,U"ELDAN
+[^G] O L D A R		>	-OLDAR,UELDAN
+O L G A R		>	-OLGAR,UELGAN
+G O L L A R		>	-OLLAR,U"ELLAN
+[^G] O L L A R		>	-OLLAR,UELLAN
+O L T A R		>	-OLTAR,UELTAN
+O N A R			>	-ONAR,UENAN
+O N T A R		>	-ONTAR,UENTAN
+O N T R A R		>	-ONTRAR,UENTRAN
+G O N Z A R		>	-ONZAR,U"ENZAN
+[^G] O N Z A R		>	-ONZAR,UENZAN
+O N~ A R		>	-ON~AR,UEN~AN
+G O R A R		>	-ORAR,U"ERAN
+[^G] O R A R		>	-ORAR,UERAN
+O R C A R		>	-ORCAR,UERCAN
+O R D A R		>	-ORDAR,UERDAN
+O R N A R		>	-ORNAR,UERNAN
+O R T A R		>	-ORTAR,UERTAN
+O R Z A R		>	-ORZAR,UERZAN
+O S A R			>	-OSAR,UESAN
+O S T A R		>	-OSTAR,UESTAN
+O S T R A R		>	-OSTRAR,UESTRAN
+O V A R			>	-OVAR,UEVAN
+
+# Presente de subjuntivo
+
+O B A R			>	-OBAR,UEBE
+O B L A R		>	-OBLAR,UEBLE
+O C A R			>	-OCAR,UEQUE
+O D A R			>	-ODAR,UEDE
+O G A R			>	-OGAR,UEGUE
+O L A R			>	-OLAR,UELE
+O L C A R		>	-OLCAR,UELQUE
+G O L D A R		>	-OLDAR,U"ELDE
+[^G] O L D A R		>	-OLDAR,UELDE
+O L G A R		>	-OLGAR,UELGUE
+G O L L A R		>	-OLLAR,U"ELLE
+[^G] O L L A R		>	-OLLAR,UELLE
+O L T A R		>	-OLTAR,UELTE
+O N A R			>	-ONAR,UENE
+O N T A R		>	-ONTAR,UENTE
+O N T R A R		>	-ONTRAR,UENTRE
+G O N Z A R		>	-ONZAR,U"ENCE
+[^G] O N Z A R		>	-ONZAR,UENCE
+O N~ A R		>	-ON~AR,UEN~E
+G O R A R		>	-ORAR,U"ERE
+[^G] O R A R		>	-ORAR,UERE
+O R C A R		>	-ORCAR,UERQUE
+O R D A R		>	-ORDAR,UERDE
+O R N A R		>	-ORNAR,UERNE
+O R T A R		>	-ORTAR,UERTE
+O R Z A R		>	-ORZAR,UERCE
+O S A R			>	-OSAR,UESE
+O S T A R		>	-OSTAR,UESTE
+O S T R A R		>	-OSTRAR,UESTRE
+O V A R			>	-OVAR,UEVE
+
+O B A R			>	-OBAR,UEBES
+O B L A R		>	-OBLAR,UEBLES
+O C A R			>	-OCAR,UEQUES
+O D A R			>	-ODAR,UEDES
+O G A R			>	-OGAR,UEGUES
+O L A R			>	-OLAR,UELES
+O L C A R		>	-OLCAR,UELQUES
+G O L D A R		>	-OLDAR,U"ELDES
+[^G] O L D A R		>	-OLDAR,UELDES
+O L G A R		>	-OLGAR,UELGUES
+G O L L A R		>	-OLLAR,U"ELLES
+[^G] O L L A R		>	-OLLAR,UELLES
+O L T A R		>	-OLTAR,UELTES
+O N A R			>	-ONAR,UENES
+O N T A R		>	-ONTAR,UENTES
+O N T R A R		>	-ONTRAR,UENTRES
+G O N Z A R		>	-ONZAR,U"ENCES
+[^G] O N Z A R		>	-ONZAR,UENCES
+O N~ A R		>	-ON~AR,UEN~ES
+G O R A R		>	-ORAR,U"ERES
+[^G] O R A R		>	-ORAR,UERES
+O R C A R		>	-ORCAR,UERQUES
+O R D A R		>	-ORDAR,UERDES
+O R N A R		>	-ORNAR,UERNES
+O R T A R		>	-ORTAR,UERTES
+O R Z A R		>	-ORZAR,UERCES
+O S A R			>	-OSAR,UESES
+O S T A R		>	-OSTAR,UESTES
+O S T R A R		>	-OSTRAR,UESTRES
+O V A R			>	-OVAR,UEVES
+
+O B A R			>	-AR,EMOS		# Regular
+O B L A R		>	-AR,EMOS
+O C A R			>	-CAR,QUEMOS
+O D A R			>	-AR,EMOS
+O G A R			>	-AR,UEMOS
+O L A R			>	-AR,EMOS
+O L C A R		>	-CAR,QUEMOS
+O L D A R		>	-AR,EMOS
+O L G A R		>	-AR,UEMOS
+O L L A R		>	-AR,EMOS
+O L T A R		>	-AR,EMOS
+O N A R			>	-AR,EMOS
+O N T A R		>	-AR,EMOS
+O N T R A R		>	-AR,EMOS
+O N Z A R		>	-ZAR,CEMOS
+O N~ A R		>	-AR,EMOS
+O R A R			>	-AR,EMOS
+O R C A R		>	-CAR,QUEMOS
+O R D A R		>	-AR,EMOS
+O R N A R		>	-AR,EMOS
+O R T A R		>	-AR,EMOS
+O R Z A R		>	-ZAR,CEMOS
+O S A R			>	-AR,EMOS
+O S T A R		>	-AR,EMOS
+O S T R A R		>	-AR,EMOS
+O V A R			>	-AR,EMOS
+
+O B A R			>	-AR,E'IS		# Regular
+O B L A R		>	-AR,E'IS
+O C A R			>	-CAR,QUE'IS
+O D A R			>	-AR,E'IS
+O G A R			>	-AR,UE'IS
+O L A R			>	-AR,E'IS
+O L C A R		>	-CAR,QUE'IS
+O L D A R		>	-AR,E'IS
+O L G A R		>	-AR,UE'IS
+O L L A R		>	-AR,E'IS
+O L T A R		>	-AR,E'IS
+O N A R			>	-AR,E'IS
+O N T A R		>	-AR,E'IS
+O N T R A R		>	-AR,E'IS
+O N Z A R		>	-ZAR,CE'IS
+O N~ A R		>	-AR,E'IS
+O R A R			>	-AR,E'IS
+O R C A R		>	-CAR,QUE'IS
+O R D A R		>	-AR,E'IS
+O R N A R		>	-AR,E'IS
+O R T A R		>	-AR,E'IS
+O R Z A R		>	-ZAR,CE'IS
+O S A R			>	-AR,E'IS
+O S T A R		>	-AR,E'IS
+O S T R A R		>	-AR,E'IS
+O V A R			>	-AR,E'IS
+
+O B A R			>	-OBAR,UEBEN
+O B L A R		>	-OBLAR,UEBLEN
+O C A R			>	-OCAR,UEQUEN
+O D A R			>	-ODAR,UEDEN
+O G A R			>	-OGAR,UEGUEN
+O L A R			>	-OLAR,UELEN
+O L C A R		>	-OLCAR,UELQUEN
+G O L D A R		>	-OLDAR,U"ELDEN
+[^G] O L D A R		>	-OLDAR,UELDEN
+O L G A R		>	-OLGAR,UELGUEN
+G O L L A R		>	-OLLAR,U"ELLEN
+[^G] O L L A R		>	-OLLAR,UELLEN
+O L T A R		>	-OLTAR,UELTEN
+O N A R			>	-ONAR,UENEN
+O N T A R		>	-ONTAR,UENTEN
+O N T R A R		>	-ONTRAR,UENTREN
+G O N Z A R		>	-ONZAR,U"ENCEN
+[^G] O N Z A R		>	-ONZAR,UENCEN
+O N~ A R		>	-ON~AR,UEN~EN
+G O R A R		>	-ORAR,U"EREN
+[^G] O R A R		>	-ORAR,UEREN
+O R C A R		>	-ORCAR,UERQUEN
+O R D A R		>	-ORDAR,UERDEN
+O R N A R		>	-ORNAR,UERNEN
+O R T A R		>	-ORTAR,UERTEN
+O R Z A R		>	-ORZAR,UERCEN
+O S A R			>	-OSAR,UESEN
+O S T A R		>	-OSTAR,UESTEN
+O S T R A R		>	-OSTRAR,UESTREN
+O V A R			>	-OVAR,UEVEN
+
+# Imperativo
+
+# O B A R		>	-OBAR,UEBA
+# O B L A R		>	-OBLAR,UEBLA
+# O C A R		>	-OCAR,UECA
+# O D A R		>	-ODAR,UEDA
+# O G A R		>	-OGAR,UEGA
+# O L A R		>	-OLAR,UELA
+# O L C A R		>	-OLCAR,UELCA
+# G O L D A R		>	-OLDAR,U"ELDA
+# [^G] O L D A R	>	-OLDAR,UELDA
+# O L G A R		>	-OLGAR,UELGA
+# G O L L A R		>	-OLLAR,U"ELLA
+# [^G] O L L A R	>	-OLLAR,UELLA
+# O L T A R		>	-OLTAR,UELTA
+# O N A R		>	-ONAR,UENA
+# O N T A R		>	-ONTAR,UENTA
+# O N T R A R		>	-ONTRAR,UENTRA
+# G O N Z A R		>	-ONZAR,U"ENZA
+# [^G] O N Z A R	>	-ONZAR,UENZA
+# O N~ A R		>	-ON~AR,UEN~A
+# G O R A R		>	-ORAR,U"ERA
+# [^G] O R A R		>	-ORAR,UERA
+# O R C A R		>	-ORCAR,UERCA
+# O R D A R		>	-ORDAR,UERDA
+# O R N A R		>	-ORNAR,UERNA
+# O R T A R		>	-ORTAR,UERTA
+# O R Z A R		>	-ORZAR,UERZA
+# O S A R		>	-OSAR,UESA
+# O S T A R		>	-OSTAR,UESTA
+# O S T R A R		>	-OSTRAR,UESTRA
+# O V A R		>	-OVAR,UEVA
+
+O B A R			>	-R,D			# Regular
+O B L A R		>	-R,D
+O C A R			>	-R,D
+O D A R			>	-R,D
+O G A R			>	-R,D
+O L A R			>	-R,D
+O L C A R		>	-R,D
+O L D A R		>	-R,D
+O L G A R		>	-R,D
+O L L A R		>	-R,D
+O L T A R		>	-R,D
+O N A R			>	-R,D
+O N T A R		>	-R,D
+O N T R A R		>	-R,D
+O N Z A R		>	-R,D
+O N~ A R		>	-R,D
+O R A R			>	-R,D
+O R C A R		>	-R,D
+O R D A R		>	-R,D
+O R N A R		>	-R,D
+O R T A R		>	-R,D
+O R Z A R		>	-R,D
+O S A R			>	-R,D
+O S T A R		>	-R,D
+O S T R A R		>	-R,D
+O V A R			>	-R,D
+
+# Verbos de la segunda conjugacisn, esquema -o-er, terminaciones:
+#
+#	-ocer
+#       -oder
+#	-oler		Todos, pero oler hace huelo. Los otros son: doler,
+#			condoler, moler, demoler y soler.
+#	-olver		Todos
+#	-orcer		Todos
+#	-order		Todos
+#	-over		Todos
+
+# Presente de indicativo
+
+O C E R			>	-OCER,UEZO
+O D E R			>	-ODER,UEDO
+[DMS] O L E R		>	-OLER,UELO
+[^DMS] O L E R		>	-OLER,HUELO
+O L V E R		>	-OLVER,UELVO
+O R C E R		>	-ORCER,UERZO
+O R D E R		>	-ORDER,UERDO
+O V E R			>	-OVER,UEVO
+
+O C E R			>	-OCER,UECES
+O D E R			>	-ODER,UEDES
+[DMS] O L E R		>	-OLER,UELES
+[^DMS] O L E R		>	-OLER,HUELES
+O L V E R		>	-OLVER,UELVES
+O R C E R		>	-ORCER,UERCES
+O R D E R		>	-ORDER,UERDES
+O V E R			>	-OVER,UEVES
+
+O C E R			>	-OCER,UECE
+O D E R			>	-ODER,UEDE
+[DMS] O L E R		>	-OLER,UELE
+[^DMS] O L E R		>	-OLER,HUELE
+O L V E R		>	-OLVER,UELVE
+O R C E R		>	-ORCER,UERCE
+O R D E R		>	-ORDER,UERDE
+O V E R			>	-OVER,UEVE
+
+O C E R			>	-R,MOS			# Regular
+O D E R			>	-R,MOS
+O L E R			>	-R,MOS
+O L V E R		>	-R,MOS
+O R C E R		>	-R,MOS
+O R D E R		>	-R,MOS
+O V E R			>	-R,MOS
+
+O C E R			>	-ER,E'IS		# Regular
+O D E R			>	-ER,E'IS
+O L E R			>	-ER,E'IS
+O L V E R		>	-ER,E'IS
+O R C E R		>	-ER,E'IS
+O R D E R		>	-ER,E'IS
+O V E R			>	-ER,E'IS
+
+O C E R			>	-OCER,UECEN
+O D E R			>	-ODER,UEDEN
+[DMS] O L E R		>	-OLER,UELEN
+[^DMS] O L E R		>	-OLER,HUELEN
+O L V E R		>	-OLVER,UELVEN
+O R C E R		>	-ORCER,UERCEN
+O R D E R		>	-ORDER,UERDEN
+O V E R			>	-OVER,UEVEN
+
+# Presente de subjuntivo
+
+O C E R			>	-OCER,UEZA
+O D E R			>	-ODER,UEDA
+[DMS] O L E R		>	-OLER,UELA
+[^DMS] O L E R		>	-OLER,HUELA
+O L V E R		>	-OLVER,UELVA
+O R C E R		>	-ORCER,UERZA
+O R D E R		>	-ORDER,UERDA
+O V E R			>	-OVER,UEVA
+
+O C E R			>	-OCER,UEZAS
+O D E R			>	-ODER,UEDAS
+[DMS] O L E R		>	-OLER,UELAS
+[^DMS] O L E R		>	-OLER,HUELAS
+O L V E R		>	-OLVER,UELVAS
+O R C E R		>	-ORCER,UERZAS
+O R D E R		>	-ORDER,UERDAS
+O V E R			>	-OVER,UEVAS
+
+O C E R			>	-CER,ZAMOS		# Regular
+O D E R			>	-ER,AMOS
+O L E R			>	-ER,AMOS
+O L V E R		>	-ER,AMOS
+O R C E R		>	-CER,ZAMOS
+O R D E R		>	-ER,AMOS
+O V E R			>	-ER,AMOS
+
+O C E R			>	-CER,ZA'IS		# Regular
+O D E R			>	-ER,A'IS
+O L E R			>	-ER,A'IS
+O L V E R		>	-ER,A'IS
+O R C E R		>	-CER,ZA'IS
+O R D E R		>	-ER,A'IS
+O V E R			>	-ER,A'IS
+
+O C E R			>	-OCER,UEZAN
+O D E R			>	-ODER,UEDAN
+[DMS] O L E R		>	-OLER,UELAN
+[^DMS] O L E R		>	-OLER,HUELAN
+O L V E R		>	-OLVER,UELVAN
+O R C E R		>	-ORCER,UERZAN
+O R D E R		>	-ORDER,UERDAN
+O V E R			>	-OVER,UEVAN
+
+# Imperativo
+
+# O C E R		>	-OCER,UECE
+# O D E R		>	-ODER,UEDE
+# [DMS] O L E R		>	-OLER,UELE
+# [^DMS] O L E R	>	-OLER,HUELE
+# O L V E R		>	-OLVER,UELVE
+# O R C E R		>	-ORCER,UERCE
+# O R D E R		>	-ORDER,UERDE
+# O V E R		>	-OVER,UEVE
+
+O C E R			>	-R,D			# Regular
+O D E R			>	-R,D
+O L E R			>	-R,D
+O L V E R		>	-R,D
+O R C E R		>	-R,D
+O R D E R		>	-R,D
+O V E R			>	-R,D
+
+flag *D:
+
+# Variacisn e/i (I) y e/ie (III) concurren en un mismo verbos.
+
+# Verbos de la tercera conjugacisn, esquema -e-ir, terminaciones:
+#
+#	-entir		Todos
+#	-erguir		Erguir solamente (y se aprovecha, pero es tambiin A)
+#	-erir		Todos
+#	-ertir		Todos
+#	-ervir		Hervir y rehervir
+
+E N T I R		>	-ENTIR,IENTO
+E R G U I R		>	-ERGUIR,YERGO
+E R I R			>	-ERIR,IERO
+E R T I R		>	-ERTIR,IERTO
+E R V I R		>	-ERVIR,IERVO
+
+E N T I R		>	-ENTIR,IENTES
+E R G U I R		>	-ERGUIR,YERGUES
+E R I R			>	-ERIR,IERES
+E R T I R		>	-ERTIR,IERTES
+E R V I R		>	-ERVIR,IERVES
+
+E N T I R		>	-ENTIR,IENTE
+E R G U I R		>	-ERGUIR,YERGUE
+E R I R			>	-ERIR,IERE
+E R T I R		>	-ERTIR,IERTE
+E R V I R		>	-ERVIR,IERVE
+
+E N T I R		>	-R,MOS			# Regular
+E R G U I R		>	-R,MOS
+E R I R			>	-R,MOS
+E R T I R		>	-R,MOS
+E R V I R		>	-R,MOS
+
+E N T I R		>	-IR,I'S			# Regular
+E R G U I R		>	-IR,I'S
+E R I R			>	-IR,I'S
+E R T I R		>	-IR,I'S
+E R V I R		>	-IR,I'S
+
+E N T I R		>	-ENTIR,IENTEN
+E R G U I R		>	-ERGUIR,YERGUEN
+E R I R			>	-ERIR,IEREN
+E R T I R		>	-ERTIR,IERTEN
+E R V I R		>	-ERVIR,IERVEN
+
+# Presente de subjuntivo
+
+E N T I R		>	-ENTIR,IENTA
+E R G U I R		>	-ERGUIR,YERGA
+E R I R			>	-ERIR,IERA
+E R T I R		>	-ERTIR,IERTA
+E R V I R		>	-ERVIR,IERVA
+
+E N T I R		>	-ENTIR,IENTAS
+E R G U I R		>	-ERGUIR,YERGAS
+E R I R			>	-ERIR,IERAS
+E R T I R		>	-ERTIR,IERTAS
+E R V I R		>	-ERVIR,IERVAS
+
+E N T I R		>	-ENTIR,INTAMOS
+E R G U I R		>	-ERGUIR,IRGAMOS
+E R I R			>	-ERIR,IRAMOS
+E R T I R		>	-ERTIR,IRTAMOS
+E R V I R		>	-ERVIR,IRVAMOS
+
+E N T I R		>	-ENTIR,INTA'IS
+E R G U I R		>	-ERGUIR,IRGA'IS
+E R I R			>	-ERIR,IRA'IS
+E R T I R		>	-ERTIR,IRTA'IS
+E R V I R		>	-ERVIR,IRVA'IS
+
+E N T I R		>	-ENTIR,IENTAN
+E R G U I R		>	-ERGUIR,YERGAN
+E R I R			>	-ERIR,IERAN
+E R T I R		>	-ERTIR,IERTAN
+E R V I R		>	-ERVIR,IERVAN
+
+# Imperativo
+
+# E N T I R		>	-ENTIR,IENTE
+# E R G U I R		>	-ERGUIR,YERGUE
+# E R I R		>	-ERIR,IERE
+# E R T I R		>	-ERTIR,IERTE
+# E R V I R		>	-ERVIR,IERVE
+
+E N T I R		>	-R,D			# Regular
+E R G U I R		>	-R,D
+E R I R			>	-R,D
+E R T I R		>	-R,D
+E R V I R		>	-R,D
+
+# Perfecto simple
+
+E N T I R		>	-IR,I'			# Regular
+E R G U I R		>	-IR,I'
+E R I R			>	-IR,I'
+E R T I R		>	-IR,I'
+E R V I R		>	-IR,I'
+
+E N T I R		>	-R,STE			# Regular
+E R G U I R		>	-R,STE
+E R I R			>	-R,STE
+E R T I R		>	-R,STE
+E R V I R		>	-R,STE
+
+E N T I R		>	-ENTIR,INTIO'
+E R G U I R		>	-ERGUIR,IRGUIO'
+E R I R			>	-ERIR,IRIO'
+E R T I R		>	-ERTIR,IRTIO'
+E R V I R		>	-ERVIR,IRVIO'
+
+# E N T I R		>	-R,MOS			# Regular
+# E R G U I R		>	-R,MOS
+# E R I R		>	-R,MOS
+# E R T I R		>	-R,MOS
+# E R V I R		>	-R,MOS
+
+E N T I R		>	-R,STEIS		# Regular
+E R G U I R		>	-R,STEIS
+E R I R			>	-R,STEIS
+E R T I R		>	-R,STEIS
+E R V I R		>	-R,STEIS
+
+E N T I R		>	-ENTIR,INTIERON
+E R G U I R		>	-ERGUIR,IRGUIERON
+E R I R			>	-ERIR,IRIERON
+E R T I R		>	-ERTIR,IRTIERON
+E R V I R		>	-ERVIR,IRVIERON
+
+# Tiempos derivados del perfecto simple
+# Pretirito imperfecto de subjuntivo
+
+E N T I R		>	-ENTIR,INTIERA
+E N T I R		>	-ENTIR,INTIESE
+E R G U I R		>	-ERGUIR,IRGUIERA
+E R G U I R		>	-ERGUIR,IRGUIESE
+E R I R			>	-ERIR,IRIERA
+E R I R			>	-ERIR,IRIESE
+E R T I R		>	-ERTIR,IRTIERA
+E R T I R		>	-ERTIR,IRTIESE
+E R V I R		>	-ERVIR,IRVIERA
+E R V I R		>	-ERVIR,IRVIESE
+
+E N T I R		>	-ENTIR,INTIERAS
+E N T I R		>	-ENTIR,INTIESES
+E R G U I R		>	-ERGUIR,IRGUIERAS
+E R G U I R		>	-ERGUIR,IRGUIESES
+E R I R			>	-ERIR,IRIERAS
+E R I R			>	-ERIR,IRIESES
+E R T I R		>	-ERTIR,IRTIERAS
+E R T I R		>	-ERTIR,IRTIESES
+E R V I R		>	-ERVIR,IRVIERAS
+E R V I R		>	-ERVIR,IRVIESES
+
+E N T I R		>	-ENTIR,INTIE'RAMOS
+E N T I R		>	-ENTIR,INTIE'SEMOS
+E R G U I R		>	-ERGUIR,IRGUIE'RAMOS
+E R G U I R		>	-ERGUIR,IRGUIE'SEMOS
+E R I R			>	-ERIR,IRIE'RAMOS
+E R I R			>	-ERIR,IRIE'SEMOS
+E R T I R		>	-ERTIR,IRTIE'RAMOS
+E R T I R		>	-ERTIR,IRTIE'SEMOS
+E R V I R		>	-ERVIR,IRVIE'RAMOS
+E R V I R		>	-ERVIR,IRVIE'SEMOS
+
+E N T I R		>	-ENTIR,INTIERAIS
+E N T I R		>	-ENTIR,INTIESEIS
+E R G U I R		>	-ERGUIR,IRGUIERAIS
+E R G U I R		>	-ERGUIR,IRGUIESEIS
+E R I R			>	-ERIR,IRIERAIS
+E R I R			>	-ERIR,IRIESEIS
+E R T I R		>	-ERTIR,IRTIERAIS
+E R T I R		>	-ERTIR,IRTIESEIS
+E R V I R		>	-ERVIR,IRVIERAIS
+E R V I R		>	-ERVIR,IRVIESEIS
+
+E N T I R		>	-ENTIR,INTIERAN
+E N T I R		>	-ENTIR,INTIESEN
+E R G U I R		>	-ERGUIR,IRGUIERAN
+E R G U I R		>	-ERGUIR,IRGUIESEN
+E R I R			>	-ERIR,IRIERAN
+E R I R			>	-ERIR,IRIESEN
+E R T I R		>	-ERTIR,IRTIERAN
+E R T I R		>	-ERTIR,IRTIESEN
+E R V I R		>	-ERVIR,IRVIERAN
+E R V I R		>	-ERVIR,IRVIESEN
+
+# Futuro simple de subjuntivo
+
+E N T I R		>	-ENTIR,INTIERE
+E R G U I R		>	-ERGUIR,IRGUIERE
+E R I R			>	-ERIR,IRIERE
+E R T I R		>	-ERTIR,IRTIERE
+E R V I R		>	-ERVIR,IRVIERE
+
+E N T I R		>	-ENTIR,INTIERES
+E R G U I R		>	-ERGUIR,IRGUIERES
+E R I R			>	-ERIR,IRIERES
+E R T I R		>	-ERTIR,IRTIERES
+E R V I R		>	-ERVIR,IRVIERES
+
+E N T I R		>	-ENTIR,INTIE'REMOS
+E R G U I R		>	-ERGUIR,IRGUIE'REMOS
+E R I R			>	-ERIR,IRIE'REMOS
+E R T I R		>	-ERTIR,IRTIE'REMOS
+E R V I R		>	-ERVIR,IRVIE'REMOS
+
+E N T I R		>	-ENTIR,INTIEREIS
+E R G U I R		>	-ERGUIR,IRGUIEREIS
+E R I R			>	-ERIR,IRIEREIS
+E R T I R		>	-ERTIR,IRTIEREIS
+E R V I R		>	-ERVIR,IRVIEREIS
+
+E N T I R		>	-ENTIR,INTIEREN
+E R G U I R		>	-ERGUIR,IRGUIEREN
+E R I R			>	-ERIR,IRIEREN
+E R T I R		>	-ERTIR,IRTIEREN
+E R V I R		>	-ERVIR,IRVIEREN
+
+# Formas no personales
+
+E N T I R		>	-R,DO			# Regular
+E R G U I R		>	-R,DO
+E R I R			>	-R,DO
+E R T I R		>	-R,DO
+E R V I R		>	-R,DO
+
+E N T I R		>	-ENTIR,INTIENDO
+E R G U I R		>	-ERGUIR,IRGUIENDO
+E R I R			>	-ERIR,IRIENDO
+E R T I R		>	-ERTIR,IRTIENDO
+E R V I R		>	-ERVIR,IRVIENDO
+
+
+flag *E:
+
+# La variacisn o/u (II) y la o/ue (IV) concurren en un mismo verbo.
+# Nstese que no hay verbos que contengan sslo la variacisn o/u (II)
+
+# Tercera conjugacisn, esquema -o-ir, terminaciones:
+#
+#	-orir		Todos (morir, etc.)
+#	-ormir		Todos (dormir, etc.)
+
+# Presente de indicativo
+
+O R I R			>	-ORIR,UERO
+O R M I R		>	-ORMIR,UERMO
+
+O R I R			>	-ORIR,UERES
+O R M I R		>	-ORMIR,UERMES
+
+O R I R			>	-ORIR,UERE
+O R M I R		>	-ORMIR,UERME
+
+O R I R			>	-R,MOS			# Regular
+O R M I R		>	-R,MOS
+
+O R I R			>	-IR,I'S			# Regular
+O R M I R		>	-IR,I'S
+
+O R I R			>	-ORIR,UEREN
+O R M I R		>	-ORMIR,UERMEN
+
+# Presente de subjuntivo
+
+O R I R			>	-ORIR,UERA
+O R M I R		>	-ORMIR,UERMA
+
+O R I R			>	-ORIR,UERAS
+O R M I R		>	-ORMIR,UERMAS
+
+O R I R			>	-ORIR,URAMOS
+O R M I R		>	-ORMIR,URMAMOS
+
+O R I R			>	-ORIR,URA'IS
+O R M I R		>	-ORMIR,URMA'IS
+
+O R I R			>	-ORIR,UERAN
+O R M I R		>	-ORMIR,UERMAN
+
+# Imperativo
+
+# O R I R		>	-ORIR,UERE
+# O R M I R		>	-ORMIR,UERME
+
+O R I R			>	-R,D			# Regular
+O R M I R		>	-R,D
+
+# Perfecto simple
+
+O R I R			>	-IR,I'			# Regular
+O R M I R		>	-IR,I'
+
+O R I R			>	-R,STE			# Regular
+O R M I R		>	-R,STE
+
+O R I R			>	-ORIR,URIO'
+O R M I R		>	-ORMIR,URMIO'
+
+# O R I R		>	-R,MOS			# Regular
+# O R M I R		>	-R,MOS
+
+O R I R			>	-R,STEIS		# Regular
+O R M I R		>	-R,STEIS
+
+O R I R			>	-ORIR,URIERON
+O R M I R		>	-ORMIR,URMIERON
+
+# Tiempos derivados del perfecto simple
+# Pretirito imperfecto de subjuntivo
+
+O R I R			>	-ORIR,URIERA
+O R I R			>	-ORIR,URIESE
+O R M I R		>	-ORMIR,URMIERA
+O R M I R		>	-ORMIR,URMIESE
+
+O R I R			>	-ORIR,URIERAS
+O R I R			>	-ORIR,URIESES
+O R M I R		>	-ORMIR,URMIERAS
+O R M I R		>	-ORMIR,URMIESES
+
+O R I R			>	-ORIR,URIE'RAMOS
+O R I R			>	-ORIR,URIE'SEMOS
+O R M I R		>	-ORMIR,URMIE'RAMOS
+O R M I R		>	-ORMIR,URMIE'SEMOS
+
+O R I R			>	-ORIR,URIERAIS
+O R I R			>	-ORIR,URIESEIS
+O R M I R		>	-ORMIR,URMIERAIS
+O R M I R		>	-ORMIR,URMIESEIS
+
+O R I R			>	-ORIR,URIERAN
+O R I R			>	-ORIR,URIESEN
+O R M I R		>	-ORMIR,URMIERAN
+O R M I R		>	-ORMIR,URMIESEN
+
+# Futuro de subjuntivo
+
+O R I R			>	-ORIR,URIERE
+O R M I R		>	-ORMIR,URMIERE
+
+O R I R			>	-ORIR,URIERES
+O R M I R		>	-ORMIR,URMIERES
+
+O R I R			>	-ORIR,URIE'REMOS
+O R M I R		>	-ORMIR,URMIE'REMOS
+
+O R I R			>	-ORIR,URIEREIS
+O R M I R		>	-ORMIR,URMIEREIS
+
+O R I R			>	-ORIR,URIEREN
+O R M I R		>	-ORMIR,URMIEREN
+
+# Formas no personales
+
+O R I R			>	-ORIR,UERTO		# Fuerte
+O R M I R		>	-R,DO
+
+O R I R			>	-ORIR,URIENDO
+O R M I R		>	-ORMIR,URMIENDO
+
+flag *F:
+
+# Variacisn i/ie (V)
+
+# Tercera conjugacisn, esquema -i-ir, terminaciones:
+#
+#	-irir		Todos: adquirir e inquirir
+
+# Presente de indicativo
+
+I R I R			>	-RIR,ERO
+
+I R I R			>	-RIR,ERES
+
+I R I R			>	-RIR,ERE
+
+I R I R			>	-R,MOS			# Regular
+
+I R I R			>	-IR,I'S			# Regular
+
+I R I R			>	-RIR,EREN
+
+# Presente de subjuntivo
+
+I R I R			>	-RIR,ERA
+
+I R I R			>	-RIR,ERAS
+
+I R I R			>	-IR,AMOS		# Regular
+
+I R I R			>	-IR,A'IS		# Regular
+
+I R I R			>	-RIR,ERAN
+
+# Imperativo
+
+# I R I R		>	-RIR,ERE
+
+I R I R			>	-R,D			# Regular
+
+flag *G:
+
+# Variacisn u/ue (VI)
+
+# Primera conjugacisn, esquema u-ar, terminaciones:
+#
+#	-ugar		Sslo jugar
+
+# Presente de indicativo
+
+U G A R			>	-UGAR,UEGO
+
+U G A R			>	-UGAR,UEGAS
+
+U G A R			>	-UGAR,UEGA
+
+U G A R			>	-R,MOS			# Regular
+
+U G A R			>	-AR,A'IS		# Regular
+
+U G A R			>	-UGAR,UEGAN
+
+# Presente de subjuntivo
+
+U G A R			>	-UGAR,UEGUE
+
+U G A R			>	-UGAR,UEGUES
+
+U G A R			>	-AR,UEMOS		# Regular
+
+U G A R			>	-AR,UE'IS
+
+U G A R			>	-UGAR,UEGUEN
+
+# Imperativo
+
+U G A R			>	-UGAR,UEGA
+
+U G A R			>	-R,D			# Regular
+
+# Irregularidades consonanticas
+# 1: Sustitucisn de una consonante por otra (VII)
+
+flag *H:		# TBC, el futuro de yacer
+
+# Variacisn c/g (VII)
+
+# Segunda conjugacisn, terminaciones:
+#
+#	-acer		hacer y derivados, satisfacer
+
+# Presente de indicativo
+
+A C E R			>	-CER,GO
+A C E R			>	-R,S			# Regular
+A C E R			>	-R,-			# Regular
+A C E R			>	-R,MOS			# Regular
+A C E R			>	-ER,E'IS		# Regular
+A C E R			>	-R,N			# Regular
+
+# Presente de subjuntivo
+
+A C E R			>	-CER,GA
+A C E R			>	-CER,GAS
+A C E R			>	-CER,GAMOS
+A C E R			>	-CER,GA'IS
+A C E R			>	-CER,GAN
+
+# Imperativo
+
+A C E R			>	-CER,Z
+A C E R			>	-R,D
+
+# Perfecto simple
+
+A C E R			>	-ACER,ICE
+A C E R			>	-ACER,ICISTE
+A C E R			>	-ACER,IZO
+A C E R			>	-ACER,ICIMOS
+A C E R			>	-ACER,ICISTEIS
+A C E R			>	-ACER,ICIERON
+
+# Formas derivadas del perfecto simple
+# Pretirito imperfecto de subjuntivo
+
+A C E R			>	-ACER,ICIERA
+A C E R			>	-ACER,ICIESE
+A C E R			>	-ACER,ICIERAS
+A C E R			>	-ACER,ICIESES
+A C E R			>	-ACER,ICIE'RAMOS
+A C E R			>	-ACER,ICIE'SEMOS
+A C E R			>	-ACER,ICIERAIS
+A C E R			>	-ACER,ICIESEIS
+A C E R			>	-ACER,ICIERAN
+A C E R			>	-ACER,ICIESEN
+
+# Futuro de subjuntivo
+
+A C E R			>	-ACER,ICIERE
+A C E R			>	-ACER,ICIERES
+A C E R			>	-ACER,ICIE'REMOS
+A C E R			>	-ACER,ICIEREIS
+A C E R			>	-ACER,ICIEREN
+
+# Futuro y condicional se basan en formas contractas
+
+A C E R			>	-CER,RE'
+A C E R			>	-CER,RA'S
+A C E R			>	-CER,RA'
+A C E R			>	-CER,REMOS
+A C E R			>	-CER,RE'IS
+A C E R			>	-CER,RA'N
+
+A C E R			>	-CER,RI'A
+A C E R			>	-CER,RI'AS
+A C E R			>	-CER,RI'AMOS
+A C E R			>	-CER,RI'AIS
+A C E R			>	-CER,RI'AN
+
+flag *I:
+
+# Variacisn b/y (VII)
+
+# Sslo afecta a haber. Se introducen aqum el resto de irregularidades
+# de haber
+
+# Presente de indicativo
+
+A B E R			>	-ABER,E
+A B E R			>	-BER,S
+A B E R			>	-BER,-
+A B E R			>	-BER,Y
+A B E R			>	-ABER,EMOS
+# A B E R		>	-R,MOS			# Regular, inusitado
+# A B E R		>	-ABER,EIS		# Inusitado
+A B E R			>	-ER,E'IS		# Regular
+A B E R			>	-BER,N
+
+# Presente de subjuntivo
+
+A B E R			>	-BER,YA
+A B E R			>	-BER,YAS
+A B E R			>	-BER,YAMOS
+A B E R			>	-BER,YA'IS
+A B E R			>	-BER,YAN
+
+# Imperativo (no tiene singular)
+
+A B E R			>	-R,D			# Regular
+
+# Perfecto simple
+
+A B E R			>	-ABER,UBE
+A B E R			>	-ABER,UBISTE
+A B E R			>	-ABER,UBO
+A B E R			>	-ABER,UBIMOS
+A B E R			>	-ABER,UBISTEIS
+A B E R			>	-ABER,UBIERON
+
+# Formas derivadas del perfecto simple
+# Imperfecto de subjuntivo
+
+A B E R			>	-ABER,UBIERA
+A B E R			>	-ABER,UBIESE
+A B E R			>	-ABER,UBIERAS
+A B E R			>	-ABER,UBIESES
+A B E R			>	-ABER,UBIE'RAMOS
+A B E R			>	-ABER,UBIE'SEMOS
+A B E R			>	-ABER,UBIERAIS
+A B E R			>	-ABER,UBIESEIS
+A B E R			>	-ABER,UBIERAN
+A B E R			>	-ABER,UBIESEN
+
+# Futuro de subjuntivo
+
+A B E R			>	-ABER,UBIERE
+A B E R			>	-ABER,UBIERES
+A B E R			>	-ABER,UBIE'REMOS
+A B E R			>	-ABER,UBIEREIS
+A B E R			>	-ABER,UBIEREN
+
+# Futuro y condicional sincopados
+
+A B E R			>	-ER,RE'
+A B E R			>	-ER,RA'S
+A B E R			>	-ER,RA'
+A B E R			>	-ER,REMOS
+A B E R			>	-ER,RE'IS
+A B E R			>	-ER,RA'N
+
+A B E R			>	-ER,RI'A
+A B E R			>	-ER,RI'AS
+A B E R			>	-ER,RI'AMOS
+A B E R			>	-ER,RI'AIS
+A B E R			>	-ER,RI'AN
+
+# Formas no personales
+
+A B E R			>	-ER,IDO
+
+A B E R			>	-ER,IENDO
+
+# 2: Adicisn de una consonante a la consonante final de la ramz (VIII)
+
+flag *J:
+
+# Variacisn c/zc (VIII)
+
+# Segunda conjugacisn, terminaciones en:
+#
+#	-acer		nacer, renacer, pacer, repacer
+#	-ecer		Unos 300, todos menos mecer y remecer
+#	-ocer		conocer y derivados
+#
+# Ademas, placer tiene un perfecto normal, uno fuerte y otro derivado
+# de la regla Q. Yacer combina H, J y K.
+
+# Presente de indicativo
+
+C E R			>	-CER,ZCO
+C E R			>	-R,S			# Regular
+C E R			>	-R,-			# Regular
+C E R			>	-R,MOS			# Regular
+C E R			>	-ER,E'IS		# Regular
+C E R			>	-R,N			# Regular
+
+# Presente de subjuntivo
+
+C E R			>	-CER,ZCA
+C E R			>	-CER,ZCAS
+C E R			>	-CER,ZCAMOS
+C E R			>	-CER,ZCA'IS
+C E R			>	-CER,ZCAN
+
+# Tercera conjugacisn, terminaciones:
+#
+#	-lucir		lucir, entrelucir, relucir, deslucir y demas
+#	-ducir		conducir, aducir, traducir, etc. que tienen, ademas,
+#			perfecto simple fuerte.
+
+# Presente de indicativo
+
+U C I R			>	-CIR,ZCO
+U C I R			>	-IR,ES			# Regular
+U C I R			>	-IR,E			# Regular
+U C I R			>	-R,MOS			# Regular
+U C I R			>	-IR,I'S			# Regular
+U C I R			>	-IR,EN			# Regular
+
+# Presente de subjuntivo
+
+U C I R			>	-CIR,ZCA
+U C I R			>	-CIR,ZCAS
+U C I R			>	-CIR,ZCAMOS
+U C I R			>	-CIR,ZCA'IS
+U C I R			>	-CIR,ZCAN
+
+# Perfecto simple
+
+D U C I R		>	-CIR,JE
+D U C I R		>	-CIR,JISTE
+D U C I R		>	-CIR,JO
+D U C I R		>	-CIR,JIMOS
+D U C I R		>	-CIR,JISTEIS
+D U C I R		>	-CIR,JERON
+
+# Formas derivadas del perfecto simple
+# Imperfecto de subjuntivo
+
+D U C I R		>	-CIR,JERA
+D U C I R		>	-CIR,JESE
+D U C I R		>	-CIR,JERAS
+D U C I R		>	-CIR,JESES
+D U C I R		>	-CIR,JE'RAMOS
+D U C I R		>	-CIR,JE'SEMOS
+D U C I R		>	-CIR,JERAIS
+D U C I R		>	-CIR,JESEIS
+D U C I R		>	-CIR,JERAN
+D U C I R		>	-CIR,JESEN
+
+# Futuro de subjuntivo
+
+D U C I R		>	-CIR,JERE
+D U C I R		>	-CIR,JERES
+D U C I R		>	-CIR,JE'REMOS
+D U C I R		>	-CIR,JEREIS
+D U C I R		>	-CIR,JEREN
+
+flag *K:
+
+# Variacisn c/zg, privativa de yacer.
+
+# Presente de indicativo
+
+C E R			>	-CER,ZGO
+C E R			>	-R,S			# Regular
+C E R			>	-R,-			# Regular
+C E R			>	-R,MOS			# Regular
+C E R			>	-ER,E'IS		# Regular
+C E R			>	-R,N			# Regular
+
+# Presente de subjuntivo
+
+C E R			>	-CER,ZGA
+C E R			>	-CER,ZGAS
+C E R			>	-CER,ZGAMOS
+C E R			>	-CER,ZGA'IS
+C E R			>	-CER,ZGAN
+
+flag *L:
+
+# Variacisn s/sg (VIII), privativa de asir y desasir, aunque las formas
+# irregulares de estos verbos tienden a no usarse (como si fueran
+# defectivas)
+
+# Presente de indicativo
+
+I R			>	-IR,GO
+I R			>	-IR,ES			# Regular
+I R			>	-IR,E			# Regular
+I R 			>	-R,MOS			# Regular
+I R			>	-IR,I'S			# Regular
+I R			>	-IR,EN			# Regular
+
+# Presente de subjuntivo
+
+I R			>	-IR,GA
+I R			>	-IR,GAS
+I R			>	-IR,GAMOS
+I R			>	-IR,GA'IS
+I R			>	-IR,GAN
+
+flag *M:
+
+# Variacisn n/ng (VIII)
+
+# Segunda conjugacisn. Terminaciones:
+#
+#	-oner		Todos
+#	-ener		Todos, pero siguen la variacisn e/ie (III)
+
+# Presente de indicativo
+
+O N E R			>	-ER,GO
+E N E R			>	-ER,GO
+
+O N E R			>	-R,S			# Regular
+E N E R			>	-ENER,IENES
+
+O N E R			>	-R,-			# Regular
+E N E R			>	-ENER,IENE
+
+O N E R			>	-R,MOS			# Regular
+E N E R			>	-R,MOS			# Regular
+
+O N E R			>	-ER,E'IS		# Regular
+E N E R			>	-ER,E'IS		# Regular
+
+O N E R			>	-R,N			# Regular
+E N E R			>	-ENER,IENEN
+
+# Presente de subjuntivo
+
+[OE] N E R		>	-ER,GA
+[OE] N E R		>	-ER,GAS
+[OE] N E R		>	-ER,GAMOS
+[OE] N E R		>	-ER,GA'IS
+[OE] N E R		>	-ER,GAN
+
+# Imperativo  Falla en tener y poner. Harma falta mover esto a otra regla
+# auxiliar.
+
+# E N E R		>	-ENER,E'N
+# O N E R		>	-ONER,O'N
+
+[OE] N E R		>	-R,D			# Regular
+
+# Perfecto simple
+
+O N E R			>	-ONER,USE
+E N E R			>	-ENER,UVE
+
+O N E R			>	-ONER,USISTE
+E N E R			>	-ENER,UVISTE
+
+O N E R			>	-ONER,USO
+E N E R			>	-ENER,UVO
+
+O N E R			>	-ONER,USIMOS
+E N E R			>	-ENER,UVIMOS
+
+O N E R			>	-ONER,USISTEIS
+E N E R			>	-ENER,UVISTEIS
+
+O N E R			>	-ONER,USIERON
+E N E R			>	-ENER,UVIERON
+
+# Formas derivadas del perfecto simple
+
+# Imperfecto de subjuntivo
+
+O N E R			>	-ONER,USIERA
+O N E R			>	-ONER,USIESE
+E N E R			>	-ENER,UVIERA
+E N E R			>	-ENER,UVIESE
+
+O N E R			>	-ONER,USIERAS
+O N E R			>	-ONER,USIESES
+E N E R			>	-ENER,UVIERAS
+E N E R			>	-ENER,UVIESES
+
+O N E R			>	-ONER,USIE'RAMOS
+O N E R			>	-ONER,USIE'SEMOS
+E N E R			>	-ENER,UVIE'RAMOS
+E N E R			>	-ENER,UVIE'SEMOS
+
+O N E R			>	-ONER,USIERAIS
+O N E R			>	-ONER,USIESEIS
+E N E R			>	-ENER,UVIERAIS
+E N E R			>	-ENER,UVIESEIS
+
+O N E R			>	-ONER,USIERAN
+O N E R			>	-ONER,USIESEN
+E N E R			>	-ENER,UVIERAN
+E N E R			>	-ENER,UVIESEN
+
+# Futuro de subjuntivo
+
+O N E R			>	-ONER,USIERE
+E N E R			>	-ENER,UVIERE
+
+O N E R			>	-ONER,USIERES
+E N E R			>	-ENER,UVIERES
+
+O N E R			>	-ONER,USIE'REMOS
+E N E R			>	-ENER,UVIE'REMOS
+
+O N E R			>	-ONER,USIEREIS
+E N E R			>	-ENER,UVIEREIS
+
+O N E R			>	-ONER,USIEREN
+E N E R			>	-ENER,UVIEREN
+
+# Futuro y potencial irregulares
+
+[OE] N E R		>	-ER,DRE'
+[OE] N E R		>	-ER,DRA'S
+[OE] N E R		>	-ER,DRA'
+[OE] N E R		>	-ER,DREMOS
+[OE] N E R		>	-ER,DRE'IS
+[OE] N E R		>	-ER,DRA'N
+
+[OE] N E R		>	-ER,DRI'A
+[OE] N E R		>	-ER,DRI'AS
+[OE] N E R		>	-ER,DRI'AMOS
+[OE] N E R		>	-ER,DRI'AIS
+[OE] N E R		>	-ER,DRI'AN
+
+# Tercera conjugacisn. Terminaciones:
+#
+#	-enir		Todos, tienen tambiin las irregularidades del
+#			grupo III. Cambia el gerundio.
+
+# Presente de indicativo
+
+E N I R			>	-IR,GO
+E N I R			>	-ENIR,IENES
+E N I R			>	-ENIR,IENE
+E N I R			>	-R,MOS			# Regular
+E N I R			>	-IR,I'S			# Regular
+E N I R			>	-ENIR,IENEN
+
+# Presente de subjuntivo
+
+E N I R			>	-IR,GA
+E N I R			>	-IR,GAS
+E N I R			>	-IR,GAMOS
+E N I R			>	-IR,GA'IS
+E N I R			>	-IR,GAN
+
+# Imperativo
+
+# E N I R		>	-IR,-
+
+E N I R			>	-R,D			# Regular
+
+# Perfecto simple
+
+E N I R			>	-ENIR,INE
+E N I R			>	-ENIR,INISTE
+E N I R			>	-ENIR,INO
+E N I R			>	-ENIR,INIMOS
+E N I R			>	-ENIR,INISTEIS
+E N I R			>	-ENIR,INIERON
+
+# Formas derivadas del perfecto simple
+# Imperfecto de subjuntivo
+
+E N I R			>	-ENIR,INIERA
+E N I R			>	-ENIR,INIESE
+E N I R			>	-ENIR,INIERAS
+E N I R			>	-ENIR,INIESES
+E N I R			>	-ENIR,INIE'RAMOS
+E N I R			>	-ENIR,INIE'SEMOS
+E N I R			>	-ENIR,INIERAIS
+E N I R			>	-ENIR,INIESEIS
+E N I R			>	-ENIR,INIERAN
+E N I R			>	-ENIR,INIESEN
+
+# Futuro de subjuntivo
+
+E N I R			>	-ENIR,INIERE
+E N I R			>	-ENIR,INIERES
+E N I R			>	-ENIR,INIE'REMOS
+E N I R			>	-ENIR,INIEREIS
+E N I R			>	-ENIR,INIEREN
+
+# Futuro y potencial irregulares
+
+E N I R			>	-IR,DRE'
+E N I R			>	-IR,DRA'S
+E N I R			>	-IR,DRA'
+E N I R			>	-IR,DREMOS
+E N I R			>	-IR,DRE'IS
+E N I R			>	-IR,DRA'N
+
+E N I R			>	-IR,DRI'A
+E N I R			>	-IR,DRI'AS
+E N I R			>	-IR,DRI'AMOS
+E N I R			>	-IR,DRI'AIS
+E N I R			>	-IR,DRI'AN
+
+# Gerundio
+
+E N I R			>	-ENIR,INIENDO
+
+flag *N:
+
+# Variacisn l/lg (VIII)
+
+# Segunda conjugacisn, terminaciones:
+#
+#	-aler		Todos (valer, etc.)
+
+# Presente de indicativo
+
+A L E R			>	-ER,GO
+A L E R			>	-R,S			# Regular
+A L E R			>	-R,-			# Regular
+A L E R			>	-R,MOS			# Regular
+A L E R			>	-ER,E'IS		# Regular
+A L E R			>	-R,N			# Regular
+
+# Presente de subjuntivo
+
+A L E R			>	-ER,GA
+A L E R			>	-ER,GAS
+A L E R			>	-ER,GAMOS
+A L E R			>	-ER,GA'IS
+A L E R			>	-ER,GAN
+
+# Imperativo
+
+A L E R			>	-ER,-
+A L E R			>	-R,D			# Regular
+
+# Futuro y potencial irregulares
+
+A L E R			>	-ER,DRE'
+A L E R			>	-ER,DRA'S
+A L E R			>	-ER,DRA'
+A L E R			>	-ER,DREMOS
+A L E R			>	-ER,DRE'IS
+A L E R			>	-ER,DRA'N
+
+A L E R			>	-ER,DRI'A
+A L E R			>	-ER,DRI'AS
+A L E R			>	-ER,DRI'AMOS
+A L E R			>	-ER,DRI'AIS
+A L E R			>	-ER,DRI'AN
+
+# Tercera conjugacisn, terminaciones:
+#
+#	-alir		Todos (salir, etc.)
+
+
+# Presente de indicativo
+
+A L I R			>	-IR,GO
+A L I R			>	-ENIR,IENES
+A L I R			>	-ENIR,IENE
+A L I R			>	-R,MOS			# Regular
+A L I R			>	-IR,I'S			# Regular
+A L I R			>	-ENIR,IENEN
+
+# Presente de subjuntivo
+
+A L I R			>	-IR,GA
+A L I R			>	-IR,GAS
+A L I R			>	-IR,GAMOS
+A L I R			>	-IR,GA'IS
+A L I R			>	-IR,GAN
+
+# Imperativo
+
+A L I R			>	-IR,-
+A L I R			>	-R,D			# Regular
+
+# Futuro y potencial irregulares
+
+A L I R			>	-IR,DRE'
+A L I R			>	-IR,DRA'S
+A L I R			>	-IR,DRA'
+A L I R			>	-IR,DREMOS
+A L I R			>	-IR,DRE'IS
+A L I R			>	-IR,DRA'N
+
+A L I R			>	-IR,DRI'A
+A L I R			>	-IR,DRI'AS
+A L I R			>	-IR,DRI'AMOS
+A L I R			>	-IR,DRI'AIS
+A L I R			>	-IR,DRI'AN
+
+flag *O:
+
+# Variacisn u/uy (IX)
+# Variacisn o/oy (IX)
+
+# Tercera conjugacisn, terminaciones:
+#
+#	-uir		Todos (huir, concluir, etc.)
+#	-|ir		Todos (arg|ir, etc.)
+#	-omr		Todos (omr y sus compuestos), mezclada con
+#			la irregularidad R
+
+# Presente de indicativo
+
+U I R			>	-IR,YO
+U" I R			>	-U"IR,UYO
+O I' R			>	-I'R,IGO
+
+U I R			>	-IR,YES
+U" I R			>	-U"IR,UYES
+O I' R			>	-I'R,YES
+
+U I R			>	-IR,YE
+U" I R			>	-U"IR,UYE
+O I' R			>	-I'R,YE
+
+[UU"] I R		>	-R,MOS			# Regular
+O I' R			>	-R,MOS			# Regular
+
+[UU"] I R		>	-IR,I'S			# Regular
+O I' R			>	-R,S			# Regular
+
+U I R			>	-IR,YEN
+U" I R			>	-U"IR,UYEN
+O I' R			>	-I'R,YEN
+
+# Perfecto
+
+[UU"] I R		>	-IR,I'			# Regular
+O I' R			>	-R,-			# Regular
+[UU"] I R		>	-R,STE			# Regular
+O I' R			>	-R,STE			# Regular
+U I R			>	-IR,YO'
+U" I R			>	-U"IR,UYO'
+O I' R			>	-I'R,YO'
+# [UU"] I R		>	-R,MOS			# Regular
+# O I' R		>	-R,MOS			# Regular
+[UU"] I R		>	-R,STEIS		# Regular
+O I' R			>	-R,STEIS		# Regular
+U I R			>	-IR,YERON
+U" I R			>	-U"IR,UYERON
+O I' R			>	-I'R,YERON
+
+# Presente de subjuntivo
+
+U I R			>	-IR,YA
+U" I R			>	-U"IR,UYA
+O I' R			>	-I'R,IGA
+
+U I R			>	-IR,YAS
+U" I R			>	-U"IR,UYAS
+O I' R			>	-I'R,IGAS
+
+U I R			>	-IR,YAMOS
+U" I R			>	-U"IR,UYAMOS
+O I' R			>	-I'R,IGAMOS
+
+U I R			>	-IR,YA'IS
+U" I R			>	-U"IR,UYA'IS
+O I' R			>	-I'R,IGA'IS
+
+U I R			>	-IR,YAN
+U" I R			>	-U"IR,UYAN
+O I' R			>	-I'R,IGAN
+
+# Imperfecto de subjuntivo
+# Esta parte es completamente genirica, podrma incluirse con los
+# regulares.
+
+U I R			>	-IR,YERA
+U I R			>	-IR,YESE
+U" I R			>	-U"IR,UYERA
+U" I R			>	-U"IR,UYESE
+O I' R			>	-I'R,YERA
+O I' R			>	-I'R,YESE
+
+U I R			>	-IR,YERAS
+U I R			>	-IR,YESES
+U" I R			>	-U"IR,UYERAS
+U" I R			>	-U"IR,UYESES
+O I' R			>	-I'R,YERAS
+O I' R			>	-I'R,YESES
+
+U I R			>	-IR,YE'RAMOS
+U I R			>	-IR,YE'SEMOS
+U" I R			>	-U"IR,UYE'RAMOS
+U" I R			>	-U"IR,UYE'SEMOS
+O I' R			>	-I'R,YE'RAMOS
+O I' R			>	-I'R,YE'SEMOS
+
+U I R			>	-IR,YERAIS
+U I R			>	-IR,YESEIS
+U" I R			>	-U"IR,UYERAIS
+U" I R			>	-U"IR,UYESEIS
+O I' R			>	-I'R,YERAIS
+O I' R			>	-I'R,YESEIS
+
+U I R			>	-IR,YERAN
+U I R			>	-IR,YESEN
+U" I R			>	-U"IR,UYERAN
+U" I R			>	-U"IR,UYESEN
+O I' R			>	-I'R,YERAN
+O I' R			>	-I'R,YESEN
+
+# Futuro de subjuntivo
+
+U I R			>	-IR,YERE
+U" I R			>	-U"IR,UYERE
+O I' R			>	-I'R,YERE
+
+U I R			>	-IR,YERES
+U" I R			>	-U"IR,UYERES
+O I' R			>	-I'R,YERES
+
+U I R			>	-IR,YE'REMOS
+U" I R			>	-U"IR,UYE'REMOS
+O I' R			>	-I'R,YE'REMOS
+
+U I R			>	-IR,YEREIS
+U" I R			>	-U"IR,UYEREIS
+O I' R			>	-I'R,YEREIS
+
+U I R			>	-IR,YEREN
+U" I R			>	-U"IR,UYEREN
+O I' R			>	-I'R,YEREN
+
+# Imperativo
+
+# U I R			>	-IR,YE
+# U" I R		>	-U"IR,UYE
+# O I' R		>	-I'R,YE
+
+U I R			>	-R,D			# Regular
+U" I R			>	-R,D			# Regular
+O I' R			>	-R,D			# Regular
+
+# Gerundio
+
+U I R			>	-IR,YENDO
+U" I R			>	-U"IR,UYENDO
+O I' R			>	-I'R,YENDO
+
+
+# Irregularidades mixtas
+
+flag *P:
+
+# Variacisn ez/ig
+
+# Tercera conjugacisn, se aplica a decir y todos sus compuestos,
+# aunque en diverso grado.  Algunos tienen futuros regulares, la
+# mayorma, no.  Corresponde un perfecto fuerte.  Los futuros
+# irregulares habra que describirlos en otra regla.
+
+# Presente de indicativo
+
+E C I R			>	-ECIR,IGO
+E C I R			>	-ECIR,ICES
+E C I R			>	-ECIR,ICE
+E C I R			>	-R,MOS			# Regular
+E C I R			>	-IR,I'S			# Regular
+E C I R			>	-ECIR,ICEN
+
+# Presente de subjuntivo
+
+E C I R			>	-ECIR,IGA
+E C I R			>	-ECIR,IGAS
+E C I R			>	-ECIR,IGAMOS
+E C I R			>	-ECIR,IGA'IS
+E C I R			>	-ECIR,IGAN
+
+# Perfecto
+
+E C I R			>	-ECIR,IJE
+E C I R			>	-ECIR,IJISTE
+E C I R			>	-ECIR,IJO
+E C I R			>	-ECIR,IJIMOS
+E C I R			>	-ECIR,IJISTEIS
+E C I R			>	-ECIR,IJERON
+
+# Imperfecto de subjuntivo
+
+E C I R			>	-ECIR,IJERA
+E C I R			>	-ECIR,IJESE
+E C I R			>	-ECIR,IJERAS
+E C I R			>	-ECIR,IJESES
+E C I R			>	-ECIR,IJE'RAMOS
+E C I R			>	-ECIR,IJE'SEMOS
+E C I R			>	-ECIR,IJERAIS
+E C I R			>	-ECIR,IJESEIS
+E C I R			>	-ECIR,IJERAN
+E C I R			>	-ECIR,IJESEN
+
+# Futuro de subjuntivo
+
+E C I R			>	-ECIR,IJERE
+E C I R			>	-ECIR,IJERES
+E C I R			>	-ECIR,IJE'REMOS
+E C I R			>	-ECIR,IJEREIS
+E C I R			>	-ECIR,IJEREN
+
+# Imperativo (vale para todos menos el modelo decir)
+
+# E C I R		>	-ECIR,ICE
+E C I R			>	-R,D			# Regular
+
+# Gerundio
+
+E C I R			>	-ECIR,ICIENDO
+
+flag *Q:
+
+# Variacisn ab/ep (X)
+
+# Segunda conjugacisn. Afecta a caber, saber y sus compuestos
+# Esta regla proporciona parte de la conjugacisn de placer (viase K)
+# Tienen un perfecto fuerte y futuro y potencial irregulares.
+
+# Presente de indicativo
+
+C A B E R		>	-CABER,QUEPO
+S A B E R		>	-ABER,E'
+[CS] A B E R		>	-R,S
+[CS] A B E R		>	-R,-
+[CS] A B E R		>	-R,MOS
+[CS] A B E R		>	-ER,E'IS
+[CS] A B E R		>	-R,N
+
+# Presente de subjuntivo
+
+C A B E R		>	-CABER,QUEPA
+S A B E R		>	-ABER,EPA
+A C E R			>	-ACER,EGA
+A C E R			>	-ACER,EGUE
+
+C A B E R		>	-CABER,QUEPAS
+S A B E R		>	-ABER,EPAS
+
+C A B E R		>	-CABER,QUEPAMOS
+S A B E R		>	-ABER,EPAMOS
+
+C A B E R		>	-CABER,QUEPA'IS
+S A B E R		>	-ABER,EPA'IS
+
+C A B E R		>	-CABER,QUEPAN
+S A B E R		>	-ABER,EPAN
+
+# Futuro
+
+[CS] A B E R		>	-ER,RE'
+[CS] A B E R		>	-ER,RA'S
+[CS] A B E R		>	-ER,RA'
+[CS] A B E R		>	-ER,REMOS
+[CS] A B E R		>	-ER,RE'IS
+[CS] A B E R		>	-ER,RA'N
+
+# Potencial
+
+[CS] A B E R		>	-ER,RI'A
+[CS] A B E R		>	-ER,RI'AS
+[CS] A B E R		>	-ER,RI'AMOS
+[CS] A B E R		>	-ER,RI'AIS
+[CS] A B E R		>	-ER,RI'AN
+
+# Perfecto
+
+[CS] A B E R		>	-ABER,UPE
+[CS] A B E R		>	-ABER,UPISTE
+[CS] A B E R		>	-ABER,UPO
+A C E R			>	-ACER,UGO
+[CS] A B E R		>	-ABER,UPIMOS
+[CS] A B E R		>	-ABER,UPISTEIS
+[CS] A B E R		>	-ABER,UPIERON
+A C E R			>	-ACER,UGUIERON
+
+# Imperfecto de subjuntivo
+
+[CS] A B E R		>	-ABER,UPIERA
+[CS] A B E R		>	-ABER,UPIESE
+A C E R			>	-ACER,UGUIERA
+A C E R			>	-ACER,UGUIESE
+[CS] A B E R		>	-ABER,UPIERAS
+[CS] A B E R		>	-ABER,UPIESES
+[CS] A B E R		>	-ABER,UPIE'RAMOS
+[CS] A B E R		>	-ABER,UPIE'SEMOS
+[CS] A B E R		>	-ABER,UPIERAIS
+[CS] A B E R		>	-ABER,UPIESEIS
+[CS] A B E R		>	-ABER,UPIERAN
+[CS] A B E R		>	-ABER,UPIESEN
+A C E R			>	-ACER,UGUIERAN
+A C E R			>	-ACER,UGUIESEN
+
+
+# Futuro de subjuntivo
+
+[CS] A B E R		>	-ABER,UPIERE
+A C E R			>	-ACER,UGUIERE
+[CS] A B E R		>	-ABER,UPIERES
+[CS] A B E R		>	-ABER,UPIE'REMOS
+[CS] A B E R		>	-ABER,UPIEREIS
+[CS] A B E R		>	-ABER,UPIEREN
+A C E R			>	-ACER,UGUIEREN
+
+
+flag *R:
+
+# Variacisn a/aig (XI)
+
+# Segunda conjugacisn.  Para caer, decaer y recaer y traer y sus
+# compuestos.  Estos zltimos tienen, ademas, un perfecto fuerte.
+# Los compuestos de caer tienen alguna otra irregularidad en el tema
+# perfecto, asm que lo definimos aqum.
+
+# Presente de indicativo
+
+A E R			>	-ER,IGO
+A E R			>	-R,S			# Regular
+A E R			>	-R,-			# Regular
+A E R			>	-R,MOS			# Regular
+A E R			>	-ER,E'IS		# Regular
+A E R			>	-R,N			# Regular
+
+# Presente de subjuntivo
+
+A E R			>	-ER,IGA
+A E R			>	-ER,IGAS
+A E R			>	-ER,IGAMOS
+A E R			>	-ER,IGA'IS
+A E R			>	-ER,IGAN
+
+# Perfecto
+
+C A E R			>	-ER,I'
+C A E R			>	-ER,I'STE
+C A E R			>	-ER,YO'
+C A E R			>	-ER,I'MOS
+C A E R			>	-ER,I'STEIS
+C A E R			>	-ER,YERON
+
+R A E R			>	-ER,JE
+R A E R			>	-ER,JISTE
+R A E R			>	-ER,JO
+R A E R			>	-ER,JIMOS
+R A E R			>	-ER,JISTEIS
+R A E R			>	-ER,JERON
+
+# Imperfecto de subjuntivo
+
+C A E R			>	-ER,YERA
+C A E R			>	-ER,YESE
+C A E R			>	-ER,YERAS
+C A E R			>	-ER,YESES
+C A E R			>	-ER,YE'RAMOS
+C A E R			>	-ER,YE'SEMOS
+C A E R			>	-ER,YERAIS
+C A E R			>	-ER,YESEIS
+C A E R			>	-ER,YERAN
+C A E R			>	-ER,YESEN
+
+R A E R			>	-ER,JERA
+R A E R			>	-ER,JESE
+R A E R			>	-ER,JERAS
+R A E R			>	-ER,JESES
+R A E R			>	-ER,JE'RAMOS
+R A E R			>	-ER,JE'SEMOS
+R A E R			>	-ER,JERAIS
+R A E R			>	-ER,JESEIS
+R A E R			>	-ER,JERAN
+R A E R			>	-ER,JESEN
+
+# Futuro de subjuntivo
+
+C A E R			>	-ER,YERE
+C A E R			>	-ER,YERES
+C A E R			>	-ER,YE'REMOS
+C A E R			>	-ER,YEREIS
+C A E R			>	-ER,YEREN
+
+R A E R			>	-ER,JERE
+R A E R			>	-ER,JERES
+R A E R			>	-ER,JE'REMOS
+R A E R			>	-ER,JEREIS
+R A E R			>	-ER,JEREN
+
+# Ademas, necesitan cambios en el participio y el gerundio
+# Pero no se contemplan cosas como camdos, camdas. Argh!
+# Necesito encadenar reglas...
+
+A E R			>	-ER,I'DO
+A E R			>	-ER,YENDO
+
+# flag *S: 	# Para roer, TBC
+
+flag *X:	# Futuro y potencial irregulares de decir y similares
+
+E C I R			>	-ECIR,IRE'
+E C I R			>	-ECIR,IRA'S
+E C I R			>	-ECIR,IRA'
+E C I R			>	-ECIR,IREMOS
+E C I R			>	-ECIR,IRE'IS
+E C I R			>	-ECIR,IRA'N
+
+E C I R			>	-ECIR,IRI'A
+E C I R			>	-ECIR,IRI'AS
+E C I R			>	-ECIR,IRI'AMOS
+E C I R			>	-ECIR,IRI'AIS
+E C I R			>	-ECIR,IRI'AN
+
+
+
+flag *a:		# Participios regulares
+
+    A R			>	-R,DO
+    [^E] E R		>	-ER,IDO
+    E E R		>	-ER,I'DO
+    I R			>	-R,DO
+
+flag *b:		# Gerundios regulares
+			# El que esto funcione supone que no hay mas verbos
+			# acabados en -qer que los que hacen esto.
+
+    A R			>	-R,NDO
+    [^EN~] E R		>	-ER,IENDO
+    E E R		>	-ER,YENDO
+    N~ E R		>	-ER,ENDO
+    [^LN~] I R		>	-R,ENDO
+    [^L] L I R		>	-R,ENDO
+    [^U] L L I R	>	-R,ENDO
+    [^AIU] N~ I R	>	-R,ENDO
+    U L L I R    	>	-IR,ENDO
+    [AIU] N~ I R	>	-IR,ENDO
+
+flag *c:		# Presente de indicativo regular. 
+
+    A R			>	-AR,O
+    C E R		>	-CER,ZO
+    G E R		>	-GER,JO
+    [^CG] E R		>	-ER,O
+    C I R		>	-CIR,ZO
+    G I R		>	-GIR,JO
+    G U I R		>	-UIR,O
+    Q U I R		>	-QUIR,CO
+    [^GQ] U I R		>	-IR,O
+    [^CGU] I R		>	-IR,O
+    [AE] R		>	-R,S
+    I R			>	-IR,ES
+    [AE] R		>	-R,-
+    I R			>	-IR,E
+    .			>	-R,MOS
+    A R			>	-AR,A'IS
+    E R			>	-ER,E'IS
+    I R			>	-IR,I'S
+    [AE] R		>	-R,N
+    I R			>	-IR,EN
+
+flag *d:		# Pretiritos imperfectos de indicativo regulares.
+
+    A R			>	-R,BA
+    E R			>	-ER,I'A
+    I R			>	-IR,I'A
+    I' R		>	-R,A
+    A R			>	-R,BAS
+    E R			>	-ER,I'AS
+    I R			>	-IR,I'AS
+    I' R		>	-R,AS
+    A R			>	-AR,A'BAMOS
+    E R			>	-ER,I'AMOS
+    I R			>	-IR,I'AMOS
+    I' R		>	-R,AMOS
+    A R			>	-R,BAIS	
+    E R			>	-ER,I'AIS
+    I R			>	-IR,I'AIS
+    I' R		>	-R,AIS
+    A R			>	-R,BAN
+    E R			>	-ER,I'AN
+    I R			>	-IR,I'AN
+    I' R		>	-R,AN
+
+flag *e:		# Pretiritos indefinidos de indicativo regulares
+			# Tambiin se llama pretirito perfecto simple o,
+			# sencillamente, perfecto.
+
+    G U A R		>	-UAR,U"E'
+    C A R		>	-CAR,QUE'
+    G A R		>	-GAR,GUE'
+    Z A R		>	-ZAR,CE'
+    [^G] U A R		>	-AR,E'
+    [^CGUZ] A R		>	-AR,E'
+    E R			>	-ER,I'
+    I R			>	-IR,I'
+
+    [AI] R		>	-R,STE
+    [^E] E R		>	-ER,ISTE
+    E E R		>	-ER,I'STE
+
+    A R			>	-AR,O'
+    [^EN~] E R		>	-ER,IO'
+    E E R		>	-ER,YO'
+    N~ E R		>	-ER,O'
+    [^LN~] I R		>	-R,O'
+    [^L] L I R		>	-R,O'
+    [^U] L L I R	>	-R,O'
+    [^AIU] N~ I R	>	-R,O'
+    U L L I R    	>	-IR,O'
+    [AIU] N~ I R	>	-IR,O'
+
+    [AI] R		>	-R,MOS
+    [^E] E R		>	-ER,IMOS
+    E E R		>	-ER,I'MOS
+
+    [AI] R		>	-R,STEIS
+    [^E] E R		>	-ER,ISTEIS
+    E E R		>	-ER,I'STEIS
+
+    A R			>	-R,RON
+    [^EN~] E R		>	-ER,IERON
+    E E R		>	-ER,YERON
+    N~ E R		>	-ER,ERON
+    [^LN~] I R		>	-R,ERON
+    [^L] L I R		>	-R,ERON
+    [^U] L L I R	>	-R,ERON
+    [^AIU] N~ I R	>	-R,ERON
+    U L L I R    	>	-IR,ERON
+    [AIU] N~ I R	>	-IR,ERON
+
+flag *f:		# Futuros de indicativo regular
+
+    [AEI] R		>	E'
+    I' R		>	-I'R,IRE'
+    [AEI] R		>	A'S
+    I' R		>	-I'R,IRA'S
+    [AEI] R		>	A'
+    I' R		>	-I'R,IRA'
+    [AEI] R		>	EMOS
+    I' R		>	-I'R,IREMOS
+    [AEI] R		>	E'IS
+    I' R		>	-I'R,IRE'IS
+    [AEI] R		>	A'N
+    I' R		>	-I'R,IRA'N
+
+flag *g:		# Potenciales regulares
+
+    [AEI] R		>	I'A
+    I' R		>	-I'R,IRI'A
+    [AEI] R		>	I'AS
+    I' R		>	-I'R,IRI'AS
+    [AEI] R		>	I'AMOS
+    I' R		>	-I'R,IRI'AMOS
+    [AEI] R		>	I'AIS
+    I' R		>	-I'R,IRI'AIS
+    [AEI] R		>	I'AN
+    I' R		>	-I'R,IRI'AN
+
+flag *h:		# Presente de subjuntivo regular
+
+    G U A R		>	-UAR,U"E
+    C A R		>	-CAR,QUE
+    G A R		>	-GAR,GUE
+    Z A R		>	-ZAR,CE
+    [^G] U A R		>	-AR,E
+    [^CGUZ] A R		>	-AR,E
+    C E R		>	-CER,ZA
+    G E R		>	-GER,JA
+    [^CG] E R		>	-ER,A
+    C I R		>	-CIR,ZA
+    G I R		>	-GIR,JA
+    G U I R		>	-UIR,A
+    Q U I R		>	-QUIR,CA
+    [^GQ] U I R		>	-IR,A
+    [^CGU] I R		>	-IR,A
+
+    G U A R		>	-UAR,U"ES
+    C A R		>	-CAR,QUES
+    G A R		>	-GAR,GUES
+    Z A R		>	-ZAR,CES
+    [^G] U A R		>	-AR,ES
+    [^CGUZ] A R		>	-AR,ES
+    C E R		>	-CER,ZAS
+    G E R		>	-GER,JAS
+    [^CG] E R		>	-ER,AS
+    C I R		>	-CIR,ZAS
+    G I R		>	-GIR,JAS
+    G U I R		>	-UIR,AS
+    Q U I R		>	-QUIR,CAS
+    [^GQ] U I R		>	-IR,AS
+    [^CGU] I R		>	-IR,AS
+
+    G U A R		>	-UAR,U"EMOS
+    C A R		>	-CAR,QUEMOS
+    G A R		>	-GAR,GUEMOS
+    Z A R		>	-ZAR,CEMOS
+    [^G] U A R		>	-AR,EMOS
+    [^CGUZ] A R		>	-AR,EMOS
+    C E R		>	-CER,ZAMOS
+    G E R		>	-GER,JAMOS
+    [^CG] E R		>	-ER,AMOS
+    C I R		>	-CIR,ZAMOS
+    G I R		>	-GIR,JAMOS
+    G U I R		>	-UIR,AMOS
+    Q U I R		>	-QUIR,CAMOS
+    [^GQ] U I R		>	-IR,AMOS
+    [^CGU] I R		>	-IR,AMOS
+
+    G U A R		>	-UAR,U"E'IS
+    C A R		>	-CAR,QUE'IS
+    G A R		>	-GAR,GUE'IS
+    Z A R		>	-ZAR,CE'IS
+    [^G] U A R		>	-AR,E'IS
+    [^CGUZ] A R		>	-AR,E'IS
+    C E R		>	-CER,ZA'IS
+    G E R		>	-GER,JA'IS
+    [^CG] E R		>	-ER,A'IS
+    C I R		>	-CIR,ZA'IS
+    G I R		>	-GIR,JA'IS
+    G U I R		>	-UIR,A'IS
+    Q U I R		>	-QUIR,CA'IS
+    [^GQ] U I R		>	-IR,A'IS
+    [^CGU] I R		>	-IR,A'IS
+
+    G U A R		>	-UAR,U"EN
+    C A R		>	-CAR,QUEN
+    G A R		>	-GAR,GUEN
+    Z A R		>	-ZAR,CEN
+    [^G] U A R		>	-AR,EN
+    [^CGUZ] A R		>	-AR,EN
+    C E R		>	-CER,ZAN
+    G E R		>	-GER,JAN
+    [^CG] E R		>	-ER,AN
+    C I R		>	-CIR,ZAN
+    G I R		>	-GIR,JAN
+    G U I R		>	-UIR,AN
+    Q U I R		>	-QUIR,CAN
+    [^GQ] U I R		>	-IR,AN
+    [^CGU] I R		>	-IR,AN
+
+
+flag *i:		# Pretirito imperfecto de subjuntivo regular
+
+    A R			>	A
+    [^EN~] E R		>	-ER,IERA
+    E E R		>	-ER,YERA
+    N~ E R		>	A
+    [^LN~] I R		>	-R,ERA
+    [^L] L I R		>	-R,ERA
+    [^U] L L I R	>	-R,ERA
+    [^AIU] N~ I R	>	-R,ERA
+    U L L I R    	>	-IR,ERA
+    [AIU] N~ I R	>	-IR,ERA
+    A R			>	-R,SE
+    [^EN~] E R		>	-ER,IESE
+    E E R		>	-ER,YESE
+    N~ E R		>	-R,SE
+    [^LN~] I R		>	-R,ESE
+    [^L] L I R		>	-R,ESE
+    [^U] L L I R	>	-R,ESE
+    [^AIU] N~ I R	>	-R,ESE
+    U L L I R    	>	-IR,ESE
+    [AIU] N~ I R	>	-IR,ESE
+
+    A R			>	AS
+    [^EN~] E R		>	-ER,IERAS
+    E E R		>	-ER,YERAS
+    N~ E R		>	AS
+    [^LN~] I R		>	-R,ERAS
+    [^L] L I R		>	-R,ERAS
+    [^U] L L I R	>	-R,ERAS
+    [^AIU] N~ I R	>	-R,ERAS
+    U L L I R    	>	-IR,ERAS
+    [AIU] N~ I R	>	-IR,ERAS
+    A R			>	-R,SES
+    [^EN~] E R		>	-ER,IESES
+    E E R		>	-ER,YESES
+    N~ E R		>	-R,SES
+    [^LN~] I R		>	-R,ESES
+    [^L] L I R		>	-R,ESES
+    [^U] L L I R	>	-R,ESES
+    [^AIU] N~ I R	>	-R,ESES
+    U L L I R    	>	-IR,ESES
+    [AIU] N~ I R	>	-IR,ESES
+
+    A R			>	-AR,A'RAMOS
+    [^EN~] E R		>	-ER,IE'RAMOS
+    E E R		>	-ER,YE'RAMOS
+    N~ E R		>	-ER,E'RAMOS
+    [^LN~] I R		>	-R,E'RAMOS
+    [^L] L I R		>	-R,E'RAMOS
+    [^U] L L I R	>	-R,E'RAMOS
+    [^AIU] N~ I R	>	-R,E'RAMOS
+    U L L I R    	>	-IR,E'RAMOS
+    [AIU] N~ I R	>	-IR,E'RAMOS
+    A R			>	-AR,A'SEMOS
+    [^EN~] E R		>	-ER,IE'SEMOS
+    E E R		>	-ER,YE'SEMOS
+    N~ E R		>	-ER,E'SEMOS
+    [^LN~] I R		>	-R,E'SEMOS
+    [^L] L I R		>	-R,E'SEMOS
+    [^U] L L I R	>	-R,E'SEMOS
+    [^AIU] N~ I R	>	-R,E'SEMOS
+    U L L I R    	>	-IR,E'SEMOS
+    [AIU] N~ I R	>	-IR,E'SEMOS
+
+    A R			>	AIS
+    [^EN~] E R		>	-ER,IERAIS
+    E E R		>	-ER,YERAIS
+    N~ E R		>	AIS
+    [^LN~] I R		>	-R,ERAIS
+    [^L] L I R		>	-R,ERAIS
+    [^U] L L I R	>	-R,ERAIS
+    [^AIU] N~ I R	>	-R,ERAIS
+    U L L I R    	>	-IR,ERAIS
+    [AIU] N~ I R	>	-IR,ERAIS
+    A R			>	-R,SEIS
+    [^EN~] E R		>	-ER,IESEIS
+    E E R		>	-ER,YESEIS
+    N~ E R		>	-R,SEIS
+    [^LN~] I R		>	-R,ESEIS
+    [^L] L I R		>	-R,ESEIS
+    [^U] L L I R	>	-R,ESEIS
+    [^AIU] N~ I R	>	-R,ESEIS
+    U L L I R    	>	-IR,ESEIS
+    [AIU] N~ I R	>	-IR,ESEIS
+
+    A R			>	AN
+    [^EN~] E R		>	-ER,IERAN
+    E E R		>	-ER,YERAN
+    N~ E R		>	AN
+    [^LN~] I R		>	-R,ERAN
+    [^L] L I R		>	-R,ERAN
+    [^U] L L I R	>	-R,ERAN
+    [^AIU] N~ I R	>	-R,ERAN
+    U L L I R    	>	-IR,ERAN
+    [AIU] N~ I R	>	-IR,ERAN
+    A R			>	-R,SEN
+    [^EN~] E R		>	-ER,IESEN
+    E E R		>	-ER,YESEN
+    N~ E R		>	-R,SEN
+    [^LN~] I R		>	-R,ESEN
+    [^L] L I R		>	-R,ESEN
+    [^U] L L I R	>	-R,ESEN
+    [^AIU] N~ I R	>	-R,ESEN
+    U L L I R    	>	-IR,ESEN
+    [AIU] N~ I R	>	-IR,ESEN
+
+
+flag *j:		# Futuro imperfecto de subjuntivo regular
+
+    A R			>	E
+    [^EN~] E R		>	-ER,IERE
+    E E R		>	-ER,YERE
+    N~ E R		>	E
+    [^LN~] I R		>	-R,ERE
+    [^L] L I R		>	-R,ERE
+    [^U] L L I R	>	-R,ERE
+    [^AIU] N~ I R	>	-R,ERE
+    U L L I R    	>	-IR,ERE
+    [AIU] N~ I R	>	-IR,ERE
+
+    A R			>	ES
+    [^EN~] E R		>	-ER,IERES
+    E E R		>	-ER,YERES
+    N~ E R		>	ES
+    [^LN~] I R		>	-R,ERES
+    [^L] L I R		>	-R,ERES
+    [^U] L L I R	>	-R,ERES
+    [^AIU] N~ I R	>	-R,ERES
+    U L L I R    	>	-IR,ERES
+    [AIU] N~ I R	>	-IR,ERES
+
+    A R			>	-AR,A'REMOS
+    [^EN~] E R		>	-ER,IE'REMOS
+    E E R		>	-ER,YE'REMOS
+    N~ E R		>	-ER,E'REMOS
+    [^LN~] I R		>	-R,E'REMOS
+    [^L] L I R		>	-R,E'REMOS
+    [^U] L L I R	>	-R,E'REMOS
+    [^AIU] N~ I R	>	-R,E'REMOS
+    U L L I R    	>	-IR,E'REMOS
+    [AIU] N~ I R	>	-IR,E'REMOS
+
+    A R			>	EIS
+    [^EN~] E R		>	-ER,IEREIS
+    E E R		>	-ER,YEREIS
+    N~ E R		>	EIS
+    [^LN~] I R		>	-R,EREIS
+    [^L] L I R		>	-R,EREIS
+    [^U] L L I R	>	-R,EREIS
+    [^AIU] N~ I R	>	-R,EREIS
+    U L L I R    	>	-IR,EREIS
+    [AIU] N~ I R	>	-IR,EREIS
+
+    A R			>	EN
+    [^EN~] E R		>	-ER,IEREN
+    E E R		>	-ER,YEREN
+    N~ E R		>	EN
+    [^LN~] I R		>	-R,EREN
+    [^L] L I R		>	-R,EREN
+    [^U] L L I R	>	-R,EREN
+    [^AIU] N~ I R	>	-R,EREN
+    U L L I R    	>	-IR,EREN
+    [AIU] N~ I R	>	-IR,EREN
+
+
+flag *k:		# Imperativo regular
+
+    [AE] R			>	-R,-		# Redundant
+# Si se reactivan las comentadas, tener en cuenta casos especiales
+# como tocar->toque, etc
+#    I R				>	-IR,E		# Redundant
+#    A R				>	-AR,E		# Redundant
+#    E R				>	-ER,A		# Redundant
+#    I R				>	-IR,A		# Redundant
+#    A R				>	-AR,EMOS	# Redundant
+#    E R				>	-ER,AMOS	# Redundant
+#    I R				>	-IR,AMOS	# Redundant
+    [AEI] R			>	-R,D
+
+
+flag *l:		# Futuros y potenciales irregulares.
+
+    [BDR] E R			>	-ER,RE'
+    [LN] E R			>	-ER,DRE'
+    L I R			>	-IR,DRE'
+    [BDR] E R			>	-ER,RA'S
+    [LN] E R			>	-ER,DRA'S
+    L I R			>	-IR,DRA'S
+    [BDR] E R			>	-ER,RA'
+    [LN] E R			>	-ER,DRA'
+    L I R			>	-IR,DRA'
+    [BDR] E R			>	-ER,REMOS
+    [LN] E R			>	-ER,DREMOS
+    L I R			>	-IR,DREMOS
+    [BDR] E R			>	-ER,RE'IS
+    [LN] E R			>	-ER,DRE'IS
+    L I R			>	-IR,DRE'IS
+    [BDR] E R			>	-ER,RA'N
+    [LN] E R			>	-ER,DRA'N
+    L I R			>	-IR,DRA'N
+    [BDR] E R			>	-ER,RI'A
+    [LN] E R			>	-ER,DRI'A
+    L I R			>	-IR,DRI'A
+    [BDR] E R			>	-ER,RI'AS
+    [LN] E R			>	-ER,DRI'AS
+    L I R			>	-IR,DRI'AS
+    [BDR] E R			>	-ER,RI'AMOS
+    [LN] E R			>	-ER,DRI'AMOS
+    L I R			>	-IR,DRI'AMOS
+    [BDR] E R			>	-ER,RI'AIS
+    [LN] E R			>	-ER,DRI'AIS
+    L I R			>	-IR,DRI'AIS
+    [BDR] E R			>	-ER,RI'AN
+    [LN] E R			>	-ER,DRI'AN
+    L I R			>	-IR,DRI'AN
+
+flag *m:		# Pretiritos indefinidos irregulares, derivados de la
+			# primera persona. Tambiin probamos el imperfecto de
+			# subjuntivo. Y el futuro de subjuntivo. Esto vale
+			# para tener, haber, andar, estar y probablemente
+			# otros.
+
+    E			>	-E,ISTE
+    E			>	-E,O
+    E			>	-E,IMOS
+    E			>	-E,ISTEIS
+    E			>	-E,IERON
+    E			>	-E,IERA
+    E			>	-E,IESE
+    E			>	-E,IERAS
+    E			>	-E,IESES
+    E			>	-E,IE'RAMOS
+    E			>	-E,IE'SEMOS
+    E			>	-E,IERAIS
+    E			>	-E,IESEIS
+    E			>	-E,IERAN
+    E			>	-E,IESEN
+    E			>	-E,IERE
+    E			>	-E,IERES
+    E			>	-E,IE'REMOS
+    E			>	-E,IEREIS
+    E			>	-E,IEREN
+
+flag *n:		# Presente de indicativo y subjuntivo con acento
+			# desplazado, como en variar y acentuar.  Ponemos
+			# tambiin la segunda del plural del imperativo,
+			# pues la regla k no la coge.
+
+    
+    I A R		>	-IAR,I'O
+    I A R		>	-IAR,I'AS
+    I A R		>	-IAR,I'A
+    I A R		>	-R,MOS
+    I A R		>	-AR,A'IS
+    I A R		>	-IAR,I'AN
+    I A R		>	-IAR,I'E
+    I A R		>	-IAR,I'ES
+    I A R		>	-AR,EMOS
+    I A R		>	-AR,E'IS
+    I A R		>	-IAR,I'EN
+    I A R		>	-R,D
+    U A R		>	-UAR,U'O
+    U A R		>	-UAR,U'AS
+    U A R		>	-UAR,U'A
+    U A R		>	-R,MOS
+    U A R		>	-AR,A'IS
+    U A R		>	-UAR,U'AN
+    U A R		>	-UAR,U'E
+    U A R		>	-UAR,U'ES
+    U A R		>	-AR,EMOS
+    U A R		>	-AR,E'IS
+    U A R		>	-UAR,U'EN
+    U A R		>	-R,D
+
+# Hay familias enteras de verbos que sslo son irregulares en algunas
+# formas, que son siempre tsnicas en la ramz. A efecto de tratarlos
+# mejor, vamos a definir algunas reglas adicionales. Las regulares,
+# deben ir con el infinitivo del verbo. Las irregulares iran con
+# el presente del tiempo correspondiente. Intentaremos agrupar todo
+# mas tarde.  Esto ha sido eliminado
+
+# Algunos participios de verbos son adjetivos o se usan como tales.
+# En tal caso, tienen un femenino, formas plurales y un adverbio en
+# mente.
+
+flag *o:		# Femenino de un participio
+
+A R			>	-R,DA
+E R			>	-ER,IDA
+I R			>	-R,DA
+
+flag *q:		# Plurales de los participios
+
+A R			>	-R,DOS
+E R			>	-ER,IDOS
+I R			>	-R,DOS
+
+A R			>	-R,DAS
+E R			>	-ER,IDAS
+I R			>	-R,DAS
+
+flag *v:		# Adverbios en -mente generados a partir del verbo
+
+A R			>	-R,DAMENTE
+E R			>	-ER,IDAMENTE
+I R			>	-R,DAMENTE
+
+flag *s:		# Plurales
+
+O			>	S
+A			>	S
+E			>	S
+D			>	ES
+E'			>	S
+I'			>	ES
+L			>	ES
+A' N			>	-A'N,ANES
+E' N			>	-E'N,ENES
+I' N			>	-I'N,INES
+O' N			>	-O'N,ONES
+U' N			>	-U'N,UNES
+E' S			>	-E'S,ESES
+R			>	ES
+Z			>	-Z,CES
+
+flag *u:		# Femeninos
+
+A' N			>	-A'N,ANA
+O' N			>	-O'N,ONA
+E			>	-E,A
+O			>	-O,A
+O R			>	A
+E' S			>	-E'S,ESA
+
+flag *w:		# Femeninos plurales
+
+A' N			>	-A'N,ANAS
+O' N			>	-O'N,ONAS
+E			>	-E,AS
+O			>	-O,AS
+O R			>	AS
+E' S			>	-E'S,ESAS
+
+flag *x:		# Adverbios en -mente
+
+O			>	-O,AMENTE
+A			>	MENTE
+E			>	MENTE
+L			>	MENTE
+R			>	MENTE
+Z			>	MENTE
+
+flag *V:		# Provisional, sslo para ayudar en la correcisn
+
+# Infinitivo de verbos pronominales, recmprocos y formas reflexivas
+# Estas formas son tan corrientes que las ponemos en su propia regla
+# Debieran estar los imperativos y las formas exhortativas de los verbos
+# pronominales tambiin
+
+R			>	SE
+
+# Gerundio de los mismos
+
+A R			>	-AR,A'NDOSE
+E R			>	-ER,IE'NDOSE
+I R			>	-R,E'NDOSE
+
+
+flag *W:		# Provisional, sslo para ayudar en la correcisn
+
+# Infinitivos mas un pronombre enclmtico. Facilmsimo
+
+R			>	ME
+R			>	TE
+#R			>	SE
+R			>	NOS
+R			>	OS
+R			>	LA
+R			>	LE
+R			>	LO
+R			>	LAS
+R			>	LES
+R			>	LOS
+
+# Gerundios. Mas difmcil todavma. Un sslo enclmtico
+
+# Primera conjugacisn
+
+A N D O			>	-ANDO,A'NDOME
+A N D O			>	-ANDO,A'NDOTE
+#A N D O		>	-ANDO,A'NDOSE
+A N D O			>	-ANDO,A'NDONOS
+A N D O			>	-ANDO,A'NDOOS
+A N D O			>	-ANDO,A'NDOLA
+A N D O			>	-ANDO,A'NDOLE
+A N D O			>	-ANDO,A'NDOLO
+A N D O			>	-ANDO,A'NDOLAS
+A N D O			>	-ANDO,A'NDOLES
+A N D O			>	-ANDO,A'NDOLOS
+
+# Segunda y tercera conjungaciones
+
+E N D O			>	-ENDO,E'NDOME
+E N D O			>	-ENDO,E'NDOTE
+#E N D O		>	-ENDO,E'NDOME
+E N D O			>	-ENDO,E'NDONOS
+E N D O			>	-ENDO,E'NDOOS
+E N D O			>	-ENDO,E'NDOLA
+E N D O			>	-ENDO,E'NDOLE
+E N D O			>	-ENDO,E'NDOLO
+E N D O			>	-ENDO,E'NDOLAS
+E N D O			>	-ENDO,E'NDOLES
+E N D O			>	-ENDO,E'NDOLOS

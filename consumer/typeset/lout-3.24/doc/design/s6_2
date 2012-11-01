@@ -1,0 +1,79 @@
+@SubSection
+    @Tag { cross.impl }
+    @Title { Implementation of cross references }
+@Begin
+@PP
+Before an object can be sized and printed, the values of any cross
+references within it must be known.  If they refer to invocations that
+have not yet been read, there is a problem.  Scribe [7]
+solves it by capitalizing on the fact that documents are formatted
+repeatedly during the drafting process.  All tagged invocations are
+copied to an auxiliary file during the first run, and indexed for quick
+retrieval on the second.  A new auxiliary file is written during the second
+run, for retrieval on the third, and so on.  Cross references always lag
+one run behind the rest of the document; a perfect copy may be produced
+by formatting the same version twice, except in a few pathological cases
+that fail to converge.
+@PP
+Cross referencing in Lout is implemented on top of a simple database
+system.  Each database is either writable or readable but not both at
+once, and holds a set of key-value entries:  the keys are @S ASCII
+strings, and the values are Lout objects, possibly with environments,
+written in Lout source.  Operations are provided for writing an entry,
+converting from writable to readable, retrieval by key, and sequential
+retrieval in key order.
+@PP
+The implementation, which is quite unsophisticated, employs one or more
+@S ASCII {@I{ database files}}, containing the values, and one @S ASCII
+{@I{ index file}} per database, containing the keys.  To write an entry,
+the value is first appended to a database file, then a line like
+@ID @Code "@Chapter&&intro  ch1.ld  57"
+is appended to the index file, giving the file and offset where the value
+is stored.  To convert from writable to readable, the index file is
+sorted.  Then retrieval by key requires a binary search of the index
+file and one seek into a database file, and sequential retrieval by key
+is trivial.
+@PP
+This database system is used in several ways.  For an external database,
+say of bibliographic references, the user creates the database file of
+values (without environments), Lout creates the index file whenever it
+cannot find one, and retrievals by key proceed as usual.  Cross
+references with tags other than @Code preceding and @Code following are
+treated as described above, by writing all tagged invocations (with
+environments) to a single database, which is converted to readable at
+the end of the run for retrievals on the next run.  Sorted galleys, such
+as index entries, are written out indexed by target and key and retrieved
+sequentially on the next run.  Unsorted galleys with preceding targets
+which pop off the top of the root galley without finding a target, such
+as entries in tables of contents, are treated similarly, except that they
+are indexed by target and a sequence number that preserves their relative
+order during the sort.
+@PP
+When Lout processes a multi-file document, one cross reference database
+file is written for each input file, but they share a common index
+file.  At end of run, the new index file is sorted and merged with the
+old one in such a way as to preserve entries relating to files not read
+on the current run.  This provides some support for piecemeal
+formatting, but eventually the files must all be formatted together.
+@PP
+When a @Code preceding or @Code following cross reference is found,
+it is attached to a galley index of type @Eq { CROSS_PREC } or
+{@Eq { CROSS_FOLL }}, together with an automatically generated tag composed
+of the current file name and a sequence number.  When a tagged
+invocation is found, it is attached to a @Eq { CROSS_TARG } index.  These
+galley indexes are carried along through the dynamic tree, and
+eventually pop off the top of the root galley, at which point it is easy
+to determine which cross references refer to which invocations, since
+the indexes are now in final printed document order.  Each referenced
+invocation is then written to the cross reference database, multiply indexed 
+by the generated tags of the associated cross references.  On the next
+run, when the same @Code preceding and @Code following cross references
+are found, chances are good that the same tags will be generated, and
+the appropriate values can be retrieved from the database immediately.
+@PP
+This approach was the genesis of the @Code "@Tagged" operator, whose
+implementation is now immediate: for each @Code "@Tagged" operator we
+produce one @Eq { CROSS_PREC } or @Eq { CROSS_FOLL } galley index,
+replacing the generated tag with the right parameter of the @Code "@Tagged"
+operator.  Nothing more is required.
+@End @SubSection

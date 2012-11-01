@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of PPM2TIFF</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>PPM2TIFF</H1>
+Section: User Commands  (1)<BR>Updated: October 15, 1995<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+ppm2tiff - create a
+<FONT SIZE="-1">TIFF</FONT>
+file from a 
+<FONT SIZE="-1">PPM</FONT>
+image file
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>ppm2tiff</B>
+
+[
+<I>options</I>
+
+] [
+<I>input.ppm</I>
+
+]
+<I>output.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>ppm2tiff</I>
+
+converts a file in the 
+<FONT SIZE="-1">PPM</FONT>
+image format to
+<FONT SIZE="-1">TIFF.</FONT>
+By default, the
+<FONT SIZE="-1">TIFF</FONT>
+image is created with data samples packed (<I>PlanarConfiguration</I>=1),
+
+compressed with the Lempel-Ziv &amp; Welch algorithm (<I>Compression</I>=5),
+
+and with each strip no more than 8 kilobytes.
+These characteristics can be overriden, or explicitly specified
+with the options described below
+<P>
+
+If the
+<FONT SIZE="-1">PPM</FONT>
+file contains greyscale data, then the
+<I>PhotometricInterpretation</I>
+
+tag is set to 1 (min-is-black),
+otherwise it is set to 2 (RGB).
+<P>
+
+If no
+<FONT SIZE="-1">PPM</FONT>
+file is specified on the command line,
+<I>ppm2tiff</I>
+
+will read from the standard input.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-c</B>
+
+<DD>
+Specify a compression scheme to use when writing image data:
+<B>-c none</B>
+
+for no compression,
+<B>-c packbits</B>
+
+for the PackBits compression algorithm,
+<B>-c jpeg</B>
+
+for the baseline JPEG compression algorithm,
+<B>-c zip</B>
+
+for the Deflate compression algorithm,
+and
+<B>-c lzw</B>
+
+for Lempel-Ziv &amp; Welch compression (the default).
+<DT><B>-r</B>
+
+<DD>
+Write data with a specified number of rows per strip;
+by default the number of rows/strip is selected so that each strip
+is approximately 8 kilobytes.
+<DT><B>-R</B>
+
+<DD>
+Mark the resultant image to have the specified
+X and Y resolution (in dots/inch).
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+@Section
+   @Title { Spaces and braces }
+   @Tag { spaces }
+@Begin
+@PP
+Every symbol in Lout either consists entirely of letters ({@Code "@"}
+symbols. @Index { symbols, makeup of }
+is considered to be a letter) or entirely of punctuation characters.  Here
+are some examples of each type:
+@ID @OneRow @Tab
+    @Fmta { @Col @I    @CC A ! @Col @I    @CC B }
+    @Fmtb { @Col @Code @CC A ! @Col @Code @CC B }
+{
+@Rowa A { From letters } B { From punctuation }
+@Rowb A { "@PP" } B { "{" }
+@Rowb A { "margin" } B { "}" }
+}
+Now if two symbols made from letters are run together like this:
+@ID {
+@Code "@CurveBox@I  Hello" &8ct @I (wrong!)
+}
+Lout will take this to mean one word or symbol called {@Code "@CurveBox@I"},
+which is wrong.  In the same way, a letter-type symbol cannot be run
+together with a word.  However, punctuation-type symbols can be run together
+with anything.  For example, in
+@ID @Code "@CurveBox{ Hello @I { world }}."
+Lout understands that @Code "@CurveBox" and @Code "{"
+# }
+are separate, and it also sorts out
+# {{
+@Code "}}." into two right brace symbols and a full stop.  It might
+seem strange to treat punctuation and letters so differently,
+but computer programming languages have done it like this for
+many years, and it works well.  This is the first use for
+spaces. @Index { spaces, significance of }
+spaces:  to separate letter-type symbols from each other and from words.
+@PP
+To see the second use for spaces, consider two words side by side:
+@ID @Code "Hello world"
+We want this to produce Hello world, so a space between two words in
+the input must mean a space between them in the result.  Apply the
+golden rule (where you can put one object, you can put any object) and
+you get this:  @I { a space between two objects in the input produces
+a space between them in the result }.  For example,
+@ID @Code "@CurveBox Hello @CurveBox world"
+produces
+@ID { @CurveBox Hello @CurveBox world }
+The space between the two objects @Code "@CurveBox Hello" and
+@Code "@CurveBox world" appears between them in the result; the other
+two spaces do not separate objects so do not appear in the result.
+@PP
+Two objects may be separated by a number of spaces other than one.  If
+they are separated by no spaces, they will appear immediately adjacent
+in the result; if separated by two spaces, they will appear two spaces
+apart; and so on.  In English it is correct to leave two spaces between
+the end of one sentence and the beginning of the next, for example.  See
+Section {@NumberOf white} for two alternative ways to interpret white
+space in Lout.
+@PP
+Occasionally the two uses for spaces conflict.  For example, to produce
+@ID { { @CurveBox Hello }{ @CurveBox world } }
+we need to have no spaces between the two objects, but then @Code "Hello"
+and the following @Code "@CurveBox" would be run together, which will
+not work.  The solution is to use braces:
+@ID @Code "{ @CurveBox Hello }{ @CurveBox world }"
+None of the six spaces in this example lie between two objects.
+@PP
+However, the main use of braces is to inform Lout that the object
+within them is to be kept together, so that any nearby symbols are to
+apply to all of it.  For example, leaving the braces out of
+@Code "@I { Hello world }" would mean that @Code "@I" applies only to
+{@Code "Hello"}.
+@PP
+When an object-consuming symbol like @Code "@I" is followed by an
+braces. @Index { braces, effect of }
+object enclosed in braces, that is the object consumed.  For example,
+@ID @Code "This is @I { absolutely necessary }, since otherwise ..."
+produces
+@ID { This is @I { absolutely necessary }, since otherwise ... }
+with the object @Code "absolutely necessary" italicized, but not the
+following comma.  If there are no braces, the object consumed is
+everything up to the next object-separating space:
+@ID @Code "This is @I necessary, since otherwise ..."
+produces
+@ID { This is @I necessary, since otherwise ... }
+with an undesirable italic comma.  In practice, this means you can
+avoid braces only when italicizing a single word with no punctuation
+attached.
+@PP
+One common pitfall is to use unnecessary braces, like this:
+@ID {
+@Code "@I { @CurveBox { Hello world } }" &8ct @I (bad!)
+}
+Another is to think that all spaces produce space in the result, and so
+write
+@ID {
+@Code "@I{@CurveBox{Hello world}}" &8ct @I (worse!)
+}
+Use braces only when necessary, and add extra spaces where they do not
+separate objects, and your documents will be far easier to read while
+you are working on them.  Don't be fooled by the argument that says it
+doesn't matter because it doesn't affect the final printed result.
+@End @Section

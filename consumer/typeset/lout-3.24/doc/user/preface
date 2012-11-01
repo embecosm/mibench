@@ -1,0 +1,68 @@
+@Preface @Begin
+@LP
+This User's Guide brings together in one document everything needed
+for the day-to-day use of Version 3 of the Lout document formatting
+system.
+@IndexBlanks
+@PP
+There are three other documents describing Lout:  the Expert's Guide
+@Cite { $kingston1995lout.expert }, which you need if you want to add
+new features to Lout; a journal paper on the design and implementation
+of Lout @Cite { $kingston1993lout.design }; and a set of overhead
+transparencies @Cite { $kingston1994lout.overheads } that cover much
+the same ground as this Guide.  These documents are all distributed
+with the software.
+@PP
+Lout is distributed free of charge under the GNU Public License.  The
+gnu. @Index { GNU Public License }
+primary source is directory
+@ID @Code "ftp://ftp.cs.usyd.edu.au/jeff/lout"
+in which may be found a gzipped tar file containing the main distribution
+(currently {@Code "lout-3.24.tar.gz"}), and various other things including
+a PostScript version of this guide.  The distribution contains source code,
+libraries, documentation, license, and installation instructions.
+@PP
+A mailing list has been set up for discussion of all topics related to
+Lout.  To subscribe, send email to @Code "lout-request@ptc.spbu.ru"
+containing the word @Code "subscribe" in the Subject line.  To post an
+item, send email to {@Code "lout@ptc.spbu.ru"}; it will be forwarded to
+all subscribers via email.  To unsubscribe, send email to
+@Code "lout-request@ptc.spbu.ru" containing the word @Code "unsubscribe"
+in the Subject line.
+@PP
+Lout began in 1984 as a research project into the design of a high-level
+language for document formatting.  At that time my name for the subject
+was `document layout,' and this terminology survives in the name
+`Lout'.  The initial design
+was strongly influenced by Brian W. Kernighan and Lorinda L. Cherry's eqn
+kernighan @Index { Kernighan, Brian W. }
+cherry.l @Index { Cherry, Lorinda L.}
+eqn. @Index { @Code eqn equation formatter }
+equation formatter @Cite { $kernighan1975eqn }, and also by Brian K. Reid's
+Scribe system @Cite { $reid1980scribe }.  That
+scribe.influence @SubIndex { influence on Lout }
+reid.b @Index { Reid, Brian K. }
+research phase ended in October 1991 with the first public release of Lout.
+@PP
+Since then the system has been steadily improved and extended.  Optimal
+paragraph breaking and automatic hyphenation were copied from Donald
+knuth @Index { Knuth, D. E. }
+tex. @Index { @TeX }
+E. Knuth's @TeX system @Cite { $knuth1984tex }, and the optimal paragraph
+breaking algorithm was applied to the problem of producing optimal page
+breaks.  The first implementations of horizontal galleys and optimal
+page breaking were by my student Gabor Inokai.  Vincent Tan contributed
+the PDF back end.  Valeriy E. Ushakov has smoothed the path for many
+people, by his contributions to improving Lout's robustness, and his
+tireless management of and responses to the Lout mailing list.  The
+number of other people who have offered comments and suggestions to me is so
+great that it is quite out of my power to acknowledge them individually.  I
+hope that seeing their ideas adopted will be thanks enough.
+@DP
+@RLD lines @Break {
+Jeffrey H. Kingston
+Basser Department of Computer Science
+The University of Sydney 2006, Australia
+@Code "jeff@cs.usyd.edu.au"
+}
+@End @Preface

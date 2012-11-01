@@ -1,0 +1,113 @@
+@Section
+   @Title { "@BeginHeaderComponent", "@EndHeaderComponent",
+"@SetHeaderComponent", and "@ClearHeaderComponent" }
+   @Tag { header_comp }
+@Begin
+@PP
+Informally, header components are running headers that appear at the
+header.component @Index { Header component of galley }
+top of the displayed segments of galleys.  They are used, for example,
+by the @Code "@Tbl" table formatting package to place running headers
+at the top of each page of a multi-page table, after the first page.
+@PP
+Formally, a header component of a galley is an ordinary component of
+a galley (Section {@NumberOf targets}) together with an indication
+that the component is a header component.  When printed, a header
+component looks exactly like it would have done as an ordinary
+component; the difference is in whether the component is printed at all,
+and if so where.
+@PP
+Every non-header component of every galley has associated with it a
+sequence of zero or more header components.  Whenever a galley attaches
+to a target, and the target does not itself occupy an entire component
+of the enclosing galley, copies of the header components associated with the
+first ordinary component to be promoted into that target are
+promoted into it first.
+@PP
+The condition `and the target does not itself occupy an entire component
+of the enclosing galley' ensures that, for example, when part of a section
+has header components, these are not printed where the section is
+promoted into its chapter, but rather where the chapter is promoted
+onto pages.  If the target occupies the whole component, then the
+incoming galley will not split at all, so headers would be of no
+interest there.
+@PP
+The one remaining question is `How is the sequence of header
+components of each ordinary component determined?'  By default,
+the header components of one component are the same as those
+of the previous component.  We can show this graphically as
+follows:
+@ID @OneRow lines @Break @Eq {
+C sub i : H sub 1 , H sub 2 ,..., H sub n
+"/"
+C sub i+1 : H sub 1 , H sub 2 ,..., H sub n
+}
+which may be read: `If ordinary component @E { C sub i } has
+header component sequence @E { H sub 1 , H sub 2 ,..., H sub n },
+then its successor component @E { C sub i+1 } has header component
+sequence @E { H sub 1 , H sub 2 ,..., H sub n } also.'  Using this
+notation, we may now define the four symbols that affect header
+component sequences:
+@ID @OneRow lines @Break @Eq {
+C sub i : H sub 1 , H sub 2 ,..., H sub n
+"/"
+gap `` @@BeginHeaderComponent `` H sub n+1
+"/"
+C sub i+1 : H sub 1 , H sub 2 ,..., H sub n , H sub n+1
+}
+That is, @@BeginHeaderComponent occupying an entire
+begin.header.component.sym @Index { @@BeginHeaderComponent symbol }
+component appends a header component to the sequence of the
+following ordinary components.  When printed, this header
+component is separated by @E { gap } from the following component;
+if @E { gap } is empty it denotes @Code { 0ie } as usual with
+concatenation gaps.  The appearance of the header component will be
+exactly as it would have been had it occurred alone at that point,
+rather than after @@BeginHeaderComponent.
+@PP
+Next comes @@EndHeaderComponent:
+@ID @OneRow lines @Break @Eq {
+C sub i : H sub 1 , H sub 2 ,..., H sub n , H sub n+1
+"/"
+@@EndHeaderComponent
+"/"
+C sub i+1 : H sub 1 , H sub 2 ,..., H sub n
+}
+That is, @@EndHeaderComponent (which has no parameters) occupying an
+end.header.component.sym @Index { @@EndHeaderComponent symbol }
+entire component deletes the last header component.  If the sequence is
+empty, a warning message is printed and it remains
+empty.  @@BeginHeaderComponent and @@EndHeaderComponent are naturally
+used in matching (possibly nested) pairs, to introduce and subsequently
+retract a header component.
+@PP
+Next comes @@SetHeaderComponent:
+@ID @OneRow lines @Break @Eq {
+C sub i : H sub 1 , H sub 2 ,..., H sub n
+"/"
+gap `` @@SetHeaderComponent `` H sub n+1
+"/"
+C sub i+1 : H sub n+1
+}
+@@SetHeaderComponent clears any current header components
+set.header.component.sym @Index { @@SetHeaderComponent symbol }
+and replaces them by one of its own.  Finally we have
+@@ClearHeaderComponent:
+@ID @OneRow lines @Break @Eq {
+C sub i : H sub 1 , H sub 2 ,..., H sub n
+"/"
+@@ClearHeaderComponent
+"/"
+C sub i+1 : 
+}
+This symbol clears any header components, leaving the sequence empty.  These
+clear.header.component.sym @Index { @@ClearHeaderComponent symbol }
+last two symbols combine less cleanly than the first two (either will
+wreck any enclosing @@BeginHeaderComponent -- @@EndHeaderComponent pair),
+but they are useful in situations where the range of one header is
+terminated by the start of the range of the next.
+@PP
+All four symbols yield the value @@Null where they appear.  If they
+do not occupy entire components of their galley, they are silently
+ignored.
+@End @Section

@@ -1,0 +1,84 @@
+@Section
+   @Title { The current date and time }
+   @Tag { date }
+@Begin
+@PP
+The @Code "@Date" and @Code "@Time" symbols produce the current date
+date. @Index @Code "@Date"
+time. @Index @Code "@Time"
+and time:
+@ID @Code "It is now @Time on @Date."
+produces something like
+@ID { It is now @Time on @Date. }
+The result depends on the current language.
+@PP
+Both symbols have a @Code "@Format" option that changes the format of
+the result:
+@ID @Code "@Date @Format { @DayNum\"/\"@MonthNum\"/\"@ShortYear }"
+The result is the @Code "@Format" option with the symbols replaced by
+the appropriate values:
+@ID { @Date @Format { @DayNum"/"@MonthNum"/"@ShortYear } }
+The @Code "/" characters have been enclosed in double quotes for the
+usual reason (Section {@NumberOf characters}).
+@PP
+Here is the full list of symbols that you can use within both
+@Code "@Format" options:
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@Year" }
+    B { The year, e.g. @Code "1994" }
+@Rowa
+    A { "@ShortYear" }
+    B { The last two digits of the year, e.g. @Code "94" }
+@Rowa
+    A { "@Month" }
+    B { The month, e.g. @Code "December" }
+@Rowa
+    A { "@ShortMonth" }
+    B { The month abbreviated, e.g. @Code "Dec" }
+@Rowa
+    A { "@MonthNum" }
+    B { The number of the month, between @Code "1" and @Code "12" }
+@Rowa
+    A { "@Day" }
+    B { The day of the week, e.g. @Code "Saturday" }
+@Rowa
+    A { "@ShortDay" }
+    B { The day abbreviated, e.g. @Code "Sat" }
+@Rowa
+    A { "@DayNum" }
+    B { The day of the month, between @Code "1" and @Code "31" }
+@Rowa
+    A { "@MeriDiem" }
+    B { @Code "a.m." or @Code "p.m." }
+@Rowa
+    A { "@ShortMeriDiem" }
+    B { @Code "am" or @Code "pm" }
+@Rowa
+    A { "@Hour" }
+    B { The hour, between @Code "00" and @Code "23" }
+@Rowa
+    A { "@ShortHour" }
+    B { The hour, between @Code "0" and @Code "23" }
+@Rowa
+    A { "@TwelveHour" }
+    B { The hour, between @Code "1" and @Code "12" }
+@Rowa
+    A { "@Minute" }
+    B { The minute, between @Code "00" and @Code "59" }
+@Rowa
+    A { "@Second" }
+    B { The second, almost always between @Code "00" and @Code "59" }
+}
+The default format for @Code "@Date" in English is
+@ID @Code "@Date @Format { @DayNum @Month, @Year }"
+and the default format for @Code "@Time" in English is
+@ID @Code "@Time @Format { @TwelveHour.@Minute @MeriDiem }"
+Both default formats depend on the current language, and
+so do {@Code "@Month"}, {@Code "@ShortMonth"},
+{@Code "@Day"}, and {@Code "@ShortDay"},{@Code "@MeriDiem" }
+and {@Code "@ShortMeriDiem" }.
+@End @Section

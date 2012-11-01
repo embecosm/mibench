@@ -1,0 +1,224 @@
+@Section
+    @Tag { dia_posi }
+    @Title { Positioning }
+@Begin
+@PP
+Once the nodes of the diagram are in place, @@Diag can be trusted to look
+after the rest:  links to standard outlines will terminate neatly on their
+boundaries, labels will not overstrike links no matter what direction they
+are heading, and so on.  The great weakness of @@Diag is in positioning
+the nodes.  This is partly because `what pleases the eye' is the
+positioning rule in many diagrams, and an interactive system is really
+needed in such cases; and partly because, even when the rule is more formal
+(for example, when the nodes are to be laid out in a grid), @@Diag does not
+have symbols to produce it anyway.
+@PP
+Previous examples have used @Code "@DP" for getting nodes one under
+another, and white space between nodes for getting them side by side, but
+this is very primitive.  This section suggests three better ways:  using
+{@Code "@Tbl"}, using {@Code "@Graph"}, and using coordinates; and the
+following section adds a fourth, using @@Diag's tree-drawing symbols.  It's
+a bit of a jumble.
+@PP
+The {@Code "@Tbl"} symbol (Chapter {@NumberOf tables}) is a good choice when
+the nodes have any kind of grid-like arrangement:
+@ID @OneRow {
+@Code {
+"@Diag {"
+"@Tbl"
+"    aformat { @Cell A | @Cell B | @Cell C }"
+"    marginhorizontal { 0.5c }"
+"    marginvertical { 0.25c }"
+"{"
+"@Rowa"
+"    B { A:: @Square }"
+"@Rowa"
+"    A { B:: @Square }"
+"    C { C:: @Square }"
+"@Rowa"
+"    B { D:: @Square }"
+"}"
+"//"
+"@Arrow from { A } to { B }"
+"@Arrow from { A } to { C }"
+"@Arrow from { B } to { D }"
+"@Arrow from { C } to { D }"
+"@Arrow from { A } to { D }"
+"}"
+}
+||9ct
+@Diag {
+@Tbl
+    aformat { @Cell A | @Cell B | @Cell C }
+    marginhorizontal { 0.5c }
+    marginvertical { 0.25c }
+{
+@Rowa
+    B { A:: @Square }
+@Rowa
+    A { B:: @Square }
+    C { C:: @Square }
+@Rowa
+    B { D:: @Square }
+}
+//
+@Arrow from { A } to { B }
+@Arrow from { A } to { C }
+@Arrow from { B } to { D }
+@Arrow from { C } to { D }
+@Arrow from { A } to { D }
+}
+}
+The table occupies the nodes part.  Tags may have the same name
+as columns; the two can never conflict.
+@PP
+Similarly, the @Code "@Graph" symbol from Chapter {@NumberOf graphs}
+has an @Code "objects" option which can place arbitrary objects,
+including labelled nodes, anywhere on a graph:
+@ID @OneRow {
+@Code {
+"@Diag {"
+"@Graph"
+"    xmin { 0 }"
+"    xmax { 100 }"
+"    ymin { 0 }"
+"    ymax { 100 }"
+"    objects {"
+"        @CTR at { 20 30 } { A:: @Square }"
+"        @CTR at { 60 70 } { B:: @Square }"
+"    }"
+"{}"
+"//"
+"@Link from { A } to { B }"
+"}"
+}
+||8.5ct
+@Diag {
+@Graph
+    xmin { 0 }
+    xmax { 100 }
+    ymin { 0 }
+    ymax { 100 }
+    objects {
+        @CTR at { 20 30 } { A:: @Square }
+        @CTR at { 60 70 } { B:: @Square }
+    }
+{}
+//
+@Link from { A } to { B }
+}
+}
+Once again the @Code "@Graph" symbol occupies the nodes part.  You can
+get rid of the axes by setting the @Code "style" option of @Code "@Graph"
+to {@Code none}, and then it won't look like a graph at all.
+@PP
+@@Diag has a system of node positioning based on coordinates which is
+somewhat similar to the @Code "@Graph" one.  It is often the easiest way
+to scatter nodes about a diagram at random.  The first step is to create
+a nodes part that is just an empty space of whatever size you want the
+final diagram to be:
+@ID @OneRow @Code {
+"@Diag {"
+"    4c @High 6c @Wide"
+"    //"
+"    ..."
+"}"
+}
+As shown, this is done with the @Code "@Wide" and @Code "@High" symbols
+from basic Lout; the above diagram will be four centimetres high by
+six centimetres wide.
+@PP
+@@Diag has a @Code "," symbol that allows you to specify a point by
+its coordinates in the diagram's base.  For example,
+@Code "0,0" denotes the bottom left-hand corner of the base,
+@Code "1,0" denotes the bottom right-hand corner, and
+@Code "0.5,0.5" denotes the centre of the base.  Coordinates should
+usually be between 0 and 1, since otherwise they denote points
+outside the base (which is allowed but seldom useful).
+@PP
+Every node symbol has a @Code "translate" option which allows you
+to move the node about on the diagram's base (or off it if you use
+coordinates less than 0 or greater than 1).  If you use this option,
+the node effectively has zero size and overstrikes anything else
+in the area you put it (like labels do).  It is best to put these
+nodes in the links part:
+@ID @OneRow {
+@Code {
+"@Diag {"
+"@Box margin { 0c } 4c @Wide 5c @High"
+"//"
+"A:: @Square"
+"      translate { CTR to 0.5, 0.67 }"
+"    { @I A }"
+"B:: @Circle"
+"      translate { CTR to 0.8, 0.25 }"
+"    { @I B }"
+"}"
+}
+||9ct
+@Diag {
+@Box margin { 0c } 4c @Wide 5c @High
+//
+A:: @Square
+      translate { CTR to 0.5, 0.67 }
+    { @I A }
+B:: @Circle
+      translate { CTR to 0.8, 0.25 }
+    { @I B }
+}
+}
+A box with margin zero has been drawn around the empty space to
+show its extent.  The value of @Code "translate" should always
+be {@I point} @Code to {@I point}; the first point lies within
+the node, the second lies within the nodes part, and the translation
+makes these two points coincide.
+@PP
+You are free to have nodes in the nodes part as well, or any object
+at all.  Here is an example which shows what a little ingenuity
+can accomplish:
+@ID @OneRow {
+@Code {
+"@Diag {"
+"@Polygon"
+"    sides { 5 }"
+"    outlinestyle { noline }"
+"    hsize { 4c }"
+"    vsize { 4c }"
+"//"
+"A:: @Circle translate { N to P1 } {}"
+"B:: @Circle translate { N to P2 } {}"
+"C:: @Circle translate { N to P3 } {}"
+"D:: @Circle translate { N to P4 } {}"
+"E:: @Circle translate { N to P5 } {}"
+"@Link arrow { both } from { A } to { B }"
+"@Link arrow { both } from { B } to { C }"
+"@Link arrow { both } from { C } to { D }"
+"@Link arrow { both } from { D } to { E }"
+"@Link arrow { both } from { E } to { A }"
+"}"
+}
+||9ct
+@Diag {
+@Polygon
+    sides { 5 }
+    outlinestyle { noline }
+    hsize { 4c }
+    vsize { 4c }
+//
+A:: @Circle translate { N to P1 } {}
+B:: @Circle translate { N to P2 } {}
+C:: @Circle translate { N to P3 } {}
+D:: @Circle translate { N to P4 } {}
+E:: @Circle translate { N to P5 } {}
+@Link arrow { both } from { A } to { B }
+@Link arrow { both } from { B } to { C }
+@Link arrow { both } from { C } to { D }
+@Link arrow { both } from { D } to { E }
+@Link arrow { both } from { E } to { A }
+}
+}
+This uses the tags of a phantom polygon to position the
+real nodes.  It would be a rare interactive system that could
+position nodes with this precision; @@Diag shines whenever there
+is a formal positioning rule to follow.
+@End @Section

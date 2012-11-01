@@ -1,0 +1,32 @@
+@Section
+   @Title { Headings }
+   @Tag { headings }
+@Begin
+@PP
+The @Code "@Heading" symbol makes the following object into a
+heading. @Index @Code "@Heading"
+heading.  Actually, all it does is change the font, so if you want a
+centred heading you have to display it as well:
+@ID @OneRow @Code {
+"@Display @Heading { A Centred Heading }"
+"Following text"
+}
+If you want a left-justified heading, use @Code "@LeftDisplay" instead
+of @Code {"@Display"}.  Alternatively, you can use no display symbol at
+all, but then you will need paragraph symbols before and after:
+@ID @OneRow @Code {
+"@DP"
+"@Heading { A Left-Justified Heading }"
+"@PP"
+"Following text"
+}
+The font used is @Code Bold in the current family, although you can
+change this by changing the @Code "@HeadingFont" option in the setup
+headingfont. @Index @Code "@HeadingFont"
+file (Section {@NumberOf setup}).
+@PP
+The @Code "@Heading" symbol may be used with any type of document, but it
+is really intended only for simple ones.  In complex documents, large-scale
+structure symbols (Section {@NumberOf largescale}) are usually more
+appropriate.
+@End @Section

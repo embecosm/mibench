@@ -1,0 +1,162 @@
+@Chapter
+    @Title { Pascal and Modula-2 Programs }
+@Begin
+@LP
+There is a @Code "@Pas" symbol for printing Pascal programs
+pascal @Index { Pascal programs }
+pas. @Index @Code "@Pas"
+@Cite { $jensen1975pascal }.  No attempt is made to follow any
+particular printing standard; the design simply reflects this author's
+taste.  To use {@Code "@Pas"}, place @Code "@SysInclude { pas }" at the
+start of your document in the usual way.  A Pascal program or program
+fragment is entered like this:
+@ID @Code {
+"@ID @Pas {"
+"procedure PriDelete(x: PriEntry; var Q: PriorityQueue);"
+"    var i: integer;"
+"begin"
+"    with Q^ do begin"
+"        size := size - 1;"
+"        if x^.back <= size then"
+"        begin"
+"            i := x^.back;"
+"            A[i] := A[size + 1];"
+"            A[i]^.back := i;"
+"            PriAddRoot(i, Q);"
+"            PriAddLeaf(i, Q)"
+"        end"
+"    end"
+"end;"
+"}"
+}
+This produces
+@ID @Pas {
+procedure PriDelete(x: PriEntry; var Q: PriorityQueue);
+    var i: integer;
+begin
+    with Q^ do begin
+	size := size - 1;
+	if x^.back <= size then
+	begin
+	    i := x^.back;
+	    A[i] := A[size + 1];
+	    A[i]^.back := i;
+	    PriAddRoot(i, Q);
+	    PriAddLeaf(i, Q)
+	end
+    end
+end;
+}
+Blank lines, line breaks, indents and spaces in the input are respected,
+with a tab being considered equal to eight spaces.  @Code "@Pas" can also
+be used within a paragraph to produce a fragment like
+@OneCol @Pas { A[i..j] }.  Use @Code "@OneCol @Pas { ... }" to prevent the
+result from breaking over two lines.
+@PP
+@Code "@Pas" does not attempt to rearrange the program in any way.  Each
+item is simply printed according to the following plan:
+@ID {
+7c @Wide {
+      @Code and 	|2.5ct @Pas { and }
+//1vx @Code array 	|2.5ct @Pas { array }
+//1vx @Code begin 	|2.5ct @Pas { begin }
+//1vx @Code case 	|2.5ct @Pas { case }
+//1vx @Code const 	|2.5ct @Pas { const }
+//1vx @Code div 	|2.5ct @Pas { div }
+//1vx @Code do 		|2.5ct @Pas { do }
+//1vx @Code downto 	|2.5ct @Pas { downto }
+//1vx @Code else 	|2.5ct @Pas { else }
+//1vx @Code end 	|2.5ct @Pas { end }
+//1vx @Code file 	|2.5ct @Pas { file }
+//1vx @Code for 	|2.5ct @Pas { for }
+//1vx @Code forward	|2.5ct @Pas { forward }
+//1vx @Code function 	|2.5ct @Pas { function }
+//1vx @Code goto 	|2.5ct @Pas { goto }
+//1vx @Code if 		|2.5ct @Pas { if }
+//1vx @Code in 		|2.5ct @Pas { in }
+//1vx @Code label 	|2.5ct @Pas { label }
+//1vx @Code mod 	|2.5ct @Pas { mod }
+//1vx @Code nil 	|2.5ct @Pas { nil }
+//1vx @Code not 	|2.5ct @Pas { not }
+//1vx @Code of 		|2.5ct @Pas { of }
+//1vx @Code or 		|2.5ct @Pas { or }
+//1vx @Code otherwise 	|2.5ct @Pas { otherwise }
+//1vx @Code packed 	|2.5ct @Pas { packed }
+//1vx @Code procedure 	|2.5ct @Pas { procedure }
+//1vx @Code program 	|2.5ct @Pas { program }
+//1vx @Code record 	|2.5ct @Pas { record }
+//1vx @Code repeat 	|2.5ct @Pas { repeat }
+//1vx @Code set 	|2.5ct @Pas { set }
+//1vx @Code then 	|2.5ct @Pas { then }
+//1vx @Code to 		|2.5ct @Pas { to }
+//1vx @Code type 	|2.5ct @Pas { type }
+//1vx @Code until 	|2.5ct @Pas { until }
+//1vx @Code var 	|2.5ct @Pas { var }
+//1vx @Code while 	|2.5ct @Pas { while }
+//1vx @Code with 	|2.5ct @Pas { with }
+} | 7c @Wide {
+      @Code "0"		|2.5ct @Pas { 0 }
+//1vx @Code "1"		|2.5ct @Pas { 1 }
+//1vx @Code "2"		|2.5ct @Pas { 2 }
+//1vx @Code "3"		|2.5ct @Pas { 3 }
+//1vx @Code "4"		|2.5ct @Pas { 4 }
+//1vx @Code "5"		|2.5ct @Pas { 5 }
+//1vx @Code "6"		|2.5ct @Pas { 6 }
+//1vx @Code "7"		|2.5ct @Pas { 7 }
+//1vx @Code "8"		|2.5ct @Pas { 8 }
+//1vx @Code "9"		|2.5ct @Pas { 9 }
+//1vx @Code "."		|2.5ct @Pas { . }
+//1vx @Code ","		|2.5ct @Pas { , }
+//1vx @Code ":"		|2.5ct @Pas { : }
+//1vx @Code ";"		|2.5ct @Pas { ; }
+//1vx @Code "'"		|2.5ct @Pas { ' }
+//1vx @Code "`"		|2.5ct @Pas { ` }
+//1vx @Code "+"		|2.5ct @Pas { + }
+//1vx @Code "-"		|2.5ct @Pas { - }
+//1vx @Code "*"		|2.5ct @Pas { * }
+//1vx @Code "/"		|2.5ct @Pas { / }
+//1vx @Code "("		|2.5ct @Pas { ( }
+//1vx @Code ")"		|2.5ct @Pas { ) }
+//1vx @Code "["		|2.5ct @Pas { [ }
+//1vx @Code "]"		|2.5ct @Pas { ] }
+//1vx @Code "^"		|2.5ct @Pas { ^ }
+//1vx @Code ".."	|2.5ct @Pas { .. }
+//1vx @Code "="		|2.5ct @Pas { = }
+//1vx @Code "<"		|2.5ct @Pas { < }
+//1vx @Code ">"		|2.5ct @Pas { > }
+//1vx @Code "<>"	|2.5ct @Pas { <> }
+//1vx @Code "<="	|2.5ct @Pas { <= }
+//1vx @Code ">="	|2.5ct @Pas { >= }
+//1vx @Code ":="	|2.5ct @Pas { := }
+}
+}
+Anything not mentioned here will appear in italic font.
+@PP
+Unlike the @Code "@CP" symbol from the previous chapter, the @Code "@Pas"
+symbol is a quick-and-dirty production which does not offer you any options,
+or indeed attempt to solve every problem of Pascal formatting.  In
+particular, Pascal strings need attention before formatting by
+{@Code "@Pas"}.  Their interiors are best enclosed in double quotes to
+prevent the above transformations from occurring inside them.  Any
+@Code "\\" or @Code "\"" characters inside strings will need to be
+replaced by @Code "\\\\" and @Code "\\\"" respectively, and the opening
+quote should be replaced by {@Code "`"}.
+@PP
+Similar remarks apply to Pascal comments; don't forget that @Code "{"
+and @Code "}" must be enclosed in double quotes.  Alternatively, a
+@Code "@Com" symbol can be placed in front of a comment enclosed
+in braces.  It will add literal braces:
+@ID @Code {
+"@Com { A Pascal comment }"
+}
+has result
+@ID @Pas {
+@Com { A Pascal comment }
+}
+It may still be necessary to enclose the interior in double quotes.
+@PP
+There is a @Code "@Modula" symbol which allows you to format Modula-2
+programs in the same way as @Code "@Pas" does for Pascal.  You get it
+via {@Code "@SysInclude { modula }"}, and once again it is a quick-and-dirty
+production.
+@End @Chapter

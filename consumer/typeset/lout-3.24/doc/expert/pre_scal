@@ -1,0 +1,26 @@
+@Section
+   @Title { "@Scale" }
+   @Tag { scale }
+@Begin
+@PP
+scale. @Index { @@Scale symbol }
+This symbol geometrically scales its right parameter by the scale factor
+given in its left parameter:
+@ID @Code "1.0 @Scale Hello  2.0 @Scale Hello  0.5 @Scale Hello"
+has result
+@ID { 1.0 @Scale Hello  2.0 @Scale Hello  0.5 @Scale Hello }
+The left parameter can be two scale factors, in which case the first
+applies horizontally, and the second vertically:
+@ID @Code "{0.5 2.0} @Scale Hello"
+has result
+@ID { {0.5 2.0} @Scale Hello }
+The left parameter may be empty, in which case Lout will scale the
+object by a common factor horizontally and vertically so as to occupy
+all available horizontal space:
+@ID @Code "{} @Scale { Hello world }"
+has result
+@LD {} @Scale { Hello world }
+The right parameter may be any object.  @@Scale has both a @@OneCol and
+a @@OneRow effect, and the marks of the result coincide with the principal
+marks of the right parameter.
+@End @Section

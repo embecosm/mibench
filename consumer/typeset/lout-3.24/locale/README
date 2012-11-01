@@ -1,0 +1,20 @@
+Locale-specific error messages
+
+Lout offers the option of locale-specific error messages.  To
+get them, install with USELOC set to 1 in the make file, as
+described in detail there.  If USELOC is set to 1 when installing,
+Lout will look for a file called $(LIBDIR)/locale/msgs.<loc>
+where <loc> stands for the current locale, for its error messages.
+
+At present we have
+
+  msgs.english.3.16  The up-to-date messages list, in English
+  old.msgs.fr	     French messages from Version 3.05, out of date
+  old.msgs.de	     German messages from Version 3.05, out of date
+
+Someone needs to translate the new errors list into these languages
+(and others) and send it to me.  Please send me any translations you
+do (perhaps ask first) so that I can stop people doing duplicate work.
+
+Jeffrey H. Kingston
+26 May 1999

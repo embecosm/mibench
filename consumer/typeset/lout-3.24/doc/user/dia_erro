@@ -1,0 +1,45 @@
+@Section
+    @Tag { dia_erro }
+    @Title { Errors }
+@Begin
+@PP
+Lout normally produces an output file that will print without mishap on
+any PostScript device.  However, some of the options of {@Code "@Diag"}'s
+symbols are passed through Lout to the output file without checking,
+including anything containing @Code "@Diag" lengths, angles, points, and
+tags.  Any errors in these options will not be detected until the file
+is printed.
+@PP
+The most likely errors are {@I syntax @I errors}, as in
+@Code "outline { 0 0 [ 0 xsize }" for example, in which a @Code "]" is
+missing; @I { type errors }, as in @Code "SE:: 45d" where the
+following object should have been a point; and @I { undefined errors },
+arising from labels misspelt or used before being defined.  Less commonly,
+the options may all be correct but the figure is too large in some way:  too
+many labels, too deeply nested, and so on.
+@PP
+When an error is detected, @@Diag arranges for the offending page to
+be printed up to the point where the error occurred, with a message nearby
+describing the error.  Printing of the document is then aborted.  It is
+often quite easy to find the problem, because it lies in whatever should
+have been printed next.
+@PP
+If you see {@Code VMerror} in an error message, it means that the printer
+vmerror. @Index { @Code VMerror PostScript error }
+is running out of memory.  In that case, one thing you can try is
+@ID @Code {
+"@Diag"
+"    save { yes }"
+"..."
+}
+This causes the memory used by @@Diag to be reclaimed as soon
+as the diagram is printed, rather than at the end of the current page
+as is usual.  However, if the diagram is nested inside some other
+major Lout package, such as {@Code "@Graph"}, use of this option may
+cause other PostScript errors.
+@PP
+If you see @Code "dictfull" in an error message, it means that you are
+dictfull. @Index { @Code dictfull PostScript error }
+using an old version of PostScript.  Increasing the @Code "maxlabels"
+option of @@Diag (Section {@NumberOf dia_summ}) might fix the problem.
+@End @Section

@@ -1,0 +1,78 @@
+
+libmad:
+  - more API layers (buffering, PCM samples, dithering, etc.)
+  - x86 performance optimization compiler flags
+  - function documentation, general docs
+  - finish async API
+  - parse system streams?
+  - MPEG-2 MC, AAC?
+  - logarithmic multiplication?
+  - multiple frame decoding for better locality of reference?
+  - frame serial numbers, Layer III frame continuity checks
+
+libmad Layer I:
+  - check frame length sanity
+
+libmad Layer II:
+  - check legal bitrate/mode combinations
+  - check frame length sanity
+
+libmad Layer III:
+  - circular buffer
+  - optimize zero_part from Huffman decoding throughout
+  - MPEG 2.5 8000 Hz sf bands? mixed blocks?
+  - Andre's patches
+  - stereo->mono conversion optimization?
+  - enable frame-at-a-time decoding
+
+libid3tag:
+  - finish file API
+  - fix API headers
+
+madplay:
+  - auto attenuation?
+  - ALSA output module
+  - fade-out support
+  - customizable gap support
+  - fix start/stop time granularity
+  - resampling with bandlimited interpolation
+  - output sampling rate selection
+  - byte position reporting
+  - better bitstream error recovery
+  - handle emphasis
+  - equalizer support
+  - dynamically loaded filters
+  - automatic volume adjustment filter
+  - Replay Gain support
+  - handle SIGPIPE? (audio_esd)
+  - pass ID3 tag data to output modules
+
+madtime:
+  - recurse directories
+  - collect directory names
+  - non-mmap support
+
+mad123:
+  - needs work!
+
+Winamp plug-in:
+  - disable building when --enable-debugging
+  - dithering options
+  - CBR length calculation optimization
+  - better streaming support
+  - ID3v2 tag viewer/editor
+  - omit Xing header from playback
+  - buffer size/read whole file
+  - DSP before dither?
+  - better VBR seek
+  - equalizer
+  - estimate length/bitrate in File Info before scan
+  - optional error messages
+  - optional ignore CRC
+  - Replay Gain support
+
+General:
+  - Windows ACM codec?
+  - Sonique plug-in?
+  - Nero plug-in?
+

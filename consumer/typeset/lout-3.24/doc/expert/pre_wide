@@ -1,0 +1,22 @@
+@Section
+   @Title { "@Wide" and "@High" }
+   @Tag { wide }
+@Begin
+@PP
+The @@Wide symbol
+wide.sym @Index { @@Wide symbol }
+returns its right parameter modified to have the width given by its left
+parameter, which must be a length (Section {@NumberOf concatenation})
+whose unit of measurement is {@Code "c"}, {@Code "i"}, {@Code "p"},
+{@Code "m"}, {@Code "f"}, {@Code "s"}, or {@Code "v"}.  If the right
+parameter is not as wide as required, white space is added at the right;
+if it is too wide, its paragraphs are broken (Section {@NumberOf break})
+so that it fits.  A @@OneCol operation is included in the effect of @@Wide,
+since it does not make sense for an object of fixed width to have two column
+marks.
+@PP
+high.sym @Index { @@High symbol }
+The @@High symbol similarly ensures that its result is of a given height,
+by adding white space at the bottom.  In this case it is an error for the
+right parameter to be too large.  A @@OneRow operation is included.
+@End @Section

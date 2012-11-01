@@ -1,0 +1,66 @@
+@Section
+    @Title { Vertical alignment of tables }
+    @Tag { tbl_mark }
+@Begin
+@PP
+Occasionally the vertical alignment of a table with objects to its left
+vertical.alignment @Index { vertical alignment of tables }
+and right becomes an issue.  Examples are hard to find, but let's say
+that we need to construct a symbol
+@ID @AmberLight
+and include it in running text.  The obvious first attempt at a table
+with three rows is
+@ID @OneRow @Code @Verbatim {
+@Tbl
+   aformat { @Cell A }
+   margin { 0i }
+   strut { no }
+{
+@Rowa A { @OpenCircle }
+@Rowa A { @ClosedCircle }
+@Rowa A { @OpenCircle }
+}
+}
+where @Code "@OpenCircle" and @Code "@ClosedCircle" produce open and
+closed circles (they may be defined using the @Code "@Diag" package);
+but this produces
+@Tbl
+   aformat { @Cell A }
+   margin { 0i }
+   strut { no }
+{
+@Rowa A { @OpenCircle }
+@Rowa A { @ClosedCircle }
+@Rowa A { @OpenCircle }
+}
+in running text, because vertical alignment is by default through the
+top boundary of the table.  To make the alignment pass through one of
+the rows, replace its @Code "@Row" symbol by a corresponding
+@Code "@MarkRow" symbol.  Here is the revised table, enclosed in a
+definition for ease of use:
+amberlight @Index { @Code "@AmberLight" symbol }
+@ID @OneRow @Code @Verbatim {
+import @TblSetup
+def @AmberLight
+{
+    @OneRow @Tbl
+         aformat { @Cell indentvertical { align } A }
+         margin { 0i }
+         strut { no }
+         paint { no }
+         rule { no }
+     {
+         @Rowa A { @OpenCircle }
+         @MarkRowa A { @ClosedCircle }
+         @Rowa A { @OpenCircle }
+     }
+}
+}
+Now when we write
+@ID @Code "produces @AmberLight in running text"
+we find that this definition produces @AmberLight in running text, as
+desired.  We have enclosed the table in @Code "@OneRow" to ensure that
+its rows will never become separated, and added some options just in
+case the definition is ever used with a setup file (Section
+{@NumberOf tbl_setu}) that has default painting or rules.
+@End @Section

@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFFCP</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFFCP</H1>
+Section: User Commands  (1)<BR>Updated: January 9, 1996<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiffcp - copy (and possibly convert) a
+<FONT SIZE="-1">TIFF</FONT>
+file
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiffcp</B>
+
+[
+<I>options</I>
+
+]
+<I>src1.tif ... srcN.tif dst.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>tiffcp</I>
+
+combines one or more files created according
+to the Tag Image File Format, Revision 6.0
+into a single
+<FONT SIZE="-1">TIFF</FONT>
+file.
+Because the output file may be compressed using a different
+algorithm than the input files,
+<I>tiffcp</I>
+
+is most often used to convert between different compression
+schemes.
+<P>
+
+By default, 
+<I>tiffcp</I>
+
+will copy all the understood tags in a
+<FONT SIZE="-1">TIFF</FONT>
+directory of an input
+file to the associated directory in the output file.
+<P>
+
+<I>tiffcp</I>
+
+can be used to reorganize the storage characteristics of data
+in a file, but it is explicitly intended to not alter or convert
+the image data content in any way.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-B</B>
+
+<DD>
+Force output to be written with Big-Endian byte order.
+This option only has an effect when the output file is created or
+overwritten and not when it is appended to.
+<DT><B>-C</B>
+
+<DD>
+Suppress the use of ``strip chopping'' when reading images
+that have a single strip/tile of uncompressed data.
+<DT><B>-c</B>
+
+<DD>
+Specify the compression to use for data written to the output file:
+<B>none </B>
+
+for no compression,
+<B>packbits</B>
+
+for PackBits compression,
+<B>lzw</B>
+
+for Lempel-Ziv &amp; Welch compression,
+<B>jpeg</B>
+
+for baseline JPEG compression,
+<B>zip</B>
+
+for Deflate compression,
+<B>g3</B>
+
+for CCITT Group 3 (T.4) compression,
+and
+<B>g4</B>
+
+for CCITT Group 4 (T.6) compression.
+By default
+<I>tiffcp</I>
+
+will compress data according to the value of the
+<I>Compression</I>
+
+tag found in the source file.
+<DT><DD>
+The
+<FONT SIZE="-1">CCITT</FONT>
+Group 3 and Group 4 compression algorithms can only
+be used with bilevel data.
+<DT><DD>
+Group 3 compression can be specified together with several
+T.4-specific options:
+<B>1d</B>
+
+for 1-dimensional encoding,
+<B>2d</B>
+
+for 2-dimensional encoding,
+and
+<B>fill</B>
+
+to force each encoded scanline to be zero-filled so that the
+terminating EOL code lies on a byte boundary.
+Group 3-specific options are specified by appending a ``:''-separated
+list to the ``g3'' option; e.g.
+<B>-c g3:2d:fill</B>
+
+to get 2D-encoded data with byte-aligned EOL codes.
+<DT><DD>
+<FONT SIZE="-1">LZW</FONT>
+compression can be specified together with a 
+<I>predictor</I>
+
+value.
+A predictor value of 2 causes
+each scanline of the output image to undergo horizontal
+differencing before it is encoded; a value
+of 1 forces each scanline to be encoded without differencing.
+LZW-specific options are specified by appending a ``:''-separated
+list to the ``lzw'' option; e.g.
+<B>-c lzw:2</B>
+
+for
+<FONT SIZE="-1">LZW</FONT>
+compression with horizontal differencing.
+<DT><B>-f</B>
+
+<DD>
+Specify the bit fill order to use in writing output data.
+By default,
+<I>tiffcp</I>
+
+will create a new file with the same fill order as the original.
+Specifying
+<B>-f lsb2msb</B>
+
+will force data to be written with the FillOrder tag set to
+<FONT SIZE="-1">LSB2MSB,</FONT>
+while
+<B>-f msb2lsb</B>
+
+will force data to be written with the FillOrder tag set to
+<FONT SIZE="-1">MSB2LSB.</FONT>
+<DT><B>-l</B>
+
+<DD>
+Specify the length of a tile (in pixels).
+<I>tiffcp</I>
+
+attempts to set the tile dimensions so
+that no more than 8 kilobytes of data appear in a tile.
+<DT><B>-L</B>
+
+<DD>
+Force output to be written with Little-Endian byte order.
+This option only has an effect when the output file is created or
+overwritten and not when it is appended to.
+<DT><B>-M</B>
+
+<DD>
+Suppress the use of memory-mapped files when reading images.
+<DT><B>-p</B>
+
+<DD>
+Specify the planar configuration to use in writing image data
+that has one 8-bit sample per pixel.
+By default,
+<I>tiffcp</I>
+
+will create a new file with the same planar configuration as
+the original.
+Specifying
+<B>-p contig</B>
+
+will force data to be written with multi-sample data packed
+together, while
+<B>-p separate</B>
+
+will force samples to be written in separate planes.
+<DT><B>-r</B>
+
+<DD>
+Specify the number of rows (scanlines) in each strip of data
+written to the output file.
+By default,
+<I>tiffcp</I>
+
+attempts to set the rows/strip
+that no more than 8 kilobytes of data appear in a strip.
+<DT><B>-s</B>
+
+<DD>
+Force the output file to be written with data organized in strips
+(rather than tiles).
+<DT><B>-t</B>
+
+<DD>
+Force the output file to be written wtih data organized in tiles
+(rather than strips).
+options can be used to force the resultant image to be written
+as strips or tiles of data, respectively.
+<DT><B>-w</B>
+
+<DD>
+Specify the width of a tile (in pixels).
+<I>tiffcp</I>
+
+attempts to set the tile dimensions so
+that no more than 8 kilobytes of data appear in a tile.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+The following concatenates two files and writes the result using 
+<FONT SIZE="-1">LZW</FONT>
+encoding:
+<DL COMPACT><DT><DD>
+<PRE>
+tiffcp -c lzw a.tif b.tif result.tif
+</PRE>
+
+</DL>
+
+<P>
+
+To convert a G3 1d-encoded 
+<FONT SIZE="-1">TIFF</FONT>
+to a single strip of G4-encoded data the following might be used:
+<DL COMPACT><DT><DD>
+<PRE>
+tiffcp -c g4 -r 10000 g3.tif g4.tif
+</PRE>
+
+</DL>
+
+(1000 is just a number that is larger than the number of rows in
+the source file.)
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcmp+1.html">tiffcmp</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="tiffsplit+1.html">tiffsplit</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:48 GMT, November 23, 1999
+</BODY>
+</HTML>

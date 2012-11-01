@@ -1,0 +1,85 @@
+@SubSection
+    @Tag { cross }
+    @Title { The cross reference abstraction }
+@Begin
+@PP
+In developing the cross reference abstraction, it seemed best to begin
+with the database application, since it is the simplest.  Database
+relations are naturally mapped into Lout definitions:
+@ID @OneRow @Code {
+"def @Reference"
+"    named @Tag {}"
+"    named @Author {}"
+"    named @Title {}"
+"    named @Journal {}"
+"{}"
+}
+The set of all invocations of @Code "@Reference" is a relation whose
+attributes are the parameters, and whose tuples are the invocations.  To
+complete the correspondence, we need only declare that the @Code "@Tag"
+parameter is special, serving as the key attribute.
+@PP
+Following the database model, we next need a notation for retrieving the
+invocation with a given tag:
+@ID @Code "@Reference&&kingston91"
+This @I {cross reference} is like an arrow pointing to the invocation.  To
+access its attributes, we write
+@ID @Code "@Reference&&kingston91 @Open { @Author, @Title }"
+The @Code "@Open" operator evaluates its right parameter in an
+environment which includes the exported parameters of its left.
+@PP
+An invocation is chosen to be a running header because of its proximity
+to the place where it is used, rather than by its tag.  Such proximity
+is naturally expressed by two special tags, {@Code preceding} and
+{@Code following}; for example, @Code "@Sym&&following" will point to
+the closest following invocation of @Code "@Sym" in the final printed
+document.  This is much simpler conceptually than reference to the
+internal state of the document formatter at a critical moment, the usual
+approach to running headers.
+@PP
+It turns out that the above design solves all the cross referencing
+problems encountered in practice except one, which may be typified by
+the problem of finding the number of the page on which the chapter whose
+tag is @Code "intro" begins.  Two cross referencing steps are needed,
+first to {@Code "@Chapter&&intro"}, then from there to
+{@Code "@Page&&preceding"}, where the page number is known.
+@PP
+Given our success so far, this last problem proves to be
+surprisingly difficult.  We first try
+@ID @OneRow @Code {
+"@Chapter&&intro @Open {"
+"    @Page&&preceding @Open { @PageNum }"
+"}"
+}
+but this fails because @Code "@Page&&preceding" is evaluated in the
+present context, not in the context of @Code "@Chapter&&intro" as
+required.  So our next attempt is
+@ID @OneRow @Code {
+"def @Chapter"
+"    named @PageNum { @Page&&preceding @Open { @PageNum } }"
+"    ..."
+}
+with the @Code "@Page&&preceding" cross reference attached to the
+chapter; we write
+@ID @Code "@Chapter&&intro @Open { @PageNum }"
+This also fails, because parameters are evaluated after substitution, so
+once again @Code "@Page&&preceding" is evaluated in the wrong context.  We
+could of course define a new operator specifically for this case:
+@ID @Code "@Page&&{ @Preceding @Chapter&&intro }"
+or some such.  This is free of the annoying context-sensitivity, but it
+seems quite complex, and the expected cross reference @Code "@Page&&preceding"
+does not appear.
+@PP
+The author was lost in these obscurities for some time, and ultimately
+rescued himself by looking ahead to the implementation of the
+@Code preceding and @Code following tags, to see if a simple extension
+of it would solve the problem.  This led to the @Code "@Tagged" operator:
+@ID @Code "@Page&&preceding @Tagged intro"
+placed at the beginning of the body of the chapter will attach @Code intro
+as an extra tag to the closest preceding invocation of {@Code "@Page"},
+so that
+@ID @Code "@Page&&intro @Open { @PageNum }"
+yields the desired page number.  There is something low-level and ad hoc
+about the @Code "@Tagged" operator, but the two cross references do
+appear naturally, and it works.
+@End @SubSection

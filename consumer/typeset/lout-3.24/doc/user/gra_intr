@@ -1,0 +1,51 @@
+@Section
+   @Title { Introduction }
+   @Tag { grintro }
+@Begin
+@PP
+The Lout definitions for graph formatting are kept in a file called
+{@Code "graph"}, which you must include at the start of your document if
+graph.file @Index { @Code "graph" file }
+you want graphs, like this:
+@ID @OneRow @Code {
+"@SysInclude { graph }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+Setup files for specialized packages, such as {@Code "graph"}, should be
+included before the main setup file.  Once this is done, the @Code "@Graph"
+symbol used below will then be available for use anywhere within your document.
+@PP
+@Code "@Graph" distinguishes between the overall graph, produced by the
+@Code "@Graph" symbol itself, and the data sets to be placed within it,
+each of which is enclosed by a @Code "@Data" symbol:
+@ID @OneRow @Code {
+"@CentredDisplay @Graph"
+"{"
+"    @Data  points { plus }"
+"    { 1 1.10  2 1.21  3 1.33  4 1.46  5 1.61  6 1.77  7 1.95  8 2.14 }"
+""
+"    @Data  points { circle }"
+"    { 1 1.20  2 1.44  3 1.73  4 2.07  5 2.45  6 2.99  7 3.58  8 4.30 }"
+"}"
+}
+Although it is good practice to lay the input data out neatly, layout
+has no effect on the result.  It is not necessary to have one data point
+per line, for example.  The result of this example is
+@CentredDisplay @Graph
+{
+    @Data
+        points { plus }
+    { 1 1.10  2 1.21  3 1.33  4 1.46  5 1.61  6 1.77  7 1.95  8 2.14 }
+
+    @Data
+        points { circle }
+    { 1 1.20  2 1.44  3 1.73  4 2.07  5 2.45  6 2.99  7 3.58  8 4.30 }
+}
+We have used the @Code "@CentredDisplay" symbol from Section
+{@NumberOf displays} to produce a centred display, but the
+@Code "@Graph" symbol produces an object which may appear anywhere
+at all -- in a figure, for example, or as an entry in a table.
+@End @Section

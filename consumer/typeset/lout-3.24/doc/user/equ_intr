@@ -1,0 +1,61 @@
+@Section
+   @Title { Introduction }
+@Begin
+@PP
+The Lout definitions for the @Code "@Eq" symbol are accessed via a setup
+file called {@Code "eq"}, which you must include at the start of your
+document if
+eq.file @Index { @Code "eq" file }
+you want equations, like this:
+@ID @OneRow @Code {
+"@SysInclude { tbl }"
+"@SysInclude { eq }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+This shows what to do if you want both tables and equations, but you
+may leave out the line for tables if you don't want them.  Setup files
+for specialized packages, such as like {@Code "tab"} and {@Code "eq"},
+are best included before the main setup file, but may be included in
+any order.
+@PP
+With the @Code "eq" file included, you may write
+eq. @Index { @Code "@Eq" }
+@ID @Code "@Eq { ... }"
+at any point in your document, and the symbols of @Code "@Eq" will be
+available between the braces.  Any symbols available outside continue
+to be available inside, which means that equations may be freely mixed
+with other symbols, without restriction.
+@PP
+Equations may appear within a paragraph of text, or they may be
+displayed.  {@Code "@Eq"}'s job is to produce an object containing the
+equation; it neither knows nor cares where this equation goes.
+@PP
+To get an equation within a paragraph, simply place @Code "@Eq { ... }"
+at the desired point.  To make the optimal paragraph breaker work hard to
+arrange the paragraph so that the equation does not spread over two
+lines, use {@Code "@OneCol @Eq { ... }"}.  This is needed so frequently
+that a symbol @Code "@E" is defined in @Code "eq" along with @Code "@Eq"
+e. @Index { @Code "@E" }
+which is an abbreviation for {@Code "@OneCol @Eq"}.
+@PP
+To display an equation, use a display symbol like @Code "@IndentedDisplay"
+or @Code "@CentredDisplay" (Section {@NumberOf displays}).  For example,
+@ID @Code "@CentredDisplay @Eq { int supp pi on 0 sin ` x = 0 }"
+produces
+@CentredDisplay @Eq { int supp pi on 0 sin ` x = 0 }
+There are also symbols for aligned and numbered displays, which are
+very commonly used with equations.  These symbols are the subject of
+Section {@NumberOf mathdisplays}.
+@PP
+In this chapter we show the Lout input at the left, and its
+result at the right:
+@ID {
+@Code "@Eq { {x sup 2 + y sup 2} over 2 }"
+|7ct
+@Eq { {x sup 2 + y sup 2} over 2 }
+}
+Subsequent examples will omit the enclosing {@Code "@Eq { ... }"}.
+@End @Section

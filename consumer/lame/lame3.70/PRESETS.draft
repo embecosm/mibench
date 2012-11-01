@@ -1,0 +1,45 @@
+--
+
+ Phone  300 -  3400 hz, mono:
+         --highpass  0.300 
+         --lowpass   3.400 
+         --noshort        (preechoes are a minor issue)
+         --resample 16    (8 would be better, needs MPEG2.5)
+         -m m -b 16       (8 is a litle bit to low :( 
+
+ Tape    20 - 18000 hz, stereo:
+         --highpass  0.020
+         --lowpass  18.000
+         --resample 44.1
+         -m j -b 128
+
+ HIFI    20 - 20000 hz, stereo:
+         --highpass  0.020
+         --lowpass  20.000
+         --resample 44.1
+         -m j -b 160
+
+ CD       0 - 22050 hz, stereo: (full 44.1kHz frequency range)
+         -m s -b 192
+
+ Studio   0 - 24000 hz, stereo: (full 48kHz frequency range)
+         -m s -b 256
+
+
+
+-- thanks to Ross Levis:
+
+ FM    30 - 15000 hz, stereo:
+         --lowpass 15.000
+         --lowpass-width 0 (sharp cut-off)
+	 --resample 32
+         -m j -b 128
+
+ HQvoice (interviews) 100 - 12000 hz, mono:
+           --lowpass  12.000
+           --highpass  0.100
+	   --resample 24
+           -m m -b 64
+
+
+-- feel free to extend this list further --

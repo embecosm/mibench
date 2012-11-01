@@ -1,0 +1,124 @@
+PGP Foreign Language Tools
+--------------------------
+
+The "langtool" directory contains tools for manipulating foreign
+language translations for PGP's prompts and error messages.  The
+makefile is for Unix; the tools don't build cleanly under MS-DOS,
+although a little hacking should fix that.
+
+One problem is that the code assumes getopt() is in the standard
+library, which it usually isn't with MS-DOS compilers, but you can
+steal getopt.c from the PGP source to fix that one.
+
+In any case, the programs are:
+
+pickpstr - this takes a list of filenames on the command line,
+searches them for LANG("...") constructs, and emits the "..." strings
+on standard output.  This is used to extract the strings to be
+translated from the PGP source.  The strings are found by searching
+for the 6-character LANG(" sequence.  Any spaces cause the string to
+be missed.  (the name comes from PSTR(), the macro that was replaced
+by LANG().)
+
+killdups - this copies the outout of pickpstr from stdin to stdout,
+stripping out duplicates.
+
+charconv - this converts between ISO Latin-1 and IBM PC code page 850
+character sets.
+
+langtool - this is the big one, that merges various translation
+files, reporting which translations are missing, and so on.  It can
+extract a translation, merge translations, or check translation files
+for errors.
+
+
+The following notes were written by Branko Lankester for PGP 2.3a.
+
+---------------------------------------------------------------------
+
+                    PGP language tools.
+
+
+This is set of tools to maintain the PGP language files, with these
+tools you can find new messages in the PGP source code and add them to
+your language file.  You can also merge multiple languages into one file
+and extract languages from a merged file.
+
+
+Two programs are needed to extract the PSTR messages from the PGP source
+code: "pickpstr" and "killdups", the batch file extract.bat will run
+these programs on the PGP source files in the right order (the order is
+important if you want to use diff to find differences).  You must run
+extract.bat in the pgp src directory, this will create the file
+"pstrmsgs".  I have included this file with these tools.
+
+
+To create an up-to-date language file with one or more translations you
+must use the "langtool" program with the merge (-m) option:
+
+langtool -m -o newfile.txt pstrmsgs language.txt
+
+language.txt is the old language file with your translations.  If there
+is more than one language in this file you must specify the language
+identifier after the filename.  The output file "newfile.txt" will
+contain all messages from "pstrmsgs" and the translations from
+"language.txt", new messages that are not present in language.txt will
+have the line:
+
+No translation
+
+instead of the translated message, so you can use the "find" command of
+your editor to find the untranslated messages by searching for this string.
+
+
+If you want to combine several languages into one file you can also
+use "langtool" with the -m option:
+
+langtool -m -o language.txt lang1.txt lang2.txt
+
+This will add the language in lang2.txt to the combined language file
+"lang1.txt", the merged output will be in "language.txt".  If you 
+want to add another language, run the same command again, but use the
+output file from the last command (language.txt) as first inputfile:
+
+langtool -m -o outfile.txt language.txt lang3.txt
+
+"langtool -m" will use all translations from the first inputfile, and
+one translation from the second input file.  If the second file contains
+more than one language, you can specify the language you want after the
+last filename.
+
+
+You can also use langtool to extract one or more languages from a
+combined language file:
+
+langtool -x -o es-nl.txt language.txt es nl
+
+will extract the languages with identifiers "es" and "nl" from
+language.txt to the file "es-nl.txt"
+
+
+If you want to run a simple check on a language file (the same check
+that is done when pgp creates an index file), you can use the -c option:
+
+langtool -c language.txt
+
+This will print the number of messages, and the number of translations.
+
+
+A language file for distribution should be in the PGP internal character
+set: latin-1, for Russian it should be in KOI8.  This means that if your
+system doesn't use a latin-1 or KOI8 character set you will have to
+convert the language file to this internal format before you add it to
+the distribution.  You can use the "charconv" program to do this:
+
+charconv int language.in >language.txt
+
+will convert from cp850 to the latin-1 internal format.  To convert from
+internal to external, use "charconv ext file_name".  For conversion
+between Russian character sets you need a different program.  Harry Bush
+has sent me such a program, I assume the Russian translators already
+have this program, but if someone needs it, I can send it to you.
+
+
+Branko

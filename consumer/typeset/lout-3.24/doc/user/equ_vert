@@ -1,0 +1,164 @@
+@Section
+    @Tag { vpos }
+    @Title { Vertical positioning }
+@Begin
+@PP
+Every equation and every object within every equation has an
+@I axis running through it which is used to position it vertically
+axis @Index { axis of equation }
+with respect to nearby objects.  In the Expert's Guide to Lout
+@Cite { $kingston1995lout.expert } this is called a @I { row mark },
+but we'll stick with axis.  Here are some examples with the axis
+shown as a dashed line:
+@ID {
+@ShowHMark @Eq { x sup 2 }
+||2c
+@ShowHMark @Eq { non + }
+||2c
+@ShowHMark @Eq { @ExA }
+}
+When these objects are placed adjacent to one another, their
+axes are merged, giving the correct vertical positioning:
+@ID @ShowHMark @Eq { x sup 2 + @ExA }
+Most of the time you do not need to think about vertical
+positioning, because for most objects there is just one
+sensible place for the axis to go, and Lout puts it there.
+@PP
+Matrices and the delimiters that enclose them are the two
+exceptions.  Lout makes the axis of a matrix pass through
+its exact centre, and it shifts the axes of delimiters
+so that they exactly enclose the thing delimited.  These
+choices are never disastrous, but there are other possibilities
+that might be better sometimes.
+@PP
+The axis of a matrix could reasonably be set to the axis
+of any of its rows:
+@ID {
+@ShowHMark @Eq {
+matrix userow { yes } {
+  axisrow col { x sup 3 } col { y sup 3 } col { z sup 3 }
+  row     col { x sup 2 } col { y sup 2 } col { z sup 2 }
+  row     col { x } col { y } col { z }
+}
+}
+||2c
+@ShowHMark @Eq {
+matrix userow { yes } {
+  row     col { x sup 3 } col { y sup 3 } col { z sup 3 }
+  axisrow col { x sup 2 } col { y sup 2 } col { z sup 2 }
+  row     col { x } col { y } col { z }
+}
+}
+||2c
+@ShowHMark @Eq {
+matrix userow { yes } {
+  row     col { x sup 3 } col { y sup 3 } col { z sup 3 }
+  row     col { x sup 2 } col { y sup 2 } col { z sup 2 }
+  axisrow col { x } col { y } col { z }
+}
+}
+}
+Alternatively, it could be set to where Lout usually places it,
+through the exact centre:
+@ID {
+@ShowHMark @Eq {
+matrix {
+  row     col { x sup 3 } col { y sup 3 } col { z sup 3 }
+  row     col { x sup 2 } col { y sup 2 } col { z sup 2 }
+  row     col { x } col { y } col { z }
+}
+}
+}
+Delimiters could reasonably keep the axes that they naturally
+have (approximately through their centres, but not exactly):
+@ID {
+@ShowHMark @Eq { pmatrix userow { yes } shiftdelim { no } { @ExA } }
+}
+or they could have their axes moved in the way that Lout usually does,
+to the point which allows them to evenly cover the thing delimited:
+@ID {
+@ShowHMark @Eq { pmatrix userow { yes } { @ExA } }
+}
+Altogether then there are four possibilities when these two alternatives
+interact:
+@CD lines @Break @Tab
+  @Fmta { @Col 0.5w @VShift A ! @Col ! @Col B ! @Col ! @Col C }
+{
+@Rowa
+  A { }
+  B { Matrix axis
+uses row axis }
+  C { Matrix axis passes
+through centre }
+@Rowa
+@Rowa
+  A { Delimiter
+keeps its axis }
+  B { @ShowHMark @Eq { pmatrix userow {yes} shiftdelim {no } { @ExA } } }
+  C { @ShowHMark @Eq { pmatrix userow {no } shiftdelim {no } { @ExA } } }
+@Rowa
+@Rowa
+  A { Delimiter
+axis shifted }
+  B { @ShowHMark @Eq { pmatrix userow {yes} shiftdelim {yes} { @ExA } } }
+  C { @ShowHMark @Eq { pmatrix userow {no } shiftdelim {yes} { @ExA } } }
+}
+To supply these possibilities, the @Code "matrix" symbol and all
+its variants (@Code "pmatrix" etc.) have two options whose
+values may be {@Code "yes"} or {@Code "no"}:
+@ID @Code {
+"matrix"
+"    userow { no }"
+"    shiftdelim { yes }"
+"{"
+"    ..."
+"}"
+}
+The @Code "userow" option determines whether the axis of the
+matrix will use a row axis; the default is not to, i.e. to
+centre the axis instead.  The @Code "shiftdelim" option
+determines whether the axis of the delimiter will be shifted
+so that the delimiter evenly covers the thing delimited; the
+default is to do this.
+@PP
+If @Code "userow" is {@Code "yes"}, the next question is
+which row's axis to use to make the overall axis.  If you
+do nothing, the first (or only) row's axis becomes the
+overall axis.  To select some other row instead, replace
+the @Code "row" symbol that precedes the row by {@Code "axisrow"}:
+@ID @Code @Tab
+  vmargin { 0.5vx }
+  hmargin { 1s }
+  @Fmta { @Col A ! @Col ! @Col B ! @Col ! @Col C ! @Col ! @Col D ! @Col }
+  @Fmtb { @Col A ! @Col " col {" ! @Col B ! @Col "}  col {" ! @Col C ! @Col "}  col {" ! @Col D ! @Col "}" }
+{
+@Rowa
+  A { "matrix userow { yes } {" &0io }
+@Rowb
+  A { "    row" }
+  B { "x sup 3" }
+  C { "y sup 3" }
+  D { "z sup 3" }
+@Rowb
+  A { "    axisrow" }
+  B { "x sup 2" }
+  C { "y sup 2" }
+  D { "z sup 2" }
+@Rowb
+  A { "    row" }
+  B { "x" }
+  C { "y" }
+  D { "z" }
+@Rowa
+  A { "}" }
+}
+The result of this is
+@ID @ShowHMark @Eq {
+matrix userow { yes } {
+  row     col { x sup 3 } col { y sup 3 } col { z sup 3 }
+  axisrow col { x sup 2 } col { y sup 2 } col { z sup 2 }
+  row     col { x } col { y } col { z }
+}
+}
+with the axis through the second row as desired.
+@End @Section

@@ -1,0 +1,287 @@
+INTRODUCTION:
+
+Here are some hints on where to find dictionaries and affix files for
+various languages.  I have verified all of these as of 29-Nov-1993.
+
+Some of the affix files distributed with ispell are identical to or
+are based on the affix files at these ftp sites.
+
+Older affix files from some of these sites will require changes to the
+"defstringtype" and "altstringtype" statements to specify a
+deformatter before they will work with ispell 3.1.  This is done by
+adding a new quoted string, "TeX" or "nroff", after the first quoted
+string in the statement.
+
+Sites that use large numbers of affixes, or that use ISO Latin-1
+character sets, will usually get better results by using Martin
+Boyer's perl-based version of munchlist rather than the one
+distributed with ispell.  This version is available for ftp from:
+
+SITE:		ireq-robot.hydro.qc.ca
+DIRECTORY:	pub/ispell
+FILES:		buildict.tar.gz
+COMMENTS:	requires perl.  Note only one "d" in file name.
+
+----------------------------------------------------------------------
+ISPELL AFFIX FILES:
+
+SITE:		ireq-robot.hydro.qc.ca
+DIRECTORY:	pub/ispell
+FILES:		francais-IREQ.tar.gz
+LANGUAGE:	french
+COMMENTS:	includes french dictionary and instructions
+
+SITE:		ftp.informatik.uni-kiel.de
+DIRECTORY:	/pub/kiel/dicts
+FILES:		hk-deutsch.tar.gz
+LANGUAGE:	german
+COMMENTS:	Extended from 3.1.13 affix file, includes dictionary
+
+SITE:		lenti.med.umn.edu
+DIRECTORY:	pub/cyrillic
+FILES:		rspell.tar.Z
+LANGUAGE:	russian
+COMMENTS:	very preliminary;  includes 50K-word russian dictionary
+
+SITE:		ftp.iesd.auc.dk
+DIRECTORY:	/pub/packages/dkispell
+FILES:		dkispell-words-tar.Z
+LANGUAGE:	danish
+COMMENTS:	includes dictionary
+
+SITE:		ftp.ida.liu.se
+DIRECTORY:	/pub/bibframe/svordlista
+FILES:		swedish.aff
+LANGUAGE:	swedish
+COMMENTS:	swedish dictionary available from the same site
+
+SITE:		ftp.eunet.es
+DIRECTORY:	/pub/unix/text/TeX/spanish/ispell
+FILES:		castellano.aff.gz
+LANGUAGE:	spanish
+COMMENTS:	dictionary, elisp patch available from same source.
+		See LEEME or README files.
+
+SITE:		ftp.fi.upm.es
+DIRECTORY:	pub/unix
+FILES:		espa~nol.tar.gz
+LANGUAGE:	spanish
+COMMENTS:	includes espa~nol.aff, words list, instructions, and
+		TeX hyphenation rules for Spanish.
+
+SITE:		www.di.uminho.pt
+DIRECTORY:	(WWW)
+FILE:		http://www.di.uminho.pt/~jj/pln/UMportugues.tgz  
+LANGUAGE:	Portuguese
+COMMENTS:	See http://www.di.uminho.pt/~jj/pln/pln.html and
+		http://www.di.uminho.pt/~jj/pln/dot.emacs for more
+		information.  Includes dictionary
+
+----------------------------------------------------------------------
+ISPELL-COMPATIBLE WORD LISTS:
+
+SITE:		ireq-robot.hydro.qc.ca
+DIRECTORY:	pub/ispell
+FILES:		francais-IREQ.tar.gz
+LANGUAGE:	french
+COMMENTS:	includes francais.aff and instructions
+
+SITE:		ftp.iesd.auc.dk
+DIRECTORY:	/pub/packages/dkispell
+FILES:		dkispell-words-tar.Z
+LANGUAGE:	danish
+COMMENTS:	includes affix file
+
+SITE:		archive.cs.ruu.nl
+DIRECTORY:	pub/TEX/wordlists
+FILE:		ispell-british-dict.tar.Z
+LANGUAGE:	english
+COMMENTS:	carefully-made variant of the ispell american dictionaries.
+		see the english and dutch wordlist on the same site, below
+
+SITE:		ftp.NL.net
+DIRECTORY:	pub/textproc/dictionaries
+FILE:		dutch8.words.gz
+LANGUAGE:	dutch
+COMMENTS:	Based on "Het Groene Boekje".  Also mirrors ispell in
+		pub/text/proc/ispell
+
+SITE:		ftp.ida.liu.se
+DIRECTORY:	/pub/bibframe/svordlista
+FILES:		swedish.0.Z,swedish.ord.Z,paradigms.Z
+LANGUAGE:	swedish
+COMMENTS:	swedish affix file available from the same site
+
+SITE:		lynx.ps.uci.edu (128.200.29.14)
+DIRECTORY:	/dist
+FILES:		deutsch.lrg.gz
+		francais.dico.aff.tar.gz
+LANGUAGE:	german, french
+COMMENTS:	dictionaries have been removed (temporarily?) because
+		better ones are now available.  The provider suggests
+		that you use ireq-robot for French, or tuwien for
+		German.
+
+SITE:		ftp.vlsivie.tuwien.ac.at
+DIRECTORY:	/pub/8bit/dicts
+FILES:		deutsch.tar.gz
+LANGUAGE:	german
+COMMENTS:	copy of Martin Schulz's dictionary, previously at umoncton.ca
+
+SITE:		ftp.informatik.uni-kiel.de
+DIRECTORY:	/pub/kiel/dicts
+FILES:		hk-deutsch.tar.gz
+LANGUAGE:	german
+COMMENTS:	improved version of Martin Schulz's dictionary,
+		compiled and corrected by Heinz Knutzen.  Includes a
+		new affix file.
+
+SITE:           ftp.th-darmstadt.de
+DIRECTORY:      /pub/dicts/ispell/dictionaries
+FILES:          deutsch.tar.gz
+LANGUAGE:       german
+COMMENTS:       newer and corrected version of germandict from ftp.ifi.unizh.ch
+
+SITE:		ftp.eunet.es
+DIRECTORY:	/pub/unix/text/TeX/spanish/ispell
+FILES:		palabras.sq.gz
+LANGUAGE:	spanish
+COMMENTS:	affix file, elisp patch available from same source.
+		See LEEME or README files.
+
+SITE:		ftp.fi.upm.es
+DIRECTORY:	pub/unix
+FILES:		espa~nol.tar.gz
+LANGUAGE:	spanish
+COMMENTS:	includes espa~nol.aff, words list, instructions, and
+		TeX hyphenation rules for Spanish.
+
+SITE:		www.di.uminho.pt
+DIRECTORY:	(WWW)
+FILE:		http://www.di.uminho.pt/~jj/pln/UMportugues.tgz  
+LANGUAGE:	Portuguese
+COMMENTS:	See http://www.di.uminho.pt/~jj/pln/pln.html and
+		http://www.di.uminho.pt/~jj/pln/dot.emacs for more
+		information.  Includes dictionary
+
+----------------------------------------------------------------------
+OTHER WORD LISTS:
+
+The following lists may not be intended for use with ispell.  They may
+be intended for other spell-checkers, or they may be targeted at
+password-finding programs.  They will generally need an appropriate
+affix file and will need to be processed with "munchlist" before they
+will be useful with ispell.
+
+SITE:		lenti.med.umn.edu
+DIRECTORY:	pub/cyrillic
+FILES:		rspell.tar.Z
+LANGUAGE:	russian
+COMMENTS:	includes preliminary russian affix file
+
+SITE:		star.cs.vu.nl
+DIRECTORY:	.dictionaries_unmaintained
+FILES:		dicts.dan_klein.tar.Z
+		germanl.Z
+		words.dutch.Z
+		words.english.Z
+		words.german.Z
+		words.italian.Z
+		words.japanese.Z
+		words.norwegian.Z
+		words.swedish.Z
+LANGUAGE:	dutch,german,english,italian,japanese,norwegian,swedish
+COMMENTS:	intended for password cracking; may not have accurate
+		spellings.  See names lists on the same site, below
+
+SITE:		star.cs.vu.nl
+DIRECTORY:	.dictionaries_unmaintained/names
+FILE:		Family-Names.Z
+		Given-Names.Z
+		names.french.Z
+		names.hp.Z
+		surnames.finnish.Z
+LANGUAGE:	english,french,international?,finnish
+COMMENTS:	intended for password cracking; may not have accurate
+		spellings.  May have too many unusual names to be
+		useful with ispell.  See word lists on the same site, above
+
+SITE:		archive.cs.ruu.nl
+DIRECTORY:	pub/TEX/wordlists
+FILE:		ispell-british-dict.tar.Z
+		words.dutch.Z
+		words.english.Z
+LANGUAGE:	english,dutch
+COMMENTS:	see the british dictionary on the same site, intended
+		for ispell use
+
+SITE:		donau.et.tudelft.nl
+DIRECTORY:	pub/words
+FILE:		Family-Names
+		Given-Names
+		dutch.dict
+		groene_boekje
+		platte_lijst
+		words.dutch.Z
+		words.english.Z
+		words.german.Z
+LANGUAGE:	dutch,english
+COMMENTS:	these are intended for spell-checking
+
+SITE:		ghost.unimi.it
+DIRECTORY:	pub/misc
+FILE:		voc.Z
+LANGUAGE:	italian
+COMMENTS:	doesn't seem to include capitalized words (but I
+		didn't look very hard)
+
+SITE:		ftp.informatik.tu-muenchen.de (131.159.0.110)
+DIRECTORY:	/pub/comp/doc/dict
+FILE:		exercise.vok.Z
+		german-wordlist.Z
+		german-wordlist.new.Z
+		germanl.Z
+		idioms.vok.Z
+		technik.vok.Z
+LANGUAGE:	german
+COMMENTS:	some of these require conversion with a shell script
+		because diacriticals are written as "ae", etc.
+
+SITE:		faui43.informatik.uni-erlangen.de
+DIRECTORY:	/pub/doc/dict
+FILE:		german-wordlist.Z
+LANGUAGE:	german
+COMMENTS:	diacriticals are written as "ae", etc.,
+
+SITE:		ftp.ifi.uio.no
+DIRECTORY:	/pub/dicts
+FILE:		norwegian-names.Z
+		snorre.Z
+LANGUAGE:	norwegian
+COMMENTS:	names in "snorre" aren't capitalized.  Contains
+		errors.  Must be massaged to use with ispell.
+
+SITE:		ftp.uu.net
+DIRECTORY:	/doc/dictionaries/*
+FILE:		various
+LANGUAGE:	dutch,english,finnish,german,italian,norwegian,swedish
+COMMENTS:	Mirrored from nic.funet.fi.  Intended for password cracking.
+
+SITE:		nic.funet.fi
+DIRECTORY:	/pub/unix/security/dictionaries
+FILE:		various
+LANGUAGE:	@h
+COMMENTS:	Intended for password cracking.
+
+SITE:		ftp.waseda.ac.jp
+DIRECTORY:	/pub/security/wordlists
+FILE:		wds.japanese.lzh
+LANGUAGE:	japanese
+COMMENTS:	intended for password cracking
+
+SITE:		available on ftp.bnr.co.uk
+DIRECTORY:	Exports
+FILE:		Family-Names.Z
+		Given-Names.Z
+LANGUAGE:	english
+COMMENTS:	list of names only.  Don't be scared by the login banner.

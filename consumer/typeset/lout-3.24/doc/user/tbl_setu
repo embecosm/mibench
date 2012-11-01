@@ -1,0 +1,65 @@
+@Section
+    @Title { Changing the overall format }
+    @Tag { tbl_setu }
+@Begin
+@PP
+All of the options apart from the @Code format options can be changed
+setup.files.tables @Index { setup files for tables }
+in the @Code { tbl } setup file, in which case the new values become
+the default values for every table in the document.  This section
+explains how to do it.  Changing options in the setup file can save a
+lot of time, but its more important purposes are to promote consistency
+and to allow document-wide formatting changes to be carried out easily.
+@PP
+The first step is to obtain your own copy of the setup file, @Code { tbl },
+from the Lout system include directory.  You can find out where that
+is by typing
+@ID @Code { lout -V }
+This prints out various things about Lout.  Supposing that it says
+that the Lout system include directory is @Code { "/usr/lout/include" }, for
+example, you can copy the setup file into your current directory,
+renaming it @Code { mytbl }, with the Unix command
+@ID @Code "cp  /usr/lout/include/tbl  mytbl"
+or its equivalent on your system.  You will also need to make
+@Code { mytbl } writable.
+@PP
+The next step is to replace the @Code "@SysInclude { tbl }" line at the
+start of your document with @Code { "@Include { mytbl }" }.  This causes
+Lout to read your copy of the setup file, not the one in the system
+include directory.  Since the two files are currently identical, this
+has changed nothing so far, but now you can change the options within
+@Code mytbl and the changes will affect your document.
+@PP
+Your copy of the setup file has some lines beginning with @Code "#"
+that are ignored by Lout, and then it has @Code { "@SysInclude { tblf }" }.
+This line tells Lout to read file @Code tblf which contains the definition
+of the @Code tbl package, so it should not be changed.  After it comes
+the @Code "@TblSetup" @Code "@Use" clause, which looks like this:
+@ID @OneRow @Code @Verbatim {
+@Use { @TblSetup
+    # paint { nopaint }
+    # font { }
+    # break { }
+}
+}
+Only a few of the options are shown here.  To change a setup file
+option, delete the @Code "#" in front of it and change the value.  For
+example, suppose you want all table entries two points smaller than the
+surrounding text:
+@ID @OneRow @Code @Verbatim {
+@Use { @TblSetup
+    # paint { nopaint }
+    font { -2p }
+    # break { }
+}
+}
+This relative specification of font size is available anywhere, not
+just in setup files (Section {@NumberOf fonts}).
+@PP
+Some setup file options contain values which use the @Code "@OrIfPlain"
+symbol:
+@ID @Code "marginvertical { 0.3f @OrIfPlain 1f }"
+This means that the value of @Code marginvertical is to be @Code "0.3f"
+usually, but @Code 1f in plain text documents.  Feel free to leave these
+symbols there when you change a value, or delete them if you prefer.
+@End @Section

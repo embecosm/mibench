@@ -1,0 +1,14 @@
+0.14.2b
+configure.in:25
+abxtest:31
+libmad/configure.in:25
+libmad/version.h:25-28
+#libmad/Makefile.am:94-96
+libid3tag/configure.in:25
+libid3tag/id3tag.h:308-311
+#libid3tag/Makefile.am:27-29
+winamp/in_mad.c:46
+msvc++/demo/config.h:197
+msvc++/libid3tag/config.h:51
+msvc++/libmad/config.h:91
+msvc++/libmad/mad.h:38-41

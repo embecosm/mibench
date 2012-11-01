@@ -1,0 +1,126 @@
+@Section
+   @Title { Displaying equations }
+   @Tag { mathdisplays }
+@Begin
+@PP
+The result of the @Code "@Eq" symbol is an object which, according to the
+displayed.equations @Index { displayed equations }
+golden rule (Section {@NumberOf objects}), may appear anywhere:  inside
+a paragraph, inside a table, and so on.  In particular, equations are
+often displayed using the @Code "@CentredDisplay" or @Code "@IndentedDisplay"
+symbols from Section {@NumberOf displays}:
+@ID @Code "@IndentedDisplay @Eq { ... }"
+Now displayed equations are often numbered, and often aligned with one
+another on their equals signs.  For this there are special display
+symbols which are the the subject of this section.  These symbols can
+align and number any display at all, but since in practice they seem to
+be used only with equations, we discuss them here rather than in
+Section {@NumberOf displays} where they really belong.
+@PP
+Let's begin by looking at a first example of a numbered display:
+aligned.displays @Index { aligned displays }
+aligned.equations @Index { aligned equations }
+numbered.displays @Index { numbered displays }
+numbered.equations @Index { numbered equations }
+@BeginAlignedDisplays
+@CentredAlignedNumberedDisplay
+  @Tag { fibeq }
+@Eq { F sub n ^= F sub {n-1} + F sub {n-2} }
+After the display we might have some more text for a while, and then
+we might want a second display, aligned on its equals sign with the
+first, and also numbered in sequence with it:
+@CentredAlignedNumberedDisplay
+@Eq { F sub n - F sub {n-1} ^= F sub {n-2} }
+@EndAlignedDisplays
+Notice that the two displays are centred as a block as well as
+aligned.  Altogether there are four ways in which displays vary:
+@BL
+@LI { A display can be raw or not raw (see below); }
+@LI { It can be a {@Code "@Display"}, {@Code "@LeftDisplay"},
+{@Code "@IndentedDisplay"}, {@Code "@QuotedDisplay"},
+{@Code "@CentredDisplay"}, {@Code "@CenteredDisplay"},
+or {@Code "@RightDisplay"}; }
+@LI { It can be aligned or not aligned; }
+@LI { It can be numbered or not numbered. }
+@EL
+All possible combinations are allowed.  The display that has everything
+is called
+@ID @Code "@RawCentredAlignedNumberedDisplay"
+By leaving out some or all of {@Code Raw}, {@Code Aligned}, and
+{@Code Numbered}, and by changing or leaving out {@Code Centred},
+we get all these combinations.  The two displays
+numbereddisplay. @Index @Code "@NumberedDisplay"
+aligneddisplay. @Index @Code "@AlignedDisplay"
+given earlier were made like this:
+@ID @OneRow @Code {
+"... a first example of a numbered display:"
+"@BeginAlignedDisplays"
+"@CentredAlignedNumberedDisplay"
+"  @Tag { fibeq }"
+"@Eq { F sub n ^= F sub { n-1 } + F sub { n-2 } }"
+"After the display we might ... numbered in sequence with it:"
+"@CentredAlignedNumberedDisplay @Eq { F sub n - F sub { n-1 } ^= F sub { n-2 } }"
+"@EndAlignedDisplays"
+"Notice that the two displays are centred ..."
+}
+All numbered displays have an optional @Code "@Tag" option which is
+used for cross referencing (see Section {@NumberOf cross}).  Alignment
+and numbering work quite independently; they don't have to start or end
+together, and there can be non-aligned and non-numbered displays among
+the others.
+@PP
+When aligned displays are used, it is necessary to indicate where the
+aligned group begins and ends, by placing @Code "@BeginAlignedDisplays"
+beginaligneddisplays @Index @Code "@BeginAlignedDisplays"
+endaligneddisplays @Index @Code "@EndAlignedDisplays"
+just before the first, and @Code "@EndAlignedDisplays" just after the
+last.  The alignment points are indicated by preceding them by the
+symbol {@Code "^"}, so you aren't restricted to aligning at equals
+signs.  @Code "@BeginAlignedDisplays" and @Code "@EndAlignedDisplays"
+cannot span across several sections or subsections:  the equations
+aligned by them must lie within a single large-scale structure symbol.
+@PP
+In our example of aligned and numbered displays, the two displays
+were separated by some ordinary text.  Very often, though, aligned
+displays follow directly after each other.  This is a problem, because
+if you have one display directly following another there will be too
+much vertical space between them.  This problem was mentioned in
+Section {@NumberOf displays}, and the recommended solution was to
+use a list.  However, there are no aligned or numbered (in this sense)
+lists.
+@PP
+Fortunately, each display symbol has a `raw' version, which
+means that no space is inserted above or below the display.  Instead,
+raw.displays @Index { raw displays }
+you must insert it yourself using paragraph symbols:
+@ID @OneRow @Code {
+"preceding text"
+"@DP"
+"@RawAlignedDisplay @Eq { ... }"
+"@DP"
+"@RawAlignedNumberedDisplay @Eq { ... }"
+"@DP"
+"following text"
+}
+You get the right spacing by placing {@Code "@DP"} symbols before,
+between, and after each display; and you get to use the specialized
+displays that you need.  Raw and non-raw displays may be numbered and
+aligned together.
+@PP
+Numbered displays are numbered automatically.  Depending on where in
+the document they appear, the number might include a chapter number
+or section number, etc.  This is controlled by options in the setup
+file; for example, setting @Code "@ChapterNumInDisplays" to @Code Yes
+ensures that numbered displays will be numbered afresh at the beginning
+of each chapter, and that the number will include a chapter number.  There
+is also a @Code "@DisplayNumStyle" option which controls the style of
+displays; the default value, {@Code "(num)"}, encloses the number in
+parentheses as is conventional when numbering equations.
+@PP
+Every display symbol has an abbreviated form consisting of @Code "@"
+followed by its capital letters only.  For example,
+@Code "@BeginAlignedDisplays" may be abbreviated to {@Code "@BAD"}, and
+the display that has everything to {@Code "@RCAND"}.  Owing to an
+unfortunate clash between the initial letters of `raw' and `right',
+@Code "@RightDisplay" and the other right displays have no abbreviations.
+@End @Section

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of RAS2TIFF</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>RAS2TIFF</H1>
+Section: User Commands  (1)<BR>Updated: October 15, 1995<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+ras2tiff - create a
+<FONT SIZE="-1">TIFF</FONT>
+file from a Sun rasterfile
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>ras2tiff</B>
+
+[
+<I>options</I>
+
+]
+<I>input.ras</I>
+
+<I>output.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>ras2tiff</I>
+
+converts a file in the Sun rasterfile format to
+<FONT SIZE="-1">TIFF.</FONT>
+By default, the
+<FONT SIZE="-1">TIFF</FONT>
+image is created with data samples packed (<I>PlanarConfiguration</I>=1),
+
+compressed with the Lempel-Ziv &amp; Welch algorithm (<I>Compression</I>=5),
+
+and with each strip no more than 8 kilobytes.
+These characteristics can overriden, or explicitly specified
+with the options described below.
+<P>
+
+Any colormap information in the rasterfile is carried over to the
+<FONT SIZE="-1">TIFF</FONT>
+file by including a
+<I>Colormap</I>
+
+tag in the output file.
+If the rasterfile has a colormap, the
+<I>PhotometricInterpretation</I>
+
+tag is set to 3 (palette);
+otherwise it is set to 2 (RGB) if the depth
+is 24 or 1 (min-is-black) if the depth is not 24.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-c</B>
+
+<DD>
+Specify a compression scheme to use when writing image data:
+<B>-c none</B>
+
+for no compression,
+<B>-c packbits</B>
+
+for the PackBits compression algorithm,
+<B>-c jpeg</B>
+
+for the baseline JPEG compression algorithm,
+<B>-c zip</B>
+
+for the Deflate compression algorithm,
+and
+<B>-c lzw</B>
+
+for Lempel-Ziv &amp; Welch (the default).
+<DT><B>-r</B>
+
+<DD>
+Write data with a specified number of rows per strip;
+by default the number of rows/strip is selected so that each strip
+is approximately 8 kilobytes.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>BUGS</H2>
+
+Does not handle all possible rasterfiles.
+In particular, 
+<I>ras2tiff</I>
+
+does not handle run-length encoded images.
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">BUGS</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

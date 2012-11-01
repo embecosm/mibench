@@ -1,0 +1,852 @@
+# French translation for MAD.
+# Gabriel Bouvigne <bouvigne@mp3-tech.org>, 2000.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mad 0.12.0a\n"
+"POT-Creation-Date: 2001-11-08 20:55-0800\n"
+"PO-Revision-Date: 2001-10-30 10:39-08:00\n"
+"Last-Translator: Gabriel Bouvigne <bouvigne@mp3-tech.org>\n"
+"Language-Team: French <bouvigne@mp3-tech.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: audio_oss.c:188
+msgid "no supported audio format available"
+msgstr "aucun format audio supporté disponible"
+
+#: audio_sun.c:158
+msgid "unsupported bit depth"
+msgstr ""
+
+#: audio_win32.c:58
+msgid "error getting error text"
+msgstr "erreur d'obtention du message d'erreur"
+
+#: audio_win32.c:77
+msgid "failed to create synchronization object"
+msgstr "erreur de création de synchronisation"
+
+#: audio_win32.c:242
+msgid "wait abandoned"
+msgstr "attente abandonnée"
+
+#: audio_win32.c:246
+msgid "wait timeout"
+msgstr "délai d'attente dépassé"
+
+#: audio_win32.c:251
+msgid "wait failed"
+msgstr "échec d'attente"
+
+#: audio_win32.c:408
+msgid "failed to close synchronization object"
+msgstr "échec de fermeture de synchronisation"
+
+#: getopt.c:681
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: l'option `%s' est ambigue\n"
+
+#: getopt.c:706
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: l'option `--%s' n'autorise pas d'argument\n"
+
+#: getopt.c:711
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: l'option `%c%s' n'autorise pas d'argument\n"
+
+#: getopt.c:729 getopt.c:902
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: l'option `%s' requiert un argument\n"
+
+#. --option
+#: getopt.c:758
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: option non reconnue `--%s'\n"
+
+#. +option or -option
+#: getopt.c:762
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: option non reconnue `%c%s'\n"
+
+#. 1003.2 specifies the format of this message.
+#: getopt.c:788
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: option non conforme -- %c\n"
+
+#: getopt.c:791
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: option invalide -- %c\n"
+
+#. 1003.2 specifies the format of this message.
+#: getopt.c:821 getopt.c:951
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: l'option requiert un argument -- %c\n"
+
+#: getopt.c:868
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: l'option `-W %s' est ambigue\n"
+
+#: getopt.c:886
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: l'option `-W %s' n'autorise pas d'argument\n"
+
+#: madmix.c:252
+#, fuzzy, c-format
+msgid "Usage: %s input1 [input2 ...]\n"
+msgstr "Usage: %s entrée1 [entrée2 ...]\n"
+
+#: madmix.c:272 madplay.c:557 madtime.c:211
+#, c-format
+msgid "Build options: %s\n"
+msgstr "Options de conpilation: %s\n"
+
+#: madmix.c:292
+#, c-format
+msgid "%s: unknown output format type"
+msgstr "%s: type de sortie inconnu"
+
+#: madmix.c:318
+msgid "not enough memory to allocate mixing buffers"
+msgstr "pas assez de mémoire pour allouer les buffers de mixage"
+
+#: madmix.c:322
+#, c-format
+msgid "mixing %d streams\n"
+msgstr "mixage de %d voies\n"
+
+#: madplay.c:112
+#, c-format
+msgid "Usage: %s [OPTIONS] FILE [...]\n"
+msgstr "Usage: %s [OPTIONS] FICHIER [...]\n"
+
+#: madplay.c:115
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Tapez `%s --help' pour plus d'informations.\n"
+
+#: madplay.c:119
+msgid "Decode and play MPEG audio FILE(s).\n"
+msgstr "Decode et joue des FICHIERS MPEG audio.\n"
+
+#. the following usage text should agree with the option names
+#: madplay.c:123
+msgid ""
+"\n"
+"Verbosity:\n"
+msgstr ""
+"\n"
+"Verbosité:\n"
+
+#: madplay.c:124
+msgid "  -v, --verbose              show status while decoding\n"
+msgstr "  -v, --verbose               affiche le status pendant le décodage\n"
+
+#: madplay.c:125
+msgid "  -q, --quiet                be quiet but show warnings\n"
+msgstr ""
+"  -q, --quiet                 silencieux mais affiche les avertissements\n"
+
+#: madplay.c:126
+msgid "  -Q, --very-quiet           be quiet and do not show warnings\n"
+msgstr ""
+"  -Q, --very-quiet            silencieux et n'affiche pas les "
+"avertissements\n"
+
+#: madplay.c:128
+msgid ""
+"\n"
+"Decoding:\n"
+msgstr ""
+
+#: madplay.c:129
+msgid "      --downsample           reduce output sample rate 2:1\n"
+msgstr ""
+
+#: madplay.c:130
+msgid "  -i, --ignore-crc           ignore CRC errors\n"
+msgstr ""
+
+#: madplay.c:132
+msgid ""
+"\n"
+"Audio output:\n"
+msgstr ""
+"\n"
+"Sortie audio:\n"
+
+#: madplay.c:133
+msgid ""
+"  -o, --output=[TYPE:]PATH   send output to PATH with format TYPE (see "
+"below)\n"
+msgstr ""
+"  -o, --output=[TYPE:]CHEMIN  envoie la sortie vers le CHEMIN avec le "
+"format\n"
+"                                TYPE (voir ci-dessous)\n"
+
+#: madplay.c:135
+msgid "  -b, --bit-depth=DEPTH      request DEPTH bits per sample\n"
+msgstr ""
+
+#: madplay.c:136
+msgid "  -d, --no-dither            do not dither output PCM samples\n"
+msgstr ""
+"  -d, --no-dither             n'effectur pas de dithering sur les "
+"échantillons\n"
+"                                PCM de sortie\n"
+
+#: madplay.c:138
+#, c-format
+msgid "      --fade-in[=DURATION]   fade-in songs over DURATION (default %s)\n"
+msgstr ""
+"      --fade-in[=DUREE]       augmente progressivement le volume pendant "
+"DUREE\n"
+"                                (defaut %s)\n"
+
+#: madplay.c:142
+#, c-format
+msgid ""
+"      --fade-out[=DURATION]  fade-out songs over DURATION (default %s)\n"
+msgstr ""
+"      --fade-out[=DUREE]      diminue progressivement le volume pendant\n"
+"                                (defaut %s)\n"
+
+#: madplay.c:144
+msgid "  -g, --gap=DURATION         set inter-song gap to DURATION\n"
+msgstr ""
+"  -g, --gap=DUREE             affecte un délai de DUREE entre les morceaux\n"
+
+#: madplay.c:145
+msgid "  -x, --cross-fade           cross-fade songs (use with negative gap)\n"
+msgstr ""
+"  -x, --cross-fade            change progressivement les morceaux (utiliser\n"
+"                                avec des délais négatifs)\n"
+
+#: madplay.c:148
+msgid "  -a, --attenuate=DECIBELS   attenuate signal by DECIBELS (-)\n"
+msgstr ""
+
+#: madplay.c:149
+msgid "  -a, --amplify=DECIBELS     amplify signal by DECIBELS (+)\n"
+msgstr ""
+
+#: madplay.c:151
+msgid ""
+"\n"
+"Channel selection:\n"
+msgstr ""
+"\n"
+"Sélection de canal:\n"
+
+#: madplay.c:152
+msgid "  -1, --left                 output first (left) channel only\n"
+msgstr "  -1, --left                  premier canal uniquement (gauche)\n"
+
+#: madplay.c:153
+msgid "  -2, --right                output second (right) channel only\n"
+msgstr "  -2, --right                 second canal uniquement (droit)\n"
+
+#: madplay.c:155
+msgid ""
+"  -m, --mono                 mix left and right channels for monaural "
+"output\n"
+msgstr ""
+"  -m, --mono                  mélange les canaux gauche et droit pour une\n"
+"                                sortie monophonique\n"
+
+#: madplay.c:157
+msgid "  -S, --stereo               force stereo output\n"
+msgstr ""
+
+#: madplay.c:160
+msgid ""
+"\n"
+"Experimental:\n"
+msgstr ""
+"\n"
+"Expérimental:\n"
+
+#: madplay.c:161
+msgid ""
+"      --external-mix         output pre-synthesis samples for external "
+"mixer\n"
+msgstr ""
+"      --external-mix          sort les échantillons avant la synthèse pour "
+"un\n"
+"                                mixeur externe\n"
+
+#: madplay.c:163
+msgid "      --experimental         enable experimental filter\n"
+msgstr "      --experimental          active un filter expérimental\n"
+
+#: madplay.c:166
+msgid ""
+"\n"
+"Playback:\n"
+msgstr ""
+"\n"
+"Lecture:\n"
+
+#: madplay.c:167
+msgid "  -s, --start=TIME           skip to begin at TIME (HH:MM:SS.DDD)\n"
+msgstr ""
+"  -s, --start=TEMPS           commence la lecture à TEMPS (HH:MM:SS.DDD)\n"
+
+#: madplay.c:169
+msgid "  -t, --time=DURATION        play only for DURATION (HH:MM:SS.DDD)\n"
+msgstr ""
+"  -t, --time=DUREE            lit seulement pendant DUREE (HH:MM:SS.DDD)\n"
+
+#: madplay.c:171
+msgid "  -z, --shuffle              randomize file list\n"
+msgstr "  -z, --shuffle               sélectionne aléatoirement les fichiers\n"
+
+#: madplay.c:172
+msgid "  -r, --repeat[=MAX]         play files MAX times, or indefinitely\n"
+msgstr ""
+"  -r, --repeat[=MAX]          lit les fichiers MAX fois, ou indéfiniment\n"
+
+#: madplay.c:175
+msgid "      --tty-control          enable keyboard controls\n"
+msgstr ""
+
+#: madplay.c:176
+msgid "      --no-tty-control       disable keyboard controls\n"
+msgstr ""
+
+#: madplay.c:179
+msgid ""
+"\n"
+"Miscellaneous:\n"
+msgstr ""
+"\n"
+"Divers:\n"
+
+#: madplay.c:180
+msgid "  -V, --version              display version number and exit\n"
+msgstr "  -V, --version               affiche le numéro de version\n"
+
+#: madplay.c:181
+msgid "      --license              show copyright/license message and exit\n"
+msgstr ""
+"      --license               affiche le message de copyright/licence\n"
+
+#: madplay.c:183
+msgid "  -h, --help                 display this help and exit\n"
+msgstr "  -h, --help                  affiche cette aide\n"
+
+#: madplay.c:185
+#, fuzzy
+msgid ""
+"\n"
+"Supported output formats:\n"
+msgstr ""
+"\n"
+"Formats de sortie supportés:\n"
+
+#: madplay.c:186
+#, fuzzy
+msgid "  cdda    CD audio, 16-bit 44100 Hz stereo PCM (*.cdr, *.cda)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, format 16 bits PCM (*.wav)\n"
+
+#: madplay.c:187
+#, fuzzy
+msgid "  aiff    Audio IFF, [16-bit] PCM (*.aif, *.aiff)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, format 16 bits PCM (*.wav)\n"
+
+#: madplay.c:188
+#, fuzzy
+msgid "  wave    Microsoft RIFF/WAVE, [16-bit] PCM (*.wav)\n"
+msgstr "  wave    Microsoft RIFF/WAVE, format 16 bits PCM (*.wav)\n"
+
+#: madplay.c:189
+msgid "  snd     Sun/NeXT audio, 8-bit ISDN mu-law (*.au, *.snd)\n"
+msgstr "  snd     Sun/NeXT audio, 8-bit ISDN µ-law (*.au, *.snd)\n"
+
+#: madplay.c:190
+#, fuzzy
+msgid "  raw     binary [16-bit] host-endian linear PCM\n"
+msgstr "  raw     PCM linéaire signé sur 16 bits (ordre des bits de l'hôte)\n"
+
+#: madplay.c:192
+#, fuzzy
+msgid "  hex     ASCII hexadecimal [24-bit] linear PCM\n"
+msgstr "  hex     PCM hexadécimal signé linéaire sur 24 bits\n"
+
+#: madplay.c:195
+msgid ""
+"  esd     Enlightened Sound Daemon [16-bit] (give speaker host as PATH)\n"
+msgstr ""
+
+#: madplay.c:198
+msgid "  null    no output (decode only)\n"
+msgstr "  null    pas de sortie (décodage seulement)\n"
+
+#: madplay.c:345
+#, c-format
+msgid "invalid %s specification \"%s\""
+msgstr "spécification %s invalide \"%s\""
+
+#: madplay.c:348
+#, c-format
+msgid "%s must be positive"
+msgstr "%s doit être positif"
+
+#: madplay.c:393
+#, fuzzy, c-format
+msgid "invalid decibel specification \"%s\""
+msgstr "spécification %s invalide \"%s\""
+
+#: madplay.c:396
+#, c-format
+msgid "decibel value must be in the range %+d to %+d"
+msgstr ""
+
+#: madplay.c:442
+#, fuzzy, c-format
+msgid "invalid bit depth \"%s\""
+msgstr "nombre de répétitions invalide \"%s\""
+
+#: madplay.c:469
+msgid "gap time"
+msgstr "durée de délai"
+
+#: madplay.c:484
+msgid "fade-in time"
+msgstr "durée d'augmentation du volume"
+
+#: madplay.c:498
+msgid "multiple output destinations not supported"
+msgstr "destinations de sortie multiples non supportées"
+
+#: madplay.c:504
+#, c-format
+msgid "unknown output format type for \"%s\""
+msgstr "format de sortie inconnu pour \"%s\""
+
+#: madplay.c:513
+msgid "fade-out time"
+msgstr "durée de diminution du volume"
+
+#: madplay.c:532
+#, c-format
+msgid "invalid repeat count \"%s\""
+msgstr "nombre de répétitions invalide \"%s\""
+
+#: madplay.c:537
+msgid "start time"
+msgstr "position de début"
+
+#: madplay.c:546
+msgid "playing time"
+msgstr "temps de lecture"
+
+#: madplay.c:556
+#, c-format
+msgid "`%s --license' for licensing information.\n"
+msgstr "`%s --license' pour les informations de licence.\n"
+
+#: madplay.c:623
+msgid "cross-fade ignored without gap"
+msgstr "transition ignorée sans délai"
+
+#: madplay.c:625
+msgid "cross-fade ignored without negative gap"
+msgstr "transition ignorée avec délai"
+
+#: madtime.c:123
+#, c-format
+msgid "%s: Not a regular file\n"
+msgstr "%s: Fichier non conforme\n"
+
+#: madtime.c:177
+#, c-format
+msgid "%8.1f MB  %c%3u kbps  %s  %s\n"
+msgstr "%8.1f MB  %c%3u kbps  %s  %s\n"
+
+#: madtime.c:184
+#, c-format
+msgid "Usage: %s [-s] FILE [...]\n"
+msgstr "Usage: %s [-s] FICHIER [...]\n"
+
+#: madtime.c:278
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: player.c:517
+msgid "Title"
+msgstr ""
+
+#. Subtitle
+#. Copyright
+#. Produced
+#: player.c:521
+msgid "Composer"
+msgstr ""
+
+#: player.c:522
+msgid "Artist"
+msgstr ""
+
+#: player.c:523
+msgid "Orchestra"
+msgstr ""
+
+#: player.c:524
+msgid "Conductor"
+msgstr ""
+
+#: player.c:525
+msgid "Lyricist"
+msgstr ""
+
+#: player.c:526
+msgid "Album"
+msgstr ""
+
+#: player.c:527
+msgid "Year"
+msgstr ""
+
+#: player.c:528
+msgid "Track"
+msgstr ""
+
+#: player.c:529
+msgid "Publisher"
+msgstr ""
+
+#: player.c:530
+msgid "Genre"
+msgstr ""
+
+#: player.c:531
+msgid "Station"
+msgstr ""
+
+#: player.c:532
+msgid "Encoder"
+msgstr ""
+
+#: player.c:573 version.c:37
+msgid "Copyright (C)"
+msgstr "Copyright ©"
+
+#: player.c:573
+msgid "Produced (P)"
+msgstr ""
+
+#: player.c:630
+msgid "Comment"
+msgstr ""
+
+#: player.c:649
+#, fuzzy
+msgid "not enough memory to display tag"
+msgstr "pas assez de mémoire pour allouer les filtres"
+
+#: player.c:662
+msgid "I"
+msgstr "I"
+
+#: player.c:662
+msgid "II"
+msgstr "II"
+
+#: player.c:662
+msgid "III"
+msgstr "III"
+
+#: player.c:664
+msgid "single channel"
+msgstr "canal unique"
+
+#: player.c:664
+msgid "dual channel"
+msgstr "deux canaux indépendants"
+
+#: player.c:664
+msgid "joint stereo"
+msgstr "stéréo combinée"
+
+#: player.c:664
+msgid "stereo"
+msgstr "stéréo"
+
+#: player.c:733
+msgid " (LR)"
+msgstr " (LR)"
+
+#: player.c:737
+msgid " (MS)"
+msgstr " (MS)"
+
+#: player.c:741
+msgid " (I)"
+msgstr " (I)"
+
+#: player.c:745
+msgid " (MS+I)"
+msgstr " (MS+I)"
+
+#: player.c:750
+#, c-format
+msgid "%s Layer %s, %s%u kbps%s, %u Hz, %s%s, %s"
+msgstr "%s Layer %s, %s%u kbps%s, %u Hz, %s%s, %s"
+
+#: player.c:752
+msgid "VBR (avg "
+msgstr "VBR (moy "
+
+#: player.c:755
+msgid ")"
+msgstr ")"
+
+#: player.c:757
+msgid "CRC"
+msgstr "CRC"
+
+#: player.c:757
+msgid "no CRC"
+msgstr "no CRC"
+
+#: player.c:809
+msgid "no channel selected for dual channel; using first"
+msgstr ""
+"pas de canal sélectionné pour les deux canaux indépendants; utilisation du "
+"premier"
+
+#: player.c:825
+#, fuzzy, c-format
+msgid "using output sample frequency %u Hz"
+msgstr "valeur d'échantillonnage réservée"
+
+#: player.c:850
+msgid "mono output not available; forcing stereo"
+msgstr ""
+
+#: player.c:852
+msgid "stereo output not available; using first channel (use -m to mix)"
+msgstr ""
+
+#: player.c:859
+#, c-format
+msgid "sample frequency %u Hz not available; closest %u Hz"
+msgstr ""
+"fréquence d'échantillonnage de %u Hz non disponible; la plus proche est %u Hz"
+
+#: player.c:866
+#, c-format
+msgid "bit depth %u not available; using %u"
+msgstr ""
+
+#: player.c:890
+msgid "not enough memory to allocate resampling buffer"
+msgstr "pas assez de mémoire pour allouer les buffers de rééchantillonnage"
+
+#: player.c:899
+#, c-format
+msgid "cannot resample %u Hz to %u Hz"
+msgstr "ne peut rééchantillonner de %u Hz vers %u Hz"
+
+#: player.c:908
+#, c-format
+msgid "resampling %u Hz to %u Hz"
+msgstr " rééchantillonnage de %u Hz vers %u Hz"
+
+#: player.c:980
+#, fuzzy
+msgid "not enough memory to allocate tag data buffer"
+msgstr "pas assez de mémoire pour allouer les buffers d'entrée"
+
+#: player.c:1000
+msgid "EOF while reading tag data"
+msgstr ""
+
+#: player.c:1064
+#, c-format
+msgid "frame %lu: %s"
+msgstr "frame %lu: %s"
+
+#: player.c:1120
+msgid "not enough memory to allocate input buffer"
+msgstr "pas assez de mémoire pour allouer les buffers d'entrée"
+
+#: player.c:1200 player.c:1204
+msgid "stdin"
+msgstr "stdin"
+
+#: player.c:1200
+msgid "is a tty"
+msgstr ""
+
+#: player.c:1268
+#, c-format
+msgid "%lu frames decoded (%s), %s dB peak amplitude, %lu clipped samples\n"
+msgstr ""
+
+#: player.c:1530
+msgid "Stopped"
+msgstr ""
+
+#: player.c:1530
+msgid "Paused"
+msgstr ""
+
+#: player.c:1590
+msgid "[Overall Time]"
+msgstr ""
+
+#: player.c:1597
+msgid "[Current Time Remaining]"
+msgstr ""
+
+#: player.c:1602
+msgid "[Current Time]"
+msgstr ""
+
+#: player.c:1903
+msgid "not enough memory to allocate sample buffer"
+msgstr "pas assez de mémoire pour allouer le buffer d'échantillonnage"
+
+#: player.c:1967
+msgid "not enough memory to allocate filters"
+msgstr "pas assez de mémoire pour allouer les filtres"
+
+#: player.c:1987
+msgid "lead-in"
+msgstr ""
+
+#: version.c:42
+msgid "MPEG Audio Decoder"
+msgstr "MPEG Audio Decoder"
+
+#: version.c:55
+#, c-format
+msgid ""
+"This program is free software; you can redistribute it and/or modify it\n"
+"under the terms of the GNU General Public License as published by the\n"
+"Free Software Foundation; either version 2 of the License, or (at your\n"
+"option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"59 Temple Place, Suite 330, Boston, MA 02111-1307 USA\n"
+"\n"
+"If you would like to negotiate alternate licensing terms, you may do so\n"
+"by contacting the author: %s <%s>\n"
+msgstr ""
+"Ce programme est libre, vous pouvez le redistribuer et/ou le modifier\n"
+"selon les termes de la Licence Publique Générale GNU publiée par la Free\n"
+"Software Foundation (version 2 ou bien toute autre version ultérieure\n"
+"choisie par vous).\n"
+"\n"
+"Ce programme est distribué car potentiellement utile, mais SANS AUCUNE\n"
+"GARANTIE, ni explicite ni implicite, y compris les garanties de\n"
+"commercialisation ou d'adaptation dans un but spécifique. Reportez-vous\n"
+"à la Licence Publique Générale GNU pour plus de détails.\n"
+"\n"
+"Vous devez avoir reçu une copie de la Licence Publique Générale GNU en\n"
+"même temps que ce programme ; si ce n'est pas le cas, écrivez à : Free\n"
+"Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA\n"
+"02111-1307, États-Unis.\n"
+"\n"
+"Si vous souhaitez négocier d'autres termes de licence, vous pouvez le\n"
+"faire en contactant l'auteur %s <%s>\n"
+
+#~ msgid "not enough memory"
+#~ msgstr "pas assez de mémoire"
+
+#~ msgid "lost synchronization"
+#~ msgstr "synchronisation perdue"
+
+#~ msgid "reserved header layer value"
+#~ msgstr "valeur de layer dans l'en-tête réservée"
+
+#~ msgid "forbidden bitrate value"
+#~ msgstr "valeur de débit interdite"
+
+#~ msgid "reserved sample frequency value"
+#~ msgstr "valeur d'échantillonnage réservée"
+
+#~ msgid "reserved emphasis value"
+#~ msgstr "valeur de mise en relief (emphasis) réservée"
+
+#~ msgid "CRC check failed"
+#~ msgstr "test CRC échoué"
+
+#~ msgid "forbidden bit allocation value"
+#~ msgstr "valeur d'allocation de bits interdite"
+
+#~ msgid "bad scalefactor index"
+#~ msgstr "mauvais index d'échelle (scalefactor)"
+
+#~ msgid "bad frame length"
+#~ msgstr "mauvaise taille de frame"
+
+#~ msgid "bad big_values count"
+#~ msgstr "mauvaise valeur de big_value"
+
+#~ msgid "reserved block_type"
+#~ msgstr "block_type réservé"
+
+#, fuzzy
+#~ msgid "bad scalefactor selection info"
+#~ msgstr "mauvais index d'échelle (scalefactor)"
+
+#~ msgid "bad main_data_begin pointer"
+#~ msgstr "mauvais pointeur main_data_begin"
+
+#~ msgid "bad audio data length"
+#~ msgstr "mauvaise taille de données audio"
+
+#~ msgid "bad Huffman table select"
+#~ msgstr "mauvaise séléction de table de Huffman"
+
+#, fuzzy
+#~ msgid "incompatible block_type for JS"
+#~ msgstr "block_type incompatible pour MS"
+
+#~ msgid "Copyright (C) %s %s"
+#~ msgstr "Copyright © %s %s"
+
+#~ msgid "bad main data length"
+#~ msgstr "mauvaise taille de données principales"
+
+#~ msgid "1 frame decoded (%s)\n"
+#~ msgstr "1 frame decodée (%s)\n"
+
+#~ msgid "%lu frames decoded (%s)\n"
+#~ msgstr "%lu frames decodées (%s)\n"
+
+#~ msgid "required number of channels not available"
+#~ msgstr "nombre de canaux requis non disponible"
+
+#~ msgid "sample speed not available"
+#~ msgstr "vitesse d'échantillonnage non disponible"
+
+#~ msgid "bad channel selector \"%s\""
+#~ msgstr "mauvaise sélection de canal \"%s\""
+
+#~ msgid "left"
+#~ msgstr "gauche"
+
+#~ msgid "right"
+#~ msgstr "droite"

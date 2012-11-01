@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFFCP</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFFCP</H1>
+Section: User Commands  (1)<BR>Updated: September 26, 1994<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiffsplit - split a multi-image
+<FONT SIZE="-1">TIFF</FONT>
+into single-image
+<FONT SIZE="-1">TIFF</FONT>
+files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiffsplit</B>
+
+<I>src.tif</I>
+
+[
+<I>prefix</I>
+
+]
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>tiffsplit</I>
+
+takes a multi-directory (page)
+<FONT SIZE="-1">TIFF</FONT>
+file and creates one or more single-directory (page)
+<FONT SIZE="-1">TIFF</FONT>
+files from it.
+The output files are given names created by concatenating
+a prefix, a lexically ordered
+suffix in the range [<I>aa</I>-<I>zz</I>], the suffix
+<I>.tif </I>
+
+(e.g. 
+<I>xaa.tif</I>,
+
+<I>xab.tif</I>,
+
+...
+<I>xzz.tif</I>).
+
+If a prefix is not specified on the command line,
+the default prefix of
+<I>x</I>
+
+is used.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+None.
+<A NAME="lbAF">&nbsp;</A>
+<H2>BUGS</H2>
+
+Only a select set of ``known tags'' is copied when spliting.
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">BUGS</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:48 GMT, November 23, 1999
+</BODY>
+</HTML>

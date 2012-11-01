@@ -1,0 +1,9 @@
+Compile Instructions
+--------------------
+1)  Type "make".  This will create the executable used by the scripts.
+    See the INSTALL file if this doesn't work for additional instructions.
+
+Clean Instructions
+------------------
+1)  Type "make clean".  This will delete post-compile files (i.e. 
+    old executables, output, object files, etc...).

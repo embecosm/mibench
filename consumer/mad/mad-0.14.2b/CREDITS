@@ -1,0 +1,152 @@
+
+ mad - MPEG audio decoder
+ Copyright (C) 2000-2001 Robert Leslie
+
+ $Id: CREDITS,v 1.30 2001/11/09 04:54:34 rob Exp $
+
+===============================================================================
+
+AUTHOR
+
+  Except where otherwise noted, all code was authored by:
+
+      Robert Leslie <rob@mars.org>
+
+CONTRIBUTORS
+
+  Significant contributions have been incorporated with thanks to:
+
+      Erik Andersen <andersen@codepoet.org>
+        2000/09/30: configure.in
+          - Suggested --disable-mmap option for low memory systems.
+        2000/09/30: madplay.c
+          - Suggested shuffle/repeat options.
+
+      David Blythe <blythe@routefree.com>
+        2001/01/30: libmad/fixed.h
+          - PowerPC fixed-point assembly.
+
+      Gabriel Bouvigne <bouvigne@mp3-tech.org>
+        2000/10/15: po/fr.po
+          - French message translations.
+
+      Damian Brizuela <damianweb@yahoo.com>
+        2000/11/03: po/es.po
+          - Spanish message translations.
+
+      Simon Burge <simonb@wasabisystems.com>
+        2000/09/19: audio_sun.c
+          - Discovered endian assumption problem.
+        2000/09/20: libmad/imdct_l_arm.S
+          - Suggested patch for a.out compatibility.
+        2001/02/09: audio_sun.c
+          - Reported <string.h> dependency under NetBSD.
+        2001/10/19: audio_sun.c
+          - NetBSD compatibility fix for I_FLUSH.
+
+      Matthew Green <mrg@eterna.com.au>
+        2000/11/26: player.c
+          - Provided initial implementation of TTY controls.
+
+      Graham Guttocks <graham_guttocks@yahoo.co.nz>
+        2000/11/08: audio_oss.c
+          - Discovered FreeBSD compatibility problem.
+
+      Joshua Haberman <joshua@haberman.com>
+        2001/08/10: libmad/decoder.c, libmad/huffman.c
+          - Suggested portability fixes.
+
+      Mario Horvat <marioh@ugrad.unimelb.edu.au>
+        2000/10/26: po/hr.po
+          - Croatian message translations.
+
+      Thomas Klausner <wiz@danbala.ifoer.tuwien.ac.at>
+        2000/11/25: player.c
+          - Suggested use of madvise() via patch from Antti Kantee to reduce
+            mmap() memory overhead.
+
+      Andre McCurdy <armccurdy@yahoo.co.uk>
+        2000/08/10: libmad/imdct_l_arm.S
+          - ARM optimized assembly replacement for III_imdct_l().
+        2000/09/15: libmad/imdct_l_arm.S
+          - Applied Nicolas Pitre's rounding optimisation in all remaining
+            places.
+        2001/02/10: libmad/layer3.c
+          - Inspiration for Huffman decoding and requantization rewrite, and
+            other miscellany.
+        2001/03/24: libmad/imdct_l_arm.S
+          - Corrected PIC unsafe code.
+
+      Dominik Mierzejewski <dmierzej@elka.pw.edu.pl>
+        2001/10/22: po/Makefile.in.in
+          - Reported missing use of DESTDIR.
+
+      Christoffer Nicolaisen <chrn@start.no>
+        2000/10/26: po/no.po
+          - Norwegian message translations.
+
+      Haruhiko OGASAWARA <theta@m1.interq.or.jp>
+        2001/01/28: libmad/layer3.c
+          - Reported discrepancy in alias reduction for mixed short blocks.
+
+      Matt Parnell <mail@weatherstamp.com>
+        2001/10/28: winamp/in_mad.c
+          - Reported Winamp crash due to bad Xing VBR header.
+
+      Brett Paterson <brett@fmod.org>
+        2001/10/28: global.h, libmad/global.h, libid3tag/global.h
+          - Reported missing <assert.h> et al. under MS Embedded Visual C
+
+      Sean 'Shaleh' Perry <shaleh@via.net>
+        2000/04/04: libmad/fixed.h
+          - Suggested use of size-dependent typedefs.
+        2001/10/22: config.guess, config.sub
+          - Keep up to date for proper Debian packaging.
+
+      Bertrand Petit <eemad@phoe.frmug.org>
+        2001/10/22: player.c
+          - Suggested avoidance of log10(0).
+        2001/10/22: configure.in, audio_oss.c
+          - Compatibility fix for FreeBSD versions 0-3.
+        2001/10/23: player.c
+          - Noted my bad fix for avoiding log10(0).
+        2001/11/05: libmad/synth.h
+          - Suggested PCM channel enumeration constants.
+        2001/11/05: libmad/stream.h
+          - Suggested MAD_ERROR_NONE enumeration constant.
+        2001/11/05: libmad/stream.c
+          - Suggested mad_stream_errorstr() function.
+
+      Nicolas Pitre <nico@cam.org>
+        2000/09/09: libmad/fixed.h
+          - Parameterized all scaling for correct use of all multiplication
+            methods within mad_synth_frame().
+          - Rewrote the FPM_ARM version of mad_f_mul() so we have 64-bit
+            multiplication result, rounding and scaling with 3 instructions.
+        2000/09/09: libmad/imdct_l_arm.S
+          - Optimized rounding + scaling operations.
+        2000/09/17: libmad/synth.c
+          - Changed D[] run-time shifts to compile-time.
+          - Modified synthesis for better multiply/accumulate code output.
+        2001/08/11: libmad/fixed.h, libmad/synth.c
+          - Suggested 64-bit FPM negation and negative term factorization
+            during synthesis.
+        2001/08/11: libmad/fixed.h
+          - Suggested unrounded behavior for FPM_DEFAULT when OPT_SPEED.
+
+      John Stewart <js@woh.rr.com>
+        2001/03/15: winamp/in_mad.c
+          - Suggested fix to correctly display visuals for 24- and 32-bit
+            output.
+
+      Felix von Leitner <leitner@fefe.de>
+        2001/10/24: madplay.c, player.c
+          - Suggested -i (--ignore-crc) option.
+        2001/10/24: madplay.c, player.c, madtime.c
+          - Suggested conditional use of localeconv() based on results from
+            `configure'.
+        2001/10/29: audio_oss.c
+          - Suggested trying /dev/sound/dsp before /dev/dsp.
+
+===============================================================================
+

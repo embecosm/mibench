@@ -1,0 +1,5189 @@
+%!PS-Adobe-3.0
+%%Creator: Basser Lout Version 3.24 (October 2000)
+%%CreationDate: Sun Oct  8 13:04:24 2000
+%%DocumentData: Binary
+%%DocumentNeededResources: (atend)
+%%DocumentSuppliedResources: (atend)
+%%DocumentMedia: A4 595 842 0 white ()
+%%PageOrder: Ascend
+%%Pages: (atend)
+%%BoundingBox: 0 0 595 842
+%%EndComments
+
+%%BeginProlog
+%%BeginResource: procset LoutStartUp
+/save_cp { currentpoint /cp_y exch def /cp_x exch def } def
+/restore_cp { cp_x cp_y moveto } def
+/outline { gsave 1 1 1 setrgbcolor dup show save_cp
+  grestore true charpath stroke restore_cp } bind def
+/m  { 3 1 roll moveto show } bind def
+/mo { 3 1 roll moveto outline } bind def
+/s  { exch currentpoint exch pop moveto show } bind def
+/so { exch currentpoint exch pop moveto outline } bind def
+/k  { exch neg 0 rmoveto show } bind def
+/ko { exch neg 0 rmoveto outline } bind def
+/r  { exch 0 rmoveto show } bind def
+/ro { exch 0 rmoveto outline } bind def
+/c  { gsave 3 1 roll rmoveto show grestore } bind def
+/co { gsave 3 1 roll rmoveto outline grestore } bind def
+/ul { gsave setlinewidth dup 3 1 roll
+      moveto lineto stroke grestore } bind def
+/in { 1440 mul } def
+/cm { 567 mul } def
+/pt { 20 mul } def
+/em { 120 mul } def
+/sp { louts mul } def
+/vs { loutv mul } def
+/ft { loutf mul } def
+/dg {           } def
+
+/LoutGraphic {
+  /louts exch def
+  /loutv exch def
+  /loutf exch def
+  /ymark exch def
+  /xmark exch def
+  /ysize exch def
+  /xsize exch def
+} def
+
+/LoutGr2 { gsave translate LoutGraphic gsave } def
+
+/LoutFont
+{ findfont exch scalefont setfont
+} bind def
+
+/LoutRecode {
+  { findfont dup length dict begin
+    {1 index /FID ne {def} {pop pop} ifelse} forall
+    /Encoding exch def
+    currentdict end definefont pop
+  }
+  stopped pop
+} bind def
+
+/BeginEPSF {
+  /LoutEPSFState save def
+  /dict_count countdictstack def
+  /op_count count 1 sub def
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [] 0 setdash newpath
+  /languagelevel where
+  { pop languagelevel
+    1 ne
+    { false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pop } repeat
+  countdictstack dict_count sub { end } repeat
+  LoutEPSFState restore
+} bind def
+%%EndResource
+
+%%BeginResource: procset LoutTabPrependGraphic
+% @PrependGraphic file /usr/staff/jeff/lout.lib/include/tabf.lpg
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                  %
+%  PostScript @SysPrependGraphic file for @Tab     %
+%                                                  %
+%  To assist in avoiding name clashes, the names   %
+%  of all these symbols begin with "ltab".         %
+%                                                  %
+%  Jeffrey H. Kingston                             %
+%  24 September 1991                               %
+%  22 December 1992                                %
+%                                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% linewidth ltabhs -
+% horizontal single line
+/ltabhs
+{  0 0 moveto xsize 0 lineto
+   setlinewidth 0 setlinecap stroke
+} def
+
+% linewidth ltabhsp -
+% horizontal single line with projecting ends
+/ltabhsp
+{  0 0 moveto xsize 0 lineto
+   setlinewidth 2 setlinecap stroke
+} def
+
+% linewidth ltabhd -
+% horizontal double line
+/ltabhd
+{  dup dup
+   0 0 moveto xsize 0 lineto
+   0 exch 3 mul moveto xsize exch 3 mul lineto
+   setlinewidth 0 setlinecap stroke
+} def
+
+% linewidth ltabhdb -
+% horizontal double line below mark
+/ltabhdb
+{  dup dup
+   0 0 moveto xsize 0 lineto
+   0 exch -3 mul moveto xsize exch -3 mul lineto
+   setlinewidth 0 setlinecap stroke
+} def
+
+% linewidth ltabhdnw -
+% horizontal double line with northwest corner
+/ltabhdnw
+{  dup dup dup dup
+   0 0 moveto xsize 0 lineto
+   xsize exch 3 mul moveto
+   -3 mul exch 3 mul lineto
+   -3 mul 0 lineto
+   setlinewidth 0 setlinejoin 2 setlinecap stroke
+} def
+
+% linewidth ltabhdne -
+% horizontal double line with northeast corner
+/ltabhdne
+{  dup dup dup dup
+   0 0 moveto xsize 0 lineto
+   0 exch 3 mul moveto
+   3 mul xsize add exch 3 mul lineto
+   3 mul xsize add 0 lineto
+   setlinewidth 0 setlinejoin 2 setlinecap stroke
+} def
+
+% linewidth ltabhdsw -
+% horizontal double line with southwest corner
+/ltabhdsw
+{  dup dup dup dup
+   0 0 moveto xsize 0 lineto
+   xsize exch -3 mul moveto
+   -3 mul exch -3 mul lineto
+   -3 mul 0 lineto
+   setlinewidth 0 setlinejoin 2 setlinecap stroke
+} def
+
+% linewidth ltabhdse -
+% horizontal double line with southeast corner
+/ltabhdse
+{  dup dup dup dup
+   0 0 moveto xsize 0 lineto
+   0 exch -3 mul moveto
+   3 mul xsize add exch -3 mul lineto
+   3 mul xsize add 0 lineto
+   setlinewidth 0 setlinejoin 2 setlinecap stroke
+} def
+
+% linewidth ltabvs -
+% vertical single line
+/ltabvs
+{  0 0 moveto 0 ysize lineto
+   setlinewidth 0 setlinecap stroke
+} def
+
+% linewidth ltabvd -
+% vertical double line
+/ltabvd
+{  dup dup
+   0 0 moveto 0 ysize lineto
+   -3 mul 0 moveto -3 mul ysize lineto
+   setlinewidth 0 setlinecap stroke
+} def
+
+% linewidth ltabvdr -
+% vertical double line to right of mark
+/ltabvdr
+{  dup dup
+   0 0 moveto 0 ysize lineto
+   3 mul 0 moveto 3 mul ysize lineto
+   setlinewidth 0 setlinecap stroke
+} def
+%%EndResource
+
+%%BeginResource: procset LoutFigPrependGraphic
+% @PrependGraphic file /usr/staff/jeff/lout.lib/include/figf.lpg
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%  PostScript @SysPrependGraphic file for @Fig  Jeffrey H. Kingston  %
+%  Version 2.0 (includes CIRCUM label)                 January 1992  %
+%                                                                    %
+%  To assist in avoiding name clashes, the names of all symbols      %
+%  defined here begin with "lfig".  However, this is not feasible    %
+%  with user-defined labels and some labels used by users.           %
+%                                                                    %
+%  <point>      is two numbers, a point.                             %
+%  <length>     is one number, a length                              %
+%  <angle>      is one number, an angle in degrees                   %
+%  <dashlength> is one number, the preferred length of a dash        %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+errordict begin
+   /handleerror
+   {
+      {  /Times-Roman findfont 8 pt scalefont setfont
+	 0 setgray 4 pt 4 pt moveto
+	 $error /errorname get
+	 dup lfigdict exch known
+	 { lfigdict exch get }
+	 { 30 string cvs } ifelse
+	 show
+	 (  Command: ) show
+	 $error /command get 30 string cvs show
+      } stopped {} if
+      showpage stop
+   } def
+end
+
+% concat strings: <string> <string> lfigconcat <string>
+% must be defined outside lfigdict since used in lfigpromotelabels
+/lfigconcat
+{ 2 copy length exch length add string
+  dup 0 4 index putinterval
+  dup 3 index length 3 index putinterval
+  3 1 roll pop pop
+} def
+
+% <string> lfigdebugprint -
+% must be defined outside lfigdict since used in arbitrary places
+% /lfigdebugprint
+% { print
+%   (;  operand stack:\n) print
+%   count copy
+%   count 2 idiv
+%   { ==
+%     (\n) print
+%   } repeat
+%   (\n) print
+% } def
+
+/lfigdict 120 dict def
+lfigdict begin
+
+% error messages
+/dictfull (dictfull error:  too many labels?) def
+/dictstackoverflow (dictstackoverflow error:  labels nested too deeply?) def
+/execstackoverflow (execstackoverflow error:  figure nested too deeply?) def
+/limitcheck (limitcheck error:  figure nested too deeply or too large?) def
+/syntaxerror (syntaxerror error:  syntax error in text of figure?) def
+/typecheck (typecheck error:  syntax error in text of figure?) def
+/undefined (undefined error:  unknown or misspelt label?) def
+/VMError (VMError error:  run out of memory?) def
+
+% push pi onto stack:  - lfigpi <num>
+/lfigpi 3.14159 def
+
+% arc directions
+/clockwise     false def
+/anticlockwise true  def
+
+% maximum of two numbers:  <num> <num> lfigmax <num>
+/lfigmax { 2 copy gt { pop } { exch pop } ifelse } def
+
+% minimum of two numbers:  <num> <num> lfigmin <num>
+/lfigmin { 2 copy lt { pop } { exch pop } ifelse } def
+
+% add two points:  <point> <point> lfigpadd <point>
+/lfigpadd { exch 3 1 roll add 3 1 roll add exch } def
+
+% subtract first point from second:  <point> <point> lfigpsub <point>
+/lfigpsub { 3 2 roll sub 3 1 roll exch sub exch } def
+
+% max two points:  <point> <point> lfigpmax <point>
+/lfigpmax { exch 3 1 roll lfigmax 3 1 roll lfigmax exch } def
+
+% min two points:  <point> <point> lfigpmin <point>
+/lfigpmin { exch 3 1 roll lfigmin 3 1 roll lfigmin exch } def
+
+% scalar multiplication: <point> <num> lfigpmul <point>
+/lfigpmul { dup 3 1 roll mul 3 1 roll mul exch } def
+
+% point at angle and distance:  <point> <length> <angle> lfigatangle <point>
+/lfigatangle { 2 copy cos mul 3 1 roll sin mul lfigpadd } def
+
+% angle from one point to another:  <point> <point> lfigangle <angle>
+/lfigangle { lfigpsub 2 copy 0 eq exch 0 eq and {pop} {exch atan} ifelse } def
+
+% distance between two points:  <point> <point> lfigdistance <length>
+/lfigdistance { lfigpsub dup mul exch dup mul add sqrt } def
+
+% difference in x coords: <point> <point> lfigxdistance <length>
+/lfigxdistance { pop 3 1 roll pop sub } def
+
+%difference in y coords: <point> <point> lfigydistance <length>
+/lfigydistance { 3 1 roll pop sub exch pop } def
+
+% stroke a solid line:  <length> <dashlength> lfigsolid -
+/lfigsolid
+{  pop pop [] 0 setdash stroke
+} def
+
+% stroke a lfigdashed line:   <length> <dashlength> lfigdashed -
+/lfigdashed
+{  2 copy div 2 le 1 index 0 le or
+   {  exch pop 1 pt lfigmax [ exch dup ] 0 setdash }
+   {  dup [ exch 4 2 roll 2 copy div
+      1 sub 2 div ceiling dup 4 1 roll
+      1 add mul sub exch div ] 0 setdash
+   } ifelse stroke
+} def
+
+% stroke a lfigcdashed line:  <length> <dashlength> lfigcdashed -
+/lfigcdashed
+{  2 copy le 1 index 0 le or
+   { exch pop 1 pt lfigmax [ exch dup ] dup 0 get 2 div setdash }
+   { dup [ 4 2 roll exch 2 copy exch div
+     2 div ceiling div 1 index sub
+     ] exch 2 div setdash
+   } ifelse stroke
+} def
+
+% stroke a dotted line:  <length> <dashlength> lfigdotted -
+/lfigdotted
+{  2 copy le 1 index 0 le or
+   { exch pop 1 pt lfigmax [ exch 0 exch ] 0 setdash }
+   { 1 index exch div ceiling div
+     [ 0 3 2 roll ] 0 setdash
+   } ifelse stroke
+} def
+
+% stroke a noline line:  <length> <dashlength> lfignoline -
+/lfignoline
+{ pop pop
+} def
+
+% painting (i.e. filling): - lfigwhite - (etc.)
+/lfignopaint		{			       } def
+/lfignochange		{ 			  fill } def
+/lfigdarkblue		{ 0.0 0.0 0.5 setrgbcolor fill } def
+/lfigblue		{ 0.0 0.0 1.0 setrgbcolor fill } def
+/lfiglightblue		{ 0.5 0.5 1.0 setrgbcolor fill } def
+/lfigdarkgreen		{ 0.0 0.5 0.0 setrgbcolor fill } def
+/lfiggreen		{ 0.0 1.0 0.0 setrgbcolor fill } def
+/lfiglightgreen		{ 0.5 1.0 0.5 setrgbcolor fill } def
+/lfigdarkred		{ 0.5 0.0 0.0 setrgbcolor fill } def
+/lfigred		{ 1.0 0.0 0.0 setrgbcolor fill } def
+/lfiglightred		{ 1.0 0.5 0.5 setrgbcolor fill } def
+/lfigdarkcyan		{ 0.0 0.5 0.5 setrgbcolor fill } def
+/lfigcyan		{ 0.0 1.0 1.0 setrgbcolor fill } def
+/lfiglightcyan		{ 0.5 1.0 1.0 setrgbcolor fill } def
+/lfigdarkmagenta	{ 0.5 0.0 0.5 setrgbcolor fill } def
+/lfigmagenta		{ 1.0 0.0 1.0 setrgbcolor fill } def
+/lfiglightmagenta	{ 1.0 0.5 1.0 setrgbcolor fill } def
+/lfigdarkyellow		{ 0.5 0.5 0.0 setrgbcolor fill } def
+/lfigyellow		{ 1.0 1.0 0.0 setrgbcolor fill } def
+/lfiglightyellow	{ 1.0 1.0 0.5 setrgbcolor fill } def
+/lfigdarkgray		{ 0.2 0.2 0.2 setrgbcolor fill } def
+/lfiggray		{ 0.5 0.5 0.5 setrgbcolor fill } def
+/lfiglightgray		{ 0.8 0.8 0.8 setrgbcolor fill } def
+/lfigdarkgrey		{ 0.2 0.2 0.2 setrgbcolor fill } def
+/lfiggrey		{ 0.5 0.5 0.5 setrgbcolor fill } def
+/lfiglightgrey		{ 0.8 0.8 0.8 setrgbcolor fill } def
+/lfigblack		{ 0.0 0.0 0.0 setrgbcolor fill } def
+/lfigwhite		{ 1.0 1.0 1.0 setrgbcolor fill } def
+
+% line caps (and joins, not currently used)
+/lfigbutt       0 def
+/lfiground      1 def
+/lfigprojecting 2 def
+/lfigmiter      0 def
+/lfigbevel      2 def
+
+% shape and labels of the @Box symbol
+/lfigbox
+{
+   0     0     /SW  lfigpointdef
+   xsize 0     /SE  lfigpointdef
+   xsize ysize /NE  lfigpointdef
+   0     ysize /NW  lfigpointdef
+   SE 0.5 lfigpmul /S   lfigpointdef
+   NW 0.5 lfigpmul /W   lfigpointdef
+   W SE lfigpadd   /E   lfigpointdef
+   S NW lfigpadd   /N   lfigpointdef
+   NE 0.5 lfigpmul /CTR lfigpointdef
+   [ CTR NE lfigpsub /lfigboxcircum cvx ] lfigcircumdef
+   SW SE NE NW SW
+} def
+
+% shape and labels of the @CurveBox symbol
+/lfigcurvebox
+{
+
+   xsize 0.5 mul	ysize 0.5 mul	/CTR lfigpointdef
+   xsize 0.5 mul	0		/S   lfigpointdef
+   xsize		ysize 0.5 mul	/E   lfigpointdef
+   xsize 0.5 mul	ysize		/N   lfigpointdef
+   0			ysize 0.5 mul	/W   lfigpointdef
+
+   xmark 0.293 mul		xmark 0.293 mul		  /SW  lfigpointdef
+   xsize xmark 0.293 mul sub	xmark 0.293 mul		  /SE  lfigpointdef
+   xsize xmark 0.293 mul sub	ysize xmark 0.293 mul sub /NE  lfigpointdef
+   xmark 0.293 mul		ysize xmark 0.293 mul sub /NW  lfigpointdef
+
+   [ xsize ysize 0.5 lfigpmul xmark /lfigcurveboxcircum cvx ] lfigcircumdef
+
+   xmark		0
+   xsize xmark sub	0
+   [ xsize xmark sub	xmark		]
+   xsize		xmark
+   xsize		ysize xmark sub
+   [ xsize xmark sub	ysize xmark sub	]
+   xsize xmark sub	ysize
+   xmark		ysize
+   [ xmark		ysize xmark sub	]
+   0			ysize xmark sub
+   0			xmark
+   [ xmark		xmark		]
+   xmark		0
+} def
+
+% shadow of the @ShadowBox symbol
+% its shape and labels are done, somewhat inaccurately, with lfigbox
+/lfigshadow
+{ xmark 2 mul 0 moveto xsize 0 lineto
+  xsize ysize xmark 2 mul sub lineto
+  xsize xmark sub ysize xmark 2 mul sub lineto
+  xsize xmark sub xmark lineto
+  xmark 2 mul xmark lineto closepath fill
+} def
+
+% shape and labels of the @Square symbol
+/lfigsquare
+{
+   xsize ysize 0.5 lfigpmul /CTR lfigpointdef
+   CTR xsize xsize ysize ysize lfigpmax 0.5 lfigpmul lfigpadd /NE lfigpointdef
+   CTR 0 0 CTR NE lfigdistance 135 lfigatangle lfigpadd /NW lfigpointdef
+   CTR 0 0 CTR NE lfigdistance 225 lfigatangle lfigpadd /SW lfigpointdef
+   CTR 0 0 CTR NE lfigdistance 315 lfigatangle lfigpadd /SE lfigpointdef
+   SW 0.5 lfigpmul SE 0.5 lfigpmul lfigpadd /S lfigpointdef
+   NW 0.5 lfigpmul NE 0.5 lfigpmul lfigpadd /N lfigpointdef
+   SW 0.5 lfigpmul NW 0.5 lfigpmul lfigpadd /W lfigpointdef
+   SE 0.5 lfigpmul NE 0.5 lfigpmul lfigpadd /E lfigpointdef
+   [ CTR NE lfigpsub /lfigboxcircum cvx ] lfigcircumdef
+   SW SE NE NW SW
+} def
+
+% shape and labels of the @Diamond symbol
+/lfigdiamond
+{
+   xsize 0 0.5 lfigpmul /S   lfigpointdef
+   0 ysize 0.5 lfigpmul /W   lfigpointdef
+   S W         lfigpadd /CTR lfigpointdef
+   CTR W       lfigpadd /N   lfigpointdef
+   CTR S       lfigpadd /E   lfigpointdef
+   [ xsize ysize 0.5 lfigpmul /lfigdiamondcircum cvx ] lfigcircumdef
+   S E N W S
+} def
+
+% shape and labels of the @Ellipse symbol
+/lfigellipse
+{
+   xsize 0 0.5 lfigpmul /S   lfigpointdef
+   0 ysize 0.5 lfigpmul /W   lfigpointdef
+   S W         lfigpadd /CTR lfigpointdef
+   CTR W       lfigpadd /N   lfigpointdef
+   CTR S       lfigpadd /E   lfigpointdef
+   CTR xsize 0 0.3536 lfigpmul lfigpadd 0 ysize 0.3536 lfigpmul lfigpadd /NE lfigpointdef
+   0 ysize 0.3536 lfigpmul CTR xsize 0 0.3536 lfigpmul lfigpadd lfigpsub /SE lfigpointdef
+   xsize 0 0.3536 lfigpmul CTR lfigpsub 0 ysize 0.3536 lfigpmul lfigpadd /NW lfigpointdef
+   0 ysize 0.3536 lfigpmul xsize 0 0.3536 lfigpmul CTR lfigpsub lfigpsub /SW lfigpointdef
+   [ xsize ysize 0.5 lfigpmul /lfigellipsecircum cvx ] lfigcircumdef
+   S [ CTR ] E [ CTR ] N [ CTR ] W [ CTR ] S
+} def
+
+% shape and labels of the @Circle symbol
+/lfigcircle
+{
+   xsize ysize 0.5 lfigpmul /CTR lfigpointdef
+   CTR xsize 0 ysize 0 lfigpmax 0.5 lfigpmul lfigpadd /E lfigpointdef
+   CTR 0 0 CTR E lfigdistance 45 lfigatangle lfigpadd /NE lfigpointdef
+   CTR 0 0 CTR E lfigdistance 90 lfigatangle lfigpadd /N lfigpointdef
+   CTR 0 0 CTR E lfigdistance 135 lfigatangle lfigpadd /NW lfigpointdef
+   CTR 0 0 CTR E lfigdistance 180 lfigatangle lfigpadd /W lfigpointdef
+   CTR 0 0 CTR E lfigdistance 225 lfigatangle lfigpadd /SW lfigpointdef
+   CTR 0 0 CTR E lfigdistance 270 lfigatangle lfigpadd /S lfigpointdef
+   CTR 0 0 CTR E lfigdistance 315 lfigatangle lfigpadd /SE lfigpointdef
+   [ S E lfigpsub /lfigellipsecircum cvx ] lfigcircumdef
+   S [ CTR ] E [ CTR ] N [ CTR ] W [ CTR ] S
+} def
+
+% shape and labels of the @HLine and @HArrow symbols
+/lfighline
+{
+   0 ymark lfigprevious /FROM lfigpointdef
+   xsize ymark lfigprevious /TO lfigpointdef
+} def
+
+% shape and labels of the @VLine and @VArrow symbols
+/lfigvline
+{
+   xmark ysize lfigprevious /FROM lfigpointdef
+   xmark 0 lfigprevious /TO lfigpointdef
+} def
+
+% points of a polygon around base with given no of sides, vert init angle:
+% <sides> <angle> figpolygon <point> ... <point>
+/lfigpolygon
+{  xsize ysize 0.5 lfigpmul /CTR lfigpointdef
+   90 sub CTR 2 copy lfigmax 5 3 roll
+   [ 4 copy pop /lfigpolycircum cvx ] lfigcircumdef
+   exch dup 360 exch div exch
+   1 1  3 2 roll
+   {  4 string cvs (P) exch lfigconcat cvn
+      6 copy pop pop lfigatangle 2 copy 10 2 roll
+      3 2 roll lfigpointdef
+      dup 3 1 roll add exch
+   }  for
+   pop lfigatangle
+} def
+
+% next array element:  <array> <index> lfiggetnext <array> <index> <any> true
+%                                               or <array> <index> false
+/lfiggetnext
+{  2 copy exch length ge
+   { false }
+   { 2 copy get exch 1 add exch true } ifelse
+} def
+
+% check whether thing is number:  <any> lfigisnumbertype <any> <bool>
+/lfigisnumbertype
+{  dup type dup
+   /integertype eq exch /realtype eq or
+} def
+
+% check whether thing is an array:  <any> lfigisarraytype <any> <bool>
+/lfigisarraytype { dup type /arraytype eq } def
+
+% get next item:  <array> <index> lfiggetnextitem <array> <index> 0
+%                                              or <array> <index> <array> 1
+%                                              or <array> <index> <point> 2
+/lfiggetnextitem
+{   lfiggetnext
+    {	lfigisarraytype
+	{   1
+	}
+	{   lfigisnumbertype
+	    {	3 1 roll
+		lfiggetnext
+		{   lfigisnumbertype
+		    {	4 3 roll exch  2
+		    }
+		    {	pop 3 2 roll pop  0
+		    } ifelse
+		}
+		{   3 2 roll pop  0
+		} ifelse
+	    }
+	    {	pop 0
+	    } ifelse
+	} ifelse
+    }
+    {	0
+    } ifelse
+} def
+
+% set arc path:  bool x1 y1  x2 y2  x0 y0  lfigsetarc  <angle> <angle> <dist>
+% the path goes from x1 y1 to x2 y2 about centre x0 y0,
+% anticlockwise if bool is true else clockwise.
+% The orientations of backwards pointing and forwards pointing
+% arrowheads are returned in the two angles, and
+% the length of the arc is returned in <dist>.
+/lfigsetarc
+{
+  20 dict begin
+     matrix currentmatrix 8 1 roll
+     2 copy translate 2 copy 8 2 roll
+     4 2 roll lfigpsub 6 2 roll lfigpsub
+     dup /y1 exch def dup mul /y1s exch def
+     dup /x1 exch def dup mul /x1s exch def
+     dup /y2 exch def dup mul /y2s exch def
+     dup /x2 exch def dup mul /x2s exch def
+
+     y1s y2s eq
+     {	-1
+     }
+     {	y1s x2s mul y2s x1s mul sub y1s y2s sub div
+     } ifelse
+     /da exch def
+
+     x1s x2s eq
+     {	-1
+     }
+     {	x1s y2s mul x2s y1s mul sub x1s x2s sub div
+     } ifelse
+     /db exch def
+
+     da 0 gt db 0 gt and
+     {	/LMax da sqrt db sqrt lfigmax def
+	/scalex da sqrt LMax div def
+	/scaley db sqrt LMax div def
+	scalex scaley scale
+	0 0 LMax
+	0 0 x1 scalex mul y1 scaley mul lfigangle
+	0 0 x2 scalex mul y2 scaley mul lfigangle
+	2 copy eq { 360 add } if
+	2 copy 8 2 roll
+	5 index { arc } { arcn } ifelse
+	2 index 1 index
+	{ 90 sub } { 90 add } ifelse
+	dup sin scaley mul exch cos scalex mul atan
+	2 index 2 index
+	{ 90 add } { 90 sub } ifelse
+	dup sin scaley mul exch cos scalex mul atan
+	5 2 roll  % res1 res2 ang1 ang2 anticlockwise
+	{ exch sub } { sub } ifelse
+	dup 0 le { 360 add } if  lfigpi mul LMax mul 180 div
+     }
+     {	0 0 x1 y1 lfigdistance 0 0 x2 y2 lfigdistance eq
+	0 0 x1 y1 lfigdistance 0 gt and
+	{	0 0
+		0 0 x1 y1 lfigdistance
+		0 0 x1 y1 lfigangle
+		0 0 x2 y2 lfigangle
+		2 copy eq { 360 add } if
+		2 copy 8 2 roll
+		5 index { arc } { arcn } ifelse
+		2 index 1 index
+		{ 90 sub } { 90 add } ifelse
+		2 index 2 index
+		{ 90 add } { 90 sub } ifelse
+		5 2 roll % res1 res2 ang1 ang2 clockwise
+		{ exch sub } { sub } ifelse
+		dup 0 le { 360 add } if lfigpi mul 0 0 x1 y1 lfigdistance mul 180 div
+	}
+	{	x2 y2 lineto pop
+		x2 y2 x1 y1 lfigangle
+		x1 y1 x2 y2 lfigangle
+		x1 y1 x2 y2 lfigdistance
+	} ifelse
+     } ifelse
+     4 -1 roll setmatrix
+   end
+} def
+
+% lfigsetcurve: set up a Bezier curve from x0 y0 to x3 y3
+% and return arrowhead angles and length of curve (actually 0)
+% x0 y0 x1 y1 x2 y2 x3 y3 lfigsetcurve <angle> <angle> <length>
+/lfigsetcurve
+{ 8 copy curveto pop pop
+  lfigangle
+  5 1 roll
+  4 2 roll lfigangle
+  exch
+  0
+} def
+
+% lfigpaintpath: paint a path of the given shape
+% /paint [ shape ] lfigpaintpath -
+/lfigpaintpath
+{
+  10 dict begin
+    0 newpath
+    /prevseen false def
+    /curveseen false def
+    { lfiggetnextitem
+      dup 0 eq { pop exit }
+      { 1 eq
+        { /curveseen true def
+	  /curve exch def
+	  curve length 0 eq { /curveseen false def } if
+        }
+        { /ycurr exch def
+	  /xcurr exch def
+	  prevseen
+	  { curveseen
+	    { curve length 4 eq
+	      { xprev yprev
+		curve 0 get curve 1 get
+		curve 2 get curve 3 get
+		xcurr ycurr
+		lfigsetcurve pop pop pop
+	      }
+	      { xprev yprev xcurr ycurr
+	        curve length 1 ge { curve 0 get } { 0 } ifelse
+	        curve length 2 ge { curve 1 get } { 0 } ifelse
+	        curve length 3 ge { curve 2 get } { true } ifelse
+	        7 1 roll
+	        lfigsetarc pop pop pop
+	      } ifelse
+	    }
+	    { xcurr ycurr lineto
+	    } ifelse
+	  }
+	  { xcurr ycurr moveto
+	  } ifelse
+	  /xprev xcurr def
+	  /yprev ycurr def
+	  /prevseen true def
+	  /curveseen false def
+        } ifelse
+      } ifelse
+    } loop pop pop cvx exec
+  end
+} def
+
+% stroke a path of the given shape in the given linestyle and dash length.
+% Return the origin and angle of the backward and forward arrow heads.
+% dashlength /linestyle [shape] lfigdopath  [<point> <angle>] [<point> <angle>] 
+/lfigdopath
+{
+  10 dict begin
+    0
+    /prevseen  false def
+    /curveseen false def
+    /backarrow []    def
+    /fwdarrow  []    def
+    {
+	lfiggetnextitem
+	dup 0 eq { pop exit }
+	{
+	    1 eq
+	    {	/curveseen true def
+		/curve exch def
+		curve length 0 eq { /prevseen false def } if
+	    }
+	    {	/ycurr exch def
+		/xcurr exch def
+		prevseen
+		{   newpath xprev yprev moveto
+		    curveseen
+		    {	curve length 4 eq
+			{   xprev yprev
+			    curve 0 get curve 1 get
+			    curve 2 get curve 3 get
+			    xcurr ycurr lfigsetcurve
+			}
+			{   xprev yprev xcurr ycurr
+			    curve length 1 ge { curve 0 get } { 0 } ifelse
+			    curve length 2 ge { curve 1 get } { 0 } ifelse
+			    curve length 3 ge { curve 2 get } { true } ifelse
+			    7 1 roll
+			    lfigsetarc
+			} ifelse
+		    }
+		    {	xcurr ycurr lineto
+			xcurr ycurr xprev yprev lfigangle dup 180 sub
+			xprev yprev xcurr ycurr lfigdistance
+		    } ifelse
+		    6 index 6 index cvx exec
+		    [ xprev yprev 5 -1 roll ]
+		    backarrow length 0 eq
+		    { /backarrow exch def }
+		    { pop } ifelse
+		    [ xcurr ycurr 4 -1 roll ] /fwdarrow exch def
+		} if
+		/xprev xcurr def
+		/yprev ycurr def
+		/prevseen true def
+		/curveseen false def
+	    } ifelse
+	} ifelse
+    } loop
+    pop pop pop pop
+    backarrow length 0 eq { [ 0 0 0 ] } { backarrow } ifelse
+    fwdarrow  length 0 eq { [ 0 0 0 ] } { fwdarrow  } ifelse
+  end
+} def
+
+% lfigdoarrow: draw an arrow head of given form
+% dashlength /lstyle /pstyle hfrac height width [ <point> <angle> ] lfigdoarrow -
+/lfigdoarrow
+{  matrix currentmatrix 8 1 roll
+   dup 0 get 1 index 1 get translate
+   2 get rotate
+   [ 2 index neg 2 index 0 0
+     3 index 3 index neg
+     1 index 10 index mul 0
+     7 index 7 index ]
+   4 1 roll pop pop pop
+   dup 3 1 roll
+   gsave lfigpaintpath grestore lfigdopath pop pop
+   setmatrix
+} def
+
+% arrow head styles
+/lfigopen     0.0 def
+/lfighalfopen 0.5 def
+/lfigclosed   1.0 def
+
+% stroke no arrows, forward, back, and both
+/lfignoarrow { pop pop pop pop pop pop pop pop                        } def
+/lfigforward { 7 -1 roll lfigdoarrow pop                              } def
+/lfigback    { 8 -2 roll pop lfigdoarrow                              } def
+/lfigboth    { 8 -1 roll 7 copy lfigdoarrow pop 7 -1 roll lfigdoarrow } def
+
+% lfigprevious: return previous point on path
+/lfigprevious
+{ lfigisnumbertype
+  { 2 copy }
+  { lfigisarraytype
+    { 2 index 2 index }
+    { 0 0 }
+    ifelse
+  } ifelse
+} def
+
+% label a point in 2nd top dictionary:  <point> /name lfigpointdef -
+/lfigpointdef
+{
+  % (Entering lfigpointdef) lfigdebugprint
+  [ 4 2 roll transform
+    /itransform cvx ] cvx
+    currentdict end
+    3 1 roll
+    % currentdict length currentdict maxlength lt
+    % { def }
+    % { exec moveto (too many labels) show stop }
+    % ifelse
+    def
+    begin
+  % (Leaving lfigpointdef) lfigdebugprint
+} def
+
+% promote labels from second top to third top dictionary
+% <string> lfigpromotelabels -
+/lfigpromotelabels
+{
+  % (Entering lfigpromotelabels) lfigdebugprint
+  currentdict end exch currentdict end
+  { exch 20 string cvs 2 index
+    (@) lfigconcat exch lfigconcat cvn exch def
+  } forall pop begin
+  % (Leaving lfigpromotelabels) lfigdebugprint
+} def
+
+% show labels (except CIRCUM): - lfigshowlabels -
+/lfigshowlabels
+{
+  % (Entering lfigshowlabels) lfigdebugprint
+  currentdict end
+    currentdict
+    { 1 index 20 string cvs (CIRCUM) search % if CIRCUM in key
+      { pop pop pop pop pop }
+      { pop cvx exec 2 copy
+        newpath 1.5 pt 0 360 arc
+        0 setgray fill
+        /Times-Roman findfont 8 pt scalefont setfont
+        moveto 0.2 cm 0.1 cm rmoveto 20 string cvs show
+      }
+      ifelse
+    } forall
+  begin
+  % (Leaving lfigshowlabels) lfigdebugprint
+} def
+
+% fix an angle to 0 <= res < 360:  <angle> lfigfixangle <angle>
+/lfigfixangle
+{
+  % (Entering lfigfixangle) lfigdebugprint
+  { dup 0 ge { exit } if
+    360 add
+  } loop
+  { dup 360 lt { exit } if
+    360 sub
+  } loop
+  % (Leaving lfigfixangle) lfigdebugprint
+} def
+
+% find point on circumference of box:  alpha a b lfigboxcircum x y
+/lfigboxcircum
+{
+  % (Entering lfigboxcircum) lfigdebugprint
+  4 dict begin
+    /b exch def
+    /a exch def
+    lfigfixangle /alpha exch def
+    0 0 a b lfigangle /theta exch def
+
+    % if alpha <= theta, return (a, a*tan(alpha))
+    alpha theta le
+    { a  a alpha sin mul alpha cos div }
+    {
+      % else if alpha <= 180 - theta, return (b*cot(alpha), b)
+      alpha 180 theta sub le
+      { b alpha cos mul alpha sin div  b }
+      {
+        % else if alpha <= 180 + theta, return (-a, -a*tan(alpha))
+        alpha 180 theta add le
+        { a neg  a neg alpha sin mul alpha cos div }
+        {
+	  % else if alpha <= 360 - theta, return (-b*cot(alpha), -b)
+	  alpha 360 theta sub le
+          { b neg alpha cos mul alpha sin div  b neg }
+	  {
+	    % else 360 - theta <= alpha, return (a, a*tan(alpha))
+	    a  a alpha sin mul alpha cos div
+	  } ifelse
+        } ifelse
+      } ifelse
+    } ifelse
+  end
+  % (Leaving lfigboxcircum) lfigdebugprint
+} def
+
+% find quadratic roots (assume a != 0): a b c lfigqroots x1 x2 2
+%                                                     or    x2 1
+%                                                     or       0
+/lfigqroots
+{
+  4 dict begin
+    /c exch def
+    /b exch def
+    /a exch def
+    /disc b b mul 4 a c mul mul sub def
+    disc 0 lt
+    { 0
+    }
+    { disc 0 eq
+      { b neg 2 a mul div
+	1
+      }
+      { b neg disc sqrt add 2 a mul div
+        b neg disc sqrt sub 2 a mul div
+	2
+      }
+      ifelse
+    }
+    ifelse
+  end
+} def
+
+% work our which quadrant: <angle> lfigquadrant <0-3>
+/lfigquadrant
+{ dup 90 lt
+  { pop 0
+  }
+  { dup 180 lt
+    { pop 1
+    }
+    { 270 lt
+      { 2
+      }
+      { 3
+      } ifelse
+    } ifelse
+  } ifelse
+} def
+
+% find curvebox circum, assuming upper right quadrant: alpha a b xmk lfigcb x y
+/lfigcb
+{
+  6 dict begin
+    /xmk exch def
+    /b exch def
+    /a exch def
+    /alpha exch def
+    /theta1 0 0 a b xmk sub lfigangle def
+    /theta2 0 0 a xmk sub b lfigangle def
+    alpha theta1 le
+    { % if alpha <= theta1, return (a, a*tan(alpha))
+      a  a alpha sin mul alpha cos div
+    }
+    { alpha theta2 ge
+      { % else if alpha > theta2, return (b*cot(alpha), b)
+	b alpha cos mul alpha sin div  b
+      }
+      {
+	% else, return the intersection of line and circle
+	a xmk sub b xmk sub xmk  0 0 alpha lfigcircleintersect
+	dup 0 eq
+	{ % should never happen, just return any reasonable point
+	  pop
+	  a b 0.5 lfigpmul
+	}
+	{ 1 eq
+	  { % should never happen, just return the point on top of stack
+	  }
+	  { % the usual case, two points on stack, return the larger
+	    lfigpmax
+	  } ifelse
+	} ifelse
+      } ifelse
+    } ifelse
+  end
+} def
+
+% find point on circumference of curvebox: alpha a b xmk lfigcurveboxcircum x y
+/lfigcurveboxcircum
+{
+  % (Entering lfigcurveboxcircum) lfigdebugprint
+  5 dict begin
+    /xmk exch def
+    /b exch def
+    /a exch def
+    lfigfixangle /alpha exch def
+
+    % work out which quadrant we are in, and reflect accordingly
+    /quad alpha lfigquadrant def
+    quad 0 eq
+    { alpha a b xmk lfigcb
+    }
+    { quad 1 eq
+      { 180 alpha sub a b xmk lfigcb exch neg exch
+      }
+      { quad 2 eq
+	{ alpha 180 sub a b xmk lfigcb neg exch neg exch
+	}
+	{ 360 alpha sub a b xmk lfigcb neg
+	} ifelse
+      } ifelse
+    } ifelse
+  end
+  % (Leaving lfigcurveboxcircum) lfigdebugprint
+} def
+
+% find point on circumference of diamond:  alpha a b lfigdiamondcircum x y
+/lfigdiamondcircum
+{
+  % (Entering lfigdiamondcircum) lfigdebugprint
+  4 dict begin
+    /b exch def
+    /a exch def
+    lfigfixangle /alpha exch def
+    b alpha cos abs mul  a alpha sin abs mul  add  /denom exch def
+    a b mul alpha cos mul denom div
+    a b mul alpha sin mul denom div
+  end
+  % (Leaving lfigdiamondcircum) lfigdebugprint
+} def
+
+% find point on circumference of ellipse:  alpha a b lfigellipsecircum x y
+/lfigellipsecircum
+{
+  % (Entering lfigellipsecircum) lfigdebugprint
+  4 dict begin
+    /b exch def
+    /a exch def
+    lfigfixangle /alpha exch def
+    b alpha cos mul dup mul  a alpha sin mul dup mul  add sqrt /denom exch def
+    a b mul alpha cos mul denom div
+    a b mul alpha sin mul denom div
+  end
+  % (Leaving lfigellipsecircum) lfigdebugprint
+} def
+
+% find point of intersection of two lines each defined by two points
+% x1 y1 x2 y2  x3 y3 x4 y4  lfiglineintersect x y
+/lfiglineintersect
+{
+  % (Entering lfiglineintersect) lfigdebugprint
+  13 dict begin
+    /y4 exch def
+    /x4 exch def
+    /y3 exch def
+    /x3 exch def
+    /y2 exch def
+    /x2 exch def
+    /y1 exch def
+    /x1 exch def
+    x2 x1 sub /x21 exch def
+    x4 x3 sub /x43 exch def
+    y2 y1 sub /y21 exch def
+    y4 y3 sub /y43 exch def
+    y21 x43 mul y43 x21 mul sub /det exch def
+  
+    % calculate x 
+    y21 x43 mul x1 mul
+    y43 x21 mul x3 mul sub
+    y3 y1 sub x21 mul x43 mul add
+    det div
+
+    % calculate y
+    x21 y43 mul y1 mul
+    x43 y21 mul y3 mul sub
+    x3 x1 sub y21 mul y43 mul add
+    det neg div
+
+  end
+  % (Leaving lfiglineintersect) lfigdebugprint
+} def
+
+% find point on circumference of polygon
+% alpha radius num theta lfigpolycircum x y
+/lfigpolycircum
+{
+  % (Entering lfigpolycircum) lfigdebugprint
+  13 dict begin
+    /theta exch def
+    /num exch def
+    /radius exch def
+    /alpha exch def
+
+    % calculate delta, the angle from theta to alpha
+    alpha theta sub lfigfixangle
+
+    % calculate the angle which is the multiple of 360/num closest to delta
+    360 num div div truncate 360 num div mul theta add /anglea exch def
+
+    % calculate the next multiple of 360/num after anglea
+    anglea 360 num div add /angleb exch def
+
+    % intersect the line through these two points with the alpha line
+    anglea cos anglea sin  angleb cos angleb sin
+    0 0  alpha cos 2 mul alpha sin 2 mul
+    lfiglineintersect radius lfigpmul
+
+  end
+  % (Leaving lfigpolycircum) lfigdebugprint
+} def
+
+% find point of intersection of a point and a circle
+% x0 y0 r  x1 y1 theta  lfigcircleintersect xa ya xb yb 2
+%                                        or       xb yb 1
+%                                        or             0
+/lfigcircleintersect
+{
+  % (Entering lfigcircleintersect) lfigdebugprint
+  15 dict begin
+    /theta exch def
+    /y1    exch def
+    /x1    exch def
+    /r     exch def
+    /y0    exch def
+    /x0    exch def
+
+    % if sin(theta) = 0 then line is horizontal and y must be y1
+    theta sin abs 0.00001 lt
+    { 
+      /a 1 def
+      /b -2 x0 mul def
+      /c x0 dup mul y1 y0 sub dup mul add r dup mul sub def
+      a b c lfigqroots dup
+      0 eq
+      { pop
+	0
+      }
+      { 1 eq
+	{ y1 1
+	}
+	{ y1 exch y1 2
+	} ifelse
+      } ifelse
+    }
+    {
+      /ct theta cos theta sin div def
+      /a ct ct mul 1 add def
+      /b ct x1 x0 sub mul y1 add y0 sub 2 mul def
+      /c x1 x0 sub dup mul y1 y0 sub dup mul add r dup mul sub def
+      a b c lfigqroots dup
+      0 eq
+      { pop
+	0
+      }
+      { 1 eq
+	{ y1 add /yb exch def
+	  yb y1 sub ct mul x1 add /xb exch def
+	  xb yb 1
+	}
+	{ y1 add /ya exch def
+	  ya y1 sub ct mul x1 add /xa exch def
+	  y1 add /yb exch def
+	  yb y1 sub ct mul x1 add /xb exch def
+	  xa ya xb yb 2
+	} ifelse
+      } ifelse
+    } ifelse
+  end
+  % (Leaving lfigcircleintersect) lfigdebugprint
+} def
+
+% add CIRCUM operator with this body:  <array> lfigcircumdef -
+/lfigcircumdef
+{   % (Entering lfigcircumdef) lfigdebugprint
+    /CIRCUM exch cvx
+    currentdict end
+    3 1 roll
+    % currentdict length currentdict maxlength lt
+    % { def }
+    % { exec moveto (too many labels) show stop }
+    % ifelse
+    def
+    begin
+    % (Leaving lfigcircumdef) lfigdebugprint
+} def
+
+end
+%%EndResource
+
+%%BeginResource: procset LoutGraphPrependGraphic
+% @PrependGraphic file /usr/staff/jeff/lout.lib/include/graphf.lpg
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%  PostScript @SysPrependGraphic file for @Graph (Version 1.0)       %
+%                                                                    %
+%  Version 1.0 by Jeffrey H. Kingston, December 1993.                %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+errordict begin
+   /handleerror
+   {
+      {  /Times-Roman findfont 8 pt scalefont setfont
+	 0 setgray 4 pt 4 pt moveto
+	 $error /errorname get
+	 dup lgraphdict exch known
+	 { lgraphdict exch get }
+	 { 30 string cvs } ifelse
+	 show
+	 (  Command: ) show
+	 $error /command get 30 string cvs show
+      } stopped {} if
+      showpage stop
+   } def
+end
+
+/lgraphdict 200 dict def
+lgraphdict begin
+
+% error messages
+/dictfull (dictfull error) def
+/dictstackoverflow (dictstackoverflow error) def
+/execstackoverflow (execstackoverflow error:  expression too complex?) def
+/limitcheck (limitcheck error:  graph too complex or too large?) def
+/syntaxerror (syntaxerror error:  syntax error in text of graph?) def
+/typecheck (typecheck error:  syntax error in text of graph?) def
+/undefined (undefined error:  unknown or misspelt symbol?) def
+/rangecheck (rangecheck error:  undefined expression (e.g. divide by zero)?) def
+/VMError (VMError error:  run out of memory?) def
+
+% random number between x and y inclusive: x y dorand num
+/dorand { 1 index sub 1 add rand exch mod add } def
+
+% log to given base: base num dolog num
+/dolog { ln exch ln div } def
+
+% maximum of two numbers:  <num> <num> max <num>
+/max { 2 copy gt { pop } { exch pop } ifelse } def
+
+% add two points:  <point> <point> padd <point>
+/padd { exch 3 1 roll add 3 1 roll add exch } def
+
+% subtract first point from second:  <point> <point> psub <point>
+/psub { 3 2 roll sub 3 1 roll exch sub exch } def
+
+% distance between two points:  <point> <point> distance <length>
+/distance { psub dup mul exch dup mul add sqrt } def
+
+% point at angle and distance:  <point> <length> <angle> atangle <point>
+/atangle { 2 copy cos mul 3 1 roll sin mul padd } def
+
+% angle from one point to another:  <point> <point> angle <angle>
+/angle { psub 2 copy 0 eq exch 0 eq and {pop} {exch atan} ifelse } def
+
+
+% set up for line
+% - linesetup <length> <dashlength>
+/linesetup
+{ newpath
+  xcurr ycurr trpoint xprev yprev trpoint
+  4 copy moveto lineto distance dashlength
+} def
+
+% set up for icon-avoiding line
+% - ilinesetup <length> <dashlength>
+/ilinesetup
+{ newpath
+  xprev yprev trpoint xcurr ycurr trpoint 4 copy
+  4 copy angle symbolsize 1.5 mul exch 4 2 roll pop pop atangle
+  6 2 roll 4 2 roll
+  4 copy angle symbolsize 1.5 mul exch 4 2 roll pop pop atangle 
+  4 copy moveto lineto distance dashlength
+} def
+
+
+% stroke a solid line:  <length> <dashlength> solid -
+/solid
+{ pop pop [] 0 setdash linewidth setlinewidth stroke
+} def
+  
+% stroke a dashed line:   <length> <dashlength> dashed -
+/dashed
+{  2 copy 2 mul le 1 index 0 le or
+   {  exch pop 1 pt max [ exch dup ] 0 setdash }
+   {  dup [ exch 4 2 roll 2 copy div
+      1 sub 2 div ceiling dup 4 1 roll
+      1 add mul sub exch div ] 0 setdash
+   } ifelse linewidth setlinewidth stroke
+} def
+
+% stroke a cdashed line:  <length> <dashlength> cdashed -
+/cdashed
+{  2 copy le 1 index 0 le or
+   { exch pop 1 pt max [ exch dup ] dup 0 get 2 div setdash }
+   { dup [ 4 2 roll exch 2 copy exch div
+     2 div ceiling div 1 index sub
+     ] exch 2 div setdash
+   } ifelse linewidth setlinewidth stroke
+} def
+
+% stroke a dotted line:  <length> <dashlength> dotted -
+/dotted
+{  2 copy le 1 index 0 le or
+   { exch pop 1 pt max [ exch 0 exch ] 0 setdash }
+   { 1 index exch div ceiling div 0.99999 mul
+     [ 0 3 2 roll ] 0 setdash
+   } ifelse gsave 1 setlinecap linewidth setlinewidth stroke grestore newpath
+} def
+
+% stroke a noline line:  <length> <dashlength> noline -
+/noline
+{ pop pop
+} def
+
+% stroke a y histogram: - yhisto -
+/yhisto
+{ xprev yleft trpoint yextra sub moveto
+  xprev yprev trpoint lineto
+  xcurr yprev trpoint lineto
+  xcurr yleft trpoint yextra sub lineto 
+  linewidth setlinewidth stroke
+} def
+
+% stroke an x histogram: - xhisto -
+/xhisto
+{ xleft yprev trpoint exch xextra sub exch moveto
+  xcurr yprev trpoint lineto
+  xcurr ycurr trpoint lineto
+  xleft ycurr trpoint exch xextra sub exch lineto 
+  linewidth setlinewidth stroke
+} def
+
+% stroke a surface y histogram: - surfaceyhisto -
+/surfaceyhisto
+{ firstpair
+  { xprev yleft trpoint yextra sub moveto
+    xprev yprev trpoint lineto
+  }
+  { xprev yprev trpoint moveto
+  } ifelse
+  xcurr yprev trpoint lineto
+  lastpair
+  { xcurr yleft trpoint yextra sub lineto 
+  }
+  { xcurr ycurr trpoint lineto
+  } ifelse
+  linewidth setlinewidth stroke
+} def
+
+% stroke a surface x histogram: - surfacexhisto -
+/surfacexhisto
+{ firstpair
+  { xleft yprev trpoint exch xextra sub exch moveto
+  }
+  { xprev yprev trpoint moveto
+  } ifelse
+  xcurr yprev trpoint lineto
+  xcurr ycurr trpoint lineto
+  lastpair
+  { xleft ycurr trpoint exch xextra sub exch lineto 
+  } if
+  linewidth setlinewidth stroke
+} def
+
+% stroke a filled y histogram: - filledyhisto -
+/filledyhisto
+{
+  linewidth setlinewidth
+  xprev yleft trpoint exch currentlinewidth 2 div add exch yextra sub moveto
+  xprev yprev trpoint exch currentlinewidth 2 div add exch lineto
+  xcurr yprev trpoint exch currentlinewidth 2 div sub exch lineto
+  xcurr yleft trpoint exch currentlinewidth 2 div sub exch yextra sub lineto 
+  closepath fill
+} def
+
+% stroke a filled x histogram: - filledxhisto -
+/filledxhisto
+{
+  linewidth setlinewidth
+  xleft yprev trpoint currentlinewidth 2 div add exch xextra sub exch moveto
+  xcurr yprev trpoint currentlinewidth 2 div add lineto
+  xcurr ycurr trpoint currentlinewidth 2 div sub lineto
+  xleft ycurr trpoint currentlinewidth 2 div sub exch xextra sub exch lineto 
+  closepath fill
+} def
+
+
+% cross: show a small cross
+/cross
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg symbolsize neg rmoveto
+  symbolsize 2 mul symbolsize 2 mul rlineto
+  0 symbolsize -2 mul rmoveto
+  symbolsize -2 mul symbolsize 2 mul rlineto
+  [] 0 setdash stroke
+} def
+
+% plus: show a small plus
+/plus
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg 0 rmoveto
+  symbolsize 2 mul 0 rlineto
+  symbolsize neg symbolsize neg rmoveto
+  0 symbolsize 2 mul rlineto
+  [] 0 setdash stroke
+} def
+
+% square: show a small square
+/square
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg symbolsize neg rmoveto
+  symbolsize 2 mul 0 rlineto
+  0 symbolsize 2 mul rlineto
+  symbolsize -2 mul 0 rlineto
+  closepath [] 0 setdash stroke
+} def
+
+% filledsquare: show a small filled square
+/filledsquare
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg symbolsize neg rmoveto
+  symbolsize 2 mul 0 rlineto
+  0 symbolsize 2 mul rlineto
+  symbolsize -2 mul 0 rlineto
+  closepath gsave [] 0 setdash stroke grestore fill
+} def
+
+% diamond: show a small diamond
+/diamond
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg 0 rmoveto
+  symbolsize symbolsize neg rlineto
+  symbolsize symbolsize rlineto
+  symbolsize neg symbolsize rlineto
+  closepath [] 0 setdash stroke
+} def
+
+% filleddiamond: show a small filled diamond
+/filleddiamond
+{ newpath
+  xcurr ycurr trpoint moveto
+  symbolsize neg 0 rmoveto
+  symbolsize symbolsize neg rlineto
+  symbolsize symbolsize rlineto
+  symbolsize neg symbolsize rlineto
+  closepath gsave [] 0 setdash stroke grestore fill
+} def
+
+% circle: show a small circle
+/circle
+{ newpath
+  xcurr ycurr trpoint symbolsize 0 360 arc [] 0 setdash stroke
+} def
+
+% filledcircle: show a small filled circle
+/filledcircle
+{ newpath
+  xcurr ycurr trpoint symbolsize 0 360 arc gsave [] 0 setdash stroke grestore fill
+} def
+
+% triangle: show a small triangle
+/triangle
+{ newpath
+  xcurr ycurr trpoint moveto
+  0 symbolsize 1.5 mul rmoveto
+  symbolsize neg symbolsize -2.5 mul rlineto
+  symbolsize 2 mul 0 rlineto
+  closepath [] 0 setdash stroke
+} def
+
+% filledtriangle: show a small filled triangle
+/filledtriangle
+{ newpath
+  xcurr ycurr trpoint moveto
+  0 symbolsize 1.5 mul rmoveto
+  symbolsize neg symbolsize -2.5 mul rlineto
+  symbolsize 2 mul 0 rlineto
+  closepath gsave [] 0 setdash stroke grestore fill
+} def
+
+
+%plog: like log only with a base, and protected from failing if <= 0
+% base x plog res
+/plog { dup 0 le { pop pop 0 } { ln exch ln div } ifelse } def
+
+% xtr: transform one x value logarithmically if xlog > 1
+% <num> xtr <num>
+/xtr
+{ xlog 1 gt
+  { xlog exch plog
+  } if
+} def
+
+% ytr: transform one y value logarithmically if ylog > 1
+% <num> ytr <num>
+/ytr
+{ ylog 1 gt
+  { ylog exch plog
+  } if
+} def
+
+% % trpoint: transform (x, y) in graph space into (x', y') in print space
+% % x y trpoint x' y'
+% /trpoint
+% { exch xtr trxmin sub trxmax trxmin sub div xwidth mul xextra add
+%   exch ytr trymin sub trymax trymin sub div ywidth mul yextra add
+% } def
+
+
+% trpoint: transform (x, y) in graph space into (x', y') in print space
+% x y trpoint x' y'
+/trpoint
+{ exch xtr xdecr { trxmax exch sub } { trxmin sub } ifelse
+  trxmax trxmin sub div xwidth mul xextra add
+
+  exch ytr ydecr { trymax exch sub } { trymin sub } ifelse
+  trymax trymin sub div ywidth mul yextra add
+} def
+
+
+% yonly: interpolate x values 1, 2, ... into data
+% [ data ] yonly [ newdata ]
+/yonly
+{ dup /tmp exch def
+  length [ exch 1 exch 1 exch
+  { dup tmp exch 1 sub get
+  } for
+  ]
+} def
+
+% xonly: interpolate y values 1, 2, ... into data
+% [ data ] yonly [ newdata ]
+/xonly
+{ dup /tmp exch def
+  length [ exch 1 exch 1 exch
+  { dup tmp exch 1 sub get exch
+  } for
+  ]
+} def
+
+% xandy: no interpolation of x or y values
+% [ data ] xandy [ data ]
+/xandy {} def
+
+
+% expstringwidth: calculate width of string containing optional exponent
+% <string> expstringwidth <width>
+/expstringwidth
+{ (^) search
+  { exch pop stringwidth pop exch stringwidth pop 0.7 mul add }
+  { stringwidth pop }
+  ifelse
+} def
+
+% expstringshow: show string containing optional exponent
+% <string> expstringshow -
+/expstringshow
+{ (^) search
+  { exch pop show 0 0.5 ft rmoveto
+    gsave currentfont 0.7 scalefont setfont show grestore
+  }
+  { show
+  }
+  ifelse
+} def
+
+% concatenate two strings: <string> <string> strconcat <string>
+/strconcat
+{ 2 copy length exch length add string
+  dup 0 4 index putinterval
+  dup 3 index length 3 index putinterval
+  3 1 roll pop pop
+} def
+
+% lgen: generate one label automatically
+% num lgen num string
+/lgen { dup 20 string cvs } def
+
+% loglgen: generate one logarithmic label (with exponent)
+% <base> <exponent> loglgen <string>
+/loglgen
+{ 20 string cvs exch 20 string cvs
+  (^) strconcat exch strconcat
+} def
+
+
+% printxtick: print one x tick
+% xpos printxtick -
+/printxtick
+{ newpath
+  yleft trpoint moveto 0 yextra neg rmoveto
+  0 xticklength neg rlineto [] 0 setdash stroke
+} def
+
+% printxlabel: print one x label
+% (xlabel) xpos printxlabel -
+/printxlabel
+{ yleft trpoint moveto 0 yextra neg rmoveto
+  0 xticklength neg rmoveto 0 0.9 ft neg rmoveto
+  xlog 1 gt { 0 0.3 ft neg rmoveto } if
+  dup expstringwidth -2 div 0 rmoveto expstringshow
+} def
+
+% printytick: print one y tick
+% ypos printytick -
+/printytick
+{ newpath
+  xleft exch trpoint moveto xextra neg 0 rmoveto
+  yticklength neg 0 rlineto [] 0 setdash stroke
+} def
+
+% printylabel: print one y label
+% (ylabel) ypos printylabel -
+/printylabel
+{ xleft exch trpoint moveto xextra neg 0 rmoveto
+  yticklength neg 0 rmoveto -0.3 ft -0.3 ft rmoveto
+  dup expstringwidth neg 0 rmoveto expstringshow
+} def
+
+% printrtick: print one r tick
+% ypos printrtick -
+/printrtick
+{ newpath
+  xright exch trpoint moveto xextra 0 rmoveto
+  rticklength 0 rlineto [] 0 setdash stroke
+} def
+
+% printrlabel: print one r label
+% (rlabel) ypos printrlabel -
+/printrlabel
+{ xright exch trpoint moveto xextra 0 rmoveto
+  rticklength 0 rmoveto  0.3 ft -0.3 ft rmoveto
+  expstringshow
+} def
+
+% printticks: print ticks and labels
+% /tickproc /labelproc [ tickandlabeldata ] min printticks -
+/printticks
+{ /prev exch def
+  { dup type dup dup /integertype eq exch /realtype eq or
+    { pop dup /prev exch def 2 index cvx exec
+    }
+    { /stringtype eq
+      { prev 2 index cvx exec
+      }
+      { pop
+      } ifelse
+    } ifelse
+  } forall
+  pop pop
+} def
+
+
+% printxaxistick: print one x axis tick
+% xpos printxaxistick -
+/printxaxistick
+{ newpath
+  yaxis trpoint moveto 0 xticklength -2 div rmoveto
+  0 xticklength rlineto [] 0 setdash stroke
+} def
+
+% printxaxislabel: print one x axis label
+% (xlabel) xpos printxaxislabel -
+/printxaxislabel
+{ yaxis trpoint moveto
+  0 xticklength -2 div rmoveto 0 0.9 ft neg rmoveto
+  xlog 1 gt { 0 0.3 ft neg rmoveto } if
+  dup expstringwidth -2 div 0 rmoveto expstringshow
+} def
+
+% printyaxistick: print one y axis tick
+% ypos printyaxistick -
+/printyaxistick
+{ newpath
+  xaxis exch trpoint moveto
+  yticklength -2 div 0 rmoveto
+  yticklength 0 rlineto [] 0 setdash stroke
+} def
+
+% printyaxislabel: print one y axis label
+% (ylabel) ypos printyaxislabel -
+/printyaxislabel
+{ xaxis exch trpoint moveto
+  yticklength -2 div 0 rmoveto -0.3 ft -0.3 ft rmoveto
+  dup expstringwidth neg 0 rmoveto expstringshow
+} def
+
+
+% <val> minmax -
+% perform minv := min(minv, val); maxv := max(maxv, val)
+% allowing for the possibility of minv, maxv, val being false (undefined)
+/minmax
+{ dup false eq
+  { pop }
+  { minv false eq
+    { dup /minv exch def /maxv exch def }
+    { dup minv lt
+      { /minv exch def }
+      { dup maxv gt
+	{ /maxv exch def }
+	{ pop }
+	ifelse
+      } ifelse
+    } ifelse
+  } ifelse
+} def
+
+% <ticks> ticksundef <ticks> <bool>
+% returns true iff the ticks array is undefined (one false entry)
+/ticksundef
+{ dup length 1 eq
+  { dup 0 get false eq
+  }
+  { false }
+  ifelse
+} def
+
+% <number> integral <boolean>
+% true if the number has an integral value
+/integral { dup round eq } def
+
+% ticksep ticks xory alldata minval maxval axis base ticksandlimits ticks min max base
+% ticksandlimits: sort out value of x or y ticks and limits and log base
+/ticksandlimits
+{ /base exch def
+  /minv false def
+  /maxv false def
+
+  % min and max of user-supplied minval, maxval, and axis
+  minmax minmax minmax
+
+  % min and max of data points
+  { 0 get dup dup length 1 sub 3 index exch 2 exch
+    { get minmax dup
+    } for pop pop
+  } forall
+  pop dup
+
+  % min and max of tick values
+  { dup type /stringtype eq
+    { pop } { minmax } ifelse
+  } forall
+
+  % fix minv and maxv if undefined (false) or equal
+  minv false eq
+  { /minv -1 def /maxv 1 def }
+  { minv maxv eq
+    { minv 0 lt
+      { /minv 2 minv mul def /maxv 0 def
+      }
+      { minv 0 eq
+	{ /minv -1 def /maxv 1 def
+	}
+	{ /minv 0 def /maxv 2 maxv mul def
+	} ifelse
+      } ifelse
+    } if
+  } ifelse
+
+  % invent ticks if undefined
+  ticksundef
+  { pop /ticksep exch def
+
+    % if base is reasonable and minv is positive, logarithmic ticks
+    base 1 gt minv 0 gt and
+    {
+      % get integral log of minv and maxv
+      /logminv base minv plog floor   cvi def
+      /logmaxv base maxv plog ceiling cvi def
+
+      % if minv close to base, make it 1; reset minv and maxv
+      logminv 1 eq logmaxv 4 ge and { /logminv 0 def } if
+      /minv base logminv exp def
+      /maxv base logmaxv exp def
+
+      % ticks := [ base**logminv, ... , base**logmaxv ]
+      [ logminv 1 logmaxv
+	{ dup base exch exp
+	  exch base exch loglgen
+	} for
+      ]
+    }
+    { % non-logarithmic ticks
+      {
+        % fix tick separation if undefined (0) or too small
+	/base 0 def
+        /delta maxv minv sub def
+        ticksep delta 30 div le
+        { /ticksep 10 delta log 1 sub ceiling exp def
+	  ticksep delta 2 div ge
+	  { /ticksep ticksep 2 div def }
+	  { ticksep delta 5 div lt
+	    { /ticksep 2 ticksep mul def
+	    } if
+	  } ifelse
+        } if
+
+        % adjust minv and maxv to be multiples of ticksep
+        /minv minv ticksep div floor   ticksep mul def
+        /maxv maxv ticksep div ceiling ticksep mul def
+        /delta maxv minv sub def
+
+        % if minv or maxv near zero, move to zero and redo
+        minv ticksep eq
+        { /minv 0 def }
+        { maxv ticksep neg eq { /maxv 0 def } { exit } ifelse
+        } ifelse
+      } loop
+
+      % if minv, maxv, and ticksep are all integral, set "makeint" to true
+      /makeint minv integral maxv integral ticksep integral and and def
+
+      % ticks := [ minv, minv+ticksep, ... , maxv ]
+      [ 0 1 delta ticksep div round
+	{ ticksep mul minv add makeint { cvi } if lgen }
+	for
+      ]
+    } ifelse
+  }
+  { exch pop
+  } ifelse
+  minv maxv base
+} def
+
+% xset: set up all data for x axis, including limits and ticks
+% xticksep xticks 0 alldata xmin xmax xlog xextra xdecr xaxis xticklength xset -
+/xset
+{ /xticklength exch def
+  /xaxis exch def
+  /xdecr exch def
+  /xextra exch def
+  xaxis exch ticksandlimits
+  /xlog exch def /xmax exch def /xmin exch def /xticks exch def
+  /xleft xdecr { xmax } { xmin } ifelse def
+  /xright xdecr { xmin } { xmax } ifelse def
+  /xwidth xsize xextra 2 mul sub def
+  /trxmin xmin xtr def /trxmax xmax xtr def
+} def
+
+% yset: set up all data for y axis, including limits and yticks
+% yticksep yticks 0 alldata ymin ymax ylog yextra ydecr yaxis yticklength yset -
+/yset
+{ /yticklength exch def
+  /yaxis exch def
+  /ydecr exch def
+  /yextra exch def
+  yaxis exch ticksandlimits
+  /ylog exch def /ymax exch def /ymin exch def /yticks exch def
+  /yleft ydecr { ymax } { ymin } ifelse def
+  /yright ydecr { ymin } { ymax } ifelse def
+  /ywidth ysize yextra 2 mul sub def
+  /trymin ymin ytr def /trymax ymax ytr def
+} def
+
+% rset: set up all data for y axis (again), but including limits and rticks
+% rticksep rticks 0 alldata ymin ymax ylog yextra ydecr yaxis rticklength rset -
+/rset
+{ /rticklength exch def
+  /yaxis exch def
+  /ydecr exch def
+  /yextra exch def
+  yaxis exch ticksandlimits
+  /ylog exch def /ymax exch def /ymin exch def /rticks exch def
+  /yleft ydecr { ymax } { ymin } ifelse def
+  /yright ydecr { ymin } { ymax } ifelse def
+  /ywidth ysize yextra 2 mul sub def
+  /trymin ymin ytr def /trymax ymax ytr def
+} def
+
+% norset: set up data for no rticks
+% - norset -
+/norset
+{ /rticklength 0 def
+  /rticks [] def
+} def
+
+% framestyle: print a frame around the graph
+/framestyle
+{ 0 0 moveto xsize 0 lineto xsize ysize lineto
+  0 ysize lineto closepath stroke
+  /printxtick /printxlabel xticks xleft printticks
+  /printytick /printylabel yticks ymin printticks
+  /printrtick /printrlabel rticks ymin printticks
+} def
+
+% nonestyle: print nothing around the graph
+/nonestyle
+{
+} def
+
+% axesstyle: print axes for the graph (unless axis values missing)
+/axesstyle
+{
+  xaxis false eq yaxis false eq or
+  { framestyle }
+  { xaxis yaxis trpoint dup 0 exch moveto xsize exch lineto
+    dup 0 moveto ysize lineto stroke
+    /printxaxistick /printxaxislabel xticks xleft printticks
+    /printyaxistick /printyaxislabel yticks ymin printticks
+  } ifelse
+} def
+
+% rundata: run all data sets
+/rundata
+{ alldata
+  { gsave
+    dup dup dup dup
+    4 get /dopaint exch def
+    3 get /initrun exch def
+    2 get /pairs exch def
+    1 get /points exch def
+    0 get /data exch def
+    dopaint
+    { data length 4 ge
+      { initrun
+	newpath
+	data 0 get ymin trpoint yextra sub moveto
+	0 2 data length 2 sub
+	{ dup 1 add
+	  data exch get /ycurr exch def
+	  data exch get /xcurr exch def
+	  xcurr ycurr trpoint lineto
+	} for
+	data dup length 2 sub get ymin trpoint yextra sub lineto
+	closepath fill
+      } if
+    } if
+    initrun
+    data length 2 ge
+    {
+      /xcurr data 0 get def
+      /ycurr data 1 get def
+      points
+      data length 4 ge
+      { 2 2 data length 2 sub
+	{ /xprev xcurr def
+          /yprev ycurr def
+	  dup dup 2 eq /firstpair exch def
+	  data length 2 sub eq /lastpair exch def
+	  dup 1 add
+          data exch get /ycurr exch def
+          data exch get /xcurr exch def
+	  pairs
+	  points
+	} for
+      } if
+    } if
+    grestore
+  } forall
+} def
+
+end
+%%EndResource
+
+%%BeginResource: procset LoutBasicSetup
+% @PrependGraphic file /usr/staff/jeff/lout.lib/include/bsf.lpg
+
+% width height linethickness louteuro -
+% draw a Euro symbol of this width and height with this line thickness
+/louteuro {
+  20 dict begin
+    /eurothick exch def
+    /euroheight exch def
+    /eurowidth exch def
+    /eurostrokewidth euroheight 0.8 mul def
+    /eurostep eurothick 60 cos mul 60 sin div def
+    /eurotheta 40 def
+
+    % llx lly width thickness louteurobox -
+    % draw angled box starting at (llx, lly) with given width and thickness
+    /louteurobox
+    {
+      /euroboxthick exch def
+      /euroboxwidth exch def
+      newpath moveto euroboxwidth 0 rlineto
+      eurostep euroboxthick rlineto
+      euroboxwidth neg 0 rlineto closepath fill
+    } def
+
+    % lower cross stroke
+    0 euroheight 2 div eurothick 1.5 mul sub
+    eurostrokewidth eurothick louteurobox
+
+    % upper cross stroke
+    0 euroheight 2 div eurothick 0.5 mul add
+    eurostrokewidth eurostep 2 mul add eurothick louteurobox
+
+    % circular part
+    /eurohctr eurowidth euroheight 2 div eurotheta cos mul sub def
+    /eurovctr euroheight 2 div def
+    newpath
+    eurohctr eurovctr eurovctr eurotheta 350 eurotheta sub arc
+    eurohctr eurovctr eurovctr eurothick sub 365 eurotheta sub eurotheta arcn
+    closepath fill
+  end
+} def
+
+% path for @FullWidthRule symbol
+/LoutRule
+{ 0 0 moveto xsize 0 lineto
+} def
+
+% path for @Box symbol
+/LoutBox
+{ 0 0 moveto xsize 0 lineto
+  xsize ysize lineto 0 ysize lineto
+  closepath
+} def
+
+% path for @CurveBox symbol
+/LoutCurveBox
+{ xmark 0 moveto
+  xsize xmark sub xmark xmark 270 360 arc
+  xsize xmark sub ysize xmark sub xmark 0 90 arc
+  xmark ysize xmark sub xmark 90 180 arc
+  xmark xmark xmark 180 270 arc
+  closepath
+} def
+
+% path for @ShadowBox symbol
+/LoutShadowBox
+{ xmark 2 mul 0 moveto xsize 0 lineto
+  xsize ysize xmark 2 mul sub lineto
+  xsize xmark sub ysize xmark 2 mul sub lineto
+  xsize xmark sub xmark lineto
+  xmark 2 mul xmark lineto
+  closepath
+} def
+
+% set up dictionary containing margin note data: parity LoutMargSet -
+/LoutMargSet
+{ /LoutMargDict 12 dict def
+  LoutMargDict begin
+    /parity exch def
+    /matr matrix currentmatrix def
+    /rightx xsize def
+    /lefty ysize def   % highest allowable point for top of next left note
+    /righty ysize def  % highest allowable point for top of next right note
+    /max { 2 copy gt { pop } { exch pop } ifelse } def
+    /min { 2 copy lt { pop } { exch pop } ifelse } def
+  end
+} def
+
+%translate coordinate system for marginal notes:  type LoutMargShift -
+% where type 0 is left margin, 1 is right margin, 2 is outer, 3 is inner
+/LoutMargShift
+{ LoutMargDict begin
+
+    % y coordinate of top of note, in margin coords, before vertical adjust
+    0 ysize transform matr itransform exch pop
+
+    % decide whether left or right margin based on type and parity
+    exch [ 0 1 parity 1 parity sub ] exch get 0 eq
+    {
+      % left margin: adjust top of note downwards if overlaps previous note
+      lefty min
+
+      % bottom of note is new lefty position and also translate position
+      ysize sub dup /lefty exch def
+
+      % want right edge of note at coordinate zero
+      xsize neg exch
+    }
+    {
+      % right margin: adjust top of note downwards if overlaps previous note
+      righty min
+
+      % bottom of note is new righty position and also translate position
+      ysize sub dup /righty exch def
+
+      % want left edge of note at coordinate rightx
+      rightx exch
+    } ifelse
+
+    % stack now contains coord of bottom left corner in margin coordinates
+    matr setmatrix translate
+  end
+} def
+
+% create LoutPageDict with left, right, foot, top for @Place symbol users
+/LoutPageSet
+{
+  /LoutPageDict 5 dict def
+  LoutPageDict begin
+    /matr matrix currentmatrix def
+    /left 0 def
+    /right xsize def
+    /foot 0 def
+    /top ysize def
+  end
+
+} def
+
+%%EndResource
+
+%%EndProlog
+
+%%BeginSetup
+%%BeginResource: encoding vec2
+/vec2 [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright
+/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash
+/zero /one /two /three /four /five /six /seven
+/eight /nine /colon /semicolon /less /equal /greater /question
+/at /A /B /C /D /E /F /G
+/H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore
+/quoteleft /a /b /c /d /e /f /g
+/h /i /j /k /l /m /n /o
+/p /q /r /s /t /u /v /w
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef
+/quotesinglbase /quotedblbase /ellipsis /OE /oe /quotedblleft /quotedblright /fi
+/fl /endash /emdash /bullet /dagger /daggerdbl /florin /fraction
+/dotlessi /grave /acute /circumflex /tilde /macron /breve /dotaccent
+/dieresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek /caron
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /periodcentered
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis
+] def
+%%EndResource
+
+/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Helvetica
+%%+ font Helvetica-Oblique
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+%%IncludeResource: font Helvetica-Oblique
+/Helvetica-Obliquefnt3 vec2 /Helvetica-Oblique LoutRecode
+/fnt3 { /Helvetica-Obliquefnt3 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+9066 0 0 0 400 480 100 1417 -1417 LoutGr2
+1 LoutMargSet
+grestore
+
+grestore
+160 fnt1 1417 -1526(lout)m 10419(1)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 11779 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+600 fnt2 691 11623(A)m
+1250(Pr)s 6(actical)k 3667(Introduction)s 6922(to)s 7566(the)s
+3956 10183(Lout)m 616 8743(Document)m 3500(F)s 18(or)k -15(matting)k
+6490(System)s 400 fnt2 2882 6881(Jeffre)m 8(y)k 4180(H.)s
+4656(Kingston)s 400 fnt3 1395 5779(Basser)m 2794(Dept.)s 3834(of)s
+4333(Computer)s 6242(Science)s 2251 5299(The)m 3058(Univ)s 10(ersity)k
+4951(of)s 5450(Sydne)s 8(y)k 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 2 2
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10407(2)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 2988 11377(A)m
+3363(simple)s 4565(input)s 5575(\207le)s 
+[ /Dest /LOUT24_222_all_1 /DEST pdfmark
+360 fnt2 800 9646(@SysInclude { doc })m
+800 9166(@Doc @T)m 43(e)k 10(xt @Begin)k 800 8686(Hello)m 14(, w)k 3(or)k -5(ld)k
+800 8206(@End @T)m 43(e)k 10(xt)k 400 fnt4 0 6379(Ho)m 4(w)k
+889(to)s 1313(f)s 10(ormat)k 2579(it)s 360 fnt2
+800 5633(lout \207lename > out.ps)m 800 5153(ghostvie)m 7(w out.ps)k 800 4673(mpr out.ps)m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 3 3
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10414(3)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_2 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(Hello,)m 2505(w)s 4(orld)k
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 4 4
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10407(4)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 2339 11377(Headings)m
+4026(and)s 4762(paragraphs)s 
+[ /Dest /LOUT24_222_all_3 /DEST pdfmark
+360 fnt2 800 9646(@SysInclude { doc })m 800 9166(@Doc @T)m 43(e)k 10(xt @Begin)k
+800 8686(@Heading { Introduction })m 800 8206(@PP)m 800 7726(The design of the Lout f)m 10(or)k -9(matting)k
+800 7246(system w)m 5(as under)k -14(tak)k 7(en with the)k 800 6766(needs of the @I { ordinar)m -10(y user })k
+800 6286(v)m 9(er)k -10(y m)k 3(uch in mind.)k 800 5806(@End @T)m 43(e)k 10(xt)k
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 5 5
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1527(lout)m 10412(5)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_4 /DEST pdfmark
+8640 10080 1440 8456 400 480 100 0 666 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt4 1440 8364(Intr)m 7(oduction)k
+400 fnt1 2240 7742(The)m 2953(design)s 4090(of)s 4543(the)s
+5123(Lout)s 1440 7262(formatting)m 3215(system)s 4423(w)s 4(as)k
+5123(undertak)s 4(en)k 1440 6782(with)m 2245(the)s 2825(needs)s
+3818(of)s 4271(the)s 400 fnt5 4851 6784(or)m 14(dinary)k
+6328(user)s 400 fnt1 1440 6302(v)m 6(ery)k 2234(much)s
+3217(in)s 3622(mind.)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 6 6
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10408(6)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 3817 11376(Displays)m
+
+[ /Dest /LOUT24_222_all_5 /DEST pdfmark
+360 fnt2 800 9652(Y)m 50(ou cer)k -14(tainly don't w)k 5(ant to retur)k -9(n to)k
+800 9172(his of\207ce and repor)m -14(t:)k 800 8692(@IndentedDispla)m 10(y @I {)k 800 8212(`I can't \207nd an ef\207cient algor)m -5(ithm, I)k
+800 7732(guess I'm just too dumb)m 14(.)k 36(')k 800 7252(})m 800 6772(T)m 43(o a)k 7(v)k 9(oid ser)k -5(ious damage to y)k 7(our)k
+800 6292(position in the compan)m 5(y)k 36(, it w)k 3(ould)k 800 5812(be better if ...)m
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 7 7
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10411(7)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_6 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(Y)m 44(ou)k
+2173(certainly)s 3657(don')s 7(t)k 4591(w)s 4(ant)k
+5460(to)s 5856(return)s 6901(to)s 1440 7887(his)m 1990(of\207ce)s
+2991(and)s 3665(report:)s 400 fnt5 2240 7048(`I)m 2626(can')s 12(t)k
+3542(\207nd)s 4252(an)s 4742(ef\207cient)s 2240 6568(algorithm,)m 3970(I)s
+4223(guess)s 5201(I'm)s 5848(just)s 6532(too)s 2240 6088(dumb)m 16(.)k 56(')k
+400 fnt1 1440 5330(T)m 32(o)k 1940(a)s 8(v)k 8(oid)k
+2909(serious)s 4124(damage)s 5458(to)s 5857(your)s 1440 4850(position)m
+2822(in)s 3227(the)s 3807(compan)s 6(y)k 26(,)k
+5418(it)s 5740(w)s 4(ould)k 6831(be)s 1440 4370(better)m
+2449(if)s 2813(\202)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 8 8
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10411(8)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 2299 11376(P)m 4(aragraph)k
+4229(br)s 7(eaking)k 5847(styles)s 
+[ /Dest /LOUT24_222_all_7 /DEST pdfmark
+360 fnt2 800 9652(Y)m 50(ou cer)k -14(tainly don't w)k 5(ant to retur)k -9(n to)k
+800 9172(his of\207ce and repor)m -14(t:)k 800 8692(@ID { r)m 3(agged noh)k 10(yphen } @Break @I {)k
+800 8212(`I can't \207nd an ef\207cient algor)m -5(ithm, I)k 800 7732(guess I'm just too dumb)m 14(.)k 36(')k
+800 7252(})m 800 6772(T)m 43(o a)k 7(v)k 9(oid ser)k -5(ious damage to y)k 7(our)k
+800 6292(position in the compan)m 5(y)k 36(, it w)k 3(ould)k 800 5812(be better if ...)m
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 9 9
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10409(9)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_8 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 666 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(Y)m 44(ou)k
+2173(certainly)s 3657(don')s 7(t)k 4591(w)s 4(ant)k
+5460(to)s 5856(return)s 6901(to)s 1440 7887(his)m 1990(of\207ce)s
+2991(and)s 3665(report:)s 400 fnt5 2240 7048(`I)m 2626(can')s 12(t)k
+3542(\207nd)s 4252(an)s 4742(ef\207cient)s 2240 6568(algorithm,)m 3970(I)s
+4223(guess)s 5201(I'm)s 5848(just)s 6532(too)s 2240 6088(dumb)m 16(.)k 56(')k
+400 fnt1 1440 5330(T)m 32(o)k 1940(a)s 8(v)k 8(oid)k
+2909(serious)s 4124(damage)s 5458(to)s 5857(your)s 1440 4850(position)m
+2822(in)s 3227(the)s 3807(compan)s 6(y)k 26(,)k
+5418(it)s 5740(w)s 4(ould)k 6831(be)s 1440 4370(better)m
+2449(if)s 2813(\202)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 10 10
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10326(10)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 4128 11376(Lists)m
+
+[ /Dest /LOUT24_222_all_9 /DEST pdfmark
+360 fnt2 800 9722(@Heading { Oper)m 3(ating Instr)k -5(uctions })k 800 9242(@NumberedList)m
+800 8762(@ListItem { Press small g)m 3(reen le)k 10(v)k 9(er)k 18(.)k 21( })k
+800 8282(@ListItem { )m 14(W)k 14(ait appro)k 10(ximately 10 seconds)k 800 7802(until red light \210ashes)m 5(.)k 21( })k
+800 7322(@ListItem { If smok)m 7(e emerges from rear of unit,)k 800 6842(call Ser)m -10(vice Depar)k -14(tment.)k 21( })k
+800 6362(@EndList)m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 11 11
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10339(11)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_10 /DEST pdfmark
+8640 10080 1440 8456 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt4 1440 8364(Operating)m
+3287(Instructions)s 400 fnt1 1440 7529(1.)m 2240(Press)s 3166(small)s
+4123(green)s 5104(le)s 10(v)k 6(er)k 22(.)k
+
+[ /Dest /LOUT20_1492_all_1 /DEST pdfmark
+1440 6689(2.)m 2240(W)s 32(ait)k 3077(approximately)s 5468(10)s
+5952(seconds)s 2240 6209(until)m 3065(red)s 3672(light)s 4505(\210ashes.)s
+
+[ /Dest /LOUT20_1492_all_2 /DEST pdfmark
+1440 5369(3.)m 2240(If)s 2626(smok)s 4(e)k 3757(emer)s 7(ges)k
+5164(from)s 6040(rear)s 6760(of)s 2240 4889(unit,)m 3040(call)s
+3708(Service)s 4997(Department.)s 
+[ /Dest /LOUT20_1492_all_3 /DEST pdfmark
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 12 12
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(12)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 3062 11377(T)m 36(echnical)k
+4780(r)s 7(eports)k 
+[ /Dest /LOUT24_222_all_11 /DEST pdfmark
+360 fnt2 800 9646(@SysInclude { repor)m -14(t })k
+800 9166(@Repor)m -14(t)k 800 8686(    @Title { ...)m 21( })k 800 8206(    @A)m 10(uthor { ...)k 21( })k
+800 7726(    @Institution { ...)m 21( })k 800 7246(    @DateLine { ...)m 21( })k 800 6766(//)m
+800 6286(@Abstr)m 3(act { ...)k 21( })k 800 5806(@Section { ...)m 21( })k
+800 5326(@Section { ...)m 21( })k 800 4846(@Section { ...)m 21( })k 800 4366(@Appendix { ...)m 21( })k
+800 3886(@Appendix { ...)m 21( })k 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 13 13
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10334(13)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3840 11376(Sections)m
+
+[ /Dest /LOUT24_222_all_12 /DEST pdfmark
+360 fnt2 800 9720(@Section)m 800 9240(    @T)m 43(ag { dfs })k 800 8760(    @Title { Depth-\207rst search })m
+800 8280(@Begin)m 800 7800(@PP)m 800 7320(W)m 10(e tur)k -9(n no)k 5(w to our \207rst algor)k -5(ithm)k
+800 6840(on gener)m 3(al g)k 3(r)k 3(aphs ...)k 800 6360(@End @Section)m
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 14 14
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(14)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_13 /DEST pdfmark
+8640 10080 1440 8456 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt4 1440 8364(10.6.)m
+2424(Depth-\207rst)s 4386(sear)s 7(ch)k 400 fnt1 2240 7742(W)m 32(e)k
+2854(turn)s 3592(no)s 10(w)k 4359(to)s 4758(our)s
+5391(\207rst)s 1440 7262(algorithm)m 3093(on)s 3587(general)s 4854(graphs)s
+6003(\202)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 15 15
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1527(lout)m 10332(15)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3142 11375(Cr)m 7(oss)k
+4199(r)s 7(efer)k 7(ences)k 
+[ /Dest /LOUT24_222_all_14 /DEST pdfmark
+360 fnt2 800 9722(F)m 10(or fur)k -14(ther inf)k 10(or)k -9(mation, consult)k
+800 9242(Section @NumberOf dfs on page)m 800 8762(@P)m 14(ageOf { dfs }.)k 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 16 16
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10328(16)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_15 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(F)m 6(or)k
+2089(further)s 3276(information,)s 5341(consult)s 1440 7887(Section)m 2732(10.6)s
+3520(on)s 4014(page)s 4860(245.)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 17 17
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(17)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3612 11377(Refer)m 7(ences)k
+
+[ /Dest /LOUT24_222_all_16 /DEST pdfmark
+360 fnt2 800 9723(@Database @Ref)m 10(erence { m)k 5(yrefs })k 800 9243(...)m
+800 8763(F)m 10(or the details)k 5(, consult the User')k 18(s)k 800 8283(Guide @Cite { $kingston1995lout.user }.)m
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 18 18
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(18)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_17 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(F)m 6(or)k
+2089(the)s 2669(details,)s 3889(consult)s 5143(the)s 5723(User')s 22(s)k
+1440 7887(Guide)m 2508([1].)s 1440 7263(\202)m 400 fnt4 1440 6637(Refer)m 7(ences)k
+400 fnt1 1440 5879(1.)m 2240(Jef)s 10(fre)k 6(y)k
+3422(H.)s 3883(Kingston.)s 400 fnt5 5621 5881(A)m 5947(User')s 16(s)k
+2240 5401(Guide)m 3304(to)s 3703(the)s 4279(Lout)s 5119(Document)s
+2240 4921(F)m 42(ormatting)k 4107(System)s 5308(\(V)s 44(er)k 4(sion)k
+2240 4441(3\))m 400 fnt1 2556 4439(.)m 2829(Basser)s 3992(Department)s
+5977(of)s 2240 3959(Computer)m 3938(Science)s 5171(,)s 5349(Uni)s 10(v)k 6(ersity)k
+2240 3479(of)m 2693(Sydne)s 6(y)k 3876(,)s 4054(1995)s
+4830(.)s 
+[ /Dest /LOUT20_1492_all_4 /DEST pdfmark
+1440 2642(2.)m 2240(\202)s 
+[ /Dest /LOUT20_1492_all_5 /DEST pdfmark
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 19 19
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10329(19)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 2601 11375(Database)m
+4269(\207le)s 4872(myr)s 7(efs.ld)k 
+[ /Dest /LOUT24_222_all_18 /DEST pdfmark
+360 fnt2 800 9644({ @Ref)m 10(erence)k
+800 9164(     @T)m 43(ag { kingston1995lout.user })k 800 8684(     @T)m 43(ype { Book })k 800 8204(     @A)m 10(uthor { Jeffre)k 7(y H.)k 21( Kingston })k
+800 7724(     @Title { A User')m 18(s Guide to the Lout)k 800 7244(Document F)m 10(or)k -9(matting System \(V)k 28(ersion 3\) })k
+800 6764(     @Institution { Basser Depar)m -14(tment of)k 800 6284(Computer Science })m 800 5804(     @Address { Univ)m 9(ersity of Sydne)k 7(y)k
+800 5324(2006, A)m 10(ustr)k 3(alia })k 800 4844(     @Y)m 50(ear { 1994 })k
+800 4364(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 20 20
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10326(20)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+400 fnt4 2965 11375(Books)m
+4097(\(and)s 4966(theses\))s 
+[ /Dest /LOUT24_222_all_19 /DEST pdfmark
+400 fnt1 0 9650(\213)m 800(T)s 14(itle)k
+1632(page,)s 2564(pref)s 4(ace,)k 3912(introduction)s 
+[ /Dest /LOUT20_1492_all_6 /DEST pdfmark
+0 8810(\213)m
+800(Automatic)s 2574(table)s 3442(of)s 3895(contents)s 
+[ /Dest /LOUT20_1492_all_7 /DEST pdfmark
+0 8053(\213)m
+800(Pref)s 4(atory)k 2372(pages)s 3365(numbered)s 5060(in)s
+5465(Roman)s 6713(numerals)s 
+[ /Dest /LOUT20_1492_all_8 /DEST pdfmark
+0 7213(\213)m 800(Chapters,)s 2397(sections,)s
+3861(subsections,)s 5880(appendices)s 
+[ /Dest /LOUT20_1492_all_9 /DEST pdfmark
+0 6374(\213)m 800(References)s 2656(at)s
+3044(end)s 3718(of)s 4171(chapters)s 5585(or)s 6018(book)s
+
+[ /Dest /LOUT20_1492_all_10 /DEST pdfmark
+0 5535(\213)m 800(Running)s 2265(page)s 3111(headers)s 
+[ /Dest /LOUT20_1492_all_11 /DEST pdfmark
+0 4695(\213)m
+800(Odd-e)s 10(v)k 6(en)k 2453(page)s 3299(formats)s
+
+[ /Dest /LOUT20_1492_all_12 /DEST pdfmark
+0 3855(\213)m 800(Sorted)s 1940(inde)s 6(x)k 
+[ /Dest /LOUT20_1492_all_13 /DEST pdfmark
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 21 21
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10339(21)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 2631 11377(Making)m
+4057(a)s 4353(sorted)s 5509(index)s 
+[ /Dest /LOUT24_222_all_20 /DEST pdfmark
+360 fnt2 800 9646(@PP)m
+800 9166(There are se)m 10(v)k 9(er)k 3(al possib)k 7(le w)k 5(a)k 10(ys to implement the)k
+800 8686(@I P)m 14(ar)k -14(tition procedure)k 5(,)k 800 8206(par)m -14(tition @Inde)k 10(x { @I P)k 14(ar)k -14(tition \(in {@I Quic)k 7(ksor)k -14(t}\) })k
+800 7726(b)m 7(ut the f)k 10(ollo)k 5(wing seems to be the best.)k 21(  Star)k -14(ting ...)k
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 22 22
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(22)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_21 /DEST pdfmark
+8640 10080 1440 8462 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt4 1440 8370(Index)m
+400 fnt1 1440 7795(\202)m 1440 7315(partial)m 2552(order)s 16(,)k
+3557(227)s 400 fnt5 1440 6837(P)m 32(artition)k 400 fnt1
+2941 6835(\(in)m 400 fnt5 3479 6837(Quic)m 8(ksort)k 400 fnt1
+5052 6835(\),)m 5363(189)s 1440 6355(postorder)m 3049(tra)s 8(v)k 6(ersal)k
+1840 5875(of)m 2293(binary)s 3404(tree,)s 4180(19)s 1840 5395(topological)m
+3730(ordering,)s 5262(229)s 1440 4915(\202)m 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 23 23
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10334(23)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 2785 11376(Equation)m
+4455(f)s 10(ormatting)k 
+[ /Dest /LOUT24_222_all_22 /DEST pdfmark
+360 fnt2 800 9645(@SysInclude { eq })m 800 9165(...)m
+800 8685(Since @Eq { )m 18(T\(n-i\) = )k 18(T\(0\) = 0 } w)k 3(e ha)k 7(v)k 9(e)k
+800 8205(@IndentedDispla)m 10(y @Eq {)k 800 7725(T\(n\) = big sum from i=0 to n-1 2 sup i = 2 sup n - 1)m 800 7245(})m 800 6765(f)m 10(or the n)k 3(umber of disk mo)k 5(v)k 9(es made b)k 7(y the )k 18(T)k 43(o)k 5(w)k 3(ers)k
+800 6285(of Hanoi algor)m -5(ithm, giv)k 9(en @Eq { n } disks)k 5(.)k 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 24 24
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Italic
+%%+ font Symbol
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+%%IncludeResource: font Symbol
+/fnt6 { /Symbol LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(24)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_23 /DEST pdfmark
+8640 10080 1440 8457 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+1440 8367(Since)m 400 fnt5
+2419 8369(T)m 400 fnt6 2691 8357(\()m 400 fnt5 2831 8369(n)m
+400 fnt6 3141 8357(-)m 400 fnt5 3475 8369(i)m 400 fnt6
+3601 8357(\))m 3852(=)s 400 fnt5 4207 8369(T)m 400 fnt6
+4479 8357(\()m 4619(0)s 4828(\))s 5079(=)s 5434(0)s
+400 fnt1 5723 8367(we)m 6280(ha)s 8(v)k 6(e)k
+400 fnt5 2240 7204(T)m 400 fnt6 2512 7192(\()m 400 fnt5
+2652 7204(n)m 400 fnt6 2862 7192(\))m 3113(=)s 280 fnt5
+3468 7622(n)m 280 fnt6 3640 7613(-)m 3829(1)s 520 fnt6
+3522 7162(\345)m 280 fnt5 3483 6864(i)m 280 fnt6 3599 6855(=)m
+3791(0)s 280 fnt5 4149 7367(i)m 400 fnt6 3959 7192(2)m
+4363(=)s 280 fnt5 4908 7400(n)m 400 fnt6 4718 7192(2)m
+5161(-)s 5495(1)s 400 fnt1 1440 6098(for)m 2006(the)s
+2586(number)s 3907(of)s 4360(disk)s 5128(mo)s 6(v)k 6(es)k
+6243(made)s 1440 5618(by)m 1930(the)s 2510(T)s 32(o)k 10(wers)k
+3749(of)s 4202(Hanoi)s 5268(algorithm,)s 1440 5138(gi)m 10(v)k 6(en)k
+400 fnt5 2406 5140(n)m 400 fnt1 2696 5138(disks.)m 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 25 25
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1527(lout)m 10332(25)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3035 11375(Another)m
+4550(equation)s 
+[ /Dest /LOUT24_222_all_24 /DEST pdfmark
+360 fnt2 800 9644(@CenteredDispla)m 10(y @Eq {)k 800 9164(big int supp 1 on 0 )m 21(`)k
+800 8684(dx o)m 5(v)k 9(er sqr)k -14(t { 1 - x sup 2 })k 800 8204(= pi o)m 5(v)k 9(er 2)k
+800 7724(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 26 26
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Symbol
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Symbol
+/fnt6 { /Symbol LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10328(26)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_25 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+676 fnt6 3159 7423(\362)m
+280 fnt6 3355 7972(1)m 3355 7281(0)m 400 fnt5 3991 7782(dx)m
+1187 0 0 0 400 480 20 3587 7697 LoutGr2
+0 0 moveto xsize 0 lineto 0.05 ft setlinewidth stroke
+grestore
+
+grestore
+gsave
+0 7292 translate
+1.0000 1.2231 scale
+400 fnt6 3587 -100(\326)m 
+grestore
+981 0 0 0 400 480 20 3793 7617 LoutGr2
+0 0 moveto xsize 0 lineto 0.03 ft setlinewidth 2 setlinecap stroke
+grestore
+
+grestore
+400 fnt6 3853 7251(1)m 4129(-)s
+280 fnt6 4641 7365(2)m 400 fnt5 4463 7263(x)m 400 fnt6
+4914 7597(=)m 5269 7784(p)m gsave
+5269 7697 translate
+400 fnt5 212 0 0 0 400 480 20 LoutGraphic
+gsave
+0 0 moveto xsize 0 lineto 0.05 ft setlinewidth stroke
+grestore
+
+grestore
+5280 7317(2)m 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 27 27
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(27)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3991 11383(T)m 36(ables)k
+
+[ /Dest /LOUT24_222_all_26 /DEST pdfmark
+360 fnt2 800 9729(@SysInclude { tab })m 800 9249(...)m 800 8769(@T)m 43(ab)k
+800 8289(    @Fmta { @Col @I A ! @Col B })m 800 7809({)m 800 7329(@Ro)m 5(w)k 5(a)k
+800 6849(   A { F)m 10(or)k -14(tr)k 3(an })k 800 6369(   B { )m 18(The \207rst ...)k 21( language })k
+800 5889(@Ro)m 5(w)k 5(a)k 800 5409(   A { Algol-60 })m 800 4929(   B { Said to be ...)m 21( successors })k
+800 4449(@Ro)m 5(w)k 5(a)k 800 3969(   A { P)m 14(ascal })k
+800 3489(   B { )m 18(The f)k 10(amous ...)k 21( successors })k 800 3009(})m
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 28 28
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(28)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_27 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt5 1440 8177(F)m 42(ortr)k 6(an)k
+400 fnt1 3178 8175(The)m 3891(\207rst)s 4612(high-le)s 10(v)k 6(el)k
+3178 7695(programming)m 5442(language)s 400 fnt5 1440 6950(Algol-60)m 400 fnt1
+3178 6948(Said)m 3985(to)s 4384(be)s 4853(a)s 5130(better)s
+3178 6468(language)m 4712(than)s 5494(most)s 6371(of)s 6824(its)s
+3178 5988(successors)m 400 fnt5 1440 5327(P)m 32(ascal)k 400 fnt1
+3178 5325(The)m 3891(most)s 4768(f)s 4(amous)k 6024(of)s
+3178 4845(Algol-60')m 22(s)k 4971(successors)s 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 29 29
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10329(29)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3357 11375(Another)m
+4872(table)s 
+[ /Dest /LOUT24_222_all_28 /DEST pdfmark
+360 fnt2 800 10201(@T)m 43(ab)k 800 9721(   hmargin { 0.4c })m
+800 9241(   vmargin { 0.3v })m 800 8761(   side { single })m 800 8281(   @Fmta { @Col @B @CC X @Ov)m 9(er A,B)k 7(,C })k
+800 7801(   @Fmtb { @Col @I A ! @Col B !! @Col C })m 800 7321({)m 800 6361(@Ro)m 5(w)k 5(a  abo)k 5(v)k 9(e { single })k
+800 5881(   X { )m 18(V)k 25(alue of mathematical ...)k 21( dollars\) })k 800 4921(@Ro)m 5(wb  abo)k 5(v)k 9(e { doub)k 7(le })k
+800 4441(   A { Quadr)m 3(atic f)k 10(or)k -9(m)k 3(ula })k
+800 3961(   B { @Eq { x ^= { ...)m 21( } o)k 5(v)k 9(er 2a } })k 800 3481(   C { 3^.5 })m
+800 2521(@Ro)m 5(wb  belo)k 5(w { single })k 800 2041(   A { Binomial theorem })m 800 1561(   B { @Eq { \( a + b \) sup n ^= ...)m 21( b sup n-k } })k
+800 1081(   C { 12^ })m 800 601(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 30 30
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+%%+ font Symbol
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+%%IncludeResource: font Symbol
+/fnt6 { /Symbol LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10326(30)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_29 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+gsave
+1440 8640 translate
+0.5938 0.5938 scale
+0 144 0 144 400 480 100 0 -144 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+226 0 0 0 400 480 100 0 0 LoutGr2
+0.5 pt ltabhsp
+grestore
+
+grestore
+0 344 0 159 400 480 100 0 -488 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+0 144 0 0 400 480 100 0 -632 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+8889 0 0 0 400 480 100 226 0 LoutGr2
+0.5 pt ltabhs
+grestore
+
+grestore
+400 fnt4 226 -421(V)m 36(alue)k
+1281(of)s 1736(mathematical)s 4157(f)s 10(ormulae)k 5793(\(millions)s
+7369(of)s 7824(dollars\))s gsave
+9115 0 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhsp
+grestore
+
+grestore
+gsave
+9341 -144 translate
+400 fnt1 360 144 0 144 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+9341 -488 translate
+400 fnt1 360 344 0 159 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+9341 -632 translate
+400 fnt1 360 144 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+0 -776 translate
+400 fnt1 0 144 0 144 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+0 -632 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+gsave
+0 -1867 translate
+400 fnt1 0 1091 0 480 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+0 -2011 translate
+400 fnt1 0 144 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+226 -632 translate
+400 fnt1 2985 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+400 fnt5 226 -1475(Quadr)m 6(atic)k
+1955(formula)s gsave
+3211 -632 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+gsave
+3437 -632 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+gsave
+3663 -632 translate
+400 fnt1 4255 0 1260 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+4725(x)s 400 fnt6 5063 -1487(=)m 5418 -1207(-)m
+400 fnt5 5652 -1195(b)m 400 fnt6 5962 -1207(\261)m gsave
+0 -1146 translate
+1.0000 1.3937 scale
+6297 -100(\326)m
+
+grestore
+gsave
+6503 -776 translate
+400 fnt5 1415 0 0 0 400 480 20 LoutGraphic
+gsave
+0 0 moveto xsize 0 lineto 0.03 ft setlinewidth 2 setlinecap stroke
+grestore
+
+grestore
+280 fnt6 6753 -1028(2)m 400 fnt5 6563 -1195(b)m 400 fnt6
+7006 -1207(-)m 7340(4)s 400 fnt5 7548 -1195(ac)m 2500 0 0 0 400 480 20 5418 -1387 LoutGr2
+0 0 moveto xsize 0 lineto 0.05 ft setlinewidth stroke
+grestore
+
+grestore
+400 fnt6
+6467 -1767(2)m 400 fnt5 6677 -1755(a)m gsave
+7918 -632 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+gsave
+8144 -776 translate
+400 fnt1 0 144 0 144 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8144 -632 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+gsave
+8144 -1867 translate
+400 fnt1 0 1091 0 480 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8144 -2011 translate
+400 fnt1 0 144 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8370 -632 translate
+400 fnt1 745 0 390 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhd
+grestore
+
+grestore
+400 fnt1 8587 -1477(3)m
+8760(.5)s 226 0 0 0 400 480 100 9115 -632 LoutGr2
+0.5 pt ltabhd
+grestore
+
+grestore
+360 144 0 144 400 480 100 9341 -776 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+360 1091 0 480 400 480 100 9341 -1867 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+360 144 0 0 400 480 100 9341 -2011 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+0 144 0 144 400 480 100 0 -2155 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+0 863 0 449 400 480 100 0 -3018 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+0 144 0 0 400 480 100 0 -3162 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+226 0 0 0 400 480 100 0 -3162 LoutGr2
+0.5 pt ltabhsp
+grestore
+
+grestore
+400 fnt5 226 -2657(Binomial)m 1791(theor)s 14(em)k
+gsave
+226 -3162 translate
+400 fnt1 2985 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+gsave
+3211 -3162 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+gsave
+3437 -3162 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+400 fnt6 3663 -2669(\()m 400 fnt5 3803 -2657(a)m 400 fnt6
+4114 -2669(+)m 400 fnt5 4449 -2657(b)m 280 fnt5 4770 -2463(n)m
+400 fnt6 4659 -2669(\))m 5063(=)s 336 fnt6 5549 -2290(\245)m
+520 fnt6 5484 -2699(\345)m 280 fnt5 5418 -3005(k)m 280 fnt6
+5588 -3014(=)m 5780(0)s gsave
+0 -2560 translate
+1.0000 2.3652 scale
+400 fnt6 5932 -100(\()m 
+grestore
+400 fnt5
+6112 -2417(n)m 6115 -2893(k)m gsave
+0 -2560 translate
+1.0000 2.3652 scale
+400 fnt6 6362 -100(\))m 
+grestore
+280 fnt5
+6684 -2501(k)m 400 fnt5 6493 -2657(a)m 280 fnt5 7022 -2488(n)m
+280 fnt6 7194 -2497(-)m 280 fnt5 7383 -2488(k)m 400 fnt5
+6832 -2657(b)m gsave
+3663 -3162 translate
+400 fnt1 4255 0 1260 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+gsave
+7918 -3162 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+gsave
+8144 -2155 translate
+400 fnt1 0 144 0 144 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8144 -3018 translate
+400 fnt1 0 863 0 449 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8144 -3162 translate
+400 fnt1 0 144 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabvs
+grestore
+
+grestore
+gsave
+8144 -3162 translate
+400 fnt1 226 0 0 0 400 480 100 LoutGraphic
+gsave
+0.5 pt ltabhs
+grestore
+
+grestore
+400 fnt1 8370 -2659(12)m 745 0 390 0 400 480 100 8370 -3162 LoutGr2
+0.5 pt ltabhs
+grestore
+
+grestore
+226 0 0 0 400 480 100 9115 -3162 LoutGr2
+0.5 pt ltabhsp
+grestore
+
+grestore
+360 144 0 144 400 480 100 9341 -2155 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+360 863 0 449 400 480 100 9341 -3018 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+360 144 0 0 400 480 100 9341 -3162 LoutGr2
+0.5 pt ltabvs
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 31 31
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10339(31)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3123 11382(P)m 4(ascal)k
+4297(pr)s 7(ograms)k 
+[ /Dest /LOUT24_222_all_30 /DEST pdfmark
+360 fnt2 800 9651(@SysInclude { pas })m 800 9171(...)m
+800 8691(@ID @P)m 14(as {)k 800 8211(procedure DoPr)m -5(iAbstr)k 3(act\(root:)k 18( Pr)k -5(iEntr)k -10(y\);)k
+800 7731(begin)m 800 7251(    if root^.leftchild <> nil then begin)m 800 6771(        DoPr)m -5(iAbstr)k 3(act\(root^.leftchild\);)k
+800 6291(        wr)m -5(ite\(', '\);)k 800 5811(    end;)m 800 5331(    Pr)m -5(iK)k 14(e)k 7(yAbstr)k 3(act\(root^.k)k 7(e)k 7(y\);)k
+800 4851(    wr)m -5(ite\(':'\);)k 800 4371(    Pr)m -5(iV)k 25(alueAbstr)k 3(act\(root^.v)k 9(alue\);)k
+800 3891(    if root^.r)m -5(ightchild <> nil then begin)k 800 3411(        wr)m -5(ite\(', '\);)k 800 2931(        DoPr)m -5(iAbstr)k 3(act\(root^.r)k -5(ightchild\);)k
+800 2451(    end;)m 800 1971(end;)m 800 1491(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 32 32
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+%%+ font Symbol
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+%%IncludeResource: font Symbol
+/fnt6 { /Symbol LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(32)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_31 /DEST pdfmark
+8640 10080 1440 8455 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+400 fnt4 1440 8363(pr)m 7(ocedur)k 7(e)k
+400 fnt5 3270 8367(DoPriAbstr)m 6(act)k 400 fnt1 5622 8365(\()m
+400 fnt5 5744 8367(r)m 18(oot)k 400 fnt1 6399 8365(:)m
+400 fnt5 6576 8367(PriEntry)m 400 fnt1 7966 8365(\);)m 400 fnt4
+1440 7883(begin)m 1840 7403(if)m 400 fnt5 2206 7407(r)m 18(oot)k
+320 fnt6 2861 7415(\255)m 400 fnt1 3043 7405(.)m 400 fnt5
+3116 7407(leftc)m 6(hild)k 400 fnt6 4529 7395(\271)m 400 fnt4
+4845 7403(nil)m 5380(then)s 6228(begin)s 400 fnt5 2240 6927(DoPriAbstr)m 6(act)k
+400 fnt1 4592 6925(\()m 400 fnt5 4714 6927(r)m 18(oot)k
+320 fnt6 5369 6935(\255)m 400 fnt1 5551 6925(.)m 400 fnt5
+5624 6927(leftc)m 6(hild)k 400 fnt1 6937 6925(\);)m 400 fnt5
+2240 6447(write)m 400 fnt1 3048 6445(\(',)m 3492('\);)s 400 fnt4
+1840 5963(end)m 400 fnt1 2453 5965(;)m 400 fnt5 1840 5487(PriK)m 14(e)k 12(yAbstr)k 6(act)k
+400 fnt1 4298 5485(\()m 400 fnt5 4420 5487(r)m 18(oot)k
+320 fnt6 5075 5495(\255)m 400 fnt1 5257 5485(.)m 400 fnt5
+5330 5487(k)m 4(e)k 12(y)k 400 fnt1 5838 5485(\);)m
+400 fnt5 1840 5007(write)m 400 fnt1 2648 5005(\(':'\);)m 400 fnt5
+1840 4527(PriV)m 44(alueAbstr)k 6(act)k 400 fnt1 4592 4525(\()m
+400 fnt5 4714 4527(r)m 18(oot)k 320 fnt6 5369 4535(\255)m
+400 fnt1 5551 4525(.)m 400 fnt5 5624 4527(value)m 400 fnt1
+6477 4525(\);)m 400 fnt4 1840 4043(if)m 400 fnt5 2206 4047(r)m 18(oot)k
+320 fnt6 2861 4055(\255)m 400 fnt1 3043 4045(.)m 400 fnt5
+3116 4047(rightc)m 6(hild)k 400 fnt6 4796 4035(\271)m 400 fnt4
+5112 4043(nil)m 5647(then)s 6495(begin)s 400 fnt5 2240 3567(write)m
+400 fnt1 3048 3565(\(',)m 3492('\);)s 400 fnt5 2240 3087(DoPriAbstr)m 6(act)k
+400 fnt1 4592 3085(\()m 400 fnt5 4714 3087(r)m 18(oot)k
+320 fnt6 5369 3095(\255)m 400 fnt1 5551 3085(.)m 400 fnt5
+5624 3087(rightc)m 6(hild)k 400 fnt1 7204 3085(\);)m 400 fnt4
+1840 2603(end)m 400 fnt1 2453 2605(;)m 400 fnt4 1440 2123(end)m
+400 fnt1 2053 2125(;)m 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 33 33
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10334(33)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3304 11376(Basic)m
+4308(graphics)s 
+[ /Dest /LOUT24_222_all_32 /DEST pdfmark
+360 fnt2 800 9645(45d @Rotate 1.5 @Scale @Bo)m 10(x {)k 800 9165(    Hello)m 14(, w)k 3(or)k -5(ld)k
+800 8685(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 34 34
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(34)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_33 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+gsave
+2528 5722 translate
+45.0000 rotate
+gsave
+0 0 translate
+1.5000 1.5000 scale
+gsave
+0 -254 translate
+360 fnt2 2027 526 108 254 360 480 100 LoutGraphic
+gsave
+LoutBox  stroke
+grestore
+108 161(Hello)m 14(,)k
+1080(w)s 3(or)k -5(ld)k 
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 35 35
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1527(lout)m 10332(35)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 2908 11375(Adv)m 4(anced)k
+4704(graphics)s 
+[ /Dest /LOUT24_222_all_34 /DEST pdfmark
+360 fnt2 800 9644(@SysInclude { \207g })m 800 9164(...)m 800 8684(@Fig {)m
+800 8204(@Bo)m 10(x)k 800 7724(    margin { 0c })m 800 7244(    paint { b)m 7(lac)k 7(k })k
+800 6764(@Ellipse)m 800 6284(    linestyle { noline })m 800 5804(    paint { white })m 800 5324({ Hello)m 14(, w)k 3(or)k -5(ld })k
+800 4844(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 36 36
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10328(36)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_35 /DEST pdfmark
+8640 10080 1440 8231 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+5760 781 226 372 400 480 100 1440 7859 LoutGr2
+grestore save gsave 200 dict begin lfigdict begin
+grestore
+2442 781 226 372 400 480 100 0 0 LoutGr2
+/lfigblack [ lfigbox ] gsave lfigpaintpath grestore
+0.5 pt setlinewidth lfiground setlinecap
+0.15 cm /lfigsolid [ lfigbox ] lfigdopath
+pop pop
+grestore
+2442 781 226 372 400 480 100 0 0 LoutGr2
+/lfigwhite [ lfigellipse ] gsave lfigpaintpath grestore
+0.5 pt setlinewidth lfiground setlinecap
+0.15 cm /lfignoline [ lfigellipse ] lfigdopath
+pop pop
+grestore
+226 282(Hello,)m 1291(w)s 4(orld)k
+
+grestore
+
+grestore
+end end restore
+grestore
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 37 37
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(37)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3302 11376(P)m 8(oint)k
+4304(labelling)s 
+[ /Dest /LOUT24_222_all_36 /DEST pdfmark
+360 fnt2 800 9645(@Fig {)m 800 9165(A::)m 800 8685({)m
+800 8205(    1::)m 18( @Ellipse { 3c @Wide 2c @High })k 800 7725(    //3c)m 800 7245(    2::)m 18( @Bo)k 10(x { 3c @Wide 2c @High })k
+800 6765(})m 800 6285(@Sho)m 5(wLabels)k 800 5805(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 38 38
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10331(38)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_37 /DEST pdfmark
+8640 10080 1440 8414 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+5760 4873 0 4647 400 480 100 1440 3767 LoutGr2
+grestore save gsave 200 dict begin lfigdict begin
+grestore
+2153 4873 0 4647 400 480 100 0 0 LoutGr2
+currentdict end 200 dict begin begin
+grestore
+2153 1586 226 1360 400 480 100 0 3287 LoutGr2
+currentdict end 200 dict begin begin
+grestore
+2153 1586 226 1360 400 480 100 0 0 LoutGr2
+
+0.5 pt setlinewidth lfiground setlinecap
+0.15 cm /lfigsolid [ lfigellipse ] lfigdopath
+pop pop
+grestore
+
+grestore
+(1) lfigpromotelabels
+grestore
+2153 1586 226 1360 400 480 100 0 0 LoutGr2
+currentdict end 200 dict begin begin
+grestore
+2153 1586 226 1360 400 480 100 0 0 LoutGr2
+
+0.5 pt setlinewidth lfiground setlinecap
+0.15 cm /lfigsolid [ lfigbox ] lfigdopath
+pop pop
+grestore
+
+grestore
+(2) lfigpromotelabels
+grestore
+(A) lfigpromotelabels
+grestore
+3507 4873 0 4647 400 480 100 2253 0 LoutGr2
+lfigshowlabels
+grestore
+
+grestore
+end end restore
+grestore
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 39 39
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Bold
+/Times-Boldfnt4 vec2 /Times-Bold LoutRecode
+/fnt4 { /Times-Boldfnt4 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10329(39)s gsave
+1417 -14005 translate
+400 fnt1 9066 12051 0 12051 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+400 fnt4 3895 11375(Graphs)m
+
+[ /Dest /LOUT24_222_all_38 /DEST pdfmark
+340 fnt2 800 9035(@Gr)m 3(aph)k 800 8555(    abo)m 5(v)k 8(ecaption { Ne)k 6(w South )k 13(W)k 13(ales road deaths)k
+800 8075(\(per 100 million v)m 8(ehicle km\) })k 800 7595({)m 800 7115(    @Data  points { plus }  pairs { dashed })m 800 6635(    { 1963 5.6  1971 4.3  1976 3.7  1979 3.4)m
+800 6155(    1982 2.9  1985 2.3  1988 2.0 })m 800 5675(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 40 40
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10326(40)s gsave
+1417 -14005 translate
+400 fnt1 9066 12052 0 12052 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_39 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 667 LoutGr2
+LoutBox  stroke
+grestore
+1631 8367(Ne)m 10(w)k
+2463(South)s 3491(W)s 32(ales)k 4540(road)s 5347(deaths)s
+1717 7887(\(per)m 2460(100)s 3151(million)s 4400(v)s 6(ehicle)k
+5639(km\))s 5103 3402 0 3402 400 480 100 1440 4116 LoutGr2
+grestore
+
+gsave xsize ysize lgraphdict begin /ysize exch def /xsize exch def
+/alldata [ [ [ 1963 5.6 1971 4.3 1976 3.7 1979 3.4 1982 2.9 1985 2.3 1988 2.0 ] xandy
+{ plus }
+{ ilinesetup dashed }
+{ /dashlength 0.2 ft def
+  /linewidth currentlinewidth def 
+  /symbolsize 0.15 ft def }
+{ false }
+] ] def
+0 [ false ] 0 alldata false false 0
+0.5 cm false false 0.5 ft xset
+0 [ false ] 1 alldata false false 0
+0.5 cm false false 0.5 ft yset
+norset
+rundata framestyle
+grestore
+end
+
+grestore
+
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 41 41
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Helvetica
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Helvetica
+/Helveticafnt2 vec2 /Helvetica LoutRecode
+/fnt2 { /Helveticafnt2 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10339(41)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_40 /DEST pdfmark
+360 fnt2 800 10484(-2p @F)m 10(ont @Gr)k 3(aph)k
+800 10004(    style { ax)m 10(es })k 800 9524(    xor)m -5(igin { 0 }  y)k 7(or)k -5(igin { 0 })k
+800 9044(    xtic)m 7(ks { 10@ 50@ 100@ 200@ 500@ })k 800 8564(    objects {  @NE at { 300 2 } @I { Exponential })m 800 8084(      @SE at { ...)m 21( } @I { Unif)k 10(or)k -9(m } })k
+800 7604(    belo)m 5(wcaption { @I n })k 800 7124({)m 800 6644(    @Data points { \207lledcircle } { ...)m 21( })k
+800 6164(    @Data points { \207lledcircle } { ...)m 21( })k 800 5204(    @Data pairs { dashed })m 800 4724(    { 10 2  500 2 })m 800 3764(    @Data pairs { dashed })m
+800 3284(    {)m 800 2804(        xloop from { 10 } to { 500 } b)m 7(y { 20 } do)k 800 2324(        {)m 800 1844(            x  sqr)m -14(t { pi*x / 4 } + 1)k
+800 1364(        })m 800 884(    })m 800 404(})m 
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+1 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Page: 42 42
+%%BeginPageSetup
+%%PageResources: font Times-Roman
+%%+ font Times-Italic
+/pgsave save def
+%%IncludeResource: font Times-Roman
+/Times-Romanfnt1 vec2 /Times-Roman LoutRecode
+/fnt1 { /Times-Romanfnt1 LoutFont } def
+%%IncludeResource: font Times-Italic
+/Times-Italicfnt5 vec2 /Times-Italic LoutRecode
+/fnt5 { /Times-Italicfnt5 LoutFont } def
+0.0500 dup scale 10 setlinewidth
+%%EndPageSetup
+gsave
+0 0 translate
+400 fnt1 0.0 0.0 0.0 setrgbcolor 11900 16840 0 16840 400 480 100 LoutGraphic
+gsave
+LoutPageSet
+grestore
+gsave
+0 16840 translate
+0.0000 rotate
+160 fnt1 1417 -1526(lout)m 10327(42)s gsave
+1417 -14005 translate
+400 fnt1 9066 12053 0 12053 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+[ /Dest /LOUT24_222_all_41 /DEST pdfmark
+8640 10080 1440 8640 400 480 100 0 668 LoutGr2
+LoutBox  stroke
+grestore
+gsave
+1440 4671 translate
+360 fnt1 5670 3969 0 3969 360 480 90 LoutGraphic
+gsave
+grestore
+
+gsave xsize ysize lgraphdict begin /ysize exch def /xsize exch def
+/alldata [ [ [ 10 1.97 50 2.01 100 2.00 200 2.0 500 2.00 ] xandy
+{ filledcircle }
+{  }
+{ /dashlength 0.2 ft def
+  /linewidth currentlinewidth def 
+  /symbolsize 0.15 ft def }
+{ false }
+]
+[ [ 10 3.53 50 7.45 100 9.32 200 13.41 500 21.63 ] xandy
+{ filledcircle }
+{  }
+{ /dashlength 0.2 ft def
+  /linewidth currentlinewidth def 
+  /symbolsize 0.15 ft def }
+{ false }
+]
+[ [ 10 2 500 2 ] xandy
+{  }
+{ linesetup cdashed }
+{ /dashlength 0.2 ft def
+  /linewidth currentlinewidth def 
+  /symbolsize 0.15 ft def }
+{ false }
+]
+[ [ 10 20 500 { /xval exch def xval 3.14159 xval mul 4 div sqrt 1 add } for ] xandy
+{  }
+{ linesetup cdashed }
+{ /dashlength 0.2 ft def
+  /linewidth currentlinewidth def 
+  /symbolsize 0.15 ft def }
+{ false }
+] ] def
+0 [ 10 lgen 50 lgen 100 lgen 200 lgen 500 lgen ] 0 alldata false false 0
+0 false 0 0.5 ft xset
+0 [ false ] 1 alldata false false 0
+0 false 0 0.5 ft yset
+norset
+rundata axesstyle
+grestore
+1953 535 0 535 360 480 90 0 -535 LoutGr2
+300 2 trpoint translate 0 ysize translate gsave
+grestore
+360 fnt5 108 182(Exponential)m
+grestore
+grestore
+1428 533 0 533 360 480 90 0 -533 LoutGr2
+300 3.14159 300 4 div mul sqrt 1 add trpoint translate 0 0 translate gsave
+grestore
+360 fnt5 108 182(Uniform)m grestore
+grestore
+end
+
+grestore
+360 fnt5 4189 3901(n)m 
+grestore
+
+grestore
+gsave
+1417 -14005 translate
+400 fnt1 0 0 0 0 400 480 100 LoutGraphic
+gsave
+0 LoutMargSet
+grestore
+
+grestore
+
+grestore
+
+grestore
+
+pgsave restore
+showpage
+
+%%Trailer
+%%DocumentNeededResources: font Times-Roman
+%%+ font Times-Bold
+%%+ font Times-Italic
+%%+ font Helvetica
+%%+ font Helvetica-Oblique
+%%+ font Symbol
+%%DocumentSuppliedResources: procset LoutStartUp
+%%+  procset LoutTabPrependGraphic
+%%+  procset LoutFigPrependGraphic
+%%+  procset LoutGraphPrependGraphic
+%%+  procset LoutBasicSetup
+%%+ encoding vec2
+%%Pages: 42
+%%EOF

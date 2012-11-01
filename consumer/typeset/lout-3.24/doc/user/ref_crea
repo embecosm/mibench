@@ -1,0 +1,139 @@
+@Section
+    @Title { Creating your own entry types and formats }
+    @Tag { refstyles }
+@Begin
+@PP
+Although the set of options to the @Code "@Reference" symbol
+({@Code "@Tag"}, {@Code "@Type"}, {@Code "@Author"}, etc.) is fixed, you
+can add your own reference types and change the formatting of existing types.
+@PP
+To do this you must be using your own setup file, as explained in
+Section {@NumberOf setup}.  At the end of the setup file you will find
+this line:
+reference.print @Index { reference printing style }
+ref.style @Index @Code "@RefStyle"
+@ID @Code "@SysDatabase @RefStyle { refstyle }"
+This tells Lout to consult a database file of reference styles called
+{@Code "refstyle.ld"}.  These are not references, they are formatting
+styles, one for each reference type.  The @Code "Sys" in @Code "@SysDatabase"
+sys.database @Index @Code "@SysDatabase"
+means that this file is stored in the @I { Lout system database directory },
+system.database.dir @Index { system database directory }
+refstyle.ld.file @Index { @Code "refstyle.ld" file}
+which is where all the standard databases are kept.  To change the
+formatting of a reference type, or to add your own types, you need to
+create your own reference styles database file by copying and modifying
+{@Code "refstyle.ld"}.
+@PP
+To find out the name of the Lout system database directory, type the
+Unix command
+@ID @Code "lout -V"
+Then, supposing that the Lout system database directory is
+{@Code "/usr/lout/data"}, type
+@ID @Code "cp /usr/lout/data/refstyle.ld mystyle.ld"
+to place a copy of the @Code "refstyle.ld" database file in your
+mystyle.ld.file @Index { @Code "mystyle.ld" file}
+directory, renaming it {@Code "mystyle.ld"}.  Since @Code "refstyle.ld"
+is read-only, you may also need to change the mode of @Code "mystyle.ld"
+to be writable (by @Code "chmod +w mystyle.ld" in Unix).  Now replace
+@ID @Code "@SysDatabase @RefStyle { refstyle }"
+at the end of your setup file by
+@ID @Code "@Database @RefStyle { mystyle }"
+and Lout will read its reference styles from @Code "mystyle.ld" instead
+of {@Code "refstyle.ld"}.  Since the two are at
+present identical, this has changed nothing so far; but now any changes
+you make to @Code "mystyle.ld" will affect your document.  Changing
+@Code "@SysDatabase" to @Code "@Database" makes Lout search your
+current directory for {@Code "mystyle.ld"}, whereas @Code "@SysDatabase"
+searches only the system directory.
+@PP
+In practice you will probably want to store your database of reference
+styles in some library directory, so that it can be used by
+many documents.  A Unix pathname is appropriate for this:
+@ID @Code "@Database @RefStyle { \"/usr/jeff/lib/mystyle\" }"
+Quotes are needed because of the @Code "/" characters.
+@PP
+The database entries within @Code "refstyle.ld" and @Code "mystyle.ld"
+might look something like this:
+@ID @OneRow @Code {
+"{ Book @RefStyle @Style"
+"  {  @Reference&&reftag @Open"
+"     {"
+"        @Author.  @I @Title.  @Publisher, @Year."
+"     }"
+"  }"
+"}"
+}
+The meaning of the first two lines is beyond our scope, except that
+@Code "Book" on the first line means that this is the entry which
+defines how references of type @Code Book will be printed.  Fortunately,
+apart from this one word these two lines are the same in every
+reference style entry so you don't need to understand them.  The
+important part is in the middle:
+@ID @Code "@Author.  @I @Title.  @Publisher, @Year."
+The meaning should be clear:  first print the author option and a full
+stop, then the title option and another full stop in italics, and so
+on.  To change the formatting of books, change this object.  To create
+a new reference type, copy the entire database entry, change @Code Book
+to a new name of your choice, and change the middle part.  Don't forget
+to delete the index file @Code "mystyle.li" afterwards, if there is one,
+so that Lout knows to generate it afresh.
+@PP
+Although the entry shown above is perfectly viable, the real entry for
+@Code Book is much more complicated, in part because there are more
+options than those basic four, but mainly because the real entry goes
+to great lengths to do the right thing when options are omitted:
+@ID @Tab
+    vmargin { 0.45vx }
+    @Fmta { @Col @Code A ! @Col @Code B }
+{
+@Rowa A { "{ Book @RefStyle @Style" }
+@Rowa A { "  {  @Reference&&reftag @Open" }
+@Rowa A { "     {" }
+@Rowa A { "        {  @Author.  {}" }		B { "}  @If  @Author" }
+@Rowa A { "        {  @I @Title" }		B { "}  @If  @Title" }
+@Rowa A { "        {  @Word&&notitle" }		B { "}  @If  @Not @Title" }
+@Rowa A { "        {  , @Pinpoint" }		B { "}  @If  @Pinpoint" }
+@Rowa A { "        {  , @Word&&pages @NumSep @Pages" }	B { "}  @If  @Pages" }
+@Rowa A { "        {  , @Word&&page @NumSep @Page" }	B { "}  @If  @Page" }
+@Rowa A { "        {  .  @TitleNote" }		B { "}  @If  @TitleNote" }
+@Rowa A { "        {  .  @HowPublished" }	B { "}  @If  @HowPublished" }
+@Rowa A { "        {  .  @Publisher" }		B { "}  @If  @Publisher" }
+@Rowa A { "        {  .  @Organization" }	B { "}  @If  @Organization" }
+@Rowa A { "        {  .  @Institution" }	B { "}  @If  @Institution" }
+@Rowa A { "        {  , @Address" }		B { "}  @If  @Address" }
+@Rowa A { "        {  .  @Edition" }		B { "}  @If  @Edition" }
+@Rowa A { "        {  , @Month @Year" }	B { "}  @If  @Year @And @Month" }
+@Rowa A { "        {  , @Year " }	B { "}  @If  @Year @And @Not @Month" }
+@Rowa A { "        {  ." }		B { "}  @If  @True" }
+@Rowa A { "        {  {}  URL @URL." }	B { "}  @If  @URL" }
+@Rowa A { "        {  {}  @Note" }	B { "}  @If  @Note" }
+@Rowa A { "     }" }
+@Rowa A { "  }" }
+@Rowa A { "}" }
+}
+The meaning is that each object to the left of an @Code "@If" will be
+if. @Index @Code "@If"
+printed only if the condition to the right of the @Code "@If" is
+true.  The condition may contain options, which are considered to be
+true if they are not omitted (non-empty), and it may contain {@Code "@And"},
+and. @Index @Code "@And"
+or. @Index @Code "@Or"
+not. @Index @Code "@Not"
+true. @Index @Code "@True"
+{@Code "@Or"}, {@Code "@Not"}, and @Code "@True" with the usual precedence
+and meaning.  Sub-conditions may be enclosed in braces if desired, although
+it is best to keep the conditions as simple as possible given the
+complexity of the whole setup.
+@PP
+The objects subject to @Code "@If" are printed with no space preceding
+them; any space in the final print will be the result of space within
+them, not between them.  This is why @Code "@If @True" is not redundant.
+@PP
+The object @Code "@Word&&notitle" produces @Code "No title" in the
+current language; @Code "@Word&&pages" produces {@Code pages} in the
+current language, and so on.  Consult database @Code "standard.ld" for
+standard.ld.file @Index { @Code "standard.ld" file }
+other standard words and phrases, and page {@PageOf numsep} for
+{@Code "@NumSep"}.
+@End @Section

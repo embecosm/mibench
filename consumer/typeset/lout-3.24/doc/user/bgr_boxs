@@ -1,0 +1,123 @@
+@Section
+    @Title { Boxes and rules }
+    @Tag { boxes }
+@Begin
+@PP
+The @Code "@Box" symbol causes the following object to be enclosed in a
+box. @Index @Code "@Box"
+box:
+@ID @OneRow @Code {
+"@QuotedDisplay @Box {"
+"@CentredDisplay @Heading Cheating"
+"The Department uses assignments ... of that student alone."
+"}"
+}
+The result of this is
+@QuotedDisplay @Box {
+@CentredDisplay @Heading Cheating
+The Department uses assignments both as a teaching device and as a
+major component of its assessment of each student.  It therefore
+requires that all programs, exercises etc. handed in bearing an
+individual student's name be the work of that student alone.
+}
+showing that a box may enclose an arbitrarily complicated object.
+@PP
+The @Code "@Box" symbol has a @Code margin option which determines the
+margin between the box and what it encloses.  For example,
+@ID @OneRow @Code {
+"@Box"
+"    margin { 0.1c }"
+"{}"
+}
+requests a box with a 0.1 centimetre margin enclosing an empty object,
+so the result is a square whose width and height are 0.2 centimetres:
+@ID @Box margin { 0.1c } {}
+If the @Code "margin" option is omitted, it is assigned the default
+value {@Code "0.3f"}, which means 0.3 times the current font size.  It
+is very useful to tie the margin to the font size in this way, because
+large headings (in overhead transparencies, say) need large margins.
+@PP
+There is a @Code "linewidth" option which determines the width
+(thickness) of the line drawn around the boundary of the box:
+@ID @OneRow @Code {
+"@Box"
+"    linewidth { 0.1c }"
+"{ Hello world }"
+}
+produces
+@ID @Code {
+@Box
+    linewidth { 0.1c }
+{ Hello world }
+}
+Lout does not take the line width into account when working out how
+large everything is:  as far as Lout is concerned, the line always
+has width zero.  If you draw really thick lines you might need a larger
+margin and more space near the box.  The default value of @Code linewidth
+is empty, which means to use whatever width the PostScript interpreter
+in your output device thinks is a good default value.  The special
+value @Code "none" for @Code "linewidth" ensures that no line is drawn
+around the box at all.
+@PP
+There is also a @Code "paint" option which paints a background of the
+nominated colour:
+@ID @Code "@Box paint { grey } WARNING!"
+has result
+@ID @Box paint { grey } WARNING!
+This is quite different from {@Code "grey @Colour @Box WARNING!"},
+which produces
+@ID grey @Colour @Box WARNING!
+The @Code "paint" option may be given any colour from the list in
+Section {@NumberOf colour}; its default value is {@Code "none"}, which
+is a special value (not a colour) which means no painting.  White paint
+comes into its own inside painted boxes:
+@ID @Code "@Box paint { nochange } white @Colour { Hello world }"
+produces a box painted in whatever colour we happen to be using at
+the moment, with white text inside:
+@ID @Box paint { nochange } white @Colour { Hello world }
+This works because the box is painted before the object it encloses
+is drawn on the page.
+@PP
+There are @Code "@CurveBox" and @Code "@ShadowBox" symbols that
+curvebox. @Index @Code "@CurveBox"
+shadowbox. @Index @Code "@ShadowBox"
+produce other kinds of boxes:
+@CD @Tab
+    @Fmta { @Col A ! @Col ! @Col B }
+{
+@Rowa
+    A { @CurveBox { A curve box } }
+    B { @ShadowBox { A shadow box } }
+}
+These also have @Code "margin" and @Code "paint" options, and
+@Code "@ShadowBox" has a @Code "shadow" option which determines
+the thickness of the shadow (its default value is {@Code "0.2f"}).
+@PP
+Boxes are quite at home inside paragraphs, as @Box { a box },
+@CurveBox { a curve box }, and @ShadowBox { a shadow box }
+show.  Simply proceed as usual:
+@ID @Code "... paragraphs, as @Box { a box }, @CurveBox { a curve box }, ..."
+Boxes within paragraphs are never broken across two lines.
+@PP
+There are two symbols for producing horizontal rules.  @Code "@FullWidthRule"
+fullwidthrule. @Index @Code "@FullWidthRule"
+rules. @Index rules
+produces a rule which occupies the full page (or column) width:
+@DP @FullWidthRule @DP
+More precisely, the rule occupies as much horizontal space as it
+legally can.  @Code "@FullWidthRule" produces an object in the usual
+way, so you will need paragraph or display symbols to separate it from
+preceding and following things.
+@PP
+A variant called @Code "@LocalWidthRule" is more timid about zooming
+localwidthrule. @Index @Code "@LocalWidthRule"
+across the whole page:
+@ID @Code {
+"@OddPageTop { { My lovely document @LP @LocalWidthRule } @Right @PageNum }"
+}
+will draw a rule under just the three words.  Of course, underlining using
+the @Code "@Underline" symbol might be a better way to do this.  Both
+symbols have a @Code "linewidth" option which works like the one for
+boxes described above.  In particular, Lout leaves zero space for the
+line, no matter how wide you make it.
+@End @Section

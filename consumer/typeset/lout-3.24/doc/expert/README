@@ -1,0 +1,23 @@
+Directory lout/doc/expert
+
+This directory contains the Lout source files for the Expert's Guide
+to the Lout Document Formatting System.  To produce the Guide, type
+the command
+
+	lout all > outfile.ps
+
+in this directory.  This must be done five times to completely resolve
+all cross references, although the PostScript file outfile.ps is
+printable after the first run.  Auxiliary files with .li and .ld
+suffixes will be created in this directory.  A copy of the final
+outfile.ps is included.  There should be no warning messages on
+the fifth run, except this one:
+
+lout file "pre_conc" (from "pre" line 7, from "all" line 25):
+   162,1: 13.2c object too high for 8.7c space; will try elsewhere
+
+which just warns about a figure that is not able to be placed on
+the first possible page, and so has to appear on the next page.
+
+Jeffrey H. Kingston
+8 October 2000

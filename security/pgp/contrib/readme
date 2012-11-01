@@ -1,0 +1,7 @@
+This directory is distributed with the PGP source code release
+package.  It contains subdirectories with tools and utilities related
+to PGP that have been contributed by PGP users.  If you have created
+any programs that you think would be of interest to other PGP users,
+please send them in to pgp-bugs@ifi.uio.no, and maybe we could put
+them into future PGP release packages.
+

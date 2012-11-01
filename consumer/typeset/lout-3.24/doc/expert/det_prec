@@ -1,0 +1,103 @@
+@Section
+   @Title { Precedence and associativity of symbols }
+   @Tag { precedence }
+@Begin
+@PP
+Every symbol in Lout has a {@I precedence},
+preceden @Index { Precedence }
+which is a positive whole number.  When two symbols compete for an object,
+the one with the higher precedence wins it.  For example,
+@ID @Code {
+"a  |  b  /  c"
+}
+is equivalent to @OneCol @Code { "{" a "|" b "}" "/" c } rather than
+{@OneCol @Code { a "|" "{" b "/" c "}"} }, because @Code "|" has higher
+precedence than @Code "/" and thus wins the {@Code b}.
+@PP
+When the two competing symbols have equal precedence, Lout applies a
+second rule.  Each symbol is either @I left-associative or
+associativity @Index { Associativity }
+{@I right-associative}.  The value of @OneCol @Code { a op1 b op2 c} is taken
+to be @OneCol @Code { "{" a op1 b "}" op2 c } if the symbols are both
+left-associative, and @OneCol @Code "a op1 { b op2 c }" if they are
+right-associative.  In cases not covered by these two rules, use braces.
+@PP
+It sometimes happens that the result is the same regardless of how the
+expression is grouped.  For example, @OneCol @Code { "{" a "|" b "}" "|" c }
+and @OneCol @Code { a "|" "{" b "|" c "}" } are always the same, for any
+combination of objects, gaps, and variants of {@Code "|"}.  In such cases
+the symbols are said to be {@I associative}, and we can confidently omit
+the braces.
+@PP
+User-defined symbols may be given a precedence and associativity:
+@ID @OneRow @Code {
+"def @Super"
+"   precedence 50"
+"   associativity right"
+"   left x"
+"   right y"
+"{"
+"   @OneRow { | -2p @Font y ^/0.5fk x }"
+"}"
+}
+They come just after any @Code into clause and before any parameter
+definitions.  The precedence may be
+any whole number between 10 and 100, and if omitted is assigned the
+value 100.  The higher the number, the higher the precedence.  The
+associativity may be @Code left or {@Code right}, and if omitted
+defaults to {@Code right}.  Lout's symbols have the following
+precedences and associativities:
+@ID @Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @CC A ! @Col @CC B ! @Col C }
+{
+@Rowa
+   A { Precedence }
+   B { Associativity }
+   C { Symbols }
+@Rowa
+@Rowa
+   A { 5 }
+   B { associative }
+   C { @Code "/  ^/  //  ^//" }
+@Rowa
+   A { 6 }
+   B { associative }
+   C { @Code "|  ^|  ||  ^||" }
+@Rowa
+   A { 7 }
+   B { associative }
+   C { @Code "&  ^&" }
+@Rowa
+   A { 7 }
+   B { associative }
+   C { @Code "&" in the form of one or more white space characters }
+@Rowa
+   A { 10-100 }
+   B { @Code left or @Code right }
+   C { user-defined symbols }
+@Rowa
+   A { 100 }
+   B { @Code right }
+   C { @@Wide, @@High, @@Graphic, etc. }
+@Rowa
+   A { 101 }
+   B { - }
+   C { @Code "&&" }
+@Rowa
+   A { 102 }
+   B { associative }
+   C { @Code "&" in the form of 0 spaces }
+@Rowa
+   A { 103 }
+   B { - }
+   C { Body parameters and right parameters of @@Open }
+}
+Actually the precedence of juxtaposition (two objects separated
+by zero spaces) is a little more complicated.  If either of the
+two objects is enclosed in braces, the precedence is 7 as for
+one or more spaces.  If neither object is enclosed in braces,
+the precedence is 102 as shown above.  This complicated rule
+seems to accord better with what people expect and need in
+practice than a pure precedence rule can do.
+@End @Section

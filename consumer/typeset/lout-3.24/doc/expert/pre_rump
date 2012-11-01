@@ -1,0 +1,41 @@
+@Section
+   @Title { {"@Common"}, {"@Rump"}, and "@Meld" }
+   @Tag { rump }
+@Begin
+@PP
+common.sym @Index { @@Common symbol }
+rump.sym @Index { @@Rump symbol }
+meld.sym @Index { @@Meld symbol }
+The @@Common and @@Rump symbols compare two paragraph objects:
+@ID @Code "{ Aardvark, 29 } @Common { Aardvark, 359 }"
+If either parameter is not a paragraph object, it is converted into
+a single-object paragraph first.  The result of @@Common is the
+common prefix of the two paragraphs; that is, those initial objects
+which are equal in the two paragraphs.  In the example above, the
+result is {@Code "Aardvark,"}.  The result of @@Rump is that part of
+the second object which is not included in @@Common; the result of
+@ID @Code "{ Aardvark, 29 } @Rump { Aardvark, 359 }"
+is {@Code "359"}.
+@PP
+If the two objects have nothing in common, the result of @@Common will
+be an empty object and the result of @@Rump will be the second
+object.  If the two objects are identical, the result of @@Common will
+be the first object, and the result of @@Rump will be an empty object.
+@PP
+The only known use for @@Rump and @@Common is to implement merged index
+entries (Section {@NumberOf sorted}).
+@PP
+The @@Meld symbol returns the minimum meld of two paragraphs, that
+is the shortest paragraph that contains the two original paragraphs
+as subsequences.  For example,
+@ID @Code "{ Aardvark , 1 , 2 } @Meld { Aardvark , 2 , 3 }"
+produces
+@ID { Aardvark , 1 , 2 } @Meld { Aardvark , 2 , 3 }
+The result is related to the well-known
+longest common substring, in that the meld contains everything not in
+the lcs plus one copy of everything in the lcs.  This function is
+well-suited to melding complex index entries.  Note that there must be
+a non-zero amount of space before each comma, otherwise each will become
+part of the preceding word, and, since @@Meld compares the two paragraphs
+word by word, the result will be different and less satisfactory.
+@End @Section

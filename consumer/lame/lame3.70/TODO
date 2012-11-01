@@ -1,0 +1,44 @@
+0.   ./configure script
+
+things to check for:  
+
+   -llibsndfile      (allow user to enable)
+   -lncurses         
+   -lGTK             (allow user to disable)
+   make depend option for CC
+
+
+
+
+1. Modularization:
+
+BladeEnc.dll was written before lame was 'modularized'
+this should be cleaned up to look like main.c:  It should be possible
+to write the BladeEnc/lame dll so that it just uses
+#include "lame.h" and then calls to various lame_*() routines
+
+
+2.
+Does stdin work when LAME is compiled to use libsndfile? 
+(new version of libsndfile will support this - try this out)
+
+3.
+LAME uses a linear downsampling with simple lowpass filter
+on the MDCT/polyphase coefficients.  Is this good enough, or
+would a more expensive filter give better results?
+
+4.
+make use of subblock_gain (crude algorithm enabled with -Z) 
+   One method:  loop over all possible subblock_gains and
+   see which combination gives best distortion?  But this puts a lot
+   of faith in the short block psycho acoustics
+
+5.
+make use of scalefactor_select  (crude algorithm enabled with -Y)
+
+6.
+10Hz high-pass filter.  Probably wont help much.
+
+
+
+

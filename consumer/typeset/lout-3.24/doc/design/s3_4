@@ -1,0 +1,51 @@
+@SubSection
+    @Tag { defs.impl }
+    @Title { Implementation of definitions }
+@Begin
+@PP
+Input is processed by a hybrid parser which employs operator precedence
+for objects and simple recursive descent for the headers of
+definitions.  A symbol table stores the body of each definition as a
+parse tree, except for macros which are lists of tokens, and manages the
+usual stack of static scopes, accepting @I PushScope and @I PopScope
+operations as the parser enters and leaves scope regions, including
+actual body parameters and the right parameter of the @Code "@Open"
+operator.
+@PP
+As the parse proceeds, a complete call graph is constructed, recording,
+for each symbol, which symbols are invoked within its body.  Immediately
+after the last definition is read, the transitive closure of the call
+graph is computed, and used to determine whether each non-parameter
+symbol is recursive or receptive (Section {@NumberOf galleys}), and
+whether each parameter is invoked exactly once or not.
+@PP
+Purely functional systems may evaluate symbol invocations in applicative
+order (where parameters are evaluated before substitution into bodies),
+or in normal order (substitution before evaluation), and they may also
+share the value of a parameter among all uses of it.  But in Basser
+Lout, the presence of context-sensitive style information (Section
+{@NumberOf style}) forces normal order evaluation and prevents sharing
+of parameter values.
+@PP
+To evaluate an unsized object (pure parse tree), its {@I environment},
+the equivalent of the stack frames in Algol-like languages, must be
+available, containing the actual values of all formal parameters
+that are visible within the unsized object.  Environment handling is
+a well-known implementation technique, so it will be discussed
+only briefly here.
+@PP
+Environments are extra subtrees hung from the objects they refer
+to.  This organization makes excellent use of the ordered dag to
+permit environments to be shared, and deleted when the last
+reference to them is removed.  Several optimizations have been
+implemented.  Actual parameters known to be invoked only once are moved
+in from the environment, not copied; copying could lead to quadratic time
+complexity.  Actual parameters of the form @Code "@Next" @I object
+receive an applicative pre-evaluation which prevents long chains of
+@Code "@Next" symbols from forming during the generation of large page
+numbers.  Some environments which provably contribute nothing are
+deleted, most notably when a symbol invocation has no symbols within its
+actual parameters and no import list, so that only the environment of its
+body need be kept; this saves a great deal of space when objects with
+environments are written to auxiliary files (Section {@NumberOf cross}).
+@End @SubSection

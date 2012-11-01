@@ -1,0 +1,15 @@
+@Section
+   @Title { "@PlainGraphic" }
+   @Tag { plaingraphic }
+@Begin
+@PP
+plaingraphic.sym @Index { @@PlainGraphic symbol }
+The @@PlainGraphic symbol is avery rudimentary analogue for plain text
+output of the @@Graphic symbol for PostScript output.  Its result is
+its right parameter printed on a background created by repeated
+printings of its left parameter, which must be a simple word.  For
+example,
+@ID @Verbatim { "." @PlainGraphic 5s @Wide }
+would produce five dots.  @@PlainGraphic is used in the @Code tbl
+table-drawing package to produce plain-text rules.
+@End @Section

@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of FAX2TIFF</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>FAX2TIFF</H1>
+Section: User Commands  (1)<BR>Updated: September 24, 1994<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+fax2tiff - create a
+<FONT SIZE="-1">TIFF</FONT>
+Class F fax file from raw fax data
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>fax2tiff</B>
+
+[
+<I>options</I>
+
+] [
+<B>-o</B>
+
+<I>output.tif</I>
+
+]
+<I>input.g3</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>Fax2tiff</I>
+
+creates a
+<FONT SIZE="-1">TIFF</FONT>
+file containing 
+<FONT SIZE="-1">CCITT</FONT>
+Group 3 or Group 4 encoded data from one or more files containing ``raw''
+Group 3 encoded data (typically obtained directly from a fax modem).
+By default, each row of data in the resultant
+<FONT SIZE="-1">TIFF</FONT>
+file is 2-dimensionally encoded and
+padded or truncated to 1728 pixels, as needed.
+The resultant image is a set of low resolution (98 lines/inch)
+or medium resolution (196 lines/inch)
+pages, each of which is a single strip of data.
+The generated file conforms to the
+<FONT SIZE="-1">TIFF</FONT>
+Class F (<FONT SIZE="-1">FAX</FONT>) specification for storing facsimile data.
+This means, in particular, that each page of the data does
+<B>not</B>
+
+include the trailing 
+<I>return to control</I>
+
+(<FONT SIZE="-1">RTC</FONT>) code; as required
+for transmission by the
+<FONT SIZE="-1">CCITT</FONT>
+Group 3 specifications.
+The old, ``classic'', format is created if the
+<B>-c</B>
+
+option is used.
+(The Class F format can also be requested with the
+<B>-f</B>
+
+option.)
+<P>
+
+The default name of the output image is
+<I>fax.tif</I>;
+
+this can be changed with the
+<B>-o</B>
+
+option.
+Each input file is assumed to be a separate page of facsimile data
+from the same document.
+The order in which input files are specified on the command
+line is the order in which the resultant pages appear in the
+output file.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+Options that affect the interpretation of input data are:
+<DL COMPACT>
+<DT><B>-2</B>
+
+<DD>
+Assume input data is 2-d Huffman encoded.
+<DT><B>-B</B>
+
+<DD>
+Assume input data was encoded with
+black as 0 and white as 1.
+<DT><B>-L</B>
+
+<DD>
+Treat input data as having bits filled from least
+significant bit (<FONT SIZE="-1">LSB</FONT>) to most significant bit (<FONT SIZE="-1">MSB</FONT>).
+(This is the default.)
+<DT><B>-M</B>
+
+<DD>
+Treat input data as having bits filled from most
+significant bit (<FONT SIZE="-1">MSB</FONT>) to most least bit (<FONT SIZE="-1">LSB</FONT>).
+<DT><B>-R</B>
+
+<DD>
+Specify the vertical resolution, in lines/inch, of the
+input images.
+By default input are assumed to have a vertical
+resolution of 196 lines/inch.
+If images are low resolution facsimile, a value of
+98 lines/inch should be specified.
+<DT><B>-W</B>
+
+<DD>
+Assume input data was encoded with
+black as 1 and white as 0.
+(This is the default.)
+</DL>
+<P>
+
+Options that affect the output file format are:
+<DL COMPACT>
+<DT><B>-1</B>
+
+<DD>
+Force output to be compressed with the 1-dimensional
+version of the
+<FONT SIZE="-1">CCITT</FONT>
+Group 3 Huffman encoding algorithm.
+<DT><B>-4</B>
+
+<DD>
+Force output to be compressed with the
+<FONT SIZE="-1">CCITT</FONT>
+Group 4 Huffman encoding.
+<DT><B>-o</B>
+
+<DD>
+Specify the name of the output file.
+<DT><B>-p</B>
+
+<DD>
+Force the last bit of each
+<I>End Of Line</I>
+
+(<FONT SIZE="-1">EOL</FONT>) code to land on a byte boundary.
+This ``zero padding'' will be reflected in the contents of the
+<I>Group3Options</I>
+
+tag of the resultant
+<FONT SIZE="-1">TIFF</FONT>
+file.
+<DT><B>-s</B>
+
+<DD>
+Stretch the input image vertically by writing each input row of
+data twice to the output file.
+<DT><B>-v</B>
+
+<DD>
+Force
+<I>fax2tiff</I>
+
+to print the number of rows of data it retrieved from the input file.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>DIAGNOSTICS</H2>
+
+The following warnings and errors come from the decoding
+routines in the library.
+<P>
+
+<B>Warning, %s: Premature EOL at scanline %d (x %d).\n</B>.
+
+The input data had a row that was shorter than the expected value of 1728.
+The row is padded with white.
+<P>
+
+<B>%s: Premature EOF at scanline %d (x %d).\n</B>.
+
+The decoder ran out of data in the middle of a scanline.
+The resultant row is padded with white.
+<P>
+
+<B>%s: Bad code word at row %d, x %d\n</B>.
+
+An invalid Group 3 
+<I>code</I>
+
+was encountered while decoding the input file. 
+The row number and horizontal position is given.
+The remainder of the input row is discarded, while
+the corresponding output row is padded with white.
+<P>
+
+<B>%s: Bad 2D code word at scanline %d.\n</B>.
+
+An invalid Group 4 or 2D Group 3
+<I>code</I>
+
+was encountered while decoding the input file. 
+The row number and horizontal position is given.
+The remainder of the input row is discarded, while
+the corresponding output row is padded with white.
+<A NAME="lbAG">&nbsp;</A>
+<H2>BUGS</H2>
+
+Should not have the constant width 1728 built into it.
+Input data are assumed to have a a ``top left'' orientation;
+it should be possible to override this assumption
+from the command line.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I></I><FONT SIZE="-1"><I>CCITT</I></FONT><I> Recommendation T.4</I>
+
+(Standardization of Group 3 Facsimile Apparatus for Document Transmission).
+<P>
+
+<I>The Spirit of TIFF Class F</I>,
+
+an appendix to the TIFF 5.0 specification prepared by Cygnet Technologies.
+<P>
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffdither+1.html">tiffdither</A></I>(1),
+
+<I><A HREF="tiffgt+1.html">tiffgt</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3).
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">DIAGNOSTICS</A><DD>
+<DT><A HREF="#lbAG">BUGS</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+@Section
+   @Title { Dealing with tab characters in programs }
+   @Tag { tabs }
+@Begin
+@PP
+Tab characters provide a convenient way to indent and align parts of
+tab.c @Index { tab characters in programs }
+computer programs.  With care, this alignment can be preserved in the final
+print even with varying-width fonts.
+@PP
+The distance between two tab stops in the program text is by default taken
+to be 8 characters, which is standard for Unix.  This can be changed with
+the @Code "tabin" option.  For example,
+@ID @Code "@CP tabin { 4 }"
+informs Lout that tab stops occur every 4 characters in the program
+text.  All the symbols ({@Code "@CP"}, {@Code "@Eiffel"}, etc.) and
+their setup files have this option and the next; but to save repetition
+we will stick with C for the rest of this section.
+@PP
+The distance between two tab stops on the printed page is quite a different
+thing, and it is determined by the value of the @Code "tabout" option, which
+must be a Lout length.  For example,
+@ID @Code "@CP tabout { 0.5i }"
+requests that tab stops be placed at half-inch intervals.  In other
+words, a distance of one tab stop in the program text will be equivalent to a
+distance of half an inch on the printed page.  For example,
+@ID @Code "@CP style { varying } tabout { 3f } numbered { Yes }"
+might produce the following, where tab characters in the program text
+have been used for indenting and also to align the comments:
+@ID @OneRow @CP style { varying } tabout { 3f } numbered { Yes } {
+struct tnode {			/* the basic node */
+	char *word;		/* points to the text */
+	int count;		/* number of occurrences */
+	struct tnode *left;	/* left child */
+	struct tnode *right;	/* right child */
+};
+}
+We've used @Code "numbered { Yes }" to demonstrate that the features
+for dealing with tabs work even with line numbers.  The value {@Code "3f"}
+means three times the current font size, and it is the default value of
+@Code "tabout" for the @Code { varying } and @Code { symbol } styles
+(Section {@NumberOf cpsetup}).  In a 12 point font this is 36 points,
+or half an inch.
+@PP
+If @Code "tabout" is too small, there is a danger that the
+alignment might fail.  For example,
+@ID @Code "@CP style { varying } tabout { 0.2i }"
+produces
+@ID @OneRow @CP style { varying } tabout { 0.2i } {
+struct tnode {			/* the basic node */
+	char *word;		/* points to the text */
+	int count;		/* number of occurrences */
+	struct tnode *left;	/* left child */
+	struct tnode *right;	/* right child */
+};
+}
+given the same C text as the previous example.  The problem here is that
+we are asking for @CP { /* } to appear four tab stops or 0.8 inches
+from the left edge, and yet the material to its left on the line is
+wider than this.  This causes @CP { /* } to be shifted further to the
+right than expected, and the alignment is lost.  The only solution is
+to increase {@Code "tabout"}.
+@PP
+When typesetting computer program texts independently of any document,
+there are @Code "-t" and @Code "-T" options to the @Code "prg2lout"
+program equivalent to @Code "tabin" and @Code "tabout" respectively.  For
+example, @Code "-T0.5i" produces a half-inch tab width.
+@End @Section

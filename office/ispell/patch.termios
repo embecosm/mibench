@@ -1,0 +1,195 @@
+--- ispell-3.1.20/term.c.orig	Wed Nov  2 18:44:28 1994
++++ ispell-3.1.20/term.c	Tue Mar 30 19:42:59 1999
+@@ -64,12 +64,22 @@
+ #include "ispell.h"
+ #include "proto.h"
+ #include "msgs.h"
++#include <signal.h>
++
++#ifdef __GLIBC__
++/* Use termios under at least glibc */
++#include <termios.h>
++#define USE_TERMIOS
++#ifndef USG
++#define USG
++#endif
++#else
+ #ifdef USG
+ #include <termio.h>
+ #else
+ #include <sgtty.h>
+ #endif
+-#include <signal.h>
++#endif
+ 
+ void		erase P ((void));
+ void		move P ((int row, int col));
+@@ -135,6 +145,10 @@
+     return putchar (c);
+     }
+ 
++#ifdef USE_TERMIOS
++static struct termios	sbuf;
++static struct termios	osbuf;
++#else
+ #ifdef USG
+ static struct termio	sbuf;
+ static struct termio	osbuf;
+@@ -146,6 +160,7 @@
+ static struct ltchars	oltc;
+ #endif
+ #endif
++#endif
+ static int		termchanged = 0;
+ static SIGNAL_TYPE	(*oldint) ();
+ static SIGNAL_TYPE	(*oldterm) ();
+@@ -247,7 +262,11 @@
+ 	(void) fprintf (stderr, TERM_C_NO_BATCH);
+ 	exit (1);
+ 	}
++#ifdef USE_TERMIOS
++    (void) tcgetattr (0, &osbuf);
++#else
+     (void) ioctl (0, TCGETA, (char *) &osbuf);
++#endif
+     termchanged = 1;
+ 
+     sbuf = osbuf;
+@@ -256,7 +275,11 @@
+     sbuf.c_iflag &= ~(INLCR | IGNCR | ICRNL);
+     sbuf.c_cc[VMIN] = 1;
+     sbuf.c_cc[VTIME] = 1;
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &sbuf);
++#else
+     (void) ioctl (0, TCSETAW, (char *) &sbuf);
++#endif
+ 
+     uerasechar = osbuf.c_cc[VERASE];
+     ukillchar = osbuf.c_cc[VKILL];
+@@ -343,6 +366,9 @@
+ 	{
+ 	if (te)
+ 	    tputs (te, 1, putch);
++#ifdef USE_TERMIOS
++	(void) tcsetattr (0, TCSADRAIN, &osbuf);
++#else
+ #ifdef USG
+ 	(void) ioctl (0, TCSETAW, (char *) &osbuf);
+ #else
+@@ -351,6 +377,7 @@
+ 	(void) ioctl (0, TIOCSLTC, (char *) &oltc);
+ #endif
+ #endif
++#endif
+ 	}
+     exit (0);
+     }
+@@ -359,6 +386,9 @@
+ static SIGNAL_TYPE onstop (signo)
+     int		signo;
+     {
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &osbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &osbuf);
+ #else
+@@ -367,6 +397,7 @@
+     (void) ioctl (0, TIOCSLTC, (char *) &oltc);
+ #endif
+ #endif
++#endif
+     (void) signal (signo, SIG_DFL);
+ #ifndef USG
+     (void) sigsetmask (sigblock (0) & ~(1 << (signo - 1)));
+@@ -374,6 +405,9 @@
+     (void) kill (0, signo);
+     /* stop here until continued */
+     (void) signal (signo, onstop);
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &sbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &sbuf);
+ #else
+@@ -382,6 +416,7 @@
+     (void) ioctl (0, TIOCSLTC, (char *) &ltc);
+ #endif
+ #endif
++#endif
+     }
+ #endif
+ 
+@@ -434,6 +469,9 @@
+ 	}
+     argv[i] = NULL;
+ 
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &osbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &osbuf);
+ #else
+@@ -442,6 +480,7 @@
+     (void) ioctl (0, TIOCSLTC, (char *) &oltc);
+ #endif /* TIOCSLTC */
+ #endif
++#endif
+     (void) signal (SIGINT, oldint);
+     (void) signal (SIGTERM, oldterm);
+ #ifdef SIGTSTP
+@@ -480,6 +519,9 @@
+ 	(void) signal (SIGTSTP, onstop);
+ #endif
+ 
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &sbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &sbuf);
+ #else
+@@ -488,6 +530,7 @@
+     (void) ioctl (0, TIOCSLTC, (char *) &ltc);
+ #endif /* TIOCSLTC */
+ #endif
++#endif
+     if (termstat)
+ 	{
+ 	(void) printf (TERM_C_TYPE_SPACE);
+@@ -513,6 +556,9 @@
+     int		ch;
+ #endif
+ 
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &osbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &osbuf);
+ #else
+@@ -521,6 +567,7 @@
+     (void) ioctl (0, TIOCSLTC, (char *) &oltc);
+ #endif
+ #endif
++#endif
+     (void) signal (SIGINT, oldint);
+     (void) signal (SIGTERM, oldterm);
+ #ifdef SIGTSTP
+@@ -545,12 +592,16 @@
+ 	(void) signal (SIGTSTP, onstop);
+ #endif
+ 
++#ifdef USE_TERMIOS
++    (void) tcsetattr (0, TCSANOW, &sbuf);
++#else
+ #ifdef USG
+     (void) ioctl (0, TCSETAW, (char *) &sbuf);
+ #else
+     (void) ioctl (0, TIOCSETP, (char *) &sbuf);
+ #ifdef TIOCSLTC
+     (void) ioctl (0, TIOCSLTC, (char *) &ltc);
++#endif
+ #endif
+ #endif
+     (void) printf (TERM_C_TYPE_SPACE);
+

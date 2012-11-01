@@ -1,0 +1,36 @@
+@Section
+   @Title { "@IncludeGraphic" and "@SysIncludeGraphic" }
+   @Tag { includegraphic }
+@Begin
+@PP
+includegraphic.sym @Index { @@IncludeGraphic symbol }
+sysincludegraphic.sym @Index { @@SysIncludeGraphic symbol }
+postscript.includegraphic @SubIndex { used by @@IncludeGraphic }
+These symbols instruct Lout to incorporate a separately created
+illustration:
+@ID @Code "@IncludeGraphic  \"myportrait.eps\""
+The parameter is implementation-dependent; in Basser Lout it is an
+object whose value is a simple word denoting the name of a file.  This
+file should ideally be a PostScript EPS Version 3.0 file
+@Cite { $adobe1990ps }, since then Lout will keep careful track of what
+resources are required for printing that file.  However, any PostScript
+file containing the @Code "%%BoundingBox:" comment and not requiring
+unusual resources is likely to work.
+@PP
+The result of @@IncludeGraphic is an ordinary Lout object with marks
+through its centre.  It may be rotated, scaled, and generally
+treated like any other object.  Basser Lout determines its size by
+consulting the bounding box information in the file.  If this cannot be
+found, a warning message is printed and the result object has zero size.
+@PP
+@@IncludeGraphic searches the same directories that @@Include does
+(Section {@NumberOf include}).  @@SysIncludeGraphic is the same as
+@@IncludeGraphic, except that it searches only the directories searched
+by @@SysInclude.
+@PP
+If the file name ends in any of {@Code ".gz"}, {@Code "-gz"}, {@Code ".z"},
+{@Code "-z"}, {@Code "_z"}, or {@Code ".Z"}, the file will first be
+uncompressed using the @Code "gunzip" command into a temporary file
+called @Code "lout.eps" in the current directory.  This file is removed
+immediately after it is copied into the output file.
+@End @Section

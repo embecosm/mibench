@@ -1,0 +1,37 @@
+@Section
+   @Title { Hyphenation }
+   @Tag { hyph }
+@Begin
+@PP
+The @Code "@Break" symbol also controls hyphenation:  @Code "hyphen"
+hyphenation. @Index hyphenation
+@Code "@Break" turns it on, @Code "nohyphen" @Code "@Break" turns it
+off.  For example, ragged breaking is often done without hyphenation:
+@ID @OneRow @Code {
+"@IndentedDisplay { ragged nohyphen } @Break {"
+"This little paragraph will appear with"
+"ragged ends to its lines."
+"}"
+}
+Lout's method of choosing hyphenation points is copied from the @TeX
+tex.hyph @SubIndex { hyphenation }
+system, except that Lout will never place a hyphen within a sequence
+of characters that form a ligature (fl and
+ligatures.hyph @SubIndex { and hyphenation }
+fi are the most common ligatures).
+@PP
+Hyphenation usually works well by itself; you should never need to
+interfere with its ideas of what to do.  However, if you do want
+to tell Lout where you think a hyphen could be inserted, you can
+use the @Code "&-" symbol:
+@IndentedDisplay @Code {
+"after&-math"
+}
+If @Code "&-" occurs directly after a hyphen character, hyphenation
+will be permitted but no extra hyphen will be inserted.  To prevent
+hyphenation of a word, enclose the word in a @Code "@OneCol" symbol.
+@PP
+To turn hyphenation off throughout the document, you need to set the
+@Code "@InitialBreak" option to {@Code "nohyphen"}, as described at the
+end of Section {@NumberOf linespace}.
+@End @Section

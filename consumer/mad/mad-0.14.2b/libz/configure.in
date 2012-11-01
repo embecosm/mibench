@@ -1,0 +1,35 @@
+dnl -*- m4 -*-
+dnl
+dnl libz - zlib compression library
+dnl
+AC_REVISION([$Id: configure.in,v 1.2 2001/10/29 05:41:46 rob Exp $])dnl
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(zlib.h)
+AM_INIT_AUTOMAKE(libz, 1.1.3)
+
+dnl System type.
+
+AC_CANONICAL_HOST
+
+dnl Checks for programs.
+
+AC_PROG_CC
+AC_PROG_RANLIB
+
+dnl Compiler options.
+
+if test "$GCC" = yes
+then
+    case "$host" in
+	*-pc-cygwin)
+	    CPPFLAGS="$CPPFLAGS -mno-cygwin"
+	    LDFLAGS="$LDFLAGS -mno-cygwin"
+	    ;;
+    esac
+fi
+
+dnl Create output files.
+
+AC_OUTPUT(Makefile)

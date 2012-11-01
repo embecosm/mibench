@@ -1,0 +1,18 @@
+@Chapter
+    @Title { Basic Graphics }
+    @Tag { graphics }
+@Begin
+@LP
+This chapter introduces some basic graphics symbols for colour, rotation,
+scaling, and included illustrations.  These are all from the standard
+BasicLayout package, so no @Code "@SysInclude" line is needed to
+get them.
+@BeginSections
+@Include { bgr_colo }
+@Include { bgr_boxs }
+@Include { bgr_outl }
+@Include { bgr_rota }
+@Include { bgr_scal }
+@Include { bgr_incl }
+@EndSections
+@End @Chapter

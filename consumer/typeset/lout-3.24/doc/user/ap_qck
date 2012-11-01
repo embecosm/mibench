@@ -1,0 +1,369 @@
+@Appendix
+    @Title { Lout Quick Reference Guide }
+@Begin
+10p @Font 1.15fx @Break @OneCol
+@Tab @Fmta { @Col 20c @Wide A ! @Col 20c @Wide B }
+{
+@Rowa A {
+@Heading { 1.  Running Lout }
+@LD @Code {
+"lout filename > postscript.ps"
+}
+
+@LP
+@Heading { 2.  Ordinary documents (simple form) }
+@LD @Code {
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+
+@LP
+@Heading { 3.  Ordinary documents (full form) }
+@LD @Code {
+"@SysInclude { doc }"
+"@Document"
+"    @InitialFont { Times Base 12p }"
+"    @InitialBreak { adjust 1.2fx hyphen }"
+"    @InitialLanguage { English }"
+"    @PageHeaders { Simple }"
+"    @FirstPageNumber { 1 }"
+"    @ColumnNumber { 1 }"
+"    @PageOrientation { Portrait }"
+"//"
+"@Text @Begin"
+"..."
+"@BeginSections"
+"@Section ... @End @Section"
+"@EndSections"
+"@End @Text"
+}
+
+@LP
+@Heading { 4.  Technical reports }
+@LD @Code {
+"@SysInclude { report }"
+"@Report"
+"    @Title { ... }"
+"    @Author { ... }"
+"    @Institution { ... }"
+"    @DateLine { No }"
+"    @CoverSheet { Yes }"
+"    @InitialFont { Times Base 12p }"
+"    @InitialBreak { adjust 1.2fx hyphen }"
+"    @InitialLanguage { English }"
+"    @PageHeaders { Simple }"
+"    @FirstPageNumber { 1 }"
+"    @ColumnNumber { 1 }"
+"    @Abstract { ... }"
+"//"
+"@Section ... @End @Section"
+"@Appendix ... @End @Appendix"
+}
+}
+
+B {
+@Heading { 5.  Large-scale structure symbols }
+@LL
+@LI @Code {
+"@Section"
+"    @Title { ... }"
+"    @RunningTitle { ... }"
+"    @Tag { ... }"
+"@Begin"
+"@PP"
+"..."
+"@End @Section"
+}
+@LI lines @Break {
+@Code "@Section / @SubSection / @SubSubSection"
+@Code "@Appendix / @SubAppendix / @SubSubAppendix"
+@Code "@BeginSubSections" ... @Code "@EndSubSections" if inner.
+}
+@EndList
+
+@LP
+@Heading { 6.  Cross references }
+@LD @Tab
+    @Fmta { @Col @Code A ! @Col ! @Col @Code B }
+{
+@Rowa
+    A { "@Tag { foo }" }
+    B { "@PageOf foo" }
+@Rowa
+    A { "@PageMark foo" }
+    B { "@NumberOf foo" }
+}
+
+@LP
+@Heading { 7.  Font changes }
+@LL
+@LI @Tab 
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@B { bold font }" }
+    B { "@I { italic font }" }
+@Rowa
+    A { "@BI { bold-italic font }" }
+    B { "@R { Roman font }" }
+@Rowa
+    A { "@S { small-caps font}" }
+    B { "@F { fixed-width font }" }
+@Rowa
+    B { "@II { italic bold or Roman }" }
+}
+@LI @Code {
+"{ family face size } @Font { ... }"
+}
+@LI @Code {
+"Times  Helvetica  Courier  ..."
+"Base  Slope  Bold  BoldSlope  ..."
+"10p  12p  +2p  -2p  2.0f  ..."
+}
+@EndList
+
+@LP
+@Heading { 8.  Paragraph breaking styles }
+@LL
+@LI @Code {
+"{ breakstyle linesep hyphen } @Break { ... }"
+}
+@LI @Code {
+"adjust  ragged  lines  clines  ..."
+"1.2fx  2vx  0.9vx  ..."
+"hyphen  nohyphen"
+}
+@EndList
+
+@LP
+@Heading { 9.  New paragraph and new page }
+@LD @Tab
+    @Fmta { @Col @Code A ! @Col B }
+    vmargin { 0.5vx }
+{
+@Rowa A { "@PP"  } B { Plain paragraph }
+@Rowa A { "@LP"  } B { Left paragraph }
+@Rowa A { "@LLP" } B { New line }
+@Rowa A { "@DP"  } B { Display paragraph }
+@Rowa A { "@NP"  } B { New page }
+@Rowa A { "@CNP" } B { Conditional new page }
+}
+}
+
+} # end first table
+@LP
+10p @Font 1.15fx @Break @OneCol
+@Tab @Fmta { @Col 20c @Wide A ! @Col 20c @Wide B }
+{
+@Rowa A {
+@Heading { 10.  Displays and headings }
+@LL
+@LI @Code {
+"@CD @Heading { A centred heading }"
+"@ID { An indented display }"
+}
+@LI @Tab
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa A { "@D"  } B { "@Display" }
+@Rowa A { "@LD" } B { "@LeftDisplay" }
+@Rowa A { "@ID" } B { "@IndentedDisplay" }
+@Rowa A { "@QD" } B { "@QuotedDisplay" }
+@Rowa A { "@CD" } B { "@CentredDisplay" }
+@Rowa             B { "@CenteredDisplay" }
+@Rowa             B { "@RightDisplay" }
+}
+@EndList
+
+@LP
+@Heading { 11. Lists}
+@LL
+@LI @Code {
+"@List"
+"@ListItem { A list item }"
+"@ListItem { Another list item }"
+"@EndList"
+}
+@LI @Tab
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@L" }
+    B { "@List" }
+@Rowa
+    A { "@LL" }
+    B { "@LeftList" }
+@Rowa
+    A { "@IL" }
+    B { "@IndentedList" }
+@Rowa
+    A { "@QL" }
+    B { "@QuotedList" }
+@Rowa
+    A { "@CL" }
+    B { "@CentredList" }
+@Rowa
+    B { "@CenteredList" }
+@Rowa
+    A { "@NL" }
+    B { "@NumberedList" }
+@Rowa
+    A { "@RL" }
+    B { "@RomanList" }
+@Rowa
+    A { "@UCRL" }
+    B { "@UCRomanList" }
+@Rowa
+    A { "@AL" }
+    B { "@AlphaList" }
+@Rowa
+    A { "@UCAL" }
+    B { "@UCAlphaList" }
+@Rowa
+    A { "@PNL" }
+    B { "@ParenNumberedList" }
+@Rowa
+    A { "@PRL" }
+    B { "@ParenRomanList" }
+@Rowa
+    A { "@PUCRL" }
+    B { "@ParenUCRomanList" }
+@Rowa
+    A { "@PAL" }
+    B { "@ParenAlphaList" }
+@Rowa
+    A { "@PUCAL" }
+    B { "@ParenUCAlphaList" }
+@Rowa
+    A { "@BL" }
+    B { "@BulletList" }
+@Rowa
+    A { "@SL" }
+    B { "@StarList" }
+@Rowa
+    A { "@DL" }
+    B { "@DashList" }
+}
+@LI @Code {
+"@TaggedList"
+"@TagItem { label } { A list item }"
+"@TagItem { label } { Another list item }"
+"@EndList"
+}
+@LI @Tab
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@TL" }
+    B { "@TaggedList" }
+@Rowa
+    A { "@WTL" }
+    B { "@WideTaggedList" }
+@Rowa
+    A { "@VWTL" }
+    B { "@VeryWideTaggedList" }
+}
+@EndList
+
+@LP
+@Heading { 12.  Footnotes, endnotes, margin notes }
+@LD @Tab
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@FootNote { ... }"  }
+    B { "@EndNote { ... }"   }
+@Rowa
+    A { "@LeftNote { ... }"  }
+    B { "@RightNote { ... }" }
+@Rowa
+    A { "@OuterNote { ... }" }
+    B { "@InnerNote { ... }" }
+}
+}
+
+B {
+@Heading { 13.  Floating figures and tables }
+@LD @Tab
+    @Fmta { @Col @Code A ! @Col ! @Col ! @Col @Code B }
+{
+@Rowa
+    A {
+"@Figure"
+"    @Caption { ... }"
+"    @Tag { ... }"
+"@Begin"
+"..."
+"@End @Figure"
+}
+    B {
+"@Table"
+"    @Caption { ... }"
+"    @Tag { ... }"
+"@Begin"
+"..."
+"@End @Table"
+}
+}
+
+@LP
+@Heading { 14.  Tables }
+@LD @Code {
+"@SysInclude { tbl }"
+"@SysInclude { doc }"
+"..."
+"@Tbl"
+"    aformat { @Cell A | @Cell B }"
+"    marginvertical { 0.5vx }"
+"{"
+"@Rowa"
+"    A { ... }"
+"    B { ... }"
+"@Rowa"
+"    ..."
+"}"
+}
+
+@LP
+@Heading { 15.  Equations }
+@LD @Code {
+"@SysInclude { eq }"
+"@SysInclude { doc }"
+"..."
+"@Eq { sum from i=0 to n { r sup i over sqrt pi } }"
+}
+
+@LP
+@Heading { 16.  Basic graphics }
+@LD @Code {
+"grey @Colour { ... }"
+"gray @Color { ... }"
+"@Box { ... }"
+"@CurveBox { ... }"
+"@ShadowBox { ... }"
+"60d @Rotate { ... }"
+"0.71 @Scale { ... }"
+"@QuotedDisplay @Scale { ... }"
+"@IncludeGraphic filename.eps"
+}
+
+@LP
+@Heading { 17.  Miscellaneous }
+@LD lines @Break {
+@Code "@Underline { will be underlined }"
+@Code "@Date"
+@Code "@Time"
+@Code "German @Language { ... }"
+@Code "\# comment to end of line"
+@Code "\"#&/@^{}|~\""   (enclose these characters in quotes)
+}
+}
+} # end second table
+@End @Appendix

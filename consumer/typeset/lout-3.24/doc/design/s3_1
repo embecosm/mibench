@@ -1,0 +1,76 @@
+@SubSection
+    @Tag { operators }
+    @Title { Operators }
+@Begin
+@PP
+It is evident from the example of Eqn that user-defined operators are
+needed that mimic the primitive ones in taking objects as parameters
+and returning objects as results.  For example, to define a superscript
+operator so that
+@ID @Code "2 sup n"
+appears as {@Eq {2 sup @R n}}, the following operator definition may
+be used:
+@ID @OneRow @Code {
+"def sup"
+"    precedence 50"
+"    associativity right"
+"    left x"
+"    right y"
+"{"
+"    @OneRow {  |  {-2p @Font y}  ^/0.5fk  x  }"
+"}"
+}
+The @Code "sup" operator has precedence 50, is right associative, takes
+two objects as parameters passed on the left and right, and returns the
+object between braces as result.  This object has the structure
+@ID @I +2p @Font {
+| @ShowMarks @Code y / @ShowMarks @Code x
+}
+but with the first row mark hidden by the @Code "@OneRow" operator,
+and @Code y two points smaller than it would otherwise have been.  The
+length @Code "0.5f" specifies half the current font size;  Figure
+{@NumberOf gapmodes} describes the @Code k gap mode.  In the Eq equation
+formatting package [10] the equation as a whole is
+set in italic font, and @Code 2 is an identifier whose body contains
+a font change back to Roman.  The digits @Code 0 to @Code 9 are classed
+as punctuation characters, permitting @Code 234 for example to be
+interpreted as a sequence of three identifiers.
+@PP
+These definitions are easily implemented by a standard symbol table
+and an operator precedence parser.  Algol block structure with the
+usual scope rules was adopted as a matter of course.
+@PP
+Operators are limited to at most two parameters, left and
+right, and the parameters cannot be given default values.  @I Named
+parameters solve both problems:
+@ID @OneRow @Code {
+"def @Preface"
+"    named @Tag {}"
+"    named @Title { Preface }"
+"    right @Body"
+"{"
+"    Bold @Font @Title"
+"    //0.3v  @Body"
+"}"
+}
+The default value appears just after the parameter's declaration,
+between braces.  Invocations have a natural syntax:
+@ID @OneRow @Code {
+"@Preface"
+"    @Title { About this book }"
+"{"
+"    Few observers would have supposed in 1984, that ..."
+"}"
+}
+with the actual named parameters following directly after the
+operator, before any right parameter.  In this example, @Code "@Tag"
+will receive its default value, and a less expert user could safely
+omit the @Code "@Title" parameter as well.
+@PP
+Lout permits named parameters to have parameters, a feature with
+applications to bibliographic databases, running headers, and other
+places where a format has to be supplied before content is
+known.  One could go further and provide a complete lambda calculus,
+with functions as first-class objects, provided care was taken not
+to intimidate the non-expert user.
+@End @SubSection

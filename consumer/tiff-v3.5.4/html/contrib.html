@@ -1,0 +1,158 @@
+<HTML>
+<HEAD>
+<TITLE>
+Contributed TIFF Software
+</TITLE>
+</HEAD>
+
+<BODY BGCOLOR=white> 
+<FONT FACE="Arial, Helvetica, Sans">
+<H1>
+<IMG SRC=images/smallliz.jpg WIDTH=144 HEIGHT=108 ALIGN=left BORDER=1 HSPACE=6>
+Contributed TIFF Software
+</H1>
+
+
+<P>
+The <B>contrib</B> directory has contributed software that
+uses the TIFF library or which is associated with the library
+(typically glue and guidance for ports to non-UNIX platforms, or tools that
+aren't directly TIFF related).
+
+<BR CLEAR=left>
+
+<P>
+<TABLE BORDER CELLPADDING=3>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/vms</B>
+</TD>
+<TD>
+scripts and files from Karsten Spang for building
+		the library and tools under VMS
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/dbs</B>
+</TD>
+<TD>
+various tools from Dan & Chris Sears, including a simple X-based viewer
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/ras</B>
+</TD>
+<TD>
+two programs by Patrick Naughton for converting
+		between Sun rasterfile format and TIFF (these
+		require <TT>libpixrect.a</TT>, as opposed to the one in
+		tools that doesn't)
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/mac-mpw</B>
+</TD>
+<TD>
+scripts and files from Niles Ritter for building
+		the library and tools under Macintosh/MPW C.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/acorn</B>
+</TD>
+<TD>
+scripts and files from Peter Greenham for building
+		the library and tools on an Acorn RISC OS system.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/win32</B>
+</TD>
+<TD>
+scripts and files from Scott Wagner for building
+		the library under Windows NT and Windows 95.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/dosdjgpp</B>
+</TD>
+<TD>
+scripts and files from Alexander Lehmann for building
+		the library under MSDOS with the DJGPP v2 compiler.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/tags</B>
+</TD>
+<TD>
+scripts and files from Niles Ritter for adding private
+         tag support at runtime, without changing libtiff.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/mfs</B>
+</TD>
+<TD>
+code from Mike Johnson to read+write images in memory
+without modifying the library
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/pds</B>
+</TD>
+<TD>
+various routines from Conrad Poelman; a TIFF image iterator and
+   code to support ``private sub-directories''
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top>
+<B>contrib/iptcutil</B>
+</TD>
+
+<TD>
+
+A utility by <A HREF=mailto:billr@corbis.com>Bill Radcliffe</a> to
+convert an extracted IPTC Newsphoto caption from a binary blob to
+ASCII text, and vice versa. IPTC binary blobs can be extracted from
+images via the <A
+HREF=http://www.wizards.dupont.com/magick>ImageMagick</a> convert(1)
+utility.
+
+
+</TD>
+</TR>
+
+</TABLE>
+
+<P>
+Questions regarding these packages are usually best directed toward
+their authors. 
+
+<P>
+<HR>
+
+Last updated: $Date: 2000/11/06 19:52:23 $
+
+</BODY>
+</HTML>

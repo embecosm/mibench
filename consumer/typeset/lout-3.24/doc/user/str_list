@@ -1,0 +1,392 @@
+@Section
+   @Title { Lists }
+   @Tag { lists }
+@Begin
+@PP
+The @Code "@List" symbol introduces a sequence of items to be
+lists. @Index { lists }
+list. @Index @Code "@List"
+l. @Index @Code "@L"
+made into a displayed list:
+@ID @OneRow @Code {
+"preceding text"
+"@List"
+"@ListItem @I Emma"
+"@ListItem @I { Mansfield Park }"
+"@EndList"
+"following text"
+}
+After the initial @Code "@List" symbol, each item is introduced by
+list.item. @Index @Code "@ListItem"
+li. @Index @Code "@LI"
+{@Code "@ListItem"}, and the list ends with {@Code "@EndList"}.  The
+end.list. @Index @Code "@EndList"
+el. @Index @Code "@EL"
+result here is
+@ID @OneRow {
+preceding text
+@List
+@ListItem @I Emma
+@ListItem @I { Mansfield Park }
+@EndList
+following text
+}
+with space inserted automatically before, between, and after
+the items.
+@PP
+As the example shows, the @Code "@List" symbol causes the items to be
+indented.  Also available are {@Code "@LeftList"}, {@Code "@IndentedList"},
+leftlist. @Index @Code "@LeftList"
+ll. @Index @Code "@LL"
+indentedlist. @Index @Code "@IndentedList"
+il. @Index @Code "@IL"
+{@Code "@QuotedList"}, {@Code "@CentredList"}, and {@Code "@CenteredList"},
+quotedlist. @Index @Code "@QuotedList"
+ql. @Index @Code "@QL"
+centredlist. @Index @Code "@CentredList"
+centeredlist. @Index @Code "@CenteredList"
+cl. @Index @Code "@CL"
+which format the items like the corresponding display symbols do.
+Other list symbols generate a @I label for each item.  For example,
+@Code "@NumberedList" causes the items to be numbered:
+numberedlist. @Index @Code "@NumberedList"
+nl. @Index @Code "@NL"
+@ID @OneRow @Code {
+"@Heading { Quiz }"
+"@NumberedList"
+"@ListItem { Which American statesman owned a two-storey clock? }"
+"@ListItem { Which Yankee commander from the Civil War cut a"
+"swathe of destruction through the State of Georgia? }"
+"@EndList"
+}
+has result
+@ID @OneRow {
+@Heading { Quiz }
+@NumberedList
+@ListItem { Which American statesman owned a two-storey clock? }
+@ListItem { Which Yankee commander from the Civil War cut a
+swathe of destruction through the State of Georgia? }
+@RawEndList
+}
+The generated labels are added at the left margin.  Here is the full set
+of label-generating list symbols, showing the first label produced by each:
+parennumberedlist. @Index @Code "@ParenNumberedList"
+pnl. @Index @Code "@PNL"
+romanlist. @Index @Code "@RomanList"
+rl. @Index @Code "@RL"
+parenromanlist. @Index @Code "@ParenRomanList"
+prl. @Index @Code "@PRL"
+ucromanlist. @Index @Code "@UCRomanList"
+ucrl. @Index @Code "@UCRL"
+parenucromanlist. @Index @Code "@ParenUCRomanList"
+pucrl. @Index @Code "@PUCRL"
+alphalist. @Index @Code "@AlphaList"
+al. @Index @Code "@AL"
+parenalphalist. @Index @Code "@ParenAlphaList"
+pal. @Index @Code "@PAL"
+ucalphalist. @Index @Code "@UCAlphaList"
+ucal. @Index @Code "@UCAL"
+parenucalphalist. @Index @Code "@ParenUCAlphaList"
+pucal. @Index @Code "@PUCAL"
+bulletlist. @Index @Code "@BulletList"
+bl. @Index @Code "@BL"
+starlist. @Index @Code "@StarList"
+sl. @Index @Code "@SL"
+dashlist. @Index @Code "@DashList"
+dl. @Index @Code "@DL"
+@ID @Tab
+    @Fmta { @Col @CC A ! @Col @Code B ! @Col ! @Col @CC C ! @Col @Code D }
+{
+@Rowa
+    A { 1. }
+    B { "@NumberedList" }
+    C { (1) }
+    D { "@ParenNumberedList" }
+@Rowa
+    A { i. }
+    B { "@RomanList" }
+    C { (i) }
+    D { "@ParenRomanList" }
+@Rowa
+    A { I. }
+    B { "@UCRomanList" }
+    C { (I) }
+    D { "@ParenUCRomanList" }
+@Rowa
+    A { a. }
+    B { "@AlphaList" }
+    C { (a) }
+    D { "@ParenAlphaList" }
+@Rowa
+    A { A. }
+    B { "@UCAlphaList" }
+    C { (A) }
+    D { "@ParenUCAlphaList" }
+@Rowa
+    A { @Bullet }
+    B { "@BulletList" }
+@Rowa
+    A { @Star }
+    B { "@StarList" }
+@Rowa
+    A { -- }
+    B { "@DashList" }
+}
+roman @Index { Roman numerals }
+The Roman numerals end at cc (200), but ordinary decimal numbers have
+no limit.  The labels produced by the four alphabetical list symbols are
+determined by the current language; in English they start at @Code "a"
+and end at {@Code "z"}.
+@PP
+You may also supply your own labels using the @Code "@TaggedList"
+taggedlist @Index @Code "@TaggedList"
+tl. @Index @Code "@TL"
+symbol.  Each item is introduced by @Code "@TagItem" instead of
+tagitem. @Index @Code "@TagItem"
+ti. @Index @Code "@TI"
+{@Code "@ListItem"}.  Since such labels tend to be quite wide,
+there are @Code "@WideTaggedList" and @Code "@VeryWideTaggedList" symbols
+widetaggedlist @Index @Code "@WideTaggedList"
+wtl. @Index @Code "@WTL"
+verywidetaggedlist @Index @Code "@VeryWideTaggedList"
+vwtl. @Index @Code "@VWTL"
+which leave extra space for them:
+@ID @OneRow @Code {
+"@WideTaggedList"
+"@TagItem { 9 a.m. } { Breakfast in the Ipamena Lounge,"
+"served with Irish coffee and fresh croissants. }"
+"@TagItem { 10 a.m. } { Prof. A. Smith"
+"speaks on `The Wealth of Nations.' }"
+"@EndList"
+}
+Each @Code "@TagItem" symbol is followed by the desired label between
+braces, and then the item proper.  The label may be empty, but still its
+enclosing braces must be there.  The result here is
+@ID @OneRow {
+@RawWideTaggedList
+@TagItem { 9 a.m. } { Breakfast in
+the Ipamena Lounge, served with
+Irish coffee and fresh croissants. }
+@TagItem { 10 a.m. } { Prof. A. Smith
+speaks on `The Wealth of Nations.' }
+@RawEndList
+}
+An alternative way to accommodate wide labels is the `drop item,'
+drop.item @Index { drop items }
+which looks like this:
+@ID @OneRow {
+@RawTaggedList
+@DTI { 10 a.m. } { Prof. A. Smith speaks on `The Wealth of Nations.' }
+@RawEndList
+}
+Individual items are dropped in this way by using @Code "@DropTagItem"
+drop.tag.item @Index @Code "@DropTagItem"
+dti. @Index @Code "@DTI"
+instead of {@Code "@TagItem"}.  There is also a @Code "@DropListItem"
+drop.list.item @Index @Code "@DropListItem"
+dli. @Index @Code "@DLI"
+symbol corresponding to {@Code "@ListItem"}, but it is very rarely
+needed.  Lout is not able to decide for itself whether a label is wide
+enough to require a drop item.
+@PP
+Each list has a `raw' version which omits the preceding space, and
+raw.lists @Index { raw lists }
+raw.list. @Index @Code "@RawList"
+raw.end.list. @Index @Code "@RawEndList"
+@Code "@EndList" has a raw version which omits the following
+space.  These are mainly used when an item is itself a list:
+@ID @OneRow @Code {
+"@ParenNumberedList"
+"@ListItem {"
+"   @RawParenRomanList"
+"   @ListItem { MV Nominees,"
+"hereinafter called the vendor, ... }"
+"   @RawEndList"
+"}"
+"@EndList"
+}
+produces
+@ID @OneRow {
+@RawParenNumberedList
+@ListItem {
+   @RawParenRomanList
+   @ListItem { MV Nominees,
+hereinafter called the vendor, ... }
+   @RawEndList
+}
+@RawEndList
+}
+If @Code "@ParenRomanList" had been used instead of
+{@Code "@RawParenRomanList"}, (1) and (i) would have appeared on
+different lines; or if @Code "@EndList" had been used instead of
+{@Code "@RawEndList"}, there would have been too much space following
+the list.
+@PP
+A list item may come out partly on one page or column and partly on
+the next, if it has places where it obviously can be broken in two.  For
+example, a list item which is an ordinary paragraph of text might be
+broken in two between any two lines.  To force a list item to keep
+together on one page or column, use the @Code "@OneRow" symbol like
+this:  @Code "@ListItem @OneRow { ... }".
+@PP
+Occasionally it is desirable to start a new page or column between
+two list items.  This cannot be done by inserting @Code "@NP"
+between them, because the space between two list items is a kind
+of no-man's land where nothing is allowed to be.  Instead, the
+@Code "@ListNewPage" symbol is used:  it is permitted only between
+two list items, and its effect is to make the following list item
+appear at the top of the next page or column.  It may be used within
+any kind of list.
+@PP
+Another special list item is {@Code "@ListInterruptItem"}.  This
+prints its content without any numbering or formatting:
+@ID @OneRow @Code {
+"@NumberedList"
+"@ListItem { This is the first list item. }"
+"@ListInterruptItem { This is an interruption to the list. }"
+"@ListItem { This is the second list item. }"
+"@EndList"
+}
+produces
+@ID @OneRow {
+@RawNumberedList
+@ListItem { This is the first list item. }
+@ListInterruptItem { This is an interruption to the list. }
+@ListItem { This is the second list item. }
+@RawEndList
+}
+Although @Code "@ListInterruptItem" is written like a list item, the
+result appears to be an interruption to the list.  It may be used
+in any kind of list.
+@PP
+Every symbol introduced in this section has an abbreviated form
+consisting of @Code "@" followed by its capital letters only.  For
+example, @Code "@RawNumberedList" abbreviates to {@Code "@RNL"},
+and @Code "@ListItem" to {@Code "@LI"}.  The sole exception is
+{@Code "@RawList"}, which has no abbreviation because @Code "@RL"
+is the abbreviation for {@Code "@RomanList"}.
+@PP
+list.symbol.options @Index { list symbol options }
+Expert users will be interested to learn that all of the list symbols
+described in this section are derived from the two basic ones,
+@Code "@List" and {@Code "@RawList"}, merely by setting options.  Here
+are all the options, together with their default values:
+@ID @OneRow @Code {
+"@List"
+"    type { num }"
+"    style { num }"
+"    labelwidth { 2f }"
+"    indent { 0c }"
+"    rightindent { 0c }"
+"    gap { 1v }"
+"    start { 1 }"
+}
+These options may be used with all of the list and raw list symbols,
+except that some combinations don't make sense, for example @Code "indent"
+with {@Code "@CentredList"} or @Code "style" with {@Code "@BulletList"},
+since the list symbol has clearly already set the option.
+@PP
+The @Code "type" option determines the type of numbering (Arabic, Roman,
+etc.) and is not intended for ordinary use, since there are distinct
+symbols for each type, as we have seen.  The @Code "style" option
+determines the format of the label, any @Code "num" symbol within it
+being replaced by the number (in Arabic, Roman, etc. as determined by the
+@Code "type" option) of the item.  For example, @Code "@ParenNumberedList"
+is just
+@ID @OneRow @Code {
+"@List"
+"    style { (num) }"
+}
+and @Code "@BulletList" is just
+@ID @OneRow @Code {
+"@List"
+"    style { @Bullet }"
+}
+with @Code "num" not mentioned since no number is wanted.  The
+@Code "@TaggedList" symbol and its variants also have the
+@Code "style" option; in their case, the @Code "num" symbol within
+it must be mentioned exactly once, and its value is set to produce
+the label supplied by the author.
+@PP
+The @Code "labelwidth" option determines the width set aside for the labels;
+this is where @Code "@WideTaggedList" and @Code "@VeryWideTaggedList" differ
+from {@Code "@TaggedList"}.  The @Code "indent" and @Code "rightindent"
+options determine the space left blank at the left and right margins.  The
+value given to these three options may be any length, for example
+@Code "0.5i" (half an inch), or @Code "0.5f" (half the current font
+size).  Section {@NumberOf objects} describes lengths in general.  There
+are also three useful symbols denoting lengths:  @Code "@DisplayIndent"
+is the amount by which indented and quoted displays are indented;
+@Code "@WideIndent" and @Code "@VeryWideIndent" are the indents used by
+@Code "@WideTaggedList" and {@Code "@VeryWideTaggedList"}.  Using these
+symbols helps to keep documents consistent.
+@PP
+The @Code "gap" option determines the vertical space inserted between
+items.  Once again this must be a length, although since it is
+vertical rather than horizontal, somewhat different kinds of lengths
+are appropriate:  @Code "1.5v" for 1.5 times the current vertical space
+between lines, or the default value, {@Code "@DisplayGap"}, which produces
+the amount of vertical space used before and after displays.  Owing to
+problems behind the scenes, there is no list option for the space before or after
+the list as a whole.  To change this space in one list, use a raw list and
+insert your own paragraph symbols; to change it in every list there is a
+setup file option, described below.
+@PP
+The @Code "start" option is the number assigned to the first
+item.  It must be decimal:
+@ID @OneRow @Code {
+"@ParenRomanList"
+"    start { 25 }"
+}
+looks strange, but it is the correct way to number the first
+item (xxv).
+@PP
+Here is a larger example of these options in action.  Setting both
+@Code "indent" and @Code "rightindent" to @Code "@DisplayIndent"
+produces an effect similar to {@Code "@QuotedDisplay"}:
+@ID @OneRow @Code {
+"preceding text"
+"@List"
+"    style { @I {Item num}: }"
+"    indent { @DisplayIndent }"
+"    rightindent { @DisplayIndent }"
+"    labelwidth { @WideIndent }"
+"    start { 10 }"
+"@ListItem { The vendor ... in the case of accident.  }"
+"@ListItem { The vendor ... adjacent to the facility. }"
+"@EndList"
+"following text"
+}
+The result is
+@ID @OneRow {
+preceding text
+@List
+    style { @I {Item num}: }
+    indent { @DisplayIndent }
+    rightindent { @DisplayIndent }
+    labelwidth { @WideIndent }
+    start { 10 }
+@ListItem {
+The vendor will not be liable for any injury caused by the escape of
+radiation or radioactive materials from the facility, nor for the
+costs of repair of any property damaged by nuclear blast or fallout
+in the case of accident.
+}
+@ListItem {
+The vendor will not be liable for any injury caused by radioactive
+materials being transported to or from the facility, nor for injury
+caused by radioactive materials stored adjacent to the facility.
+}
+@EndList
+following text
+}
+You can change the @I default values of the {@Code "labelwidth"},
+{@Code "indent"}, {@Code "rightindent"}, and {@Code "gap"} options,
+by setting options called {@Code "@ListTagWidth"}, {@Code "@ListIndent"},
+{@Code "@ListRightIndent"}, and {@Code "@ListGap"} in the setup
+file (Section {@NumberOf setup}).  These default values will then apply
+automatically to every list in the document unless overridden by an option,
+just as the usual default values do.  The setup file also has a
+{@Code "@ListOuterGap"} option which determines the gap before the first
+and after the last list item in non-raw lists.
+@End @Section

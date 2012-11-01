@@ -1,0 +1,274 @@
+.\"
+.\" $Id: english.4l,v 1.7 1994/01/25 07:12:38 geoff Exp $
+.\"
+.\" Copyright 1987, 1988, 1989, 1992, 1993, Geoff Kuenning, Granada Hills, CA
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\"
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. All modifications to the source code must be clearly marked as
+.\"    such.  Binary redistributions based on modified source code
+.\"    must be clearly marked as modified versions in the documentation
+.\"    and/or other materials provided with the distribution.
+.\" 4. All advertising materials mentioning features or use of this software
+.\"    must display the following acknowledgment:
+.\"      This product includes software developed by Geoff Kuenning and
+.\"      other unpaid contributors.
+.\" 5. The name of Geoff Kuenning may not be used to endorse or promote
+.\"    products derived from this software without specific prior
+.\"    written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.\" $Log: english.4l,v $
+.\" Revision 1.7  1994/01/25  07:12:38  geoff
+.\" Get rid of all old RCS log lines in preparation for the 3.1 release.
+.\"
+.\"
+.TH ENGLISH 4
+.SH NAME
+english \- flag format for English \fIokspell\fP dictionaries
+.SH DESCRIPTION
+English dictionaries for
+.IR okspell (1)
+supports 3 prefix and 14 suffix flags.
+For a detailed description of how
+.I okspell
+handles flags and capitalization, see
+.IR okspell (4).
+This manual page only describes flags usable in dictionaries built
+using the
+.I english.aff
+affix file.
+.PP
+In the following discussion of the flags,
+let # and @ be "variables" that can stand for any letter.
+Upper case letters are constants.
+"..." stands for any string of zero or more
+letters, but note that no word may exist in the dictionary which is not at
+least 2 letters long, so, for example, "fly" may not be produced by placing
+the "Y" flag on "f".
+Also, no flag is effective unless the word that it
+creates is at least 4 letters long, so, for example, "wed" may not be
+produced by placing the "D" flag on "we".
+.PP
+In the following list, an asterisk indicates that a flag participates in
+cross-product formation (see
+.IR okspell (4)).
+.PP
+The meaning of the prefix flags is as follows:
+.IP "*A"
+.in +5m
+.ti -5m
+\&... --> re...  as in cover --> recover
+.in -5m
+.IP "*I"
+.in +5m
+.ti -5m
+\&... --> in...  as in firm --> infirm
+.in -5m
+.IP "*U"
+.in +5m
+.ti -5m
+\&... --> un...  as in able --> unable
+.in -5m
+.PP
+The meaning of the suffix flags is as follows:
+.IP "V"
+.in +5m
+.ti -5m
+\&...e --> ...ive  as in create --> creative
+.br
+.ti -5m
+if # .ne. e, ...# --> ...#ive  as in prevent --> preventive
+.in -5m
+.IP "*N"
+.in +5m
+.ti -5m
+\&...e --> ...ion  as in create --> creation
+.br
+.ti -5m
+\&...y --> ...ication  as in multiply --> multiplication
+.br
+.ti -5m
+if # .ne. e or y, ...# --> ...#en  as in fall --> fallen
+.in -5m
+.IP "*X"
+.in +5m
+.ti -5m
+\&...e --> ...ions  as in create --> creations
+.br
+.ti -5m
+\&...y --> ...ications  as in multiply --> multiplications
+.br
+.ti -5m
+if # .ne. e or y, ...# --> ...#ens  as in weak --> weakens
+.in -5m
+.IP "H"
+.in +5m
+.ti -5m
+\&...y --> ...ieth  as in twenty --> twentieth
+.br
+.ti -5m
+if # .ne. y, ...# --> ...#th  as in hundred --> hundredth
+.in -5m
+.IP "*Y"
+.in +5m
+.ti -5m
+\&... --> ...ly  as in quick --> quickly
+.in -5m
+.IP "*G"
+.in +5m
+.ti -5m
+\&...e --> ...ing  as in file --> filing
+.br
+.ti -5m
+if # .ne. e, ...# --> ...#ing  as in cross --> crossing
+.in -5m
+.IP "*J"
+.in +5m
+.ti -5m
+\&...e --> ...ings  as in file --> filings
+.br
+.ti -5m
+if # .ne. e, ...# --> ...#ings  as in cross --> crossings
+.in -5m
+.IP "*D"
+.in +5m
+.ti -5m
+\&...e --> ...ed  as in create --> created
+.br
+.ti -5m
+.br
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@ied  as in imply --> implied
+.br
+.ti -5m
+if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+\&...@# --> ...@#ed  as in cross --> crossed
+or convey --> conveyed
+.in -5m
+.IP "T"
+.in +5m
+.ti -5m
+\&...e --> ...est  as in late --> latest
+.br
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@iest  as in dirty --> dirtiest
+.br
+.ti -5m
+if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+\&...@# --> ...@#est  as in small --> smallest
+or gray --> grayest
+.in -5m
+.IP "*R"
+.in +5m
+.ti -5m
+\&...e --> ...er  as in skate --> skater
+.br
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@ier  as in multiply --> multiplier
+.br
+.ti -5m
+if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+\&...@# --> ...@#er  as in build --> builder
+or convey --> conveyer
+.in -5m
+.IP "*Z"
+.in +5m
+.ti -5m
+\&...e --> ...ers  as in skate --> skaters
+.br
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@iers  as in multiply --> multipliers
+.br
+.ti -5m
+if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+\&...@# --> ...@#ers  as in build --> builders
+or slay --> slayers
+.in -5m
+.IP "*S"
+.in +5m
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@ies  as in imply --> implies
+.br
+.ti -5m
+if # .eq. s, x, z, or h,
+\&...# --> ...#es  as in fix --> fixes
+.br
+.ti -5m
+if # .ne. s, x, z, h, or y, or (# = y and @ = a, e, i, o, or u)
+\&...@# --> ...@#s  as in bat --> bats
+or convey --> conveys
+.in -5m
+.I*P "P"
+.in +5m
+.ti -5m
+if @ .ne. a, e, i, o, or u,
+\&...@y --> ...@iness  as in cloudy --> cloudiness
+.br
+.ti -5m
+if # .ne. y, or @ = a, e, i, o, or u,
+\&...@# --> ...@#ness  as in late --> lateness
+or gray --> grayness
+.in -5m
+.IP "*M"
+.in +5m
+.ti -5m
+\&... --> ...'s  as in dog --> dog's
+.in -5m
+.PP
+To summarize more briefly:
+.PP
+Prefixes:
+.RS
+.nf
+*A \- re
+*I \- in
+*U \- un
+.fi
+.RE
+.PP
+Suffixes:
+.RS
+.nf
+V \- ive
+*N \- ion, tion, en
+*X \- ions, ications, ens
+H \- th, ieth
+*Y \- ly
+*G \- ing
+*J \- ings
+*D \- ed
+T \- est
+*R \- er
+*Z \- ers
+*S \- s, es, ies
+*P \- ness, iness
+*M \- 's
+.fi
+.RE
+.SH "SEE ALSO"
+okspell(1), okspell(4)

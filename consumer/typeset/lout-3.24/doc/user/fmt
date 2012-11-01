@@ -1,0 +1,16 @@
+@Chapter
+    @Title { Changing the Overall Format }
+    @Tag { changes }
+@Begin
+@LP
+The symbols of Lout make many decisions behind the scenes.  Even the
+humble @Code "@PP" symbol has to decide how much vertical space to
+leave, and how far to indent the first line of the paragraph.  How to
+change these decisions is the subject of this chapter.
+@BeginSections
+@Include { fmt_setu }
+@Include { fmt_size }
+@Include { fmt_marg }
+@Include { fmt_head }
+@EndSections
+@End @Chapter

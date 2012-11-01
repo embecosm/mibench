@@ -1,0 +1,55 @@
+The following is a list of all changes that were made to the MIT PGP 2.6.2
+distribution in order to make PGP 2.6.2i:
+
+ 1. New file pgp262i.diffs added (this file).
+ 2. New file readme.1st replaced readme.doc.
+ 3. New file przon26i.asc by Philip Zimmermann added.
+ 4. New file appeal.asc by Hugh Miller added.
+ 5. Files setup.doc, changes.doc and pgformat.doc updated for version 2.6.3i.
+ 6. Files blurb.txt and config.txt updated for version 2.6.3i.
+ 7. Added note at beginning of files pgpdoc1.txt, pgpdoc2.txt and mitlicen.txt.
+ 8. File keys.asc updated with a number of new public keys.
+ 9. File keyserv.doc brought up to date. Thanks to Jeff Licquia.
+10. Language file language.txt thoroughly updated.
+11. Help files fr.hlp and es.hlp updated for version 2.6.2i.
+12. New help file pgp.hlp by John DeHaven added (old file renamed to en.hlp).
+13. New help file no.hlp added.
+14. Unix man file pgp.1 updated for version 2.6.2i.
+15. Files in contrib/ and md5/ subdirectories updated for version 2.6.2i.
+16. Files rsaref.zip, rsaref.asc and rsalicen.txt removed.
+17. Makefiles updated to use MPILIB (rsaglue1) instead of RSAREF (rsaglue2).
+18. Makefile dependencies for mpilib.h fixed.
+19. Makefile option for sun4sunos5acc corrected.
+20. Makefile option for Novell UnixWare 2.0 (gcc) added.
+21. Makefile option for Mips R3230 running RISC/os 5.01 added.
+22. Makefile option for ConvexCS added.
+23. Makefile option for SCO-386 (cc) added.
+24. Makefile options for SYSV (gcc) added.
+25. New makefile makefile.tc for Borland/Turbo C added.
+26. New project file pgp.prj for Borland/Turbo C added.
+27. Source code file pgp.c updated for version 2.6.2i.
+28. Source code file pgp.c modified to fix -o filename bugs.
+29. Source code file config.c modified to add "legal kludge" option.
+30. Source code file keymgmt.c updated to skip Christmas Day test.
+31. Source code file charset.c updated to support NeXTSTEP character set.
+32. Source code file zipup.c updated to support FreeBSD. Makefile option added.
+33. Source code file armor.c modified to prevent PGP from hanging in MS-DOS.
+34. Source code file crypto.c modified to fix signature bug for >2034 bit keys.
+35. Source code files updated to support Borland/Turbo C.
+36. Source code files updated to support Atari (gcc). Makefile option added.
+37. Source code files updated to support Amiga (SAS/C 6.51).
+38. New files amiga__main.c, amiga_asm.a and smakefile added.
+39. New file strtol.c added for platforms that do not have strtol().
+40. New file gettime.c added for platforms that do not have gettimeofday().
+41. Header file mpilib.h modified to fix 2047 bit keygen bug.
+42. Header file ztailor.h modified for VAXC preprocessor bug.
+43. Header files platform.h and crypto.h updated for VMS (VAX/ALPHA).
+44. All files in subdirectory vmsbuild/ removed.
+45. Files descrip.mms, pgp.opt and vaxcrtl.opt removed.
+46. New VMS command procedure pgpinstal.com added.
+
+Special thanks go to Vesselin Bontchev, Andrey Chernov, Yanik Crepeau, Harald
+Denker, John DeHaven, Graham Jenkins, Stephan Kockmann, Alexander Kolbasov,
+Robert Knop, Jeff Licquia, mathew, Hugh Miller, Hendrik Mylius, Armando Ramos,
+Peter Simons, Edgar Swank, ViaCrypt, Philip Zimmermann and many more for
+comments, suggestions, submission of patches and other contributions.

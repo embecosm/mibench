@@ -1,0 +1,146 @@
+@Section
+   @Title { The style and size of objects }
+   @Tag { size }
+@Begin
+@PP
+This section explains how Lout determines the style and size of each
+object.  Together, these attributes determine the object's final
+appearance in the output.
+style @Index { Style of an object }
+@PP
+The style of an object comprises the following:
+@BulletList
+@ListItem { Which font family, face and size to use (also defining the
+@Code f unit); }
+@ListItem { Whether small capitals are in effect or not; }
+@ListItem { What gap to replace a single space between two objects by (also
+defining the @Code s unit); }
+@ListItem { The interpretation to place on white space separating
+two objects ({@Code lout}, {@Code compress}, {@Code separate}, {@Code troff},
+or {@Code tex} as in Section {@NumberOf space}); }
+@ListItem { The current value of the @Code y and @Code z units of
+measurement (Section {@NumberOf yunit}); }
+@ListItem { The kind of paragraph breaking to employ ({@Code adjust},
+{@Code ragged}, etc.) }
+@ListItem { What gap to insert between the lines of paragraphs
+(also defining the @Code v unit); }
+@ListItem { Whether to permit hyphenation or not; }
+@ListItem { What colour the object is to appear in; }
+@ListItem { Whether @@Outline is in effect; }
+@ListItem { The language of the object; }
+@ListItem { Whether @@VAdjust, @@HAdjust and @@PAdjust are in effect. }
+@EndList
+The style of an object depends on where it appears in the final
+document.  For example, the style of a parameter depends on where it is
+used; the style of a galley is the style of the first target that it
+attempts to attach itself to.  Of course, the style of any object can be
+changed by using the @@Font, @@Break, @@Space, @@SetColour or
+@@SetColor, @@Outline, and @@Language symbols.
+@PP
+There are no standard default values for style, except that small capitals
+and outlining are initially off, the interpretation of white space is
+initially {@Code lout}, and the values of the @Code y and @Code z units
+are zero.  Therefore one must ensure that the root galley or each of its
+components is enclosed in @@Font, @@Break, @@SetColour or @@SetColor, and
+@@Language symbols.  From there the style is passed to incoming galleys
+and the objects within them.  Enclosure in @@Space is not required because
+the @Code "s" unit is also set by @@Font (Section {@NumberOf space}).
+@PP
+width. @Index { Width of an object }
+height. @Index { Height of an object }
+size. @Index { Size of an object }
+The remainder of this section explains how the size of each object (its
+width and height on the printed page) is determined.  We will treat width
+only, since height is determined in exactly the same way, except that the
+complications introduced by paragraph breaking are absent.
+@PP
+With three exceptions (see below), the width of an object is as large as
+it possibly could be without violating a @@Wide symbol or intruding into
+the space occupied by neighbouring gaps or objects.  As an aid to
+investigating this rule, we will use the definition
+@ID @OneRow @Code {
+"def @TightBox right x"
+"{"
+"  \"0 0 moveto xsize 0 lineto xsize ysize lineto 0 ysize lineto closepath stroke\""
+"  @Graphic x"
+"}"
+}
+which draws a box around the boundary of its right parameter (Section
+{@NumberOf graphic}) with no margin.  The result of
+@ID @Code {
+"5c @Wide @TightBox metempsychosis"
+}
+is
+@ID {
+5c @Wide @TightBox metempsychosis
+}
+The widest that @Code "@TightBox metempsychosis" could possibly be is five
+centimetres, and accordingly that is its width.  The same applies to
+{@Code metempsychosis}, which is five centimetres wide as well.  Note
+carefully that there is no object in this example whose width is equal
+to the sum of the widths of the letters of {@Code metempsychosis}.
+@PP
+The first of the three exceptions to the `as wide as possible' rule is the
+@@HContract symbol, which causes the width of its right parameter to be
+reduced to a reasonable minimum (a formal definition will not be attempted):
+@ID @OneRow @Code {
+"5c @Wide @HContract @TightBox metempsychosis"
+}
+produces
+@ID {
+5c @Wide @HContract @TightBox metempsychosis
+}
+The object @Code "@HContract @TightBox metempsychosis" is still five centimetres
+wide, but the object @Code "@TightBox metempsychosis" has been reduced.
+@PP
+The second of the three exceptions is the horizontal concatenation symbol
+@Code "|" (and also {@Code "&"}).  Consider this example:
+@ID @OneRow @Code {
+"5c @Wide @TightBox { A  |1c  B  |1c  C }"
+}
+As usual, the right parameter of @@Wide is five centimetres wide, and
+the result looks like this:
+@ID {
+5c @Wide @TightBox { A  |1c  B  |1c  C }
+}
+Lout has to apportion the size minus inter-column gaps among the three
+columns.
+@PP
+If the columns are wide enough to require paragraph breaking, Lout will
+assign sizes to the columns in such a way as to leave narrow columns
+unbroken and break wider columns to equal width, occupying the full
+size.  Otherwise, paragraph breaking is not required, and each column
+will be assigned a reasonable minimum size in the manner of @@HContract,
+except that the last column receives all the leftover width.  For example,
+@ID @OneRow @Code {
+"5c @Wide { @TightBox A  |1c  @TightBox B  |1c  @TightBox C }"
+}
+has result
+@ID {
+5c @Wide { @TightBox A  |1c  @TightBox B  |1c  @TightBox C }
+}
+If it is desired that the leftover width remain unused, rather than
+going into the last column, an empty column can be appended, or the last
+column can be enclosed in @@HContract.  Two other ways to apportion the
+leftover width are provided by the @@HExpand and @@HAdjust symbols
+(Sections {@NumberOf hexpand} and {@NumberOf hadjust}).
+@PP
+The third and final exception to the `as wide as possible' rule concerns
+the components of the root galley.  Each is considered to be enclosed
+root.galley.size @SubIndex { size of components of }
+in @@HContract and @@VContract symbols.
+@PP
+Up to this point we have treated width as a single quantity, but of
+course it has two parts:  width to left and right of the mark.  The
+`as wide as possible' rule applies to both directions:
+@ID @Code {
+"@HContract { @TightBox 953^.05 /0.5c @TightBox 2^.8286 }"
+}
+has result
+@ID {
+@HContract { @TightBox 953^.05 /0.5c @TightBox 2^.8286 }
+}
+Leftover width usually goes to the right, as we have seen, but here some
+width was available only to the left of {@Code "2.8286"} owing to the
+column mark alignment.
+@End @Section

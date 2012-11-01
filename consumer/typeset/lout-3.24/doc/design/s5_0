@@ -1,0 +1,11 @@
+@Section
+    @Title { Galleys }
+@Begin
+@PP
+With objects and definitions under control, the author faced the problem
+of getting body text, footnotes, floating figures and tables,
+references, index entries, and entries in the table of contents into
+their places.  The resulting investigation occupied three months of
+full-time design work, and proceeded approximately as described in
+Section {@NumberOf galleys}; the implementation occupied the years 1987-89.
+@BeginSubSections

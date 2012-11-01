@@ -1,0 +1,201 @@
+@Section
+    @Title { Rules }
+    @Tag { tbl_rule }
+@Begin
+@PP
+There is a @Code "rule" option for drawing a rule around a cell:
+@ID @OneRow @Code "@Cell rule { yes }"
+Other values are {@Code no} (the default),
+{@Code single} (the same as {@Code yes}), and {@Code double} (for a
+double rule).
+@PP
+There are @Code "rulehorizontal" and @Code "rulevertical" options which
+draw only horizontal or vertical rules, and also {@Code "ruleabove"},
+{@Code "rulebelow"}, {@Code "ruleleft"}, and {@Code "ruleright"} options:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    aformat { @Cell A | @Cell B }
+{
+@Rowa
+    ruleabove { yes }
+    A { Commercial property }
+    B { 10% }
+@Rowa
+    A { Stock market }
+    B { 15% }
+    rulebelow { yes }
+}
+}
+produces
+@CD @OneRow @Tbl
+    aformat { @Cell A | @Cell B }
+{
+@Rowa
+    ruleabove { yes }
+    A { Commercial property  }
+    B { 10% }
+@Rowa
+    A { Stock market }
+    B { 15% }
+    rulebelow { yes }
+}
+These options take the same values as {@Code "rule"}, but draw
+along only one or two of the four edges.
+@PP
+Other options control the appearance of rules.  Here they are with their
+default values:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    rulewidth { 0.05f }
+    rulegap { 0.15f }
+    rulecolour { black }
+}
+These say that rules are to be @Code "0.05f" wide (thick), double rules
+are to appear @Code "0.15f" apart, and the colour of rules is to be black.
+Once again, more specific versions of these symbols exist for controlling
+above, below, left, and right rules:
+@ID @OneRow @Code @Tbl
+    aformat { @Cell ml { 0i } A | @Cell B | @Cell C }
+    marginvertical { 0.5vx }
+{
+@Rowa
+    A { rulehorizontalwidth }
+    B { rulehorizontalgap }
+    C { rulehorizontalcolour }
+@Rowa
+    A { ruleabovewidth }
+    B { ruleabovegap }
+    C { ruleabovecolour }
+@Rowa
+    A { rulebelowwidth }
+    B { rulebelowgap }
+    C { rulebelowcolour }
+@Rowa
+    A { ruleverticalwidth }
+    B { ruleverticalgap }
+    C { ruleverticalcolour }
+@Rowa
+    A { ruleleftwidth }
+    B { ruleleftgap }
+    C { ruleleftcolour }
+@Rowa
+    A { rulerightwidth }
+    B { rulerightgap }
+    C { rulerightcolour }
+}
+All these options have alternative, abbreviated names; and @Code { colour }
+may be spelt @Code { color } wherever it appears.  Section
+{@NumberOf tbl_summ} has a complete summary of all spellings of all
+options.
+@PP
+To clarify exactly where the rules are drawn, let's start with
+a cell with no rules at all:
+@CD @Tbl
+    mv { 0i }
+    aformat { @Cell width { 3c } height { 1.2c } paint { lightgrey } A }
+{
+@Rowa
+}
+Above rules and left rules are drawn within the cell boundary, just
+touching it, with any above rule overstriking any left rule:
+@CD { @Tbl
+    mv { 0i }
+    aformat { @Cell width { 3c } height { 1.2c } paint { lightgrey } A }
+{
+@Rowa
+}
+@Background @Tbl
+    mv { 0i }
+    aformat { @Cell width { 3c } height { 1.2c } A }
+    ruleleft { yes }
+    ruleabove { yes }
+    rulehorizontalwidth { 0.8v }
+    ruleverticalwidth { 0.5v }
+    ruleverticalcolour { grey }
+    rulehorizontalcolour { black }
+{
+@Rowa
+}
+}
+Below and right rules are drawn just outside the boundary of the
+cell, also touching it:
+@CD @Tbl mv { 0i } aformat { @Cell A | @Cell | @Cell B }
+{
+@Rowa
+    A {
+        @Tbl
+            mv { 0i }
+            aformat { @Cell width { 3c } height { 1.2c } paint { lightgrey } A }
+        {
+        @Rowa
+        }
+        @Background
+        @Tbl
+            mv { 0i }
+            aformat { @Cell width { 3c } height { 1.2c } A }
+            rulebelow { yes }
+	    rulehorizontalwidth { 0.8v }
+	    ruleverticalwidth { 0.5v }
+	    ruleverticalcolour { grey }
+	    rulehorizontalcolour { black }
+        {
+        @Rowa
+        }
+      }
+    B {
+        @Tbl
+            mv { 0i }
+            aformat { @Cell width { 3c } height { 1.2c } paint { lightgrey } A }
+        {
+        @Rowa
+        }
+        @Background
+        @Tbl
+            mv { 0i }
+            aformat { @Cell width { 3c } height { 1.2c } A }
+            ruleright { yes }
+	    rulehorizontalwidth { 0.8v }
+	    ruleverticalwidth { 0.5v }
+	    ruleverticalcolour { grey }
+	    rulehorizontalcolour { black }
+        {
+        @Rowa
+        }
+      }
+}
+@DP
+When a right rule is present, any above and below rules are extended
+by the width of the right rule, and they overstrike it:
+@CD {
+@Tbl
+    mv { 0i }
+    aformat { @Cell width { 3c } height { 1.2c } paint { lightgrey } A }
+{
+@Rowa
+}
+@Background
+@Tbl
+    mv { 0i }
+    aformat { @Cell width { 3c } height { 1.2c } A }
+    ruleabove { yes }
+    ruleright { yes }
+    rulebelow { yes }
+    rulehorizontalwidth { 0.8v }
+    ruleverticalwidth { 0.5v }
+    ruleverticalcolour { grey }
+    rulehorizontalcolour { black }
+{
+@Rowa
+}
+}
+@DP
+(These diagrams were produced by @Code "@Tbl" itself, using horizontal
+rules of width @Code 0.8v drawn in black, and vertical rules of width
+@Code 0.5v drawn in grey.)  These arrangements ensure that even thick
+rules produce clean corners, and also that a right rule and a neighbouring
+left rule exactly overstrike each other, as do a below rule and its
+neighbouring above rule.
+# @PP
+# For information about rules in plain text tables, consult Section
+# {@NumberOf tbl_plai}.
+@End @Section

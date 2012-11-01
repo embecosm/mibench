@@ -1,0 +1,16 @@
+
+Lout-related software form elsewhere
+====================================
+
+This directory contains information about software related to
+Lout but not distributed with Lout.  For various practical
+reasons, such as size, licenses, version control, etc., it was
+considered better not to bundle this with Lout itself.  This
+directory is maintained by Jeff Kingston, but he exercises no
+editorial control over it beyond checking that the software
+advertised in it appears to have some connection with Lout.  In
+particular, there is no guarantee that the stuff exists, works,
+is compatible, is supported by its author, etc.  Use at own risk.
+
+Jeff Kingston
+12 April 1995

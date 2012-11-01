@@ -1,0 +1,75 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+
+
+
+           Pretty Good Privacy version 2.6.3/2.6.3i - READ ME FIRST
+
+                                  1996/01/26
+
+
+The PGP 2.6.3i source code tree is able to compile both the international
+version of PGP (PGP 2.6.3i) and the USA version of PGP (PGP 2.6.3).  It
+includes the source code for Unix, MS-DOS, AmigaDOS, MacOS, VMS, and other
+systems.
+
+
+INTERNATIONAL VERSION -- PGP 2.6.3i
+- -----------------------------------
+
+Users outside the USA should use the international version of PGP, the
+latest version of which is PGP 2.6.3i.
+
+  --> For more information, read the file "readme.1st".
+
+
+USA VERSION -- PGP 2.6.3
+- ------------------------
+
+Users inside the USA, because of patent laws, should use PGP 2.6.3, which
+uses the RSAREF library.  This version is completely legal to use for non-
+commercial purposes inside the USA.  It is not an official MIT release of
+PGP; rather, it is based on the latest official MIT release (PGP 2.6.2)
+together with the enhancements which are also in PGP 2.6.3i.
+
+If you aquired a binary archive of PGP containing executables for your machine
+of PGP 2.6.3, the archive should also include the files "mitlicen.txt" and
+"rsalicen.txt", BOTH of which apply to PGP 2.6.3.  Be aware that much of the
+documentation is slanted toward the international version of PGP.  For
+example, the "mitlicen.txt" included with the PGP 2.6.3i source distribution
+says that rsalicen.txt does not apply to PGP 2.6.3i.  The RSAREF license in
+rsalicen.txt does, however, apply to the USA version PGP 2.6.3.
+
+To compile PGP 2.6.3, you will need the PGP 2.6.3i source archive along with
+source code for the rsaref-1.0 library, available elsewhere.  For instructions
+on compiling PGP 2.6.3 versus PGP 2.6.3i, see the makefile for your computer
+in the "src" directory.
+
+Commercial users of PGP inside the USA should not use PGP 2.6.3. Instead, they
+should purchase a copy of ViaCrypt PGP 2.7.1 (or later). For more information,
+contact:
+
+  ViaCrypt
+  2104 W. Peoria Avenue
+  Phoenix
+  AZ 85029
+  USA
+
+  Phone : 602-944-0773
+  Fax   : 602-943-2601
+  Email : info@viacrypt.com
+  WWW   : http://www.viacrypt.com/
+
+  Credit card orders 800-536-2664 (0800-1700 MST, Mon-Fri)
+
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: 2.6.3ia
+Charset: latin1
+
+iQCVAgUBMX5mObCfd7bM70R9AQH3fQP8CcZ7Zu6xrez1mWsp66hkfc53cTBAuO41
+k1Jg717+98XEsEJMWgNFZYEKButY6iUMxsFkrR/RKADjcW8YzNJT8nNXj3Cb487J
++XVpunYZdLS3X+NtDclrDZPurkhZ5vYLx4SVkEiiL2OJmkuG6CBRZai2rXpQJqQ5
+MBfrjfi6/F0=
+=CqKv
+-----END PGP SIGNATURE-----

@@ -1,0 +1,193 @@
+{\rtf0\ansi{\fonttbl\f0\fswiss Helvetica;\f1\fmodern Courier;\f2\fmodern Ohlfs;\f3\ftech Symbol;}
+\paperw8920
+\paperh9800
+\margl680
+\margr780
+{\colortbl;\red17\green0\blue153;\red68\green85\blue255;\red0\green0\blue0;}
+\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Contents:							Other Documents:\
+
+\gray0\fc0\cf0 \
+
+{{\NeXTHelpLink34 \markername ;\linkFilename README.NeXT;\linkMarkername introduction;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Introduction						
+{{\NeXTHelpLink54 \markername ;\linkFilename README;\linkMarkername ;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  README\
+
+{{\NeXTHelpLink63 \markername ;\linkFilename README.NeXT;\linkMarkername gettingstarted;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Getting started						
+{{\NeXTHelpLink86 \markername ;\linkFilename INSTALL;\linkMarkername ;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  INSTALL\
+
+{{\NeXTHelpLink96 \markername ;\linkFilename README.NeXT;\linkMarkername asummary;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  A summary						
+{{\NeXTHelpLink113 \markername ;\linkFilename Changes;\linkMarkername ;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Changes\
+
+{{\NeXTHelpLink123 \markername ;\linkFilename README.NeXT;\linkMarkername dictionary;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Dictionary							\
+
+{{\NeXTHelpLink143 \markername ;\linkFilename README.NeXT;\linkMarkername services;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Services\
+
+{{\NeXTHelpLink154 \markername ;\linkFilename README.NeXT;\linkMarkername knownbugs;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  Known bugs\
+
+{{\NeXTHelpLink167 \markername ;\linkFilename README.NeXT;\linkMarkername history;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\fc0\cf0  History\
+
+\b0\gray386\fc2\cf2 _____________________________________________________\
+
+\b\gray0\fc0\cf0 \
+
+{\gray85\fc1\cf1{\NeXTHelpMarker232 \markername introduction;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Introduction\
+
+\b0\gray0\fc0\cf0 \
+This is a text to speech system produced by integrating various pieces of code and tables of data, which are all (I believe) in the public domain.\
+\
+The bulk of the integration was done by Nick Ing-Simmons. See the file README for more info.\
+\
+The port to the NeXT was done by Ben Stuyts. (ben@stuyts.nl -- NeXT Mail Welcome.) I have only tested this on black hardware with NEXTSTEP 3.2.\
+
+\gray386\fc2\cf2 _____________________________________________________\
+
+\gray0\fc0\cf0 \
+
+{\b\gray85\fc1\cf1{\NeXTHelpMarker688 \markername gettingstarted;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Getting started\
+
+\b0\gray0\fc0\cf0 \
+
+\pard\tx960\tx1920\tx2880\tx3840\tx4800\tx5760\tx6720\tx7680\tx8640\tx9600\fc0\cf0 Make sure you have the GNU dbm library installed. I have tested it with gdbm-v1.7.3.\
+\
+
+\fc3\cf3 Then type:\
+\
+
+\f1 	rm -f hplay.c\
+	ln -s play/NeXTplay.c hplay.c\
+	make -f makefile.next\
+
+\f0 \
+Test the result by typing:\
+\
+	./
+\f1 say Welcome to the NeXT world\
+
+\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\gray386\fc2\cf2 _____________________________________________________\
+
+\gray0\fc0\cf0 \
+
+{\b\gray85\fc1\cf1{\NeXTHelpMarker990 \markername asummary;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 A summary\
+
+\b0\gray0\fc0\cf0 \
+
+\li540 Command line options:\
+	-v				verbose\
+
+\pard\tx1060\tx1600\tx2120\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\fi-2660\li3200\fc0\cf0 	-r #				set the sampling rate in Hz. Default is 8 KHz.\
+	-q				turns off warnings\
+    	-I				Impulsive source (default is "NATURAL")\
+    	-c num-cascade	Switches to CASCADE_PARALLEL with number of cascaded formants\
+	-F number		f0_flutter value\
+    	-f mSec-per-frame	Sets frame length\
+	-t number			voicing spectral tilt in dB,  0 to 24\
+	-x freq			voicing fundamentel frequency\
+	-p file			file to save holmes parameters to.\
+	-S number		speed, default =1, larger means slower\
+	-K number		umm...\
+
+\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\li540\fc0\cf0 \
+say "words words and more words".\
+say "[phonemes]".\
+say < file\
+\
+say\
+type words from stdin. A dot end a sentence and starts the conversion.\
+
+\li0 \
+Don't expect too much speed: on my 25 MHz cube the generation of 8 KHz speech takes as long as the speech itself. The bottleneck seems to be in nsynth.c, where most of the computation is done in floating point.\
+
+\gray386\fc2\cf2 _____________________________________________________\
+
+\gray0\fc0\cf0 \
+
+{\b\gray85\fc1\cf1{\NeXTHelpMarker1939 \markername dictionary;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Dictionary\
+
+\b0\gray0\fc0\cf0 \
+You can get an optional pronunciation dictionary. See file README
+{{\NeXTHelpLink2017 \markername ;\linkFilename README;\linkMarkername ;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b0\i0\ulnone\fs24\fc0\cf0 , section "Dictionaries" for details.\
+
+\gray386\fc2\cf2 _____________________________________________________\
+
+\gray0\fc0\cf0 \
+
+{\b\gray85\fc1\cf1{\NeXTHelpMarker2111 \markername services;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Services\
+
+\b0\gray0\fc0\cf0 \
+Here's a Tickle-service you can use to say any text.:\
+\
+
+\f2\fs20\li540 # Begin TickleServices Version 1.01 Data\
+"Menu Item" = "Tickle Services/Say";\
+"Send Type" = "NXAsciiPboardType";\
+"Tcl" = "\\\
+# Speak the selection\
+\
+exec say << [pasteboard read]\
+";\
+# End TickleServices Data\
+
+\f0\fs24\li0\gray386\fc2\cf2 _____________________________________________________\
+
+\gray0\fc0\cf0 \
+
+{\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\b\gray85\fc1\cf1{\NeXTHelpMarker2438 \markername knownbugs;}
+¬}\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 Known bugs\
+
+\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\b0\fc0\cf0 \
+
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\f3\fi-480\li480\fc0\cf0 ·
+\f0 	A fixed size buffer is used (in hplay.c) as a sound buffer. It is 1 MB, so you probably won't notice it. It might dump core on you though: This happens if you give it a very long sentence, and/or a high sample rate.\
+
+\f3 ·
+\f0 	It doesn't compile straight away on NEXTSTEP 3.0 systems. The compiler gives errors like:\
+
+\f2\fs20\fi-1540\li2500\fc3\cf3 cc -O2 -finline-functions -Wall -c holmes.c\
+holmes.c: In function `filter':\
+holmes.c:47: argument `v' doesn't match function prototype\
+holmes.c:47: a formal parameter type that promotes to `double' can match only `double' in the prototype\
+
+\f0\fs24\fi0\li480 To circumvent this, change the affected functions from:\
+
+\f2\fs20\fi480 static float\
+filter(p, v)\
+filter_ptr p;\
+float v;\
+
+\f0\fs24\fi0 To:\
+
+\f2\fs20\fi480 static float\
+filter(filter_ptr p, float v)\
+
+\pard\tx520\tx1060\tx1600\tx2120\tx2660\tx3200\tx3720\tx4260\tx4800\tx5320\f0\fs24\gray386\fc2\cf2 _____________________________________________________\
+
+\pard\tx960\tx1920\tx2880\tx3840\tx4800\tx5760\tx6720\tx7680\tx8640\tx9600\fc0\cf0 \
+
+{\b\gray85\fc1\cf1{\NeXTHelpMarker3207 \markername history;}
+¬}\pard\tx960\tx1920\tx2880\tx3840\tx4800\tx5760\tx6720\tx7680\tx8640\tx9600\f0\b\i0\ulnone\fs24\gray85\fc1\cf1 History\
+
+\b0\gray0\fc0\cf0 \
+22-feb-94 	Ben Stuyts	Initial port to NeXT.\
+
+\fi-3840\li3840 05-mar-94	Ben Stuyts	Added 3.0 fix to known bugs section.\
+
+\fc3\cf3 06-mar-94	Ben Stuyts	Fixed byte-ordering problem for Intel systems. Thanks to ugubser@avalon.unizh.ch for finding this out.\
+
+\fi0\li0\fc0\cf0 20-sep-94 	Ben Stuyts	Updates for rsynth 1.0 release.\
+
+}

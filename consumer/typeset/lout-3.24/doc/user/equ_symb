@@ -1,0 +1,357 @@
+@Section
+   @Title { Symbols }
+   @Tag { symbols }
+@Begin
+@PP
+@Code "@Eq" prints characters in the fonts appropriate for mathematics:
+@ID {
+@Code "x - 2"
+|7ct
+@Eq { x-2 }
+}
+Here @Eq { x } is in Italic, @Eq { 2 } is in Roman, and @Eq { minus } is
+from the Symbol font.  The character @Code "-" is a @I symbol which
+stands for @Eq {minus}, and @Code "2" is also a symbol, standing for
+@Eq { 2 }.  @Code "@Eq" includes a vast number of symbols:
+@ID {
+@Code "Omega delta int partial club"
+|7ct
+@Eq { Omega delta int partial club }
+}
+The summary at the end of this chapter has the complete list.
+@PP
+Symbols whose names are made from letters should be separated from each
+other by at least one space or end of line, as was done above, or else
+@Code "@Eq" will become confused:
+@ID {
+@Code "Omegadelta"
+|7ct
+@Eq { Omegadelta }
+}
+Symbols whose names are made from digits and punctuation characters can,
+however, be run together with each other and with symbols made from
+letters:
+@ID {
+@Code "Omega-delta<=2"
+|7ct
+@Eq { Omega-delta<=2 }
+}
+This rule applies throughout Lout (Section {@NumberOf spaces}).
+@PP
+Some symbols join objects together in mathematical ways:
+@ID {
+@Code "x sub 2"
+|7ct
+@Eq { x sub 2 }
+}
+Here the @Code "sub" symbol has taken the object just to its left, and
+sub. @Index { @Code "sub" in equations }
+the object just to its right, and joined them into one object in the
+form of a subscript.  The two objects are called the left and right
+parameters of {@Code "sub"}, and they may be arbitrary Lout objects.
+@PP
+Other symbols of a similar kind include {@Code "sup"} for
+sup. @Index { @Code "sup" in equations }
+superscripting, @Code "over" for built-up fractions, and @Code "from"
+over.eq. @Index { @Code "over" in equations }
+from. @Index { @Code "from" in equations }
+to. @Index { @Code "to" in equations }
+and @Code "to" for the lower and upper limits of sums, products,
+etc.  These symbols may be used together to produce complicated
+equations very easily:
+@ID {
+@Code {
+"big sum from i=0 to n r sup i"
+"= {r sup n+1 - 1} over r-1"
+}
+||7ct
+@Eq { big sum from i=0 to n r sup i
+= {r sup n+1 - 1} over r-1
+}
+}
+Here @Code "sum" is just the @Eq { summation } symbol; @Code "from" and
+@Code "to" do all the work of placing the limits.  They are quite
+independent, so either or both may be omitted.  To get a superscript
+directly over a subscript, use the @Code "supp" and @Code "on" symbols:
+supp. @Index { @Code "supp" in equations }
+on. @Index { @Code "on" in equations }
+@ID {
+@Code "A supp b on a"
+|7ct
+@Eq { A supp b on a }
+}
+These two symbols should always be used together as shown.
+@PP
+Sometimes a subscript appears to be too far to the right, owing to
+the slope of italic letters: in @Eq { W sub n }, for example.  You
+can fix this by using `tucked' subscripts, like this:
+@IndentedList
+@LI {
+@Code "W tsub n"
+|7ct
+@Eq { W tsub n }
+}
+@LI {
+@Code "W supp b ton a"
+|7ct
+@Eq { W supp b ton a }
+}
+@EndList
+The @Code "tsub" and @Code "ton" symbols are exactly like @Code "sub"
+and @Code "on" except for this tucking-in effect.  However, the
+@Code "sub" symbol itself does a certain amount of tucking in; the
+amount is determined by kerning information in the font files and
+so is sensitive to the shape of the letters.
+@PP
+As usual in Lout, braces are used to group something into an indivisible
+object.  Leaving them out creates ambiguities:
+@ID @Code "a  sup  b  over  c"
+There are two possible interpretations for this:
+@IndentedList
+@LI {
+@Code "{a  sup  b}  over  c"
+|7ct
+@Eq {  {a  sup  b}  over  c }
+}
+@LI {
+@Code "a  sup  {b  over  c}"
+|7ct
+@Eq {  a  sup  {b  over  c} }
+}
+@EndList
+@Code "@Eq" chooses between them in the following way.  Every symbol that
+takes a parameter also has a {@I precedence}, which is a number.  For
+example, @Code "sup" has precedence 60 and @Code "over" has precedence
+54.  The symbol with the highest precedence wins the object lying between
+them, so in the above case the first interpretation is chosen.  If two
+symbols of equal precedence compete for an object, the association is
+towards the left:
+@ID {
+@Code "a sup b sub 2"
+|7ct
+@Eq { a sup b sub 2 }
+}
+In this case it is more probable that the following right association
+was actually wanted:
+@ID {
+@Code "a sup { b sub 2 }"
+|7ct
+@Eq { a sup { b sub 2 } }
+}
+When in doubt, use braces to make the grouping clear.
+@PP
+White space between two objects is considered to be a symbol with
+precedence 7, which is lower than the precedence of any @Code "@Eq"
+symbol; but if the two objects are immediately adjacent and neither is
+enclosed in braces the precedence is 102, which is higher than the
+precedence of any @Code "@Eq" symbol.  Compare these three examples:
+@IL
+@LI {
+@Code "big sum from i=0 to n"
+|7ct
+@Eq {  big sum from i=0 to n }
+}
+@LI {
+@Code "big sum from {i = 0} to n"
+|7ct
+@Eq {  big sum from {i = 0} to n }
+}
+@LI {
+@Code "big sum from i = 0 to n"
+|7ct
+@Eq {  big sum from i = 0 to n }
+}
+@EL
+and you will see that some care is needed on this point.  Braces can
+always be used to override precedence and associativity, and when in
+doubt the easiest course is to insert them.  Although Lout allows
+symbols to associate towards the left or right, @Code "@Eq" chooses
+to have only left associative symbols.  The summary at the end of this
+chapter gives the precedence of every symbol.
+@PP
+The @Code matrix symbol {@PageMark matrix} builds an array of objects:
+matrix. @Index { @Code "matrix" in equations }
+@ID {
+@Code {
+"matrix"
+"   atleft { blpar }"
+"   atright { brpar }"
+"{"
+"  row col x sup 2 col y sup 2 col z sup 2"
+"  row col x col y col z"
+"  row col 1 col 1 col 1"
+"}"
+}
+||9ct
+@Eq {
+matrix
+   atleft { blpar }
+   atright { brpar }
+{
+  row col x sup 2 col y sup 2 col z sup 2
+  row col x col y col z
+  row col 1 col 1 col 1
+}
+}
+}
+The @Code atleft and @Code atright options place vertically scaled
+versions of their values at each side; if either is omitted the value
+is taken to be an empty object of zero width by default.  Although
+we have used @Code blpar and @Code brpar here, since the options are
+vertically scaled to the correct size some people prefer simply
+@ID @OneRow @Code {
+"matrix"
+"   atleft { ( }"
+"   atright { ) }"
+}
+The right parameter of @Code matrix is the array itself.  It must be
+enclosed in braces, and it is a sequence of rows introduced by
+@Code row symbols; each row is a sequence of objects introduced by
+@Code col symbols.
+@FootNote {
+Older versions of Lout use different symbols, {@Code "above"} and
+{@Code "nextcol"}, at this point.  For backward compatibility these
+symbols are still available, but they are obsolete and no longer documented.
+}
+The @Code row and @Code col symbols have low precedence, but not
+as low as white space between two objects.  Therefore, unless the
+entries in the array are very simple, it is safest to enclose each of
+them in braces.
+@PP
+Entries built with the @Code col symbol have their objects centred in
+the column.  Also available are @Code lcol for left-justified entries,
+@Code ccol meaning the same as {@Code col}, @Code rcol for
+right-justified entries, and @Code mcol for alignment along column
+marks.  Each column may contain entries of different kinds, except
+that @Code mcol does not work well with any other sort.
+@PP
+When several matrices appear side by side, slight differences in height
+can cause an unsightly appearance:
+@ID @Eq {
+matrix
+   atleft { ( }
+   atright { ) }
+{
+   row col a sub 11 col a sub 12
+   row col a sub 21 col a sub 22
+}
+matrix
+   atleft { ( }
+   atright { ) }
+{
+   row col b sub 11 col b sub 12
+   row col b sub 21 col b sub 22
+}
+=
+matrix
+   atleft { ( }
+   atright { ) }
+{
+   row col c sub 11 col c sub 12
+   row col c sub 21 col c sub 22
+}
+}
+To assist in resolving this problem, the @Code "matrix" symbol has
+a @Code "strut" option, which causes a strut to be inserted into
+every row, guaranteeing that every row has height at least equal
+to the height of the strut.  By using
+@ID @Code {
+"matrix"
+"    strut { Yes }"
+"..."
+}
+in each of the three matrices above, the result is improved to
+@ID @Eq {
+matrix
+   atleft { ( }
+   atright { ) }
+   strut { Yes }
+{
+   row col a sub 11 col a sub 12
+   row col a sub 21 col a sub 22
+}
+matrix
+   atleft { ( }
+   atright { ) }
+   strut { Yes }
+{
+   row col b sub 11 col b sub 12
+   row col b sub 21 col b sub 22
+}
+=
+matrix
+   atleft { ( }
+   atright { ) }
+   strut { Yes }
+{
+   row col c sub 11 col c sub 12
+   row col c sub 21 col c sub 22
+}
+}
+By default, the strut has height @Code "0.5f" (half the current font
+size) both above and below the axis of the row.  This can be changed
+by giving any length as the value of the @Code "strut" option:
+@Code "strut { 2.0c }" for two centimetres above and below
+the axis, and so on.
+@PP
+Some symbols have been added which produce `matrices' with commonly needed
+@Code atleft and @Code atright options already set for you.  Here are
+these symbols, on the left, with the equivalent @Code matrix symbol
+and, on the right, the result produced:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col ! @Col @Code B ! @Col ! @Col C }
+{
+@Rowa
+    A { "pmatrix" }
+    B { "matrix atleft { ( } atright { ) } { M }" }
+    C { @Eq { pmatrix { M } } }
+@Rowa
+    A { "bmatrix" }
+    B { "matrix atleft { blbrack } atright { brbrack } { M }" }
+    C { @Eq { bmatrix { M } } }
+@Rowa
+    A { "brmatrix" }
+    B { "matrix atleft { blbrace } atright { brbrace } { M }" }
+    C { @Eq { brmatrix { M } } }
+@Rowa
+    A { "fmatrix" }
+    B { "matrix atleft { blfloor } atright { brfloor } { M }" }
+    C { @Eq { fmatrix { M } } }
+@Rowa
+    A { "cmatrix" }
+    B { "matrix atleft { blceil } atright { brceil } { M }" }
+    C { @Eq { cmatrix { M } } }
+@Rowa
+    A { "amatrix" }
+    B { "matrix atleft { blangle } atright { brangle } { M }" }
+    C { @Eq { amatrix { M } } }
+}
+For example:
+@ID {
+@Code {
+"fmatrix { (n+1) over 2 }"
+}
+|7ct
+@Eq {
+fmatrix { (n+1) over 2 }
+}
+}
+As this example shows, these symbols are very useful for getting large
+scaled delimiters around things that aren't necessarily matrices at all.
+@PP
+Each of the @Code "@Eq" symbols that takes parameters also has a @Code gap
+option, which controls the amount of space inserted by the symbol:
+@IL
+@LI {
+@Code "x over y"
+|7ct
+@Eq { x over y }
+}
+@LI {
+6c @Wide @Code "x over gap { 3p } y"
+|7ct
+@Eq { x over gap { 3p } y }
+}
+@EL
+@Code "@Eq" usually gets the spacing right without help.
+@End @Section

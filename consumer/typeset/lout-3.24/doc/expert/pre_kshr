@@ -1,0 +1,23 @@
+@Section
+   @Title { "@KernShrink" }
+   @Tag { kernshrink }
+@Begin
+@PP
+kernshrink. @Index { @@KernShrink symbol }
+This symbol returns its right parameter unchanged in appearance but
+occupying a slightly smaller bounding box.  The reduction is by the
+amount of kerning that would be applied if the right parameter was
+immediately @I followed by the left parameter.  For example,
+@ID @Code ". @KernShrink P"
+has result
+@ID @Box margin { 0c } { . @KernShrink P }
+where a box of size 0 has been drawn around the result to make its
+extent clear.  Compare this with `P' alone:
+@ID @Box margin { 0c } { P }
+in which the bounding box exactly encloses the object, or at least
+is supposed to.  The bounding box is smaller on the right by the
+amount of kerning that would be applied between `P' and `.'.
+@PP
+The only known use for this symbol is to produce tucked-in subscripts
+in the Eq equation formatting package.
+@End @Section

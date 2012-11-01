@@ -1,0 +1,27 @@
+@Chapter
+    @Title { Types of Documents }
+    @Tag { types }
+@Begin
+@LP
+Particular types of documents have specialized formatting requirements:
+title pages in books, abstracts in technical reports, and so on.  Lout
+provides a range of @I { document types } with the appropriate
+specialized features for
+document.types @Index { document types }
+each type.
+@PP
+There are five types:  ordinary documents, technical reports,
+books, overhead transparencies, and stand-alone illustrations.  The
+features of all other chapters are available within each document type,
+but the features of one type are not available within other types.
+@BeginSections
+@Include { typ_ordi }
+@Include { typ_repo }
+@Include { typ_book }
+@Include { typ_over }
+@Include { typ_illu }
+@Include { typ_plai }
+@Include { typ_apdf }
+@Include { typ_orga }
+@EndSections
+@End @Chapter

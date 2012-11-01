@@ -1,0 +1,19 @@
+@SysInclude { fig }
+@SysInclude { diag }
+@SysInclude { eq }
+@SysInclude { tbl }
+@SysInclude { doc }
+@Doc @Text @Begin
+@QD @Tbl
+    rule { yes }
+{
+@Row format { @StartVSpan @Cell A | @StartHSpan @Cell B | @HSpan }
+    A { @SomeText }
+    B { @SomeText }
+@Row format { @VSpan | @Cell B | @StartVSpan @Cell C }
+    B { @SomeText }
+    C { @SomeText }
+@Row format { @StartHSpan @Cell A | @HSpan | @VSpan }
+    A { @SomeText }
+}
+@End @Text

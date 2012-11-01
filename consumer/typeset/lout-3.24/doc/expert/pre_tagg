@@ -1,0 +1,15 @@
+@Section
+   @Title { "@Tagged" }
+   @Tag { tagged }
+@Begin
+@PP
+The @@Tagged
+tagged.sym @Index { @@Tagged symbol }
+symbol takes a cross reference for its left parameter and an object, whose
+value must be a juxtaposition of simple words, or several words, or an empty
+object, for its right parameter.  It has the effect of attaching its
+right parameter as an additional tag to the invocation denoted by its
+left parameter, unless the right parameter is empty, in which case @@Tagged
+does nothing.  The result of @@Tagged is always @@Null, which makes it
+effectively invisible.
+@End @Section

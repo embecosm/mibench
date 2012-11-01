@@ -1,0 +1,31 @@
+@Chapter
+    @Title { The Basics }
+    @Tag { basics }
+@Begin
+@LP
+The Lout document formatting system has been designed with the needs of
+the ordinary user very much in mind.  Although the features of Lout are
+virtually endless, and include mathematical equations, diagrams made from
+lines and shapes, bibliographic databases, and so on, the system is very
+simple to use.
+@BeginSections
+@Include { bas_star }
+@Include { bas_objs }
+@Include { bas_spac }
+@Include { bas_char }
+@Include { bas_empt }
+@Include { bas_font }
+@Include { bas_head }
+@Include { bas_par1 }
+@Include { bas_par2 }
+@Include { bas_line }
+@Include { bas_hyph }
+@Include { bas_unde }
+@Include { bas_date }
+@Include { bas_lang }
+@Include { bas_supe }
+@Include { bas_verb }
+@Include { bas_drop }
+@Include { bas_conv }
+@EndSections
+@End @Chapter

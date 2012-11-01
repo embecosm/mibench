@@ -1,0 +1,125 @@
+@SubSection
+    @Tag { constraints }
+    @Title { Size constraints and size adjustments }
+@Begin
+@PP
+The galley flushing algorithm needs to know the available width and
+height at each receptive symbol.  These symbols may lie within
+arbitrarily complex objects, and they may compete with each other for
+available space (as body text and footnote targets do), so this
+information must be extracted from the tree structure when required.
+@PP
+For example, consider the object
+@ID @Code "5i  @Wide  {  a  /  b  }"
+and suppose that the width of @Code { a } is @Eq { 1i, 2i } (@Eq {1i} to
+the left of the mark, @Eq { 2i } to the right).  What then is the
+available width at {@Code { b }}?  If we let the width of @Code b be
+@Eq {l,r}, we must have
+@ID @Eq { (1i up l) + (2i up r) <= 5i }
+with the @Eq {non up } (i.e. max) operations arising from mark
+alignment.  Eliminating them gives
+@ID @OneRow @Eq {
+matrix {
+	{ 1i + 2i ^<= 5i }
+mabove	{ l  + 2i ^<= 5i }
+mabove	{ 1i + r  ^<= 5i }
+mabove	{ l  + r  ^<= 5i }
+}
+}
+and since we assume that @Code a fits into the available space, the
+first inequality may be dropped, leaving
+@ID @OneRow @Eq {
+matrix {
+	{ l     ^<= 3i }
+mabove	{ l + r ^<= 5i }
+mabove	{ r     ^<= 4i }
+}
+}
+Object @Code b may have width @Eq {l, r} for any @Eq { l } and
+@Eq { r } satisfying these inequalities, and no others.
+@PP
+Here is another example:
+@ID @Code "5i  @High  {  a  /2ix  b  }"
+Assuming that @Code a has height @Eq {1i,1i}, the height @Eq {l, r} of
+@Code b must satisfy
+@ID @Eq { 1i + ((1i + l) up 2i) + r <= 5i }
+This time the @Eq { non up } operation arises from the mark-to-mark gap
+mode, which will widen the @Eq { 2i } gap if necessary to prevent
+@Code a and @Code b from overlapping.  This inequality can be rewritten as
+@ID @OneRow @Eq {
+matrix {
+	{ l     ^<= infinity }
+mabove	{ l + r ^<= 3i       }
+mabove	{ r     ^<= 2i       }
+}
+}
+In general, Lout is designed so that the available width or height at
+any point can be expressed by three inequalities of the form
+@ID @OneRow @Eq {
+matrix {
+	{ l     ^<= x }
+mabove	{ l + r ^<= y }
+mabove	{ r     ^<= z }
+}
+}
+where @Eq {x }, @Eq {y} and @Eq {z} may be @Eq { infinity }.  We
+abbreviate these three inequalities to @Eq { l, r <= x, y, z }, and we
+call @Eq {x, y, z} a {@I{size constraint}}.
+@PP
+The two examples above showed how to propagate the size constraint
+@Eq { infinity, 5i, infinity } for
+@Code "a / b" down one level to the child {@Code b}.  Basser Lout
+contains a complete set of general rules for all node types, too
+complicated to give here.  Instead, we give just one example of how
+these rules are derived, using the object
+@ID @OneRow {
+@Eq {x sub 1}  @Code "/"  @Eq {x sub 2}  @Code "/"  @Eq {ldots}  @Code
+"/"  @Eq {x sub n}
+}
+where @Eq { x sub j } has width @Eq { l sub j , r sub j } for all @Eq {j}.
+@PP
+Suppose the whole object has width constraint @OneCol @Eq {X,Y,Z}, and we
+require the width constraint of {@Eq { x sub i }}.  Let
+@Eq { L = max sub j ` l sub j } and @Eq { R = max sub j ` r sub j },
+so that @OneCol @Eq {L, R} is the width of the whole object.  We assume
+@Eq {L, R <= X,Y,Z}.  Then @Eq { x sub i } can be enlarged to any size
+@Eq { l sub i ` , r sub i } satisfying
+@ID @Eq { ( l sub i up L), ( r sub i up R) <= X, Y, Z }
+which expands to eight inequalities:
+@ID @OneRow @Eq {
+matrix {
+         { l sub i           ^<= X }
+mabove   { L                 ^<= X }
+mabove   { l sub i + r sub i ^<= Y }
+mabove   { l sub i + R       ^<= Y }
+mabove   { L + r sub i       ^<= Y }
+mabove   { L + R             ^<= Y }
+mabove   { r sub i           ^<= Z }
+mabove   { R                 ^<= Z }
+}
+}
+Three are already known, and slightly rearranging the others gives
+@ID @OneRow @Eq {
+matrix {
+         { l sub i           ^<= X     }
+mabove   { l sub i           ^<= Y - R }
+mabove   { l sub i + r sub i ^<= Y     }
+mabove   { r sub i           ^<= Z     }
+mabove   { r sub i           ^<= Y - L }
+}
+}
+Therefore the width constraint of @Eq { x sub i } is
+@ID @Eq { min(X, Y-R), Y, min(Z, Y-L) }
+The size constraint of any node can be found by climbing the tree to a
+@I WIDE or @I HIGH node where the constraint is trivial, then propagating
+it back down to the node, and this is the function of procedure
+{@I Constrained} in Basser Lout.
+@PP
+After some components have been promoted into a target, the sizes stored
+in its parent and higher ancestors must be adjusted to reflect the
+increased size.  This is done by yet another set of recursive rules,
+upward-moving this time, which cease as soon as some ancestor's size
+does not change.  These rules are embodied in procedure @I AdjustSize
+of Basser Lout.  The adjustment must be done before relinquishing
+control to any other galley, but not after every component.
+@End @SubSection

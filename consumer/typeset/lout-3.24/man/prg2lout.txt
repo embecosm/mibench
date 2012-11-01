@@ -1,0 +1,108 @@
+
+
+NAME
+     prg2lout - convert computer program text into Lout
+
+SYNOPSIS
+     prg2lout -l language [ options ] files...
+
+DESCRIPTION
+     Reformat computer program text for input to the  Lout  docu-
+     ment  formatting  system, taking care of comments, character
+     strings, tab characters, etc.
+
+     prg2lout reads the named program source files  and  produces
+     output suitable for input to lout -s.  Thus,
+
+          prg2lout -l C foo.c | lout -s | lpr
+
+     will print the C program  foo.c  on  a  PostScript  printer.
+     Each  file will start on a new page, preceded by its name in
+     bold.
+
+OPTIONS
+     -llanguage
+          (Compulsory.)  Files are written in  this  programmming
+          language.  Run prg2lout -u to see the list of languages
+          available.
+
+     -pfixed
+          Use a fixed width font (the default for C).
+
+     -pvarying
+          Use a varying-width italic font  with  non-italic  bold
+          keywords (the default for Eiffel).
+
+     -psymbol
+          Use a varying-width italic font with mathematical  sym-
+          bols and non-italic bold keywords.
+
+     -n   Do not print the file name before each source file.
+
+     -f font
+          Select a font family.  The  default  is  -fCourier  for
+          -pfixed, and -fTimes for -pvarying and -psymbol.
+
+     -s size
+          Select a Lout font size.  The default is -s9p  (meaning
+          9  points)  for  -pfixed,  and  -s10p for -pvarying and
+          -psymbol.  These work well with 80-character-wide  pro-
+          grams.
+
+     -v vsize
+          Select a Lout vertical inter-line gap.  The default  is
+          -v1.1fx  meaning  1.1 times the font size measured from
+          baseline to baseline.
+
+     -t num
+          Set the tab interval  to  num  characters  (default  is
+          -t8).
+
+     -T width
+          Without  this  option,  prg2lout  simulates  tabs  with
+          spaces.  With this option, prg2lout simulates tabs with
+          Lout tabulation operators; width is the  width  of  one
+          tab  interval  in  the  final  print,  measured in Lout
+          units.  This guarantees alignment of characters follow-
+          ing  tabs even with varying-width fonts, provided width
+          is sufficiently large.  For  example,  -T0.5i  produces
+          half-inch tab intervals.
+
+     -L number
+          Attach line numbers to the program text, beginning with
+          number  or  1  if number is not given.  You may need to
+          give  the  1  anyway  to prevent prg2lout from taking a
+          following file name as a number.
+
+     -S filename
+          Use  filename  as  the setup file instead of the system
+          default  setup  file.  The  setup  file  determines the
+          value  of  all formatting options not given to prg2lout
+          as command line arguments.
+
+     -u   Print usage information on stderr, including  available
+          languages, and exit.
+
+     -V   Print version information on stderr and exit.
+
+  Raw Mode
+     There is a raw mode usage of prg2lout invoked by a  -r  flag
+     (must  be  the  first  argument).  This converts one program
+     file into Lout-readable source without any heading or trail-
+     ing information.  Synopsis:
+
+          prg2lout -r -i infile -o out -e err -t num -T width
+
+     Users should never need this mode; it is  invoked  automati-
+     cally from within Lout by symbols supplied with the standard
+     configuration (see reference).
+
+SEE ALSO
+     lout(1), lpr(1), ghostview(1).
+
+REFERENCES
+     Jeffrey H. Kingston, A User's Guide  to  the  Lout  Document
+     Formatting System, Chapter 11.
+
+AUTHOR
+     Jeffrey H. Kingston

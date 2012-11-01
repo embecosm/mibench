@@ -1,0 +1,6 @@
+The makefile is located in ../tiff-v3.5.4
+
+The data files are located at ../tiff_data
+
+The binaries will be located in ../tiff-v3.5.4/tools after the configure
+and make have successfully completed

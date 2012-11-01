@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="description" CONTENT="Some examples">
+   <META NAME="keywords" CONTENT="lame">
+   <META NAME="resource-type" CONTENT="document">
+   <META NAME="distribution" CONTENT="global">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.08 [en] (X11; I; Linux 2.0.36 i686) [Netscape]">
+   <TITLE>Some examples</TITLE>
+<LINK REL="STYLESHEET" HREF="lame.css">
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node5.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+<BODY TEXT="#000000" BGCOLOR="#F9FBFB" LINK="#006666" VLINK="#4C4C4C" ALINK="#995500">
+<H1> <A NAME="SECTION00320000000000000000"></A><FONT FACE="Helvetica">Some examples</FONT></H1>
+<A NAME="cmdl-examples"></A> 
+<UL>
+  <LI> <FONT FACE="Helvetica">Recommended usage: Encode a WAVE-file <TT>myfile.wav</TT> 
+    to a bitrate of 128000 bits/s, writing to a plain bitstream <TT>myfile.mp3</TT> 
+    and using high quality mode:</FONT></LI>
+  <BR>
+  <TT><FONT FACE="Helvetica">lame -h myfile.wav myfile.mp3</FONT></TT> <br>
+  <br>
+  <LI> <FONT FACE="Helvetica">Encode a plain PCM stream (2-channel, 44.1 kHz) 
+    to a plain 56 kBit/s Layer-3 stream, using the encoder as filter</FONT></LI>
+  <BR>
+  <TT><FONT FACE="Helvetica">lame -r -s 44.1 -b 56 - -</FONT></TT>
+</UL>
+</BODY>
+</HTML>

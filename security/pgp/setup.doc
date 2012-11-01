@@ -1,0 +1,350 @@
+
+                   Pretty Good Privacy Version 2.6.3i
+                           Installation Guide
+
+              by Perry Metzger, Colin Plumb, Derek Atkins,
+                     Jeffrey I. Schiller and others
+                                           .
+               Updated for PGP 2.6.3i by Stale Schumacher
+
+
+How to Install PGP
+==================
+
+The first question is, what platform are you on?
+
+The  base PGP 2.6.3i distribution  runs on  MS-DOS,  OS/2,  Atari,  VMS,
+Archimedes  and  several  varieties  of  Unix.  Naturally,  installation
+instructions  differ depending  on your hardware.  Separate instructions
+are provided here for MSDOS, OS/2, Unix and VMS.
+
+See  the  section  below  for   your  system's  particular  installation
+instructions.
+
+If you do not have any  of  these  systems, you will either have to port
+the sources to your machine or find someone who has already done so.
+
+########################################################################
+For MSDOS and OS/2:
+
+PGP is distributed in a  compressed archive format, which keeps all  the
+relevant  files  grouped  together,   and  also  saves  disk  space  and
+transmission time.
+
+The current version,  2.6.3i, is archived with the ZIP utility,  and the
+PGP  executable binary is  in a file named  PGP263I.ZIP  (MSDOS 16-bit),
+PGP263IX.ZIP (MSDOS 32-bit),  PGP263I2.ZIP (OS/2 FAT) or pgp263i-os2.zip
+(OS/2  HPFS).     This  contains  the  executable  program,   the   user
+documentation, and a few keys and signatures. There is also another file
+available  containing   the  C  and   assembly  source   code,    called
+PGP263IS.ZIP.  This should be available from the same source  from which
+you  got PGP263I.ZIP.   If not,  send  email to  pgp@hypnotech.com  with
+"INFO PGP" in the subject field.
+
+You  will need PKUNZIP  version 2.0 or later to uncompress and split the
+ZIP archive  file into  individual files.  PKUNZIP is  shareware  and is
+widely available on MSDOS and OS/2 machines.
+
+Create a directory  for the PGP files.  For this description, let's  use
+the directory  C:\PGP as an example,  but you should substitute your own
+disk  and  directory name if  you use something  different.  Type  these
+commands to make the new directory:
+
+   c:
+   md \pgp
+   cd \pgp
+
+Uncompress the distribution file to the directory.  For this example, we
+will assume the  file  is  on  floppy  drive  A  -  if  not,  substitute
+your own file location, e.g.:
+
+   pkunzip -d a:pgp263i
+
+This  will  create   the  files  PGP263II.ZIP  and  PGP263II.ASC.  Unzip
+PGP263II.ZIP with the command:
+
+   pkunzip -d pgp263ii
+
+If you omit the -d flag, all the  files in the  doc subdirectory will be
+deposited in the pgp directory. This merely causes clutter.
+
+Keep the PGP263II.ZIP file around. Once you have PGP working you can use
+PGP263II.ASC to verify the digital signature on PGP263II.ZIP.  It should
+come from Stale Schumacher (whose key is included in KEYS.ASC).
+
+ Setting the Environment
+ -----------------------
+
+Next,  you can set  an "environment variable"  to let PGP know  where to
+find  its  special  files,  in case  you  use  it from  other  than  the
+default  PGP  directory.   Use  your favorite  text  editor to  add  the
+following lines to  your AUTOEXEC.BAT (MSDOS) or  CONFIG.SYS (OS/2) file
+(usually on your C: drive):
+
+   SET PGPPATH=C:\PGP
+   SET PATH=C:\PGP;%PATH%
+
+Substitute your own directory name if different from "C:\PGP".
+
+The CONFIG.TXT file  contains  various preferences.  You  can change the
+language PGP operates in, and the character set it  uses.  The  IBM PC's
+default character set, "Code Page 850" will be used if the line "charset
+= cp850" appears in the config.txt file.   You probably want to add that
+line.
+
+Another environmental  variable you  should  set is  "TZ",  which  tells
+your  operating  system what  time zone  you  are  in.  This  helps  PGP
+create  GMT timestamps  for its  keys  and signatures.  If  you properly
+define TZ in AUTOEXEC.BAT (CONFIG.SYS),  then MSDOS (OS/2) will give you
+good GMT timestamps, and  will handle daylight savings  time adjustments
+for you.  Here are some sample lines depending on your time zone:
+
+For Los Angeles:  SET TZ=PST8PDT
+For Denver:       SET TZ=MST7MDT
+For Arizona:      SET TZ=MST7
+   (Arizona never uses daylight savings time)
+For Chicago:      SET TZ=CST6CDT
+For New York:     SET TZ=EST5EDT
+For London:       SET TZ=GMT0BST
+For Amsterdam:    SET TZ=MET-1DST
+For Moscow:       SET TZ=MSK-3MSD
+For Aukland:      SET TZ=NZT-12DST
+
+The simple form of TZ setting assumes the USA default of 1 hour daylight
+savings change which starts at 01:00 on the first Sunday in April, and ends
+at 02:00 on the last Sunday of October. 
+
+For other countries, the full form of the TZ value has to be used. More
+formally, this is: 
+
+  SET TZ=SSS[+|-]nDDD,sm,sw,sd,st,em,ew,ed,et,shift
+
+Where 'SSS', 'n', and 'DDD' are the values as in the simple form. In the long
+form, all the other values must be specified, as follows. 
+
+'sm', 'sw', 'sd', and 'st' define the start time for daylight savings
+adjustment, where: 
+
+ 'sm' is the starting month (1 to 12) 
+
+ 'sw' is the starting week (1 to 4 counting from the beginning, or -1 to -4
+ counting from the end). 0 indicates that a particular day of the month is to
+ be specified 
+
+ 'sd' is the starting day (0 to 6 [where 0 is Sunday] if 'sw' is non-zero, or
+ 1 to 31 if 'sw' is 0) 
+
+ 'st' is the starting time in seconds from midnight (e.g., 3600 for 01:00)
+
+ 'em', 'ew', 'ed', and 'et' define the end time for daylight savings, and
+ take the same values.
+
+ 'shift' is the shift in daylight time change, in seconds (e.g., 3600 if one
+ hour is to be added during daylight savings time).
+
+For example, for the UK in 1995, the setting is expected to be: 
+
+  SET TZ=GMT0BST,3,0,26,3600,10,0,22,3600,3600
+
+Note that there appears to be no provision for time zone names of more than
+three characters (blanks are allowed, so fewer that three characters are OK).
+There also seems to be no provision for time zone offsets that are not an
+integer number of hours. 
+
+Now reboot your system to set up PGPPATH and TZ.
+
+ Generating Your First Key
+ -------------------------
+
+One of the first things you  will want to  do  to really use PGP  (other
+than to test  itself) is to generate your own key.  This is described in
+more detail in the "RSA Key Generation" section of the PGP User's Guide.
+Remember that your key becomes something like  your written signature or
+your bank card code number or even a house key - keep it secret and keep
+it secure!  Use a long, unguessable pass phrase and remember  it.  Right
+after you generate  a key, put it on your key rings and copy your secret
+keyring (SECRING.PGP) to a blank floppy and write protect the floppy.
+
+If  you  are a first-time user of PGP,  it is a  good idea to generate a
+short test key, with a short  passphrase, to play around with PGP for  a
+little bit and  see  how  it  works,  or even  more  than one so you can
+pretend  to be sending messages between two different people.  Since you
+won't be guarding any secrets, this can be  short and have a simple pass
+phrase.  But when you  generate your permanent  key, that  you intend to
+give to  others so  they can send secure messages  to you, be  much more
+careful.
+
+After you generate your own key pair, you can add a few more public keys
+to your key ring.  A collection of  sample public keys is  provided with
+the release  in the file KEYS.ASC.  To add them to your public key ring,
+see the PGP  User's  Guide, in  the section on adding  keys  to your key
+ring.
+
+ Verifying the PGP distribution
+ ------------------------------
+
+Now that you have PGP up and  running and have read in the KEYS.ASC file
+you can verify the  integrity of the original distribution.   To do this
+type:
+
+   pgp pgp263ii.asc
+
+It will inform  you that pgp263ii.asc contains a signature but  no text.
+It may then ask you to provide the name  of the file that it applies to.
+Type in "pgp263ii.zip", the internal ZIP file.
+
+PGP should tell you that it has a Good Signature from:
+
+Stale Schumacher <stale@hypnotech.com>
+
+It will also tell you that it doesn't "trust" this key.  This is because
+PGP does not *know* that the  enclosed key really belongs to me.   Don't
+worry about this now.  Read the section "How to Protect Public Keys from
+Tampering" in Volume 1 of the PGP manual.
+
+ READ THE FINE MANUAL (RTFM)
+ ---------------------------
+
+READ THE DOCUMENTATION.  At least read Volume I of the PGP User's Guide.
+Cryptography  software  is easy  to  misuse,  and if  you  don't  use it
+properly much  of the security  you could gain by using it will be lost!
+You might  also  be  unfamiliar  with  the  concepts  behind  public key
+cryptography; the manual explains these ideas.   Even if you are already
+familiar  with  public  key  cryptography,  it  is  important  that  you
+understand  the various security issues associated with  using PGP.  PGP
+may be an  unpickable  lock,  but you have  to  install  it in the  door
+properly or it won't provide security.
+
+########################################################################
+For UNIX:
+
+You likely will have to compile  PGP for your system;  to do this, first
+make sure  the unpacked  files are  in  the correct unix textfile format
+(the files  in pgp263is.zip  are in MSDOS  CRLF format,  so for Unix you
+must  unpack  with  "unzip  -a";   the  tar  files   pgp263is.tar.Z  and
+pgp263is.tar.gz use normal Unix line feed conventions).
+
+If you intend  to compile PGP  2.6.3i for  use within the USA,  you will
+need the RSAREF package written by RSA Data Security. It is NOT included
+with the PGP 2.6.3i distribution.
+
+When  you untar  pgp263is.tar (either  compression format) you will find
+that it contains 5 files. pgp263ii.tar contains all non-binary files for
+PGP  including  all source code.  This  tar  archive  has  been  created
+assuming  that you  will untar it directly into your  PGP 2.6.3i "build"
+directory.  pgp263ii.asc is a detached digital signature of pgp263ii.tar
+(which  you can verify  after  you have PGP  operating,  see the section
+above titled "Verifying the  PGP Distribution").
+
+If you don't have an  ANSI C compiler  you will need the unproto package
+written by  Wietse Venema.  unproto was  posted on comp.sources.misc and
+can  be  obtained  from the various  sites  that archive this  newsgroup
+(volume   23:   v23i012   and    v23i013)   or    ftp.win.tue.nl   file:
+/pub/programming/unproto4.shar.Z.   Read the file  README in the unproto
+distribution for instructions on how to use unproto.
+
+If your system doesn't  have a target in the  makefile you  will have to
+edit the makefile, make sure you compile for the  correct byte order for
+your  system:  define  HIGHFIRST  if  your  system  is  big-endian  (eg.
+Motorola 68030).  There are  also  some  platform-specific parameters in
+the include  file "platform.h".  Some platforms may have  to modify this
+file.
+
+If you successfully create a target rule for a new platform, please send
+the patches  to  pgp-bugs@ifi.uio.no,  so it can  be added  to the  next
+release.
+
+Note: PGP 2.6.3i requires the  function memmove.  Not all machines  have
+this in the standard C library.  There  is an  implementation of memmove
+included  with  this  distribution.   If  you  find that  your  platform
+requires memmove,  but  the makefile  rule  for your  platform  does not
+include memmove (look at the  sun4gcc or sun386i rules for an example of
+how to include  it),  please send mail to pgp-bugs@ifi.uio.no,  so I can
+correct the problem.
+
+If  you  have any problems, bugs, patches,  etc.,  please  send mail  to
+pgp-bugs@ifi.uio.no.
+
+If all goes well, you will end up with an executable file called "pgp".
+
+Before you install pgp, run these tests:
+(do not create your real public key yet, this is just for testing pgp)
+
+ - create a .pgp directory in your home directory
+
+ - create a public/secret key pair (enter "test" as userid/password):
+        pgp -kg
+
+ - add the keys from the file "keys.asc" to the public keyring:
+        pgp -ka keys.asc
+   pgp will ask if you want to  sign the keys you are adding, answer yes
+   for at least one key.
+
+ - do a keyring check:
+        pgp -kc
+
+ - encrypt pgpdoc1.txt:
+        pgp -e pgpdoc1.txt test -o testfile.pgp
+
+ - decrypt this file:
+        pgp testfile.pgp
+
+This  should  produce  the  file  "testfile".  Compare  this  file  with
+pgpdoc1.txt
+
+If everything went well, install pgp in a bin directory.
+
+Place the documentation, pgpdoc1.txt and pgpdoc2.txt somewhere where you
+can  reasonably  read  it.   The  software  looks  for it  when  running
+(especially generating  keys), so someplace reasonably obvious would  be
+good.   "pgp  -kg"  will give  you full details  if  it  can't  find the
+manuals.
+
+Place  the man page (pgp.1) in  an appropriate spot.  If  you don't know
+anything about how man pages work, you can  make the man page look human
+readable  yourself by typing  "nroff  -man pgp.1  >pgp.man" and  reading
+"pgp.man".
+
+Create a subdirectory somewhere in your home directory hierarchy to hold
+your public and private key rings and anything else pgp might need (like
+the language.txt file).  The default name PGP assumes is ~/.pgp.  If you
+want  to  use a  different  name, you must set  the environment variable
+"PGPPATH" to point to this place before you use the system.
+
+> IMPORTANT: This directory cannot be shared!  It will contain your <
+> personal private keys!                                            <
+
+If you are installing PGP for yourself,  copy the  files "language.txt",
+"config.txt", and  the  ".hlp"  files  from  the  distribution into this
+subdirectory.
+
+If  you  are  installing  PGP  system-wide,  the  directory  to  use  is
+/usr/local/lib/pgp for the config, language and help files.  This can be
+changed in fileio.h when compiling.  It's the value of PGP_SYSTEM_DIR.
+
+Tell  PGP  the  character set  and  language  you  wish  to use  in  the
+config.txt file.  If you have a terminal that only displays 7-bit ASCII,
+use "charset=ascii" to display an approximation (accents are omitted) of
+extended characters.
+
+>> IMPORTANT: Please read the sections in the man page and manual  <<
+>> about vulnerabilities before using this software on a multi-    <<
+>> user machine!                                                   <<
+
+Now, if you haven't done so yet, GO READ THE MANUAL.
+
+########################################################################
+For VMS:
+
+Usage is generally:
+  1) Unzip your PGP 2.6.3i sources in [.PGP] using the -aa option
+  2) Set default to [.PGP.SRC]
+  3) Type @PGPINSTAL and answer the questions
+
+See the file [.pgp.src]pgpinstal.com for more detailed information.
+
+For proper  operation,  the logical name  PGPPATH  *must*  be defined to
+point to  a directory  containing the  PGP  help files,  language files,
+your keyrings (keyrings get created automatically), and your CONFIG.TXT.
+Refer to  the  PGP  documentation for  information  on  how the  PGPPATH
+"environment variable" is used.

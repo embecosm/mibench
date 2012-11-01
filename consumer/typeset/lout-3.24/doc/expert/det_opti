@@ -1,0 +1,39 @@
+@Section
+   @Title { Optimal galley breaking }
+   @Tag { optimal }
+@Begin
+@PP
+As explained in Section {@NumberOf targets}, the components of a galley
+optimal.gall @Index { Optimal galley breaking }
+are promoted one by one into a target.  When space runs out there, the
+galley searches for a new target and promotion resumes.
+@PP
+This process is exactly analogous to placing words onto a line until
+space runs out, then moving to another line.  But, as we know, that
+simple method is inferior to the optimal paragraph breaking used by
+Lout (copied from the @TeX system), which examines the entire paragraph
+and determines the most even assignment of words to lines.
+@PP
+Lout offers @I { optimal galley breaking }, the equivalent for galleys
+of optimal paragraph breaking.  Optimal galley breaking can reduce the
+size of ugly blank spaces at the bottom of pages preceding large
+unbreakable displays, sometimes quite dramatically.
+@PP
+Optimal galley breaking is applied to each galley, horizontal or
+vertical, that possesses a parameter or nested symbol called
+@Code "@Optimize" whose value is {@Code Yes}.  Like cross referencing,
+optimize.sym @Index { @Code "@Optimize" symbol }
+it takes two runs to have effect.  On the first run, Lout records the
+sizes of the galley's components and gaps, and also the space available
+at each of its targets.  At end of run this information is used to find
+an optimal break, which is written to the cross-reference database.  On
+the second run, the optimal break is retrieved and used.
+@PP
+Considering that this process must cope with floating figures,
+new page and conditional new page symbols, breaks for new chapters, and
+evolving documents, it is surprisingly robust.  If it does go badly
+wrong, removing file @Code "lout.li" then running Lout twice without
+changing the document may solve the problem.  However, cases are known
+where the optimization never converges.  These are usually related to
+figures and footnotes whose anchor points fall near page boundaries.
+@End @Section

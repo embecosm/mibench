@@ -1,0 +1,30 @@
+@Section
+   @Tag { verbatim }
+   @Title { "@Verbatim and @RawVerbatim" }
+@Begin
+@PP
+verbatim.sym @Index { @@Verbatim symbol }
+rawverbatim.sym @Index { @@RawVerbatim symbol }
+These symbols instruct Lout to read the following text (enclosed in braces)
+verbatim, that is, turning off all special character meanings.  For example,
+@ID @Code @Verbatim {
+@Verbatim { "hello" }
+}
+produces
+@ID @Verbatim { "hello" }
+@@Verbatim ignores all characters after the opening brace up to but not
+including the first non-white-space character.  @@RawVerbatim differs from
+@@Verbatim only in that it ignores all characters after the opening brace
+up to but not including the first non-white-space character, or up to and
+including the first newline character, whichever comes first.  This
+variant is useful in cases such as
+@ID @Code @Verbatim {
+@RawVerbatim {
+     var x: Real
+begin
+}
+}
+where the first line of the verbatim text begins with white space which
+would be ignored by @@Verbatim.  Both symbols ignore all white spaces
+at the end of the verbatim text, preceding the closing brace.
+@End @Section

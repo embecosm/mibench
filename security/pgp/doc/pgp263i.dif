@@ -1,0 +1,47 @@
+The following is a list of changes that were made to the PGP 2.6.2i
+distribution in order to make PGP 2.6.3i:
+
+ 1. The compiler option -DMIT in 2.6.2i has been replaced with -DUSA. If
+    you compile with -DUSA you will get a version called 2.6.3, _not_
+    2.6.2. It is identical to 2.6.3i, except that the legal_kludge
+    cannot be disabled.
+
+ 2. Fixed a large number of bugs:
+     * Fixed PGPTEMP.$00 tempfile bug for PGP -k with xxKEY.HLP
+     * Fixed -f passphrase lockup bug for MS-DOS
+     * Fixed bug when input and output filenames refer to the same file
+     * Text files in 8-bit character sets may now be clearsigned
+     * PGP will not overwrite existing .asc files without your confirmation
+     * If key generation fails due to write-protected keyrings, PGP will
+       now abort with a proper error message
+     * Added error messages for 'pgp -w' (wipe only) option
+     * Fixed a large number of other minor bugs, too many to mention here
+
+ 3. Added new functionality:
+     * Added -kv labelling to 'pgp -kxa' output
+     * Added capability to automatically sign userids upon creation
+     * Added "Charset:" header to clearsigned messages
+     * Added capability to read a list of recipients from a file rather
+       than having to type them in on the command line (the @ option)
+     * Added support for more character sets (cp852, cp860 etc.)
+     * Added support for system-wide language.txt file
+     * Added a number of new LANG() conversions, enabling translators
+       to translate more messages
+     * Added -lh5- archive recognition
+     * Added VMS help file pgp_vms.hlp
+
+4. Modified source code and added a number of new files in order to let
+   PGP compile "out of the box" on many new platforms, most notably:
+    * DJGPP 2.0 (32-bit MS-DOS)
+    * Win32 (Windows NT, Windows 95)
+    * Macintosh (requires additional Mac-specific files)
+    * IBM mainframe running MVS (using the C/370 compiler)
+
+5. Updated all source code and documentation files for version 2.6.3i.
+
+Special thanks go to Vesselin Bontchev, David Boreham, Andrey Chernov, Yanik
+Crepeau, Harald Denker, John DeHaven, Guy Geens, Graham Jenkins, Stephan
+Kockmann, Alexander Kolbasov, Robert Knop, Mark Lewis, Jeff Licquia, mathew,
+Hugh Miller, Hendrik Mylius, Frank Pruefer, Armando Ramos, Peter Simons,
+Naoki Sugiyama, Edgar Swank, ViaCrypt, Philip Zimmermann and many more for
+comments, suggestions, submission of patches and other contributions.

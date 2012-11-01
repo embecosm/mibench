@@ -1,0 +1,46 @@
+@Chapter
+  @Title { Graphs }
+  @Tag { graphs }
+@Begin
+@LP
+This chapter describes how to draw graphs, using the @Code "@Graph"
+graphs. @Index { graphs (statistical) }
+graph. @Index @Code "@Graph"
+symbol.  For example,
+@ID @OneRow @Code {
+"@Graph"
+"    abovecaption { New South Wales road deaths, 1960--1990"
+"(fatalities per 100 million vehicle km) }"
+"{"
+"    @Data  points { plus }  pairs { dashed }"
+"    { 1963 5.6  1971 4.3  1976 3.7  1979 3.4  1982 2.9  1985 2.3  1988 2.0 }"
+"}"
+}
+produces the graph
+@CD @Graph
+    abovecaption { New South Wales road deaths, 1960--1990
+(fatalities per 100 million vehicle km) }
+{
+    @Data
+        points { plus }
+        pairs { dashed }
+    {
+        1963 5.6  1971 4.3  1976 3.7  1979 3.4  1982 2.9  1985 2.3  1988 2.0
+    }
+}
+The features of @Code "@Graph" include captions, automatic and manual
+ticks and labels, logarithmic axes, histograms, and plotting of
+mathematical functions.
+@BeginSections
+@Include { gra_intr }
+@Include { gra_over }
+@Include { gra_capt }
+@Include { gra_tick }
+@Include { gra_data }
+@Include { gra_plac }
+@Include { gra_func }
+@Include { gra_keys }
+@Include { gra_erro }
+@Include { gra_summ }
+@EndSections
+@End @Chapter

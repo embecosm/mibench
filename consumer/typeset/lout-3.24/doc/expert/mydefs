@@ -1,0 +1,451 @@
+
+   def "->" { {Symbol Base} @Font "\256" } #174 decimal
+   def "=>" { {Symbol Base} @Font "\336" } #222 decimal
+   macro @JP	{ /0.5v  }
+
+   def @Code right x
+   { { Helvetica Base -1p } @Font lines @Break x }
+
+   macro @JL { //1vx }
+
+   ###################################################
+   #                                                 #
+   #  Lout keywords.                                 #
+   #                                                 #
+   ###################################################
+
+   def @@BackEnd              { @Code "@BackEnd"              }
+   def @@Background           { @Code "@Background"           }
+   def @@Begin                { @Code "@Begin"                }
+   def @@BeginHeaderComponent { @Code "@BeginHeaderComponent" }
+   def @@Break                { @Code "@Break"                }
+   def @@Case                 { @Code "@Case"                 }
+   def @@Char                 { @Code "@Char"                 }
+   def @@ClearHeaderComponent { @Code "@ClearHeaderComponent" }
+   def @@Common               { @Code "@Common"               }
+   def @@CurrLang             { @Code "@CurrLang"             }
+   def @@CurrFamily           { @Code "@CurrFamily"           }
+   def @@CurrFace             { @Code "@CurrFace"             }
+   def @@CurrYUnit            { @Code "@CurrYUnit"            }
+   def @@CurrZUnit            { @Code "@CurrZUnit"            }
+   def @@Database             { @Code "@Database"             }
+   def @@End                  { @Code "@End"                  }
+   def @@EndHeaderComponent   { @Code "@EndHeaderComponent"   }
+   def @@Enclose              { @Code "@Enclose"              }
+   def @@Font                 { @Code "@Font"                 }
+   def @@ForceGalley          { @Code "@ForceGalley"          }
+   def @@Galley               { @Code "@Galley"               }
+   def @@Graphic              { @Code "@Graphic"              }
+   def @@HAdjust              { @Code "@HAdjust"              }
+   def @@HCover               { @Code "@HCover"               }
+   def @@HContract            { @Code "@HContract"            }
+   def @@HExpand              { @Code "@HExpand"              }
+   def @@HLimited             { @Code "@HLimited"             }
+   def @@High                 { @Code "@High"                 }
+   def @@HScale               { @Code "@HScale"               }
+   def @@HShift               { @Code "@HShift"               }
+   def @@HSpan                { @Code "@HSpan"                }
+   def @@Include              { @Code "@Include"              }
+   def @@IncludeGraphic       { @Code "@IncludeGraphic"       }
+   def @@KernShrink           { @Code "@KernShrink"           }
+   def @@Key                  { @Code "@Key"                  }
+   def @@Language             { @Code "@Language"             }
+   def @@LClos                { @Code "@LClos"                }
+   def @@LEnv                 { @Code "@LEnv"                 }
+   def @@LInput               { @Code "@LInput"               }
+   def @@LUse                 { @Code "@LUse"                 }
+   def @@LVis                 { @Code "@LVis"                 }
+   def @@LinkSource           { @Code "@LinkSource"           }
+   def @@LinkDest             { @Code "@LinkDest"             }
+   def @@Meld                 { @Code "@Meld"                 }
+   def @@Merge                { @Code "@Merge"                }
+   def @@Moment               { @Code "@Moment"               }
+   def @@Next                 { @Code "@Next"                 }
+   def @@NotRevealed          { @Code "@NotRevealed"          }
+   def @@Null                 { @Code "@Null"                 }
+   def @@OneCol               { @Code "@OneCol"               }
+   def @@OneOf                { @Code "@OneOf"                }
+   def @@OneRow               { @Code "@OneRow"               }
+   def @@Open                 { @Code "@Open"                 }
+   def @@Outline              { @Code "@Outline"              }
+   def @@PAdjust              { @Code "@PAdjust"              }
+   def @@PageLabel            { @Code "@PageLabel"            }
+   def @@PlainGraphic         { @Code "@PlainGraphic"         }
+   def @@PrependGraphic       { @Code "@PrependGraphic"       }
+   def @@RawVerbatim          { @Code "@RawVerbatim"          }
+   def @@Rotate               { @Code "@Rotate"               }
+   def @@Rump                 { @Code "@Rump"                 }
+   def @@Insert               { @Code "@Insert"               }
+   def @@Scale                { @Code "@Scale"                }
+   def @@SetColor             { @Code "@SetColor"             }
+   def @@SetColour            { @Code "@SetColour"            }
+   def @@SetHeaderComponent   { @Code "@SetHeaderComponent"   }
+   def @@Space                { @Code "@Space"                }
+   def @@StartHSpan           { @Code "@StartHSpan"           }
+   def @@StartVSpan           { @Code "@StartVSpan"           }
+   def @@StartHVSpan          { @Code "@StartHVSpan"          }
+   def @@SysDatabase          { @Code "@SysDatabase"          }
+   def @@SysInclude           { @Code "@SysInclude"           }
+   def @@SysIncludeGraphic    { @Code "@SysIncludeGraphic"    }
+   def @@SysPrependGraphic    { @Code "@SysPrependGraphic"    }
+   def @@Tag                  { @Code "@Tag"                  }
+   def @@Tagged               { @Code "@Tagged"               }
+   def @@Underline            { @Code "@Underline"            }
+   def @@Use                  { @Code "@Use"                  }
+   def @@VAdjust              { @Code "@VAdjust"              }
+   def @@VContract            { @Code "@VContract"            }
+   def @@VCover               { @Code "@VCover"               }
+   def @@VExpand              { @Code "@VExpand"              }
+   def @@Verbatim             { @Code "@Verbatim"             }
+   def @@VLimited             { @Code "@VLimited"             }
+   def @@VScale               { @Code "@VScale"               }
+   def @@VShift               { @Code "@VShift"               }
+   def @@VSpan                { @Code "@VSpan"                }
+   def @@Wide                 { @Code "@Wide"                 }
+   def @@Yield                { @Code "@Yield"                }
+   def @@YUnit                { @Code "@YUnit"                }
+   def @@ZUnit                { @Code "@ZUnit"                }
+
+
+   ###################################################
+   #                                                 #
+   #  Miscellaneous, mostly graphical definitions.   #
+   #                                                 #
+   ###################################################
+
+
+   def @TeX
+   { @OneCol { T &0.4fo {-0.2f @VShift E} &0.45fo X }
+   }
+
+   export sp sb
+   def @Equation
+      body x
+   @Begin
+
+      def sp left x right y { @OneRow { | "-2p" @Font y ^/0.5fk x } }
+      def sb left x right y { @OneRow { x ^/0.5fk | "-2p" @Font y } }
+
+      Slope @Font x
+
+   @End @Equation
+
+   def @Super
+      left x
+      right y
+   { @OneRow { | -2p @Font y ^/0.5fk x }
+   }
+
+   def @NineSquare
+      right x
+   {
+      def @Three { x |0.2i x |0.2i x }
+
+      @Three /0.2i @Three /0.2i @Three
+   }
+
+   def @Leaders
+   { ..   @Leaders
+   }
+
+   def @HLine
+   {
+      @BackEnd @Case {
+      PostScript @Yield { {0 0 moveto xsize 0 lineto stroke} @Graphic {} }
+             PDF @Yield { {0 0 m __xsize 0 l s} @Graphic {} }
+      }
+#	{ 0 0 moveto xsize 0 lineto stroke } @Graphic {}
+   }
+
+   def @VDashLine
+      right length
+   {
+      length @High {
+         @BackEnd @Case {
+         PostScript @Yield { { 0 0 moveto 0 ysize lineto [ 3 pt ] 0 setdash stroke } @Graphic {} }
+
+# VT: double quotes required:
+                PDF @Yield { { "__pt 3 0 d    0 0 m   0 __ysize l   s" } @Graphic {} }
+         }
+#	{ 0 0 moveto 0 ysize lineto [ 3 pt ] 0 setdash stroke } @Graphic {}
+      }
+   }
+
+   def @LBox
+      right offset
+   {  @HContract @VContract
+      {
+        {  //0.2c
+           0.6c @High 1.2c @Wide
+
+           @BackEnd @Case {
+              PostScript @Yield {
+                 { 0 0 moveto xsize 0 lineto
+                   xsize ysize lineto 0 ysize lineto closepath
+                   gsave 0.9 setgray fill grestore stroke } @Graphic {}
+              }
+              PDF @Yield {
+                 { 0 0 m   __xsize 0 l
+                   __xsize __ysize l   0 __ysize l   h
+                   q 0.9 g f Q s } @Graphic {}
+              }
+           }
+
+#           { 0 0 moveto xsize 0 lineto
+#	     xsize ysize lineto 0 ysize lineto closepath
+#	     gsave 0.9 setgray fill grestore stroke }
+#           @Graphic {}
+        }
+        ||offset @VDashLine 1c
+      }
+   }
+
+   def @Arrow
+      right length
+   {  @OneCol @OneRow
+      {
+	   30d @Rotate {0.12c @Wide @HLine}
+	   //
+	   length @Wide @HLine
+	   //
+	   "-30d" @Rotate {0.12c @Wide @HLine}
+      }
+   }
+
+   def @DoubleArrow
+      right length
+   {  @OneCol @OneRow
+      { 
+         & 180d @Rotate @Arrow length
+         |0io @Arrow length
+      }
+   }
+
+   def @Put
+     left coord
+     right x
+   { @OneCol @OneRow
+     { coord / | @OneCol @OneRow x
+     }
+   }
+   
+   macro @At { //0io }
+
+
+   ###################################################
+   #                                                 #
+   #  Interpolated example documents.                #
+   #                                                 #
+   ###################################################
+
+   def @LittleEndRunPlace { @Galley }
+   def @LittleEndRun
+      force into { @LittleEndRunPlace&&preceding }
+   {}
+
+   def @LittleTextPlace { @Galley }
+   def @LittleText into { @LittleTextPlace&&preceding }
+      right x
+   { x
+   }
+
+   def @LittleFootPlace { @Galley }
+   def @LittleFootNote into { @LittleFootPlace&&following }
+      right x
+   { x
+   }
+
+   def @LittlePageColumn
+      right x
+   {
+        9px @Break 8p @Font
+        2.8c @Wide x
+   }
+
+   def @LittlePage
+      right x
+   {
+      @HContract @VContract {
+         @BackEnd @Case {
+            PostScript @Yield {
+               { 0 0 moveto xsize 0 lineto xsize ysize lineto
+                 0 ysize lineto closepath stroke } @Graphic
+               {  //0.3c ||0.3c
+                  9px @Break 8p @Font
+                  2.8c @Wide 3.8c @High x
+                  ||0.3c //0.3c
+               }
+            }
+            PDF        @Yield {
+               { 0 0 m __xsize 0 l __xsize __ysize l
+                 0 __ysize l h s } @Graphic
+               {  //0.3c ||0.3c
+                  9px @Break 8p @Font
+                  2.8c @Wide 3.8c @High x
+                  ||0.3c //0.3c
+               }
+            }
+         }
+#        { 0 0 moveto xsize 0 lineto xsize ysize lineto
+#    	  0 ysize lineto closepath stroke } @Graphic
+#        {  //0.3c ||0.3c
+#           9px @Break 8p @Font
+#           2.8c @Wide 3.8c @High x
+#           ||0.3c //0.3c
+#        }
+      }
+   }
+
+   def @LittleFootSect
+   {  1c @Wide @HLine
+      //0.3v @LittleFootPlace ||0.5c
+   }
+
+   def @LittlePageList
+     right @PageNum
+   {
+      @LittlePage { # |0.5rt @PageNum //0.8v
+		//0.3v @LittleTextPlace
+		//1rt @LittleFootSect
+	     }
+      //
+      @LittlePageList @Next @PageNum
+   }
+
+   def @LittleDocument
+   {  @LittlePage
+      {  @LittleTextPlace
+         //1rt @LittleFootSect
+      }
+      // @LittlePageList 2
+      // @LittleEndRunPlace
+   }
+		
+   def @ShowMarks
+      named linewidth  {
+      	@BackEnd @Case {
+      	  PostScript @Yield { 0.015 cm }
+      	  PDF        @Yield { __mul(0.015, __cm) }
+      	}
+      }
+      named linestyle  { dashed   }
+      named dashlength {
+      	@BackEnd @Case {
+      	  PostScript @Yield { 0.15 cm }
+      	  PDF        @Yield { __mul(0.15, __cm) }
+      	}
+      }
+      named paint      { lightgrey}
+      right x
+   {
+      @HContract @VContract @Fig
+      {   @Box margin { 0c } linewidth { linewidth } paint { paint }
+	  {   @Figure
+		 shape {
+		   @BackEnd @Case {
+		     PostScript @Yield {
+		       -0.3 cm ymark
+			   {xsize ymark} ++ {0.3 cm 0}  []
+			   xmark -0.3 cm
+			   {xmark ysize} ++ {0 0.3 cm}
+		     }
+		     PDF @Yield { ""	#	VT: PDF currently has no output
+		     }
+		   }
+		 }
+		 linewidth { linewidth }
+		 linestyle { linestyle }
+		 dashlength { dashlength }
+	      x
+	  }
+
+      }
+   }
+
+   def @ShowVMark
+      named linewidth  { 0.015 cm }
+      named linestyle  { dashed   }
+      named dashlength { 0.15 cm  }
+      named paint      { light    }
+      right x
+   {
+      @Fig
+      {   
+	 @Figure
+		 shape {
+		   @BackEnd @Case {
+		     PostScript @Yield {
+			   xmark -0.3 cm
+			   {xmark ysize} ++ {0 0.3 cm}
+		     }
+		     PDF @Yield { ""	#	VT: PDF currently has no output
+		     }
+		   }
+		 }
+		 linewidth { linewidth }
+		 linestyle { linestyle }
+		 dashlength { dashlength }
+	 x
+      }
+   }
+
+   def @ShowHMark
+      named linewidth  { 0.015 cm }
+      named linestyle  { dashed   }
+      named dashlength { 0.15 cm  }
+      named paint      { light    }
+      right x
+   {
+      @Fig
+      {   
+	 @Figure
+		 shape {
+		   @BackEnd @Case {
+		     PostScript @Yield {
+			 -0.3 cm ymark
+			 {xsize ymark} ++ {0.3 cm 0}
+		     }
+		     PDF @Yield { ""	#	VT: PDF currently has no output
+		     }
+		   }
+		 }
+		 linewidth { linewidth }
+		 linestyle { linestyle }
+		 dashlength { dashlength }
+	 x
+      }
+   }
+
+   def @Strange
+       named @Format right @Val { [@Val] }
+       right x
+   {   @Format x
+   }
+
+   def @TightBox right x
+   {
+      @BackEnd @Case {
+         PostScript @Yield {
+            "0 0 moveto xsize 0 lineto xsize ysize lineto 0 ysize lineto closepath stroke"
+            @Graphic x
+         }
+         PDF @Yield {
+            "0 0 m __xsize 0 l __xsize __ysize l 0 __ysize l h s"
+            @Graphic x
+         }
+      }
+   }
+
+   def @GreyBox right x
+   {
+      @BackEnd @Case {
+         PostScript @Yield {
+            "0 0 moveto xsize 0 lineto xsize ysize lineto 0 ysize lineto closepath 0.8 setgray fill"
+            @Graphic x
+         }
+         PDF @Yield {
+            "0 0 m __xsize 0 l __xsize __ysize l 0 __ysize l h 0.8 g f"
+            @Graphic x
+         }
+      }
+   }

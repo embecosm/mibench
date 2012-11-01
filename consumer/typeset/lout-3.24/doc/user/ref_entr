@@ -1,0 +1,293 @@
+@Section
+    @Title { Constructing database entries }
+    @Tag { entries }
+@Begin
+@PP
+Here is the complete, fixed list of options that you may give to the
+@Code "@Reference" symbol:
+@ID @Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "{ @Reference" }
+@Rowa
+    A { "    @Tag  {}" }
+    B { Used to cite this reference }
+@Rowa
+    A { "    @Type  {}" }
+    B { The type of reference, for example {@Code Book}, {@Code Article} }
+@Rowa
+    A { "    @Abstract  {}" }
+    B { Not used, intended to hold an abstract }
+@Rowa
+    A { "    @Address  {}" }
+    B { The address of a publisher, organization, or institution }
+@Rowa
+    A { "    @Annote  {}" }
+    B { Not used, intended for annotations }
+@Rowa
+    A { "    @Author  {}" }
+    B { The author(s) or editor(s) }
+@Rowa
+    A { "    @Day  {}" }
+    B { The day of the month, for newspaper articles }
+@Rowa
+    A { "    @Edition  {}" }
+    B { The edition, for example @Code "Second Edition" }
+@Rowa
+    A { "    @HowPublished  {}" }
+    B { How something strange has been published }
+@Rowa
+    A { "    @InAuthor  {}" }
+    B { The author of the work that the cited work appears within }
+@Rowa
+    A { "    @InTitle  {}" }
+    B { The title of the work that the cited work appears within }
+@Rowa
+    A { "    @Institution  {}" }
+    B { The institution or school }
+@Rowa
+    A { "    @Journal  {}" }
+    B { The journal name }
+@Rowa
+    A { "    @Keywords  {}" }
+    B { Not used, intended to hold keywords }
+@Rowa
+    A { "    @Label  {}" }
+    B { The label of a labelled reference }
+@Rowa
+    A { "    @Month  {}" }
+    B { The month of publication or writing  }
+@Rowa
+    A { "    @Note  {}" }
+    B { Any additional helpful information }
+@Rowa
+    A { "    @Number  {}" }
+    B { The number of a technical report }
+@Rowa
+    A { "    @Organization  {}" }
+    B { The organization sponsoring the work }
+@Rowa
+    A { "    @Page  {}" }
+    B { Page number if only one, for example @Code "23" }
+@Rowa
+    A { "    @Pages  {}" }
+    B { Page numbers if more than one, for example @Code "23--47" }
+@Rowa
+    A { "    @Pinpoint  {}" }
+    B { A point or part of the work, for example @Code "Chapter VI" }
+@Rowa
+    A { "    @Publisher  {}" }
+    B { The publisher of the work }
+@Rowa
+    A { "    @Title  {}" }
+    B { The title of the work }
+@Rowa
+    A { "    @TitleNote  {}" }
+    B { Additional title information (series, editor, etc.) }
+@Rowa
+    A { "    @TRType  {}" }
+    B { The type of a technical report, for example @Code "Research Note" }
+@Rowa
+    A { "    @URL  {}" }
+    B { The URL of the reference }
+@Rowa
+    A { "    @Volume  {}" }
+    B { The volume of a journal }
+@Rowa
+    A { "    @Year  {}" }
+    B { The year of publication or writing }
+@Rowa
+    A { "}" }
+}
+Every reference may contain any of these options, although, depending
+on the {@Code "@Type"} option, only some will be printed.  You can't give
+an option twice; in particular, multiple authors must be placed
+within one @Code "@Author" option, arranged as you want them to appear.  Here
+is the complete set of values that you may give to the @Code "@Type" option:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col @Code A ! @Col @Code B ! @Col @Code C ! @Col @Code D }
+{
+ @Rowa
+    A { Book }
+    B { TechReport }
+    C { Article }
+    D { InBook }
+ @Rowa
+    A { Proceedings }
+    B { MastersThesis }
+    C {}
+    D { InProceedings }
+ @Rowa
+    A { PhDThesis }
+    B { Misc }
+    C {}
+    D {}
+}
+Each column represents one broad category of reference type:  the first
+contains large works; the second contains small works not appearing
+within anything else (although possibly part of a series); the third
+contains small works appearing within an ongoing forum for such works;
+and the fourth contains small works appearing within large works.  In each
+case, the reference may be to the work as a whole, or to one point or part
+of it (known as pinpointing).
+@PP
+Some care is needed when choosing the @Code "@Tag" option, since references
+are both cited and sorted by tag.  It is best to choose a three-part
+tag consisting of the first author's surname and possibly initial, the
+year of publication, and a brief reminder of the contents:
+@ID @Code "@Tag { kingston1995lout.expert }"
+Keep to lower-case letters, since mixed cases confuse the sorting, and
+give the full four digits of the year to avoid trouble in the year
+2000.  Multi-word tags are possible but not recommended.
+@PP
+Unusually for Lout, you can have unquoted @Code "/" and @Code "~"
+characters inside the @Code "@URL" option:
+@ID @Code "@URL { ftp://ftp.cs.su.oz.au/jeff/lout }"
+In fact it is better not to use quotes because then Lout will
+be able to break lines at @Code "/" characters, which is very useful
+since URLs tend to be long and prone to causing bad line breaks.
+@PP
+Since the types within each broad category are similar, our plan is to
+give one example of each and briefly note how the others differ.  Here
+is a @Code Book entry showing all its options:
+book.ref.type @Index { @Code Book reference type }
+@ID @OneRow @Code {
+"{ @Reference"
+"     @Tag { homer.odyssey }"
+"     @Type { Book }"
+"     @Author { Homer }"
+"     @Title { The Odyssey }"
+"     @TitleNote { Translated by E. V. Rieu }"
+"     @Pinpoint { Chapter VI }"
+"     @Pages { 102--111 }"
+"     @Page { 102 }"
+"     @Publisher { Penguin Books }"
+"     @Address { Harmondsworth, Middlesex }"
+"     @Edition { Penguin Classics Edition }"
+"     @Month { August }"
+"     @Year { 1942 }"
+"     @Note { The date of composition is unknown,"
+"but is thought to be about the tenth century BC. }"
+"}"
+}
+And here is what it produces:
+@ID @RefPrint homer.odyssey
+The only compulsory options are {@Code "@Tag"}, {@Code "@Type"}, and
+{@Code "@Title"}, and Lout will carefully adjust the formatting to the
+right thing when you omit others.  A basic book would have just
+{@Code "@Tag"}, {@Code "@Type"}, {@Code "@Author"}, {@Code "@Title"},
+{@Code "@Publisher"}, and {@Code "@Year"} options.
+@PP
+@Code Proceedings is similar, except you
+proceedings.ref.type @Index { @Code Proceedings reference type }
+may have an @Code "@Organization" or @Code "@Institution" option for
+the sponsoring organization if you wish, and the author will either be
+absent or an editor:
+@ID @Code "@Author { P. W. Lamb, editor }"
+There is no option specifically for editors, translators, and so forth.
+@PP
+@Code PhDThesis is very similar again, with @Code "@Institution"
+phdthesis.ref.type @Index { @Code PhDThesis reference type }
+instead of {@Code "@Publisher"}, and the phrase `Ph.D. thesis'
+appearing by magic in the right spot.  Like all words and phrases
+introduced automatically by Lout, it will be translated into the current
+language if this is not English.
+@PP
+Moving now to the second broad category, here is a typical {@Code TechReport}:
+techreport.ref.type @Index { @Code TechReport reference type }
+@ID @OneRow @Code {
+"{ @Reference"
+"     @Tag { christofides1976tsp }"
+"     @Type { TechReport }"
+"     @Author { Christofides, N. }"
+"     @Title { Worst-case analysis of a new heuristic"
+"for the travelling salesman problem }"
+"     @Number { 388 }"
+"     @Institution { Graduate School of Industrial"
+"Administration, Carnegie-Mellon University }"
+"     @Address { Pittsburgh, PA }"
+"     @Year { 1976 }"
+"}"
+}
+Here is the result:
+@ID @RefPrint christofides1976tsp
+The two novelties here are the @Code "@Number" option, which is the
+number of the report, and the `Tech. Rep.' phrase.  If you
+need some other phrase instead, use the @Code "@TRType" option:
+@ID @Code "@TRType { Programmer's Manual }"
+or whatever.  The phrase will be `Master's Thesis' in the
+current language for type {@Code MastersThesis}, and absent in type
+mastersthesis.ref.type @Index { @Code MastersThesis reference type }
+misc.ref.type @Index { @Code Misc reference type }
+{@Code Misc}.  You may use the pinpointing options ({@Code "@Pinpoint"},
+{@Code "@Page"}, and {@Code "@Pages"}) and {@Code "@TitleNote"},
+{@Code "@Month"}, and {@Code "@Note"} in the same way as for books.
+@PP
+Journal articles are referenced by journal name, volume, number, and
+page(s):
+article.ref.type @Index { @Code Article reference type }
+@ID @OneRow @Code {
+"{ @Reference"
+"     @Tag { kingston1993lout.design }"
+"     @Type { Article }"
+"     @Author { Jeffrey H. Kingston }"
+"     @Title { The design and implementation of the"
+"Lout document formatting language }"
+"     @Journal { Software---Practice and Experience }"
+"     @Volume { 23 }"
+"     @Pages { 1001--1041 }"
+"     @Year { 1993 }"
+"}"
+}
+The result of this is
+@ID @RefPrint kingston1993lout.design
+All are optional, as usual.  Notice that @Code "@Pages" and @Code "@Page"
+refer to the whole article so are not available for pinpointing here,
+but you may still use {@Code "@Pinpoint"}.
+@PP
+Finally, small works that appear within large works have @Code "@Author"
+inbook.ref.type @Index { @Code InBook reference type }
+and @Code "@Title" options for the work itself, and @Code "@InAuthor" and
+@Code "@InTitle" for the work that it appears within:
+@ID @OneRow @Code {
+"{ @Reference"
+"     @Tag { rieu1942intro }"
+"     @Type { InBook }"
+"     @Author { E. V. Rieu }"
+"     @Title { Introduction to @I { The Odyssey } }"
+"     @InAuthor { Homer }"
+"     @InTitle { The Odyssey }"
+"     @Publisher { Penguin }"
+"     @Year { 1942 }"
+"}"
+}
+@Code "@InAuthor" would often be absent or an editor.  The result is
+@ID @RefPrint rieu1942intro
+The other options are as for large works.  Type @Code InProceedings is
+inproceedings.ref.type @Index { @Code InProceedings reference type }
+similar to {@Code InBook}.
+@PP
+A database usually has a long life, and some day it might find itself
+used in a document whose language is not the one its original compiler
+had in mind.  For this reason, a truly meticulous compiler of database
+entries would enclose @I all language-specific options in
+@Code "@Language" symbols:
+@ID @OneRow @Code {
+"{ @Reference"
+"    @Tag { zimand1986size.sets.strings }"
+"    @Type { Article }"
+"    @Author { French @Language { M. Zimand } }"
+"    @Title { English @Language { On the topological size of sets of random strings } }"
+"    @Journal { German @Language { Zeitschr. f. math. Logik und Grundlagen d. Math. } }"
+"    @Volume { 32 }"
+"    @Pages { 81--88 }"
+"    @Year { 1986 }"
+"}"
+}
+(My apologies to M. Zimand if he or she is not French.)  This ensures
+correct hyphenation whatever the language of the document in which the
+reference appears.
+@End @Section

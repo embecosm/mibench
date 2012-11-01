@@ -1,0 +1,43 @@
+@Section
+   @Title { "@LinkSource and @LinkDest" }
+   @Tag { link_source }
+@Begin
+@PP
+These two symbols
+link.source.sym @Index { @@LinkSource symbol }
+link.dest.sym @Index { @@LinkDest symbol }
+work together to create @I links in a document, that is, points where
+a user viewing the document on screen can click and be transported to
+another point in the document.  We call the point where the user
+clicks the @I source of the link, and the point where the user
+arrives the @I destination of the link.
+@PP
+To create a source point, place
+@ID { @I tag @Code "@LinkSource" @I object }
+at some point in the document, where the value of @I tag is a legal
+cross reference tag, and @I object is an arbitrary Lout object.  The
+result of this is just {@I object}, but if the user of a screen
+viewer clicks on any point within the rectangular bounding box
+of that object, a link will be entered.
+@PP
+To create a destination point, place
+@ID { @I tag @Code "@LinkDest" @I object }
+at some point in the document.  Again, @I tag must evaluate to a
+legal cross reference tag, and @I object may be any Lout
+object.  All @Code "@LinkSource" symbols whose
+tag is equal to this one are linked to this destination point.
+@PP
+For every source point there must be exactly one destination point with
+the same tag, otherwise it will not be clear where the link is
+supposed to take the user.  Lout will print a warning if this
+condition is violated anywhere; it will refuse to insert a
+destination point with the same name as a previous one, but it is not
+able to refrain from inserting a source point with no corresponding
+destination point, and such points must cause errors of some kind when
+viewed (exactly what error will depend on the viewer).
+@PP
+At present, @I object above is treated as though it were enclosed
+in @@OneCol, which means that a long link source or destination point
+will not break over two lines as part of an enclosing paragraph.  This
+deficiency might be corrected in the future.
+@End @Section

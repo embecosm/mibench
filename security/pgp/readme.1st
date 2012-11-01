@@ -1,0 +1,467 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+
+
+
+              Pretty Good Privacy version 2.6.3i - READ ME FIRST
+                                     .
+                          Notes by Stale Schumacher
+                                 1996/04/24
+
+
+You are looking at the README file for PGP release 2.6.3i. PGP, short for
+Pretty Good Privacy, is a public key encryption package; with it, you can
+secure messages you transmit against unauthorized reading and digitally sign
+them so that people receiving them can be sure they come from you.
+
+
+ABOUT THIS VERSION
+
+PGP 2.6.3i is not an official PGP version. It is based on the source code for
+MIT PGP 2.6.2 (the latest official version of PGP) and has been modified for
+international use. PGP 2.6.3i is probably illegal to use within the USA, but
+is fine in almost every other country in the world. (However, it should be
+possible to compile a version of PGP that is legal even inside the USA, see
+below for details.) This file only explains what is special to version 2.6.3i.
+For a more thorough installation and usage guide, refer to the file setup.doc
+and the documentation for PGP 2.6.2, which is included unmodified in the doc/
+subdirectory that is created when you unpack the distribution archive.
+
+
+BACKGROUND
+
+Until about two years ago, there were only two "real" PGP versions around:
+PGP 2.3a which was the international freeware version, and 2.4 which was a
+commercial version sold in USA only. However, this situation changed
+dramatically in May 1994 when MIT released a special US freeware version of
+PGP (2.5), in order to put an end to the legal problems surrounding PGP.
+(PGP 2.3a was believed to be illegal in USA because of patent restrictions.)
+The new version had a number of limitations to encourage Americans that were
+using 2.3a to upgrade to the new version. However, these limitations resulted
+in a well of new PGP versions, more or less professionally put together by
+well-intending individuals who wanted a more flexible PGP than that offered
+by MIT. Suddenly, we had ten different PGP versions, not two.
+
+Even though PGP 2.5 and later releases from MIT introduced many bug-fixes and
+improvements over 2.3a, many non-US users of PGP have been reluctant to
+upgrade to the new versions because they feel that the PGP developers have
+abandoned the international PGP community by adding a number of restrictions
+that are only necessary within the USA. That is why I decided to make PGP
+2.6.i (and later 2.6.2i and 2.6.3i): to put an end to all the PGP "hack
+versions" that flourish, and by giving the non-US users of PGP a version that
+is more "digestible" than those offered by MIT, and at the same time let them
+benefit from all the improvements that the new versions have introduced over
+PGP 2.3a. PGP 2.6.3i is a "real" 2.6 version, as it is based on the code tree
+for PGP 2.6.2 and not 2.3a. This release fixes a number of bugs present in
+PGP 2.6.2(i), and adds some new features (see below).
+
+
+HOW WAS IT DONE?
+
+PGP 2.6.3i was put together by taking all the source files from PGP 2.6.2i
+(which was again based on 2.6.2), modifying them to correct a number of
+annoying bugs and add some new features, and updating the accompanying text
+and documentation files. All changes in the source that are not applicable
+within the USA are enclosed in #ifdef's, thus enabling you to compile a PGP
+version that is legal to use within the USA. This is accomplished by adding
+the -DUSA option when building the program, and by linking it with the RSAREF
+library (rsaglue2) rather than MPILIB (rsaglue1). For a detailed list of all
+the changes between 2.6.2i and 2.6.3i, see the file pgp263i.dif that is
+included with the source code distribution.
+
+
+DISTRIBUTION
+
+PGP 2.6.3i is distributed in the following files:
+
+  pgp263i.zip      This is the MS-DOS executable release, which includes the
+                   executable, support files, and basic documentation.
+
+  pgp263ix.zip     This is a 32-bit MS-DOS compilation of PGP. If you have a
+                   386 processor or better, this version will give you a
+                   slightly better performance than the ordinary (16-bit)
+                   MS-DOS version.
+
+  pgp263i-os2.zip  This is the OS/2 executable with documentation and support
+  (pgp263i2.zip)   files.
+
+  pgp263is.zip     This is the source code release, which includes all the
+                   source code needed to compile PGP and examples of usage.
+                   It also contains all the files in pgp263i.zip except the
+                   pgp.exe binary.
+
+  pgp263is.tar.gz  This contains exactly the same files as pgp263is.zip,
+                   except that they use Unix rather than MS-DOS line end
+                   conventions.
+
+  Binaries for other platforms (Amiga, Atari, Macintosh etc.) will probably
+  be available soon after the official release.
+
+
+DIFFERENCES BETWEEN PGP 2.6.3i AND 2.6.2
+
+PGP 2.6.3i differs from MIT PGP 2.6.2 in the following ways:
+
+  (1) It identifies itself as version 2.6.3i
+
+      This is to clearly distinguish it from other PGP versions. This is
+      important because users within the USA should not use PGP 2.6.3i, and
+      also because script files, shells and other PGP add-ons may need to
+      know exactly how your copy of PGP will behave under different
+      circumstances. If you compile your copy of PGP using the -DUSA option,
+      you will get a version called 2.6.3 instead.
+
+  (2) It uses PRZ's MPILIB instead of RSAREF
+
+      PGP 2.3a and earlier versions use a special library for all the RSA
+      encryption/decryption routines, called MPILIB, and written by Philip R.
+      Zimmermann (PRZ), the original author of PGP. However, starting with
+      version 2.5, all official releases of PGP have been using the RSAREF
+      library from RSADSI Inc, a US company that holds the patent on the RSA
+      algorithm in the USA. This change was made in order to make PGP legal
+      to use within the USA.
+
+      Please observe that PGP 2.6.3i does NOT use RSAREF, but rather PRZ's
+      original MPILIB library, which is functionally identical to RSAREF and
+      slightly faster on most platforms. Because 2.6.3i uses MPILIB rather
+      than RSAREF, this PGP version is also able to verify key signatures made
+      with PGP 2.2 or earlier versions. This is not true for MIT PGP, because
+      the RSAREF library only understands the new PKCS signature format
+      introduced in PGP 2.3.
+
+      The use of the MPILIB library is the main reason why PGP 2.6.3i is
+      probably illegal to use within the USA. If you are in the USA, you
+      should compile the source code using the -DUSA option and link it with
+      the RSAREF library rather than MPILIB.
+
+  (3) It lets you disable the "legal kludge"
+
+      PGP 2.6.2 contains a "feature" that will cause it to generate keys and
+      messages that are not readable by PGP 2.3a and earlier versions. This
+      is the "legal kludge", and was introduced to encourage users in the USA
+      to upgrade from PGP 2.3a.
+
+      PGP 2.6.3i provides you with a way to disable the "legal kludge". This
+      means that messages and keys generated with PGP 2.6.3i can be used and
+      understood by all existing 2.x versions of PGP. To disable the legal
+      kludge, uncomment the following line in your config.txt file so that it
+      reads:
+
+      legal_kludge = off
+
+      This option may also be set on the command line: "pgp +le=off <command>".
+      If you compile PGP using the -DUSA option, the legal kludge cannot be
+      disabled.
+
+  (4) It allows you to generate keys up to and including 2048 bits
+
+      Because of a bug in PGP 2.6.2, this version would not let you generate
+      keys bigger than 2047 bits on some platforms. This problem has been
+      corrected in PGP 2.6.3i.
+
+  (5) It contains a number of bug-fixes
+
+      PGP 2.6.3i also fixes a number of other bugs found in PGP 2.6.2, most
+      notably the signature bug for keys over 2034 bits, as reported by
+      ViaCrypt. PGP 2.6.3i will also let you clearsign messages in 8-bit
+      character sets, such as Russian, Japanese, Korean etc. Many other
+      bugs have also been corrected, see pgp262i.dif and pgp263i.dif for
+      details.
+
+  (6) It contains a number of new features
+
+      Version 2.6.3i adds some new functionality to PGP, while maintaining
+      compatibility with older versions, e.g.:
+
+      a) You may now specify additional user IDs from a separate file when
+         encrypting a message to multiple recipients. This is particularly
+         useful on MS-DOS systems, which impose an upper limit of 127
+         characters on the command line. The command line syntax is:
+
+         pgp -eat filename.txt user1 user2 -@moreusers.txt
+
+         The file moreusers.txt is a normal text file with one key ID or user
+         ID on each line.
+
+      b) Userids can be automatically signed with your secret key when
+         creating keys ('pgp -kg') or adding new userids ('pgp -ke'). This
+         is controlled through the new AutoSign option in the configuration
+         file.
+
+      c) When extracting keys with the 'pgp -kxa' command, PGP 2.6.3i will
+         label the ASCII output with a text similar to that of the 'pgp -kv'
+         keyring listing.
+
+      d) When clearsigning messages, PGP 2.6.3i will add a "Charset:" header
+         to the signature block, explaining which character set was used for
+         creating the signature. This will help the recipient of the message
+         to select correct character conversion when verifying the signature.
+         If he/she is using version 2.6.3i, PGP will automatically choose the
+         correct character set, thereby eliminating a lot of "Bad signature"
+         problems.
+
+  (7) It can be compiled on many new platforms
+
+      PGP 2.6.3i has been modified in order to let it compile "out of the box"
+      for such platforms as Amiga, Atari, VMS, IBM mainframes running MVS and
+      Windows NT/Windows 95. Furthermore, the Macintosh port of PGP is now
+      integrated into the main source distribution. PGP 2.6.3i will also
+      compile under MS-DOS using Borland C (MIT PGP 2.6.2 only supports
+      Microsoft C).
+
+  (8) It includes updated documentation and language files
+
+      The language files for MIT PGP 2.6.2 had not been updated for a long
+      time. This has been fixed in this version. PGP 2.6.3i comes with
+      a combined translation file for German, French and Spanish. Additional
+      language modules may be downloaded from:
+
+        http://www.ifi.uio.no/pgp/modules.shtml
+        ftp://ftp.ifi.uio.no/pub/pgp/lang/
+
+      All the other text and documentation files for PGP 2.6.3i have also
+      been brought up to date, with the exception of PRZ's original PGP
+      Users's Guide from PGP 2.6.2, which is included unmodified in the
+      various distribution archives.
+
+  (9) It includes additional PGP tools
+
+      The PGP 2.6.3i source code distribution contains two new tools for use
+      with PGP, called Stealth and PGPSort. Take a look in the contrib/
+      subdirectory for details. The binary distributions now contain pre-
+      compiled versions of PGPSort and MD5Sum.
+
+
+DIFFERENCES BETWEEN PGP 2.6.3i and 2.6ui
+
+A PGP version that has been very popular among non-US users of PGP is 2.6ui.
+If you have been using PGP 2.6ui up to now, you should note that PGP 2.6.3i
+differs from this version in the following ways:
+
+  (1) It is a "real" 2.6 version
+
+      PGP 2.6.3i is based on the source code for PGP 2.6.2, whereas PGP 2.6ui
+      is based on the source code for 2.3a. This means that 2.6.3i contains a
+      lot of bug-fixes that are not present in 2.6ui, and it also adds a
+      number of new features that are lacking in 2.6ui.
+
+  (2) It doesn't have the version_byte option
+
+      PGP 2.6ui has an option to allow you to choose which message format to
+      use when generating keys and messages. This is the version_byte option,
+      and can be set both in the config.txt file and on the command line:
+
+      version_byte = 2    (use backwards-compatible format, default)
+      version_byte = 3    (use new 2.6 format)
+
+      In PGP 2.6.3i, the same is accomplished using the legal_kludge flag:
+
+      legal_kludge = off  (use backwards-compatible format)
+      legal_kludge = on   (use new 2.6 format, default)
+
+  (3) It doesn't have the armor_version option
+
+      PGP 2.6ui has an option to let you "forge" the version number in the
+      ASCII armored files produced by PGP. In PGP 2.6.3i, the armor_version
+      option is NOT supported, as this is a feature that is heavily misused.
+      If you must change the version number of your keys and messages, you can
+      do so in the language.txt file instead.
+
+
+LEGAL STUFF
+
+PGP 2.6.3i is not approved by MIT or PRZ or NSA or the Pope or anyone else.
+However, it should be possible to use it legally by anyone in the free world
+(i.e. all countries except USA, France, Iraq and a few others). There are three
+reasons why people may claim (incorrectly) that PGP 2.6.3i is illegal:
+
+   (1) It is based on source code that was illegally exported from the USA
+
+       The ITAR regulations classifies cryptography in the same category as
+       munitions, and so it is very likely that exporting PGP from the USA
+       is considered illegal by US authorities. In the case of PGP 2.6.3i,
+       large portions of the code were written inside the USA, and later
+       exported to the rest of the world. However, this is not a problem,
+       because it is the _export_ that is illegal, not the _use_ of the
+       program. Once the software is (illegally) exported, anyone may use it
+       legally. (I didn't export it, and I strongly recommend that you won't
+       do it either.) As long as you make sure that you get your copy of PGP
+       2.6.3i from somewhere outside the USA, then you should be on the safe
+       side.
+
+   (2) It infringes the RSA patent
+
+       This is not a problem either, because PGP 2.6.3i is not intended for use
+       in the USA (which just happens to be the only country in the world where
+       the RSA patent is valid, and still the validity of this patent is
+       somewhat dubious). If you are inside the USA, you should compile the
+       source using the -DUSA option and link it with the RSAREF library,
+       which will give you a version that identifies itself as PGP 2.6.3. 
+
+   (3) It violates the MIT license
+
+       The second point in the MIT license for PGP 2.6.2 explicitly forbids
+       anyone to remove the so-called "legal kludge". Still, this is exactly
+       what PGP 2.6.3i does. However, it should be clear that this limitation
+       only refers to the RSAREF versions of PGP. PGP 2.6.3i, on the other
+       hand, does not use RSAREF, and so this point becomes irrelevant. If you
+       still feel uncomfortable about this, take a look at the file
+       przon26i.asc which is included in the distribution archive. This file
+       contains a statement by Phil Zimmermann on PGP 2.6.i, the predecessor
+       to PGP 2.6.3i.
+
+To sum it all up: you may freely copy, distribute and use PGP 2.6.3i, as long
+as you follow these simple rules:
+
+  (1) Do not use it inside the USA
+  (2) Do not export it from Canada or the USA (this includes downloading from
+      a BBS, FTP or WWW site that is physically inside Canada or the USA)
+  (3) Do not modify it and release it under the name "PGP"
+  (4) Do not use it for commercial purposes unless you obtain an IDEA license
+      (see below)
+  (5) Do obey the local laws regarding cryptography in the country you are in,
+      and respect the rules and guidelines from your SysOp, SysAdm or Internet
+      provider
+
+
+COMMERCIAL USE
+
+PGP 2.6.3i may be freely used for non-commercial purposes only. If you want
+to use PGP for commercial purposes, you need to buy a separate license for
+the IDEA algorithm used in PGP. IDEA licenses can be purchased from Ascom
+Systec AG in Switzerland. The fee is charged on a per-user basis as follows:
+
+    1 -   50 users    15 US$ per copy
+   51 -  100 users    10 US$ per copy
+  101 -  250 users     8 US$ per copy
+  251 -  500 users     7 US$ per copy
+  501 - 1000 users     6 US$ per copy
+      > 1000 users         on request 
+
+For more information, contact:
+
+  Ascom Systec AG
+  IDEA Licensing
+  Gewerbepark
+  CH-5506 Maegenwil
+  Switzerland
+
+  Phone : +41 62 889 59 54
+  Fax   : +41 62 889 59 54
+  Email : idea@ascom.ch
+  WWW   : http://www.ascom.ch/Web/systec/security/idea.htm
+
+
+COMMENTS AND BUG REPORTS
+
+PGP 2.6.3i was put together by Stale Schumacher <stale@hypnotech.com> with
+the help of many individuals around the world (see the file pgp263i.dif for
+a list of names). All questions regarding PGP 2.6.3i should be addressed to
+pgp-bugs@ifi.uio.no. Please note that PRZ, MIT and the University of Oslo have
+nothing to do with this release. Comments, bug reports and suggestions for
+future releases are welcome. For a list of known bugs and how to correct them,
+see: http://www.ifi.uio.no/pgp/bugs.shtml.
+
+
+I WANT TO KNOW MORE!
+
+If you want to find out more about PGP and encryption in general, there are a
+number of resources available, both on paper and in electronic form. Here are
+a few, to get you started:
+
+WWW:
+
+    The International PGP Home Page
+      http://www.ifi.uio.no/pgp/
+    Fran Litterio's PGP Page (from the Virtual Library)
+      http://world.std.com/~franl/pgp/pgp.html
+    The Official Bug List for MIT PGP 2.6.2
+      http://www.mit.edu:8001/people/warlord/pgp-faq.html
+
+FTP:
+
+    ftp://ftp.ifi.uio.no/pub/pgp/
+    ftp://ftp.ox.ac.uk/pub/crypto/pgp/
+    ftp://ftp.dsi.unimi.it/pub/security/crypt/PGP/
+
+DOCs:
+
+    http://www.ifi.uio.no/pgp/doc.shtml
+    http://www.pegasus.esprit.ec.org/people/arne/pgp.html
+    ftp://ftp.ifi.uio.no/pub/pgp/doc/
+    ftp://ftp.rhein.de/pub/peti/
+
+FAQs:
+
+    PGP 2.6.3i FAQ
+      http://www.ifi.uio.no/pgp/FAQ.shtml
+    PGP FAQs from alt.security.pgp
+      http://www.prairienet.org/~jalicqui/pgpfaq.txt
+      ftp://ftp.prairienet.org/pub/providers/pgp/pgpfaq.txt
+    Where to Get the Latest PGP Program FAQ
+      ftp://ftp.uu.net/usenet/news.answers/pgp-faq/where-is-PGP.Z
+   
+Newsgroups:
+
+    alt.anonymous               discussion of anonymity and anon remailers
+    alt.anonymous.messages      for anonymous encrypted message transfer
+    alt.privacy.clipper         Clipper, Capstone, Skipjack, Key Escrow
+    alt.security                general security discussions
+    alt.security.pgp            discussion of PGP
+    alt.security.ripem          discussion of RIPEM
+    alt.security.keydist        key distribution via Usenet
+    alt.society.civil-liberty   general civil liberties, including privacy
+    comp.compression            discussion of compression algorithms
+    comp.org.eff.news           news reports from EFF
+    comp.org.eff.talk           discussion of EFF related issues
+    comp.patents                discussion of S/W patents, including RSA
+    comp.risks                  some mention of crypto and wiretapping
+    comp.society.privacy        general privacy issues
+    comp.security.announce      announcements of security holes
+    misc.legal.computing        software patents, copyrights, computer laws
+    sci.crypt                   methods of data encryption/decryption
+    sci.math                    general math discussion
+    talk.politics.crypto        general talk on crypto politics
+
+Books:
+
+    The Official PGP User's Guide
+    by Philip R. Zimmermann
+      MIT Press 1995 
+      ISBN 0-262-74017-6
+      216 pp. $14.95 
+
+    PGP: Pretty Good Privacy
+    by Simson Garfinkel
+      O'Reilly & Associates 1994
+      ISBN 1-56592-098-8
+      430 pp. $24.95
+
+    Protect Your Privacy: The PGP User's Guide
+    by William Stallings
+      Prentice Hall PTR 1995
+      ISBN 0-13-185596-4
+      302 pp. $19.95
+
+    Applied Cryptography: Protocols, Algorithms, and Source Code in C
+    2nd Edition
+    by Bruce Schneier
+      John Wiley & Sons 1996
+      ISBN 0-471-11709-9
+
+    E-Mail Security with PGP and PEM: How to Keep Your Electronic Mail Private
+    by Bruce Schneier
+      John Wiley & Sons 1995
+      ISBN 0-471-05318-X 
+
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: 2.6.3ia
+Charset: latin1
+
+iQCVAgUBMX5mIrCfd7bM70R9AQHoJwQAyRKKfCXYzOiKXOCb1AVuun3J5pU1qYgG
+mWwpKJFfZAjNY8XIeMi6/m3JCkA2kRtcazcAm0W97T+77IkFfeHT0D5r8edctB3u
++80Npt31xFMbV5WOGrFdK/46iJ2Foy6oLkCngl5yEbFe6DX4i7ZWAxIgvzZ4KLcW
+z0Tn3TPEa+g=
+=mvq4
+-----END PGP SIGNATURE-----

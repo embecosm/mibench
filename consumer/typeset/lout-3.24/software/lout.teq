@@ -1,0 +1,40 @@
+LOUT.TEQ - TEX MATHEMATICS IN LOUT DOCUMENTS (VERSION 2.0)
+
+Jeffrey H. Kingston
+jeff@cs.su.oz.au
+
+This software allows you to produce mathematics using the TeX
+mathematical fonts, which are considered to produce better-looking
+mathematics than the Adobe Systems Symbol font used by standard Lout.
+
+When installed, the only change you have to make is to replace the
+@SysInclude { eq } at the top of the document by @SysInclude { teq }.
+Everything else is automatic.  You do not have to have TeX on your
+system for this to work.  The cost is an extra 252 KB in the PostScript
+output file (because the TeX fonts have to be included in it).
+
+Lout.teq is distributed as follows:
+
+   ftp://ftp.cs.su.oz.au/jeff/lout.teq.2.0.tar.gz
+
+In other words, in a gzipped tar file called "lout.teq.2.0.tar.gz"
+in the "jeff" subdirectory of the home directory of "ftp ftp.cs.su.oz.au"
+with login name "ftp" or "anonymous" using any non-empty password.
+The distribution contains
+
+  *  License information (non-commercial only owing to license
+     restrictions on the fonts used)
+
+  *  Five TeX mathematical font metrics and encoding vector files
+
+  *  The teq and teq.lpg source files
+
+  *  A makefile and installation instructions (very easy)
+
+User documentation is contained in the Lout User's Guide distributed
+with Lout itself (Section 7.8).
+
+Lout.teq was designed and implemented by Jeffrey H. Kingston
+(jeff@cs.su.oz.au) of the Basser Department of Computer Science at the
+University of Sydney.  The fonts were converted to PostScript from
+D. E. Knuth's METAFONT by Basil Malyshev.

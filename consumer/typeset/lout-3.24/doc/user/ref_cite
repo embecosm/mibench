@@ -1,0 +1,90 @@
+@Section
+    @Title { Citation }
+    @Tag { citation }
+@Begin
+@PP
+To cite one or more references, use the @Code "@Cite" symbol like this:
+citing @Index { citing references }
+cite. @Index @Code "@Cite"
+@ID @Code {
+"This feature is beyond our scope @Cite { $kingston1995lout.expert, page 97 }."
+}
+The following object must be enclosed in braces.  It may be an arbitrary
+object as usual.  Within it the @Code "$" character is a symbol with a
+special meaning:  it causes a citation to be made of the reference whose
+@Code "@Tag" option is the word following the @Code "$" symbol:
+@ID {
+This feature is beyond our scope @Cite { $kingston1995lout.expert, page 97 }.
+}
+The reference itself will appear automatically in a reference list at
+the end of the document, and the citation(s) will be enclosed in brackets
+as shown.  There is no need to write @Code "${kingston1995lout.expert},"
+as would normally be the case, because within @Code "@Cite" special
+arrangements are made to prevent commas and semicolons from being a
+nuisance.
+@PP
+A reference may be cited many times, but it will appear in the
+reference list only once.  The references will ordinarily be sorted by
+tag and labelled with Arabic numbers, although this can be changed by
+setting options in the setup file (Section {@NumberOf changeref}).
+@PP
+If you are making a book, there is a @Code "@ChapCite" symbol which is
+chap.cite @Index @Code "@ChapCite"
+the same as @Code "@Cite" except that its references come out at the
+end of the current preface, introduction, chapter, or appendix, rather
+than at the end of the document.
+@PP
+It is quite all right to cite a reference from within a footnote, figure,
+table, or index entry.  The reference will appear in the closest
+reference list following the citation point in the final printed document,
+or if there is no such list, the closest preceding reference list.  This
+is fine in documents with just one reference list; but when using
+@Code "@ChapCite" in books, if the citation point appears after the intended
+reference list (because the footnote or figure has floated past the reference
+list at the end of the chapter), the reference will come out in the wrong list.
+@PP
+Although it is frowned upon by the authorities, some people include
+references which are not cited anywhere in the body of their document.  For
+this there is {@Code "@NoCite"}:
+no.cite @Index @Code "@NoCite"
+@ID @Code {
+"... our scope @NoCite { $kingston1995lout.expert, $kingston1993lout.design }."
+}
+produces
+@ID {
+... our scope @NoCite { $kingston1995lout.expert, $kingston1993lout.design }.
+}
+with the @Code "@NoCite" symbol and any preceding space removed.  The
+references will nevertheless appear in the reference list as usual.  There
+is a @Code "@NoChapCite" symbol that combines @Code "@NoCite" and
+no.chap.cite @Index @Code "@NoChapCite"
+{@Code "@ChapCite"}.  For compatibility with previous versions of Lout,
+there is a @Code "@Ref" symbol:
+ref. @Index @Code "@Ref"
+@ID @Code "@Ref kingston1995lout.expert"
+is the same as @Code "@Cite { $kingston1995lout.expert }" without the
+brackets.  There are analogous {@Code "@ChapRef"}, {@Code "@NoRef"},
+and {@Code "@NoChapRef"}
+chap.ref @Index @Code "@ChapRef"
+no.ref @Index @Code "@NoRef"
+no.chap.ref @Index @Code "@NoChapRef"
+symbols, which are not recommended.
+@PP
+The @Code "@RefPrint" symbol will print a reference on the spot:
+ref.print @Index @Code "@RefPrint"
+resume. @Index { resumes }
+curriculum. @Index { curriculum vitae }
+@ID @Code "@RefPrint kingston1995lout.expert"
+has result
+@ID @RefPrint kingston1995lout.expert
+unrelated to any reference list.  For example,
+@ID @OneRow @Code {
+"@Heading { Journal Articles }"
+"@NumberedList"
+"@LI @RefPrint kingston1985tree"
+"..."
+"@LI @RefPrint kingston1993lout.design"
+"@EndList"
+}
+might appear in someone's resume.
+@End @Section

@@ -1,0 +1,105 @@
+@Section
+   @Title { Starting a new line, paragraph, or page }
+   @Tag { paragraphs }
+@Begin
+@PP
+The usual way to start a new paragraph is with the @Code "@PP" `plain
+pp. @Index @Code "@PP"
+paragraphs. @Index { paragraph symbols }
+paragraph' symbol.  It produces a small vertical space and indents the
+first line of the new paragraph.  Some document formatting systems
+interpret a blank line as a request to start a new paragraph.  This is
+not the case with Lout:  a blank line is two line-endings, equivalent to
+two spaces.
+@PP
+The @Code "@LP" `left paragraph' symbol produces the same
+lp. @Index @Code "@LP"
+vertical space as {@Code "@PP"}, but omits the indent.  The @Code "@LLP"
+`left line paragraph' symbol starts a new paragraph using
+llp. @Index @Code "@LLP"
+the usual inter-line spacing and no indent, or in other words it starts a
+new line.  If you are using it to create single lines, you need the
+@Code "lines" paragraph breaking style instead (Section {@NumberOf paras}).
+@PP
+The @Code "@DP" `display paragraph' symbol produces a somewhat larger
+dp. @Index @Code "@DP"
+vertical space, equal to the amount used before and after displays
+(Section {@NumberOf displays}), with no indent.  To get even more
+space, use @Code "@DP" repeatedly.  Another symbol,
+{@Code "@LOP"}, leaves a paragraph break the size of the gap left
+lop. @Index @Code "@LOP"
+outside (that is, before and after) lists (Section {@NumberOf lists}).  This
+is usually equal to {@Code "@DP"}.
+@PP
+The {@Code "@NP"} `new page' symbol causes the following paragraph to
+page. @Index { page, skipping to next }
+new.page @Index { new page }
+np. @Index @Code "@NP"
+begin on a new page or column.  Of course, Lout starts a new page or
+column automatically when the old one is full, so @Code "@NP" is needed
+only rarely.
+@PP
+To make each section begin on a new page you must set the @Code "@SectionGap"
+sectiongap. @Index @Code "@SectionGap"
+setup file option (Section {@NumberOf largescale}).  To make one particular
+section start on a new page or column, place @Code "@NP" within the previous
+section, at the end.  Placing @Code "@NP" between sections will not work.
+@PP
+Occasionally Lout will start a new page or column directly after a heading,
+which looks very poor.  The obvious answer is to place an @Code "@NP"
+just before the heading, but when the document is later revised and the
+heading no longer falls near the page or column ending, this @Code "@NP"
+will have to be taken away again.
+A better answer is to precede the heading with a @Code "@CNP" `conditional
+cnp. @Index @Code "@CNP"
+new page' symbol, which checks whether enough space remains in the page or
+column for a heading and at least two lines of text.  If so, @Code "@CNP"
+does nothing; if not, @Code "@CNP" causes a new page or column to be begun,
+like {@Code "@NP"}.  The recommended arrangement is
+@ID @OneRow @Code {
+# "end of previous part."
+"@DP"
+"@CNP"
+"@Heading { A Heading }"
+"@PP"
+"First paragraph of next part ..."
+}
+The @Code "@CNP" symbol should be preceded by either @Code "@DP" or
+@Code "@LP", preferably {@Code "@DP"}, and this determines the amount of
+space when the @Code "@NP" action does not occur.
+@PP
+The ultimate answer to the conditional new page problem is to recognise
+that the heading is the beginning of a new section of the document, and
+to use a large-scale structure symbol like @Code "@Section" (Section
+{@NumberOf largescale}).  Conditional new page is just one of many
+services provided automatically by these symbols.
+@PP
+Some people do not like to see the first line of a paragraph alone at
+the bottom of a page, or the last line of a paragraph alone at the
+top (these blemishes are sometimes called widows and orphans).  You
+can instruct Lout not to allow these; see the next section for details.
+@PP
+You can modify the effect of the paragraph symbols by changing options
+in the setup file.  For general information about setup files and their
+options, consult Section {@NumberOf setup}; here we just explain how
+the relevant options work.  The options and their default values are
+paragap @Index @Code "@ParaGap"
+paraindent @Index @Code "@ParaIndent"
+@ID @OneRow @Code {
+"@ParaGap { 1.30vx }"
+"@ParaIndent { 2.00f }"
+"@DisplayGap { 1.00v }"
+}
+The values are lengths (Section {@NumberOf objects}), except that
+for reasons beyond our scope @Code "@ParaGap" must be a length with
+an @Code "x" appended, as shown.  The @Code "@ParaGap" option determines
+how much vertical space will be
+inserted by @Code "@PP" and {@Code "@LP"}.  The default value,
+{@Code "1.30vx"}, is 30% more than the normal inter-line spacing;
+to get no extra spacing, change it to {@Code "1.00vx"}.  The
+@Code "@ParaIndent" option determines the width of the indent produced
+by {@Code "@PP"}, and its default value is twice the current font
+size.  The @Code "@DisplayGap" option determines the amount of vertical
+space inserted by {@Code "@DP"}, as well as the vertical space before
+and after displays.
+@End @Section

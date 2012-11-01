@@ -1,0 +1,56 @@
+@Section
+    @Title { Indenting and struts }
+    @Tag { tbl_inde }
+@Begin
+@PP
+By default, entries appear at the left within cells, not counting the
+cell margin.  The @Code indent option causes entries to be indented
+horizontally.  For example,
+@ID @OneRow @Code "@Cell indent { ctr }"
+horizontally centres the entry within the cell.  Other possible values
+centred.entries @Index { centred entries in tables }
+right.justified.entries @Index { right justified entries in tables }
+are {@Code "left"} (the default value), {@Code "right"},
+{@Code "align"} (Section {@NumberOf tbl_alig}), or any length (for
+example, {@Code 2f}) meaning that much indent.
+@PP
+There is a corresponding @Code "indentvertical" option for vertical indenting
+within the cell.  It takes the same values except that @Code "left" is
+renamed {@Code "top"} (the default), and @Code "right" is renamed
+{@Code foot}.  A common problem with vertical placement is that words that
+lack ascenders (parts of letters that rise up) or descenders (parts that
+sink down) can easily become misaligned.  Looking at
+@CD @Tbl
+    mv { 0i }
+    aformat { @Cell A | @Cell B | @Cell C }
+{
+@Rowa
+    A { resume }
+    B { poppy }
+    C { title }
+}
+which is the result of
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    aformat { @Cell A | @Cell B | @Cell C }
+{
+@Rowa
+    A { resume }
+    B { poppy }
+    C { title }
+}
+}
+we see that the words are aligned correctly despite these
+worries.  This is because by default
+@Code "@Tbl" adds a @I { vertical strut } to each entry:  an invisible
+object of zero width and height {@Code "1f"}, which covers for any absent
+ascenders and descenders.  The option
+@ID @OneRow @Code "@Cell strut { no }"
+can be used to remove the strut; other acceptable values for this
+option are {@Code yes} (the default value), and any length, which will
+add a strut of that length.
+@PP
+For completeness there is a corresponding @Code "struthorizontal" option; it
+takes the same values, its default value is {@Code no}, and it unlikely
+ever to be used.
+@End @Section

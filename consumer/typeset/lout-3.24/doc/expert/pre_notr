@@ -1,0 +1,61 @@
+@Section
+   @Title { "@NotRevealed" }
+   @Tag { notrevealed }
+@Begin
+@PP
+The @@NotRevealed symbol
+notrevealed.sym @Index { @@NotRevealed symbol }
+exerts fine control over the process of expanding receptive symbols.  It
+may appear only within the body of a definition, immediately following
+the name of a receptive symbol.  For example:
+@ID @OneRow @Code {
+"def A { @Galley }"
+""
+"def B { @Galley }"
+""
+"def ABList"
+"{"
+"    A"
+"    //  B @NotRevealed"
+"    //  ABList"
+"}"
+}
+The meaning is that the symbol immediately preceding @@NotRevealed, @Code B
+in this example, is not revealed to galleys which encounter @Code "ABList"
+while searching for targets; to such galleys it appears that @Code "ABList"
+contains @Code A only, not {@Code B}, hence only galleys targeted to
+@Code A will expand {@Code "ABList"}.  However, after @Code "ABList"
+is expanded by such a galley, @Code B will be available as a target in
+the usual way.
+@PP
+Apart from this meaning, @@NotRevealed has no effect at all, and the
+body of the definition may be understood by deleting @@NotRevealed and
+any preceding space.  Thus, the symbol preceding @@NotRevealed may have
+named and right parameters in the usual way; these would follow after
+the @@NotRevealed symbol.
+@PP
+This symbol was introduced to overcome a problem with floating figures
+treated as displays.  It turned out to be essential to specify the
+layout of a column (in part) as
+@ID @OneRow @Code {
+"@BodyTextPlace"
+"//  @FigurePlace"
+"//  @BodyTextPlace"
+"//  @FigurePlace"
+"//  @BodyTextPlace"
+"..."
+}
+so that figures could alternate with body text down the column.  However,
+some means was needed to ensure that in the absence of any figures there
+could only be one @Code "@BodyTextPlace" in the column, since otherwise
+various problems arose, for example the @Code "@NP" symbol merely causing
+a skip from one @Code "@BodyTextPlace" to the next in the same column,
+rather than to the first in the next column.  Also, without this feature
+the optimal page breaker's attempts to end a column early would be
+frustrated by Lout then discovering that plenty of space existed at a
+following @Code "@BodyTextPlace" in the same column.  The solution is
+based on @Code "ABList" above; each occurrence of @Code "@BodyTextPlace"
+after a @Code "@FigurePlace" is not revealed in the enclosing definition,
+and so cannot be found by body text galleys unless a figure has
+previously attached to the preceding {@Code "@FigurePlace"}.
+@End @Section

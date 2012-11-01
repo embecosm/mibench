@@ -1,0 +1,266 @@
+@Section
+    @Title { Summary of options }
+    @Tag { tbl_summ }
+@Begin
+@PP
+This summary applies to all @Code "@Tbl" options except the @Code format
+options described in Section {@NumberOf tbl_rows}.  Here is the complete
+list of these options, one option per line, showing its alternative
+spellings, default values (PostScript and PDF, and plain text) from the setup
+file, and allowed range of values.  Where one option is indented below
+another, it means that the indented option is a specialized version of
+the other, which affects its default value.  For more on this see below.
+@DP
+@Tbl
+    marginvertical { 0.5vx }
+    aformat { @Cell ml { 0i }               @Code A |
+	      @Cell @Code B | @Cell @Code C | @Cell mr { 0i } D }
+    bformat { @Cell ml { 0i } indent { 1f } @Code A |
+	      @Cell @Code B | @Cell @Code C | @Cell mr { 0i } D }
+    cformat { @Cell ml { 0i } indent { 2f } @Code A |
+	      @Cell @Code B | @Cell @Code C | @Cell mr { 0i } D }
+    dfont { Italic }
+    dbreak { lines }
+    dformat { @Cell ml { 0i } A | @Cell B | @Cell C | @Cell mr { 0i } D }
+    fformat { @StartHSpan @Cell ml { 0i }               @Code A |
+	      @HSpan | @HSpan | @Cell mr { 0i } D }
+    gformat { @StartHSpan @Cell ml { 0i } indent { 1f } @Code A |
+	      @HSpan | @HSpan | @Cell mr { 0i } D }
+    hformat { @StartHSpan @Cell ml { 0i } indent { 2f } @Code A |
+	      @HSpan | @HSpan | @Cell mr { 0i } D }
+{
+@Rowd
+    A { Option names }
+    B { Default in
+PS, PDF }
+    C { Default in
+plain text }
+    D { Allowed values }
+    rulebelow { yes }
+@HeaderRowd
+    A { Option names (ctd.) }
+    B { Default in
+PS, PDF }
+    C { Default in
+plain text }
+    D { Allowed values }
+    rulebelow { yes }
+@Rowa
+    A { paint  p }
+    B { nopaint }
+    D { any colour from Section {@NumberOf colour} }
+@Rowa
+    A { background  bg }
+    D { any object }
+@Rowa
+    A { font  f }
+    D { any font e.g. @Code "Helvetica Slope -2p" }
+@Rowa
+    A { break  b }
+    D { any break e.g. @Code "ragged nohyphen" }
+@Rowa
+    A { width  w }
+    D { @Code "expand" or any length e.g. @Code 5c }
+@Rowa
+    A { height  h }
+    D { any length e.g. @Code 3c }
+@Rowa
+    A { indent  i }
+    B { @Code left }
+    D { {@Code left}, {@Code ctr}, {@Code align}, {@Code mctr}, {@Code right}, or any length }
+@Rowa
+    A { indentvertical  iv }
+    B { @Code top }
+    D { {@Code top}, {@Code ctr}, {@Code align}, {@Code mctr}, {@Code foot}, or any length }
+@Rowa
+    A { strut  s }
+    B { yes }
+    C { yes }
+    D { {@Code no}, {@Code yes}, or any length }
+@Rowa
+    A { struthorizontal  sh }
+    B { no }
+    C { no }
+    D { {@Code no}, {@Code yes}, or any length }
+@Rowa
+    ma { 1v }
+    A { margin  m }
+    B { }
+    C { }
+    D { any length }
+@Rowb
+    A { marginhorizontal  mh }
+    B { 0.6f }
+    C { 2s }
+    D { any length }
+@Rowc
+    A { marginleft  ml }
+    D { any length }
+@Rowc
+    A { marginright  mr }
+    D { any length }
+@Rowb
+    A { marginvertical  mv }
+    B { 0.3f }
+    C { 2f }
+    D { any length }
+@Rowc
+    A { marginabove  ma }
+    D { any length }
+@Rowc
+    A { marginbelow  mb }
+    D { any length }
+@Rowa
+    ma { 1v }
+    A { rule  r }
+    B { no }
+    C { no }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowb
+    A { rulehorizontal  rh }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowc
+    A { ruleabove  ra }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowc
+    A { rulebelow  rb }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowb
+    A { rulevertical  rv }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowc
+    A { ruleleft  rl }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowc
+    A { ruleright  rr }
+    D { {@Code no}, {@Code yes}, {@Code single}, or {@Code double} }
+@Rowa
+    ma { 1v }
+    A { rulewidth  rw }
+    B { 0.05f }
+    D { any length }
+@Rowb
+    A { rulehorizontalwidth  rhw }
+    C { 1f }
+    D { any length }
+@Rowc
+    A { ruleabovewidth  raw }
+    D { any length }
+@Rowc
+    A { rulebelowwidth  rbw }
+    D { any length }
+@Rowb
+    A { ruleverticalwidth  rvw }
+    C { 1s }
+    D { any length }
+@Rowc
+    A { ruleleftwidth  rlw }
+    D { any length }
+@Rowc
+    A { rulerightwidth  rrw }
+    D { any length }
+@Rowa
+    ma { 1v }
+    A { rulegap  rg }
+    B { 0.15f }
+    D { any length }
+@Rowb
+    A { rulehorizontalgap  rhg }
+    C { 0f }
+    D { any length }
+@Rowc
+    A { ruleabovegap  rag }
+    D { any length }
+@Rowc
+    A { rulebelowgap  rbg }
+    D { any length }
+@Rowb
+    A { ruleverticalgap  rvg }
+    C { 0s }
+    D { any length }
+@Rowc
+    A { ruleleftgap  rlg }
+    D { any length }
+@Rowc
+    A { rulerightgap  rrg }
+    D { any length }
+@Rowa
+    ma { 1v }
+    A { rulecolour  rulecolor  rc }
+    B { black }
+    D { any colour from Section {@NumberOf colour} }
+@Rowg
+    A { rulehorizontalcolour  rulehorizontalcolor  rhc }
+    D { any colour from Section {@NumberOf colour} }
+@Rowh
+    A { ruleabovecolour  ruleabovecolor  rac }
+    D { any colour from Section {@NumberOf colour} }
+@Rowh
+    A { rulebelowcolour  rulebelowcolor  rbc }
+    D { any colour from Section {@NumberOf colour} }
+@Rowg
+    A { ruleverticalcolour  ruleverticalcolor  rvc }
+    D { any colour from Section {@NumberOf colour} }
+@Rowh
+    A { ruleleftcolour  ruleleftcolor  rlc }
+    D { any colour from Section {@NumberOf colour} }
+@Rowh
+    A { rulerightcolour  rulerightcolor  rrc }
+    D { any colour from Section {@NumberOf colour} }
+@Rowa
+    ma { 1v }
+    A { ruleplainchar  rpc }
+    C { . }
+    D { any simple word e.g. @Code + }
+    rulebelow { yes }
+@EndHeaderRow
+}
+@DP
+There are seven places where these options may be given, counting the
+setup file (Section {@NumberOf tbl_setu}).  To make it clear that this
+summary applies to any of these options, we illustrate the seven places
+with a fictitious option called {@Code option}:
+@ID @OneRow @Code @Verbatim {
+@Use { @TblSetup
+    option { 1 }
+}
+
+@Tbl
+    option { 2 }
+    aoption { 3 }
+    aformat { @Cell option { 4 } A }
+{
+    @Rowa
+        option { 5 }
+    @Row
+        option { 6 }
+        format { @Cell option { 7 } A }
+}
+}
+Each occurrence of @Code option is of course optional.  If there are
+none, the default value given in the table above applies.  For any other
+combination of absent and present options, the value that applies is the
+present and relevant one with the largest number in the illustration
+just above.  But before applying this rule, any general options must be
+thought of as being replaced by their more specialized versions:
+@ID @Code "rulehorizontal { yes }"
+is equivalent to
+@ID @Code @Verbatim {
+ruleabove { yes }
+rulebelow { yes }
+}
+for example.  Conflicts are resolved in the logical way:
+@ID @Code @Verbatim {
+margin { 0.5f }
+marginleft { 0.0f }
+}
+is equivalent to the four specialized options
+@ID @Code @Verbatim {
+marginabove { 0.5f }
+marginbelow { 0.5f }
+marginleft { 0.0f }
+marginright { 0.5f }
+}
+General options are really just abbreviations for sets of specialized
+options.
+@End @Section

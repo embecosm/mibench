@@ -1,0 +1,303 @@
+%    Copyright (C) 1997 Aladdin Enterprises.  All rights reserved.
+% 
+% This file is part of Aladdin Ghostscript.
+% 
+% Aladdin Ghostscript is distributed with NO WARRANTY OF ANY KIND.  No author
+% or distributor accepts any responsibility for the consequences of using it,
+% or for whether it serves any particular purpose or works at all, unless he
+% or she says so in writing.  Refer to the Aladdin Ghostscript Free Public
+% License (the "License") for full details.
+% 
+% Every copy of Aladdin Ghostscript must include a copy of the License,
+% normally in a plain ASCII text file named PUBLIC.  The License grants you
+% the right to copy, modify and redistribute Aladdin Ghostscript, but only
+% under certain conditions described in the License.  Among other things, the
+% License requires that the copyright notice and this notice be preserved on
+% all copies.
+
+% t1tot2.ps
+% Convert a Type 1 font with Type 1 CharStrings to Type 2.
+% **************** THIS FILE DOES NOT WORK. ****************
+% **************** DON'T TRY TO USE IT. ****************
+
+(type1ops.ps) runlibfile
+
+% In the following lists, implemented conversions are marked with a +.
+% The following conversions are required for each CharString:
+% +	Remove lenIV initial bytes and decrypt.
+%	Move all hstem/vstem commands to the beginning (with -hm if any
+%	  hint replacement), including any from subroutines.
+%	Fold side bearing into first moveto.
+% +	Remove all closepath.
+%	Convert Flex othersubrs to new flex commands.
+%	Convert hint replacement to hintmask.
+%	Convert MM blend othersubrs to new blend command.
+%	For seac, convert char bodies to subrs, add hint replacement.
+%	Make width relative to nominalWidthX.
+% The following patterns allow shortening CharStrings:
+% +	rlineto+ => rlineto
+% +	vlineto (hlineto vlineto)* [hlineto] => vlineto
+% +	hlineto (vlineto hlineto)* [vlineto] => hlineto
+% +	rrcurveto+ => rrcurveto
+% +	rrcurveto+ rlineto => rcurveline
+% +	rlineto+ rrcurveto => rlinecurve
+% +	(vhcurveto hvcurveto)* [vhcurveto ["hrcurveto"] | "vrcurveto"] =>
+%	  vhcurveto
+% +	(hvcurveto vhcurveto)* [hvcurveto ["vrcurveto"] | "hrcurveto"] =>
+%	  hvcurveto
+%	"rvcurveto" (0 y1 x2 y2 0 y3 rrcurveto)* => vvcurveto
+%	"hrcurveto" (x1 0 x2 y2 x3 0 rrcurveto)* => hhcurveto
+
+% Convert a CharString from Type 1 to Type 2.
+% Free variables: font.
+
+/t1tot2 {		% <charstring1> t1tot2 <charstring2>
+  10 dict begin
+	% Collect the hints, side bearing, and width.
+  /hints 20 dict def
+  /hmask 0 def		% 1 = vstem, 2 = hstem
+  /hmcount null def
+  /lsb null def
+  /width null def
+  dup t1hintops t1scan pop
+  t1t2ops t1scan
+	% Insert the hints and width at the beginning.
+  mark width
+  counttomark 2 add -1 roll aload pop ]
+	% Convert the string back to encoded form.
+  DEBUG {
+    (++++ ) print [ 1 index { dup null eq { pop } if } forall ] == flush
+  } if
+  charproc_string end
+} bind def
+/t1scan {		% <charstring> <opsdict> t1scan <tokens>
+  5 dict begin
+  /opsdict exch def
+	% Remove encryption and convert to symbolic form for processing.
+  mark /seed 4330 /lenIV font /lenIV .knownget not { 4 } if .dicttomark
+  /eexecDecode filter /f exch def
+  /cstr [ f charstack_read /END 8 { null } repeat ] def
+  DEBUG {
+    (**** ) print [ cstr { dup null eq { pop } if } forall ] == flush
+  } if
+	% Scan the unpacked string.
+  /i 0 def {
+	% The /END token will exit from this loop.
+    opsdict cstr i get .knownget { exec } if
+    /i i 1 add def
+  } loop
+  f closefile cstr end
+} bind def
+/ciget {		% <di> ciget <token>
+  i add dup 0 ge { cstr exch get } { pop null } ifelse
+} bind def
+/ciput {		% <di> <token> ciput -
+  exch i add exch cstr 3 1 roll put
+} bind def
+/ciswap {		% <di> <dj> ciswap -
+  2 copy exch ciget exch ciget 3 1 roll ciput ciput
+} bind def
+/ciskip {		% <di> ciskip -
+  i add /i exch def
+} bind def
+
+% Hint scanning procedures.
+/addhint {
+  hints 1 index known { pop } { hints dup length 3 -1 roll put } ifelse
+} bind def
+
+/t1hintops mark /END { 0 null ciput exit } bind
+
+/vstem {
+  cstr i 2 sub 3 getinterval addhint
+  /hmask hmask 1 or store
+} bind
+/hstem {
+  cstr i 2 sub 3 getinterval addhint
+  /hmask hmask 2 or store
+} bind
+/callsubr {
+	%**** DOESN'T HANDLE FLEX YET ****
+  -1 ciget /pop eq {
+	% This must be a <#> 1 3 /callothersubr /pop /callsubr sequence.
+    hmcount null eq { /hmcount hints length store } if
+    -5 ciget
+  } {
+    -1 ciget
+  } ifelse
+  font /Private get /Subrs get exch get
+  t1hintops t1scan pop
+} bind
+/hsbw {
+  /lsb -2 ciget store
+  /width -1 ciget store
+} bind
+/vstem3 {
+  [ -6 ciget -5 ciget /vstem ] addhint
+  [ -4 ciget -3 ciget /vstem ] addhint
+  [ -2 ciget -1 ciget /vstem ] addhint
+  /hmask hmask 1 or store
+} bind
+/hstem3 {
+  [ -6 ciget -5 ciget /hstem ] addhint
+  [ -4 ciget -3 ciget /hstem ] addhint
+  [ -2 ciget -1 ciget /hstem ] addhint
+  /hmask hmask 2 or store
+} bind
+/sbw {
+	%**** WHAT ABOUT Y? ****
+  /lsb -4 ciget store
+  /width -2 ciget store
+} bind
+
+.dicttomark readonly def	% t1hintops
+
+% Conversion procedures.
+/t1t2ops mark /END { 0 null ciput exit } bind
+
+/hstem {
+	% We handled the hints separately, drop them here.
+  -2 1 0 { null ciput } for
+} bind
+/vstem 1 index
+/rlineto {
+  3 ciget /rlineto eq {
+    0 null ciput
+  } {
+    7 ciget /rrcurveto eq {
+      0 null ciput
+      7 /rlinecurve ciput
+    } if
+  } ifelse
+} bind
+/vlineto {
+  2 ciget /hlineto eq {
+    0 null ciput
+    2 4 ciget /vlineto eq { null } { /vlineto } ifelse ciput
+  } if
+} bind
+/hlineto {
+  2 ciget /vlineto eq {
+    0 null ciput
+    2 4 ciget /hlineto eq { null } { /hlineto } ifelse ciput
+  } if
+} bind
+/rrcurveto {
+  7 ciget /rrcurveto eq {
+    0 null ciput
+  } {
+    3 ciget /rlineto eq {
+      0 null ciput
+      3 /rcurveline ciput
+    } {
+	%**** WRONG IF MULTIPLE RRCURVETO ****
+      -6 ciget 0 eq {
+	-6 null ciput
+	0 /vhcurveto ciput
+      } {
+	-5 ciget 0 eq {
+	  -5 null ciput
+	  -1 -2 ciswap
+	  0 /hvcurveto ciput
+	} if
+      } ifelse
+    } ifelse
+  } ifelse
+} bind
+/vhcurveto {
+  5 ciget /hvcurveto eq {
+    0 null ciput
+    10 ciget /vhcurveto eq {
+      5 null ciput
+    } {
+      12 ciget /rrcurveto eq 6 ciget 0 eq and {
+	5 null ciput
+	6 null ciput
+	12 /vhcurveto ciput
+	12 ciskip
+      } {
+	5 /vhcurveto ciput
+	5 ciskip
+      } ifelse
+    } ifelse
+  } {
+    7 ciget /rrcurveto eq {
+      1 ciget 0 eq {
+	0 null ciput
+	1 null ciput
+	5 6 ciswap
+	7 /vhcurveto ciput
+	7 ciskip
+      } if
+    } if
+  } ifelse
+} bind
+/hvcurveto {
+  5 ciget /vhcurveto eq {
+    0 null ciput
+    10 ciget /hvcurveto eq {
+      5 null ciput
+    } {
+      12 ciget /rrcurveto eq 7 ciget 0 eq and {
+	5 null ciput
+	7 null ciput
+	10 11 ciswap
+	12 /hvcurveto ciput
+	12 ciskip
+      } {
+	5 /hvcurveto ciput
+	5 ciskip
+      } ifelse
+    } ifelse
+  } {
+    7 ciget /rrcurveto eq {
+      2 ciget 0 eq {
+	0 null ciput
+	2 null ciput
+	7 /hvcurveto ciput
+	7 ciskip
+      } if
+    } if
+  } ifelse
+} bind
+/closepath {
+  0 null ciput
+} bind
+/hsbw {
+	% We handled this separately, drop it.
+  -2 1 0 { null ciput } for
+} bind
+/dotsection {
+	%**************** NYI ****************
+} bind
+/vstem3 {
+	% We handled the hints separately, drop them here.
+  -6 1 0 { null ciput } for
+} bind
+/hstem3 1 index
+/seac {
+	%**************** NYI ****************
+} bind
+/sbw {
+	% We handled this separately, drop it.
+  -4 1 0 { null ciput } for
+} bind
+/callothersubr {
+  -1 ciget 3 eq {
+	%**** HANDLE HINT REPLACEMENT ****
+    -2 ciget 1 eq 1 ciget /pop eq and 2 ciget /callsubr eq and {
+      -2 1 1 { null ciput } for
+    } {
+      (**************** 3 callothersubr -- invalid call\n) print
+      /t1tot2 cvx /rangecheck signalerror
+    } ifelse
+  } if
+} bind
+/pop {
+	%**************** NYI ****************
+} bind
+/setcurrentpoint {
+	%**************** NYI ****************
+} bind
+
+.dicttomark readonly def	% t1t2ops

@@ -1,0 +1,20 @@
+@Section
+   @Tag { include }
+   @Title { "@Include and @SysInclude" }
+@Begin
+@PP
+include.sym @Index { @@Include symbol }
+sysinclude.sym @Index { @@SysInclude symbol }
+These symbols instruct Lout to temporarily switch to reading another
+file, whose name appears in braces following the symbol.  For example,
+@ID @Code {
+"@Include { \"/usr/lout/langdefs\" }"
+}
+will cause the contents of file "/usr/lout/langdefs" to be read at the
+point it occurs.  After that file is read, the current file is resumed.  The
+included file may contain arbitrary Lout text, including other
+@@Include commands.  The file is searched for first in the current
+directory, then in a sequence of standard places which are not necessarily the
+same places that databases are searched for.  @@SysInclude searches the
+standard places only.
+@End @Section

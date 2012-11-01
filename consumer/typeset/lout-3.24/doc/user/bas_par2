@@ -1,0 +1,261 @@
+@Section
+   @Title { Paragraph breaking }
+   @Tag { paras }
+@Begin
+@PP
+@I { Paragraph breaking } is the process of
+paragraph.breaking @Index { paragraph breaking }
+inserting line breaks into praragraphs at places appropriate to the column
+width.  Lout works out suitable column widths and performs paragraph
+breaking automatically, finding an `optimal' break with the method
+used by the @TeX
+tex.paragraph @SubIndex { paragraph breaking }
+system.  It offers nine styles of paragraph breaking,
+which we will explore with the aid of this example:
+@ID @OneRow @Code {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}
+Changing the paragraph breaking style is similar to changing the font,
+colour, or language, and is done using the @Code "@Break" symbol:
+break. @Index @Code "@Break"
+@ID @Code "ragged @Break ..."
+This example causes every paragraph in the following object to be
+broken using the @Code ragged style, of which more below.
+@PP
+The first two of the nine styles perform @I { line adjustment }, which
+line.adjustment @Index { line adjustment }
+means that they enlarge the spaces between the objects making up each
+line so as to fill the lines completely:
+@IndentedList
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "adjust @Break ..." }
+    B { adjust @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "outdent @Break ..." }
+    B { outdent @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@EndList
+The @Code adjust style is frequently used, so it has been chosen as the
+default style.  Outdenting adds a small space at the start of each line
+outdent. @Index { outdented paragraphs }
+except the first, and is much less common.
+@PP
+The next four styles do not adjust lines, leaving the paragraph
+ragged. @Index { @Code ragged paragraph breaking style }
+cragged. @Index { @Code cragged paragraph breaking style }
+rragged. @Index { @Code rragged paragraph breaking style }
+oragged. @Index { @Code oragged paragraph breaking style }
+{@I ragged}:
+@IndentedList
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "ragged @Break ..." }
+    B { ragged @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "cragged @Break ..." }
+    B { cragged @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "rragged @Break ..." }
+    B { rragged @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "oragged @Break ..." }
+    B { oragged @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@EndList
+The paragraph is broken in the same places as @Code adjust breaks it,
+but the resulting lines are left-justified, centred, or right-justified
+with respect to each other, rather than adjusted; @Code "oragged"
+is like @Code "outdent" except the resulting lines are not adjusted.
+@PP
+If you have a few words that must be kept together on one line, the
+preventing. @Index { preventing line breaks }
+keeping. @Index { keeping things on one line }
+recommended way is to separate them by an @Code "~" symbol:
+@ID @Code "According to Prof.~Jones, the effect of ..."
+It's best not to bother about this until you actually get a bad line
+break, since chances are good that the words will fall on one line anyway.
+@PP
+The last three styles differ from the first five in breaking the
+paragraph at the points where it is broken in the original input:
+lines. @Index { @Code lines paragraph breaking style }
+clines. @Index { @Code clines paragraph breaking style }
+rlines. @Index { @Code rlines paragraph breaking style }
+@IndentedList
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "lines @Break ..." }
+    B { lines @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "clines @Break ..." }
+    B { clines @Break {
+It @PageMark clines is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@LI @Tab
+    @Fmta { @Col 6c @Wide @Code A ! @Col 7c @Wide B }
+{
+@Rowa
+    A { "rlines @Break ..." }
+    B { rlines @Break {
+It is a truth universally
+acknowledged, that a single man
+in possession of a good fortune,
+must be in want of a wife.
+}}
+}
+@EndList
+The lines are left-justified, centred, or right-justified with respect
+to each other in the same way as for the ragged styles.
+@PP
+When using the @Code lines style, there are some fine points concerning
+the proper use of white space.  Consider this example:
+@ID @OneRow @Code {
+"@IndentedDisplay lines @Break @I {"
+"Teach me to hear Mermaides singing,"
+"Or to keep off envies stinging,"
+"     And finde"
+"     What winde"
+"Serves to'advance an honest minde."
+"}"
+}
+The result is the indented display
+@IndentedDisplay lines @Break @I {
+Teach me to hear Mermaides singing,
+Or to keep off envies stinging,
+     And finde
+     What winde
+Serves to'advance an honest minde.
+}
+This style is the only one for which it is useful to indent individual
+lines in the input; as the result shows, such indents will be
+respected, as will blank lines.  However, Lout's rule that only white
+space separating objects affects the result (Section {@NumberOf spaces})
+still holds, which means that indenting the first line is not
+effective:
+@ID @OneRow @Code {
+"@IndentedDisplay lines @Break @I {"
+"     And finde"
+"     What winde"
+"Serves to'advance an honest minde."
+"}"
+}
+produces
+@IndentedDisplay lines @Break @I {
+     And finde
+     What winde
+Serves to'advance an honest minde.
+}
+This may seem awkward at first, but actually it is extremely convenient
+because you don't have to worry about whether the first line of the
+paragraph should appear on a new line as above, or immediately after
+the opening brace:  space at that point does not separate two objects,
+so it has no effect.  The indent can be obtained by
+starting the first line with an empty object (Section {@NumberOf empty}):
+@ID @OneRow @Code {
+"@IndentedDisplay lines @Break @I {"
+"{}     And finde"
+"     What winde"
+"Serves to'advance an honest minde."
+"}"
+}
+The result is
+@IndentedDisplay lines @Break @I {
+{}     And finde
+     What winde
+Serves to'advance an honest minde.
+}
+as desired.  To set the entire document in a paragraph breaking style other
+than {@Code "adjust"}, you need to change the @Code "@InitialBreak" option,
+as explained at the end of Section {@NumberOf linespace}.
+@PP
+Some people don't like to see the first line of a paragraph alone at the
+widows @Index { widow lines }
+orphans @Index { orphan lines }
+unbreakablefirst. @Index { @Code unbreakablefirst }
+unbreakablelast. @Index { @Code unbreakablelast }
+foot of a page or column (the rest appearing on the next page).  You can
+instruct Lout not to allow this with
+@ID @Code "unbreakablefirst @Break ..."
+meaning that the first line cannot be broken off from the rest of the
+paragraph.  Similarly,
+@ID @Code "unbreakablelast @Break ..."
+instructs Lout to prevent the last line of a paragraph from appearing
+alone at the top of a page or column.  These features would probably be
+invoked in the @Code "@InitialBreak" option, like this:
+@ID
+@Code "@InitialBreak { unbreakablefirst unbreakablelast hyphen adjust 1.2fx }"
+You can turn them off with @Code "breakablefirst @Break"
+and @Code "breakablelast @Break".  In both cases Lout makes it happen by
+breaking at the previous place, either between paragraphs or two lines from
+the end of a paragraph.  Alternatively, both features are compatible with
+Lout's @Code "@OptimizePages" option, which will optimize the overall page
+layout of the document subject to these requirements.
+@End @Section

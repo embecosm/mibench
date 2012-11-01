@@ -1,0 +1,65 @@
+@Section
+    @Title { Labelled (as opposed to numbered) references }
+    @RunningTitle { Labelled references }
+    @Tag { labelled }
+@Begin
+@PP
+Lout ordinarily assigns a number to each reference, and prints this
+labelled.refs @Index { labelled references }
+number beside the reference in the reference list and at the point(s)
+of citation.  There is a way to make Lout use a label of your choice
+instead of a number for each reference.  First change the following
+setup file options to the values shown (these options are explained
+in Section {@NumberOf changeref}):
+@ID @OneRow @Code {
+"@RefCiteLabels { @Label }"
+"@RefListLabels { @Label. }"
+"@RefListLabelWidth { 4.00f }"
+"@RefListSortKey { @Label }"
+}
+Then make sure that every reference you cite has a {@Code "@Label"} option:
+@ID @OneRow @Code {
+"{ @Reference"
+"    @Tag { kingston1995lout.expert }"
+"    @Type { TechReport }"
+"    @Label { Kin94 }"
+"    ..."
+"}"
+}
+@Code "@Label" may contain several words, and even font changes, but not
+an arbitrary object.
+@PP
+The effect of these changes is that your references will now be labelled
+with their @Code "@Label" options instead of with numbers, and they will
+be sorted by label instead of by tag.  However, tags are still used when
+citing.
+@PP
+The big problem with labels is that they vary from document to
+document, either because of a change of style or because the usual
+first few letters of the authors' names plus year has to be augmented
+with {@Code a}, {@Code b}, {@Code c} etc. to distinguish publications
+by the same authors in the same year.  To help you overcome these
+problems, the @Code "$" symbol has a @Code "label" option:
+@ID @Code {
+"@Cite { $ label { Kin94a } kingston1995lout.expert, ... }"
+}
+The @Code "@Ref" and @Code "@ChapRef" symbols also have a @Code label
+option.  If you use this option, it will be used to label the reference
+instead of the @Code "@Label" option from the @Code "@Reference" symbol
+(indeed, the @Code "@Reference" symbol need have no @Code "@Label" option
+in this case).  But note that using @Code "label" does not itself give
+you labelled references; you get them with the setup file options as
+explained above.
+@PP
+If your labels turn out to be too wide for the space allowed for them
+in the reference list, you have two alternatives.  One is to increase
+the @Code "@RefListLabelWidth" setup file option shown above, since it
+determines this space.  The other is to change the @Code "@RefListFormat"
+setup file option to {@Code "DropLabels"}, which produces drop items:
+@ID @OneRow {
+@RawTaggedList
+@DTI { Kin94a. } @RefPrint kingston1995lout.expert
+@RawEndList
+}
+Then it won't matter how wide your labels are.
+@End @Section

@@ -1,0 +1,81 @@
+@Section
+   @Title { Spacing }
+@Begin
+@PP
+There is a basic rule governing the use of white space characters (space,
+tab, and newline) in the input to Lout:  white space between two objects
+affects the result; white space between a symbol and its parameter does
+not.  This is explained at length in Section {@NumberOf spaces}.
+@PP
+Although this rule is just right most of the time, it is not adequate
+for equation formatting.  Getting the horizontal spacing right in
+equations is a very fiddly business, involving four different sizes of
+space (zero, thin, medium, and thick), and different rules for spacing
+within superscripts and subscripts to those applying outside, according
+to a leading authority @Cite { $knuth1984tex }.  {@Code "@Eq"} therefore
+takes the spacing decisions upon itself, and consequently chooses to
+ignore all white space in its input, even between two objects.  (The
+simplest way to restore the effect of white space to part of an equation
+is to enclose that part in a @Code "@Font" symbol.)
+@PP
+Every symbol provided by {@Code "@Eq"} has a @I {full name}, which
+full.name @Index { full name of equation symbol }
+denotes the symbol without any space attached.  Many symbols also
+have a @I {short name}, which denotes the same symbol with what
+short.name @Index { short name of equation symbol }
+{@Code "@Eq"} considers to be an appropriate amount of space for that
+symbol attached to it.  For example, @Eq { lessequal } has full name
+@Code lessequal and short name {@Code "<="}:
+@IL
+@LI {
+@Code "a lessequal b"
+|7ct
+@Eq { a lessequal b }
+}
+@LI {
+@Code "a <= b"
+|7ct
+@Eq { a <= b }
+}
+@EL
+{@Code "@Eq"} puts a thick space around relation symbols like {@Code "<="},
+relations @Index { relation symbols in equations }
+a medium space around binary operator symbols like {@Code "+"}, and a thin
+binary.op @Index { binary operators in equations }
+space after punctuation symbols (@Code ";" and {@Code ","}); except that
+punctuation @Index { punctuation in equations }
+in places where the symbols appear in a smaller size (superscripts,
+subscripts, etc.), these spaces are omitted.  No other horizontal space
+is ever inserted.
+@PP
+The short names have been carefully designed to produce good-looking
+mathematics most of the time.  It is best to rely on them in the first
+instance and only think about spacing when the result is not pleasing.  In
+that case, {@Code "@Eq"}'s space can be removed by using the full names,
+and thin, medium and thick space can be added using the following symbols:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A ! @Col B }
+{
+@Rowa
+  A { @Code "`" }
+  B { {@Code "0.18f"}  ({@Code "0.018f"} in subscripts, etc.) }
+@Rowa
+  A { @Code "``" }
+  B { {@Code "0.24f"}  ({@Code "0.024f"} in subscripts, etc.) }
+@Rowa
+  A { @Code "```" }
+  B { {@Code "0.30f"}  ({@Code "0.030f"} in subscripts, etc.) }
+}
+where @Code "1f" is the current font size.  These symbols have low
+precedence.  The @Code "&" symbol from raw Lout is also available;
+the @Code "s" unit has value 0 and so is not very useful, but one can
+write @Code "&2m" for example for a two em space.  The full names are
+tedious to remember, so {@Code "@Eq"} provides a @Code "non" symbol
+non. @Index { @Code "non" in equations }
+which removes spaces from its right parameter; thus @Code "non <=" is
+equivalent to {@Code "lessequal"}.  There are also {@Code "rel"},
+{@Code "bin"}, and {@Code "punct"} symbols for telling {@Code "@Eq"}
+to add space to the following symbol as though it was a relation symbol,
+binary operator, or punctuation symbol.
+@End @Section

@@ -1,0 +1,77 @@
+: Use /bin/sh
+#
+# $Id: iwhich,v 1.2 1995/10/11 02:31:58 geoff Exp $
+#
+# Report which version of a command is in use.  This version of
+# "which" doesn't handle shell aliases, but it makes up for that with
+# the "-a" (report all copies) switch and the fact that it returns a
+# nonzero shell status if the command isn't found.
+#
+USAGE='Usage:  which [-a] command[s]'
+#
+# For each command, the full pathname of the version that will be
+# selected from $PATH is reported.  If the -a switch is given,
+# versions in $PATH that are overridden by earlier $PATH entries will
+# also be reported.  The exit status is nonzero if none of the
+# commands are found anywhere in $PATH.
+#
+# $Log: iwhich,v $
+# Revision 1.2  1995/10/11  02:31:58  geoff
+# Work around a buggy version of Ultrix test
+#
+# Revision 1.1  1995/01/15  00:13:54  geoff
+# Initial revision
+#
+#
+opath=$PATH
+PATH=/bin:/usr/bin
+all=no
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-a)
+	    all=yes
+	    shift
+	    ;;
+	-*)
+	    echo "$USAGE" 1>&2
+	    exit 2
+	    ;;
+	*)
+	    break
+	    ;;
+    esac
+done
+case $# in
+    0)
+	echo "$USAGE" 1>&2
+	exit 2
+	;;
+esac
+opath=`echo "$opath" | sed 's/^:/.:/
+			  s/::/:.:/g
+			  s/:$/:./
+			  s/:/ /g'`
+found=false
+for file
+do
+    for i in $opath
+    do
+	if [ \( -x $i/$file \) -a \( ! -d $i/$file \) ]
+	then
+	    echo $i/$file
+	    found=true
+	    case "$all" in
+		no)
+		    break
+		    ;;
+	    esac
+	fi
+    done
+done
+if $found
+then
+    exit 0
+else
+    exit 1
+fi

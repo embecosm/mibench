@@ -1,0 +1,28 @@
+@Chapter
+   @Title { Equations }
+   @Tag { equations }
+@Begin
+@LP
+This chapter explains how to produce mathematical formulas in Lout,
+equations. @Index { equations }
+mathematics. @Index mathematics
+eq. @Index @Code "@Eq"
+using the @Code "@Eq" symbol like this:
+@ID @Code {
+"@Eq { big int supp 1 on 0 ` dx over sqrt {1 - x sup 2} = pi over 2 }"
+}
+This example produces
+@ID @Eq { big int supp 1 on 0 ` dx over sqrt {1 - x sup 2} = pi over 2 }
+The @Code "@Eq" symbol looks after all the details of spacing for
+you, and it provides several hundred mathematical symbols.
+@BeginSections
+@Include { equ_intr }
+@Include { equ_symb }
+@Include { equ_vert }
+@Include { equ_spac }
+@Include { equ_disp }
+@Include { equ_defs }
+@Include { equ_summ }
+@Include { equ_tequ }
+@EndSections
+@End @Chapter

@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ $# -gt 0 ]
+ then 
+  ci -f -l -t/dev/null "-m$*" `cat MANIFEST`
+ else
+  echo "Supply log message as argument(s)" 1>&2
+  exit 1;
+fi 

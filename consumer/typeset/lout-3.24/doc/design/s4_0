@@ -1,0 +1,88 @@
+@Section
+    @Tag { functional }
+    @Title { Implementation of the functional subset }
+@Begin
+@PP
+The objects and definitions of Lout are very similar to those found in
+other functional languages, and they form a natural subset of the
+language.  So we pause here and present an overview of the Basser Lout
+object evaluation algorithm.
+@PP
+The problem is to take an unsized object (pure parse tree), its
+environment (Section {@NumberOf defs.impl}), and its style
+(Section {@NumberOf style}), and to produce a PostScript file for
+rendering the object on an output device.  This file is essentially a
+sequence of instructions to print a given string of characters in a
+given font at a given point.
+@PP
+Before the algorithm begins, the parse tree must be obtained, either by
+parsing input or by copying from the symbol table.  Afterwards the data
+structure must be disposed.  The algorithm proper consists of five
+passes, each a recursive traversal of the structure from the root down
+to the leaves and back.
+@DP
+@I {1.  Evaluation of unsized objects.}  On the way down, calculate
+environments and replace non-recursive, non-receptive symbols by their
+bodies (Section {@NumberOf defs.impl}); broadcast fonts to the leaves,
+and paragraph breaking and spacing styles to the paragraph nodes.  On the
+way back up, delete @Eq { FONT }, @Eq { BREAK }, and @Eq { SPACE } nodes,
+and insert @Eq { SPLIT }, @Eq { COL }, and @Eq { ROW } nodes
+(Section {@NumberOf objects}).
+@DP
+@I {2.  Width calculations and breaking.}  Calculate the width of every
+subobject from the bottom up.  As described in Section {@NumberOf objects},
+@Eq { WIDE } nodes may trigger object breaking sub-traversals during this pass.
+@DP
+@I {3.  Height calculations.}  Calculate the height of every subobject,
+from the bottom up.
+@DP
+@I {4.  Horizontal coordinates.}  Calculate the horizontal coordinate of
+each subobject from the top down, and store each leaf's coordinate in
+the leaf.
+@DP
+@I {5.  Vertical coordinates and PostScript generation.}  Calculate the
+vertical coordinate of every subobject from the top down, and at each
+leaf, retrieve the character string, font, and horizontal coordinate,
+and print the PostScript instruction for rendering that leaf.
+@DP
+Figure {@NumberOf components} gives the amount of code required for each
+
+@Figure
+    @Tag { components }
+    @Caption { Major components of the Basser Lout interpreter, showing
+the approximate number of lines of C code.  }
+@Begin
+@Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @RR A ! @Col B ! @Col @RR C }
+   @Fmtb { @Col @RR A ! @Col B ! @Col     C }
+{
+   @Rowa A { 1. } B { Initialization } C { 200 }
+   @Rowa A { 2. } B { Memory allocation, ordered dag operations } C { 400 }
+   @Rowa A { 3. } B { Lexical analysis, macros, file handling } C { 1,350 }
+   @Rowa A { 4. } B { Parsing of objects and definitions } C { 1,150 }
+   @Rowa A { 5. } B { Symbol table and call graph } C { 600 }
+   @Rowa A { 6. } B { Evaluation of pure parse trees } C { 1,650 }
+   @Rowa A { 7. } B { Reading, storing, and scaling of fonts } C { 600 }
+   @Rowa A { 8. } B { Cross references and databases } C { 1,000 }
+   @Rowa A { 9. } B { Width and height calculations, and breaking } C { 700 }
+   @Rowa A { 10. } B { @I Constrained and @I AdjustSize } C { 700 }
+   @Rowa A { 11. } B { Transfer of sized objects into galley tree } C { 450 }
+   @Rowa A { 12. } B { Galley flushing algorithm } C { 1,500 }
+   @Rowa A { 13. } B { Coordinate calculations and PostScript output } C { 700 }
+   @Rowa A { 14. } B { Debugging and error handling } C { 1,200 }
+   @Rowb vmargin { 0.1c } C { @Line }
+   @Rowa C { 12,200 }
+}
+@End @Figure
+
+pass.  Symmetry between horizontal and vertical is exploited throughout
+Basser Lout, and passes 2 and 3, as well as 4 and 5, are executed on
+shared code.
+@PP
+The author can see no simple way to reduce the number of passes.  The
+introduction of horizontal galleys (Section {@NumberOf horizontal})
+would remove the need for the object breaking transformations within this
+algorithm that are the principal obstacles in the way of the merging of
+passes 2 and 3.
+@End @Section

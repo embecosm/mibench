@@ -1,0 +1,37 @@
+@Section
+   @Title { "@Database and @SysDatabase" }
+   @Tag { database }
+@Begin
+@PP
+database.sym @Index { @@Database symbol }
+The @@Database symbol is used to declare the existence of a file
+of symbol invocations that Lout may refer to when evaluating cross
+references.  In Basser Lout, for example,
+@ID @Code {
+"@Database @Months @WeekDays { standard }"
+}
+means that there is a file called @Code "standard.ld" containing
+invocations of the previously defined symbols @Code "@Months" and
+{@Code "@WeekDays"}.  A @@Database symbol may appear anywhere a definition
+or a @@Use symbol may appear.  Different definitions packages may refer to a
+common database, provided the definitions they give for its symbols are
+compatible.  An entry is interpreted as though it appears at the point
+where the cross reference that retrieves it does, which allows symbols
+like @Code "@I" for @Code "Slope @Font" to be used in databases.  The
+database file may not contain @@Database or @@Include symbols, and each
+invocation within it must be enclosed in braces.
+@PP
+Basser Lout constructs an {@I {index file}},
+index.file @Index { Index file (for databases) }
+which in this example is called {@Code "standard.li"}, the first time it
+ever encounters the database, as an aid to searching it.  If the database
+file is changed, its index file must be deleted by the user so that
+Basser Lout knows to reconstruct it.  There is also an installation
+option which allows this deletion to be done automatically on suitable
+systems (including Unix).
+@PP
+Basser Lout searches for databases in the current directory first, then
+in a sequence of standard places.  To search the standard places only, use
+sysdatabase.sym @Index { @@SysDatabase symbol }
+@@SysDatabase.
+@End @Section

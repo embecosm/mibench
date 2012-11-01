@@ -1,0 +1,52 @@
+                      LAME 3.xx   
+               LAME Ain't an MP3 Encoder
+               http://www.sulaco.org/mp3
+	           October 1999
+
+Originally developed by Mike Cheng (www.uq.net.au/~zzmcheng).  Now 
+maintained by Mark Taylor (www.sulaco.org/mp3).
+
+This is a patch against the ISO MPEG2 dist10 demonstration source.  The
+modifications are distributed under the GNU LESSER PUBLIC LICENSE
+(LGPL, see www.gnu.org) with the following modification:
+
+1. If you determine that distribution of LAME requires a patent license,
+   and you obtain a patent license, you may distribute LAME even though
+   redistribution of LAME may also require a patent license.  
+
+2. You agree not to enforce any patent claims for any aspect of
+   MPEG audio compression, or any other techniques contained in 
+   the LAME source code. 
+
+
+============================================================================
+
+see the file "INSTALL" for installation (compiling) instructions.  
+see the file "USAGE" for the most up-to-date guide to the command line options.
+see the file "LICENSE" for details on how to use LAME in non-GPL programs.
+see the file "HACKING" for some general codeing guidelines
+
+There is HTML documentation and a man page in the doc directory.
+The HTML docs were contributed by Gabriel Bouvigne (www.mp3tech.org).
+See www.mp3tech.org for more audio compression information and links.
+
+============================================================================
+
+The graphical frame analyzer uses the MPGLIB decoding engine, from the
+MPG123 package, written by: Michael Hipp (www.mpg123.de) MPGLIB is
+released under the GPL, while MPG123 is released under a more
+restrictive agreement.
+
+Various components of the patch are:
+
+Copyrights (c) 1999 by Mark Taylor: new psy-model, quantization and bit allocation 
+Copyrights (c) 1998 by Michael Cheng:  new transforms and many other improvements
+Copyrights (c) 1995,1996,1997 by Michael Hipp: mpglib
+
+
+The ISO demonstration source (distributed separately) has its own
+patent, copyright and distribution issues.  The code is freely
+available, but any commercial use (including distributing free
+encoders) may require a patent license from Thomson Multimedia.  (see
+http://www.iis.fhg.de/amm/legal/)
+

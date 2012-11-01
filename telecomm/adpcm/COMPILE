@@ -1,0 +1,13 @@
+Compile Instructions
+--------------------
+1)  Change directories src.
+2)  Type "make".  This will create the executables used by the scripts. If
+    this doesn't work see the src/Makefile for details on how
+    to fix or modify the install process.
+
+Clean Instructions
+------------------
+1)  Change directories to src.
+2)  Type "make clean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

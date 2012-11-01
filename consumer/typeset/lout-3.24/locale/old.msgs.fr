@@ -1,0 +1,503 @@
+$set 1
+1 mot trop long
+2 Noveau: type %s
+3 Nouveau: longueur nulle!
+4 assertion échoue dans %s
+5 %s - drapeaux de déboguage non implantés
+7 usage: -o <fichier>
+8 usage: -c <fichier>
+9 usage: -e <filename>
+10 usage: -EPS
+11 usage: -D <répertoire>
+12 usage: -C <répertoire>
+13 usage: -F <répertoire>
+14 usage: -H <répertoire>
+15 usage: -I <répertoire>
+16 usage: -i <fichier>
+17 interdit: deux options -h
+18 usage: -h <fichier>
+19 répertoire d'inclusion système: %s
+20 répertoire des bases de données système: %s
+21 usage: lout -%c<longueur><longueur>
+22 lout -%c: unité doit être c, i, p ou m
+23 lout -%c: unité doit être c, i, p ou m
+24 usage: lout [ -i <fichier> ] fichiers...
+25 entrée standard spécifiée deux fois
+26 option de ligne de commande inconnue %s
+27 impossible d'ouvrir le fichier de sortie %s
+$set 2
+1 fichier inclus %s trop imbriqué
+2 fichier de base de données %s trop imbriqué
+3 manque de mémoire en ouvrant le fichier %s
+4 appel de macro interdit dans base de données
+5 ligne trop longue (ou sans fin de ligne)
+6 caractère %c en dehors d'une chaine entre guillemets
+7 impossible d'ouvrir le fichier %s
+8 type de fichier inconnu
+9 macro récursive
+10 %s attendu (après %s)
+11 nom de fichier à inclure attendu ici
+12 chaîne non terminée
+13 chaîne non terminée
+14 caractère nul ignoré dans chaîne
+15 LexGetToken: erreur dans chaîne entre guillemets
+16 LexGetToken: mauvais chtbl[]
+17 ligne trop longue  (ou sans fin de ligne)
+18 paramètre de filtre dans macro
+19 fin de fichier en lisant paramètre de filtre
+20 %s attendu ici (après %s)
+21 nom de fichier attendu ici
+22 impossible d'ouvrir le fichier inclus %s
+23 %s dans paramètre de filtre non implémenté
+24 LexScanFilter: mauvais chtbl[]
+25 ligne trop longue  (ou sans fin de ligne)
+$set 3
+1 manque de mémoire en agrandissant la table des fichiers
+2 trop de fichiers (maximum=%d)
+3 fichier de base de données %s quand un fichier source est attendu
+4 fichier d'index de base de données %s quand un fichier source est attendu
+5 nom de fichier %s%s trop long
+6 nom de fichier %s%s trop long
+7 position de fichier %s... trop longue à imprimer
+8 position de fichier %s... trop longue à imprimer
+9 fichier
+10 depuis
+11 ligne
+12 les fichiers %s et %s existent tous les deux
+13 chemin de fichier %s/%s trop long
+14 les fichiers %s et %s%s existent tous les deux
+$set 4
+1 EchoCatOp: %d
+2 EchoToken: %s
+$set 5
+1 nom de famille de police attendu ici
+2 nom de genre de police attendu ici
+3 ouverture %s de def.police (fontdef) attendue ici
+4 ouverture %s de def.langage (langdef) attendue ici
+5 accolade ouvrante attendue ici dans declaration %s
+6 nom de fichier %s attendu ici
+7 nom de symbol ou %s attendu ici (déclaration de %s)
+8 noms de symbole manquants dans déclaration %s
+9 nom de fichier %s attendu ici
+10 symbole %s inconnu ou mal epelé
+11 symbole %s interdit dans macro
+12 fin de fichier inattendue
+13 %s inattendu ici
+14 %s non apparié dans macro
+15 %s non apparié dans macro
+16 symbole %s inconnu ou mal epelé
+17 nom de symbole attendu après %s
+18 %s %s ne s'apparie pas avec %s %s
+19 %s non apparié dans macro
+20 %s doit suivre paramètre nommé %s
+21 paramètre droit de %s doit commencer par %s
+22 ReadTokenList: %s
+23 %s ignoré (nom manquant)
+24 %s ignoré (%s ouvrant manquant)
+25 nom d'importation attendu ici
+26 importation %s hors de portée
+27 %s nom de symbole attendu ici
+28 extension de symbole %s hors de portée
+29 mot clé %s ou %s attendu ici
+30 mot clé %s attendu ici
+31 liste d'exportation de macro ignorée
+32 nom de symbole attendu ici
+33 %s attendu ici
+34 %s attendu ici
+35 précédence trop petite (remplacée par %d)
+36 précédence trop grande (remplacée par %d)
+37 associativité changée en %s
+38 impossible de trouver nom de paramètre %s
+39 impossible de trouver nom de paramètre %s
+40 accolade ouvrante ou @Begin de %s attendu
+41 symbole exporté %s n'est pas défini dans %s
+42 paramètre de corps %s ne peut pas être exporté
+43 symbole %s exporté deux fois
+44 symbole %s inconnu ou mal epellé 
+$set 6
+1 expression trop fortement imbriquée
+2 expression trop fortement imbriquée
+3 paramètre gauche de %s n'est pas un symbole (ou n'est pas visible)
+4 %s non apparié (%s est inseré)
+5 Reduce: %s non apparié
+6 %s non apparié; %s est inseré en %s (après %s)
+7 %s non apparié n'est contenu dans rien
+8 Reduce: %s non apparié
+9 Reduce: %s non apparié
+10 %s %s ajouté en fin de fichier pour apparier %s en %s
+11 %s remplacé par %s %s pour apparier %s en %s
+12 %s %s remplacé par %s %s pour apparier %s en %s
+13 Reduce: %s
+14 le nom %s de fichier base de donnée de reférences croisées est trop long
+15 erreur de syntaxe dans fichier base de donnée de reférences croisées
+16 erreur dans fichier base de donnée de reférences croisées
+17 erreur dans fichier base de donnée de reférences croisées
+18 arrêt immédiat
+19 %s attendu après %s
+20 le symbole %s apparait dans deux clauses %s
+21 paramètre incorrect de %s
+22 symbole %s inconnu ou mal epelé
+23 fin de fichier inattendue
+24 %s remplacé par %s
+25 symbole inconnu ou mal epelé %s après %s supprimé
+26 symbole attendu après %s
+27 symbole %s mal placé
+28 symbole attendu à la suite de %s
+29 les clause(s) %s changée(s) depuis l'exécution précédentes
+30 symbole attendu à la suite de %s
+31 %s doit suivre paramètre nommé %s
+32 paramètre nommé %s de %s apparait deux fois
+33 %s mal placé ici (%s n'a pas de paramètre droit)
+34 paramètre droit de %s doit être entre accolades
+35 paramètre corps de %s doit être entre accolades
+36 paramètre gauche de %s incorrect
+37 paramètre droit de %s doit être entre accolades
+38 Parse: %s
+$set 7
+1 CopyObject: %s
+$set 8
+1 mot trop long
+2 mot trop long
+3 facteur d'echelle incorrect remplacé par 1.0
+4 facteur d'echelle incorrect %s remplacé par 1.0
+5 facteur d'echelle trop petit %s remplacé par 1.0
+6 facteur d'echelle trop grand %s remplacé par 1.0
+7 %s supprimé (paramètre droit mal construit)
+8 %s attendu ici
+9 erreur dans paramètre gauche de %s
+10 erreur dans paramètre gauche de %s
+11 remplace option inconnue %s de %s par %s
+12 %s supprimé (choix %s inconnu)
+13 paramètre gauche de %s n'est pas une référence croisée
+14 paramètre gauche de %s doit être un symbole
+15 symbole %s interdit ici (il n'a pas de %s)
+16 %s ou %s attendu dans paramètre gauche de %s
+17 paramètre droit de %s doit être un mot simple
+18 profondeur maximale (%d) d'expansion de symbole atteinte
+19 les symboles actuellement expansés sont:
+20 en %d: %s
+21 arrêt immédiat
+22 symbole %s utilisé en dehors de %s
+23 paramètre de filtre du symbole %s n'est pas simple
+24 mot %s%s trop long
+25 symbole %s manquant ou option
+26 paramètre gauche incorrect de %s remplacé par 2i
+27 paramètre gauche incorrect de %s remplacé par +0i
+28 paramètre gauche incorrect de %s remplacé par 0d
+29 %s inattendu ici
+30 %s abandonné (paramètre n'est pas un mot simple)
+31 %s abandonné (pas de police courante en ce point)
+32 %s abandonné (caractère %s inconnu dans la police %s)
+33 pas de langue courante en ce point,  %s utilisé
+34 paramètre gauche incorrect de %s
+35 %s supprimé (paramètre droit incorrect)
+36 Manifest: %s
+$set 9
+1 mauvaise utilisation de symbole avec list d'importation
+$set 10
+1 manque de mémoire pour agrandir table de références croisées
+2 étiquette %s&%d générée automatiquement trop longue
+3 étiquette %s.%s.%d générée automatiquement trop longue
+4 paramètre gauche de %s n'est pas un symbole
+5 la valeur de paramètre droit de %s n'est pas un mot simple
+6 la valeur du paramètre droit de %s est un mot vide
+7 symbole %s utilisé en référence croisé n'a pas de paramètre %s
+8 étiquette %s_%d générée automatiquement trop longue
+9 %s ou étiquette %s interdit ici
+10 symbole %s utilisé en référence croisée n'a pas de paramètre %s
+11 CrossExpand: %d
+12 référence croisée non résolue %s%s%s
+13 paramètre %s n'est pas un mot 
+14 paramètre %s est un mot vide
+15 aucun %s ne précède ce %s%s%s
+16 aucun %s ne précède ce %s%s%s
+17 étiquette de %s n'est pas un mot simple
+18 étiquette de %s n'est pas un mot simple
+19 CrossSequence: %s
+20 aucun %s ne suit ce %s%s%S
+21 et d'autre %s%s%s indéfinis
+$set 11
+1 paramètre gauche de %s incorrect
+2 espacement %s incompatible avec espacement courant
+3 option inconnue du symbole %s (%s)
+4 interligne %s incompatible avec interligne courant
+5 paramètre gauche de %s incorrect
+6 paramètre gauche de %s incorrect
+$set 12
+1 MinSize: %s
+2 obligé d'agrandir %s
+3 ^ supprimé (il ne peut précéder cet objet)
+4 espacement remplacé par 0i (unité %c interdite ici)
+5 %s supprimé (ne peut ouvrir fichier %s)
+6 %s prend une taille nulle (pas de ligne BoundingBox  dans fichier %s)
+7 %s supprimé (mauvaise première ligne dans fichier %s)
+8 %s prend une taille nulle (pas de ligne BoundingBox  dans fichier %s)
+9 MinSize: %s
+10 MinSize: back(x, dim) < 0!
+11 MinSize: fwd(x, dim) < 0!
+$set 13
+1 espace entre colonne réduit à 0i (objet trop large)
+2 BreakTable: %d
+3 BreakTable: %d
+4 %s supprimé (trop large; ne peut césurer %s)
+5 mot %s supprimé (trop large)
+6 %s %s réduit (trop large)
+7 %s ou %s supprimé (trop large)
+8 marque de colonne de paragraphe incassable bougée à gauche
+9 marque de colonne de paragraphe bougée à gauche avant césure
+10 BreakObject: %s
+10 BreakObject: %s
+$set 14
+1 objet %s supprimé (trop large pour un paragraphe de %s)
+2 objet %s supprimé (trop large pour un paragraphe de %s)
+3 objet surdimensionné a une taille négative ou nulle
+4 objet %s supprimé (trop large pour un paragraphe de %s)
+5 paragraphe supprimé (largeur affectée %s trop étroite)
+6 option avec ou sans césure manquante
+7 FillObject: %d
+$set 15
+1 Constrained: %s
+2 DebugConstrained: %s
+$set 16
+1 FindShift: %s
+2 FindShift: %s
+3 taille maximale %s dépassée
+4 contrainte de taille %s,%s,%s violée par %s,%s
+5 AdjustSize: %s
+5 AdjustSize: %s
+$set 17
+1 espacement n'est pas un mot simple
+2 largeur manquante de %s
+3 %s, %s et %s doivent être entre guillemets
+4 lettre d'unité manquante dans %s
+{4 units letter missing from %s
+{5 %.1fr too large (1.0r substituted)
+5 %.1fr trop grand (remplacé par 1.Or)
+6 longueur %s trop grande (remplacée par le maximum %dc)
+7 mode d'espacement inconnu dans %s
+8 largeur ou espacement %s incorrect
+9 MinGap: units %d
+10 MinGap: NO_MODE
+11 MinGap: mode %d
+12 ExtraGap: NO_MODE
+13 ExtraGap: %d
+14 ActualGap: unités %d
+15 ActualGap: NO_MODE
+16 ActualGap: mode %d
+17 EchoGap: %d
+$set 18
+1 ne peut attacher une galée
+2 galée trop imbriquée (maximum %d)
+3 galée %s supprimée (largeur insuffisante à la cible)
+4 paramètre droit de %s contraint verticalement
+$set 19
+1 galée %s supprimée ici (sans cible)
+2 symbole réceptif %s a une largeur incontrainte
+3 espacement horizontal trop petit pour galée %s en %s
+4 ce composant de %s ne rentre pas dans sa plus proche cible
+5 ce composant de %s ne rentre pas dans sa plus proche cible 
+6 AttachGalley: %s
+7 objet de %s trop haut pour un espace de %s %s inseré
+$set 20
+1 DebugInnersNames: %s
+2 FlushGalley: attach_status %d
+3 FlushGalley: dest_index %s
+4 FlushGalley: %s
+5 erreur dans fichier de base de donnée %s
+$set 21
+1 galée %s doit avoir une seule marque de colonne
+2 remplace facteur d'echelle par 1.0 et non infinie (%s a une largeur incontrainte)
+3 remplace facteur d'echelle par 1.0 et non infinie (%s a une largeur nulle)
+4 remplace facteur d'echelle trop grand (> 100) par 1.0
+5 objet supprimé (facteur d'echelle nul)
+6 objet supprimé (facteur d'echelle <0.01)
+7 SizeGalley: %s
+8 absence inattendue de %s dans le corps de %s
+$set 22
+1 FlushInners: %s
+2 FindSplit: composant de galée manquant
+3 FindSplitInGalley échoue
+4 FindSplitInGalley: %s
+5 galée %s doit avoir une seule marque de colonne
+6 galée %s supprimée (n'a jamais été attachée)
+7 Promote: %s
+7 Promote: %s
+8 KillGalley: head
+9 galée forcée après point d'entrée
+10 la cible de %s n'est pas une référence croisée
+11 paramètre gauche de %s n'est pas un symbole
+12 remplace %s%s? par %s%s%s
+13 TargetSymbol: cible manquante de x
+$set 23
+1 objet supprimé (ne peut être mis à l'echelle verticalement)
+2 objet supprimé (ne peut être mis à l'echelle horizontalement)
+3 FixAndPrintObject: %s
+$set 24
+1 impossible d'ouvrir %s fichier %s
+2 %s fichier %s est vide
+3 %s fichier %s sans commentaire PostScript BeginResource
+4 document -EPS tronqué en fin de première page
+5 erreur dans paramètre gauche de %s
+6 erreur dans paramètre gauche de %s
+7 commentaire LanguageLevel ignoré dans %s fichier %s
+8 commentaire Extensions ignoré dans %s fichier %s
+$set 25
+1 echo: %s
+2 echo: %s
+3 echo: %s
+$set 26
+1 BeginString: actuellement dans chaîne
+2 AppendString: pas de chaîne courante
+3 AppendString avorte
+4 EndString: pas de chaîne
+$set 27
+1 drapeau de déboguage %s inconnu
+2 ProfileOn: %s redémarré
+3 ProfileOn: débordement
+4 ProfileOff: %s n'est pas courant
+5 ProfileOff: débordement
+$set 28
+1 argument -e apparaît deux fois dans ligne de commande
+2 impossible d'ouvrir le fichier d'erreur %s
+3 trop de niveaux de message d'erreur
+4   %6s erreur interne: %s\n
+5   %6s erreur fatale: %s\n
+6 trop de messages d'erreur
+7 type d'erreur incorrect
+$set 29
+1   scope[%2d] = %s
+2 profondeur de portée - limite dépassée
+3 nom de symbole %s incorrect
+4 %s doit être une définition locale
+5 un paramètre de corps ne peut être nommé %s
+6 le paramètre droit d'une galée ne peut être nommé %s
+7 symbole %s déjà défini en %s
+8 le nom complet du symbole est trop long
+9 le nom complet du symbole est trop long
+10 symbole %s manque de %s
+11 DeleteSymBody: %s
+$set 31
+1 arrêt immédiat (manque de mémoire)
+$set 32
+1 mot %s trop long
+2 Next: %s
+$set 33
+1 manque de mémoire en agrandissant table dbcheck
+2 Dbcheck: entrée insérée deux fois
+3 NumToSym: pas de symbole
+4 inseré dans base de donnée en cours de lecture
+5 fichier de base de donnée a un nom %s%s trop long
+6 ne peut écrire dans fichier de base de donnée %s
+7 référence croisée %s&%s déjà utilisée, en %s
+8 référence croisée %s&%s déjà utilisée
+9 DbConvert: lecture de la base de donnée
+10 erreur de syntaxe dans fichier de base de donnée %s
+11 %s trouvé dans base de donnée mais non déclaré dans ligne %s
+12 symbole %s de base de donnée sans étiquette
+13 l'étiquette du symbole %s de base de donnée n'est pas un mot simple
+14 l'étiquette du symbole %s de base de donnée est un mot vide
+15 %s ou fin de fichier attendu ici
+16 impossible d'ouvrir fichier de base de donnée %s
+17 symbole indéfini dans fichier de base de donnée %s (ligne %d)
+18 DbRetrieveNext: écriture
+$set 35
+1 impossible d'obtenir le temps à l'horloge 
+$set 36
+1 dans fichier de césure: '%c' n'est dans aucune classe
+2 DoTriePrint: findrep échoue
+3 manque de mémoire en construisant la table de césure
+4 chaine de trie de césure - limite dépassée
+5 noeud de trie de césure - limite dépassée
+6 classe de césure de %c ne peut être modifiée
+7 chaîne de césure %s déjà insérée
+8 impossible d'ouvrir le fichier de césure %s
+9 ligne d'entête de fichier de césure %s manquante
+10 entête des classes de fichier de césure %s manquante
+11 TrieRead: %d
+12 erreur de format dans fichier de césure %s
+13 ne peut écrire dans fichier de césure %s
+14 impossible d'ouvrir le fichier de césure %s
+15 manque de mémoire en lisant la table de césure
+16 erreur en lecture du fichier de césure comprimé %s
+17 mauvais nombre magique dans fichier de césure %s
+18 pas de langage courant pour le mot %s
+$set 37
+1 définition de police ne contient pas une suite de mot
+2 définition de police contient un non-mot
+3 définition de police ne contient pas exactement quatre mots
+4 police %s %s déjà définie en %s
+5 Recode ou NoRecode attendu ici
+6 trop de polices et tailles différentes (maximum=%d)
+7 manque de mémoire en agrandissant la table des polices
+8 impossible d'ouvrir fichier de police %s
+9 fichier de police %s ne commence pas par StartFontMetrics
+10 manque de mémoire en lisant fichier de police %s
+11 manque de mémoire en lisant fichier de police %s
+12 manque de mémoire en lisant fichier de police %s
+13 XHeight apparait deux fois dans fichier de police (ligne %d)
+14 FontName apparait deux fois dans fichier de police %s (ligne %d)
+15 FontName vide dans fichier de police %s (ligne %d)
+16 FontName dans fichier de police %s ne correspond pas à fontdef (%s)
+17 FontName manque dans fichier de police %s
+18 caractère non codé de ligature %s ignoré dans fichier de police %s (ligne %d)
+19 trop de caractère de ligature dans fichier de police %s (ligne %d)
+20 WX manquant dans fichier de police %s (ligne %d)
+21 B manquant dans fichier de police %s (ligne %d)
+22 erreur de syntaxe dans StartKernPairs dans fichier de police %s (ligne %d)
+23 erreur de syntaxe  dans fichier de police %s (ligne %d): %s
+24 caractère de crénage non codé %s dans fichier de police %s (ligne %d)
+25 caractère de crénage non codé %s dans fichier de police %s (ligne %d)
+26 paire de crénage non contigüe %s %s dans fichier de police %s (ligne %d)
+27 trop de paires de crénage dans fichier de police %s (ligne %d)
+28 paire de crénage en double %s %s dans fichier de police %s (ligne %d)
+29 EndFontMetrics manquant dans fichier de police %s 
+30 erreur dans paramètre gauche de %s
+31 erreur dans paramètre gauche de %s
+32 police initiale doit avoir une famille, un genre et une taille
+33 famille de police %s indéfinie
+34 il n'y a pas de polices
+35 nom de famille de police %s doit être accompagné par un nom de genre
+36 nom de genre de police %s indéfini dans famille de police %s
+37 pas de police courant sur laquelle fonder le changement de taille %s
+38 FontChange: %d
+39 %S %S ignoré (résultat non positif)
+40 trop de polices et tailles différentes (max= %d)
+41 manque de mémoire en agrandissant table de taille de police
+42 manque de mémoire en changant de police ou de taille
+43 manque de mémoire en changant de police ou de taille
+44 pas de police courant sur le mot %s
+45 pas de couleur courante sur le mot %s
+46 pas de langage courant sur le mot %s
+47 caractère %s omis (sans graphie dans police %s)
+48 pas de police courante en ce point
+49 noms de famille et de genre de police %s %s trop longs
+$set 38
+1 trop de vecteur d'encodage
+2 manque de mémoire en chargeant les vecteurs d'encodage
+3 impossible d'ouvrir le fichier de vecteur d'encodage %s
+4 trop de noms de caractère dans le fichier de vecteur d'encodage %s
+5 trop peu de noms de caractère dans le fichier de vecteur d'encodage %s
+$set 40
+1 impossible d'ouvrir le fichier temporaire de filtre %s
+2 %s
+3 filtre échoue (status non nul): %s
+4 impossible de lire le fichier temporaire de filtre %s
+$set 41
+1 erreur de syntaxe (%s manquant) dans fichier de base de données
+2 erreur de syntaxe dans fichier de base de données
+3 WriteClosure: %s
+4 WriteObject: %s
+5 nom de fichier %s%s trop long
+6 impossible d'ajouter au fichier de base de donnée %s
+7 appel système link(%s, %s) échoue
+8 appel système unlink(%s) échoue
+$set 42
+1 manque de mémoire en agrandissant la table des couleurs
+2 trop de couleurs (max=%d)
+3 %s ignoré (paramètre gauche illégal)
+4 %s ignoré (paramètre gauche vide)
+$set 43
+1 manque de mémoire en agrandissant la table des langages
+2 nom de langage %s utilisé deux fois (la première fois en %s)
+3 nom de fichier de césure attendu ici
+4 %s ignoré (paramètre gauche illégal)

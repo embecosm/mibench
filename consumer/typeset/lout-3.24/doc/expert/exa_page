@@ -1,0 +1,267 @@
+@Section
+   @Title { Page layout }
+   @Tag { pagelayout }
+@Begin
+@PP
+The page layout
+page.layout.inpractice @SubIndex { in practice }
+document.layout.page.layout. @SubIndex { page layout }
+definitions given in Section {@NumberOf definitions},
+although correct, are very basic.  In this section we present the
+definitions used by the DocumentLayout package for laying out the pages
+of books, including running page headers and footers, different formats
+for odd and even pages, and so on.  The present document is produced with
+these definitions.
+@PP
+We begin with a few definitions which permit the user to create cross
+references of the `see page 27' variety which will be kept up to date
+automatically.  The user marks the target page by placing
+@Code {"@PageMark intro"}, for example, at the point of interest, and
+refers to the marked page as @Code "@PageOf intro" elsewhere:
+pageof.example @Index { @Code "@PageOf" example }
+@IndentedList
+@LI @Code {
+"export @Tag"
+"def @PageMarker right @Tag { @Null }"
+}
+@LI @Code {
+"def @PageMark right x"
+"{"
+"    @PageMarker&&preceding @Tagged x"
+"}"
+}
+@LI @Code {
+"def @PageOf right x"
+"{"
+"    @PageMarker&&x @Open { @Tag }"
+"}"
+}
+@EndList
+We will see below that an invocation of @Code "@PageMarker" appears before
+each page, with @Code "@Tag" parameter equal to the
+page number.  Suppose that {@Code "@PageMark intro"}, which expands to
+@ID @Code "@PageMarker&&preceding @Tagged intro"
+happens to fall on page 27 of the final printed document (of course, its
+value is @@Null which makes it invisible).  Then the effect of @@Tagged
+is to attach @Code "intro" as an extra tag to the first invocation of
+{@Code "@PageMarker"} preceding that final point, and this must be
+{@Code "@PageMarker 27"}.  Therefore the expression
+@ID @Code "@PageMarker&&intro @Open { @Tag }"
+will open the invocation {@Code "@PageMarker 27"} and yield the value of
+its @Code "@Tag" parameter, 27.  Thus, {@Code "@PageOf intro"} appearing
+anywhere in the document yields 27.
+@PP
+Next we have some little definitions for various parts of the
+page.  {@Code "@FullPlace"} will be the target of full-width body text:
+@ID @Code {
+"def @FullPlace { @Galley }"
+}
+{@Code "@ColPlace"} will be the target of body text within one column:
+@ID @Code {
+"def @ColPlace { @Galley }"
+}
+{@Code "@TopList"} will be the target of figures and tables:
+@ID @Code {
+"export @Tag"
+"def @TopList right @Tag"
+"{"
+"    @Galley"
+"    //@TopGap @TopList @Next @Tag"
+"}"
+}
+We have taken a shortcut here, avoiding an unnecessary @Code "@TopPlace"
+symbol.  @Code "@FootList" and {@Code "@FootSect"} define a sequence of
+full-width targets at the foot of the page for footnotes,
+preceded by a short horizontal line:
+footsect.example @Index { @Code "@FootSect" example }
+@IndentedList
+@LI @Code {
+"export @Tag"
+"def @FootList right @Tag"
+"{"
+"    @Galley"
+"    //@FootGap  @FootList @Next @Tag"
+"}"
+}
+@LI @Code {
+"def @FootSect"
+"{"
+"    @FootLen @Wide @HLine"
+"    //@FootGap  @FootList 1  ||@FootLen"
+"}"
+}
+@EndList
+Similarly, @Code "@ColFootList" and @Code "@ColFootSect" provide a
+sequence of targets for footnotes within one column:
+@ID @Code {
+"export @Tag"
+"def @ColFootList right @Tag"
+"{"
+"    @Galley"
+"    //@FootGap  @ColFootList @Next @Tag"
+"}"
+""
+"def @ColFootSect"
+"{"
+"    @ColFootLen @Wide @HLine"
+"    //@FootGap  @ColFootList 1  ||@ColFootLen"
+"}"
+}
+The next definition provides a horizontal sequence of one or more columns:
+collist.example @Index { @Code "@ColList" example }
+@ID @Code {
+"def @ColList right col"
+"{"
+"    def @Column"
+"    {  @VExpand { @ColPlace //1rt @OneRow { //@MidGap @ColFootSect } }  }"
+""
+"    col @Case {"
+"        Single @Yield @Column"
+"        Double @Yield { @DoubleColWidth @Wide @Column  ||@ColGap  @ColList col }"
+"        Multi  @Yield { @MultiColWidth @Wide @Column  ||@ColGap  @ColList col }"
+"    }"
+"}"
+}
+Each column consists of a @Code "@ColPlace" at the top and a
+@Code "@FootSect" at the foot.  The @@VExpand symbol ensures that
+whenever a column comes into existence, it will expand vertically so
+that the bottom-justification @Code "//1rt" has as much space as
+possible to work within.  The @Code "col" parameter determines whether
+the result has a single column, double columns, or multiple columns.
+@PP
+The {@Code "@Page"} symbol places its parameter in a page of fixed width,
+height, and margins:
+page.example @Index { @Code "@Page" example }
+@ID @Code {
+"def @Page right x"
+"{"
+"    @PageWidth @Wide @PageHeight @High {"
+"        //@PageMargin  ||@PageMargin"
+"        @HExpand @VExpand x"
+"        ||@PageMargin  //@PageMargin"
+"    }"
+"}"
+}
+@@HExpand and @@VExpand ensure that the right parameter occupies all the
+available space; this is important when the right parameter is unusually
+small.  The @@High symbol gives the page a single row mark, ensuring that
+it will be printed on a single sheet of paper (page {@PageOf rootg}).
+@PP
+Next we have {@Code "@OnePage"}, defining a typical page of a book or
+other document:
+onepage.example @Index { @Code "@OnePage" example }
+@ID @Code {
+"def @OnePage"
+"    named @Columns {}"
+"    named @PageTop {}"
+"    named @PageFoot {}"
+"{"
+"    @Page {"
+"        @PageTop"
+"        //@MidGap  @TopList"
+"        //@MidGap  @FullPlace"
+"        //@MidGap  @ColList @Columns"
+"        // //1rt   @OneRow { //@MidGap @FootSect //@MidGap @PageFoot }"
+"    }"
+"}"
+}
+The page top and page foot, and the number of columns, are parameters
+that will be given later when @Code "@OnePage" is invoked.  The body of
+the page is a straightforward combination of previous definitions.  The
+@Code "//" symbol protects the following @Code "//1rt" from deletion in
+the unlikely event that all the preceding symbols are replaced by
+@@Null.  The following object is enclosed in @@OneRow to ensure that
+all of it is bottom-justified, not just its first component.
+@PP
+Before presenting the definition of a sequence of pages, we must detour
+to describe how running page headers and footers (like those in the
+present document) are produced.  These are based on the
+@Code "@Runner" symbol:
+runner.example @Index { @Code "@Runner" example }
+@ID @Code {
+"export @TopOdd @TopEven @FootOdd @FootEven"
+"def @Runner"
+"    named @TopOdd right @PageNum { @Null }"
+"    named @TopEven right @PageNum { @Null }"
+"    named @FootOdd right @PageNum { @Null }"
+"    named @FootEven right @PageNum { @Null }"
+"    named @Tag {}"
+"{ @Null }"
+}
+The four parameters control the format of running headers and footers on
+odd and even pages respectively.  Invocations of {@Code "@Runner"}, for
+example
+@ID @Code {
+"@Runner"
+"    @TopEven { @B @PageNum |1rt @I { Chapter 4 } }"
+"    @TopOdd  { @I { Examples }   |1rt @B @PageNum }"
+}
+will be embedded in the body text of the document, and, as we will see
+in a moment, are accessed by @Code "@Runner&&following" cross references
+on the pages.  Notice how the @Code "@PageNum" parameter of each
+parameter allows the format of the running header to be specified while
+leaving the page number to be substituted later.
+@PP
+We may now define {@Code "@OddPageList"}, whose result is a sequence of
+pages beginning with an odd-numbered page:
+oddpagelist.example @Index { @Code "@OddPageList" example }
+@ID @Code {
+"def @OddPageList"
+"    named @Columns {}"
+"    right @PageNum"
+"{"
+"    def @EvenPageList ..."
+""
+"        @PageMarker @PageNum"
+"    //  @Runner&&following @Open {"
+"            @OnePage"
+"                @Columns { @Columns }"
+"                @PageTop { @TopOdd @PageNum }"
+"                @PageFoot { @FootOdd @PageNum }"
+"        }"
+"    //  @EvenPageList"
+"            @Columns { @Columns }"
+"            @Next @PageNum"
+"}"
+}
+Ignoring @Code "@EvenPageList" for the moment, notice first that the
+invocation of @Code "@OnePage" is enclosed in
+{@Code "@Runner&&following @Open"}.  Since {@Code "@Runner&&following"}
+refers to the first invocation of @Code "@Runner" appearing after itself
+in the final printed document, the symbols @Code "@TopOdd" and
+@Code "@FootOdd" will take their value from the first invocation of
+@Code "@Runner" following the top of the page, even though @Code "@FootOdd"
+appears at the foot of the page.  Their @Code "@PageNum" parameters are
+replaced by {@Code "@PageNum"}, the actual page number parameter of
+{@Code "@OddPageList"}.
+@PP
+After producing the odd-numbered page, @Code "@OddPageList" invokes
+{@Code "@EvenPageList"}:
+evenpagelist.example @Index { @Code "@EvenPageList" example }
+@ID @Code {
+"def @EvenPageList"
+"    named @Columns {}"
+"    right @PageNum"
+"{"
+"        @PageMarker @PageNum"
+"    //  @Runner&&following @Open {"
+"            @OnePage"
+"                @Columns { @Columns }"
+"                @PageTop { @TopEven @PageNum }"
+"                @PageFoot { @FootEven @PageNum }"
+"        }"
+"    //  @OddPageList"
+"            @Columns { @Columns }"
+"            @Next @PageNum"
+"}"
+}
+This produces an even-numbered page, then passes the ball back to
+@Code "@OddPageList" -- a delightful example of what computer
+scientists call mutual recursion.  The two page types differ only in
+their running headers and footers, but other changes could easily be made.
+@PP
+It was foreshadowed earlier that an invocation of @Code "@PageMarker"
+would precede each page, and this has been done.  Although this @Code
+"@PageMarker" is a component of the root galley, it will not cause a
+page to be printed, because Basser Lout skips components of height zero.
+@End @Section

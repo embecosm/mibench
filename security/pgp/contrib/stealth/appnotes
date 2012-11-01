@@ -1,0 +1,33 @@
+                    Stealth V1.1 MS-DOS Appnotes
+                 17 April 1994 Christopher M. Wiles
+
+These application notes pertain to my port of Henry Hastur's Stealth
+V1.1 to the MS-DOS filesystem.
+
+First and foremost, this PGP filter does _not_ work with an ascii-armored
+text input file.  It was designed and coded for use with straight binary
+files.  This is fine when your primary purpose is to exchange files via
+the use of steganography, but is rather useless if one wishes to remove
+and replace the PGP headers on an e-mail message.
+
+It wouldn't be that difficult to patch the source to handle both input
+and output of ascii armor.  If you want to see this modification, send
+me e-mail at the below address.  I'll do it if enough people request it.
+
+Additionally, there may be an error in Henry's README file, as included
+in this package.  He states that the following command sequence invokes
+PGP with Stealth as a filter:
+
+        "pgp -ef < secrets.dat | stealth > pgp.stl"
+
+This hasn't worked for me.  PGP hangs when it requests a recipient name
+(a direct result of redirecting STDIN to SECRETS.DAT).  This works for
+me:
+        "pgp -ef < secrets.dat NAME | stealth > pgp.stl"
+
+... where NAME is the recipient's name.
+
+That's about it.  Hats off to Henry Hastur for writing the code, and to
+Xenon for making it publicly available.
+
+-- Christopher M. Wiles (wileyc@quark.chs.wa.com)

@@ -1,0 +1,28 @@
+#
+#	Simple MS VC++ Makefile
+#
+#	To build:
+#       C:\libtiff\tools> nmake /f makefile.vc 
+#
+TARGETS	=	tiffcp.exe tiffinfo.exe tiffdump.exe fax2tiff.exe \
+		fax2ps.exe gif2tiff.exe pal2rgb.exe ppm2tiff.exe \
+		rgb2ycbcr.exe thumbnail.exe ras2tiff.exe tiff2bw.exe \
+		tiff2rgba.exe tiff2ps.exe tiffcmp.exe tiffdither.exe \
+		tiffmedian.exe tiffsplit.exe 
+
+EXTRA_OBJ = 	strcasecmp.obj getopt.obj
+
+LIBS	=	..\libtiff\libtiff.lib
+
+CFLAGS 	=	/nologo -I..\libtiff /D_WINDOWS
+
+default:	$(EXTRA_OBJ) $(TARGETS)
+
+.c.exe:      
+	$(CC) $(CFLAGS) $*.c $(EXTRA_OBJ) $(LIBS)
+
+getopt.obj:	..\port\getopt.c
+	$(CC) /c $(CFLAGS) ..\port\getopt.c
+
+strcasecmp.obj:	..\port\strcasecmp.c
+	$(CC) /c $(CFLAGS) ..\port\strcasecmp.c

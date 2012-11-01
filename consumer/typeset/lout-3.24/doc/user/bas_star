@@ -1,0 +1,129 @@
+@Section
+   @Title { Getting started }
+   @Tag { start }
+@Begin
+@PP
+Suppose you want to produce the following little document:
+@CD @Box margin { 1.3c } 7.0c @Wide 9c @High {
+@Display @Heading { Introduction by W. J. Harvey }
+harvey.w.j @Index { Harvey, W. J. }
+For Virginia Woolf, @I Middlemarch was `the magnificent book
+which for all its imperfections is one of the few English novels
+written for grown-up people.'
+@PP
+She was, no doubt, thinking of George Eliot's unblinking but
+eliot.g @Index { Eliot, George }
+compassionate delineation of her characters, of the subtlety of
+psychological analysis and the maturity of moral comment which
+underlie this complex and varied novel of English provincial
+life in the early nineteenth century.
+}
+Unlike word processing and desktop publishing systems, with Lout you
+cannot see and edit your document on the screen in this finished
+form.  Instead, you edit an ordinary text file, in which your text is
+augmented with symbols that mark out the headings, paragraphs, and so
+on.  Although it would be nice to be able to see and edit the finished
+form, working with a text file and symbols does have some compensating
+advantages.
+@PP
+The first step in producing your introduction to @I Middlemarch is to
+use the text editor of your choice to construct this text file:
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"@Display @Heading { Introduction by W. J. Harvey }"
+"For Virginia Woolf, @I Middlemarch was `the magnificent book which for all its"
+"imperfections is one of the few English novels written for grown-up people.'"
+"@PP"
+"She was, no doubt, thinking of George Eliot's unblinking but compassionate"
+"delineation of her characters, of the subtlety of psychological analysis and"
+"the maturity of moral comment which underlie this complex and varied novel"
+"of English provincial life in the early nineteenth century."
+"@End @Text"
+}
+Comparing this with the finished form, it's easy to guess that
+@Code "@I" is a symbol that causes the following thing to be printed
+in italics, and that @Code "@PP" starts a new paragraph.  The other
+symbols are not much harder.
+@PP
+@Code "@SysInclude { doc }" instructs Lout to read a @I { setup file }
+called {@Code "doc"}, in which the symbols are defined.  Setup files
+are the subject of Chapter {@NumberOf changes}, but you can go a long
+way without worrying about them.  @Code "@Doc @Text @Begin" and
+@Code "@End @Text" have no visible effect, but they must bracket the
+document as a whole.  Again, you don't have to know what they are for.
+@PP
+That explains everything except the part that produces the heading.  It's
+an interesting glimpse of the way that Lout's symbols cooperate with
+each other:
+@ID @Code "@Display @Heading { Introduction by W. J. Harvey }"
+The @Code "@Display" symbol does the centring and leaves space above
+and below, while @Code "@Heading" switches to a bold font.  The braces
+group the words of the heading together so that these symbols apply to
+all of it; without them they would apply to just the first word.  All
+this is explained in detail in Sections {@NumberOf objects}
+and {@NumberOf spaces}.
+@PP
+Once the file is ready, the next step is to get it processed by the
+Basser Lout interpreter.  If the file's name is {@Code "intro"},
+the command for this on the Unix
+@FootNote { Unix is a trademark. }
+operating system is
+@ID @Code "lout intro > intro.ps"
+The output is the PostScript
+@FootNote { PostScript is a trademark of Adobe Systems, Inc. }
+file {@Code "intro.ps"}, which is suitable for printing on many laser
+printers and other devices.  There are programs that show you the
+result on your screen as well, although you won't be able to edit it
+there.  You can also get plain text output (Section {@NumberOf plain})
+and PDF output.
+@PP
+There are a few points that often confuse people as they begin, so we'll
+treat them briefly now with pointers to later sections where they are
+done properly.
+@PP
+Some characters are symbols that produce special effects -- for
+example, @Code "{" and @Code "}" produce grouping -- and to turn off
+these effects the characters must be enclosed in double quotes:  @Code
+"\"{\"" produces "{".  The complete set of these special characters is
+@ID @Code "/    |    &    {    }    #    @    ^   ~   \\   \""
+Section {@NumberOf characters} treats unusual characters in full detail.
+@PP
+Symbols like @Code "@Doc" and @Code "@Text" must be separated from
+each other by one or more spaces, otherwise Lout will think they are part
+of one symbol.  See Section {@NumberOf spaces} for the details.
+@PP
+People familiar with other systems might expect that leaving a blank line would
+cause Lout to start a new paragraph; but this is not so, you must use a
+paragraph symbol.  Lout will ordinarily take notice of how many spaces you type
+between words (Section {@NumberOf spaces}), but it will mimic the spacing rules
+of two other systems, troff and @TeX, if you prefer (Section {@NumberOf white}).
+@PP
+When Lout runs, you might see some error messages containing the words
+error.messages @Index { error messages }
+`unresolved cross reference' and `no destination point' -- not on file
+@Code "intro" above, but on more complicated ones (anything with a footnote,
+for example).  These just mean that you have to run the @Code "lout" command
+again to finish off the complicated things (Section {@NumberOf cross}), and
+they will gradually go away.  Of course, if you see error messages about
+missing braces, unknown symbols, and so on, you need to revise your file.  Lout
+will tell you the line number of the problem, and how far along the line it is.
+@PP
+@BI { WARNING: }  Lout allows documents to cause arbitrary system commands
+to be executed.  These typically do useful things such as format computer
+programs and uncompress graphics files, but it is possible for a
+malicious person to send you a document which includes a command to delete
+all your files, send abusive mail to the President of the United States in
+your name, etc.  You can protect yourself against this possibility by using
+the `safe execution' flag:
+@ID @Code "lout -S suspect.document > out.ps"
+Then no system commands will be executed; instead, Lout will print them so
+that you can confirm for yourself that they are safe before running again
+without the flag.  These system commands are Lout's only potentially unsafe
+features, but you also need to worry about whether the resulting PostScript
+file contains malicious code, since the document may direct Lout to include
+arbitrary PostScript code in the output.  The safe execution of PostScript
+programs is a matter for PostScript interpreters, not for Lout.  For example,
+the popular Ghostview program has a @Code "-safer" command line option,
+which is rumoured to disable unsafe PostScript features.
+@End @Section

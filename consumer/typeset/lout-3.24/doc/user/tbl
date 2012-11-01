@@ -1,0 +1,56 @@
+@Chapter
+    @Title { Tables }
+    @Tag { tables }
+@Begin
+@LP
+This chapter explains how to produce tables like this one:
+tables. @Index { tables }
+@CD @Tbl
+   aindent { ctr }
+   arulebelow { double }
+   aformat { @StartHSpan @Cell @B X | | @HSpan }
+   bindent { align }
+   bformat { @Cell rr { no } @I A | @Cell rl { no } B | @Cell C }
+   rule { yes }
+{
+@Rowa
+   X { Value of mathematical formulae (millions of dollars) }
+@Rowb
+   A { Quadratic formula }
+   B { @Eq { x ^= { minus b +- sqrt { b sup 2 - 4ac } } over 2a } }
+   C { 3^.5 }
+@Rowb
+   A { Binomial theorem }
+   B { @Eq { ( a + b ) sup n ^= big sum from k=0 to infty
+matrix atleft { ( } atright { ) } { n above k } a sup k b sup n-k
+} }
+   C { 12^ }
+}
+As the example shows, the tables may contain spanning columns, aligned
+columns, and rules, and the cells may contain arbitrary objects.
+@FootNote {
+There has been a slight change to {@Code "@Tbl"}, starting with Version
+3.18:  if you want columns whose entries are aligned (on decimal points,
+equals signs, etc.), or the analogous thing with rows, you have to ask
+for it now, whereas before it happened automatically.  See
+Section {@NumberOf tbl_alig} for the details.
+}
+@BeginSections
+
+@Include { tbl_intr } # introduction
+@Include { tbl_cell } # basic cell formatting: font, break, width, paint
+@Include { tbl_rows } # row formats and the @Row symbol
+@Include { tbl_rule } # rules
+@Include { tbl_marg } # margins
+@Include { tbl_widt } # width and height
+@Include { tbl_inde } # indenting and struts
+@Include { tbl_alig } # aligned columns and headings over them
+@Include { tbl_span } # spanning columns and rows
+@Include { tbl_mark } # @MarkRow
+@Include { tbl_mult } # multi-page tables
+@Include { tbl_plai } # plain text tables
+@Include { tbl_setu } # setup file options
+@Include { tbl_summ } # summary
+
+@EndSections
+@End @Chapter

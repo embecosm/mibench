@@ -1,0 +1,197 @@
+#
+# Makefile for SAS/C 6.51 to create the Amiga version of PGP 2.6.3i
+#
+# Also makes PGP 2.6.3
+#
+# Peter Simons <simons@peti.rhein.de> & Rob Knop <rknop@mop.caltech.edu>
+#
+
+#
+# Comments:
+# =========
+#
+# These settings will generate the fastest version of PGP to run on
+# 68000-processors. 68020+ users should add "CPU=68020" to the CFLAGS
+# and un-comment the AFLAGS line to get an even faster version.
+#
+#                                                            -peter
+#
+#
+# Use "smake PGP2.6.3" to build PGP 2.6.3 (legal to use in the USA).
+# "smake PGP2.6.3i", "smake PGP", or just "smake" builds the
+# international PGP 2.6.3i,  which is illegal to use in the USA.
+# 68020 options for both the USA &  International versions are
+# as mentioned by Peter above.
+#
+# You will have to aquire the RSAREF libraries in order to build PGP 2.6.3
+# from this source.  I will make a .lha with the source code and Amiga
+# smakefile available on ftp.csn.net and (perhaps) elsewhere.
+#
+# NOTE -- if you are for whatever reason compiling two versions of PGP
+# from the same directory (e.g. 68020 and 68000, or 2.6.3 and 2.6.3i),
+# it is important to delete all the object files (.o files) before starting
+# the compilation of a different version from the version the .o files were
+# originally compiled for.
+#                                                            -Rob
+#
+
+# Labels:
+# =======
+#
+# Compile a version based on the MPILIB
+RSALIBS =
+RSAINCDIR =
+RSAOBJS = rsaglue1.o
+
+# Compile a version using the RSAREF 1.0 code
+RSADIR = /rsaref/
+RSALIBDIR = $(RSADIR)install/amiga/
+USA_RSAINCDIR = IDIR=$(RSADIR)source/ IDIR=$(RSADIR)test/
+USA_RSALIBS = $(RSALIBDIR)rsaref.lib
+USA_RSAOBJS = rsaglue2.o
+
+ZIPOBJS  = zbits.o zdeflate.o zfile_io.o zglobals.o zinflate.o zip.o zipup.o ztrees.o zunzip.o
+OBJS_EXT = amiga_asm.o amiga__main.o
+OBJ1     = pgp.o crypto.o keymgmt.o fileio.o mdfile.o more.o armor.o \
+  mpilib.o mpiio.o genprime.o rsagen.o random.o idea.o passwd.o \
+  md5.o system.o language.o getopt.o keyadd.o config.o keymaint.o \
+  charset.o randpool.o noise.o
+OBJS     = $(OBJ1) $(RSAOBJS) $(ZIPOBJS) $(OBJS_EXT)
+
+
+#
+# Compiler Flags:
+# ===============
+#
+# Define one one the following flags to get the wanted effect:
+#
+# USA          - to get a version that is legal to use within the US
+# DEBUG        - to include debugging information
+# DYN_ALLOC    - if your compiler does not support large static arrays
+# IDEA32       - to make the IDEA module use 32bit variables
+#
+# MERRITT      - Merritt's modmult (fast on risc machines)
+# PEASANT      - Russian peasant modulo multiply algorithm
+# UPTON        - use Upton's modmult algorithm
+# SMITH        - use Smith's modmult
+# See also the file platform.h for system defaults
+#
+# If you don't have a working FIONREAD ioctl you must use one of these:
+# -DUSE_SELECT to use select() system call
+# -DUSE_NBIO   to use non-blocking read()
+
+#
+# CFLAGS for Amiga
+# ================
+#
+# Options common for 2.6.3i and 2.6.3 are in SCOPTIONS.  There are two sets
+# of non-common flags here, CFLAGS for 2.6.3i and CFLAGS_USA for 2.6.3.
+#
+# Note that the USEMPILIB definition in the USA version simply uses a faster
+# modulo exponentiation routine from MPILIB.  The RSAREF libraries are still
+# being used, so the executable produced is still a legit MIT version.
+#
+# DYN_ALLOC and IDEA32, mentioned above, are defined in SCOPTIONS.
+#
+# CFLAGS= CPU=68020
+# CFLAGS_USA= DEF=USA DEF=USEMPILIB DEF=AMIGA_ASM $(USA_RSAINCDIR) CPU=68020
+CFLAGS=
+CFLAGS_USA= DEF=USA DEF=USEMPILIB DEF=AMIGA_ASM $(USA_RSAINCDIR)
+
+#
+# Assembler Flags:
+# ================
+#
+# Define one one the following flags to get the wanted effect:
+# _M68020      - to include the 68020-optimized P_SMUL routine (will require
+#                -m2 to surpress the warnings, too)
+#
+# AFLAGS= -D_M68020 -m2
+AFLAGS=
+
+#
+# Targets:
+# ========
+#
+PGP2.6.3i:
+        smake pgp
+
+PGP2.6.3:
+        smake pgp "RSAOBJS=$(USA_RSAOBJS)" "RSALIBS=$(USA_RSALIBS)" \
+                   "RSAINCDIR=$(USA_RSAINCDIR)" "CFLAGS=$(CFLAGS_USA)"
+
+pgp:          $(OBJS)
+        slink lib:cres.o $(OBJS) TO PGP LIB LIB:sc.lib LIB:amiga.lib $(RSALIBS)
+
+
+#
+# Actions:
+# ========
+#
+.c.o:
+        sc $(CFLAGS) $*.c
+.a.o:
+        asm $(AFLAGS) $*.a
+
+mc68020.o:	mc68020.s
+	$(ASM) mc68020.s
+
+#
+# Dependencies:
+# =============
+#
+
+amiga__main.o: amiga__main.c
+amiga_asm.o: amiga_asm.a
+
+armor.o : armor.c mpilib.h usuals.h platform.h fileio.h mpiio.h language.h \
+  pgp.h more.h armor.h crypto.h charset.h
+charset.o : charset.c usuals.h language.h charset.h system.h
+config.o : config.c usuals.h fileio.h pgp.h more.h armor.h config.h \
+  charset.h
+crypto.o : crypto.c mpilib.h usuals.h platform.h mpiio.h random.h idea.h \
+  crypto.h keymgmt.h keymaint.h mdfile.h md5.h fileio.h charset.h language.h \
+  pgp.h more.h armor.h exitpgp.h zipup.h rsaglue.h
+fileio.o : fileio.c random.h usuals.h mpilib.h platform.h mpiio.h fileio.h \
+  language.h pgp.h more.h armor.h exitpgp.h charset.h system.h
+genprime.o : genprime.c mpilib.h usuals.h platform.h genprime.h random.h
+getopt.o : getopt.c getopt.h
+idea.o : idea.c idea.h usuals.h
+keyadd.o : keyadd.c mpilib.h usuals.h platform.h crypto.h fileio.h \
+  keymgmt.h charset.h language.h pgp.h more.h armor.h exitpgp.h keyadd.h \
+  keymaint.h
+keymaint.o : keymaint.c mpilib.h usuals.h platform.h random.h crypto.h \
+  fileio.h keymgmt.h keymaint.h mpiio.h charset.h language.h pgp.h more.h \
+  armor.h
+keymgmt.o : keymgmt.c system.h mpilib.h usuals.h platform.h idea.h random.h \
+  crypto.h fileio.h keymgmt.h rsagen.h mpiio.h language.h pgp.h more.h \
+  armor.h md5.h charset.h keymaint.h
+language.o : language.c usuals.h fileio.h language.h pgp.h more.h armor.h \
+  charset.h
+md5.o : md5.c md5.h
+mdfile.o : mdfile.c mpilib.h usuals.h platform.h mdfile.h md5.h fileio.h \
+  language.h pgp.h more.h armor.h
+more.o : more.c system.h mpilib.h usuals.h platform.h language.h fileio.h \
+  pgp.h more.h armor.h charset.h
+mpiio.o : mpiio.c mpilib.h # usuals.h platform.h mpiio.h pgp.h more.h armor.h
+mpilib.o : mpilib.c mpilib.h # usuals.h platform.h
+passwd.o : passwd.c random.h usuals.h md5.h language.h pgp.h more.h armor.h
+pgp.o : pgp.c system.h mpilib.h usuals.h platform.h random.h crypto.h \
+  fileio.h keymgmt.h language.h pgp.h more.h armor.h exitpgp.h charset.h \
+  getopt.h config.h keymaint.h keyadd.h rsaglue.h
+random.o : random.c system.h random.h usuals.h language.h
+rsagen.o : rsagen.c mpilib.h usuals.h platform.h genprime.h rsagen.h \
+  random.h rsaglue.h
+rsaglue.o : rsaglue.c mpilib.h mpiio.h pgp.h rsaglue.h
+system.o : system.c exitpgp.h system.h charset.h
+zbits.o : zbits.c zip.h ztailor.h ziperr.h
+zdeflate.o : zdeflate.c zunzip.h usuals.h system.h zip.h ztailor.h ziperr.h
+zfile_io.o : zfile_io.c zunzip.h usuals.h system.h
+zglobals.o : zglobals.c zip.h ztailor.h ziperr.h
+zinflate.o : zinflate.c zunzip.h usuals.h system.h exitpgp.h
+zip.o : zip.c usuals.h fileio.h language.h pgp.h more.h armor.h exitpgp.h
+zipup.o : zipup.c zip.h ztailor.h ziperr.h zrevisio.h
+ztrees.o : ztrees.c zip.h ztailor.h ziperr.h
+zunzip.o : zunzip.c zunzip.h usuals.h system.h
+r3000.o : r3000.c mpilib.h usuals.h platform.h lmul.h
+

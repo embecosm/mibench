@@ -1,0 +1,168 @@
+@Section
+    @Tag { dia_tags }
+    @Title { Tags }
+@Begin
+@PP
+In addition to drawing the outline, each of the standard node
+types also attaches names, called {@I tags}, to certain points.  For
+example, the @Code "@Ellipse" symbol creates nine tags:
+@ID {
+@Code {
+"@Ellipse"
+}
+||7ct
+@Diag {
+//1.0f
+@ShowTags @Ellipse
+    vsize { 1.5c }
+    hsize { 3.0c }
+}
+}
+The standard link symbols also create tags:
+@ID {
+@Code {
+"@Link"
+}
+||7ct
+@Diag {
+2.5c @High 2c @Wide
+//
+@ShowTags @Arrow
+    from { 0,0.8 }
+    to { 1,0 }
+}
+}
+The names and positions of all standard tags may be found in the summary
+(Section {@NumberOf dia_summ}) at the end of this chapter.  Each tag
+stands for a point, and may be used wherever a point is required:
+@ID {
+@Code {
+"@Ellipse { Hello, world }"
+"//"
+"@Link from { SW } to { SE }"
+}
+||7ct
+@Diag {
+@Ellipse { Hello, world }
+//
+@Link from { SW } to { SE }
+}
+}
+A tag may only be used later in the text of the diagram than the place
+where it is defined.
+@PP
+Standard tags like @Code N and @Code S are not much use as they are,
+since in general there will be many nodes and hence many @Code N and
+@Code S tags.  The retagging symbol, {@Code "::"}, solves this problem:
+@ID {
+@Code {
+"A:: @Ellipse"
+}
+||7ct
+@Diag {
+//1.5f
+@ShowTags {
+A:: @Ellipse
+    vsize { 1.5c }
+    hsize { 3.0c }
+}
+}
+}
+Within the following object, the points have their original tags, but
+afterwards the names are changed by prefixing the word preceding
+{@Code "::"}, plus a @Code "@" character, to each one.  These longer
+tags may be used exactly like the others:
+@ID {
+@Code {
+"A:: @Ellipse { Hello, world }"
+"//"
+"@Link from { A@SW } to { A@SE }"
+}
+||7ct
+@Diag {
+A:: @Ellipse { Hello, world }
+//
+@Link from { A@SW } to { A@SE }
+}
+}
+The retagging symbol may be applied to links, and indeed to arbitrary
+objects; it will retag every tag within the following object, even
+tags that have already been retagged:
+@ID {
+@Code {
+"A:: {"
+"    1:: @Ellipse"
+"        vsize { 1.0c }"
+"        hsize { 2.5c }"
+"    @DP"
+"    @DP"
+"    2:: @Ellipse"
+"        vsize { 1.0c }"
+"        hsize { 2.5c }"
+"}"
+}
+||7ct
+@Diag {
+//1.0f
+@ShowTags {
+A:: {
+    1:: @Ellipse
+        vsize { 1.0c }
+        hsize { 2.5c }
+    @DP
+    @DP
+    2:: @Ellipse
+        vsize { 1.0c }
+        hsize { 2.5c }
+}
+}
+}
+}
+In practice one usually only retags individual nodes.  It is best to
+use only upper-case letters and digits in tags, because Lout and
+PostScript have tags of their own containing lower-case letters, and
+any mixup causes total disaster.
+@PP
+When a tag lies within the object following some node, it is
+automatically retagged in this way with tag {@Code IN}.  For example, in
+@ID @Code {
+"@Square"
+"@Circle Hello"
+}
+the circle lies within the square, and what you get in effect is
+@ID @Code {
+"@Square"
+"IN:: @Circle Hello"
+}
+This prevents confusion between the tags of the inner and outer nodes.  This
+retagging cannot be left to the user's discretion, owing to unexpected
+effects on the positioning of labels of the outer node if inner tags are
+not retagged.
+@PP
+Although @Code from and @Code to are just two of several options within
+@Code "@Diag" where a point is expected, and hence where a tag may be
+given, they have a special virtue not shared by any other options.  It is
+possible to give the name of an entire node, not just a tag denoting one
+point, to them:
+@ID {
+@Code {
+"A:: @Circle"
+"@DP"
+"B:: @Ellipse { Hello, world }"
+"//"
+"@Link from { A } to { B }"
+}
+||7ct
+@Diag {
+A:: @Circle
+@DP
+B:: @Ellipse { Hello, world }
+//
+@Link from { A } to { B }
+}
+}
+This will select a point on the outline of the named node, appropriate
+to the type of link being drawn.  It is extremely useful, of course, but
+potentially confusing:  @Code A and @Code B do not denote points and are
+not tags, strictly speaking, at all.
+@End @Section

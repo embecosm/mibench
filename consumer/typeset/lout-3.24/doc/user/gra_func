@@ -1,0 +1,179 @@
+@Section
+   @Title { Mathematical functions, loops, and tests }
+   @Tag { functions }
+@Begin
+@PP
+@Code "@Graph" offers quite a large selection of mathematical functions,
+mathematical.functions @Index { mathematical functions in graphs }
+available everywhere that x and y coordinates are required:  within
+the @Code xticks and @Code yticks options, within the points within
+the @Code "objects" option, and within the right parameter of the
+@Code "@Data" symbol.  For example,
+@ID @OneRow @Code {
+"@Data"
+"    pairs { solid }"
+"{"
+"    0 0  pi sin { pi/2 }"
+"}"
+}
+draws a solid line from @Eq {(0, 0)} to @Eq {(pi, sin(pi "/" 2))}.  Section
+{@NumberOf grsummary} lists all the functions; they include the four
+arithmetical operators @Eq { non + }, @Eq { non - }, @Eq { non * }, and
+@Eq { "/" }, as well as {@Code "sin"}, {@Code "cos"}, {@Code "sqrt"}, and
+many others.  Braces are used for grouping, never parentheses.
+@PP
+For plotting functions there are three looping symbols, {@Code "xloop"},
+{@Code "yloop"}, and {@Code "zloop"}.  For example, the following plots
+the two functions @Eq { y = 2 } and @Eq { y = sqrt { pi x "/" 4 } + 1 }
+for @Eq { x } from 10 to 500:
+@ID @OneRow @Code {
+"-2p @Font @Graph"
+"    style { axes }"
+"    xorigin { 0 }"
+"    yorigin { 0 }"
+"    width { 8 cm }"
+"    xticks { 10@ 50@ 100@ 200@ 500@ }"
+"    objects {  @NE at { 300 2 } @I { Exponential }"
+"               @SE at { 300 sqrt { pi*300/4 } + 1 } @I { Uniform } }"
+"    belowcaption { @I n }"
+"    belowgap { 0 cm }"
+"    leftcaption { Right shell nodes }"
+"{"
+"    @Data points { filledcircle }"
+"    { 10 1.97  50 2.01  100 2.00  200 2.0  500 2.00 }"
+""
+"    @Data points { filledcircle }"
+"    { 10 3.53  50 7.45  100 9.32  200 13.41  500 21.63 }"
+""
+"    @Data pairs { dashed }"
+"    { 10 2  500 2 }"
+""
+"    @Data pairs { dashed }"
+"    {"
+"        xloop from { 10 } to { 500 } by { 20 } do"
+"        {"
+"            x  sqrt { pi*x / 4 } + 1"
+"        }"
+"    }"
+"}"
+}
+The @Code "do" option of @Code xloop is replicated repeatedly with each
+occurrence of @Code x replaced by 10, 30, 50, ... up to 490.  The
+result is
+@FootNote { Source:  Jeffrey H. Kingston, Analysis of tree algorithms
+for the simulation event list.  @I { Acta Informatica } {@B 22},
+pp. 15--33 (1985). }
+@CD -2p @Font @Graph
+    style { axes }
+    xorigin { 0 }
+    yorigin { 0 }
+    width { 8 cm }
+    xticks { 10@ 50@ 100@ 200@ 500@ }
+    objects {
+       @NE at { 300 2 } @I { Exponential }
+       @SE at { 300 sqrt { pi*300/4 } + 1 } @I { Uniform }
+    }
+    belowcaption { @I n }
+    belowgap { 0 cm }
+    leftcaption { Right shell nodes }
+{
+    @Data points { filledcircle }
+    { 10 1.97  50 2.01  100 2.00  200 2.0  500 2.00 }
+
+    @Data points { filledcircle }
+    { 10 3.53  50 7.45  100 9.32  200 13.41  500 21.63 }
+
+    @Data pairs { dashed }
+    { 10 2  500 2 }
+
+    @Data pairs { dashed }
+    {
+        xloop from { 10 } to { 500 } by { 20 } do
+        {
+            x  sqrt { pi*x / 4 } + 1
+        }
+    }
+}
+The points are connected by straight line segments as usual, but a
+smallish @Code "by" option of about one-twentieth of the range creates
+the illusion of a smooth curve quite well.
+@PP
+There is also an @Code "if" symbol which produces alternative results,
+depending on whether a condition evaluates to @Code "true" or
+{@Code"false"}:
+@ID @OneRow @Code {
+"xloop from { -5 } to { +5 } by { 0.2 } do"
+"{"
+"    if cond { abs { x } > 0.1 } then { x 1/x } else {}"
+"}"
+}
+This plots the function @Eq { y = 1 "/" x }, skipping points near
+zero.  Actually the @Code "else" part could be omitted since its default
+value is empty.
+@PP
+Adventurous users might enjoy nesting a @Code "yloop" or @Code "zloop"
+within an {@Code "xloop"}, or using loops to generate ticks, like this:
+@ID @OneRow @Code {
+"xticks {"
+"    xloop from { 0 } to { 20 } do"
+"    {"
+"       x if cond { x mod 5 = 0 } then { @ }"
+"    }"
+"}"
+}
+The missing @Code "by" option defaults to 1, so this produces x ticks at
+0, 1, 2, ..., 20, with labels at 0, 5, 10, 15, and 20.  It is quite all
+right to mix @Code "@" and even labels in with numbers, as long as the
+final result obeys the rules of Section {@NumberOf ticks}.
+@PP
+You can define your own functions using Lout definitions, placed in your
+@Code "mydefs" file as explained in Section {@NumberOf definitions}.  Here
+is an example of a function definition:
+@ID @OneRow @Code {
+"import @Graph @Data"
+"def @Tan"
+"    precedence 40"
+"    right x"
+"{"
+"    sin x / cos x"
+"}"
+}
+This defines a function called @Code "@Tan" which implements the
+trigonometric tangent function.  It may then be used in expressions
+just like any other function:
+@ID @OneRow @Code {
+"@Data {"
+"    yloop from { 0 } to { 0.95 } by { 0.05 } do"
+"    {"
+"        y   @Tan { y / pi }"
+"    }"
+"}"
+}
+Following is a detailed explanation.
+@PP
+The first line, {@Code "import @Graph @Data"}, is the import clause.  Its
+function is to grant the definition access to the three previously defined
+functions (symbols) that it uses, namely {@Code "sin"}, {@Code "cos"},
+and {@Code "/"}.  These are found within the @Code "@Data" symbol within
+{@Code "@Graph"}.
+@PP
+After the import clause comes the @Code "def" keyword, meaning
+`define,' and then the name of the symbol being defined, in this case
+@Code "@Tan".  We have chosen @Code "@Tan" rather than @Code "tan"
+because symbols defined by the user in this way are visible throughout
+the document, and we do not want the literal word @Code "tan" to be
+taken as a symbol.
+@PP
+Next comes the symbol's precedence, in this case the same as @Code "sin" and
+@Code "cos" (see Section {@NumberOf dia_summ} for the precedence of
+each symbol).  Next is a list of the formal parameters, in this case
+just one, called {@Code "x"}, that is to be passed on the right.
+@PP
+Finally comes the body of the definition enclosed in braces.  When
+@Code "@Tan" is invoked, its value will be this body with each occurrence
+of the formal parameter @Code "x" replaced by the object following the
+@Code "@Tan" symbol.  For example, the @Code "do" option of the @Code
+"yloop" above becomes
+@ID @Code "y   sin { y / pi } / cos { y / pi }"
+as you would expect.
+@End @Section

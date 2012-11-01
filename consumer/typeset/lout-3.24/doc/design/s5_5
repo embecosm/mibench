@@ -1,0 +1,109 @@
+@SubSection
+    @Tag { horizontal }
+    @Title { Horizontal galleys }
+@Begin
+@PP
+There is a strong analogy between breaking a column of text into
+page-sized pieces, and breaking a paragraph into line-sized pieces.  In
+fact, the two differ only in direction:  vertical for body text,
+horizontal for paragraphs.  In this section we define {@I{horizontal
+galleys}}, and show how they provide an unlimited number of paragraph
+breaking styles, as well as solve some other problems.  Regrettably,
+lack of time has prevented their incorporation into the Basser Lout
+interpreter.
+@PP
+Imagine a galley whose components are separated by horizontal
+concatenation operators instead of vertical ones, perhaps indicated by a
+@Code { horizontally into } clause.  Then all object breaking, including
+paragraph breaking, could be replaced by galley component promotion like
+this:
+@ID @OneRow @Code {
+"def @Paragraph right x"
+"{"
+"    def @LinePlace { @Galley }"
+""
+"    def @LineList"
+"    {"
+"        @HExpand @LinePlace"
+"        //1vx  @LineList"
+"    }"
+""
+"    def @Par horizontally into { @LinePlace&&preceding }"
+"        right x"
+"    { x }"
+""
+"    @LineList  //  @Par { 0.2i @Wide {}  &0i  x  &1rt }"
+"}"
+}
+The @Code "@HExpand" operator, which is a primitive of Basser Lout,
+horizontally expands the gaps in its right parameter until the result
+fills the available space, thus implementing line adjustment, except
+when the parameter contains tabulation gaps like {@Code "&1rt"}, which
+cause the parameter to be already expanded.  The result of
+@ID @Code "@Paragraph { A short paragraph of text. }"
+would then be something like
+@ID 1.5i @Wide {
+0.2i @Wide {} & A short paragraph of text.
+}
+depending on the available horizontal space.  An unlimited range of
+paragraph breaking styles could be defined, including ragged right, ragged
+left, break-and-center, and so on.
+@PP
+In Basser Lout, indented paragraphs are produced by preceding them with
+a horizontal concatenation operator, for example {@Code "|0.5i"}.  This
+has the unfortunate effect of making an indented paragraph into a single
+component of the enclosing galley, so that it will always be kept
+together on one page.  Horizontal galleys solve this problem with a
+simple change to {@Code "@LineList"}:
+@ID @OneRow @Code {
+"def @LineList"
+"{"
+"    |0.5i  @HExpand @LinePlace"
+"    //1vx  @LineList"
+"}"
+}
+showing the flexibility that comes from bringing the full power of the
+Lout language to bear on paragraph layout.  It is easy to make provision
+for a tag on the first line.
+@PP
+Although Basser Lout permits receptive symbols within paragraphs, they
+are of little use, because their available width is calculated after
+paragraph breaking, and the incoming galley cannot spread over more than
+one line.  With horizontal galleys, such symbols would have infinite
+available width, and we could easily produce a filled paragraph of
+footnotes like this:
+@ID 3.5i @Wide {
+@OneRow { -2p @Font 1 ^/0.3vo } & See Jones and Saunders (1982). &2m
+@OneRow { -2p @Font 2 ^/0.3vo } & Or so Jacobsen (1973) asserts. &2m
+@OneRow { -2p @Font 3 ^/0.3vo } & {@I ibid}, p. 327.
+}
+based on an infinite horizontal sequence of @Code "@FootPlace" symbols
+inside a horizontal galley.
+@PP
+When body text is placed on pages, the length of each column varies
+depending on the available vertical space.  Horizontal galleys could
+analogously produce lines of varying length, and so could fill
+non-rectangular shapes.
+@PP
+An important theoretical benefit of horizontal galleys is that they
+would permit horizontal and vertical to be treated in a perfectly
+symmetrical way, whereas at present paragraph breaking is horizontal
+only, and galley breaking is vertical only.  This must simplify the
+treatment of non-European languages which fill in unusual directions,
+although it is not itself sufficient to implement them.
+@PP
+There are a few minor problems with horizontal galleys.  First, the
+syntactic overhead of enclosing each paragraph in @Code "@Paragraph { ... }"
+or whatever is unacceptable.  Permitting user-defined operators to have lower
+precedence than the white space between two words might help here.  Second,
+the built-in paragraph breaker includes hyphenation, and it permits line
+breaks in the input to determine line breaks in the output, if
+desired.  These features must somehow be preserved.  Finally, we have
+explained how the Basser Lout interpreter assigns equal width to the
+wider columns of tables (Section {@NumberOf style}).  The equivalent
+situation in vertical galleys occurs when two receptive symbols compete
+for vertical space (e.g. @Code "@TextPlace" and {@Code "@FootSect"}),
+and there it is conventional to grant as much as required to the first
+arrival.  It is not clear to the author how these different approaches
+can be reconciled.
+@End @SubSection

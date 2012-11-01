@@ -1,0 +1,205 @@
+@Section
+   @Title { Ticks and labels }
+   @Tag { ticks }
+@Begin
+@PP
+@I Ticks are the short lines that mark off intervals along the axes, and
+ticks.graph @Index { ticks in graphs }
+labels.graph @Index { labels in graphs }
+@I labels are the numbers appearing near the ticks (not to be confused
+with captions).  {@Code "@Graph"} produces ticks and labels automatically
+with some care, so it is probably best not to worry about them unless the
+result is not pleasing, in which case there are options for controlling them.
+@PP
+One simple way to control the production of x ticks is with the
+{@Code xmin}, {@Code xmax}, and {@Code xticksep} options to @Code
+"@Graph".  For example,
+@ID @OneRow @Code {
+"@Graph"
+"    xmin { 0 }"
+"    xmax { 5 }"
+"    xticksep { 0.5 }"
+}
+specifies that x values in the range 0 to 5 are to be expected, and that
+a tick and label is to appear every 0.5 units along the x axis.  One or
+both of @Code "xmin" and @Code "xmax" may be omitted, in which case
+suitable values will be inferred from the data as usual.
+@PP
+Alternatively, complete control over the appearance of x ticks and labels
+is provided by the @Code "xticks" option.  For example,
+xticks.graph @Index { @Code "xticks" option to @Code "@Graph" }
+@ID @OneRow @Code {
+"@Graph"
+"    xticks { 0@  5  10@  15  20@ }"
+}
+specifies that x ticks are to be drawn at 0, 5, 10, 15, and 20.  An
+@Code "@" following a number indicates that a label is to be printed as
+well, so the above example will produce labels at 0, 10, and 20.  For
+even finer control, @Code "@" may be replaced by a label enclosed
+in parentheses:
+@ID @OneRow @Code {
+"@Graph"
+"    xticks { 1 (Democrat)  2 (Republican)  3 (Other) }"
+}
+As this example shows, a label does not have to be a number; it can be
+any string of characters, including spaces and balanced parentheses;
+but it may not be an arbitrary Lout object.
+@PP
+The character @Code "^" in a label indicates that the
+remainder is to be treated as an exponent:
+@ID @OneRow @Code {
+"@Graph"
+"    xlog { 10 }"
+"    xticks { 1 (1)  10 (10)  100 (10^2)  1000 (10^3)  10000 (10^4)  100000 (10^5) }"
+"{"
+"    @Data points { plus }"
+"    { 1 2.1  10 3.4  100 4.9  1000 6.1  10000 7.2  100000 7.6 }"
+"}"
+}
+In fact, the labels inserted automatically when @Code xticks is omitted have
+exponents when the axis is logarithmic, so @Code xticks is hardly necessary
+in this example.  Anyway the result is
+@CD @Graph
+    height { 3 cm }
+    xlog { 10 }
+    xticks { 1 (1)  10 (10)  100 (10^2)  1000 (10^3)  10000 (10^4)  100000 (10^5) }
+{
+    @Data points { plus }
+    {
+        1 2.1  10 3.4  100 4.9  1000 6.1  10000 7.2  100000 7.6
+    }
+}
+Setting @Code "xticks" to empty produces no x ticks (this is not the
+same as omitting {@Code xticks}).
+@PP
+Similar options control ticks and labels on the y axis:  {@Code "ymin"},
+{@Code "ymax"}, {@Code "yticksep"}, and {@Code "yticks"}.  There are
+yticks.graph @Index { @Code "yticks" option to @Code "@Graph" }
+also @Code "xticklength" and @Code "yticklength" options which set
+the length of ticks:
+@ID @OneRow @Code {
+"@Graph"
+"    xticklength { 0.5 ft }"
+"    yticklength { 0.5 ft }"
+}
+shows the default values, half the current font size in both cases.
+@PP
+There is also an {@Code "rticks"} option which is similar to
+{@Code "yticks"} except that the ticks it controls appear on the
+right-hand side of the frame (this option is relevant only when
+the @Code style option is {@Code frame}).  Unlike @Code "xticks" and
+{@Code "yticks"}, {@Code "rticks"} has empty default value, which is
+why you don't usually see r ticks.  They are most useful when overstriking
+two graphs using @Code "@OverStrike" as explained earlier; one graph will
+have y ticks in the usual way, the other will have r ticks and empty
+y ticks:
+@CD {
+
+@Graph
+    style { frame }
+    width { 6c }
+    height { 8c }
+    xextra { 0 cm }
+    yextra { 0 cm }
+    rightcaption { -90d @Rotate { Precipitation mm } }
+    rightgap { 3.0f }
+    hidecaptions { no }
+    xmin { 0 }
+    xmax { 12 }
+    ymin { 0 }
+    ymax { 450 }
+    xticks { }
+    xticklength { 0 cm }
+    rticks { 0@ 50@ 100@ 150@ 200@ 250@ 300@ 350@ 400@ 450@ }
+    yticks {}
+{
+    @Data
+	pairs { filledyhisto }
+	colour { blue }
+	linewidth { 1 pt }
+    {
+	0 340
+	1 410
+	2 430
+	3 340
+	4 290
+	5 175
+	6 140
+	7 125
+	8 110
+	9 100
+	10 85
+	11 175
+	12 0
+    }
+}
+
+@OverStrike
+
+@Graph
+    style { frame }
+    width { 6c }
+    height { 8c }
+    xextra { 0 cm }
+    yextra { 0 cm }
+    leftcaption { 90d @Rotate { Temperature {@Degree}C } }
+    leftgap { 2.5f }
+    hidecaptions { no }
+    xmin { 0 }
+    xmax { 12 }
+    ymin { -30 }
+    ymax { 50 }
+    xticks {
+        0.5 (J)
+        1.5 (F)
+        2.5 (M)
+        3.5 (A)
+        4.5 (M)
+        5.5 (J)
+        6.5 (J)
+        7.5 (A)
+        8.5 (S)
+        9.5 (O)
+       10.5 (N)
+       11.5 (D)
+    }
+    xticklength { 0 cm }
+    yticks { -30@ -20@ -10@ 0@ 10@ 20@ 30@ 40@ }
+{
+    @Data
+	pairs { solid }
+	colour { red }
+	linewidth { 1 pt }
+    {
+        0.0 24
+        1.0 24
+        2.0 25
+        3.0 26
+        4.0 26
+        5.0 26
+        6.0 26
+        7.0 27
+        8.0 26
+        9.0 27
+       10.0 28
+       11.0 28
+       12.0 26
+    }
+}
+
+}
+Here the first graph has
+@ID @Code {
+"rticks { 0@ 50@ 100@ 150@ 200@ 250@ 300@ 350@ 400@ 450@ }"
+"yticks {}"
+}
+for its ticks.
+@PP
+Lout has only a hazy idea of how much space is occupied by ticks and
+labels.  Unless @Code "xticks" is empty, Lout allows 1.7 times the
+current font size below the graph for x ticks and labels, which is
+usually about right; but it does not allow any space for y and r ticks and
+labels since it has no idea how wide the labels will be.  The discussion
+of captions in Section {@NumberOf captions} explains how to use the
+@Code "leftgap" and @Code "rightgap" options to work around this deficiency.
+@End @Section

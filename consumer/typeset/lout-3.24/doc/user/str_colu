@@ -1,0 +1,40 @@
+@Section
+   @Title { Multiple columns }
+   @Tag { columns }
+@Begin
+@PP
+You can change the number of columns of text per page, and the width of
+columns. @Index columns
+multiple.columns @Index { multiple columns }
+the gap between the columns, by changing these two setup file options:
+columnnumber. @Index @Code "@ColumnNumber"
+columngap. @Index @Code "@ColumnGap"
+@ID @OneRow @Code {
+"@ColumnNumber { 1 }"
+"@ColumnGap { 1.00c }"
+}
+If you are using your own setup file (Section {@NumberOf setup}), you can
+find and change them there.  If not, @Code "@ColumnNumber" may be changed
+at the beginning of your document (Section {@NumberOf ordinary}).
+@PP
+@Code "@ColumnNumber" may be any number between 1 and 10, with default
+value 1 as shown, and @Code "@ColumnGap" may be any length (Section
+{@NumberOf objects}).  The column width is derived from these options
+column.width @RawIndex { column width }
+column.width.pages @SubIndex { on pages }
+using the obvious formula
+@ID @Eq { columnwidth = { pagewidth - margins -
+({@Code "@ColumnNumber"} - 1) times {@Code "@ColumnGap"} }
+over @Code "@ColumnNumber"
+}
+You must ensure that this comes to something reasonable.
+@PP
+These two options do not apply to pages containing an index.  For them
+there are similar setup file options called @Code "@IndexColumnNumber"
+and @Code "@IndexColumnGap" (Section {@NumberOf indexes}).
+@PP
+Most document types permit you to have multiple columns, but certain
+things will be kept full width regardless of the @Code "@ColumnNumber"
+option:  figures and tables, chapter headings, and so on.  The details
+vary with the document type, so are deferred to Chapter {@NumberOf types}.
+@End @Section

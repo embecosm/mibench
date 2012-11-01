@@ -1,0 +1,1955 @@
+# This is a shell archive.  Remove anything before this line,
+# then unpack it by saving it in a file and typing "sh file".
+#
+# Wrapped by Philippe-Andre Prindeville <philipp@clarke> on Fri Mar  4 17:17:24 1994
+#
+# This archive contains:
+#	README			Makefile		
+#	Xspell.c		buffer.h		
+#	app-defaults		app-defaults.eng	
+#	app-defaults.fr		look.c			
+#
+
+LANG=""; export LANG
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+echo x - README
+cat >README <<'@EOF'
+	This is a very hastily done Motif front-end to ispell.  It was
+done as an exercise to teach myself Motif.  Judge for yourselves if I
+learned anything.
+
+	Anyway, please send me bug fixes, etc.  I will try to keep it
+up-to-date, but I make no promises.  If someone wants to write German
+labels, I will include them, for instance.
+
+	Note:  you must have *proper* 8bit fonts for most of it to
+work, and not the trashy X11R4 fonts nor the broken hp_roman8 fonts.
+
+-Philip
+@EOF
+
+chmod 640 README
+
+echo x - Makefile
+cat >Makefile <<'@EOF'
+#
+CC = cc
+LINT = lint
+# Sun
+#DEFINES = -DSELECT_BROKEN
+#INCS = -I/sig/quartz/Motif-1.1.2/lib
+#LIBES = -L/sig/quartz/Motif-1.1.2/lib/Xm -lXm -L/sig/quartz/Motif-1.1.2/lib/Xt -lXt -L/sig/quartz/Motif-1.1.2/lib/X -lX11
+# HP
+#DEFINES = -DSELECT_BROKEN -D_NO_PROTO -DDEBUG=1
+DEFINES = -DSELECT_BROKEN -D_NO_PROTO
+#INCS = -I/usr/include/Motif1.1 -I/usr/include/X11R4
+#LIBES = -L/usr/lib/Motif1.1 -lXm -L/usr/lib/X11R4 -lXt -lX11
+INCS = -I/usr/include/Motif1.2 -I/usr/include/X11R5
+LIBES = -L/usr/lib/Motif1.2 -lXm -L/usr/lib/X11R5 -lXt -lX11
+
+CFLAGS = -g $(DEFINES) -I.. $(INCS)
+LINTFLAGS = $(DEFINES) -I.. $(INCS)
+
+X11LIB=	/usr/local/lib/X11
+X11BIN=	/usr/local/bin/Xspell
+
+#install=	install
+#
+# HP brain-death...
+install=	/usr/local/bin/install
+
+Xspell: Xspell.o
+	$(CC) $(CFLAGS) -o Xspell Xspell.o $(LIBES)
+
+Xspell.o: buffer.h
+
+install:	install-app-defaults install-binaries
+
+install-app-defaults:
+	cat app-defaults app-defaults.eng > foobar
+	$(install) -o root -g sys -m 644 foobar $(X11LIB)/app-defaults/Xspell
+	cat app-defaults app-defaults.fr > foobar
+	$(install) -o root -g sys -m 644 foobar $(X11LIB)/french/app-defaults/Xspell
+	rm foobar
+
+install-binaries:	Xspell
+	$(install) -o bin -g bin -m 755 Xspell $(X11BIN)
+
+release:
+	tar cf - README Makefile Xspell.c buffer.h app* look.c | \
+		compress > Xspell.tar.Z
+	shar README Makefile Xspell.c buffer.h app* look.c > Xspell.shar
+@EOF
+
+chmod 660 Makefile
+
+echo x - Xspell.c
+cat >Xspell.c <<'@EOF'
+static char *progid = "Xspell 1.0b, 1 May 92 philipp@res.enst.fr";
+
+/*
+ * Xspell: Philippe-Andre Prindeville, Telecom Paris 1 May 1992
+ *
+ *	This program tries to follow the interface offered by
+ *	conventional ispell, but with a window interface (Motif
+ *	in this case).  The code is fairly simply and straight-
+ *	forward.  I'm interested in ports to other toolkits,
+ *	bug fixes, suggestions, etc.
+ *
+ *	The code for saving and backing up the files is perhaps
+ *	not entirely thought-out.  I don't like the way vi does
+ *	its backups, but perhaps I should have found another way.
+ *
+ *	Related to this is adding a mode to run as a filter.  If
+ *	you have my patches to xmeditor, then you know that you
+ *	can pipe the selection through a filter.  Thus, you could
+ *	use Xspell with xmeditor if Xspell had a stdin filter-mode.
+ *	Something to add on a rainy day.
+ *
+ *	I will probably be accused of being fascist for hard-wiring
+ *	the window layout.  Tant pis.
+ *
+ *	Note:  the MOTION code doesn't work.  I was too lazy to get
+ *	it running...
+ */
+ 
+#include "config.h"
+#include "ispell.h"
+
+#include <stdio.h>
+#include <sys/file.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <varargs.h>
+
+#include <Xm/Xm.h>
+#include <Xm/DialogS.h>
+#include <Xm/MessageB.h>
+#include <Xm/Form.h>
+#include <Xm/Frame.h>
+#include <Xm/Label.h>
+#include <Xm/Separator.h>
+#include <Xm/ScrolledW.h>
+#include <Xm/Text.h>
+#include <Xm/RowColumn.h>
+#include <Xm/PushB.h>
+#include <Xm/TextF.h>
+#include <Xm/List.h>
+#include <Xm/MwmUtil.h>
+
+#define	min(a,b)	(((a)<=(b))?(a):(b))
+
+#define	MAXRESP		BUFSIZ*8
+
+#define	NCOLS		5		/* max... */
+#define	NENTRIES	8
+
+#undef	DOMOTION
+
+#define	LINELEN		100
+
+#ifndef	CUNCAP
+#define	CUNCAP		'&'
+#endif
+
+#ifndef SELECT_BROKEN
+#define	HighlightText(text, from, to)	XmTextSetSelection(text, from, to, 0L)
+#define	UnhighlightText(text, from, to)	XmTextClearSelection(text)
+#else
+#define	HighlightText(text, from, to)	XmTextSetHighlight(text, from, to, XmHIGHLIGHT_SELECTED)
+#define	UnhighlightText(text, from, to)	XmTextSetHighlight(text, from, to, XmHIGHLIGHT_NORMAL)
+#endif
+
+#include <sys/stat.h>
+
+#include <assert.h>
+
+extern XtAppContext app_context;
+extern Widget	toplevel;
+extern Widget	actions;
+extern Widget	fileName;
+extern Widget	lineNumber;
+extern Widget	offsetNumber;
+extern Widget	text;
+extern Widget	textedit;
+extern Widget	list[];
+extern Widget	noBackupDialog;
+extern Widget	isReadonlyDialog;
+extern Widget	couldntSaveDialog;
+extern Widget	tempIsDialog;
+extern Widget	isModifiedDialog;
+
+typedef	struct {
+    int		columns;
+    String	dictionary;
+    String	type;
+    Boolean	backup;
+    Boolean	haveCompounds;
+    Boolean	sortPossibilities;
+} AppData;
+
+static AppData app_data;
+
+#ifdef	DEBUG
+#define	dprintf		printf
+#define	dputc		putchar
+#else
+#define	dprintf		_dprintf
+#define	dputc(x)
+#endif
+
+#include "buffer.h"
+
+static FILE	*srvout, *srvin = NULL;
+static char	possibilities[MAXPOSSIBLE][INPUTWORDLEN + MAXAFFIXLEN];
+static int	quit, nslots, pcount;
+static short	nlines;
+static buf_t	buf;
+
+static char	**filePtr = NULL;
+
+static int	inputPending = 0;
+
+static int	isBlocked = 0;
+#define Block()	(isBlocked = 1)
+#define	UnBlock() { isBlocked = 0; Parse(); }
+
+#ifdef	DOMOTION
+static int	ignoreMotion = 1;
+#endif
+
+extern void	CheckLine();
+extern void	Correct();
+extern void	PostWarning();
+
+static void
+getbuf(bp, offset)
+buf_t *	bp;
+long	offset;
+{
+    char *nl;
+    int ret;
+    long size;
+
+    if (bp->base) {
+	XtFree(bp->base);
+	bp->base = NULL;
+    }
+
+    if (offset >= bp->size) {
+	bp->ptr = bp->base = NULL;
+	return;
+    }
+
+    size = min(bp->size - offset, BUFSIZ);
+
+    bp->base = (char *) XtMalloc(size + 1);	/* count the \0 */
+
+    ret = XmTextGetSubstring(text, offset, size, size + 1, bp->base);
+
+    assert(ret != XmCOPY_FAILED);
+
+    bp->ptr = bp->base;
+    bp->size += bp->delta;
+    bp->offset = offset;
+
+    bp->cnt = size;
+    bp->delta = 0;
+    bp->lineno++;
+    bp->wordlen = -1;
+
+    /*
+     * perhaps if we don't find a \n, we should look for a space...
+     */
+    nl = strchr(bp->base, '\n');
+    if (nl)
+	bp->cnt = (++nl - bp->base);
+    else
+	bp->base[size] = '\n';
+}
+
+static void
+PipeInputCb(dummy, fd, xtid)
+int dummy;
+int *fd;
+XtInputId *xtid;
+{
+    inputPending = 1;
+
+    while (! isBlocked)
+	CheckLine(&buf);
+}
+
+static void
+Connect(w)
+Widget w;
+{
+    int		srv[2], clnt[2];
+    int		pid, argc;
+    char 	buf[BUFSIZ];
+    char	*argv[10];
+    XtInputId	*xtid;
+
+    pipe(srv);
+    pipe(clnt);
+
+    switch (pid = fork()) {
+    case -1:
+	perror("fork");
+	exit(1);
+    case 0:
+	dup2(srv[0], 0);
+	close(srv[0]); close(srv[1]);
+	dup2(clnt[1], 1);
+	close(clnt[0]); close(clnt[1]);
+
+	argc = 0;
+	argv[argc++] = "ispell";
+	argv[argc++] = "-d";
+	argv[argc++] = app_data.dictionary;
+	argv[argc++] = "-T";
+	argv[argc++] = app_data.type;
+	if (app_data.haveCompounds)
+	    argv[argc++] = "-C";
+	if (app_data.sortPossibilities)
+	    argv[argc++] = "-S";
+	argv[argc++] = "-a";
+	argv[argc++] = NULL;
+
+	execvp("ispell", argv);
+	perror("execl: ispell");
+	exit(1);
+    default:
+	close(clnt[1]);
+	close(srv[0]);
+	if (! (srvout = fdopen(srv[1], "w"))) {
+	    fprintf(stderr, "fdopen: cannot open stream\n");
+	    exit(1);
+	}
+
+	if (! (srvin = fdopen(clnt[0], "r"))) {
+	    fprintf(stderr, "fdopen: cannot open stream\n");
+	    exit(1);
+	}
+
+	xtid = XtAppAddInput(XtWidgetToApplicationContext(w), clnt[0],
+		   XtInputReadMask, (XtCallbackProc) PipeInputCb, NULL);
+
+	break;
+    }
+}
+
+static void
+SessionEnd()
+{
+    WriteCmd(srvout, "#\n");
+    fclose(srvout);
+#if 0
+    fclose(srvin);
+#endif
+}
+
+static void
+ReadFile(path, bp)
+char	*path;
+buf_t	*bp;
+{
+    struct stat	st;
+    char	*str;
+    XmString	xstr;
+    long	size, n;
+    FILE	*infile;
+
+    if (access(path, W_OK)) {
+	bp->readonly = 1;
+	PostWarning(&isReadonlyDialog, "isReadonlyDialog", NULL, False);
+    }
+
+    if (! (infile = fopen(path, "r"))) {
+	perror(path);
+	exit(1);
+    }
+
+    if (fstat(fileno(infile), &st)) {
+	perror(path);
+	exit(1);
+    }
+
+    size = st.st_size;
+
+    if ((str = XtMalloc(size + 1)) == NULL) {
+	fprintf(stderr, "%s: out of memory\n", path);
+	exit(1);
+    }
+
+    if((n = fread(str, sizeof(char), size, infile)) != st.st_size) {
+	fprintf(stderr, "%s: read is short\n", path);
+	exit(1);
+    }
+
+    fclose(infile);
+
+    str[size] = '\0';
+    XmTextSetString(text, str);
+    XtFree(str);
+
+    bp->base = bp->ptr = NULL;
+    bp->offset = bp->cnt = bp->delta = 0;
+    bp->lineno = -1;
+    bp->size = size;
+    bp->changed = 0;
+    bp->filename = strdup(path);
+
+    xstr = XmStringCreateSimple(path);
+    XtVaSetValues(fileName, XmNlabelString, xstr, NULL);
+}
+
+static
+WriteFile (path, bp)
+char	*path;
+buf_t	*bp;
+{
+    FILE	*outfile;
+    int		n, size, offset;
+    char	*str;
+
+    if (! (outfile = fopen(path, "w"))) {
+	perror(path);
+	return 1;
+    }
+
+    str = malloc(BUFSIZ + 1);
+
+    for (offset = 0; offset < bp->size; offset += size) {
+	size = BUFSIZ;
+	if (offset + size > bp->size) size = bp->size - offset;
+
+	XmTextGetSubstring(text, offset, size, size + 1, str);
+
+	n = fwrite(str, sizeof(char), size, outfile);
+
+	if(n != size) {
+	    perror("write");
+	    fclose(outfile);
+	    free(str);
+	    return 1;
+	}
+    }
+
+    free(str);
+
+    if (fclose(outfile)) {
+	perror("close");
+	return 1;
+    }
+
+    return 0;
+}
+
+Parse()
+{
+    while (! isBlocked)
+	CheckLine(&buf);
+}
+
+Loop()
+{
+    for (; ; ) {
+	XtAppMainLoop(app_context);
+	dprintf("Exited from XtAppMainLoop!\n");
+    }
+}
+
+
+static void
+StartFile ()
+{
+    int		lineno;
+    char	*slash;
+    char	*path = *filePtr;
+#ifdef	DOMOTION
+    void	MotionCB();
+#endif
+
+    dprintf("StartFile(%s)\n", path);
+
+    ReadFile(path, &buf);
+
+    buf.tempname = strdup("/tmp/XspellXXXXXX");
+    mktemp(buf.tempname);
+
+    if (! buf.readonly && WriteFile(buf.tempname, &buf))
+	PostWarning(&noBackupDialog, "noBackupDialog", NULL, True);
+
+    XtVaGetValues(text, XmNrows, &nlines, NULL);
+
+    XtVaGetValues(list[0], XmNvisibleItemCount, &nslots, NULL);
+
+    XmTextSetTopCharacter(text, 0);
+    buf.topline = 0;
+
+#if 0
+    if (slash = strrchr(buf.filename, '/')) ++slash;
+    else slash = buf.filename;
+    WriteCmd(srvout, "~%s\n", slash);
+#endif
+
+    /*
+     * To get us started, we prime the motor...
+     */
+    (void)WriteLine(&buf);
+}
+
+static void
+EndFile()
+{
+    /*
+     *
+     * If the file was read-only, put the buffer into the tempfile.
+     *
+     * Otherwise, if there buffer wasn't modified, OR it was but we
+     * wrote it successfully, then we can remove the backup file.
+     * Otherwise, we bombed writing the file out...
+     */
+    if (buf.changed && buf.readonly) {
+	if (! WriteFile(buf.tempname, &buf))
+	    PostWarning(&tempIsDialog, "tempIsDialog", buf.tempname, True);
+        else
+	    PostWarning(&couldntSaveDialog, "couldntSaveDialog", NULL, True);
+    } else if (! buf.changed || ! WriteFile(buf.filename, &buf))
+	unlink(buf.tempname);
+    else
+	PostWarning(&tempIsDialog, "tempIsDialog", buf.tempname, True);
+
+    free(buf.tempname);
+}
+
+int
+WriteLine(bp)
+buf_t	*bp;
+{
+    getbuf(bp, bp->offset + (bp->cnt + bp->delta));
+
+    if (! bp->base) return 0;
+
+    WriteCmd(srvout, "^%.*s", bp->cnt, bp->base);
+
+    return bp->cnt;
+}
+
+static void
+CheckLine (bp)
+buf_t	*bp;
+{
+    int		c, t, n, reliable;
+    long	pos;
+    char	word[INPUTWORDLEN], *s;
+    char	buf[BUFSIZ];
+
+    if (quit) {
+	EndFile();
+	SessionEnd();
+	exit(0);
+    }
+
+    if (fgets(buf, sizeof(buf), srvin) == NULL)
+	c = EOF;
+    else
+	c = buf[0];
+
+    dprintf("<<<%s", buf);
+
+    switch (c) {
+    case EOF:		/* very unexpected */
+	fprintf(stderr, "End of file!\n");
+	exit(1);
+
+    case '\n':			/* time to do the next line... */
+	if (WriteLine(bp))
+	    break;
+
+	EndFile();		/* no more text remained, so close the file. */
+
+	++filePtr;
+	if (*filePtr) {		/* if there is another file, start it... */
+	    StartFile();
+	    break;
+	}
+
+	SessionEnd();
+	exit(0);
+
+    case '@':			/* this is the version string... */
+	s = &buf[1];		/* banner... */
+	break;
+
+    case '*':			/* word is OK */
+	break;
+
+    case '+':			/* derivative */
+	s = &buf[2];
+	dprintf("deriv.:%s", s);
+	break;
+
+    case '&':			/* word is dubious */
+	s = &buf[1];
+	n = sscanf(s, " %s %d %d", word, &reliable, &pos);
+	pos--;			/* correct for uparrow we added */
+	dprintf("\"%s\" at %d(@%d), %d choices:", word,
+	    pos + bp->delta, bp->offset + pos + bp->delta, reliable);
+	s = index(s, ':');	/* find colon... */
+	assert(s);
+	for (n = 0; ; ++n) {
+	    c = *s++;		/* skip comma or colon */
+            if (c == '\n') break;
+            sscanf(s, " %[^,\n]", possibilities[n]);
+	    dprintf(" \"%s\"", possibilities[n]);
+	    s += 1 + strlen(possibilities[n]);	/* count the space... */
+	}
+	/* newline already eaten */
+	dputc('\n');
+	pcount = n;
+	bp->wordlen = strlen(word);
+	bp->ptr = bp->base + pos;
+	Correct (bp);
+	Block();
+	break;
+
+    case '?':
+	s = &buf[1];
+	n = sscanf(s, " %s %d %d", word, &reliable, &pos);
+	pos--;			/* correct for uparrow we added */
+	dprintf("\"%s\" at %d(@%d), %d choices:",
+		word, pos + bp->delta, bp->offset + pos + bp->delta, reliable);
+	s = index(s, ':');	/* find colon... */
+	assert(s);
+	for (n = 0; ; ++n) {
+	    c = *s++;		/* slip colon or comma */
+	    if (c == '\n') break;
+	    sscanf(s, " %[^,\n]", possibilities[n]);
+	    dprintf(" \"%s\"", possibilities[n]); fflush(stdout);
+	    s += 1 + strlen(possibilities[n]);	/* count space... */
+	}
+	/* newline already eaten */
+	dputc('\n');
+	pcount = n;
+	bp->wordlen = strlen(word);
+	bp->ptr = bp->base + pos;
+	Correct (bp);
+	Block();
+	break;
+
+    case '#':
+	s = &buf[1];
+	n = sscanf(s, " %s %d", word, &pos);
+	pos--;			/* correct for uparrow we added */
+	dprintf("\"%s\" at %d(@%d)\n", word, pos + bp->delta,
+		bp->offset + pos + bp->delta);
+	pcount = 0;
+	bp->wordlen = strlen(word);
+	bp->ptr = bp->base + pos;
+	Correct (bp);
+	Block();
+	break;
+
+    case '-':		/* gak! */
+    default:
+	fprintf(stderr, "Error: read '%c' (\\%03o) on connection\n", c, c);
+	exit(1);
+	break;
+    }
+    inputPending = 0;
+}
+
+static void
+ListPossibilities()
+{
+    int			col, start, limit, nelems, i, resized = 0;
+    int			ncols = app_data.columns;
+
+    /*
+     * What to do?  Throw away the extras??
+     */
+#if 0
+    if (pcount > (ncols * nslots)) {
+	resized = 1;
+	nslots = (pcount + (ncols - 1)) / ncols;
+	dprintf("resizing to %d!\n", nslots);
+    }
+#endif
+	
+    for (col = 0; col < ncols; ++col) {
+	XtVaGetValues(list[col], XmNitemCount, &nelems, NULL);
+
+	if (resized)
+	    XtVaSetValues(list[col], XmNvisibleItemCount, nslots, NULL);
+
+	start = col * nslots;
+	limit = MIN(pcount, (col + 1) * nslots);
+	for (i = start; i < limit; i++) {
+	    XmString xstr = XmStringCreateSimple(possibilities[i]);
+
+	    XmListAddItemUnselected(list[col], xstr, 0);
+	    XmStringFree(xstr);
+	}
+
+	if (nelems)
+	    XmListDeleteItemsPos(list[col], nelems, 1);
+
+#if 1
+	if (start >= pcount)
+	    XtUnmapWidget(list[col]);
+	else
+#endif
+	    XtMapWidget(list[col]);
+    }
+}
+
+/*
+ * Shared with callback functions... along with buf
+ */
+
+static void
+Correct(bp)
+buf_t *		bp;
+{
+    long		pos;
+    char		tmp[INPUTWORDLEN];
+    static int		lastline = -1;
+    XmString		xstr;
+
+    pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    if (lastline != bp->lineno) {
+	int		nscroll;
+
+	lastline = bp->lineno;
+	sprintf(tmp, "%u", bp->lineno + 1);
+	xstr = XmStringCreateSimple(tmp);
+	XtVaSetValues(lineNumber, XmNlabelString, xstr, NULL);
+
+	nscroll = (bp->lineno - (nlines - 1) / 2) - bp->topline;
+	if (nscroll > 0) {
+	    XmTextScroll(text, nscroll);
+	    bp->topline += nscroll;
+	}
+    }
+
+    XmTextSetInsertionPosition(text, pos + bp->wordlen);
+
+    sprintf(tmp, "%.*s", bp->wordlen, bp->ptr);
+    XmTextFieldSetString(textedit, tmp);
+
+    sprintf(tmp, "+%u @%u", pos - bp->offset, pos);
+    xstr = XmStringCreateSimple(tmp);
+    XtVaSetValues(offsetNumber, XmNlabelString, xstr, NULL);
+
+    ListPossibilities ();
+
+    /*
+     * We don't use the XmTextSetSelection() because of a display bug...
+     */
+    HighlightText(text, pos, pos + bp->wordlen);
+
+#ifdef	DOMOTION
+    ignoreMotion = 0;
+#endif
+
+#ifdef	DOMOTION
+    ignoreMotion = 1;
+#endif
+}
+
+#ifndef	DEBUG
+_dprintf() { }
+#endif
+
+static void
+ListSelectCB(list, bp, lcb)
+Widget  list;
+buf_t	*bp;
+XmListCallbackStruct *lcb;
+{
+    char	*word;
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    XmStringGetLtoR(lcb->item, XmSTRING_DEFAULT_CHARSET, &word);
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+    XmTextReplace(text, pos, pos + bp->wordlen, word);
+    bp->changed = 1;
+
+    bp->ptr += strlen(word);
+    bp->delta += (strlen(word) - bp->wordlen);
+    UnBlock();
+}
+
+static void
+ReplaceCB(button, textedit, call_data)
+Widget	button;
+Widget	textedit;
+caddr_t	call_data;
+{
+    char	*word;
+    buf_t	*bp = &buf;		/* cheat! */
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    word = XmTextFieldGetString(textedit);
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+    XmTextReplace(text, pos, pos + bp->wordlen, word);
+    bp->changed = 1;
+
+    bp->ptr += strlen(word);
+    bp->delta += (strlen(word) - bp->wordlen);
+    UnBlock();
+}
+
+static void
+AcceptCB(button, bp, call_data)
+Widget	button;
+buf_t	*bp;
+caddr_t call_data;
+{
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+    WriteCmd(srvout, "@%.*s\n", bp->wordlen, bp->ptr);
+
+    bp->ptr += bp->wordlen;
+    UnBlock();
+}
+
+static void
+InsertCB(button, bp, call_data)
+Widget	button;
+buf_t	*bp;
+caddr_t	call_data;
+{
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+    WriteCmd(srvout, "*%.*s\n", bp->wordlen, bp->ptr);
+
+    bp->ptr += bp->wordlen;
+    UnBlock();
+}
+
+static void
+SkipCB(button, bp, call_data)
+Widget	button;
+buf_t	*bp;
+caddr_t call_data;
+{
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+
+    bp->ptr += bp->wordlen;
+    UnBlock();
+}
+
+static void
+UncapCB(button, bp, call_data)
+Widget	button;
+buf_t	*bp;
+caddr_t call_data;
+{
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+
+    UnhighlightText(text, pos, pos + bp->wordlen);
+    WriteCmd(srvout, "%c%.*s\n", CUNCAP, bp->wordlen, bp->ptr);
+
+    bp->ptr += bp->wordlen;
+    UnBlock();
+}
+
+static void
+QuitCB(button, client_data, call_data)
+Widget	button;
+caddr_t	client_data;
+caddr_t	call_data;
+{
+    quit = 1;
+    UnBlock();
+}
+
+static void
+AckCB(button, client_data, call_data)
+Widget	button;
+caddr_t	client_data;
+caddr_t	call_data;
+{
+    Widget	widget = XtParent(button);
+
+    XtUnmanageChild(widget);
+    /* Unblocking... */
+    /* UnBlock(); */
+}
+
+static void
+CancelAbortCB(button, client_data, call_data)
+Widget	button;
+caddr_t	client_data;
+caddr_t	call_data;
+{
+    Widget	isModifiedDialog = XtParent(button);
+
+    XtUnmanageChild(isModifiedDialog);
+#if 0
+    UnBlock();
+#endif
+}
+
+static void
+AbortOKCB(button, client_data, call_data)
+Widget	button;
+caddr_t	client_data;
+caddr_t	call_data;
+{
+    Widget	isModifiedDialog = XtParent(button);
+    buf_t	*bp = &buf;
+
+    XtUnmanageChild(isModifiedDialog);
+
+    bp->changed = 0;		/* we don't want to write the file */
+    quit = 1;
+    UnBlock();
+}
+
+static void
+AbortCB(button, client_data, call_data)
+Widget	button;
+caddr_t	client_data;
+caddr_t call_data;
+{
+    buf_t	*bp = &buf;
+    int		exists = (isModifiedDialog != NULL);
+
+    if (! bp->changed) {
+	quit = 1;
+	UnBlock();
+	return;
+    }
+
+    PostWarning(&isModifiedDialog, "isModifiedDialog", NULL, False);
+    if (exists) return;
+
+    XtManageChild(XmMessageBoxGetChild(isModifiedDialog, XmDIALOG_CANCEL_BUTTON));
+
+    XtRemoveCallback(XmMessageBoxGetChild(isModifiedDialog, XmDIALOG_OK_BUTTON),
+		XmNactivateCallback, AckCB, NULL);
+    XtAddCallback(XmMessageBoxGetChild(isModifiedDialog, XmDIALOG_OK_BUTTON),
+		 XmNactivateCallback, AbortOKCB, NULL);
+    XtAddCallback(XmMessageBoxGetChild(isModifiedDialog, XmDIALOG_CANCEL_BUTTON),
+		 XmNactivateCallback, CancelAbortCB, NULL);
+}
+
+static void
+PostWarning(widget, name, arg, block)
+Widget	*widget;
+char	*name;
+char	*arg;
+int	block;
+{
+    Widget	shell;
+    char	*newline;
+    XmString	tmp;
+    XmString	xstr;
+    void	_XmDestroyParentCallback();
+    char	buf[80];
+
+    dprintf("PostWarning(0x%x, \"%s\", %s)\n", widget, name, arg);
+
+    if (! *widget) {
+        shell = XtVaCreatePopupShell("Dialog_popup", xmDialogShellWidgetClass, toplevel,
+		XmNallowShellResize,	True,
+		XmNmwmDecorations,	MWM_DECOR_BORDER,
+		XmNtransient,		True,
+		NULL);
+
+        *widget = XtVaCreateWidget(name, xmMessageBoxWidgetClass, shell,
+		XmNnoResize,		True,
+		XmNdialogStyle,		XmDIALOG_FULL_APPLICATION_MODAL,
+		XmNmessageAlignment,	XmALIGNMENT_CENTER,
+		NULL);
+
+        XtAddCallback(*widget, XmNdestroyCallback, _XmDestroyParentCallback,
+		NULL);
+        XtUnmanageChild(XmMessageBoxGetChild(*widget, XmDIALOG_HELP_BUTTON));
+        XtUnmanageChild(XmMessageBoxGetChild(*widget, XmDIALOG_CANCEL_BUTTON));
+	XtAddCallback(XmMessageBoxGetChild(*widget, XmDIALOG_OK_BUTTON),
+		XmNactivateCallback, AckCB, NULL);
+
+	/*
+	 * We use the 'userData' value for storing away the string,
+	 * since it gets clobbered by a sprintf()...
+	 */
+        XtVaGetValues(*widget, XmNmessageString, &tmp, NULL);
+	XtVaSetValues(*widget, XmNuserData, tmp, NULL);
+    }
+
+    XtVaGetValues(*widget, XmNuserData, &xstr, NULL);
+    XmStringGetLtoR(xstr, XmSTRING_DEFAULT_CHARSET, &tmp);
+    /*
+     * This is a bit of a kludge -- we replace any occurences of
+     * backslash with newlines.  I can't figure out how to protect
+     * these characters from Motif...  I suppose if using compound
+     * strings were slightly more obvious, I would use those.
+     */
+    while (newline = strchr(tmp, '\\'))
+	*newline = '\n';
+    sprintf(buf, tmp, arg);
+#if 0
+    XtFree(tmp);
+    dprintf("did free\n");
+#endif
+    xstr = XmStringCreateLtoR(buf, XmSTRING_DEFAULT_CHARSET);
+    XtVaSetValues(*widget,
+		XmNnoResize,		False,
+		XmNmessageString,	xstr,
+		NULL);
+    XtManageChild(*widget);
+}
+
+#ifdef	DOMOTION
+static void
+MotionCB(text, client_data, mcb)
+Widget	text;
+caddr_t	client_data;
+XmTextVerifyCallbackStruct *mcb;
+{
+    long	pos = bp->offset + (bp->ptr - bp->base) + bp->delta;
+    long	newpos = mcb->newInsert;
+    int		n;
+
+    if (ignoreMotion) return;
+
+    ignoreMotion = 1;
+    dprintf("MotionCB(%d)\n", newpos);
+
+    /*
+     * LINELEN is an arbitrary number here...
+     */
+    getbuf(bp, newpos - LINELEN);
+    bp->ptr += LINELEN;
+
+    bp->ptr -= (n = skipbackword(bp->ptr, bp->base));
+    dprintf("new word is: %.20s\n", bp->ptr);
+
+    /* we should eat up to an empty line before continuing! */
+    UnBlock();
+}
+#endif
+
+void
+WriteCmd(fp, fmt, va_alist)
+FILE *fp;
+char *fmt;
+va_dcl
+{
+    va_list args;
+
+    va_start(args);
+
+#ifdef	DEBUG
+    printf(">>>");
+    (void)vprintf(fmt, args);
+#endif
+
+    (void)vfprintf(fp, fmt, args);
+    fflush(fp);
+    va_end(args);
+}
+
+#if 0
+static String fallback_resources[] = {
+"*isReadonlyDialog*messageString:	Notice:  File is read-only.",
+"*tempIsDialog*messageString:		\
+Warning:  File is read-only; modified\\\\\
+file is '%s'.",
+"*couldntSaveDialog*messageString:	Error:  Couldn't save modified file.",
+"*noBackupDialog*messageString:		Warning:  Couldn't write backup file.",
+"*isModifiedDialog*messageString:	Warning:  File has been modified;\\\\\
+Do you really want to quit?",
+"*fileLabel.labelString:		File:",
+"*lineLabel.labelString:		Line:",
+"*offsetLabel.labelString:		Offset:",
+"*wordLabel.labelString:		Word:",
+"*psblLabel.labelString:		Possibilities:",
+"*actions.skipButton.labelString:	Skip",
+"*actions.replButton.labelString:	Replace",
+"*actions.acptButton.labelString:	Accept",
+"*actions.insrButton.labelString:	Insert",
+"*actions.lookButton.labelString:	Lookup",
+"*actions.uncpButton.labelString:	Uncap.",
+"*actions.quitButton.labelString:	Quit",
+"*actions.abrtButton.labelString:	Abort",
+"*actions.helpButton.labelString:	Help",
+"*isReadonlyDialog*dialogType:		DIALOG_INFORMATION",
+"*couldntSaveDialog*dialogType:		DIALOG_ERROR",
+"*tempIsDialog*dialogType:		DIALOG_WARNING",
+"*noBackupDialog*dialogType:		DIALOG_WARNING",
+"*isModifiedDialog*dialogType:		DIALOG_WARNING",
+"*fileView.rows:			10",
+"*fileView.columns:			80",
+"*fileView.scrollVertical:		True",
+"*fileView.scrollHorizontal: 		False",
+"*separator.separatorType:		SINGLE_LINE",
+NULL};
+#endif
+
+static XrmOptionDescRec options[] = {
+    {"-c",		"*columns",	XrmoptionStickyArg,	NULL},
+    {"-d",		"*dictionary",	XrmoptionStickyArg,	NULL},
+    {"-T",		"*type",	XrmoptionStickyArg,	NULL},
+    {"-t",		"*type",	XrmoptionNoArg,		"tex"},
+    {"-n",		"*type",	XrmoptionNoArg,		"nroff"},
+    {"-b",		"*backup",	XrmoptionNoArg,		"True"},
+    {"-x",		"*backup",	XrmoptionNoArg,		"False"},
+    {"-C",		"*haveCompounds", XrmoptionNoArg,	"True"},
+    {"-S",		"*sortPossibilities", XrmoptionNoArg,	"True"},
+};
+
+
+#define	XtNcolumns	"columns"
+#define	XtCColumns	"Columns"
+#define	XtNdictionary	"dictionary"
+#define	XtCDictionary	"Dictionary"
+#define	XtNtype		"type"
+#define	XtCType		"Type"
+#define	XtNbackup	"backup"
+#define	XtCBackup	"Backup"
+#define	XtNhaveCompounds "haveCompounds"
+#define	XtCHaveCompounds "HaveCompounds"
+#define	XtNsortPossibilities "sortPossibilities"
+#define	XtCSortPossibilities "SortPossibilities"
+
+static XtResource resources[] = {
+    {
+	XtNcolumns,		XtCColumns,
+	XtRInt,			sizeof(int),
+	XtOffsetOf(AppData,columns),
+	XtRImmediate,		(XtPointer) NCOLS,
+    },
+    {
+	XtNdictionary,		XtCDictionary,
+	XtRString,		sizeof(String),
+	XtOffsetOf(AppData,dictionary),
+	XtRImmediate,		(XtPointer) "english",
+    },
+    {
+	XtNtype,		XtCType,
+	XtRString,		sizeof(String),
+	XtOffsetOf(AppData,type),
+	XtRImmediate,		(XtPointer) "nroff",
+    },
+    {
+	XtNbackup,		XtCBackup,
+	XtRBoolean,		sizeof(Boolean),
+	XtOffsetOf(AppData,backup),
+	XtRImmediate,		(XtPointer) True,
+    },
+    {
+	XtNhaveCompounds,	XtCHaveCompounds,
+	XtRBoolean,		sizeof(Boolean),
+	XtOffsetOf(AppData,haveCompounds),
+	XtRImmediate,		(XtPointer) False,
+    },
+    {
+	XtNsortPossibilities,	XtCSortPossibilities,
+	XtRBoolean,		sizeof(Boolean),
+	XtOffsetOf(AppData,sortPossibilities),
+	XtRImmediate,		(XtPointer) False,
+    },
+};
+
+static XtAppContext app_context;
+static Widget	toplevel;
+static Widget	actions;
+static Widget	fileName;
+static Widget	lineNumber;
+static Widget	offsetNumber;
+static Widget	text;
+static Widget	textedit;
+static Widget	list[NCOLS];
+static Widget	noBackupDialog;
+static Widget	isReadonlyDialog;
+static Widget	couldntSaveDialog;
+static Widget	tempIsDialog;
+static Widget	isModifiedDialog;
+
+void
+CreateWidgets(toplevel)
+Widget	toplevel;
+{
+    Widget	shell;
+    Widget	mainwin;
+    Widget	psblRC;
+    Widget	button;
+    Widget	subform, subform2;
+    Widget	frame;
+    Widget	fileLabel, lineLabel, offsetLabel;
+    Widget	psblLabel, wordLabel;
+    Widget	form;
+    Widget	scrolledWindow;
+    void	_XmDestroyParentCallback();
+    int		i;
+
+    if (app_data.columns > NCOLS) app_data.columns = NCOLS;
+
+    mainwin = XmCreateMainWindow (toplevel, "main", NULL, 0);
+    XtManageChild (mainwin);
+
+#if 0
+    /*
+     * Create all our pop-up shells and message boxes here...
+     */
+    shell = XtVaCreatePopupShell("abortDialog_popup", xmDialogShellWidgetClass, toplevel,
+		XmNallowShellResize,	True,
+		XmNmwmDecorations,	MWM_DECOR_BORDER,
+		XmNtransient,		True,
+		NULL);
+
+    abortMsg = XtVaCreateWidget("abortDialog", xmMessageBoxWidgetClass, shell,
+		XmNnoResize,		True,
+		XmNdialogStyle,		XmDIALOG_FULL_APPLICATION_MODAL,
+		XmNmessageAlignment,	XmALIGNMENT_CENTER,
+		NULL);
+
+    XtAddCallback(abortMsg, XmNdestroyCallback, _XmDestroyParentCallback, NULL);
+    XtUnmanageChild(XmMessageBoxGetChild(abortMsg, XmDIALOG_HELP_BUTTON));
+
+    XtAddCallback(XmMessageBoxGetChild(abortMsg, XmDIALOG_OK_BUTTON),
+		 XmNactivateCallback, AbortOKCB, NULL);
+    XtAddCallback(XmMessageBoxGetChild(abortMsg, XmDIALOG_CANCEL_BUTTON),
+		 XmNactivateCallback, CancelAbortCB, NULL);
+#endif
+
+    form = XtCreateManagedWidget("form", xmFormWidgetClass, mainwin, NULL, 0);
+
+    /*
+     * Do subform containing file name, line, and character offset...
+     */
+    subform = XtVaCreateManagedWidget("subform1", xmFormWidgetClass, form,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNrightAttachment,	XmATTACH_FORM,
+		NULL);
+
+    fileLabel = XtVaCreateManagedWidget("fileLabel", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_FORM,
+#if 0
+		XmNleftOffset,		2,
+#endif
+		NULL);
+
+    fileName = XtVaCreateManagedWidget("fileName", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		fileLabel,
+		XmNshadowThickness,	2,
+		NULL);
+
+    lineLabel = XtVaCreateManagedWidget("lineLabel", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		fileName,
+		NULL);
+
+    lineNumber = XtVaCreateManagedWidget("lineNumber", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		lineLabel,
+		XmNshadowThickness,	2,
+		NULL);
+
+    offsetLabel = XtVaCreateManagedWidget("offsetLabel", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		lineNumber,
+		NULL);
+
+    offsetNumber = XtVaCreateManagedWidget("offsetNumber", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		offsetLabel,
+		XmNshadowThickness,	2,
+		NULL);
+
+    /*
+     * file viewport done as multi-line text widget...
+     */
+    scrolledWindow = XtVaCreateManagedWidget("fileViewSW", xmScrolledWindowWidgetClass, form,
+		XmNtopAttachment,	XmATTACH_WIDGET,
+		XmNtopWidget,		subform,
+		XmNtopOffset,		2,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNleftOffset,		2,
+		XmNrightAttachment,	XmATTACH_FORM,
+		XmNrightOffset,		2,
+		XmNscrollingPolicy,	XmAPPLICATION_DEFINED,
+		XmNvisualPolicy,	XmVARIABLE,
+		XmNscrollBarDisplayPolicy, XmSTATIC,
+		XmNshadowThickness,	0,
+		NULL);
+
+    text = XtVaCreateManagedWidget("fileView", xmTextWidgetClass, scrolledWindow,
+		XmNeditMode,		XmMULTI_LINE_EDIT,
+		XmNeditable,		False,
+		XmNautoShowCursorPosition, False,
+		NULL);
+    XtAddCallback(text, XmNdestroyCallback, _XmDestroyParentCallback, NULL);
+#ifdef	DOMOTION
+    XtAddCallback(text, XmNmotionVerifyCallback, MotionCB, NULL);
+#endif
+
+    /*
+     * word editing box...
+     */
+    subform = XtVaCreateManagedWidget("subform", xmFormWidgetClass, form,
+		XmNtopAttachment,	XmATTACH_WIDGET,
+		XmNtopWidget,		text,
+		XmNtopOffset,		2,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNrightAttachment,	XmATTACH_FORM,
+		NULL);
+
+    wordLabel = XtVaCreateManagedWidget("wordLabel", xmLabelWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNleftOffset,		2,
+		NULL);
+
+    textedit = XtVaCreateManagedWidget("wordBuffer", xmTextFieldWidgetClass, subform,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_WIDGET,
+		XmNleftWidget,		wordLabel,
+		XmNrightAttachment,	XmATTACH_FORM,
+		NULL);
+    XtAddCallback(textedit, XmNactivateCallback, ReplaceCB, textedit);
+
+    subform2 = XtVaCreateManagedWidget("subform", xmFormWidgetClass, form,
+		XmNtopAttachment,	XmATTACH_WIDGET,
+		XmNtopWidget,		subform,
+		XmNtopOffset,		2,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNrightAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		NULL);
+
+    frame = XtVaCreateManagedWidget("buttonBoxFrame", xmFrameWidgetClass, subform2,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNbottomAttachment,	XmATTACH_FORM,
+		XmNbottomOffset,	2,
+		XmNrightAttachment,	XmATTACH_FORM,
+		XmNrightOffset,		2,
+		NULL);
+
+    /*
+     * Create list of action buttons as row/column widget...
+     */
+    actions = XtVaCreateManagedWidget("actions", xmRowColumnWidgetClass, frame,
+		XmNorientation,		XmVERTICAL,
+		XmNpacking,		XmPACK_COLUMN,
+		XmNnumColumns,		2,
+		XmNadjustLast,		False,
+		NULL);
+
+    /* can we put this into a structure? */
+    button = XmCreatePushButtonGadget(actions, "skipButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, SkipCB, &buf);
+
+    button = XmCreatePushButtonGadget(actions, "replButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, ReplaceCB, textedit);
+
+    button = XmCreatePushButtonGadget(actions, "acptButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, AcceptCB, &buf);
+
+    button = XmCreatePushButtonGadget(actions, "insrButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, InsertCB, &buf);
+
+    button = XmCreatePushButtonGadget(actions, "lookButton", NULL, 0);
+    XtManageChild(button);
+
+    button = XmCreatePushButtonGadget(actions, "uncpButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, UncapCB, &buf);
+
+    button = XmCreatePushButtonGadget(actions, "quitButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, QuitCB, NULL);
+
+    button = XmCreatePushButtonGadget(actions, "abrtButton", NULL, 0);
+    XtManageChild(button);
+    XtAddCallback(button, XmNactivateCallback, AbortCB, NULL);
+
+    button = XmCreatePushButtonGadget(actions, "helpButton", NULL, 0);
+    XtManageChild(button);
+
+
+    psblLabel = XtVaCreateManagedWidget("psblLabel", xmLabelWidgetClass, subform2,
+		XmNtopAttachment,	XmATTACH_FORM,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNrightAttachment,	XmATTACH_WIDGET,
+		XmNrightWidget,		frame,
+		NULL);
+
+    /*
+     * Create R/C widget with word possibilities in list widgets
+     */
+    psblRC = XtVaCreateManagedWidget("psblRC", xmRowColumnWidgetClass, subform2,
+		XmNtopAttachment,	XmATTACH_WIDGET,
+		XmNtopWidget,		psblLabel,
+		XmNleftAttachment,	XmATTACH_FORM,
+		XmNleftOffset,		2,
+		XmNrightAttachment,	XmATTACH_WIDGET,
+		XmNrightWidget,		frame,
+		XmNbottomAttachment,	XmATTACH_FORM,
+#if 1
+		XmNpacking,		XmPACK_COLUMN,
+		XmNnumColumns,		app_data.columns,
+		XmNorientation,		XmVERTICAL,
+#else
+		XmNpacking,		XmPACK_TIGHT,
+		XmNnumColumns,		1,
+		XmNorientation,		XmHORIZONTAL,
+#endif
+		XmNadjustLast,		False,
+		NULL);
+
+    for (i = 0; i < app_data.columns; ++i) {
+	list[i] = XtVaCreateManagedWidget("psbList", xmListWidgetClass, psblRC,
+		XmNselectionPolicy,	XmSINGLE_SELECT,
+#if 1
+		XmNscrollBarDisplayPolicy, XmAS_NEEDED,
+		XmNvisibleItemCount,	NENTRIES,
+		XmNlistSizePolicy,	XmVARIABLE,
+#endif
+		NULL);
+	XtAddCallback(list[i], XmNsingleSelectionCallback, ListSelectCB, &buf);
+    }
+
+    /* what, nothing else? */
+}
+
+
+main(argc, argv)
+char *argv[];
+{
+    char	*myname, *slash;
+    int		i;
+    char	**files;
+
+    myname = argv[0];
+    if (slash = strrchr(myname, '/'))
+	myname = ++slash;
+
+    toplevel = XtAppInitialize (&app_context, "Xspell",
+#if 0
+		options, XtNumber(options), &argc, argv, fallback_resources,
+#else
+		options, XtNumber(options), &argc, argv, NULL,
+#endif
+		NULL, 0);
+
+    XtVaGetApplicationResources(toplevel, &app_data,
+	resources, XtNumber(resources), NULL);
+
+    if (argc == 1) {
+	fprintf(stderr, "usage: %s file1 [ file2 ] ...\n", myname);
+	exit(1);
+    }
+
+    CreateWidgets (toplevel);
+    XtRealizeWidget (toplevel);
+
+    Connect(toplevel);
+
+    files = calloc(argc, sizeof(char *));
+
+    for (i = 1; i < argc; ++i)
+	files[i - 1] = argv[i];
+    files[argc - 1] = NULL;
+
+    filePtr = &files[0];
+
+    StartFile();
+    Loop();
+}
+@EOF
+
+chmod 664 Xspell.c
+
+echo x - buffer.h
+cat >buffer.h <<'@EOF'
+
+/*
+ * This is the structure of a file that is being spell-checked.
+ *
+ * Basically, all associated state is found here.
+ */
+
+typedef struct {
+    char *	base;
+    char *	ptr;
+    long	offset;
+    int		cnt;
+    int		delta;
+    int		lineno;
+    int		topline;
+    int		wordlen;
+    long	size;
+    char	*filename;
+    char	*tempname;
+/* booleans */
+    char	changed;
+    char	readonly
+} buf_t;
+@EOF
+
+chmod 660 buffer.h
+
+echo x - app-defaults
+cat >app-defaults <<'@EOF'
+!
+!		Applications defaults for Xspell
+!
+!	Probably not wise to fool with the screen layout...
+!
+!*type:					nroff
+*sortPossibilities:			false
+*backup					true
+!
+*isReadonlyDialog*dialogType:		DIALOG_INFORMATION
+*tempIsDialog*dialogType:		DIALOG_WARNING
+*noBackupDialog*dialogType:		DIALOG_WARNING
+*isModifiedDialog*dialogType:		DIALOG_WARNING
+*couldntSaveDialog*dialogType:		DIALOG_ERROR
+!
+*frame.shadowType:			SHADOW_OUT
+*separator.separatorType:		SINGLE_LINE
+*fileView.rows:				10
+*fileView.columns:			80
+*fileView.scrollVertical:		True
+*fileView.scrollHorizontal:		False
+@EOF
+
+chmod 666 app-defaults
+
+echo x - app-defaults.eng
+cat >app-defaults.eng <<'@EOF'
+!
+!	Language dependencies for Xspell in english
+!
+!	default strings are in english...
+
+*dictionary:				english
+*haveCompounds:				false
+!
+*isReadonlyDialog*messageString:	Notice:  File is read-only.
+*tempIsDialog*messageString:		\
+Warning:  File is read-only; modified\\\
+file is '%s'.
+*couldntSaveDialog*messageString:	Error:  Couldn't save modified file.
+*noBackupDialog*messageString:		Warning:  Couldn't write backup file.
+*isModifiedDialog*messageString:	Warning:  File has been modified;\\\
+Do you really want to quit?
+*fileLabel.labelString:			File:
+*lineLabel.labelString:			Line:
+*offsetLabel.labelString:		Offset:
+*wordLabel.labelString:			Word:
+*psblLabel.labelString:			Possibilities:
+*actions.skipButton.labelString:	Skip
+*actions.replButton.labelString:	Replace
+*actions.acptButton.labelString:	Accept
+*actions.insrButton.labelString:	Insert
+*actions.lookButton.labelString:	Lookup
+*actions.uncpButton.labelString:	Uncap.
+*actions.quitButton.labelString:	Quit
+*actions.abrtButton.labelString:	Abort
+*actions.helpButton.labelString:	Help
+@EOF
+
+chmod 640 app-defaults.eng
+
+
+rm -f /tmp/uud$$
+(echo "begin 666 /tmp/uud$$\n#;VL*n#6%@x\n \nend" | uudecode) >/dev/null 2>&1
+if [ X"`cat /tmp/uud$$ 2>&1`" = Xok ]
+then
+	unpacker=uudecode
+else
+	echo Compiling unpacker for non-ascii files
+	pwd=`pwd`; cd /tmp
+	cat >unpack$$.c <<'EOF'
+#include <stdio.h>
+#define C (*p++ - ' ' & 077)
+main()
+{
+	int n;
+	char buf[128], *p, a,b;
+
+	scanf("begin %o ", &n);
+	gets(buf);
+
+	if (freopen(buf, "w", stdout) == NULL) {
+		perror(buf);
+		exit(1);
+	}
+
+	while (gets(p=buf) && (n=C)) {
+		while (n>0) {
+			a = C;
+			if (n-- > 0) putchar(a << 2 | (b=C) >> 4);
+			if (n-- > 0) putchar(b << 4 | (a=C) >> 2);
+			if (n-- > 0) putchar(a << 6 | C);
+		}
+	}
+	exit(0);
+}
+EOF
+	cc -o unpack$$ unpack$$.c
+	rm unpack$$.c
+	cd $pwd
+	unpacker=/tmp/unpack$$
+fi
+rm -f /tmp/uud$$
+
+echo x - app-defaults.fr '[non-ascii]'
+$unpacker <<'@eof'
+begin 640 app-defaults.fr
+M(0HA"4QA;F=U86=E(&1E<&5N9&5N8VEE<R!F;W(@6'-P96QL('=H96X@=7-EX
+M9"!I;B!&<F5N8V@N+BX*(0HJ9&EC=&EO;F%R>3H)"0D)9G)E;F-H"BIT>7!EX
+M.@D)"0D);&%T:6XQ"BII<U)E861O;FQY1&EA;&]G*FUE<W-A9V53=')I;F<ZX
+M"4%V:7,Z("!&:6-H:65R(&5S="!U;FEQ=65M96YT(&QI<VEB;&4N"BIT96UPX
+M27-$:6%L;V<J;65S<V%G95-T<FEN9SH)7 I!='1E;G1I;VXZ("!&:6-H:65RX
+M(&5S="!U;FEQ=65M96YT(&QI<VEB;&4[(&9I8VAI97)<7%P*;6]D:69IZ2!EX
+M<W0@9&%N<R G)7,G+@HJ8V]U;&1N=%-A=F5$:6%L;V<J;65S<V%G95-T<FENX
+M9SH)17)R975R.B @4&]U=F%I<R!P87,@<V%U=F5R(&QE(&9I8VAI97(@;6]DX
+M:69IZ2X**FYO0F%C:W5P1&EA;&]G*FUE<W-A9V53=')I;F<Z"0E!='1E;G1IX
+M;VXZ("!0;W5V86ES('!A<R!E8W)I<F4@9FEC:&EE<B!S875V96=U87)DZ2X*X
+M*FES36]D:69I961$:6%L;V<J;65S<V%G95-T<FEN9SH)071T96YT:6]N.B @X
+M1FEC:&EE<B!E=&%I="!M;V1I9FGI.UQ<7 I6;W5L97HM=F]U<R!B:65N('%UX
+M:71T97(_"BIA8F]R=$1I86QO9RIM97-S86=E4W1R:6YG.@D)071T96YT:6]NX
+M.B!L92!F:6-H:65R(&5T86ET(&UO9&EF:>DN"BIF:6QE3&%B96PN;&%B96Q3X
+M=')I;F<Z"0D)1FEC:&EE<CH**FQI;F5,86)E;"YL86)E;%-T<FEN9SH)"0E,X
+M:6=N93H**F]F9G-E=$QA8F5L+FQA8F5L4W1R:6YG.@D)4&]S:71I;VXZ"BIWX
+M;W)D3&%B96PN;&%B96Q3=')I;F<Z"0D)36]T.@HJ<'-B;$QA8F5L+FQA8F5LX
+M4W1R:6YG.@D)"5!O<W-I8FEL:73I<SH**F%C=&EO;G,N<VMI<$)U='1O;BYLX
+M86)E;%-T<FEN9SH)4V%U=&5R"BIA8W1I;VYS+G)E<&Q"=71T;VXN;&%B96Q3X
+M=')I;F<Z"5)E;7!L86-E<@HJ86-T:6]N<RYA8W!T0G5T=&]N+FQA8F5L4W1RX
+M:6YG.@E!8V-E<'1E<@HJ86-T:6]N<RYI;G-R0G5T=&]N+FQA8F5L4W1R:6YGX
+M.@E);G-E<F5R"BIA8W1I;VYS+FQO;VM"=71T;VXN;&%B96Q3=')I;F<Z"4-HX
+M97)C:&5R"BIA8W1I;VYS+G5N8W!"=71T;VXN;&%B96Q3=')I;F<Z"4UI;G5SX
+M8W5L90HJ86-T:6]N<RYQ=6ET0G5T=&]N+FQA8F5L4W1R:6YG.@E1=6ET=&5RX
+M"BIA8W1I;VYS+F%B<G1"=71T;VXN;&%B96Q3=')I;F<Z"4%B86YD;VYN97(*X
+F*F%C=&EO;G,N:&5L<$)U='1O;BYL86)E;%-T<FEN9SH)06ED90ID        X
+                                                             X
+end
+@eof
+
+chmod 640 app-defaults.fr
+
+echo x - look.c
+cat >look.c <<'@EOF'
+static char *progid = "look 1.0a, 4 December 92 philipp@res.enst.fr";
+
+/*
+ * Xspell: Philippe-Andre Prindeville, Telecom Paris 4 December 1992
+ *
+ *	After cursing ispell numerous times for not having a
+ *	simple command line interface like "look" for searching
+ *	for words, I wrote one.  Most of the code was recycled
+ *	from Xspell anyway (I should plug it here but...).
+ *
+ *	You type:
+ *
+ *		look [-d dictionary] word1 [word2 ... wordn ]
+ *
+ *	and, in the best of UNIX tradition, it will *not* print
+ *	out the word if it likes it, will print out a list of
+ *	alternatives for dubious words, and will print a stupid
+ *	message (well after 10 minutes hacking I wasn't going
+ *	to spend 3 hours worrying about "user-friendly" error
+ *	messages) saying it didn't like the word...
+ *
+ *	Debugging is simple.  If you have patches, by all means
+ *	send them to me.
+ *
+ *	Enjoy,
+ *							-Philip
+ */
+
+#include "config.h"
+#include "ispell.h"
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+
+#ifdef	DEBUG
+#define	dprintf		printf
+#define	dputc		putchar
+#else
+#define	dprintf		_dprintf
+#define	dputc(x)
+#endif
+
+extern char	*optarg;
+extern int	optind, opterr, optopt;
+
+char	*lang = "english";
+char	*fmt = NULL;
+int	verbose = 0;
+
+static FILE	*srvin, *srvout;
+static char	possibilities[MAXPOSSIBLE][INPUTWORDLEN + MAXAFFIXLEN];
+static int	pcount;
+
+static void
+Connect()
+{
+    int		srv[2], clnt[2];
+    int		pid, n, argc;
+    char 	buf[BUFSIZ];
+    char	*argv[10];
+
+    pipe(srv);
+    pipe(clnt);
+
+    if ((pid = fork()) == -1) {
+	perror("fork");
+	exit(1);
+    } else if (! pid) {
+	dup2(srv[0], 0);
+	close(srv[0]); close(srv[1]);
+	dup2(clnt[1], 1);
+	close(clnt[0]); close(clnt[1]);
+
+	argc = 0;
+	argv[argc++] = "ispell";
+	argv[argc++] = "-d";
+	argv[argc++] = lang;
+	if (! strcmp(lang, "french"))
+	    argv[argc++] = "-Tlatin1";
+#if 0
+	argv[argc++] = "-P";
+#endif
+	argv[argc++] = "-S";
+	argv[argc++] = "-a";
+	argv[argc++] = NULL;
+
+	execvp("ispell", argv);
+	perror("execl: ispell");
+	exit(1);
+    } else {
+	close(clnt[1]);
+	close(srv[0]);
+	if (! (srvin = fdopen(clnt[0], "r"))
+	 || ! (srvout = fdopen(srv[1], "w"))) {
+	    fprintf(stderr, "fdopen: cannot open stream\n");
+	    exit(1);
+	}
+	/*
+	 * get hello banner
+	 */
+	n = fgets(buf, sizeof(buf) - 1, srvin);
+	dprintf(buf);
+
+	if (verbose)
+		fputs(buf, stdout);
+    }
+}
+
+static void
+SessionEnd()
+{
+    dprintf(">>> #\n");
+    fprintf(srvout, "#\n");
+    fclose(srvout);
+    fclose(srvin);
+}
+
+static void
+Choices (word, count, poss)
+char	*word;
+int	count;
+char	poss[MAXPOSSIBLE][INPUTWORDLEN + MAXAFFIXLEN];
+{
+    int	i;
+
+    printf("%s:", word);
+    for (i = 0; i < count; ++i)
+	if (! strpbrk(poss[i], " -")) printf(" %s", poss[i]);
+    putchar('\n');
+}
+
+static void
+Clueless (word)
+char	*word;
+{
+    printf("%s ??? Totally bogus, bro'\n", word);
+}
+
+static void
+ReadBack ()
+{
+    int		c, m, n, reliable;
+    long	pos;
+    char	word[INPUTWORDLEN];
+
+    for (; ; ) {
+	dprintf("<<< ");
+	c = fgetc(srvin);
+	switch (c) {
+	case EOF:		/* very unexpected */
+	    dprintf("EOF\n");
+	    return;
+
+	case '\n':		/* done! */
+	    dprintf("\\n\n");
+	    break;
+
+	case '*':		/* word is OK */
+	    dputc('*');
+	    c = fgetc(srvin);
+	    dputc(c);
+	    break;
+
+	case '+':		/* found derivative */
+	    dputc('+');
+	    (void)fgets(word, sizeof(word), srvin);
+	    dprintf("%s", word);
+	    break;
+
+	case '&':		/* word is dubious */
+	    dputc('&');
+	    n = fscanf(srvin, " %s %d %d", word, &reliable, &pos);
+	    pos--;		/* correct for uparrow we added */
+	    dprintf("\"%s\" at %d, %d choices:", word,
+		pos, reliable);
+	    for (n = 0; ; ++n) {
+		c = fgetc(srvin);	/* eat colon or comma */
+		if (c == '\n') break;
+		fscanf(srvin, " %[^,\n]", possibilities[n]);
+		dprintf(" \"%s\"", possibilities[n]); fflush(stdout);
+	    }
+
+	    /* newline already eaten */
+	    dputc(c);
+	    pcount = n;
+	    Choices(word, pcount, possibilities);
+	    break;
+
+	case '?':
+	    dputc('?');
+	    n = fscanf(srvin, " %s %d %d", word, &reliable, &pos);
+	    pos--;		/* correct for uparrow we added */
+	    dprintf(" \"%s\" at %d, %d choices:",
+		word, pos, reliable);
+	    for (n = 0; ; ++n) {
+		c = fgetc(srvin);	/* eat colon or comma */
+		if (c == '\n') break;
+		fscanf(srvin, " %[^,\n]", possibilities[n]);
+		dprintf(" \"%s\"", possibilities[n]); fflush(stdout);
+	    }
+	    /* newline already eaten */
+	    dputc('\n');
+	    pcount = n;
+	    Choices(word, pcount, possibilities);
+	    break;
+
+	case '#':
+	    dputc('#');
+	    n = fscanf(srvin, " %s %d", word, &pos);
+	    pos--;		/* correct for uparrow we added */
+	    dprintf(" \"%s\" at %d\n", word, pos);
+	    fgetc(srvin);
+	    pcount = 0;
+	    Clueless(word);
+	    break;
+
+	case '-':		/* gak! */
+	default:
+	    dputc(c);
+	    fgets(word, sizeof(word), srvin);
+	    dprintf(" %s", word);
+	    fprintf(stderr, "Error: read '%c' on connection\n", c);
+	    exit(1);
+	    break;
+	}
+    }
+}
+
+main(argc, argv)
+char *argv[];
+{
+    int		i, c;
+    char	*myname, *slash;
+    char	*tmp;
+
+    myname = argv[0];
+    if (slash = strrchr(myname, '/'))
+	myname = ++slash;
+
+    while ((c = getopt(argc, argv, "vd:")) != EOF)
+	switch (c) {
+	case 'd':		/* dictionary */
+	    lang = optarg;
+	    break;
+	case 'v':
+	    ++verbose;
+	    break;
+	case '?':
+usage:	    fprintf(stderr, "usage: %s [-v] [-d dictionary] word1 [word2 ... wordn]\n", myname);
+	    exit(1);
+	}
+
+    if (!verbose && optind == argc) goto usage;
+
+    Connect();
+    dprintf(">>> ^");
+    fputc('^', srvout);
+
+    for (i = optind; i < argc; ++i) {
+	dprintf(" %s", argv[i]);
+	fprintf(srvout, " %s", argv[i]);
+    }
+    dputc('\n');
+    fputc('\n', srvout);
+    fclose(srvout);
+
+    ReadBack();
+
+    SessionEnd();
+
+    exit(0);
+}
+
+#ifndef	DEBUG
+dprintf()
+{
+}
+#endif
+@EOF
+
+chmod 660 look.c
+
+rm -f /tmp/unpack$$
+exit 0

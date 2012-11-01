@@ -1,0 +1,364 @@
+dnl -*- m4 -*-
+dnl
+dnl mad - MPEG audio decoder
+dnl Copyright (C) 2000-2001 Robert Leslie
+dnl
+dnl This program is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU General Public License as published by
+dnl the Free Software Foundation; either version 2 of the License, or
+dnl (at your option) any later version.
+dnl
+dnl This program is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU General Public License
+dnl along with this program; if not, write to the Free Software
+dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+dnl
+AC_REVISION([$Id: configure.in,v 1.68 2001/11/03 19:15:04 rob Exp $])dnl
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(libmad/decoder.h)
+AM_INIT_AUTOMAKE(mad, 0.14.2b)
+
+AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SUBDIRS(libz libid3tag libmad)
+
+dnl System type.
+
+AC_CANONICAL_HOST
+
+dnl Checks for programs.
+
+AC_PROG_CC
+
+AC_ISC_POSIX
+
+dnl Support for libtool.
+
+AC_DISABLE_SHARED
+AM_PROG_LIBTOOL
+
+AC_SUBST(LIBTOOL_DEPS)
+
+dnl Compiler options.
+
+AC_PROG_GCC_TRADITIONAL
+
+arch=""
+debug=""
+optimize=""
+profile=""
+
+set -- $CFLAGS
+CFLAGS="-Wall"
+
+if test "$GCC" = yes
+then
+    case "$host" in
+	*-pc-cygwin)
+	    CPPFLAGS="$CPPFLAGS -mno-cygwin"
+	    LDFLAGS="$LDFLAGS -mno-cygwin"
+	    ;;
+    esac
+fi
+
+while test $# -gt 0
+do
+    case "$1" in
+	-Wall)
+	    shift
+	    ;;
+	-g)
+	    debug="-g"
+	    shift
+	    ;;
+	-mno-cygwin)
+	    shift
+	    ;;
+	-m*)
+	    arch="$arch $1"
+	    shift
+	    ;;
+	-fomit-frame-pointer)
+	    shift
+	    ;;
+	-O*|-f*)
+	    optimize="$1"
+	    shift
+	    ;;
+	*)
+	    CFLAGS="$CFLAGS $1"
+	    shift
+	    ;;
+    esac
+done
+
+if test "$GCC" = yes
+then
+    if test -z "$arch"
+    then
+	case "$host" in
+	    i386-*)           ;;
+	    i?86-*)           arch="-m486" ;;
+	    arm*-empeg-*)     arch="-march=armv4 -mtune=strongarm1100" ;;
+	    armv4*-*)         arch="-march=armv4 -mtune=strongarm" ;;
+	    powerpc-*)        ;;
+	    mips*-agenda-*)   arch="-mcpu=vr4100" ;;
+	    mips*-luxsonor-*) arch="-mips1 -mcpu=r3000 -Wa,-m4010" ;;
+	esac
+    fi
+
+    if test -n "$optimize"
+    then
+	: #? optimize="$optimize -funroll-loops"
+	: #? optimize="$optimize -finline-functions"
+    fi
+fi
+
+dnl Internationalization support.
+
+ALL_LINGUAS="en es fr hr no"
+
+AM_GNU_GETTEXT
+
+dnl Checks for header files.
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS(assert.h termios.h stropts.h  \
+		 sys/types.h fcntl.h errno.h  \
+		 sys/soundcard.h machine/soundcard.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+AC_C_CONST
+AC_C_INLINE
+AC_C_BIGENDIAN
+
+dnl Checks for library functions.
+
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(madvise localeconv)
+AC_REPLACE_FUNCS(strcasecmp strncasecmp)
+AC_SEARCH_LIBS(pow, m)
+AC_SEARCH_LIBS(log10, m)
+
+case "$host" in
+    *-pc-cygwin) build_libz=yes ;;
+    *) AC_CHECK_LIB(z, compress2, build_libz=no, build_libz=yes) ;;
+esac
+
+case "$host" in
+    *-linux*) AC_DEFINE(HAVE_MMAP) ;;
+    *)        AC_FUNC_MMAP ;;
+esac
+
+AC_MSG_CHECKING(whether to use mmap)
+AC_ARG_ENABLE(mmap,
+[  --disable-mmap     \
+     do not use mmap even if available (lower mem usage)], [
+    case "$enableval" in
+	yes) AC_DEFINE(USE_MMAP) ;;
+    esac
+], [
+    AC_DEFINE(USE_MMAP)
+])
+AC_MSG_RESULT(${enable_mmap-yes})
+
+AC_CACHE_SAVE
+
+dnl Select an audio system.
+
+AUDIO=""
+AC_SUBST(AUDIO)
+
+AC_MSG_CHECKING(for audio support)
+
+audio="unknown"
+
+want_esd=yes
+AC_ARG_WITH(esd,
+  [  --with-esd              use Enlightened Sound Daemon (EsounD) as default],
+[
+    case "$withval" in
+	yes)
+	    audio="esd"
+	    ;;
+	no)
+	    want_esd=no
+	    ;;
+    esac
+])
+
+if test "$audio" = unknown
+then
+    case "$host" in
+	arm*-empeg-*) audio="empeg" ;;
+    esac
+fi
+
+if test "$audio" = unknown
+then
+    AC_EGREP_CPP(waveOutOpen, [
+# include <mmsystem.h>
+], [audio="win32"; LIBS="$LIBS -lwinmm"])
+fi
+
+if test "$audio" = unknown
+then
+    AC_EGREP_CPP(yes, [
+# include <sys/soundcard.h>
+# if defined(OPEN_SOUND_SYSTEM) || defined(UNIX_SOUND_SYSTEM) ||  \
+    defined(VOXWARE)
+yes
+# endif
+], [audio="oss"])
+fi
+
+if test "$audio" = unknown
+then
+    AC_EGREP_CPP(yes, [
+# include <machine/soundcard.h>
+# if defined(OPEN_SOUND_SYSTEM) || defined(UNIX_SOUND_SYSTEM) ||  \
+    defined(VOXWARE)
+yes
+# endif
+], [audio="oss"])
+fi
+
+if test "$audio" = unknown
+then
+    AC_EGREP_CPP(audio_info_t, [
+# include <sys/audioio.h>
+], [audio="sun"])
+fi
+
+AC_MSG_RESULT($audio)
+
+if test "$want_esd" = yes
+then
+    AC_CHECK_LIB(esd, esd_open_sound)
+    if test $ac_cv_lib_esd_esd_open_sound = yes
+    then
+	have_libesd=yes
+    else
+	have_libesd=no
+    fi
+fi
+
+if test "$audio" = esd
+then
+    if test "$have_libesd" = no
+    then
+	AC_MSG_ERROR(cannot use --with-esd because libesd was not found)
+    fi
+else
+    if test "$want_esd" = yes && test "$have_libesd" = yes
+    then
+	AUDIO="$AUDIO audio_esd.o"
+    fi
+fi
+
+if test "$audio" = unknown
+then
+    AC_MSG_WARN(audio support not available; using null module)
+    AC_DEFINE(AUDIO_DEFAULT, audio_null)
+else
+    audio_module="audio_$audio"
+    AC_DEFINE_UNQUOTED(AUDIO_DEFAULT, $audio_module)
+
+    AUDIO="$AUDIO $audio_module.o"
+fi
+
+dnl libmad options...
+
+AC_ARG_ENABLE(speed,
+    [  --enable-speed          optimize for speed over accuracy])
+AC_ARG_ENABLE(accuracy,
+    [  --enable-accuracy       optimize for accuracy over speed])
+AC_ARG_ENABLE(fpm,
+    [  --enable-fpm=ARCH       use ARCH-specific fixed-point math routines
+                          (one of: intel, arm, mips, sparc, ppc,
+                           64bit, default)])
+AC_ARG_ENABLE(sso,
+    [  --enable-sso            use subband synthesis optimization])
+AC_ARG_ENABLE(aso,
+    [  --disable-aso           disable architecture-specific optimizations])
+AC_ARG_ENABLE(strict-iso,
+    [  --enable-strict-iso     use strict ISO/IEC interpretations])
+
+dnl madplay options...
+
+AC_MSG_CHECKING(whether to enable profiling)
+AC_ARG_ENABLE(profiling,
+    [  --enable-profiling      generate profiling code], [
+    case "$enableval" in
+	yes) profile="-pg" ;;
+    esac
+])
+AC_MSG_RESULT(${enable_profiling-no})
+
+AC_MSG_CHECKING(whether to enable debugging)
+AC_ARG_ENABLE(debugging,
+    [  --enable-debugging      enable diagnostic debugging support
+  --disable-debugging     do not enable debugging and use more optimization], [
+    case "$enableval" in
+	yes)
+	    AC_DEFINE(DEBUG)
+	    AUDIO="$AUDIO audio_hex.o"
+	    optimize=""
+	    ;;
+	no)
+	    if test -n "$profile"
+	    then
+    AC_MSG_ERROR(--enable-profiling and --disable-debugging are incompatible)
+	    fi
+
+	    AC_DEFINE(NDEBUG)
+	    debug=""
+	    if test "$GCC" = yes
+	    then
+		optimize="$optimize -fomit-frame-pointer"
+	    fi
+	    ;;
+    esac
+])
+AC_MSG_RESULT(${enable_debugging-default})
+
+case "$enable_debugging" in
+    yes) AC_CHECK_LIB(efence, malloc) ;;
+esac
+
+AC_MSG_CHECKING(whether to enable experimental code)
+AC_ARG_ENABLE(experimental,
+    [  --enable-experimental   enable experimental code], [
+    case "$enableval" in
+	yes) AC_DEFINE(EXPERIMENTAL) ;;
+    esac
+])
+AC_MSG_RESULT(${enable_experimental-no})
+
+dnl Winamp options...
+
+case "$host" in
+    *-pc-cygwin) build_winamp=yes ;;
+    *)           build_winamp=no  ;;
+esac
+
+dnl Create output files.
+
+AM_CONDITIONAL(BUILD_LIBZ,   [test $build_libz   = yes])
+AM_CONDITIONAL(BUILD_WINAMP, [test $build_winamp = yes])
+
+test -n "$arch"     && CFLAGS="$CFLAGS $arch"
+test -n "$debug"    && CFLAGS="$CFLAGS $debug"
+test -n "$optimize" && CFLAGS="$CFLAGS $optimize"
+test -n "$profile"  && CFLAGS="$CFLAGS $profile" LDFLAGS="$LDFLAGS $profile"
+
+AC_OUTPUT(Makefile intl/Makefile po/Makefile.in  \
+	  winamp/Makefile winamp/in_mad.psc  \
+	  msvc++/Makefile msvc++/libmad/Makefile msvc++/libid3tag/Makefile  \
+	  msvc++/libz/Makefile msvc++/madplay/Makefile)

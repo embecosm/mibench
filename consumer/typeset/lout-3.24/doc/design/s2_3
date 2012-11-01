@@ -1,0 +1,326 @@
+@SubSection
+    @Tag { objects }
+    @Title { Basic structural operators }
+@Begin
+@PP
+A programming language may be considered complete when it attains the
+power of a Turing machine, but no such criterion seems relevant to
+document formatting.  Instead, as the language develops and new
+applications are attempted, deficiencies are exposed and the operator set is
+revised to overcome them.
+@PP
+Lout has a repertoire of 23 primitive operators
+(Figure {@NumberOf primitives}),
+
+@Figure
+   @Caption { The 23 primitive operators of Lout, in order of
+increasing precedence. }
+   @Tag { primitives }
+@Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col @I A ! @Col B }
+{
+@Rowa
+   A { object  {@Code "/"}gap  object }
+   B { Vertical concatenation with mark alignment }
+@Rowa
+   A { object  {@Code "//"}gap  object }
+   B { Vertical concatenation with left justification }
+@Rowa
+   A { object  {@Code "|"}gap  object }
+   B { Horizontal concatenation with mark alignment }
+@Rowa
+   A { object  {@Code "||"}gap  object }
+   B { Horizontal concatenation with top-justification }
+@Rowa
+   A { object  {@Code "&"}gap  object }
+   B { Horizontal concatenation within paragraphs }
+@Rowa
+   A { {@Code "@OneCol"}  object }
+   B { Hide all but one column mark of @I object }
+@Rowa
+   A { {@Code "@OneRow"}  object }
+   B { Hide all but one row mark of @I object }
+@Rowa
+   A { font  @Code "@Font"  object }
+   B { Render @I object in nominated font }
+@Rowa
+   A { breakstyle  @Code "@Break"  object}
+   B { Break paragraphs of @I object in nominated style }
+@Rowa
+   A { spacestyle  @Code "@Space"  object }
+   B { Render spaces between words in nominated style }
+@Rowa
+   A { length  {@Code "@Wide"}  object }
+   B { Render @I object to width @I length }
+@Rowa
+   A { length  {@Code "@High"}  object }
+   B { Render @I object to height @I length }
+@Rowa
+   A { {@Code "@HExpand"}  object}
+   B { Expand horizontal gaps to fill available space }
+@Rowa
+   A { {@Code "@VExpand"}  object}
+   B { Expand vertical gaps to fill available space }
+@Rowa
+   A { {@Code "@HScale"}  object }
+   B { Horizontal geometrical scaling to fill available space }
+@Rowa
+   A { {@Code "@VScale"}  object }
+   B { Vertical geometrical scaling to fill available space }
+@Rowa
+   A { angle  {@Code "@Rotate"}  object }
+   B { Rotate @I object by @I angle }
+@Rowa
+   A { PostScript  {@Code "@Graphic"}  object }
+   B { Escape to graphics language }
+@Rowa
+   A { @Code "@Next"  object }
+   B { Add 1 to an object denoting a number }
+@Rowa
+   A { object  @Code "@Case"  alternatives }
+   B { Select from a set of alternative objects }
+@Rowa
+   A { identifier  @Code "&&"  object }
+   B { Cross reference }
+@Rowa
+   A { cross-reference  @Code "@Open"  object }
+   B { Retrieve value from cross reference }
+@Rowa
+   A { cross-reference  @Code "@Tagged"  object}
+   B { Attach cross referencing tag to object }
+}
+
+which has proven adequate for a wide variety of features, including equations,
+tables, and page layout, and so seems to be reasonably complete in this
+pragmatic sense.  In this section we introduce the eight concatenation and
+mark-hiding operators.  To them falls the basic task of assembling complex
+objects from simple ones, and they were the first
+to be designed and implemented.
+@PP
+Many of the operators of Eqn can be viewed as building small tables.  A
+built-up fraction, for example, has one column and three rows
+(numerator, line, and denominator).  Numerous investigations of this
+kind convinced the author that operators capable of assembling the rows
+and columns of tables would suffice for building all kinds of objects.
+@PP
+The simplest objects are empty objects and literal words like
+{@Code metempsychosis}, which have one column mark and one row mark:
+@ID {
+@ShowMarks metempsychosis
+}
+To place two arbitrary objects side by side, we use the infix
+operator {@Code "|"}, denoting horizontal concatenation.  For
+example,
+@ID {
+@Code "USA  |0.2i  Australia"
+}
+produces the object
+@ID {
+@ShowMarks USA |0.2i @ShowMarks Australia
+}
+The row marks are merged into one, fixing the vertical position of
+the objects relative to each other; their horizontal separation is
+determined by the @I gap attached to the operator, in this case 0.2
+inches.  We think of the gap as part of the operator, although
+strictly it is a third parameter.  It may be omitted, defaulting to
+{@Code "0i"}.
+@PP
+@I {Vertical concatenation} & , denoted by the infix operator {@Code "/"},
+is the same apart from the change of direction:
+@ID {
+@Code "Australia  /0.1i  USA"
+}
+produces the object
+@ID {
+@ShowMarks Australia /0.1i
+@ShowMarks USA
+}
+with column marks merged and a 0.1 inch gap.
+@PP
+Consider now what happens when horizontal and vertical are combined:
+@ID @OneRow @Code {
+             |1m  "{"  USA         |1m  "|0.2i" |1m   Australia  "}"
+/1vx "/0.1i" |    "{"  Washington  |    "|"     |     Canberra  "}"
+}
+The two parameters of @Code "/" now have two column marks each, and
+they will be merged with the corresponding marks in the other
+parameter, yielding the object
+
+@ID @OneRow {
+  @BackEnd @Case {
+    PostScript @Yield {
+      @ShowMarks USA &
+      { 0 ymark moveto xsize 10 pt add ymark lineto [ 3 pt ] 0 setdash stroke }
+      @Graphic {1c @Wide }
+      |0.2i @ShowMarks Australia
+/0.1i @ShowMarks Washington  |     @ShowMarks Canberra
+    }
+    PDF @Yield {
+      @ShowMarks USA &
+      { [ __mul(3, __pt) ] 0 d 0 __ymark m __add(__xsize, __mul(10, __pt)) __ymark l S }
+      @Graphic {1c @Wide }
+      |0.2i @ShowMarks Australia
+/0.1i @ShowMarks Washington  |     @ShowMarks Canberra
+    }
+  }
+}
+The @Code "0.2i" gap separates columns, not individual items in
+columns, so a gap attached to the second @Code "|" would serve no
+purpose; any such gap is ignored.  If the number of marks to be merged
+differs, empty columns are added at the right to equalize the number.  The
+four marks protruding from the result are all available for merging
+with neighbouring marks by other concatenation operators.  The precedence
+of @Code "|" is higher than the precedence of {@Code "/"}, so the braces
+could be omitted.
+@PP
+When lines of text are concatenated, it is conventional to measure
+their separation from baseline to baseline (mark to mark in Lout),
+rather than from edge to edge as above.  This idea of different
+reference points for measurement evolved over the years into a
+system of six @I {gap modes} (Figure {@NumberOf gapmodes}), expressed
+by appending a letter to the length.  For example, @Code "|0.2i" is
+an abbreviation for {@Code "|0.2ie"}, meaning 0.2 inches measured
+from edge to edge; @Code "|0.3ix"
+produces a 0.3 inch gap measured from mark to mark and widened if
+necessary to prevent overstriking; and @Code "|2.5it" places its right
+parameter 2.5 inches from the current left margin, irrespective of
+the position of the left parameter.  There is also a choice of
+eleven units of measurement (inches, centimetres, multiples of the
+current font size, etc.), the most interesting being
+the @Code r unit:  one @Code r is the column width minus the width of
+the following object, so that @Code "|1rt" produces sufficient space
+to right justify the following object, and @Code "|0.5rt" to center
+it.  These features implement spacings needed in practice rather
+than suggested by theory.  They work with all five concatenation
+operators, horizontal and vertical.
+
+@Figure
+   @Tag { gapmodes }
+   @Caption { The six gap modes (@I length is any length).  Hyphenation
+mode has an extra property not shown here. }
+@Fig {
+{ /2.5vx Edge-to-edge |0.3i   {@Code "|"} &1p {@I length} &1p {@Code e}
+  /4.2vx Hyphenation    |0.3i   {@Code "|"} &1p {@I length} &1p {@Code h}
+  /4.2vx Overstrike     |0.3i   {@Code "|"} &1p {@I length} &1p {@Code o}
+  /4.2vx Mark-to-mark   |0.3i   {@Code "|"} &1p {@I length} &1p {@Code x}
+  /4.2vx Kerning        |0.3i   {@Code "|"} &1p {@I length} &1p {@Code k}
+  /4.2vx Tabulation     |0.3i   {@Code "|"} &1p {@I length} &1p {@Code t}
+}
+||0.5i
+@Box margin { 0c } 6c @Wide 14.5c @High 9p @Font
+{
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 2.2c @Wide 1.4c @High } @Put { @DoubleArrow 1.8c }
+     @At { 2.2c @Wide 1.6c @High } @Put { 1.8c @Wide { &0.5rt @I length } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 2.2c @Wide 1.4c @High } @Put { @DoubleArrow 1.8c }
+     @At { 2.2c @Wide 1.6c @High } @Put { 1.8c @Wide { &0.5rt @I length } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High } @Put { 3.3c @Wide { &0.5rt @I length } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High }
+	@Put 3.3c @Wide { |0.5rt @Eq { max(length, a+b) } }
+     @At { 1.2c @Wide 0.4c @High } @Put { @DoubleArrow 1.0c }
+     @At { 1.2c @Wide 0.2c @High } @Put { 1.0c @Wide { &0.5rt @I a } }
+     @At { 4c   @Wide 0.4c @High } @Put { @DoubleArrow 0.5c }
+     @At { 4c   @Wide 0.2c @High } @Put { 0.5c @Wide { &0.5rt @I b } }
+  }
+  //4.5vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 1.2c @Wide 1.5c @High } @Put { @DoubleArrow 3.3c }
+     @At { 1.2c @Wide 1.7c @High }
+	@Put { 3.3c @Wide { |0.5rt @Eq { max(length, a, b) } } }
+     @At { 1.2c @Wide 0.4c @High } @Put { @DoubleArrow 1.0c }
+     @At { 1.2c @Wide 0.2c @High } @Put { 1.0c @Wide { &0.5rt @I a } }
+     @At { 4c   @Wide 0.4c @High } @Put { @DoubleArrow 0.5c }
+     @At { 4c   @Wide 0.2c @High } @Put { 0.5c @Wide { &0.5rt @I b } }
+  }
+  //4vx
+  @OneRow {
+     @At { 1c   @Wide 0.5c @High } @Put { @LBox 0.2co }
+     @At { 4c   @Wide 0.5c @High } @Put { @LBox 0.5co }
+     @At { 0.0c @Wide 1.6c @High } @Put { @DoubleArrow 4.0c }
+     @At { 2.8c @Wide 1.8c @High } @Put { @I length }
+  }
+  //5vx
+  @DoubleArrow 6c
+  //0.1c |0.5rt @I { current bound }
+}
+}
+
+@PP
+When we construct a built-up fraction, the result has three row marks, but
+only the second should be visible outside the object:
+@ID @Eq { @ShowMarks { X over Y } }
+This is a common problem, and accordingly a @Code "@OneRow" operator was
+introduced for hiding all but one of the row marks of its
+parameter.  Normally, the first mark is the survivor, but a later mark can
+be chosen by prefixing @Code "^" to the preceding concatenation operator:
+@ID @Code "@OneRow { X  ^/2p  @HLine  /2p  Y }"
+has the desired result, where {@Code "2p"} is two points and @Code "@HLine"
+is an easy combination of Lout's graphics operators.  A similar operator,
+{@Code "@OneCol"}, hides column marks.
+@PP
+A variant of @Code "/" called @Code "//" is provided which performs
+vertical concatenation but ignores all column marks and simply
+left-justifies its two parameters:
+@ID @OneRow @Code {
+"Heading  //0.1i"
+"A  |0.2i  B  /0.1i"
+"C  |  D"
+}
+has result
+@ID { Heading //0.1i  A  |0.2i  B  /0.1i  C  |  D }
+showing that spanning columns in tables motivate the inclusion of this
+operator.  There is an analogous @Code "||" operator.  The author
+would have preferred to leave out these operators, since they
+complicate the implementation, and it is interesting to examine the
+prospects of doing so.
+@PP
+The @Code "//" operator is formally redundant, because in general
+the expression @Code "x // y" can be replaced by
+@ID @OneRow @Code {
+"@OneCol {  |  x  }   /"
+"@OneCol {  |  y  }"
+}
+for any objects {@Code x} and {@Code y}.  By concatenating an empty
+object at the left of @Code x and hiding all but that empty object's
+column mark, we effectively shift {@Code x}'s column mark to its left
+edge.  The same goes for {@Code y}, so the @Code "/" operator has just
+one column mark to merge, at the extreme left, and its effect is
+indistinguishable from {@Code "//"}.
+@PP
+Unfortunately, if @Code y consists of two rows separated by {@Code "/"},
+as in the example above, both rows must be placed inside the
+{@Code "@OneCol"}, and the table cannot be entered in the simple
+row-by-row manner that non-expert users naturally expect.  Another
+advantage of @Code "//" is that its left parameter can be printed
+before its right parameter is known; this is important when the left
+parameter is an entire page.
+@PP
+The fifth and final concatenation operator, {@Code "&"}, is an explicit
+version of the horizontal concatenation operator interpolated when
+objects are separated by white space.  It is formally identical to
+@Code "|" except for taking higher precedence and being subject to
+replacement by @Code "//1vx" during paragraph breaking
+(Section {@NumberOf style}).
+@End @SubSection

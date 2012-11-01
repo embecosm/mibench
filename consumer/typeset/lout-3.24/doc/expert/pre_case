@@ -1,0 +1,51 @@
+@Section
+   @Title { "@Case" }
+   @Tag { case }
+@Begin
+@PP
+case.sym @Index { @@Case symbol }
+yield.sym @Index { @@Yield symbol }
+The @@Case symbol selects its result from a list of alternatives,
+depending on a tag:
+@ID @Code {
+"@Day @Case {"
+"    { 1 21 31 }  @Yield  st"
+"    { 2 22 }  @Yield  nd"
+"    { 3 23 }  @Yield  rd"
+"    else  @Yield th"
+"}"
+}
+In this example the result will be st if @Code "@Day" is 1, 21, or 31,
+and nd if @Code "@Day" is 2 or 22, etc.  The effect is similar to
+accessing a database, though in a more compact form.  The right parameter
+is a sequence of @@Yield symbols, each with a left parameter whose value is
+a sequence of one or more juxtapositions of simple words, and a right
+parameter which may be any object.
+@PP
+We first describe the behaviour when the value of the left parameter of
+@@Case is a juxtaposition of one or more simple words.  Then the result of
+the @@Case is the right parameter of the first @@Yield whose left parameter
+contains either the value of the left parameter of the @@Case, or the special
+value {@Code else}.  If there is no such @@Yield it is an error.
+@PP
+When the left parameter of @@Case is not a juxtaposition of simple
+words, the result is the right parameter of the first @@Yield whose
+left parameter is {@Code else}, or an error otherwise.  This permits
+examples like
+@ID @Code {
+"@RunningTitle @Case {"
+"    dft @Yield @Title"
+"    else @Yield @RunningTitle"
+"}"
+}
+where a running title is returned unless it has the value {@Code dft}
+(which presumably means that no running title was supplied), in which
+case an ordinary title is returned instead.
+@PP
+When a receptive symbol is placed within a @@Case, it should be included
+in each alternative, since otherwise Basser Lout may become confused when
+trying to predict whether the symbol will be a part of the result or
+not.  Alternatively, if it can be guaranteed that the receptive symbol
+will never be searched for when the cases that it does not lie within
+are selected, that is all right too.
+@End @Section

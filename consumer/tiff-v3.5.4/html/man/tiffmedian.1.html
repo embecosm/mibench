@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFFMEDIAN</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFFMEDIAN</H1>
+Section: User Commands  (1)<BR>Updated: October 15, 1995<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiffmedian - apply the median cut algorithm to data in a
+<FONT SIZE="-1">TIFF</FONT>
+file
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiffmedian</B>
+
+[
+<I>options</I>
+
+]
+<I>input.tif</I>
+
+<I>output.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>tiffmedian</I>
+
+applys the median cut algorithm to an
+<FONT SIZE="-1">RGB</FONT>
+image in
+<I>input.tif</I>
+
+to generate a palette image that is written to
+<I>output.tif</I>.
+
+The generated colormap has, by default, 256 entries.
+The image data is quantized by mapping each
+pixel to the closest color values in the colormap.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-c</B>
+
+<DD>
+Specify the compression to use for data written to the output file:
+<B>none </B>
+
+for no compression,
+<B>packbits</B>
+
+for PackBits compression,
+<B>lzw</B>
+
+for Lempel-Ziv &amp; Welch compression,
+and
+<B>zip</B>
+
+for Deflate compression.
+By default
+<I>tiffmedian</I>
+
+will compress data according to the value of the
+<I>Compression</I>
+
+tag found in the source file.
+<DT><DD>
+<FONT SIZE="-1">LZW</FONT>
+compression can be specified together with a 
+<I>predictor</I>
+
+value.
+A predictor value of 2 causes
+each scanline of the output image to undergo horizontal
+differencing before it is encoded; a value
+of 1 forces each scanline to be encoded without differencing.
+LZW-specific options are specified by appending a ``:''-separated
+list to the ``lzw'' option; e.g.
+<B>-c lzw:2</B>
+
+for
+<FONT SIZE="-1">LZW</FONT>
+compression with horizontal differencing.
+<DT><B>-C</B>
+
+<DD>
+Specify the number of entries to use in the generated colormap.
+By default all 256 entries/colors are used.
+<DT><B>-f</B>
+
+<DD>
+Apply Floyd-Steinberg dithering before selecting a colormap entry.
+<DT><B>-r</B>
+
+<DD>
+Specify the number of rows (scanlines) in each strip of data
+written to the output file.
+By default,
+<I>tiffmedian</I>
+
+attempts to set the rows/strip
+that no more than 8 kilobytes of data appear in a strip.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>NOTES</H2>
+
+This program is derived from Paul Heckbert's
+<I>median</I>
+
+program.
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffcmp+1.html">tiffcmp</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+<P>
+
+&quot;Color Image Quantization for Frame Buffer Display&quot;, Paul
+Heckbert, SIGGRAPH proceedings, 1982, pp. 297-307.
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">NOTES</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:48 GMT, November 23, 1999
+</BODY>
+</HTML>

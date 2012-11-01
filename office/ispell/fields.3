@@ -1,0 +1,315 @@
+.\"
+.\" $Id: fields.3,v 1.3 1994/01/05 20:13:43 geoff Exp $
+.\"
+.\" $Log: fields.3,v $
+.\" Revision 1.3  1994/01/05  20:13:43  geoff
+.\" Add the maxf parameter
+.\"
+.\" Revision 1.2  1994/01/04  02:40:16  geoff
+.\" Add descriptions of field_line_inc, field_field_inc, and the
+.\" FLD_NOSHRINK flag.
+.\"
+.\" Revision 1.1  1993/09/09  01:09:44  geoff
+.\" Initial revision
+.\"
+.\" 
+.TH FIELDS 3 local
+.SH NAME
+fieldread, fieldmake, fieldwrite, fieldfree \- field access package
+.SH SYNTAX
+.nf
+#include "fields.h"
+
+typedef struct {
+    int nfields;
+    int hadnl;
+    char *linebuf;
+    char **fields;
+} field_t;
+
+#define FLD_RUNS        0x0001
+#define FLD_SNGLQUOTES  0x0002
+#define FLD_BACKQUOTES  0x0004
+#define FLD_DBLQUOTES   0x0008
+#define FLD_SHQUOTES    0x0010
+#define FLD_STRIPQUOTES 0x0020
+#define FLD_BACKSLASH   0x0040
+
+extern field_t *fieldread (FILE * file, char * delims,
+                           int flags, int maxf);
+extern field_t *fieldmake (char * line, int allocated,
+                           char * delims, int flags, int maxf);
+extern int fieldwrite (FILE * file, field_t * fieldp,
+                       int delim);
+extern void fieldfree (field_t * fieldp);
+
+extern unsigned int field_line_inc;
+extern unsigned int field_field_inc;
+.fi
+.SH DESCRIPTION
+.PP
+The fields access package eases the common task of parsing and
+accessing information which is separated into fields by whitespace or
+other delimiters.  Various options can be specified to handle many
+common cases, including selectable delimiters, runs of delimiters, and
+quoting.
+.PP
+.I fieldread
+reads one line from a file, parses it into fields as specified by the
+parameters, and returns a
+.B field_t
+structure describing the result.
+.I fieldmake
+performs the same process on a buffer already in memory.
+.I fieldwrite
+creates an output line from a
+.B field_t
+structure and writes it to an output file.
+.I fieldfree
+frees a
+.B field_t
+structure and any associated memory allocated by the package.
+.PP
+The
+.B field_t
+structure describes the fields in a parsed line.
+A well-behaved should only access the
+.BR nfields ,
+.BR fields ,
+and
+.B hadnl
+elements;
+all other elements are used internally by the package and are not
+guaranteed to remain the same even though they are documented here.
+.B Nfields
+gives the number of fields in the parsed line, just like the
+.B argc
+argument to a C program;
+.B fields
+is a pointer to an array of string pointers, just like the
+.B argv
+argument to a C program.
+As in C, the last field pointer is followed by a null pointer,
+although the field count is the preferred method of accessing fields.
+The user may alter
+.B nfields
+by decreasing it, and may replace any pointer in
+.B fields
+without harm.
+This is often useful in replacing a single field with a calculated
+value preparatory to output.
+The
+.B hadnl
+element is nonzero if the original line was terminated with a newline
+when it was parsed;
+this is used to accurately reproduce the input when
+.I fieldwrite
+is called.
+.PP
+The
+.B linebuf
+element contains a pointer to an internal buffer allocated by
+.I fieldread
+or provided to
+.IR fieldmake .
+This buffer is
+.I not
+guaranteed to contain anything sensible, although in the current
+implementation all of the field contents can be found therein.
+.PP
+.I fieldread
+reads a single line of arbitrary length from
+.BR file ,
+allocating as much memory as necessary to hold it, and then parses the
+line according to its remaining arguments.
+A pointer to the parsed
+.B field_t
+structure is returned, with
+.B NULL
+returned if an error occurs or if
+.B EOF
+is reached on the input file.
+Fields in the input line are considered to be separated by any of the
+delimiters in the
+.B delims
+parameter.
+For example, if delimiters of ":.;" are specified, a line containing
+"a:b;c.d" would be considered to have four fields.
+.PP
+The default parsing of fields considers each delimiter to indicate a
+separate field, and does not allow any quoting.  This is similar to
+the parsing done by
+.IR cut (1).
+This behavior can be modified by specifying flags.
+Multiple flags may be OR'ed together.
+The available flags are:
+.IP \fBFLD_RUNS\fP
+Consider runs of delimiters to be the same as a single delimiter,
+suppressing all null fields.
+This is similar to the way utilities like
+.IR awk (1)
+and
+.IR sort (1)
+treat whitespace, but it is not limited to whitespace.
+A run does not have to consist of a single type of delimiter;  if both
+semicolon and colon are delimiters, ";::;" is a run.
+.IP \fBFLD_SNGLQUOTES\fP
+Allow field contents to be quoted with single quotes.
+Delimiters and other quotes appearing within single quotes are ignored.
+This may appear in combination with other quote options.
+.IP \fBFLD_BACKQUOTES\fP
+Allow field contents to be quoted with reverse single quotes.
+Delimiters and other quotes appearing within reverse single quotes are ignored.
+This may appear in combination with other quote options.
+.IP \fBFLD_DBLQUOTES\fP
+Allow field contents to be quoted with single quotes.
+Delimiters and other quotes appearing within double quotes are ignored.
+This may appear in combination with other quote options.
+.IP \fBFLD_SHQUOTES\fP
+Allow shell-style quoting.
+In the absence of this option, quotes are only recognized at the
+beginning of a field, and characters following the close quote are
+removed from the field (and are thus lost from the input line).
+If this option is specified, quotes may appear within a field, in the
+same way as they are handled by
+.IR sh (1).
+Multiple quoting styles may be used in the same field.
+If none of
+.BR FLD_SNGLQUOTES ,
+.BR FLD_BACKQUOTES ,
+or
+.B FLD_DBLQUOTES
+is specified with
+.BR FLD_SHQUOTES ,
+all three options are implied.
+.IP \fBFLD_STRIPQUOTES\fP
+Remove quotes and backslash sequences from the field while parsing,
+converting backslash sequences to their proper ASCII equivalent.
+The C sequences \ea, \eb, \ef, \en, \er, \ev, \ex\fInn\fP, and \e\fInnn\fP are
+supported.
+Any other sequence is simply converted to the backslashed character,
+as in
+.IR sh (1).
+.IP \fBFLD_BACKSLASH\fP
+Accept standard C-style backslash sequences.
+The sequence will be converted to an ASCII equivalent if
+.B FLD_STRIPQUOTES
+is specified (q.v.).
+.IP \fBFLD_NOSHRINK\fP
+Don't shrink allocated memory using
+.IR realloc (3)
+before returning.
+This option can have a significant effect on performance, especially
+when
+.I fieldfree
+is going to be called soon after
+.I fieldread
+or
+.IR fieldmake .
+The disadvantage is that slightly more memory will be occupied until
+the field structure is freed.
+.PP
+The
+.I maxf
+parameter, if nonzero, specifies the maximum number of fields to be
+generated.
+This may enhance performance if only the first few fields of a long
+line are of interest to the caller.
+The actual number of fields returned is one greater than
+.IR maxf ,
+because the remainder of the line will be returned as a single
+contiguous (and uninterpreted, 
+.B FLD_STRIPQUOTES
+or
+.B FLD_BACKSLASH
+is specified) field.
+.PP
+.I fieldmake
+operates exactly like
+.IR fieldread ,
+except that the line parsed is provided by the caller rather than
+being read from a file.
+If the
+.I allocated
+parameter is nonzero, the memory pointed to by the
+.I line
+parameter will automatically be freed when
+.I fieldfree
+is called;
+otherwise this memory is the caller's responsibility.
+The memory pointed to by
+.I line
+is destroyed by
+.IR fieldmake .
+All other parameters are the same as for
+.IR fieldread.
+.PP
+.I fieldwrite
+writes a set of fields to the specified
+.IR file ,
+separating them with the delimiter character
+.I delim
+(note that this is a character, not a string), and appending a newline
+if specified by the
+.I hadnl
+element of the structure.
+The field structure is not freed.
+.I fieldwrite
+will return nonzero if an I/O error is detected.
+.PP
+.I fieldfree
+frees the
+.B field_t
+structure passed to it, along with any associated auxiliary memory
+allocated by the package (or passed to
+.IR fieldmake ).
+The structure may not be accessed after
+.I fieldfree
+is called.
+.PP
+.B field_line_inc
+(default 512) and
+.B field_field_inc
+(default 20) describe the increments to use when expanding lines as
+they are read in and parsed.
+.I fieldread
+initially allocates a buffer of
+.B field_line_inc
+bytes and, if the input line is larger than that, expands the buffer
+in increments of the same amount until it is large enough.
+If input lines are known to consistently reach a certain size,
+performance will be improved by setting
+.B field_line_inc
+to a value larger than that size (larger because there must be room
+for a null byte).
+.B field_field_inc
+serves the same purpose in both
+.I fieldread
+and
+.IR fieldmake ,
+except that it is related to the number of fields in the line rather
+than to the line length.
+If the number of fields is known, performance will be improved by
+setting
+.B field_field_inc
+to at least one more than that number.
+.SH RETURN VALUES
+.I fieldread
+and
+.I fieldmake
+return
+.B NULL
+if an error occurs or if
+.B EOF
+is reached on the input file.
+.I fieldwrite
+returns nonzero if an output error occurs.
+.SH BUGS
+Thanks to the vagaries of ANSI C, the
+.B fields.h
+header file defines an auxiliary macro named
+.BR P .
+If the user needs a similarly-named macro, this macro must be
+undefined first, and the user's macro must be defined after
+.B fields.h
+is included.

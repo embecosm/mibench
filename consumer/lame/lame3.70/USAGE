@@ -1,0 +1,539 @@
+
+% lame [options] inputfile [outputfile]
+
+=======================================================================
+Examples:
+=======================================================================
+fixed bit rate jstereo 128kbs encoding:
+% lame sample.wav  sample.mp3      
+
+fixed bit rate jstereo 128kbs encoding, highest quality:  (recommended)
+% lame -h sample.wav  sample.mp3      
+
+To disable joint stereo encoding (slightly faster, but less quality at bitrates<=128kbs)
+% lame -m s sample.wav  sample.mp3     
+
+Fast encode, low quality  (no psycho-acoustics)
+% lame -f sample.wav  sample.mp3     
+
+Variable Bitrate (VBR): (use -V n to adjust quality/filesize)
+% lame -h -v sample.wav sample.mp3
+
+Note: VBR is currently under heavy development.  Right now it can
+often result in too much compression.  I would recommend using VBR
+with a minimum bitrate of 112kbs.  This will let LAME increase
+the bitrate for difficult-to-encode frames, but prevent LAME from
+being too aggressive for simple frames:
+
+% lame -h -v -b 112  sample.wav sample.mp3
+
+
+=======================================================================
+LOW BITRATES
+=======================================================================
+At lower bitrates, (like 24kbs per channel), it is recommended that
+you use a 16kHz sampling rate combined with lowpass filtering.  LAME,
+as well as commercial encoders (FhG, Xing) will do this automatically.
+However, if you feel there is too much (or not enough) lowpass
+filtering, you may need to try different values of the lowpass cutoff
+and passband width (--lowpass and --lowpass-width options).
+
+
+
+
+=======================================================================
+STREAMING EXAMPLES
+=======================================================================
+Streaming mono 22.05kHz raw pcm, 24kbs output:
+% cat inputfile | lame -r -m m -b 24 -s 22.05 - - > output
+
+Streaming mono 22.05kHz raw pcm, with downsampling to 16kHz:
+% cat inputfile | sox -t raw -x -w -s -c 1 -r 22050 -  -t raw -x -w -s -c 1 -r 16000 - resample 0.66 | lame -r -m m -b 24 -s 16 - - > output
+
+You may or may not need one or both of the "-x" (swap bytes) option in Sox.  
+
+
+
+
+=======================================================================
+
+For more options, just type:
+% lame --help
+
+Scripts are included to run lame on multiple files:
+
+bach script:  mlame     Run "mlame -h" for instructions.
+sh script:    auenc     Run auenc for instructions
+
+
+
+=======================================================================
+options guide:
+=======================================================================
+These options are explained in detail below.
+
+
+Quality related:
+
+-m m/s/j/f     mode selection
+-k             disable all filtering
+-d             allow block types to differ between channels
+--athonly      ignore psy-model output, only use masking from the ATH
+--voice        experimental voice encoding mode
+--noshort      disable short blocks
+
+
+Constant Bit Rate (CBR)
+-b  n          set bitrate (8,16,24,...,320)
+-h             higher quality but slower
+-f             disable psycho-acoustics.  Encoding much faster but lower quality
+
+
+Variable Bit Rate (VBR)
+-v             VBR
+-V n           VBR quality setting  (0=highest quality, 9=lowest)
+-b  n          specify a minimum allowed bitrate (8,16,24,...,320)
+-B  n          specify a maximum allowed bitrate (8,16,24,...,320)
+-t             disable Xing VBR informational tag 
+--nohist       disable display of VBR bitrate histogram
+
+
+Experimental (undocumented):  may work better or worse:
+
+-X n           try different quality measures (when comparing quantizations)
+-Y             try to use scalefac_select 
+-Z             try to use subblock_gain
+
+
+Operational:
+
+-r             assume input file is raw PCM
+-s  n          input sampling frequency in kHz (for raw PCM input files)
+--resample n   output sampling frequency
+--mp3input     input file is an MP3 file.  decode using mpglib/mpg123
+-x             swap bytes of input file
+-a             downmix stereo input file to mono .mp3
+-e  n/5/c      de-emphasis
+-p             add CRC error protection
+-c             mark the encoded file as copyrighted
+-o             mark the encoded file as a copy
+-S             don't print progress report, VBR histogram
+-g             run MP3x, the graphical frame analyzer
+
+
+id3 tagging:
+
+--tt "title"     title of song (max 30 chars)
+--ta "artist"    artist who did the song (max 30 chars)
+--tl "album"     album where it came from (max 30 chars)
+--ty "year"      year in which the song/album was made (max 4 chars)
+--tc "comment"   additional info (max 30 chars)
+--tg "genre"     genre of song (name or number)
+
+
+
+options not yet described:
+--nores            disable bit reservoir
+--noath            disable ATH
+--cwlimit <freq>   specify range of tonality calculation
+
+--lowpass
+--lowpass-width
+--highpass
+--highpass-width
+
+
+
+
+
+=======================================================================
+Detailed description of all options in alphabetical order
+=======================================================================
+
+
+=======================================================================
+downmix
+=======================================================================
+-a  
+
+mix the stereo input file to mono and encode as mono.  
+
+This option is only needed in the case of raw PCM stereo input 
+(because LAME cannot determine the number of channels in the input file).
+To encode a stereo PCM input file as mono, use "lame -m s -a"
+
+For WAV and AIFF input files, using "-m m" will always produce a
+mono .mp3 file from both mono and stereo input.
+
+=======================================================================
+ATH only
+=======================================================================
+--athonly
+
+This option causes LAME to ignore the output of the psy-model and
+only use masking from the ATH.  Might be useful at very high bitrates
+or for testing the ATH.  
+
+
+
+
+=======================================================================
+bitrate
+=======================================================================
+-b  n
+
+For MPEG1 (sampling frequencies of 32, 44.1 and 48kHz)
+n =   32,40,48,56,64,80,96,112,128,160,192,224,256,320
+
+For MPEG2 (sampling frequencies of 16, 22.05 and 24kHz)
+n = 8,16,24,32,40,48,56,64,80,96,112,128,144,160
+
+
+The bitrate to be used.  Default is 128kbs MPEG1, 80kbs MPEG2.
+
+When used with variable bitrate encodings (VBR), -b specifies the
+minimum bitrate to use.  This is useful to prevent LAME VBR from
+using some very aggressive compression which can cause some distortion
+due to small flaws in the psycho-acoustic model.
+
+=======================================================================
+max bitrate
+=======================================================================
+-B  n
+
+For MPEG1 (sampling frequencies of 32, 44.1 and 48kHz)
+n =   32,40,48,56,64,80,96,112,128,160,192,224,256,320
+
+For MPEG2 (sampling frequencies of 16, 22.05 and 24kHz)
+n = 8,16,24,32,40,48,56,64,80,96,112,128,144,160
+
+Maximum allowed bitrate when using VBR.
+
+
+=======================================================================
+copyright
+=======================================================================
+-c   
+
+mark the encoded file as copyrighted
+
+
+
+=======================================================================
+block type control
+=======================================================================
+-d 
+
+Allows the left and right channels to use different block types.
+Normally this is not allowed, only because the FhG encoder does
+not seem to allow it either.  If anyone finds a sample where -d
+produces better results, let me know.  (mt@sulaco.org)
+
+
+
+=======================================================================
+de-emphasis
+=======================================================================
+-e  n/5/c   
+
+  n = (none, default)
+  5 = 0/15 microseconds
+  c = citt j.17
+
+All this does is set a flag in the bitstream.  If you have a PCM
+input file where one of the above types of (obsolete) emphasis has
+been applied, you can set this flag in LAME.  Then the mp3 decoder
+should de-emphasize the output during playback, although most 
+decoders ignore this flag.
+
+A better solution would be to apply the de-emphasis with a standalone
+utility before encoding, and then encode without -e.  
+
+
+
+=======================================================================
+fast mode
+=======================================================================
+-f   
+
+disable psycho-acoustics.  Encoding much faster but lower quality
+
+
+
+=======================================================================
+graphical frame analyzer
+=======================================================================
+-g
+
+run MP3x, the graphical frame analyzer analysis on the inputfile.  The
+inputfile can be either an .mp3 file or uncompressed audio file.  MP3x
+support must be compiled into LAME, and requires GTK 1.2.
+Documentation is under the About pull down menu.
+
+
+
+=======================================================================
+high quality
+=======================================================================
+-h
+
+use (maybe) some quality improvements
+
+LAME 3.21 and up:  -h enables specialized mid/side masking thresholds to
+be used in jstereo mode.  Will sound better in jstereo mode
+but is 20% slower.  No effect for mono files.
+
+LAME 3.58beta and up: -h also enables a more accurate but slightly
+slower quantization formula.  
+
+
+
+=======================================================================
+sfb=21 cutoff
+=======================================================================
+-k   
+
+keep all frequencies.  (Disable all filters)
+
+Without -k, LAME will automatically apply various types of lowpass
+filters.  This is because the high frequency coefficients can take up
+a lot of bits that would be better used for lower, more important
+frequencies.
+
+
+
+
+=======================================================================
+Modes:
+=======================================================================
+
+-m m           mono.  
+-m s           stereo
+-m j           jstereo
+-m f           forced mid/side stereo
+
+mono is the default mode for mono input files.  If "-m m" is specified
+for a stereo input file, the two channels will be averaged into a mono
+signal.  
+
+jstereo is the default mode for stereo files with fixed bitrates of
+128kbs or less.  At higher fixed bitrates, the default is stereo.
+For VBR encoding, jstereo is the default for VBR_q >4, and stereo
+is the default for VBR_q <=4.  You can override all of these defaults
+by specifing the mode on the command line.  
+
+jstereo means the encoder can use (on a frame by frame bases) either
+regular stereo (just encode left and right channels independently)
+or mid/side stereo.  In mid/side stereo, the mid (L+R) and side (L-R)
+channels are encoded, and more bits are allocated to the mid channel
+than the side channel.  This will effectively increase the bandwidth
+if the signal does not have too much stereo separation.  
+
+Mid/side stereo is basically a trick to increase bandwidth.  At 128kbs,
+it is clearly worth while.  At higher bitrates it is less usefull.  
+
+Using mid/side stereo inappropriately can result in audible
+compression artifacts.  To much switching between mid/side and regular
+stereo can also sound bad.  To determine when to switch to mid/side
+stereo, LAME uses a much more sophisticated algorithm than that
+described in the ISO documentation.
+
+-m f forces all frames to be encoded mid/side stereo.  It 
+should only be used if you are sure every frame of the input file
+has very little stereo seperation.  
+
+
+
+=======================================================================
+MP3 input file
+=======================================================================
+--mp3input
+
+Assume the input file is a MP3 file.  Usefull for downsampling from
+one mp3 to another.  If the filename ends in ".mp3" LAME will assume
+it is an MP3.  For stdin or MP3 files which dont end in .mp3 you need
+to use this switch.
+
+
+=======================================================================
+disable historgram display
+=======================================================================
+--nohist
+
+By default, LAME will display a bitrate histogram while producing
+VBR mp3 files.  This will disable that feature.
+
+
+=======================================================================
+disable short blocks
+=======================================================================
+--noshort
+
+Encode all frames using long blocks.
+
+
+
+=======================================================================
+non-original
+=======================================================================
+-o   
+
+mark the encoded file as a copy
+
+
+=======================================================================
+CRC error protection
+=======================================================================
+-p  
+
+turn on CRC error protection.  
+Yes this really does work correctly in LAME.  However, it takes 
+16 bits per frame that would otherwise be used for encoding.
+
+
+
+=======================================================================
+input file is raw pcm
+=======================================================================
+-r  
+
+Assume the input file is raw pcm.  Sampling rate and mono/stereo/jstereo
+must be specified on the command line.  Without -r, LAME will perform
+several fseek()'s on the input file looking for WAV and AIFF headers.
+
+Not supported if LAME is compiled to use LIBSNDFILE.
+
+
+
+=======================================================================
+output sampling frequency in kHZ
+=======================================================================
+--resample  n
+
+where n = 16, 22.05, 24, 32, 44.1, 48
+
+Output sampling frequency.  Resample the input if necessary.  
+
+If not specified, LAME may sometimes resample automatically 
+when faced with extreme compression conditions (like encoding
+a 44.1khz input file at 16kbs).  
+
+
+
+=======================================================================
+sampling frequency in kHZ
+=======================================================================
+-s  n
+
+where n = sampling rate in kHz.
+
+Required for raw PCM input files.  Otherwise it will be determined
+from the header information in the input file.
+
+LAME will automatically resample the input file to one of the
+supported MP3 samplerates if necessary.
+
+
+=======================================================================
+silent operation
+=======================================================================
+-S
+
+don't print progress report
+
+
+
+=======================================================================
+disable Xing VBR tag
+=======================================================================
+-t              
+
+Disable writing of the Xing VBR Tag (only valid if -v flag is
+specified) This tag in embedded in frame 0 of the MP3 file.  It lets
+VBR aware players correctly seek and compute playing times of VBR
+files.
+
+
+
+=======================================================================
+variable bit rate  (VBR)
+=======================================================================
+-v
+
+Turn on VBR.  There are several ways you can use VBR.  I personally
+like using VBR to get files slightly bigger than 128kbs files, where
+the extra bits are used for the occasional difficult-to-encode frame.
+For this, try specifying a minimum bitrate to use with VBR:
+
+lame -v -b 112  input.wav output.mp3
+
+If the file is too big, use -V n, where n=0..9
+
+lame -v -V n   -b 112  input.wav output.mp3
+
+
+If you wan to use VBR to get the maximum compression possible,
+and for this, you can try:  
+
+lame -v  input.wav output.mp3
+lame -v -V n input.wav output.mp3         (to very quality/filesize)
+
+
+
+
+=======================================================================
+VBR quality setting
+=======================================================================
+-V n       
+
+n=0..9.  Specifies the value of VBR_q.  default=4.  0=highest quality.
+
+
+
+How is VBR_q used?
+
+OVER = number of scalefactor bands with distortion that exceeds the
+allowed distortion given by the masking thresholds.  OVER is computed
+by outer_loop, and the masking thresholds are computed by the
+psycho-acoustic model. 
+
+VBR_q = the minimum value of OVER which is to be allowed.
+LAME will choose the smallest bitrate for which OVER <= VBR_q.  
+(a minimum allowed bitrate can be set with -b.  default=64kbs)
+
+If the frame contains short blocks, then the minimum bitrate is made
+much larger since the OVER does not adequately measure distortion
+caused by pre-echo.  LAME uses bitrates of at least 160kbs for short
+blocks to make sure they sound good.
+
+*NOTE* No psy-model is perfect, so there can often be distortion which
+is audible even though the psy-model claims it is not!  Thus using a
+small minimum bitrate can result in some aggressive compression and
+audible distortion even with -V 0.  Thus using -V 0 does not sound
+better than a fixed 256kbs encoding.  For example: suppose in the 1kHz
+frequency band the psy-model claims 20db of distortion will not be
+detectable by the human ear, so LAME VBR-0 will compress that
+frequency band as much as possible and introduce at most 20db of
+distortion.  Using a fixed 256kbit framesize, LAME could end up
+introducing only 2db of distortion.  If the psy-model was correct,
+they will both sound the same.  If the psy-model was wrong, the VBR-0
+result can sound worse.
+
+
+=======================================================================
+voice encoding mode
+=======================================================================
+--voice
+
+An experimental voice encoding mode.  Tuned for 44.1kHz input files.
+
+
+=======================================================================
+swapbytes   
+=======================================================================
+-x
+
+swap bytes in the input file.  for sorting out little endian/big endian
+type problems.  If your encodings sound like static, try this first.
+
+

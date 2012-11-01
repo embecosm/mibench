@@ -1,0 +1,581 @@
+$set 1
+1 word is too long
+2 assert failed in %s
+3 assert failed in %s %s
+4 %s - debug flags not implemented
+6 unable to initialize locale
+7 usage: -o <filename>
+8 usage: -c <filename>
+9 usage: -e <filename>
+10 usage: -EPS
+11 usage: -D <directoryname>
+12 usage: -C <directoryname>
+13 usage: -F <directoryname>
+14 usage: -H <directoryname>
+15 usage: -I <directoryname>
+16 usage: -i <filename>
+17 two -h options illegal
+18 usage: -h <filename>
+19 usage: lout -%c<length><length>
+20 lout -%c: units must be c, i, p, or m
+21 lout -%c: units must be c, i, p, or m
+23 standard input specified twice
+24 error in command-line option %s
+25 error in command-line option %s
+26 unknown command line flag %s
+27 cannot open output file %s
+28 -o: output file name %s ends with %s
+29 total of all words printed: %d
+30 unable to initialize collation
+31 cannot set binary mode on stdout
+$set 2
+1 too many open files when opening include file %s; open files are:
+2 too many open files when opening database file %s; open files are:
+3 run out of memory when opening file %s
+4 illegal macro invocation in database
+5 line is too long (or final newline missing)
+6 character %c outside quoted string
+7 cannot open file %s
+8 recursion in macro
+9 %s expected (after %s)
+10 name of include file expected here
+11 unterminated string
+12 unterminated string
+13 skipping null character in string
+14 LexGetToken: error in quoted string
+15 line is too long (or final newline missing)
+16 filter parameter in macro
+17 end of file reached while reading filter parameter
+18 expected %s here (after %s)
+19 expected file name here
+20 cannot open include file %s
+21 line is too long (or final newline missing)
+22 end of file reached while reading %s
+23   %s
+24 exiting now
+$set 3
+1 run out of memory when enlarging file table
+2 too many files (maximum is %d)
+3 database file %s where source file expected
+4 database index file %s where source file expected
+5 file name %s%s is too long
+6 file name %s%s is too long
+7 DatabaseFileNum: filter file position unknown
+8 DatabaseFileNum: unexpected file type
+9 file position %s... is too long to print
+10 file position %s... is too long to print
+11 filter
+12 file
+13 from
+14 line
+15 file path name %s%s%s is too long
+16 files %s and %s both exist
+17 safe execution prohibiting command: %s
+18 DatabaseFileNum: database file position unknown
+$set 5
+1 expected font family name here
+2 expected font face name here
+3 expected opening %s of fontdef here
+4 expected opening %s of langdef here
+5 left brace expected here in %s declaration
+6 name of %s file expected here
+7 unknown or misspelt symbol %s
+8 symbol name or %s expected here (%s declaration)
+9 symbol names missing in %s declaration
+10 name of %s file expected here
+11 symbol %s unknown or misspelt
+12 symbol %s not allowed in macro
+13 unexpected end of input
+14 %s not expected here
+15 unmatched %s in macro
+16 unmatched %s in macro
+17 symbol %s unknown or misspelt
+18 symbol name expected after %s
+19 %s %s does not match %s %s
+20 unmatched %s in macro
+21 %s must follow named parameter %s
+22 right parameter of %s must begin with %s
+23 ReadTokenList: %s
+24 %s ignored (name is missing)
+25 %s ignored (opening %s is missing)
+26 import name expected here
+27 import %s not in scope
+28 %s symbol name expected here
+29 extend symbol %s not in scope
+30 keyword %s or %s expected here
+31 keyword %s expected here
+32 ignoring export list of macro
+33 symbol name expected here
+34 %s expected here
+35 %s expected here
+36 %s expected here
+37 precedence is too low (%d substituted)
+38 precedence is too high (%d substituted)
+39 associativity altered to %s
+40 cannot find %s parameter name
+41 cannot find %s parameter name
+42 opening left brace or @Begin of %s expected
+43 exported symbol %s is not defined in %s
+44 body parameter %s may not be exported
+45 symbol %s exported twice
+46 named parameter import %s has parameters
+47 %s suffix should be omitted in %s clause
+48 %s has %s clause, so cannot be extended
+$set 6
+1 expression is too deeply nested
+2 expression is too deeply nested
+3 left parameter of %s is not a symbol (or not visible)
+4 unmatched %s (inserted %s)
+5 unmatched %s; inserted %s at%s (after %s)
+6 unmatched %s not enclosed in anything
+7 %s %s appended at end of file to match %s at%s
+8 %s replaced by %s %s to match %s at%s
+9 %s %s replaced by %s %s to match %s at%s
+10 cross reference database file name %s is too long
+11 syntax error in cross reference database
+12 error in cross reference database
+13 error in cross reference database
+14 exiting now
+15 %s expected after %s
+16 %s or %s tag not allowed here
+17 invalid parameter of %s
+18 symbol %s occurs in two %s clauses
+19 invalid parameter of %s
+20 symbol %s unknown or misspelt
+21 too many errors (%s lines missing or out of order?)
+22 unexpected end of input
+23 %s replaced by %s
+24 unknown or misspelt symbol %s after %s deleted
+25 symbol expected after %s
+26 %s symbol out of place
+27 symbol expected following %s
+28 %s clause(s) changed from previous run
+29 symbol expected following %s
+30 %s must follow named parameter %s
+31 named parameter %s of %s appears twice
+32 %s out of place here (%s has no right parameter)
+33 right parameter of %s must be enclosed in braces
+34 body parameter of %s must be enclosed in braces
+35 invalid left parameter of %s
+36 right parameter of %s must be enclosed in braces
+37 error in cross reference database
+38 compulsory option %s missing from %s
+39 exiting now
+40 right parameter of %s or %s must be enclosed in braces
+$set 7
+1 %s: maximum paragraph length (%d) exceeded
+1 %s: maximum paragraph length (%d) exceeded
+$set 8
+1 word is too long
+2 word is too long
+3 replacing invalid scale factor by 1.0
+4 replacing invalid scale factor %s by 1.0
+5 replacing undersized scale factor %s by 1.0
+6 replacing oversized scale factor %s by 1.0
+7 %s deleted (right parameter is malformed)
+8 %s expected here
+9 error in left parameter of %s
+10 error in left parameter of %s
+11 replacing unknown %s option %s by %s
+12 %s deleted (choice %s unknown)
+13 left parameter of %s is not a cross reference
+14 left parameter of %s must be a symbol
+15 symbol %s not allowed here (it has no %s)
+16 %s, %s or %s expected in left parameter of %s
+17 right parameter of %s must be a simple word
+18 symbol %s used outside %s
+19 filter parameter of %s symbol is not simple
+20 maximum depth of symbol expansion (%d) reached
+21 the symbols currently being expanded are:
+22 at %d: %d %s %s
+23 exiting now
+24 word %s%s is too long
+25 missing %s symbol or option
+26 replacing invalid left parameter of %s by 2i
+27 replacing invalid left parameter of %s by +0i
+28 replacing invalid left parameter of %s by 0d
+29 %s not expected here
+30 %s dropped (parameter is not a simple word)
+31 %s dropped (no current font at this point)
+32 %s dropped (character %s unknown in font %s)
+33 no current language at this point, using %s
+34 object dropped by %s: no suitable insert point
+35 invalid left parameter of %s
+36 invalid left parameter of %s
+37 %s deleted (invalid right parameter)
+38 no current font at this point, using %s
+39 %s ignored: no choices in right parameter
+40 maximum depth of symbol expansion (%d) reached
+41 this %s is not a sequence of one or more words
+$set 9
+1 symbol with import list misused
+2 no value for parameter %s of symbol %s:
+$set 10
+1 run out of memory enlarging crossref table
+2 automatically generated tag %s&%d is too long
+3 automatically generated tag %s.%s.%d is too long
+4 value of right parameter of %s is not a simple word
+5 value of right parameter of %s is an empty word
+6 symbol %s used in cross reference has no %s parameter
+7 automatically generated tag %s_%d is too long
+8 symbol %s used in cross reference has no %s parameter
+9 unresolved cross reference %s%s%s
+10 %s parameter is not a word
+11 %s parameter is an empty word
+12 no %s precedes this %s%s%s
+13 no %s precedes this %s%s%s
+14 tag of %s is not a simple word
+15 tag of %s is not a simple word
+16 no %s follows this %s%s%s
+17 and more undefined %s%s%s
+18 no %s follows or precedes this %s%s%s
+19 no %s follows this %s%s%s
+20 and more undefined %s%s%s
+21 no %s precedes or follows this %s%s%s
+$set 11
+1 unknown option to %s symbol (%s)
+2 spacing %s is not compatible with current spacing
+3 invalid left parameter of %s
+4 invalid left parameter of %s
+5 unknown option to %s symbol (%s)
+6 line spacing %s is not compatible with current spacing
+7 invalid left parameter of %s
+8 invalid left parameter of %s
+9 this unit not allowed with %s symbol
+10 this unit not allowed with %s symbol
+$set 12
+1 forced to enlarge %s from %s to %s
+2 word %s%s is too long
+3 ^ deleted (it may not precede this object)
+4 gap replaced by 0i (%c unit not allowed here)
+5 %s deleted (cannot open file %s)
+6 %s given zero size (no BoundingBox line in file %s)
+7 %s deleted (bad first line in file %s)
+8 %s given zero size (bad BoundingBox line in file %s)
+9 mark alignment incompatible with centring or right justification
+10 %s deleted (not in column)
+11 %s symbol out of place
+12 %s deleted (not in row)
+13 search for gap preceding %s failed, using zero
+14 %s deleted (out of place)
+15 %s replaced by empty object (out of place)
+$set 13
+1 failed to break column to fit into its available space
+2 reducing column gaps to 0i (object is too wide)
+3 %s object scaled horizontally by factor %.2f (too wide)
+4 %s deleted (too wide; cannot break %s)
+5 word %s scaled horizontally by factor %.2f (too wide)
+6 word %s deleted (too wide)
+7 %s scaled horizontally by factor %.2f (too wide)
+8 %s deleted (too wide)
+9 column mark of unbroken paragraph moved left
+10 column mark of paragraph moved left before breaking
+11 replacing with empty object: negative size constraint %s,%s,%s
+$set 14
+6 paragraph deleted (assigned width %s is too narrow)
+7 hyphen or nohyphen option missing
+$set 16
+2 size constraint %s,%s,%s broken by %s,%s
+3 %s of size %s,%s broken by %s,%s
+4 size adjustment of %s not implemented
+4 size adjustment of %s not implemented
+4 size adjustment of %s not implemented
+5 cannot recover from earlier errors
+$set 17
+1 gap is not a simple word
+2 width missing from %s
+3 %s, %s and %s must be enclosed in double quotes
+4 units letter missing from %s
+5 %.1fr too large (1.0r substituted)
+7 unknown gap mode in %s
+8 invalid width or gap %s
+9 replacing self-contradictory gap %s by breakable version
+10 cannot continue after previous error(s)
+$set 18
+1 cannot attach galley %s
+2 galley nested too deeply (max is %d)
+3 galley %s deleted (insufficient width at target)
+4 right parameter of %s is vertically constrained
+$set 19
+1 galley %s deleted from here (no target)
+2 receptive symbol %s has unconstrained width
+3 too little horizontal space for galley %s at %s
+4 %s object too high for %s space; %s inserted
+5 %s object too wide for %s space; %s inserted
+6 %s object too high for %s space; %s inserted
+7 %s object too wide for %s space; %s inserted
+8 %s object too high for %s space; %s inserted
+9 %s object too wide for %s space; %s inserted
+10 %s object too high for %s space; %s inserted
+11 %s object too wide for %s space; %s inserted
+$set 20
+1 error in database file %s
+2 error in database file %s
+3 component too wide for available space
+$set 21
+1 galley %s must have just one column mark
+2 %s with unspecified scale factor in horizontal galley
+3 replacing infinite scale factor (unconstrained width) by 1.0
+4 replacing infinite scale factor (zero width object) by 1.0
+5 replacing very large scale factor (over 100) by 1.0
+6 object deleted (scale factor is zero)
+7 object deleted (scale factor is smaller than 0.01)
+8 %s replaced by %s (mark not shared)
+9 %s replaced by %s (infinite scale factor)
+10 %s replaced by %s (zero scale factor)
+11 %s replaced by %s (insufficient space)
+12 unexpected absence of %s from the body of %s
+13 %s,%s object too wide for available space
+$set 22
+1 FindSplit: missing galley component
+2 FindSplitInGalley failed
+3 galley %s must have a single column mark
+4 galley %s deleted (never attached)
+5 forcing galley after input point
+6 target of %s is not a cross reference
+7 left parameter of %s is not a symbol
+8 replacing %s%s? by %s%s%s
+9 replacing %s%s%s by %s%s%s
+$set 23
+1 object deleted (it cannot be scaled vertically)
+2 object deleted (it cannot be scaled horizontally)
+3 word %s horizontally scaled by factor %.2f (too wide for %s paragraph)
+4 %s object horizontally scaled by factor %.2f (too wide for %s paragraph)
+5 oversize object has size 0 or less
+6 word %s deleted (too wide for %s paragraph)
+7 %s object deleted (too wide for %s paragraph)
+$set 24
+1 cannot open %s file %s
+2 %s file %s is empty
+3 %s file %s lacks PostScript BeginResource comment
+4 truncating -EPS document at end of first page
+5 rotations, graphics etc. too deeply nested (max is %d)
+6 error in left parameter of %s
+7 error in left parameter of %s
+8 PrintGraphicInclude: cannot include EPSF in a PDF file. File ignored.
+9 ignoring LanguageLevel comment in %s file %s
+10 ignoring Extensions comment in %s file %s
+11 word %s deleted (internal error, off page at %d,%d)
+12 left parameter of %s must be a simple word
+13 left parameter of %s must be a non-empty word
+14 fill %s deleted (internal error, off page at %d,%d)
+$set 26
+1 AppendString abort
+$set 27
+1 unknown debug flag %s
+$set 28
+1 -e argument appears twice in command line
+2 cannot open error file %s
+3 too many levels of error messages
+4   %6s internal error: %s\n
+5   %6s fatal error: %s\n
+6 too many error messages
+7 %s internal error: %s\n
+8 %s fatal error: %s\n
+$set 29
+1   scope[%2d] = %s
+2 scope depth limit exceeded
+3 invalid symbol name %s
+4 %s must be a local definition
+5 a body parameter may not be named %s
+6 the right parameter of a galley may not be called %s
+7 symbol %s previously defined at%s
+8 full name of symbol is too long
+9 full name of symbol is too long
+10 symbol %s has missing %s
+11 symbol %s has erroneous code %c (database out of date?)
+12 symbol name %s previously defined at%s
+13 symbol %s previously defined here
+14 %s must lie within a symbol with a right parameter
+$set 31
+1 exiting now (run out of memory)
+$set 32
+1 word %s is too long
+$set 33
+1 run out of memory enlarging dbcheck table
+2 database file name %s%s is too long
+3 cannot write to database file %s
+4 cross reference %s&&%s used previously, at%s
+5 cross reference %s&&%s used previously
+6 syntax error in database file %s
+7 %s found in database but not declared in %s line
+8 database symbol %s has no tag
+9 database symbol tag is not a simple word
+10 database symbol tag is an empty word
+11 %s or end of file expected here
+12 cannot open database file %s
+13 undefined symbol in database file %s (line %d)
+$set 35
+1 unable to obtain the current time
+$set 36
+1 in hyphenation file %s, unknown escape sequence (line %d)
+2 in hyphenation file %s, line %d: character (octal %o) is not in any class
+3 DoTriePrint: findrep failed
+4 run out of memory while constructing hyphenation table
+5 hyphenation trie node limit exceeded
+6 hyphenation class of %c may not be changed
+7 hyphenation string %s already inserted
+8 cannot open hyphenation file %s
+9 header line of hyphenation file %s missing
+10 Classes heading of hyphenation file %s missing
+11 hyphenation file %s%s is too large (at line %d)
+12 hyphenation file %s%s is too large (at line %d)
+13 format error in hyphenation file %s
+14 cannot write to hyphenation file %s
+15 cannot open hyphenation file %s
+16 run out of memory while reading hyphenation table
+17 error on read from packed hyphenation file %s
+18 bad magic number in hyphenation file %s
+19 no current language for word %s
+20 bad LengthLimit in hyphenation file %s%s (line %d)
+$set 37
+1 font definition does not contain a sequence of words
+2 font definition contains a non-word
+3 font definition does not contain exactly four words
+4 font %s %s already defined at%s
+5 expecting either Recode or NoRecode here
+6 too many different fonts and sizes (maximum is %d)
+7 run out of memory when increasing font table size
+8 cannot open font file %s
+9 font file %s does not begin with StartFontMetrics
+10 run out of memory while reading font file %s
+11 run out of memory while reading font file %s
+12 run out of memory while reading font file %s
+13 UnderlinePosition found twice in font file (line %d)
+14 UnderlineThickness found twice in font file (line %d)
+15 XHeight found twice in font file (line %d)
+16 FontName found twice in font file %s (line %d)
+17 FontName empty in font file %s (line %d)
+18 FontName in font file (%s) and fontdef (%s) disagree
+19 FontName missing in file %s
+20 ignoring unencoded ligature character %s in font file %s (line %d)
+21 too many ligature characters in font file %s (line %d)
+22 WX missing in font file %s (line %d)
+23 B missing in font file %s (line %d)
+24 syntax error on StartKernPairs line in font file %s (line %d)
+25 syntax error in font file %s (line %d): %s
+26 unencoded kern character %s in font file %s (line %d)
+27 unencoded kern character %s in font file %s (line %d)
+28 non-contiguous kerning pair %s %s in font file %s (line %d)
+29 too many kerning pairs in font file %s (line %d)
+30 kerning pair %s %s appears twice in font file %s (line %d)
+31 font %s %s has no glyph for character %s
+32 EndFontMetrics missing from font file %s
+33 error in left parameter of %s
+34 error in left parameter of %s
+35 error in left parameter of %s
+36 initial font must have family, face and size
+37 font family %s not defined
+38 there are no fonts
+39 font family name %s must be accompanied by a face name
+40 font face name %s not defined in font family %s
+41 no current font on which to base size change %s
+42 FontChange: %d
+43 %s %s ignored (result is not positive)
+44 too many different fonts and sizes (max is %d)
+45 run out of memory when increasing font table size
+46 run out of memory when changing font or font size
+47 run out of memory when changing font or font size
+48 no current font at word %s
+49 no current colour at word %s
+50 no current language at word %s
+51 accent dropped from character %s (it has no glyph in font %s)
+52 character %s replaced by space (it has no glyph in font %s)
+53 no current font at this point
+54 no current font at this point
+55 family and face names %s %s are too long
+56 syntax error in font size %s; ignoring it
+$set 38
+1 too many character mappings
+2 run out of memory when loading character mapping
+3 cannot open character mapping file %s
+4 character code(s) missing in mapping file (line %d)
+5 decimal and octal codes disagree in mapping file (line %d)
+6 code %d too small (min is 1) in mapping file (line %d)
+7 code %d out of order in mapping file (line %d)
+8 code %d repeated in mapping file (line %d)
+9 code %d too large (max is %d) in mapping file (line %d)
+10 unknown mapping name %s in mapping file %s (line %d)
+11 unknown character %s in mapping file %s (line %d)
+$set 40
+1 cannot open temporary filter file %s
+2 safe execution prohibiting command: %s
+3 %s
+4 failure (non-zero status) of filter: %s
+5 cannot read filter temporary file %s
+$set 41
+1 database index file seems to be out of date
+2 syntax error in database file
+3 file name %s%s is too long
+4 cannot append to database file %s
+5 rename(%s, %s) failed
+$set 42
+1 ran out of memory when enlarging colour table
+2 too many colours (maximum is %d)
+3 %s ignored (illegal left parameter)
+4 %s ignored (empty left parameter)
+$set 43
+1 run out of memory enlarging language table
+2 language name %s used twice (first at%s)
+3 hyphenation file name expected here
+4 expected word ending pattern here
+5 empty word ending pattern
+6 %s ignored (illegal left parameter)
+7 %s ignored (unknown language %s)
+$set 44
+1 %s may not have a left or named parameter
+2 %s may not have a body parameter
+3 %s must have a right parameter
+$set 45
+1 run out of memory when reading index file %s
+2 run out of memory when reading index file %s
+3 line too long when reading index file %s
+4 run out of memory when reading index file %s
+5 cannot open index file %s for reading
+6 cannot open index file %s for writing
+$set 46
+1 unable to evaluate %s parameter, assuming value is No
+2 value of %s operator is neither Yes nor No, assuming No
+$set 47
+28 PDFPage_ProcessDocInfoKeyword: no memory for __subject=
+$set 48
+1 PDFObject_New: run out of memory
+2 PDFFile_BeginFontEncoding: run out of memory
+3 PDFFile_BeginFontEncoding: out of memory
+4 PDFFont_NewListEntry: run out of memory
+5 PDFFont_NewListEntry: run out of memory
+6 PDFFont_NewListEntry: run out of memory
+7 PDFFont_NewListEntry: run out of memory
+8 PDFFont_WriteFontResource: a font has no encoding
+9 PDFPage_FlushCompressedBuffer: zlib error occurred
+10 PDFPage_FlushCompressedBuffer: zlib error occurred
+11 PDFPage_FlushRawBuffer: zlib error occurred
+12 PDFPage_FlushRawBuffer: write error occurred
+13 PDFPage_Begin: zlib error occurred
+14 PDFPage_Push: run out of memory
+15 PDFPage_Push: run out of memory
+16 PDFTargetAnnot_New: run out of memory
+17 PDFTargetAnnot_New: run out of memory
+18 PDFSourceAnnot_Write: invalid link dest option
+19 PDFSourceAnnot_New: run out of memory
+20 PDFSourceAnnot_New: run out of memory
+21 PDFPage_GetFloat: unable to evaluate number for Lout graphic keyword processing
+22 PDFPage_ProcessLinkKeyword: empty link-name / URI; ignored.
+24 PDFPage_ProcessLinkKeyword: empty file spec
+25 PDFPage_ProcessLinkKeyword: out of memory
+26 PDFPage_ProcessDocInfoKeyword: no memory for __author=
+27 PDFPage_ProcessDocInfoKeyword: no memory for __title=
+29 PDFPage_ProcessDocInfoKeyword: no memory for __keywords=
+30 PDFPage_EvalExpr: '(' expected
+31 PDFPage_EvalExpr: ',' expected
+32 PDFPage_EvalExpr: ')' expected
+33 PDFPage_EvalExpr: __add, __sub, __mul, __div, or a unit keyword was expected
+34 PDFPage_CollectExpr: expression too long (max. 512 chars)
+35 PDFPage_CollectLink: link too long (max. 512 chars)
+36 PDFPage_WriteGraphic: '(' expected
+37 PDFPage_WriteGraphic: '__' encountered while processing @Graphic
+38 PDFPage_Cleanup: run out of memory
+39 %s
+40 %s
+41 The largest page object is %u bytes long.
+42 cannot find font entry for name %s

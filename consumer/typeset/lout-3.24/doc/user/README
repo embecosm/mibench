@@ -1,0 +1,51 @@
+Directory lout/doc/user
+
+This directory contains the Lout source files for the User's Guide
+to the Lout Document Formatting System.  To produce the Guide,
+type the command
+
+	lout all > op
+
+in this directory.  Owing to some unfortunate page breaks in the
+early runs, this must be done six times to completely resolve
+all cross references, although the PostScript file op is printable
+after the first run.  Auxiliary files with .li and .ld suffixes
+will be created in this directory.
+
+The first run will produce a large number of error messages,
+nearly all beginning with "unresolved cross reference".  These
+should gradually go away on later runs.  The following shows the
+error message output on the later runs for A4 size printing:
+
+lout file "str_indx" (from "str" line 15, from "all" line 37):
+    43,1: 0.3c object too high for -0.0c space; will try elsewhere
+lout file "typ_repo" (from "typ" line 19, from "all" line 38):
+    38,1: 1.0c object too high for 0.2c space; will try elsewhere
+lout file "dia_synt" (from "dia" line 49, from "all" line 44):
+    79,1: 1.0c object too high for 0.8c space; will try elsewhere
+lout file "prg_tabs" (from "prg" line 102, from "all" line 46):
+   58,23: prg2lout 2,1: program text ended within comment
+   60,35: prg2lout 2,1: program text ended within comment
+
+The first three warnings are about footnotes whose first lines did not
+fit on the bottom of the current page, so had to begin on the following
+page.  The last two warnings point to two places where a C program text
+ended inside a comment, which in these cases was deliberate.  If you set
+the document in Letter size paper, you will also get different warning
+messages pointing to places where Lout had to slightly scale a display
+to fit the smaller page:
+
+lout file "gra_summ" (from "gra" line 44, from "all" line 45):
+     8,1: 23.6c object too high for 21.8c space; @Scale inserted
+lout file "ap_qck" (from "all" line 48):
+  158,25: 22.4c object too high for 21.9c space; @Scale inserted
+
+Optimal page breaking has been turned off for this document owing to
+repeated failure to converge, caused by footnotes and floating figures
+close to large unbreakable displays.
+
+A copy of the final PostScript output file (A4 paper size) is
+stored at "ftp://ftp.cs.su.oz.au/jeff/lout/lout-3.24.user.ps.gz".
+
+Jeffrey H. Kingston
+8 October 2000

@@ -1,0 +1,178 @@
+@Section
+  @Title { Objects }
+  @Tag { objects }
+@Begin
+@PP
+Since our aim is to produce neatly formatted documents, we should begin by
+looking at a typical example of such a document:
+@ID {
+nohyphen @Break @LittleDocument
+//
+@LittleText {
+@DP
+|0.5rt {@B PURCELL}{ 0.8f @Font 1 ^//0.2v}
+@LittleFootNote
+{ { 0.8f @Font 1 ^//0.2v}Blom, Eric.  @I {Some Great Composers.}  Oxford, 1944.
+}
+@DP
+In the world of music England is supposed to be a mere province.  If she
+produces an indifferent composer or performer, that is regarded
+elsewhere as perfectly normal and natural; but if foreign students of
+musical history have to acknowledge a British musical genius, he is
+considered a freak.
+@PP
+Such a freak is Henry Purcell.  Yet if we make a choice of fifteen of
+the world's musical classics, as here, we find that we cannot omit this
+English master.
+}
+//
+@LittleEndRun
+}
+It is a large rectangle made from three smaller rectangles -- its
+pages.  Each page is made of lines; each line is made of words,
+although it makes sense for any rectangle (even a complete document) to
+be part of a line, provided it is not too large.
+@PP
+Lout deals with something a little more complicated than rectangles:
+@I objects.  An object
+objec @Index { Object }
+is a rectangle with at least one @I {column mark}
+column.mark @Index { Column mark }
+mark.alignment @Index { Mark alignment }
+alignment @RawIndex { Alignment @I see mark alignment }
+protruding above and below it, and at least one @I {row mark}
+row.mark @Index { Row mark }
+protruding to the left and right.  The simplest objects contain words like
+metempsychosis, and have one mark of each type:
+@ID {
+@ShowMarks metempsychosis
+}
+The rectangle exactly encloses the word; its column mark is at the left
+edge, and its row mark passes through the middle of the lower-case
+letters.  The rectangle and marks do not appear on the printed page, but
+to understand what Lout is doing you have to imagine them.
+@PP
+To place two objects side by side, we separate them by the
+symbol @Code "|", which denotes the act of @I {horizontal
+concatenation}.  So, if we write
+@ID {
+@Code "USA  |  Australia"
+}
+the result will be the object
+@ID {
+@ShowMarks USA | @ShowMarks Australia
+}
+Notice that this object has two column marks, but still only one row mark,
+because @Code "|" merges the two row marks
+together.  This merging of row marks fixes the vertical
+position of each object with respect to the other, but it does not
+determine how far apart they are.  This distance, or {@I gap},
+may be given just after the symbol, as in @Code "|0.5i" for example,
+which specifies horizontal concatenation with a gap of half an inch.  If
+no gap is given, it is assumed to be {@Code "0i"}.
+@PP
+@I {Vertical concatenation} & , denoted by {@Code "/"},
+is the same apart from the change of direction:
+@ID {
+@Code "Australia  /0.1i  USA"
+}
+has result
+@ID {
+@ShowMarks Australia /0.1i
+@ShowMarks USA
+}
+The usual merging of marks occurs, and now the gap determines the
+vertical separation.  Horizontal and vertical can be combined:
+@ID  @Code {
+             |1m  USA         |1m  "|0.2i" |1m   Australia
+/1vx "/0.1i" |    Washington  |    "|"     |     Canberra
+}
+has result
+@ID {
+  @BackEnd @Case {
+    PostScript @Yield {
+      @ShowMarks USA &
+      { 0 ymark moveto xsize 10 pt add ymark lineto [ 3 pt ] 0 setdash stroke }
+      @Graphic {1c @Wide }
+      |0.2i @ShowMarks Australia
+/0.1i @ShowMarks Washington  |     @ShowMarks Canberra
+    }
+    PDF @Yield {
+      @ShowMarks USA &
+      { [ __mul(3, __pt) ] 0 d 0 __ymark m __add(__xsize, __mul(10, __pt)) __ymark l S }
+      @Graphic {1c @Wide }
+      |0.2i @ShowMarks Australia
+/0.1i @ShowMarks Washington  |     @ShowMarks Canberra
+    }
+  }
+}
+tables @Index { Tables }
+There are several things to note carefully here.  White space (including
+tabs and newlines) adjacent to a concatenation symbol is ignored, so
+it may be used to lay out the expression clearly.  The symbol
+@Code "|" takes precedence over {@Code "/"}, which means that the rows
+are formed first, then vertically concatenated.  The symbol @Code "/" will
+merge two or more column marks, creating multiple
+columns (and @Code "|" will merge two or more row marks).  This
+implies that the gap @Code "0.2i" used above is between
+columns, not individual items in columns; a gap in the second row
+would therefore be redundant, and so is omitted.
+@PP
+A variant of @Code "/" called @Code "//" left-justifies
+two objects instead of merging their marks.
+@PP
+By enclosing an object in braces, it is possible to override the
+braces @Index { Braces }
+set precedences.  Here is another expression for the table
+above, in which the columns are formed first:
+@ID  @Code {
+             |1m "{ USA"       |1m "/0.1i" |1m "Washington }"
+/1vx "|0.2i" |   "{ Australia" |   "/"     |   "Canberra }"
+}
+Braces have no effect other than to alter the grouping.
+@PP
+@I {Paragraph breaking} occurs when an object is too wide to fit
+paragraph.breaking @Index { Paragraph breaking }
+into the space available to it; by breaking its paragraphs into lines,
+its width is reduced to an acceptable amount.  The available
+space is determined by the @@Wide symbol, whose form is
+@ID  {
+@I length  @@Wide  @I object
+}
+and whose result is the given object modified to have exactly the given
+length.  For example,
+@ID @OneRow @Code {
+"5i @Wide {"
+"Macbeth was very ambitious.  This led him to wish to become king of"
+"Scotland.  The witches told him that this wish of his would come true.  The"
+"king of Scotland at this time was Duncan.  Encouraged by his wife, Macbeth"
+"murdered Duncan.  He was thus enabled to succeed Duncan as king.  (51 words)"
+"|0.5i"
+"Encouraged by his wife, Macbeth achieved his ambition and realized the"
+"prediction of the witches by murdering Duncan and becoming king of Scotland"
+"in his place.  (26 words)"
+"}"
+}
+has for its result the following five inch wide object
+@Cite { $strunk1979style }:
+@ID {
+5i @Wide {
+Macbeth was very ambitious.  This led him to wish to become king of
+Scotland.  The witches told him that this wish of his would come true.  The
+king of Scotland at this time was Duncan.  Encouraged by his wife, Macbeth
+murdered Duncan.  He was thus enabled to succeed Duncan as king.  (51 words)
+|0.5i
+Encouraged by his wife, Macbeth achieved his ambition and realized the
+prediction of the witches by murdering Duncan and becoming king of Scotland
+in his place.  (26 words)
+}
+}
+A paragraph of text can be included anywhere, and it will be broken
+automatically if necessary to fit the available space.  The spaces
+between words are converted into concatenation symbols.
+@PP
+These are the most significant of Lout's object-building symbols.  There
+are others, for changing fonts, controlling paragraph breaking, printing
+graphical objects like boxes and circles, and so on, but
+they do not add anything new in principle.
+@End @Section

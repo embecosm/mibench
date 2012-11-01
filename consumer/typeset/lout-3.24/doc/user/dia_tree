@@ -1,0 +1,379 @@
+@Section
+    @Tag { dia_tree }
+    @Title { Trees }
+@Begin
+@PP
+@@Diag offers some symbols for producing tree diagrams, using the
+tree. @Index { @Code "@Tree" symbol in @@Diag }
+@Code "@Tree" symbol, which may appear anywhere within the nodes part:
+@ID @OneRow @Code {
+"@Diag {"
+"    ..."
+"    @Tree { ... }"
+"    ..."
+"}"
+}
+Within this symbol, new symbols {@Code "@LeftSub"}, {@Code "@RightSub"},
+{@Code "@FirstSub"}, {@Code "@NextSub"}, and {@Code "@StubSub"} become
+available.  The first two are used to get a (non-empty) binary tree:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"    @Circle A"
+"    @LeftSub {"
+"        @Circle B"
+"        @LeftSub @Square C"
+"        @RightSub @Square D"
+"    }"
+"    @RightSub @Circle E"
+"}"
+}
+||7ct
+@Diag {
+@Tree {
+    @Circle A
+    @LeftSub {
+        @Circle B
+        @LeftSub @Square C
+        @RightSub @Square D
+    }
+    @RightSub @Circle E
+}
+}
+}
+The root of the tree, which must be a single node but may have any
+outline, comes first.  After that comes the @Code "@LeftSub" symbol
+followed by the left subtree, which must be enclosed in braces unless
+it consists of a single node.  After that comes the @Code "@RightSub"
+symbol followed by the right subtree, again enclosed in braces unless it
+consists of a single node.  These rules apply recursively and will
+produce a binary tree of arbitrary size and depth.  If a node has no
+left or right subtree, leave out the corresponding @Code "@LeftSub" or
+@Code "@RightSub" symbol.
+@PP
+A similar system using @Code "@FirstSub" and @Code "@NextSub" produces
+trees in which each node may have arbitrarily many children:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"    @Circle A"
+"    @FirstSub {"
+"        @Circle B"
+"        @FirstSub @Square C"
+"        @NextSub @Square D"
+"    }"
+"    @NextSub @Circle E"
+"    @NextSub @Circle F"
+"}"
+}
+||7ct
+@Diag {
+@Tree {
+    @Circle A
+    @FirstSub {
+        @Circle B
+        @FirstSub @Square C
+        @NextSub @Square D
+    }
+    @NextSub @Circle E
+    @NextSub @Circle F
+}
+}
+}
+The first subtree is preceded by {@Code "@FirstSub"}, and subsequent
+trees are preceded by {@Code "@NextSub"}.  The subtrees are spaced
+at equal separations from each other, with the root centred over
+them, in contrast to the binary tree arrangement in which the two
+subtrees are positioned to the left and right of the root, never
+intruding into the space beneath it.
+@PP
+Although each subtree must contain a node for its root, it is not hard
+to get around this:
+@ID @OneRow {
+@Code {
+"@Tree"
+"{"
+"@Circle"
+"@FirstSub @Circle"
+"@NextSub pathstyle { noline }"
+"    @Circle outlinestyle { noline }"
+"       ..."
+"@NextSub @Circle"
+"}"
+}
+||7ct
+@Diag {
+@Tree
+{
+@Circle
+@FirstSub @Circle
+@NextSub pathstyle { noline }
+    @Circle outlinestyle { noline }
+       ...
+@NextSub @Circle
+}
+}
+}
+Clumsy as this is, it often assists in placing the unenclosed object
+in a way consistent with the surrounding nodes, and offers margins
+and so forth which help with fine-tuning its position.
+@PP
+The fifth subtree symbol, {@Code "@StubSub"}, produces a stub subtree:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"@Circle @Eq { a }"
+"@StubSub @Eq { T tsub a }"
+"}"
+}
+||7ct
+@Diag {
+@Tree {
+@Circle @Eq { a }
+@StubSub @Eq { T tsub a }
+}
+}
+}
+Unlike the other subtree symbols, {@Code "@StubSub"} is not followed
+by a subtree with a node for its root; rather, it is followed by an
+arbitrary object, and the path is drawn around this stub object, which
+is placed directly underneath the parent node with zero vertical
+separation.  In practice, it is usually necessary to attach margins to
+the following object; the easiest way to do that is to enclose it in
+{@Code "@Box outlinestyle { noline }"}.  An example appears below.
+@PP
+It is possible to mix the three subtree types, by having binary tree
+symbols following some nodes, non-binary tree symbols following
+others, and a single {@Code "@StubSub"} following others.  However,
+at any one node the subtrees must be all either binary, non-binary,
+or stub.
+@PP
+The subtree symbols have all of the options of {@Code "@Link"}, and
+these apply to the link drawn from the parent of the root of the subtree
+to the root of the subtree (or anticlockwise around the stub object):
+@ID @OneRow {
+@Code {
+"@Tree {"
+"    @Circle A"
+"    @LeftSub"
+"        arrow { yes }"
+"        xlabel { 1 }"
+"    @Circle B"
+"    @RightSub"
+"        arrow { yes }"
+"        xlabel { 2 }"
+"    @Circle C"
+"}"
+}
+||7ct
+@Diag {
+@Tree {
+    @Circle A
+    @LeftSub
+        arrow { yes }
+        xlabel { 1 }
+    @Circle B
+    @RightSub
+        arrow { yes }
+        xlabel { 2 }
+    @Circle C
+}
+}
+}
+To get reverse arrows use @Code "arrow { back }" as usual.
+@PP
+The subtree symbols do not need @Code from and @Code to options,
+because they already know which nodes they are linking together.  However,
+you may use @Code from or @Code to to give a tag specifying a particular
+point within the node:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"@Circle"
+"@LeftSub from { S } to { N }"
+"    @Isosceles vsize { 2f }"
+"@RightSub from { S } to { N }"
+"    @Isosceles vsize { 2f }"
+"}"
+}
+||7ct
+@Diag
+{
+@Tree {
+@Circle
+@LeftSub from { S } to { N }
+    @Isosceles vsize { 2f }
+@RightSub from { S } to { N }
+    @Isosceles vsize { 2f }
+}
+}
+}
+In this example both links go from the @Code S tag of the parent node to the
+@Code N tag of the child node (at the apex of the iscosceles triangle).  These
+options also work for {@Code "@StubSub"}, where they refer to the start and
+end of the stub path:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"@Circle @Eq { a }"
+"@StubSub"
+"    from { SW }"
+"    to { SE }"
+"@Box outlinestyle { noline }"
+"    @Eq { T tsub a }"
+"}"
+}
+||7ct
+@Diag {
+@Tree {
+@Circle @Eq { a }
+@StubSub
+    from { SW }
+    to { SE }
+@Box outlinestyle { noline }
+    @Eq { T tsub a }
+}
+}
+}
+and so the tags both refer to points in the parent node in this case.
+@PP
+The @Code "@LeftSub" and @Code "@RightSub" symbols have variants called
+@Code "@ZeroWidthLeftSub" and @Code "@ZeroWidthRightSub" which are the
+same except that the resulting subtrees consume no width:
+@ID @OneRow {
+@Code {
+"@Tree {"
+"@Circle"
+"@LeftSub {"
+"    @Circle"
+"    @LeftSub @Square"
+"    @RightSub @Square"
+"}"
+"@RightSub {"
+"    @Circle"
+"    @LeftSub {"
+"        @Circle"
+"        @ZeroWidthLeftSub @Square"
+"        @ZeroWidthRightSub @Square"
+"    }"
+"    @RightSub @Square"
+"} }"
+}
+||7ct
+@Diag {
+@Tree
+{
+@Circle
+@LeftSub {
+    @Circle
+    @LeftSub @Square
+    @RightSub @Square
+}
+@RightSub {
+    @Circle
+    @LeftSub {
+        @Circle
+        @ZeroWidthLeftSub @Square
+        @ZeroWidthRightSub @Square
+    }
+    @RightSub @Square
+}
+}
+}
+}
+There is nothing analogous for the other subtree symbols.
+@PP
+The @Code "@Diag" symbol has a few options for adjusting the appearance
+of the tree.  The @Code "treehsep" option determines the horizontal space left
+between a root and its left subtree, between a root and its right subtree,
+and between one subtree and the next when @Code "@NextSub" is used.  The
+@Code "treevsep" option determines the vertical space left between a root
+and its subtrees:
+@ID @OneRow {
+@Code {
+"@Diag"
+"    treehsep { 0c }"
+"    treevsep { 0c }"
+"{"
+"@Tree"
+"{"
+"    @Circle A"
+"    @LeftSub @Square B"
+"    @RightSub @Square C"
+"}"
+"}"
+}
+||7ct
+@Diag
+    treehsep { 0c }
+    treevsep { 0c }
+{
+@Tree
+{
+    @Circle A
+    @LeftSub @Square B
+    @RightSub @Square C
+}
+}
+}
+These options may also be given to individual subtree symbols, although
+@Code "treevsep" works as expected only with @Code "@LeftSub" and
+{@Code "@FirstSub"}, since these determine the vertical separation of
+all children of their parent.
+@PP
+The @Code "treehindent" option determines where the root of a non-binary
+tree is positioned over its subtrees; the value may be @Code "left"
+for at left, @Code "ctr" for centred over them (the default),
+@Code "right" for at the right, or any length, meaning that far from
+the left.  Owing to problems behind the scenes, this option may not be
+given to individual subtree symbols; so as a consolation, it is permitted
+as an option to the @Code "@Tree" symbol.
+@PP
+It is not possible to attach tags to nodes within a tree, because
+tags are attached automatically by the tree symbols and any extra
+tags would disrupt the linking.  However, you can use @Code "@ShowTags"
+to find out what these automatic tags are, and use them in a subsequent
+links part.  For example, the tag attached to the right child of the left
+child of the root of a binary tree is {@Code "L@R@T"}, and in general the
+tag records the path from the root to the node, with @Code "T" added to
+the end.  The root always has tag {@Code "T"}.  The tree as a whole may
+be retagged in the usual way.
+@PP
+There is an @Code "@HTree" symbol which is the same as
+htree. @Index { @Code "@HTree" symbol in @@Diag }
+@Code "@Tree" except that the tree grows horizontally (from left to
+right) instead of vertically.  The same symbols are available within
+@Code "@HTree" as within {@Code "@Tree"}; @Code "@LeftSub" and
+@Code "@FirstSub" produce what might be called the top subtree, and
+@Code "@RightSub" and @Code "@NextSub" produce lower trees.  @Code "@HTree"
+has no @Code "treehindent" option; instead, it has an exactly analogous
+@Code "treevindent" option.
+@PP
+@Code "@HTree" may be used to get horizontal lists:
+@ID @OneRow {
+@Code {
+"@I @Diag"
+"    arrow { yes } treehsep { 1c } {"
+"@HTree {"
+"    @Node A"
+"    @FirstSub {"
+"        @Node B"
+"        @FirstSub @Node C"
+"    }"
+"}"
+"}"
+}
+||7ct
+@I @Diag arrow { yes } treehsep { 1c } {
+@HTree {
+@Node A
+@FirstSub {
+    @Node B
+    @FirstSub @Node C 
+}
+}
+}
+}
+The braces are clumsy but necessary.  The first node has tag {@Code "T"}, the
+second has tag {@Code "S@T"}, the third has tag {@Code "S@S@T"}, and so on.
+@End @Section

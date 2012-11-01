@@ -1,0 +1,261 @@
+@Section
+    @Tag { dia_link }
+    @Title { Links }
+@Begin
+@PP
+@Code "@Diag" has one basic symbol for creating links, called
+link. @Index { @Code "@Link" symbol from @Code "@Diag" }
+{@Code "@Link"}.  It draws a link between two points or nodes
+given by {@Code from} and {@Code to} options, along a path
+given by a {@Code path} option:
+@ID @Code {
+"@Link"
+"    path { ... }"
+"    from { ... }"
+"    to { ... }"
+}
+Unlike {@Code "@Node"}, {@Code "@Link"} has no following object.
+@PP
+The @Code "path" option may be used to produce a link of any shape, as
+Section {@NumberOf dia_defi} explains.  There are also values
+that produce standard paths.  These are listed in full in the summary
+(Section {@NumberOf dia_summ}); here is a sample:
+@ID @Tab
+    @Fmta { @Col @Code { path "{" A "}" } ! @Col ! @Col B }
+{
+
+@Rowa
+    A { line }
+    B {
+@Diag {
+A:: @Circle //1c ||2c B:: @Circle
+// @Link from { A } to { B } path { line } arrow { yes }
+}
+}
+
+@Rowa
+    A { acurve }
+    B {
+@Diag {
+A:: @Circle //1c ||2c B:: @Circle
+// @Link from { A } to { B } path { acurve } arrow { yes }
+}
+}
+
+@Rowa
+    A { ccurve }
+    B {
+@Diag {
+A:: @Circle //1c ||2c B:: @Circle
+// @Link from { A } to { B } path { ccurve } arrow { yes }
+}
+}
+
+@Rowa
+    A { rvlcurve }
+    B {
+@Diag {
+A:: @Circle //1c ||2c B:: @Circle
+// @Link from { A } to { B } path { rvlcurve } arrow { yes }
+}
+}
+
+}
+The name of the last one is a reminder that it goes right, then vertically,
+then left, with curved corners.  The @Code acurve and @Code ccurve values
+produce circular arcs, anticlockwise and clockwise respectively, lying on
+the circle passing through the endpoints, or through the centres of the
+endpoints when they are tags denoting nodes.  There is also @Code "curve"
+which is an abbreviation for {@Code "acurve"}.  All these standard paths
+are defined in a way that makes sense no matter where the two nodes are
+relative to each other, except that no promise of a sensible result is
+made for two nodes very close together.
+@PP
+@Code "@Link" has two options, @Code bias and {@Code radius}, that may be
+used to fine-tune the path.  The @Code "bias" option determines the
+maximum distance that a curve is permitted to stray:
+@CD @Tab
+    @Fmta { @Col A ! @Col ! @Col B }
+{
+
+@Rowa
+
+    A { @Diag vstrut { no } margin { 0.5c } {
+A:: @Circle //1.5c ||2c B:: @Circle
+//
+LA:: @Line pathstyle { cdashed } from { A } to { B }
+LB:: @Curve from { A } to { B }
+@Line arrow { both } from { LA@LMID } to { LB@LMID }
+    ylabel { @I bias } # ylabeladjust { 0.15c 0 }
+} }
+
+    B { @Diag vstrut { no } margin { 0.5c } {
+A:: @Circle //1.5c ||2c B:: @Circle
+//
+LA:: @RVLCurve from { A } to { B }
+LB:: @Line pathstyle { cdashed } from { B@E } to { B@E ++ {0 2.5c} }
+@Line arrow { both } from { LB@LMID } to { LA@LMID }
+     ylabel { @I bias } ylabeladjust { 0 0.05c }
+} }
+
+}
+The @Code radius option does @I not apply to @Code acurve and
+{@Code ccurve}; rather, it determines the radius of the arcs at
+the corners of @Code rvlcurve and its kin.  A very large radius will be
+reduced to the largest reasonable value, which provides a way to get
+a semicircle at the right in an {@Code rvlcurve}.
+@PP
+Lout has no idea where the path is wandering, and cannot take it into
+account when placing a diagram on the page:
+@ID {
+@Code {
+"@Link"
+"    path { ccurve }"
+"    bias { 2c }"
+}
+||7ct
+@Diag vstrut { no } {
+A:: @Circle &3c B:: @Circle
+//
+@Link path { ccurve } bias { 2c } from { A } to { B }
+}
+}
+In such cases you have to arrange for the extra space yourself, by adding
+an extra paragraph symbol, blank row or column in a table, or whatever.
+@PP
+As with the options of {@Code "@Node"}, the options of {@Code "@Link"}
+may all be given to {@Code "@Diag"} as well, where they apply to every
+link in the diagram, unless overridden in the usual way.  They also appear
+in the setup file, where they apply to every link in every diagram of the
+document, unless overridden.
+@PP
+There are {@Code pathstyle}, {@Code pathdashlength} and {@Code pathwidth}
+options which affect the appearance of the path in the same way as the
+{@Code outlinestyle}, {@Code outlinedashlength} and {@Code outlinewidth}
+options of {@Code "@Node"} affect the outline.  When {@Code pathstyle}
+contains just one value (as opposed to a sequence of values) @Code "@Diag"
+tries to divide the path into fewer segments than it would otherwise, to
+make dashed and dotted paths look as good as possible.  There is also
+a {@Code pathgap} option which affects only @Code doubleline paths; it
+determines the gap between the centres of the two lines.
+@PP
+The @Code "@Link" symbol has an @Code arrow option, which adds an
+arrow. @Index { arrows }
+arrowhead to the end of the link:
+@ID {
+@Code {
+"@Link"
+"    arrow { yes }"
+}
+||7ct
+@Diag {
+1c @High 3c @Wide
+//
+@Link
+    from { 0,0 }
+    to { 1,1 }
+    arrow { yes }
+}
+}
+Its value may be {@Code no} (the default), {@Code yes}, {@Code forward}
+(which is the same as {@Code yes}), {@Code back}, or {@Code both}:
+@ID {
+@Code {
+"@Link"
+"    arrow { both }"
+}
+||7ct
+@Diag {
+1c @High 3c @Wide
+//
+@Link
+    from { 0,0 }
+    to { 1,1 }
+    arrow { both }
+}
+}
+@Code "@Link" has three options for controlling the appearance of
+arrowheads:  {@Code arrowstyle}, {@Code arrowwidth}, and
+{@Code arrowlength}.  Although every link symbol has these options, for
+consistency it is almost always better to set the corresponding options
+to the @Code "@Diag" symbol, which applies them to every arrow in the
+diagram:
+@ID @Code {
+"@Diag"
+"    arrowstyle { solid }"
+"    arrowwidth { 0.3f }"
+"    arrowlength { 0.5f }"
+"{"
+"    ..."
+"}"
+}
+This shows the default values:  a solid arrowhead like the ones above,
+@Code "0.3f" wide (across) and @Code "0.5f" long.  The @Code "arrowwidth"
+and @Code "arrowlength" options may be any length; it may be necessary to
+decrease @Code "arrowwidth" when many arrows enter one node.  The full list
+of possible values for @Code "arrowstyle" is
+@ID @Tab
+    @Fmta { @Col @Code { "arrowstyle {" A "}" } ! @Col B  }
+    vmargin { 1.0vx }
+{
+@Rowa
+    A { solid }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { solid } } }
+@Rowa
+    A { halfopen }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { halfopen } } }
+@Rowa
+    A { open }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { open } } }
+@Rowa
+    A { curvedsolid }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { curvedsolid } } }
+@Rowa
+    A { curvedhalfopen }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { curvedhalfopen } } }
+@Rowa
+    A { curvedopen }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { curvedopen } } }
+@Rowa
+    A { circle }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { circle } } }
+@Rowa
+    A { box }
+    B { @Diag vstrut { no } { A:: @Circle  |2c B:: @Circle 
+	// @Link from { A } to { B } arrow { yes } arrowstyle { box } } }
+}
+The reader is invited to admire the beautifully sharp points on these
+arrowheads.
+@FootNote {
+The outlines of all nodes and arrowheads are drawn on the inside of the
+geometrical curve defining them, not centred over the curve as is common in
+PostScript documents.  Hence, the arrowheads and node outlines intersect at
+a true geometrical point; they do not overlap by one line width.  Furthermore,
+the standard link paths terminate at the base of the arrowhead, not at
+the point; the arrowhead itself is responsible for continuing the link
+path, at the appropriate width (although never dashed or dotted), from its
+base to its point, and hence can and does ensure that the link path does
+not overstrike and thicken the point of the arrow.
+}
+@PP
+It is possible to place an arbitrary object at the beginning or
+end of a link, using the @Code "fromlabel" and @Code "tolabel" options
+of Section {@NumberOf dia_labe}.
+@PP
+To save time in common cases, @Code "@Diag" provides link symbols,
+each of which is just @Code "@Link" with one of the standard paths
+already set:  {@Code "@Line"}, {@Code "@Curve"}, {@Code "@CCurve"},
+{@Code "@RVLCurve"}, and so on.  There are also symbols in which
+the @Code "arrow" option is set to @Code yes in addition:  {@Code "@Arrow"},
+{@Code "@CurveArrow"}, {@Code "@CCurveArrow"}, {@Code "@RVLCurveArrow"},
+and so on.  See the summary (Section {@NumberOf dia_summ}) for the
+full list of these symbols.  You will still need the @Code "arrow" option
+to get backward arrows and double-ended arrows.
+@End @Section

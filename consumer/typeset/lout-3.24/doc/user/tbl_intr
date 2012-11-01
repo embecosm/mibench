@@ -1,0 +1,121 @@
+@Section
+    @Title { Getting started }
+    @Tag { tbl_intr }
+@Begin
+@PP
+The Lout definitions for table formatting
+@FootNote {
+The @Code "tbl" package described here replaces the @Code "tab"
+package of Version 3.12 and earlier.  For backward compatibility
+the @Code "tab" package is still available and still works as
+described in older versions of this documentation.  Users of
+@Code "tab" will find simple uses of @Code "tbl" to be very similar,
+replacing @Code "@Tab" by {@Code "@Tbl"}, @Code "@Fmta" by
+{@Code "aformat"}, @Code "@Col" by {@Code "@Cell"}, and
+@Code "!" by {@Code "|"}.
+}
+are kept in a file called {@Code "tbl"}, which you must include at
+the start of your document if
+tbl.file @Index { @Code "tbl" file }
+you want tables, like this:
+@ID @OneRow @Code {
+"@SysInclude { tbl }"
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+Specialized setup files, like {@Code "tbl"}, are included before the main
+setup file (@Code "doc" in this case).  Alternatively, if you are using
+your own setup file, you may place the include commands within it, near the
+start.
+@PP
+To begin with a very simple example, the table
+tbl. @Index @Code "@Tbl"
+@CD
+@Tbl
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { Austen }
+    B { Chaucer }
+    C { Donne }
+@Rowa
+    A { Balzac }
+    B { Darwin }
+    C { Goethe }
+@Rowa
+    A { Byron }
+    B { Dickens }
+    C { Homer }
+}
+is produced by the following input:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { Austen }
+    B { Chaucer }
+    C { Donne }
+@Rowa
+    A { Balzac }
+    B { Darwin }
+    C { Goethe }
+@Rowa
+    A { Byron }
+    B { Dickens }
+    C { Homer }
+}
+}
+Immediately after the @Code "@Tbl" symbol, which introduces the table,
+comes a @I { format option }, {@Code "aformat"}, describing the format of
+each row.  It says that each row contains three cells:  {@Code "@Cell A"},
+{@Code "@Cell B"}, and {@Code "@Cell C"}.  The format option may have up
+to 26 cells, with names chosen freely from the upper-case letters from
+@Code A to {@Code Z}.  The symbol @Code "|" separates each cell from the next.
+@PP
+After the format option comes the body of the table, enclosed in
+braces.  It consists entirely of a sequence of rows, each introduced by
+a @Code "@Rowa" symbol and containing one entry for each cell of the
+format option, as shown (the row may occupy any number of lines of the
+input file).  The entries may be arbitrary Lout objects, such as words,
+paragraphs, equations, figures, and so on without restriction.  An entry
+may be omitted altogether if it is empty.  Lout will choose suitable widths
+for the cells, and break paragraphs in the entries to the right widths.
+@PP
+The result of the @Code "@Tbl" symbol is an object.  As usual with
+Lout, this object may appear at any point in the document,
+@FootNote {
+In rare cases, when the table occupies an entire paragraph but is not
+displayed, a bug in Basser Lout causes the second column to appear much
+too far to the right.  If this occurs, replace
+the very first row symbol ({@Code "@Row"}, {@Code "@Rowa"}, {@Code "@Rowb"},
+etc.) by {@Code "@FirstRow"}, {@Code "@FirstRowa"}, {@Code "@FirstRowb"},
+etc.  There are also {@Code "@HeaderFirstRow"}, {@Code "@HeaderFirstRowa"},
+{@Code "@HeaderFirstRowb"} etc. symbols for replacing {@Code "@HeaderRow"},
+{@Code "@HeaderRowa"}, {@Code "@HeaderRowb"}, etc., if required.
+# That should work, but if it doesn't, replacing
+# @Code "@Tbl" by @Code "@OneCol @Tbl" certainly will, although it also
+# prevents the table from breaking across page boundaries.
+}
+even within a paragraph or another table.  Most commonly, though, tables
+are displayed using the @Code "@IndentedDisplay" and @Code "@CentredDisplay"
+symbols (Section {@NumberOf displays}):
+@ID @Code "@CentredDisplay @Tbl ..."
+or else they go into the @Code "@Table" symbol (Section {@NumberOf figures}):
+@ID @OneRow @Code {
+"@Table"
+"    @Caption { ... }"
+"@Tbl ..."
+}
+which centres them at the top of the following page and adds a
+caption.  Note the difference between {@Code "@Tbl"}, which builds a
+table, and {@Code "@Table"}, which places an arbitrary object in an
+appropriate place.  It's important to remember that the result
+is an object like any other, because from time to time one wants such
+things as rotated tables whose entire contents are to be italicised:
+@ID @Code "90d @Rotate @I @Tbl ..."
+and it helps to remember that the full power of Lout can be
+brought to bear on the @I entire table.
+@End @Section

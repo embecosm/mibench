@@ -1,0 +1,319 @@
+@Section
+    @Title { Page numbers and running headers }
+    @Tag { headers }
+@Begin
+@PP
+A @I { page header } is a line at the top of a page containing a page
+page.header @Index { page header }
+running.header @Index { running header }
+number or running title.  A @I { page footer } is a similar line at
+page.footer @Index { page footer }
+the bottom of a page.  This section describes the setup file options
+that control the appearance of page headers and footers.
+@PP
+There are four basic styles, selected by the @Code "@PageHeaders" option:
+page.headers @Index @Code "@PageHeaders"
+@ID @Tab
+    @Fmta { @Col @Code { "@PageHeaders {" A "}" } ! @Col B }
+{
+@Rowa
+    A { None }
+    B { No page headers, no page footers. }
+@Rowa
+    A { Simple }
+    B { No footers, and a centred page number between hyphens for
+header on every page whose number is not 0 or 1. }
+@Rowa
+    A { Titles }
+    B { Full running titles as in the present document. }
+@Rowa
+    A { NoTitles }
+    B { Page numbers placed as for @Code { Titles }, but with the
+titles themselves blanked out. }
+}
+@Code Titles and @Code NoTitles use Lout's cross-referencing machinery,
+so will require a few runs to settle down.  @Code None and @Code Simple
+do not, so they work first time and may be used with the @Code "-s"
+command line flag.  Section {@NumberOf cross} has a fuller discussion
+of these ramifications of cross referencing.
+@PP
+The next step is to set the page numbers, using
+the @Code "@PageNumbers" and @Code "@FirstPageNumber" options.  There
+page.numbers @Index @Code "@PageNumbers"
+are two useful values for {@Code "@PageNumbers"}:
+@ID @Tab
+    @Fmta { @Col @Code { "@PageNumbers {" A "}" } ! @Col B }
+{
+@Rowa
+    A { Arabic }
+    B { Arabic page numbers }
+@Rowa
+    A { Roman }
+    B { Lower-case Roman page numbers }
+}
+although the full range of choices is {@Code "None"}, {@Code "Arabic"},
+{@Code "Roman"}, {@Code "UCRoman"}, {@Code "Alpha"}, and
+{@Code "UCAlpha"}.  @Code "@FirstPageNumber" is the number of the
+first.page.number @Index @Code "@FirstPageNumber"
+first page.  Its default value is of course {@Code 1}, although
+@ID @Code "@FirstPageNumber { 0 }"
+might be useful if the first page is really an unnumbered cover
+sheet.  @Code "@FirstPageNumber" must be an Arabic number even if
+@Code "@PageNumbers" is set to something other than {@Code "Arabic"}.
+@PP
+Some document types, such as books and technical reports with cover
+sheets, have a separate introductory
+sequence of pages preceding the main sequence.  For the page numbers on
+introductory pages there are two options, @Code "@IntroPageNumbers"
+intro.page.numbers @Index @Code "@IntroPageNumbers"
+intro.first.page.number @Index @Code "@IntroFirstPageNumber"
+and {@Code "@IntroFirstPageNumber"}, which are exactly analogous to
+@Code "@PageNumbers" and {@Code "@FirstPageNumber"}.  It is traditional
+to number introductory pages using Roman numerals, so @Code Roman is
+the default value of {@Code "@IntroPageNumbers"}.
+@PP
+Let's summarize the five options so far by looking at their values in
+the @Code book setup file, which was used to produce the present document:
+@ID @OneRow @Code {
+"@PageHeaders { Titles }"
+"@PageNumbers { Arabic }"
+"@FirstPageNumber { 1 }"
+"@IntroPageNumbers { Roman }"
+"@IntroFirstPageNumber { 1 }"
+}
+The remainder of this section goes beyond these basic choices to explain
+how to change the detailed appearance of page headers
+and footers.  Inevitably it gets quite a lot harder.
+@PP
+Pages are classified by the page header options in three ways:
+@NumberedList
+@LI { @I { Odd vs. even }.  The first page is odd, the second is even,
+odd.pages @Index { odd and even pages }
+the third is odd, and so on.  If @Code "@FirstPageNumber" is set to
+an even number, the first page will have that number, but it will still
+be classified as odd. }
+@LI { @I { Start vs. non-start }.  A start page is the first page of
+start.pages @Index { start and non-start pages }
+some major part of the document (a chapter, say); other pages are
+non-start.  The @Code { Simple } header type uses a simpler
+definition:  a page whose number is 0 or 1 is a start page, all others
+are non-start. }
+@LI { @I { Intro vs. non-intro }.  Intro pages form a separate sequence of
+intro.pages @Index { intro and non-intro pages }
+pages that precede the main (non-intro) sequence.  They typically contain
+prefatory material such as a title page, preface, and table of contents.
+In a book there will always be an even number of Intro pages, even if
+it means that the last one is empty. }
+@EndList
+These classifications are quite independent of each other:  a page
+could be a non-intro start odd page, or an intro non-start even page,
+and so on.  This makes eight (@Eq { 2 times 2 times 2 }) possibilities
+altogether.  Depending on the type of document there may also be pages
+that Lout will never place a page header or footer on.  For example, no page
+headers or footers will appear on pages containing part titles in books.
+@PP
+If you choose {@Code "@PageHeaders { None }"}, there are no page headers
+or footers, so there is nothing more to say.  If you choose
+{@Code "@PageHeaders { Simple }"}, then eight options become relevant
+for controlling the page headers on each of the eight kinds of
+pages.  Here they are with their default values:
+@ID @OneRow @Code {
+"@OddTop { @Centre { - @PageNum - } }"
+"@EvenTop { @Centre { - @PageNum - } }"
+"@StartOddTop { @Null }"
+"@StartEvenTop { @Null }"
+"@IntroOddTop { @Null }"
+"@IntroEvenTop { @Null }"
+"@IntroStartOddTop { @Null }"
+"@IntroStartEvenTop { @Null }"
+}
+If the word @Code Start is missing from an option name, the option
+applies to non-start pages; if @Code Intro is missing, it applies to
+non-intro pages.  Another eight options control footers in the same way:
+@ID @OneRow @Code {
+"@OddFoot { @Null }"
+"@EvenFoot { @Null }"
+"@StartOddFoot { @Null }"
+"@StartEvenFoot { @Null }"
+"@IntroOddFoot { @Centre @PageNum }"
+"@IntroEvenFoot { @Null }"
+"@IntroStartOddFoot { @Centre @PageNum }"
+"@IntroStartEvenFoot { @Null }"
+}
+The value of the option is an object which becomes the header or
+footer.  It may be any object, but there are some peculiarities that
+will be explained now.
+@PP
+The full set of symbols of the BasicSetup package can be used
+when setting page header options (and indeed any of the options
+of the @Code "@BasicSetup" @Code "@Use" clause package), as well as
+symbols from special-purpose
+packages that have been included before this setup file.  This means
+you can use any symbol you might reasonably expect to.  But footnotes and
+floating figures and tables, for example, are not from BasicSetup so
+cannot be used.
+@PP
+There are five symbols of special relevance to page headers and
+footers:  {@Code "@Null"}, {@Code "@Centre"}, {@Code "@Center"},
+{@Code "@Right"}, and {@Code "@PageNum"}.
+@PP
+The @Code "@Null" symbol is similar to the empty object in printing as
+null. @Index @Code "@Null"
+nothing, but in addition it removes the vertical space that ordinarily
+separates the header line from the page body.  If there is no header
+there should be no vertical space either, so always use @Code "@Null"
+rather than the empty object in header and footer options.
+@PP
+@Code "@Centre" and @Code "@Center" centre the following object, and
+centre. @Index @Code "@Centre"
+center. @Index @Code "@Center"
+right. @Index @Code "@Right"
+@Code "@Right" right-justifies it:
+@ID @Code "at left  @Centre { - 27 - }  @Right { at right }"
+produces
+@QD @HExpand { at left  @Centre { - 27 - }  @Right { at right } }
+The objects should be enclosed in braces if they contain spaces.
+@PP
+The @Code "@PageNum" symbol produces the number of the current page, in
+page.num. @Index @Code "@PageNum"
+Arabic, Roman, etc. as specified by the @Code "@PageNumbers" or
+@Code "@IntroPageNumbers" option.  @Code "@PageNum" is available only
+within page header and footer options.
+@PP
+To get the @I last page into a header, so that you can have page
+headers like `Page 5 of 8', you need @Code "@NumberOf last.page" as
+described in Section {@NumberOf cross}.  You might have
+@ID @Code "@Centre { Page @PageNum of @NumberOf last.page }"
+as the value of @Code "@EvenTop" and the rest.
+@PP
+At this point you might like to pause and verify that the default
+values of the sixteen options given above produce what we said they
+would:  no footers, and a centred page number between hyphens on every
+page whose number is not 0 or 1.  It should be clear now what to do if
+you want to remove the hyphens, move the numbers to the page footer,
+make them bold, have them at the left on even pages and at the right on
+odd pages, and so on.
+@PP
+A different set of sixteen options applies when @Code "@PageHeaders"
+is set to @Code Titles or {@Code "NoTitles"}.  Here are the eight
+options for headers, with their default values:
+@ID @OneRow @Code {
+"@RunningOddTop { @I { @MinorNum @DotSep @MinorTitle }"
+"       @Right @B @PageNum }"
+"@RunningEvenTop { @B @PageNum"
+"       @Right @I { @MajorNum @DotSep @MajorTitle } }"
+"@RunningStartOddTop { @Null }"
+"@RunningStartEvenTop { @Null }"
+"@RunningIntroOddTop { @Null }"
+"@RunningIntroEvenTop { @Null }"
+"@RunningIntroStartOddTop { @Null }"
+"@RunningIntroStartEvenTop { @Null }"
+}
+Some options occupy two lines, but only because they are long:  as
+usual, the end of a line is the same as one space.  Here are the
+options for footers:
+@ID @OneRow @Code {
+"@RunningOddFoot { @Null }"
+"@RunningEvenFoot { @Null }"
+"@RunningStartOddFoot { @Centre { Bold 0.8f } @Font @PageNum }"
+"@RunningStartEvenFoot { @Centre { Bold 0.8f } @Font @PageNum }"
+"@RunningIntroOddFoot { @Right @PageNum  }"
+"@RunningIntroEvenFoot { @PageNum }"
+"@RunningIntroStartOddFoot { @Null }"
+"@RunningIntroStartEvenFoot { @Null }"
+}
+All these options are similar to the earlier ones, in providing one
+option for each of the eight kinds of pages.  The names are the same
+except that @Code Running is added to each.  Remember that a start
+page is now one that begins a major part of the document.
+@PP
+In addition to the symbols described earlier for simple page headers
+and footers, these running header options may contain the symbols
+{@Code "@MajorNum"}, {@Code "@MajorTitle"}, {@Code "@MinorNum"},
+{@Code "@MinorTitle"}, {@Code "@DotSep"}, {@Code "@NoDotSep"},
+{@Code "@DotJoin"}, {@Code "@NoDotJoin"}, {@Code "@DashJoin"},
+and {@Code "@NumSep"} described below.
+major.num @Index @Code "@MajorNum"
+major.title @Index @Code "@MajorTitle"
+minor.num @Index @Code "@MinorNum"
+minor.title @Index @Code "@MinorTitle"
+@PP
+The exact values of {@Code "@MajorNum"}, {@Code "@MajorTitle"},
+{@Code "@MinorNum"}, and {@Code "@MinorTitle"} depend on the document
+type, but they are intended to describe what is on the current page.  Here
+are some values typical of books:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col @Code B }
+    vmargin { 0.5vx }
+{
+@Rowa
+    A { "@MajorNum" }
+    B { Chapter 2 }
+@Rowa
+    A { "@MajorTitle" }
+    B { Adding Structure to Documents }
+@Rowa
+    A { "@MinorNum" }
+    B { 2.7 }
+@Rowa
+    A { "@MinorTitle" }
+    B { Tables of contents }
+}
+It is not possible to change the values assigned to these symbols, but
+the sixteen options allow you to choose whether to use them and how to
+arrange them, in the usual way.
+@PP
+The @Code "@DotSep" symbol consumes the objects to its left and right
+dot.sep @Index @Code "@DotSep"
+and produces them separated by a dot and two spaces:
+@ID @Code "@MinorNum @DotSep @MinorTitle"
+is the same as
+@ID @Code "@MinorNum.  @MinorTitle"
+However, if either object is empty, the dot and two spaces are
+omitted.  It's a fine point, needed mainly for unnumbered chapters
+and sections.  @Code "@DotJoin" is the same as @Code "@DotSep" but
+dot.join @Index @Code "@DotJoin"
+without the two spaces.  @Code "NoDotSep" is the same as
+nodot.sep @Index @Code "@NoDotSep"
+@Code "@DotSep" but leaving out the dot, @Code "@NoDotJoin" is the same
+nodot.join @Index @Code "@NoDotJoin"
+as @Code "@DotJoin" but again leaving out the dot, and @Code "@DashJoin"
+dash.join @Index @Code "@DashJoin"
+is the same as @Code "@DotJoin" except that `--' replaces the dot.
+@PP
+Lout uses @Code "@DotSep" between numbers and titles by default.  To
+get rid of all dots between numbers and titles it is necessary to
+change all occurrences of @Code "@DotSep" in the setup file to
+{@Code "@NoDotSep"}.  There are about ten occurrences, depending
+on the setup file.
+@PP
+@Code "@NumSep" {@PageMark numsep} is similar to @Code "@NoDotSep"
+except that one space
+num.sep @Index @Code "@NumSep"
+hungarian @Index { Hungarian and @Code "@NumSep" }
+is used, not two, and also the order of the two parts is reversed and
+a dot is added if the current language is Hungarian (apparently
+Hungarians write `3. Table' where other people write `Table 3').
+@Code "@NumSep" is used behind the scenes in a variety of places.
+@PP
+The present document was produced using @Code "@PageHeaders { Titles }"
+with the default values of the sixteen options unchanged, as you might
+like to verify.  @Code "@PageHeaders { NoTitles }" is identical to
+@Code "@PageHeaders { Titles }" except that {@Code "@MajorNum"},
+{@Code "@MajorTitle"}, {@Code "@MinorNum"}, and {@Code "@MinorTitle"}
+are always replaced by empty objects.  The description given at the
+beginning of this section, `like @Code "Titles" but with the titles
+blanked out,' is therefore accurate.
+@PP
+There is a @Code "@StructPageNums" setup file option that produces
+structpagenums. @Index @Code "@StructPageNums"
+structured page numbers when it is changed to {@Code Yes}; that is,
+page numbers that include a section number, subsection number, and so
+on.  Precisely which structure numbers are included is determined by the
+@Code "@SectionNumInRunners" option and its relatives.  @Code "@PageHeaders"
+must be @Code Titles when structured page numbers are used, and it is
+probably best to set @Code "@SectionGap" and some similar options to
+{@Code "2b"} (meaning new page) as well.  The @Code "@NumberSeparator"
+setup file option (Section {@NumberOf largescale}) affects the format
+of the structured page numbers.
+@End @Section

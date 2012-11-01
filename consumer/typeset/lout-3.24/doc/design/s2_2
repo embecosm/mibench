@@ -1,0 +1,79 @@
+@SubSection
+    @Tag { lexical }
+    @Title { Grammatical and lexical structure }
+@Begin
+@PP
+If objects are to be constructed like mathematical expressions, the
+natural notation is a functional language based on operators, as in
+Eqn.  The grammar of Lout objects is accordingly
+@ID @OneRow @Eq {
+matrix {
+object
+nextcol
+--> above --> above --> above --> above --> above --> above --> above -->
+nextcol
+{ object ``` infixop ``` object }
+labove gap { "1fx" }
+{ prefixop ``` object }
+labove gap { "1fx" }
+{ object ``` postfixop }
+labove gap { "1fx" }
+{ noparsop }
+labove gap { "1fx" }
+{ literalword }
+labove gap { "1fx" }
+{ @Code "{" ``` object ``` @Code "}" }
+labove gap { "1fx" }
+{ object ``` object }
+labove gap { "1fx" }
+}
+}
+where {@Eq {infixop}}, {@Eq {prefixop}}, {@Eq {postfixop}}, and
+{@Eq {noparsop}} are identifiers naming operators which take 0, 1
+or 2 parameters, as shown, and @Eq {literalword} is a sequence of
+non-space characters, or an arbitrary sequence of characters
+enclosed in double quotes.  Ambiguities are resolved by precedence
+and associativity.
+@PP
+The last production allows a meaning for expressions such as
+{@Code "{}"}, in which an object is missing.  The value of this
+@I {empty object} is a rectangle of size 0 by 0, with one column
+mark and one row mark, that prints as nothing.
+@PP
+The second-last production generates sequences of arbitrary objects
+separated by white space, called {@I paragraphs}.  Ignoring
+paragraph breaking for now, the natural meaning is that the two
+objects should appear side by side, and Lout's parser accordingly
+interpolates an infix horizontal concatenation operator (see below)
+between them.  This operator is associative, so the grammatical
+ambiguity does no harm.  However, the Algol-60 rule that white space
+should be significant only as a separator is necessarily broken by
+Lout in just this one place.
+@PP
+Algol-like languages distinguish literal strings from identifiers by
+enclosing them in quotes, but literals are far too frequent in document
+formatting for this to be viable.  The conventional solution is to
+begin identifiers with a special character, and Lout follows Scribe
+[7] in using "`@'" rather than the "`\\'" of troff
+[8] and @TeX [9].
+@PP
+However, Lout takes the unusual step of making an initial "`@'"
+optional.  The designers of Eqn apparently considered such
+characters disfiguring in fine-grained input like equations, and
+this author agrees.  The implementation is straightforward:  "`@'" is
+classed as just another letter, and every word is searched for in
+the symbol table.  If it is found, it is an identifier, otherwise it
+is a literal.  A warning message is printed when a literal beginning
+with "`@'" is found, since it is probably a mis-spelt identifier.  No
+such safety net is possible for identifiers without "`@'".
+@PP
+Equation formatting also demands symbols made from punctuation
+characters, such as @Code "+" and {@Code "<="}.  It is traditional to
+allow such symbols to be juxtaposed, which means that the input
+@ID @Code "<=++"
+for example must be interpreted within the lexical analyser by searching
+the symbol table for its prefixes in the order {@Code "<=++"},
+{@Code "<=+"}, {@Code "<="}.  Although this takes quadratic time, in
+practice such sequences are too short to make a more sophisticated
+linear method like tries worthwhile.
+@End @SubSection

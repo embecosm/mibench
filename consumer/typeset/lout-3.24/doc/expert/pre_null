@@ -1,0 +1,26 @@
+@Section
+   @Title { "@Null" }
+   @Tag { null }
+@Begin
+@PP
+This symbol
+null.sym @Index { @@Null symbol }
+provides a convenient way to remove unwanted
+concatenation symbols.  If there is a concatenation symbol
+preceding @@Null, the @@Null and the
+concatenation symbol are both deleted.  Otherwise, if there is a
+following concatenation symbol, it and the @@Null are both deleted.
+Otherwise, @@Null becomes an empty object.
+@PP
+These rules apply to a fully parenthesized version of the expression.  For
+example, in
+@ID @Code {
+"...  //1vx @Null |0.5i ..."
+}
+it is the horizontal concatenation symbol following @@Null that
+disappears, because in the fully parenthesized version
+@ID @Code {
+"...  //1vx { @Null |0.5i ... }"
+}
+there is no concatenation symbol preceding the @@Null.
+@End @Section

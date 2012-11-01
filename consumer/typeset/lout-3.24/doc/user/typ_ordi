@@ -1,0 +1,313 @@
+@Section
+   @Title { Ordinary documents }
+   @Tag { ordinary }
+@Begin
+@PP
+Ordinary documents are the simplest kind, consisting of a plain sequence
+ordinary. @Index { ordinary documents }
+of numbered pages.  To produce an ordinary document, use the @Code doc
+setup file and the @Code "@Doc" symbol:
+doc. @Index @Code "@Doc"
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Doc @Text @Begin"
+"..."
+"@End @Text"
+}
+where @Code ... stands for the body of your document.  This is the
+arrangement from Section {@NumberOf start} for getting
+started.  Alternatively, you can begin with
+@Code "@Document" instead of {@Code "@Doc"}:
+document. @Index @Code "@Document"
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Document"
+"    @InitialFont { Times Base 12p }"
+"    @InitialBreak { adjust 1.2fx hyphen }"
+"    @InitialSpace { lout }"
+"    @InitialLanguage { English }"
+"    @PageOrientation { Portrait }"
+"    @PageHeaders { Simple }"
+"    @FirstPageNumber { 1 }"
+"    @ColumnNumber { 1 }"
+"    @OptimizePages { No }"
+"    @Unpaginated { No }"
+"//"
+"@Text @Begin"
+"..."
+"@End @Text"
+}
+This shows all the options of {@Code "@Document"}, with their default
+values.  As usual with options, the options of {@Code "@Document"}
+may be given in any order, and only the ones that need to be changed
+need be given at all.  Notice the @Code "//" after the last option.  Its
+meaning is beyond our
+"//" @Index { @Code "//" symbol }
+scope, but total disaster will ensue if it is forgotten.  The @Code "@Doc"
+symbol is an abbreviation for {@Code "@Document //"}, which is why you don't
+need @Code "//" with {@Code "@Doc"}.
+@PP
+The eight options are a selection of setup file options (Section
+{@NumberOf setup}) that frequently need to be changed.  If your changes
+to the overall formatting are confined to these options, you can change
+them here and avoid having your own setup file.  If you already have
+your own setup file, change them in either place and omit them in
+the other.
+@PP
+@Code "@InitialFont" is the font of the bulk of the document,
+and should contain a family, a face, and a size.  The default
+value selects the Times family, the Base face, and the 12 point size.
+@PP
+@Code "@InitialBreak" controls the behaviour of paragraph breaking in
+the bulk of the document.  It should have three parts:  a paragraph
+breaking style ({@Code adjust}, {@Code ragged}, etc.), an inter-line
+spacing ({@Code "1.2fx"} for single spacing, {@Code "2.4fx"} for
+double spacing, and so on), and either @Code "hyphen" or @Code "nohyphen"
+for turning hyphenation on or off.  It may also have @Code "nobreakfirst"
+or @Code "nobreaklast" (or both), meaning to disallow a page break after
+the first line of a paragraph, or before the last, respectively.
+@PP
+@Code "@InitialSpace" determines how Lout treats white space between
+two objects, as described in Section
+{@NumberOf white}.  @Code "@InitialLanguage" determines the language
+of the bulk of the document.
+@PP
+@Code "@PageOrientation" determines the orientation of the page.  Its
+value may be {@Code Portrait} (the default), {@Code Landscape},
+{@Code ReversePortrait}, or {@Code ReverseLandscape}.  See
+Section {@NumberOf pagesize} for further details.
+@PP
+@Code "@PageHeaders" determines the appearance of page headers and
+footers throughout the document, and may be {@Code None},
+{@Code Simple}, {@Code Titles}, or {@Code NoTitles}.  Section
+{@NumberOf headers} has the details, but just briefly, {@Code None}
+means no page headers at all, {@Code Simple} means a
+page number between hyphens at the top of each page except the first,
+@Code Titles produces full running titles as in this guide,
+and @Code "NoTitles" is like @Code "Titles" with the running titles
+omitted, leaving just the page numbers.
+@PP
+@Code "@FirstPageNumber" is the page number given to the first page.
+@PP
+@Code "@ColumnNumber" is the number of columns per page in the bulk of
+the document, and may be anything from {@Code 1} (the default value) to
+{@Code 10}.  It is possible to produce full-width ordinary
+text in a multi-column document, using the @Code "@FullWidth"
+full.width. @Index @Code "@FullWidth"
+symbol:
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Document"
+"    @ColumnNumber { 2 }"
+"//"
+"@Text @Begin"
+"@FullWidth {"
+"@CentredDisplay @Heading { NOTICE TO TRESPASSERS }"
+"}Trespassers are hereby notified that, ..."
+"@End @Text"
+}
+This produces a full-width heading above a two-column body.  The word
+@Code Trespassers has been placed immediately after the closing brace
+of @Code "@FullWidth" because (regrettably) any space here will appear
+before @Code Trespassers in the output.  Alternatively you could use
+a paragraph symbol:
+@ID @OneRow @Code {
+"@FullWidth {"
+"@CentredDisplay @Heading { NOTICE TO TRESPASSERS }"
+"}"
+"@PP"
+"Trespassers are hereby notified that, ..."
+}
+You can have several @Code "@FullWidth" symbols,
+producing full-width text wherever you want.  Just be aware that
+@Code "@FullWidth" always causes a fresh page to be begun, it will never
+appear on the same page as a figure or table, and it is not able to hold
+a table of contents, a section, or an appendix.
+@PP
+Lout ordinarily places lines onto a page until space runs out, then moves
+to the next page and so on.  This often produces ugly empty spaces at
+the bottoms of pages preceding large unbreakable displays.  Setting the
+@Code "@OptimizePages" option to {@Code "Yes"} causes Lout to examine the
+overall situation and try to minimize the ugliness, using the @TeX
+tex.page @SubIndex { page optimization }
+optimal paragraph breaking algorithm.  It takes two runs to do this,
+with intermediate results stored in Lout's cross reference database
+(Section {@NumberOf cross}); so deleting file {@Code lout.li} will reset
+it, which might be wise after major changes.  It is possible for the
+optimizer to cycle, never settling on a single final best
+version; this is usually caused by footnotes or floating figures inserted
+at points that end up near page boundaries.
+@PP
+The @Code "@Unpaginated" option, whose value is ignored unless plain text
+output is in effect, produces unpaginated output when changed to
+{@Code Yes} (see Section {@NumberOf plain}).
+@PP
+Within the @Code "@Text" symbol, it is possible to have a sequence
+of sections:
+section. @RawIndex @Code "@Section"
+section.ordinary @SubIndex { in ordinary documents }
+beginsections. @RawIndex @Code "@BeginSections"
+beginsections.ordinary @SubIndex { in ordinary documents }
+endsections. @RawIndex @Code "@EndSections"
+endsections.ordinary @SubIndex { in ordinary documents }
+@ID @OneRow @Code {
+"preceding text"
+"@BeginSections"
+"@Section ... @End @Section"
+"@Section ... @End @Section"
+"..."
+"@Section ... @End @Section"
+"@EndSections"
+}
+as described in Section {@NumberOf largescale}.  Within any
+section, a similar arrangement produces subsections:
+subsection. @RawIndex @Code "@SubSection"
+subsection.ordinary @SubIndex { in ordinary documents }
+beginsubsections. @RawIndex @Code "@BeginSubSections"
+beginsubsections.ordinary @SubIndex { in ordinary documents }
+endsubsections. @RawIndex @Code "@EndSubSections"
+endsubsections.ordinary @SubIndex { in ordinary documents }
+@ID @OneRow @Code {
+"preceding text"
+"@BeginSubSections"
+"@SubSection ... @End @SubSection"
+"@SubSection ... @End @SubSection"
+"..."
+"@SubSection ... @End @SubSection"
+"@EndSubSections"
+}
+Within any subsection, there may be sub-subsections, obtained
+using {@Code "@BeginSubSubSections"}, {@Code "@SubSubSection"},
+subsubsection. @RawIndex @Code "@SubSubSection"
+subsubsection.ordinary @SubIndex { in ordinary documents }
+beginsubsubsections. @RawIndex @Code "@BeginSubSubSections"
+beginsubsubsections.ordinary @SubIndex { in ordinary documents }
+endsubsubsections. @RawIndex @Code "@EndSubSubSections"
+endsubsubsections.ordinary @SubIndex { in ordinary documents }
+and {@Code "@EndSubSubSections"}.  There are no sub-sub-subsections.
+@PP
+Also within the @Code "@Text" symbol only, there may be a sequence of
+appendices:
+appendix. @RawIndex @Code "@Appendix"
+appendix.ordinary @SubIndex { in ordinary documents }
+beginappendices. @RawIndex @Code "@BeginAppendices"
+beginappendices.ordinary @SubIndex { in ordinary documents }
+endappendices. @RawIndex @Code "@EndAppendices"
+endappendices.ordinary @SubIndex { in ordinary documents }
+@ID @OneRow @Code {
+"preceding text"
+"@BeginAppendices"
+"@Appendix ... @End @Appendix"
+"@Appendix ... @End @Appendix"
+"..."
+"@Appendix ... @End @Appendix"
+"@EndAppendices"
+}
+These will be `numbered' A, B, C etc. as is conventional.  Within any
+appendix there may be a sequence of subappendices, obtained in the
+usual way using  {@Code "@BeginSubAppendices"}, {@Code "@SubAppendix"},
+subappendix. @RawIndex @Code "@SubAppendix"
+subappendix.ordinary @SubIndex { in ordinary documents }
+beginsubappendices. @RawIndex @Code "@BeginSubAppendices"
+beginsubappendices.ordinary @SubIndex { in ordinary documents }
+endsubappendices. @RawIndex @Code "@EndSubAppendices"
+endsubappendices.ordinary @SubIndex { in ordinary documents }
+and {@Code "@EndSubAppendices"}.  There are sub-subappendices as well,
+following the same pattern, but no sub-sub-subappendices.
+subsubappendix. @RawIndex @Code "@SubSubAppendix"
+subsubappendix.ordinary @SubIndex { in ordinary documents }
+beginsubsubappendices. @RawIndex @Code "@BeginSubSubAppendices"
+beginsubsubappendices.ordinary @SubIndex { in ordinary documents }
+endsubsubappendices. @RawIndex @Code "@EndSubSubAppendices"
+endsubsubappendices.ordinary @SubIndex { in ordinary documents }
+@PP
+In addition to the {@Code "@Title"} option, each large-scale structure
+symbol ({@Code "@Section"}, {@Code "@SubSection"}, {@Code "@SubSubSection"},
+{@Code "@Appendix"}, {@Code "@SubAppendix"}, and {@Code "@SubSubAppendix"})
+has a @Code "@Tag" option for cross referencing (Section {@NumberOf cross}),
+an @Code "@InitialLanguage" option for changing the language of that part
+of the document, and a @Code "@RunningTitle" option which will be used in
+place of @Code "@Title" in running headers if given.  @Code "@RunningTitle"
+is useful when the full title is rather long.
+@PP
+The features described in other chapters are all available within
+ordinary documents.  Endnotes and references appear automatically at
+the end of the document.  Figures are labelled Figure 1, Figure 2,
+etc., and tables are labelled Table 1, Table 2, etc.
+@PP
+To get a table of contents, set the @Code "@MakeContents" option in
+the setup file to {@Code Yes}, and insert the symbol
+@Code "@ContentsGoesHere" at the point where you would like the
+contents.goes.here. @Index @Code "@ContentsGoesHere"
+table of contents to appear, anywhere before the first section:
+@ID @OneRow @Code {
+"@SysInclude { doc }"
+"@Text @Begin"
+"@CentredDisplay @Heading { Safety Procedures }"
+"@Heading { Contents }"
+"@DP"
+"@ContentsGoesHere"
+"@DP"
+"..."
+"@End @Text"
+}
+You must supply your own heading, as well as paragraph symbols
+before and after.  Regrettably, @Code "@ContentsGoesHere" may
+not be placed inside a display, nor inside {@Code "@FullWidth"}.
+@PP
+To get an index, set the @Code "@MakeIndex" option in the setup file
+to {@Code Yes}, and follow the instructions in Section
+{@NumberOf indexes}.  The index will appear automatically at the end
+of your document.
+@PP
+Within the @Code doc setup file there is an @Code "@OrdinarySetup"
+symbol whose options control the appearance of features specific to
+ordinary documents (in other words, the features described in this
+section).  Here is a representative sample of these options, showing
+their default values:
+ordinary.setup @Index @Code "@OrdinarySetup"
+@ID @OneRow @Code {
+"@Use { @OrdinarySetup"
+"  # @IndexWord { index }"
+"  # @AppendixWord { appendix }"
+"  # @SectionNumbers { Arabic }"
+"  # @SectionHeadingFont { Bold }"
+"  # @SectionGap { 2.00v }"
+"  # @SectionInContents { Yes }"
+"}"
+}
+Section {@NumberOf setup} explains how to make your own setup file and
+change its options.
+@PP
+The @Code "@IndexWord" option determines what the index is called, if
+there is one.  The default value, {@Code "index"}, produces the word
+`Index' in the current language.  Any other value produces itself.  The
+@Code "@AppendixWord" option is similar; its default value is `Appendix'
+in the current language.
+@PP
+@Code "@SectionNumbers" determines how sections will be numbered, and may
+be @Code { None }, @Code { Arabic }, @Code { Roman }, @Code { UCRoman },
+@Code { Alpha }, or @Code { UCAlpha }.  The default value is @Code Arabic
+for sections and also all other large-scale structure symbols except
+appendices, for which it is {@Code UCAlpha}.  This produces the appendices
+numbered in upper-case letters (A, B, C, etc.) that were mentioned earlier.
+@PP
+@Code "@SectionHeadingFont" is the font used for section headings.  The
+default value produces the bold face from the family of the
+initial font.  A family name or size is also acceptable:
+@ID @Code "@SectionHeadingFont { Helvetica Base +2p }"
+makes the section heading appear in the Helvetica font, two
+points larger than the initial size.
+@PP
+@Code "@SectionGap" determines how much space is left blank before each
+section title;  the default value shown above is twice the current
+inter-line spacing.  The special value @Code "2b" may be used to get a
+page break rather than a space.  There are similar options for other
+large-scale structure symbols, which determine how much space is left
+before each one.
+@PP
+@Code "@SectionInContents" determines whether or not an entry is made in
+the table of contents for each section; it may be @Code Yes or {@Code No},
+but would always be {@Code Yes}.  The default value of the corresponding
+options for sub-subsections and sub-subappendices, however, is {@Code No}.
+@End @Section

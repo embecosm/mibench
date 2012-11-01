@@ -1,0 +1,97 @@
+@SubSection
+    @Tag { lookahead }
+    @Title { The limited lookahead problem }
+@Begin
+@PP
+Basser Lout assumes that there will be enough internal memory to hold
+the symbol table plus a few pages, but not an entire document.  This
+section describes the consequent problems and how they were solved.
+Other interpreters, notably interactive editors running on virtual
+memory systems, would not necessarily need this assumption.
+@PP
+Although Basser Lout can read and format any legal input, its memory
+consumption will be optimized when the bulk of the document resides in
+galleys whose targets can be identified at the moment they are
+encountered.  Let us take the typical example of a root galley which
+is a list of pages, a @Code "@BodyText" galley targeted into the
+pages, @Code "@Chapter" galleys targeted into {@Code "@BodyText"},
+and @Code "@Section" galleys targeted into the @Code "@Chapter"
+galleys:
+@ID @OneRow @Code {
+"@PageList"
+"//"
+"@BodyText"
+"//"
+"@Chapter {"
+"    @Section { ... }"
+"    @Section { ... }"
+"    ..."
+"    @Section { ... }"
+"}"
+"@Chapter {"
+"    ..."
+"}"
+}
+Basser Lout is able to read and process such galleys one paragraph at
+a time (strictly, from one @Code "//" at the outer level of a galley
+to the next), as we now describe.
+@PP
+When the parser encounters the beginning of a galley, like @Code "@Chapter"
+or {@Code "@Section"}, it initiates a new galley process.  The special
+receptive symbol @Code "@Input" is substituted for the as yet
+unread right parameter of the galley.  As each paragraph of the right
+parameter is read, it is deleted from the parse tree and injected into
+the galley's {@Code "@Input"}.  The galley is then resumed.  The parser
+thus acts as an extra
+concurrent process; it has low priority, so that input is read only when
+there is nothing else to do.  Since galleys may be nested, a stack of
+@Code "@Input" symbols is needed, each with its own environment and
+style.  If a galley is encountered for which a target is not immediately
+identifiable (a footnote, for example), it is read in its entirety and
+hung in pure parse tree form from an @I UNATTACHED index in the usual way,
+with an environment but without a style.  It will be flushed later
+when its component is promoted.
+@PP
+In addition to producing a steady flow of components from input, we must
+also ensure that receptive symbols do not unduly block their
+promotion.  The @Code "@FootSect" symbol at the foot of each page is a
+typical example:  until it is deleted the page cannot be printed.
+@PP
+Receptive symbols are expanded only on demand, so @Code "@FootSect" can
+be deleted as soon as we can prove that it is not wanted.  The symbol
+table can tell us that only @Code "@FootNote" galleys (with
+@Code "@FootPlace&&following" targets) want it, so it might be possible
+to deduce that @Code "@FootSect" may be deleted as soon as body text
+enters the following page.
+@PP
+The author was unable to make this work, so Basser Lout requires the
+user to identify those galleys which will carry the bulk of the document
+({@Code "@Chapter"}, {@Code "@Section"}, {@Code "@BodyText"}) as
+{@I {forcing galleys}}, by writing @Code "force into" instead of
+@Code "into" in their definitions.  As described in the previous
+section, when a forcing galley attaches to a target, all receptive
+symbols preceding the target in its galley are deleted, removing all
+impediments to flushing.  For example, when a forcing body text galley
+enters a new page, the @Code "@FootSect" symbol on the preceding page
+will be deleted.  It seems likely that a system which could afford to
+wait until all input was read before deleting any receptive symbols
+would not need forcing galleys.
+@PP
+Galleys whose targets are a long way from their invocation points can be
+a problem.  If the direction is {@Code "following"}, such galleys are
+held in internal memory for a long time, unless they are to be
+sorted.  If the direction is
+{@Code "preceding"}, then either the entire intervening document must be
+held in memory (prevented by the target from flushing), or else some
+forcing galley prematurely deletes the target, leaving the galley bereft.
+@PP
+The typical example of the latter case occurs when the galley is an
+entry in the table of contents, launched backwards from the beginning of
+a chapter or section.  Its target in the table of contents will have
+been deleted long before, to permit the rest of the document to print,
+so the galley ultimately emerges as an unattached galley promoted out of
+the root galley.  All such galleys are written to an auxiliary file,
+indexed by the missing target.  On the next run, just before that target
+is deleted, the auxiliary file is checked and any galleys for it are
+read in and flushed.
+@End @SubSection

@@ -1,0 +1,145 @@
+        PGP 2.6 Application Note:  Integrating PGP with mailers
+                    Derek Atkins <warlord@MIT.EDU>
+                             22-May-94
+
+	This document will try to describe how to create an
+application around PGP version 2.6, in order to incorporate PGP into
+mailers and news readers.  There are a number of changes in 2.6 which
+make it easier to write wrappers for PGP.  In writing this, I may have
+inadvertantly left out some functionality, some mailers, or some
+machine types.  I should warn readers now that I am a UNIX person, and
+that most of this document will probably be in UNIX terms.
+
+	The first thing to remember is that PGP usually needs to have
+a controlling TTY in order to gather information, like the password,
+or for the user to answer questions, like to whether to add or sign
+keys.  This is useful for text-based mail agents.  In fact, it is most
+useful for agents which use files for messages, like MH.
+
+	One way to use PGP is to just decrypt the message into a file
+and display that file.	This can be a security risk, since wiping
+files off disk is not always successful, and by having the plain-text
+go to a file means more time for a possible attacker to get ahold of
+the plain-text of the message.
+
+	A better way to accomplish this is to use filter_mode, which
+is the -f option.  This tells PGP to read the message from stdin, and
+to put the output onto stdout.  Unfortunately, in this manner, the
+signature information is output onto stderr, so you will either lose
+it, or it and all other PGP output will be put in the same stream with
+the message, but this depends on your piping ability.
+
+	PGP tries to send all "interesting" data to standard out, and
+error messages to standard error.  This lets you pick out the
+interesting information and discard the rest.  This also means that
+you can use PGP in filter-mode as a back-end to some user interface,
+and obtain the data in the manner.  But remember that the current
+implementation of PGP uses temporary files to store intermediate data,
+so you are still at a risk, although it is much less of a risk than
+just decrypting into a file.
+
+	This works well when dealing with a command-line mailer, or a
+mailer that is run in a terminal.  There are problems with this
+approach, however, if you do not have a TTY in which to get a password
+to decrypt or sign messages.  It seems that there would not be a good
+way around this, but then again, PEM is going to have this same
+problem.  (An example that I can think of is integrating with xmh).
+
+	However, there is a way around this in some cases.  PGP has
+numerous ways to accept the passphrase other than just promping for
+it.  One way, which is not recommended, is to use the "-z" option to
+set the passphrase.  Again, this is *NOT* recommended, since some
+operating systems will not allow the program to erase the process
+table, and someone can retreive the pass phrase from there via a "ps"
+listing of active processes.  A similar way to get the pass phrase in
+is to use the PGPPASS environment variable.  Again, this has the same
+problems as "-z" with regards to an attacker finding the passphrase in
+the OS kernel memory of the process table..  An example of this usage
+is:
+
+	pgp -sat -z "This is my pass phrase" inputfile
+
+	There is a better way of doing this in PGP 2.6, which is an
+environment variable called "PGPPASSFD".  If this is set, it means
+that the FIRST thing PGP will do is read the pass phrase from this
+file descriptor.  So, for example, one can set PGPPASSFD to "0"
+(zero), and then PGP will read the pass phrase from stdin as the first
+thing.  This allows you to send the passphrase to PGP in a manner
+invisible to someone armed with the process listing.
+
+	For example, an emacs utility could grab the block to be
+encrypted (or decrypted), ask the user for the pass phrase in the
+mini-buffer, and then do the equivalent of this shell script, using
+something like:
+
+	(send-string PROCESS "PassPhrase") 
+	(send-region PROCESS (point-min) (point-max))
+
+---begin---
+#!/bin/sh
+
+PGPPASSFD=0; export PGPPASSFD
+
+(echo "PassPhraseHere"; cat filename ) | pgp -feast recipient1 recipient2...
+---end---
+
+	I must admit, this is a crude script, since it doesn't strip
+out stderr, which included the bannerlines and error messages, but
+that is not difficult to do out of band.
+
+This is an example perl script that demonstrates the use of PGPPASSFD:
+
+---begin---
+#!/usr/local/bin/perl
+#
+# perl example for PGPPASSFD,
+# encrypts stream with password 'test'
+#
+
+pipe(READER,WRITER);
+
+if (!fork) {
+	close(WRITER);
+	$ENV{'PGPPASSFD'}=fileno(READER);
+# the $^F (Ctrl-F) variable controls close-on-exec of files
+	$=fileno(READER);
+	exec "pgp -acf";
+	die "can't exec pgp\n";
+}
+close(READER);
+syswrite(WRITER, "test\n", 5);
+close(WRITER);
+wait
+---end---
+
+	Another feature of 2.6 which can be utilized in mailer scripts
+is the batchmode feature.  This is used in the key-server software
+(see keyserv.doc), to allow a process to call PGP and have it perform
+without prompting the user for anything.  It will take the default
+answer to most questions, which may not be what the user wants.  This
+is switched by adding "+batchmode" to the command line.
+
+	One more mailer I should mention, and this is probably the
+most important of all of them, is MIME compatibility.  In order to use
+MIME, a user needs to create a proper entry for PGP.  Unfortunately
+there is not yet a standard MIME content-type for PGP-MIME.  However
+there is a recommended set of mailcap entries which would be useful
+for using metamail:
+
+	application/pgp; pgp -f < %s | metamail; needsterminal; \ 
+		test=test %{encapsulation}=entity 
+	application/pgp; pgp %s; needsterminal 
+
+	I hope that this document has helped people understand some of
+the work being done to integrate PGP with mailers.  There is some work
+going on already to integrate it even more.  If you have a mailer for
+which there is no PGP handler, and you want to write one, please let
+me know, so that we don't duplicate work.  In addition, if you have
+written a mailer application, and its not included here in the
+release, again let me know.
+
+	A second contact for this is Colin Plumb <colin@nyx.cs.du.edu>.
+
+	Have fun!
+
+-derek		<warlord@MIT.EDU>

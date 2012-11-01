@@ -1,0 +1,270 @@
+.\" Use default p.i., so commented out here and in .TP
+.\" .nr oi 16 \" Prevailing indentation for options' .TP request
+.\" .de Sp
+.\" .if n .sp
+.\" .if t .sp 0.4
+.\" ..
+.TH LOUT 1
+.SH NAME
+lout - prepare Lout document for printing
+.SH SYNOPSIS
+\fBlout\fR [ \fIoptions\fR ] \fIfile\fR...
+.SH DESCRIPTION
+Invoke the Basser Lout interpreter on the concatenation of the named
+files, producing a PostScript file on standard output suitable for
+printing on PostScript printers using
+.IR lpr (1).
+If no files are named, stdin is used instead.  The special file name
+.RB ` \|\-\| '
+may be used to denote standard input.  White space between flags
+and their associated option values is optional.
+.LP
+An optional
+.B .lt
+suffix may be used for Lout source and include files.  When invoking
+files ending in this suffix the suffix may be omitted.
+.SH OPTIONS
+.SS Output
+.TP \" \n(oi
+.BI \-o " filename"
+Direct output to
+.I filename
+instead of to stdout.
+.TP
+.BI \-e " filename"
+Direct error messages to
+.I filename
+instead of to stderr.
+.TP
+.B \-a
+Use "\c
+.IR filename :\c
+.IR linenum :\c
+.IR colnum :\c
+.I message\c
+\&" alternative error message format (useful with Emacs compilation
+mode and other tools).
+.SS Output format
+.TP \" \n(oi
+.B \-EPS
+Produce output in the form of an EPS (Encapsulated PostScript) file,
+suitable for inclusion in another document.  Useful with stand-alone
+illustrations.
+.TP
+.B \-p
+Produce plain text output instead of PostScript.
+.TP
+.B \-P
+Like
+.BR \-p ,
+but with a form-feed character between pages.
+.TP
+.B \-Z
+Produce Adobe Portable Document Format (PDF) output.  This includes
+links, but the more advanced graphics packages of Lout are not supported.
+.TP
+.B \-PDF
+Synonym for
+.BR \-Z .
+.SS Cross-reference database
+.TP \" \n(oi
+.B \-s
+Suppress all reading and writing of the cross reference database;
+other databases are not affected.  Useful when many simple documents
+that don't do any cross referencing are stored in one directory.
+.TP
+.B \-l
+Use ASCII order when sorting index entries etc.; the default depends on
+the COLLATE compilation option (use
+.B \-V
+option to find out your default value).
+.TP
+.B \-L
+Use your locale's order when sorting index entries etc.; the default
+depends on the COLLATE compilation option (use
+.B \-V
+option to find out your default value).
+.SS Execution of filters
+.TP \" \n(oi
+.B \-S
+Safe execution: disable all calls to
+.IR system (3),
+instead echoing the commands that would have been executed.  Although
+this makes the Lout run certainly safe, the PostScript output file may
+not be.
+.TP
+.B \-U
+Unsafe execution: allow calls to
+.IR system (3).
+This is usually the default behavior, but it is possible to make safe
+execution the default during installation (use
+.B \-V
+option to find out whether this was done or not), hence the need for
+this flag.
+.SS Changing document setup options
+.TP \" \n(oi
+.BI \-\- option { value }
+Set setup file
+.I option
+to
+.IR value ,
+overriding any value assigned to
+.I option
+in the setup file.  For example,
+.B \-\-@PageType{Letter}
+will set the
+.B @PageType
+setup file option to
+.BR  Letter .
+The value may be a sequence of words but not an arbitrary Lout object.
+If there are spaces you must ensure that it is passed to Lout as a
+single option; the usual way to do this is to enclose it in quotes.
+.SS Searching for files
+.TP \" \n(oi
+.BI \-i " filename"
+Search the directories of the include file path (see below) for
+.I filename
+or
+.IR filename .lt
+and include it.  There may be multiple
+.B \-i
+options.
+.TP
+.BI \-I " dirname"
+Add
+.I dirname
+to the list of directories searched for
+.B @Include
+files and
+.B \-i
+option files.
+There may be multiple
+.B \-I
+options.
+.B @Include
+first searches the current directory, then searches the
+.B \-I
+directories in the order given, and finally searches the default
+include file directory (see below).
+.B @SysInclude
+and the
+.B \-i
+option omit the search of the current directory.
+.TP
+.BI \-C " dirname"
+Add
+.I dirname
+to the list of directories searched for Lout character mapping (\c
+.BR .LCM )
+files.
+There may be multiple
+.B \-C
+options; the directories are searched in the order given, and finally
+the default character mappings directory is searched (see below).
+.TP
+.BI -F " dirname"
+Add
+.I dirname
+to the list of directories searched for font metrics (formerly
+.BR .AFM )
+files.  There may be multiple
+.B \-F
+options; the directories are searched in the order given, and finally
+the default font metrics directory is searched (see below).
+.TP
+.BI \-H " dirname"
+Add
+.I dirname
+to the list of directories searched for hyphenation patterns files,
+both unpacked
+.RB ( .lh )
+and packed
+.RB ( .lp ).
+There may be multiple
+.B \-H
+options; the directories are searched in the order given, and finally
+the default hyphenation directory is searched (see below).
+.TP
+.BI -D " dirname"
+Add
+.I dirname
+to the list of directories searched for Lout database files.  There
+may be multiple
+.B \-D
+options.
+.B @Database
+searches the current directory, then the
+.B \-D
+directories in the order given, and finally searches the default
+databases directory (see below).
+.B @SysDatabase
+omits the search of the current directory.
+.SS Miscellaneous options
+.TP \" \n(oi
+.B \-x
+Initializing run, not for ordinary use: read and check all font files
+mentioned in font definitions, read and check all hyphenation files
+mentioned in language definitions and build compressed versions, read
+and check all database files mentioned in database clauses and build
+index files.
+.TP
+.B \-u
+Print usage information on stderr and exit.
+.TP
+.B \-V
+Print version information on stderr and exit.
+.TP
+.B \-M
+Use less memory and run more slowly (the cross reference database index
+will be kept in a file rather than in memory).
+.TP
+.B \-w
+Show the total number of non-empty words printed in the output file.
+This includes words and numbers in page headers and footers; section
+numbers and other numbers; every punctuation character in a font
+different from its adjacent word; and every little fragment of every
+equation; so it will always somewhat overestimate the true number.
+.SH FILES AND ENVIRONMENT VARIABLE
+.LP
+.\" NB: be careful with tabs in the table below
+.nf
+.ta \w'Default character mappings dir.:  'u
+\&Default include file directory:	\fILOUTLIB\fP/include
+\&Default databases directory:	\fILOUTLIB\fP/data
+\&Default font metrics directory:	\fILOUTLIB\fP/font
+\&Default hyphenation directory:	\fILOUTLIB\fP/hyph
+\&Default character mappings dir.:	\fILOUTLIB\fP/maps
+\&Default locales directory:	\fILOUTLIB\fP/locale
+.fi
+.LP
+The default library directory, usually
+.BR /usr/local/lib/lout ,
+can be changed by setting environment variable
+.SB LOUTLIB
+to an alternative directory name.
+.SH SEE ALSO
+.LP
+.BR prg2lout (1),
+.BR lpr (1),
+.BR ghostview (1)
+.SH MAILING LIST
+.LP
+A public mailing list for discussion of Lout exists.  To subscribe,
+mail
+.B lout\-request@ptc.spbu.ru
+with the word
+.B subscribe
+in the Subject line.  To post an item, mail it to
+.BR lout@ptc.spbu.ru .
+.SH REFERENCES
+.LP
+Jeffrey H. Kingston,
+.I 
+\(lq\&A User's Guide to the Lout Document Formatting System\(rq\c
+\&, and
+.I
+\(lq\&An Expert's Guide to the Lout Document Formatting System\(rq\c
+\&.
+.SH AUTHOR
+.LP
+Jeffrey H. Kingston

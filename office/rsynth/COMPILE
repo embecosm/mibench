@@ -1,0 +1,12 @@
+Compile Instructions
+--------------------
+1)  Type "./configure" to configure the Makefile for your system.
+2)  Type "make".  This will create the executables used by the scripts. If
+    this doesn't work see the INSTALL or README file for details on how
+    to fix or modify the install process.
+
+Clean Instructions
+------------------
+1)  Type "make distclean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

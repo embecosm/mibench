@@ -1,0 +1,284 @@
+@Section
+   @Title { "@Graphic" }
+   @Tag { graphic }
+@Begin
+@PP
+graphic.sym @Index { @@Graphic symbol }
+diagrams @Index { Diagrams }
+Lout does not provide the vast repertoire of graphical objects (lines,
+circles, boxes, etc.) required by diagrams.  Instead, it provides an
+escape route to some other language that does have these features, via
+its @@Graphic symbol:
+postscript.graphic @SubIndex { used by @@Graphic }
+@ID @OneRow @OneRow @Code {
+"{ 0 0 moveto"
+"  0 ysize lineto"
+"  xsize ysize lineto"
+"  xsize 0 lineto"
+"  closepath"
+"  stroke"
+"}"
+"@Graphic"
+"{ //0.2c"
+"  ||0.2c hello, world ||0.2c"
+"  //0.2c"
+"}"
+}
+The result of the above invocation of the symbol @@Graphic is
+@ID @OneRow @OneRow {
+  @BackEnd @Case {
+    PostScript @Yield {
+      { 0     0     moveto
+        0     ysize lineto
+        xsize ysize lineto
+        xsize 0     lineto
+        closepath
+        stroke
+      }
+      @Graphic
+      { //0.2c
+        ||0.2c hello, world ||0.2c
+        //0.2c
+      }
+    }
+    PDF @Yield {
+      { 0       0       m
+        0       __ysize l
+        __xsize __ysize l
+        __xsize 0       l
+        s
+      }
+      @Graphic
+      { //0.2c
+        ||0.2c hello, world ||0.2c
+        //0.2c
+      }
+    }
+  }
+}
+@PP
+The right parameter always appears as part of the result, and indeed the
+result is always an object whose size is identical to the size of the
+right parameter with @@OneCol and @@OneRow applied to
+it.  From now on we refer to this part of the result as the {@I base}.
+@PP
+The left parameter is implementation-dependent:  that is, its
+meaning is not defined by Lout, and different implementations could
+require different values for it.  The following description applies to
+Basser Lout, which uses the PostScript page description language
+@Cite { $adobe1990ps }.  Similar but more restricted possibilities exist
+with the PDF back end (see a separate document distributed with Lout);
+to include both, use the @@BackEnd symbol like this:
+@ID @OneRow @Code {
+"{ @BackEnd @Case {"
+"      PostScript @Yield"
+"      {"
+"          ..."
+"      }"
+"      PDF @Yield"
+"      {"
+"          ..."
+"      }"
+"  }"
+"  @Graphic"
+"  {"
+"      ..."
+"  }"
+"}"
+}
+Returning to PostScript, the left parameter refers to a coordinate system
+whose origin is the bottom left-hand corner of the base.  It may use the symbols
+@Code xsize and @Code ysize to denote the horizontal and vertical size
+of the base; similarly, @Code xmark and @Code ymark denote the positions
+of the base's column and row marks:
+@ID @OneRow 9p @Font @Fig {
+   { &1rt @I ysize /0ik &1rt @I ymark /0ik &1rt 0 } |0.4c
+   {  /
+      |0ik @ShowMarks { 1c @High 1.5c @Wide ^| 3c @Wide ^/ 2c @High }
+      |0ik /
+   }
+   /0.2c
+   | 0 | @I xmark | @I xsize
+}
+In addition to these four symbols and 0, lengths may be denoted in
+centimetres, inches, points, ems, f's, v's and s's using the notation
+@ID @OneRow @Tab
+    vmargin { 0.5vx }
+    hmargin { 1m }
+    @Fmta { @Col {@I l  @Code A} ! @Col {instead of Lout's} ! @Col {{@I l}B} }
+{
+@Rowa A { cm } B { c }
+@Rowa A { in } B { i }
+@Rowa A { pt } B { p }
+@Rowa A { em } B { m }
+@Rowa A { ft } B { f }
+@Rowa A { vs } B { v }
+@Rowa A { sp } B { s }
+}
+Note that there must be a space between the number and its unit,
+unlike Lout proper.
+@PP
+A point within the base (and, with care, a point outside it) may
+be denoted by a pair of lengths.  For example,
+@ID @OneRow @Code {
+"xmark  ymark"
+}
+is the point where the marks cross, and
+@ID @OneRow @Code {
+"0   2 cm"
+}
+is a point on the left edge, two centimetres above the bottom left-hand
+corner.  These two numbers are called the @I {x coordinate} and the
+@I {y coordinate} of the point.
+@PP
+The first step in specifying a graphic object is to define a
+{@I path}.  A path can be thought of as the track of a pen moving over
+the page.  The pen may be up (not drawing) or down (drawing a line or
+curve) as it moves.  The entire path is a sequence of the following
+items:
+@LP
+2i @Wide { |1rt @I {x y} @Code moveto }
+|2m Lift the pen and move it to the indicated point.
+@JP
+2i @Wide { |1rt @I {x y} @Code lineto }
+|2m Put the pen down and draw a straight line to the indicated point.
+@JP
+2i @Wide { |1rt @I {x y r angle1 angle2} @Code arc }
+|2m Put the pen down and draw a circular arc whose centre has
+coordinates @I x and @I y and whose radius is {@I r}.  The arc begins
+at the angle @I angle1 measuring counterclockwise from the point
+directly to the right of the centre, and proceeds counterclockwise to
+{@I angle2}.  If the arc is not the first thing on the path, a straight
+line will be drawn connecting the current point to the start of the arc.
+@JP
+2i @Wide { |1rt @I {x y r angle1 angle2} @Code arcn }
+|2m As for arc, but the arc goes clockwise from @I angle1 to
+{@I angle2 }.
+@JP
+2i @Wide @Code { |1rt closepath }
+|2m Draw a straight line back to the point most recently moved to.
+@LP
+The first item should always be a {@Code moveto}, {@Code arc}, or
+{@Code arcn}.  It should be clear from this that the path given earlier:
+@ID @OneRow @Code {
+"0 0 moveto"
+"0 ysize lineto"
+"xsize ysize lineto"
+"xsize 0 lineto"
+"closepath"
+}
+traces around the boundary of the base with the pen down.
+@PP
+Once a path is set up, we are ready to @I paint it onto the page.  There 
+are two choices: we can either @I stroke it, which means to display it
+as described; or we can @I fill it, which means to paint everything
+inside it grey or black.  For stroking the two main options are
+@IL
+@LI {
+2i @Wide { |1rt @I length @Code setlinewidth }
+|2m The pen will draw lines of the given width.
+}
+@LI {
+2i @Wide { |1rt @Code "[" @I length @Code {"]" 0 setdash} }
+|2m The pen will draw dashed lines when it is down, with the dashes each
+of the given length.
+}
+@EL
+These options are followed by the word {@Code "stroke"}.  So, for example,
+@ID @OneRow @Code {
+"{ 0 0 moveto xsize 0 lineto"
+"  2 pt setlinewidth [ 5 pt ] 0 setdash stroke"
+"}"
+"@Graphic { 3i @Wide }"
+}
+has result
+@ID @OneRow {
+  @BackEnd @Case {
+    PostScript @Yield {
+      { 0 0 moveto xsize 0 lineto
+        2 pt setlinewidth [ 5 pt ] 0 setdash stroke
+      }
+      @Graphic { 3i @Wide }
+    }
+    PDF @Yield {
+      { [ __mul(5, __pt) ] 0 d __mul(2, __pt) w 0 0 m __xsize 0 l S
+      }
+      @Graphic { 3i @Wide }
+    }
+  }
+}
+@PP
+When filling in the region enclosed by a path, the main option is
+{@Code setgray}, which determines the shade of grey to use, on a scale
+from 0 (black) to 1 (white).  So, for example,
+@ID @OneRow @Code {
+"{ 0 0 moveto xsize 0 lineto 0 ysize lineto closepath"
+"  0.8 setgray fill"
+"}"
+"@Graphic"
+"{ 2c @Wide  2c @High }"
+}
+has result
+@ID @OneRow {
+  @BackEnd @Case {
+    PostScript @Yield {
+      { 0 0 moveto xsize 0 lineto 0 ysize lineto closepath
+        0.8 setgray fill
+      }
+      @Graphic
+      { 2c @Wide  2c @High }
+    }
+    PDF @Yield {
+      { 0 0 m __xsize 0 l 0 __ysize l h
+        0.8 g f
+      }
+      @Graphic
+      { 2c @Wide  2c @High }
+    }
+  }
+}
+@PP
+There are many other options.  The value of the left parameter of
+@@Graphic may be any fragment of the PostScript page description language
+@Cite { $adobe1990ps }.  Here are two other examples:
+@ID @OneRow @Code {
+xsize 2 div
+}
+denoting a length equal to half the horizontal size of the base, and
+@ID @OneRow @Code {
+gsave fill grestore stroke
+}
+which both fills and strokes the path.  Since Basser Lout does not check
+that the left parameter is valid PostScript, it is possible to cause
+mysterious errors in the printing device, resulting in no output, if an
+incorrect value is given.  It is a good idea to encapsulate graphics
+objects in carefully tested definitions, like those of the Diag figure
+drawing package @Cite { $kingston1995lout.user, Chapter 9 },
+diag @Index { Diag diagram-drawing package }
+to be sure of avoiding these errors.
+@PP
+PostScript experts may find the following information helpful when
+designing advanced graphics features.  The left parameter of @@Graphic
+may have two parts, separated by {@Code "//"}:
+@ID @OneRow {
+@Code "{" @I {first part} @Code "//" @I {second part} @Code "} @Graphic"
+@I object
+}
+If there is no {@Code "//"}, the second part is taken to be empty.  The
+PostScript output has the form
+@ID @OneRow lines @Break {
+@Code gsave
+@I x @I y @Code translate
+@I {Code which defines {@Code xsize}, {@Code ysize}, {@Code xmark}, {@Code ymark}, {@Code ft}, {@Code vs}, and {@Code sp} }
+@Code gsave
+@I {first part}
+@Code grestore
+@I {Code which renders the right parameter in translated coordinates}
+@I {second part}
+@Code grestore
+}
+where @Eq {x, y} is the position of the lower left corner of the
+base.  Having two parts permits bracketing operations, like @Code save
+and @Code restore or @Code begin and {@Code end}, to enclose an
+object.  See the source file of the Diag package for examples.
+@End @Section

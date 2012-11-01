@@ -1,0 +1,91 @@
+@Section
+    @Title { Page size and page orientation }
+    @Tag { pagesize }
+@Begin
+@PP
+This section explains how to use the setup file options that determine
+page size and page orientation.  Here they are with their default values:
+page.type @Index @Code "@PageType"
+@ID @OneRow @Code {
+"@PageType { A4 }"
+"@PageWidth {}"
+"@PageHeight {}"
+"@PageOrientation { Portrait }"
+}
+The usual way to determine the page size is to set the @Code "@PageType"
+option to the name of the paper you use:
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmtb { @Col ! @Col ! @Col @I @RR B ! @Col @I @RR C }
+    @Fmta { @Col @Code { "@PageType {" A "}" } ! @Col ! @Col @Code @CC B !
+            @Col @Code @CC C }
+{
+@Rowb B { width in points }          C { height in points }
+@Rowa A { Letter }	B {  612p }  C {  792p }
+@Rowa A { Tabloid }	B {  792p }  C { 1224p }
+@Rowa A { Ledger }	B { 1224p }  C {  792p }
+@Rowa A { Legal  }	B {  612p }  C { 1008p }
+@Rowa A { Statement }	B {  396p }  C {  612p }
+@Rowa A { Executive }	B {  540p }  C {  720p }
+@Rowa A { A3 }		B {  842p }  C { 1190p }
+@Rowa A { A4 }		B {  595p }  C {  842p }
+@Rowa A { A5 }		B {  420p }  C {  595p }
+@Rowa A { B4 }		B {  729p }  C { 1032p }
+@Rowa A { B5 }		B {  516p }  C {  729p }
+@Rowa A { Folio }	B {  612p }  C {  936p }
+@Rowa A { Quarto }	B {  610p }  C {  780p }
+@Rowa A { 10x14 }	B {  720p }  C { 1008p }
+}
+This will automatically assign the widths and heights shown above to
+the @Code "@PageWidth" and @Code "@PageHeight" options, so you don't
+have to worry about those options.  If your paper size is not on this
+list, set @Code "@PageType" to @Code Other and supply your own width
+and height:
+page.width @Index @Code "@PageWidth"
+page.height @Index @Code "@PageHeight"
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col @Code A }
+{
+@Rowa A { "@PageType { Other }" }
+@Rowa A { "@PageWidth { 12.0c }" }
+@Rowa A { "@PageHeight { 18.0c }" }
+}
+The width and height may each be any length (Section {@NumberOf objects}),
+and do not have to be in points.
+@PP
+The basic page orientations are @I portrait and @I landscape:
+page.orientation @Index @Code "@PageOrientation"
+@ID @Tab
+    @Fmta { @Col 8c @Wide @Code A ! @Col B }
+{
+@Rowa
+    A { "@PageOrientation { Portrait }" }
+    B { @Box 1.0c @Wide 1.4c @High { Hello } }
+@Rowa
+@Rowa
+    A { "@PageOrientation { Landscape }" }
+    B { @Box 1.4c @Wide 1.0c @High { Hello } }
+}
+When changing to {@Code Landscape}, do not change the page type, page
+width, or page height, and do not change the way you feed your paper
+into the printer.  Lout knows what to do.
+@PP
+Two other orientations are provided which are 180@Degree rotations of
+the basic ones:
+@ID @Tab
+    @Fmta { @Col 8c @Wide @Code A ! @Col B }
+{
+@Rowa
+    A { "@PageOrientation { ReversePortrait }" }
+    B { @Box 1.0c @Wide 1.4c @High { //1rt &1rt 180d @Rotate Hello } }
+@Rowa
+@Rowa
+    A { "@PageOrientation { ReverseLandscape }" }
+    B { @Box 1.4c @Wide 1.0c @High { //1rt &1rt 180d @Rotate Hello } }
+}
+@Code ReverseLandscape might be useful when post-processing the PostScript output
+to print two landscape pages per sheet.  The @Code "@PageOrientation" symbol is
+available at the start of a document, as well as in the setup file, like
+{@Code "@InitialFont"} and {@Code "@PageHeaders"}.
+@End @Section

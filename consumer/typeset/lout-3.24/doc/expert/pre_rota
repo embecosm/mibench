@@ -1,0 +1,57 @@
+@Section
+   @Title { "@Rotate" }
+   @Tag { rotate }
+@Begin
+@PP
+rotate.sym @Index { @@Rotate symbol }
+rotation @Index { Rotation of object }
+The @@Rotate symbol will rotate its
+right parameter counterclockwise an amount given in degrees (positive or
+negative) by its left parameter.  For example,
+@ID @Code {
+"30d  @Rotate  { hello, world }"
+}
+has result
+@ID {
+30d  @Rotate  { hello, world }
+}
+Before rotating the object, @@OneCol and @@OneRow are applied to it.  The
+result is a rectangle whose marks pass through the point where the
+original marks crossed:
+@ID {
+   @ShowMarks
+   { 0.6c @Wide 0.3c @High ^| 2.2c @Wide ^/ 0.2c @High }
+
+&4m => &4m
+
+   @ShowMarks
+   {
+	30d @Rotate
+	{	@ShowMarks
+		{ 0.6c @Wide 0.3c @High ^| 2.2c @Wide ^/ 0.2c @High }
+	}
+   }
+}
+As this example shows, rotation by an angle other than a multiple of
+ninety degrees introduces quite a lot of white space.  So, for example, the
+result of
+@ID {
+@Code { "-30d" "@Rotate" 30d "@Rotate" }  @I object
+}
+is a much larger object than {@I object}, despite the fact that one
+rotation cancels the other.
+@PP
+Rotation of objects containing receptive and recursive symbols is
+permitted, but for angles other than multiples of ninety degrees it is
+best to make the size of the rotated object clear with @@Wide and
+@@High symbols:
+@ID @Code {
+"30d @Rotate 5i @Wide 4i @High"
+"{   //1i @TextPlace"
+"    //1i"
+"}"
+}
+This is because for angles other than multiples of ninety degrees the
+space available for @Code "@TextPlace" to occupy is indeterminate, and
+the result is poor.
+@End @Section

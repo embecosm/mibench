@@ -1,0 +1,35 @@
+@Section
+   @Title { "@YUnit", "@ZUnit", "@CurrYUnit", and "@CurrZUnit" }
+   @Tag { yunit }
+@Begin
+@PP
+The @@YUnit symbol
+yunit.sym @Index { @@YUnit symbol }
+zunit.sym @Index { @@ZUnit symbol }
+changes the value of the @Code y unit of measurement (Section
+{@NumberOf concatenation}) within its right parameter to the value
+given by the left parameter:
+@ID {
+@Code "1c @YUnit { ... }"
+}
+ensures that the value of @Code "1y" within the right parameter will
+be {@Code "1c"}.  The @@ZUnit symbol is similar, setting the value
+of the @Code z unit in its right parameter.  Both units have default
+value zero.  The left parameter may not include a gap mode, nor may it
+use the {@Code w}, {@Code b}, {@Code r}, or of course {@Code d} units,
+but it may begin with @Code "+" or @Code "-" to indicate that value is
+to be added to or subtracted from the current value.  Any negative result
+of using @Code "-" will be silently replaced by zero.
+@PP
+The @@CurrYUnit and @@CurrZUnit symbols report the value of the @Code y
+and @Code z units, in points, truncated to the nearest integer.  For example,
+@ID @Code "1i @YUnit { The current value of the y unit is @CurrYUnit }"
+produces
+@ID @Code "1i @YUnit { The current value of the y unit is @CurrYUnit }"
+since there are 72 points in one inch (at least, Lout thinks there are).
+@PP
+These units are not used internally by Lout.  They are supplied as
+part of the style information for the convenience of application
+packages.  For example, the Eq equation formatting package uses them
+to fine-tune the appearance of equations.
+@End @Section

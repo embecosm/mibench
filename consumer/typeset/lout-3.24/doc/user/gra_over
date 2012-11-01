@@ -1,0 +1,179 @@
+@Section
+   @Title { Changing the overall appearance of the graph }
+   @Tag { overall }
+@Begin
+@PP
+The overall appearance of the graph is controlled by options to the
+@Code "@Graph" symbol.  As usual, these options follow the @Code "@Graph"
+symbol, with their values enclosed in braces; they may appear in any order,
+and if omitted are assigned some sensible default value.
+@PP
+There is a @Code "style" option for controlling the overall style of the
+style.graph @Index { @Code "style" option of @Code "@Graph" }
+axes. @Index { axes in graphs }
+graph, whose value may be either {@Code "frame"}, {@Code "none"},
+or {@Code "axes"}.  The default value is {@Code "frame"}, and it produces
+a frame around the graph with ticks and labels along its left and bottom
+edges, as in previous examples.  The {@Code "none"} style prints
+nothing (no frame, no ticks, no labels), which is useful for producing
+graphs that don't look like graphs, as it were.
+@PP
+If the other value, {@Code "axes"}, is chosen, two other options called
+{@Code xorigin} and {@Code yorigin} become compulsory:
+@ID @OneRow @Code {
+"-2p @Font @Graph"
+"    style { axes }"
+"    xorigin { 0 }"
+"    yorigin { 0 }"
+"    width { 12 cm }"
+"    height { 7 cm }"
+"    leftcaption { 90d @Rotate { counts (%) } }"
+"    leftgap { 1.0 cm }"
+"    belowcaption { time (min) }"
+"    belowgap { 0 cm }"
+"{"
+"    @Data"
+"        points { filledsquare }"
+"        pairs { solid }"
+"    { 0 0.0 1 4.8 2 7.0 3 15.2 4 19.8 5 20.0 6 21.0 7 25.0"
+"      10 29.5 15 31.2 20 35.0 30 40.0 60 50.8"
+"    }"
+""
+"    @Data"
+"        points { square }"
+"        pairs { solid }"
+"    {"
+"      0 0.0 1 3.7 1.5 43.1 2 99.1 3 85.6 4 69.1 5 47.0 6 44.1 7 40.8"
+"      10 35.0 15 29.4 20 25.0 30 21.1 60 15.5"
+"    }"
+"}"
+}
+We have requested a smaller font size for this graph as a whole by
+preceding it with {@Code "-2p @Font"}, meaning two points smaller, and
+we have used some other options which will be explained shortly.  The
+resulting graph has an x axis and a y axis instead of a frame, like this:
+@CD -2p @Font @Graph
+    style { axes }
+    xorigin { 0 }
+    yorigin { 0 }
+    width { 12 cm }
+    height { 7 cm }
+    leftcaption { 90d @Rotate { counts (%) } }
+    leftgap { 1.0 cm }
+    belowcaption { time (min) }
+    belowgap { 0 cm }
+{
+    @Data
+        points { filledsquare }
+        pairs { solid }
+    { 0 0.0 1 9.5 2 15.0 3 18.2 4 20.1 5 22.1 7 25.0
+      10 28.3 15 31.2 20 35.0 30 40.0 60 50.8
+    }
+
+    @Data
+        points { square }
+        pairs { solid }
+    {
+      0 0.0 1 3.7 1.5 43.1 2 99.1 3 85.6 4 69.1 5 47.0 6 44.1 7 40.8
+      10 35.0 15 29.4 20 25.0 30 21.1 60 15.5
+    }
+}
+The point where the axes cross is ({@Code xorigin}, {@Code yorigin}).
+@PP
+Although @Code "@Graph" does not provide explicit support for
+multiple axes, you can simulate them by overstriking two
+separate graphs of equal size.  There is an @Code "@OverStrike"
+overstrike. @Index @Code "@OverStrike"
+symbol which overstrikes two objects, so
+@ID @Code "@Graph { ... } @OverStrike @Graph { ... }"
+will do the job.  Typically one of the graphs would have y ticks,
+and the other would have r ticks (adjacent to the right-hand side of the
+frame).
+@PP
+There are @Code "xlog" and @Code "ylog" options which produce
+logarithmic.axes @Index { logarithmic axes in graphs }
+logarithmic x and y axes:
+@ID @OneRow @Code {
+"@Graph"
+"    xlog { 10 }"
+"    ylog { 10 }"
+"{"
+"    ..."
+"}"
+}
+The value is the base of the logarithm, usually 10 or 2, or
+{@Code none} (the default) meaning not logarithmic.  Logarithms
+to different bases differ only by a constant factor, so the main effect
+of different bases is on the choice of ticks and labels.  An @Code "xlog"
+option will be ignored if there are any negative or zero x data points,
+x ticks, or {@Code "xorigin"} or {@Code "xmin"} options; and similarly
+for {@Code "ylog"}.
+@PP
+There are @Code "width" and @Code "height" options for setting the size
+of the total area enclosed:
+@ID @OneRow @Code {
+"@Graph"
+"    width { 6.0 cm }"
+"    height { 4.0 cm }"
+"{"
+"    ..."
+"}"
+}
+This shows the default width and height, six centimetres and four
+centimetres.  These lengths and others discussed below can be specified
+using a variety of units of measurement (see Section {@NumberOf grsummary}
+for the details).
+@PP
+Within the frame or axes, a small margin is kept free of data points.  The
+size of this margin is controlled by @Code "xextra" and @Code "yextra"
+options:
+@ID @OneRow @Code {
+"@Graph"
+"    xextra { 0.5 cm }"
+"    yextra { 0.5 cm }"
+"{"
+"    ..."
+"}"
+}
+Setting @Code "xextra" to @Code "0.5 cm" (the default value if the
+@Code style option is {@Code frame}) means that the smallest x value
+will be placed 0.5 centimetres to the right of the left boundary, and
+the largest will be placed 0.5 centimetres to the left of the right
+boundary.  It is quite safe to set @Code "xextra" to @Code "0 cm" if
+desired, and indeed this is the default value when @Code style is
+{@Code axes} or {@Code none}.  The @Code "yextra" option works in
+exactly the same way for y values.
+@PP
+The @Code "xdecreasing" option plots the x values in decreasing order
+instead of increasing:
+@ID @Code {
+"@Graph"
+"    xdecreasing { yes }"
+"    abovecaption { New South Wales road deaths, 1960--1990"
+"(fatalities per 100 million vehicle km) }"
+"{"
+"    @Data"
+"        points { plus }"
+"        pairs { dashed }"
+"    {"
+"        1963 5.6  1971 4.3  1976 3.7  1979 3.4  1982 2.9  1985 2.3  1988 2.0"
+"    }"
+"}"
+}
+produces
+@CD @Graph
+    xdecreasing { yes }
+    abovecaption { New South Wales road deaths, 1960--1990
+(fatalities per 100 million vehicle km) }
+{
+    @Data
+        points { plus }
+        pairs { dashed }
+    {
+        1963 5.6  1971 4.3  1976 3.7  1979 3.4  1982 2.9  1985 2.3  1988 2.0
+    }
+}
+The value of @Code "xdecreasing" should be either @Code "no" (the default
+value) or {@Code "yes"}.  A similar @Code "ydecreasing" option does the same
+thing to the y axis.
+@End @Section

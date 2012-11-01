@@ -1,0 +1,393 @@
+#
+# $Id: dansk.7bit,v 1.3 1995/01/08 23:24:24 geoff Exp $
+#
+#                           -*- Mode: Fundamental -*- 
+# 
+# danish.aff -- affix file for danish to be used with ispell 3
+# 
+# Copyright 1992 by Kresten Krab Thorup, Dept. of Mathemathics and
+#                   Computer Science, Aalborg University, Denmark.
+#
+# Permission for non-profit use is hereby granted.
+# All other rights reserved.
+# 
+# Author          : Kresten Krab Thorup
+# Created On      : Mon Jul 13 14:20:46 1992
+# Last Modified By: Kresten Krab Thorup
+# Last Modified On: Tue Jul 14 10:18:38 1992
+# 
+# Update Count    : 10
+# Buffer Position : 4295
+# Minor Modes     : ( Fill)
+# 
+# This affix file uses both upper- and lower-case affix flags, so you
+# must #define MASKBITS 64 in your local.h file.
+#
+# $Log: dansk.7bit,v $
+# Revision 1.3  1995/01/08  23:24:24  geoff
+# Add alternate 8-bit characters for the NeXT, for supporting nextispell.
+#
+# Revision 1.2  1994/01/25  07:12:29  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#  
+
+flagmarker	/
+
+
+#
+defstringtype "list" "nroff" ".list"
+#
+wordchars	[a-z]	[A-Z]
+stringchar	\346	\306
+stringchar	\370	\330
+stringchar	\345	\305
+
+#
+# TeX/LaTeX 
+#
+altstringtype "tex" "TeX" ".tex" ".bib"
+#
+altstringchar	\346	\346
+altstringchar	\370	\370
+altstringchar	\345	\345
+altstringchar	\306	\306
+altstringchar	\330	\330
+altstringchar	\305	\305
+
+#
+# Alternate form for NeXTSTEP charset (guesses by GHK; may need correction)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+altstringchar	\361	\346
+altstringchar	\341	\306
+altstringchar	\372	\370
+altstringchar	\352	\330
+altstringchar	\332	\345
+altstringchar	\206	\305
+
+#
+# Alternate forms for plain ASCII text files
+#
+altstringtype "ascii" "nroff" ".txt"
+#
+altstringchar	ae	\346
+altstringchar	Ae	\306
+altstringchar	oe	\370
+altstringchar	Oe	\330
+altstringchar	aa	\345
+altstringchar	Aa	\305
+
+#
+# Alternate forms for plain ASCII text files
+#
+altstringtype "iso246" "nroff" ".txt"
+#
+altstringchar	\{	\346
+altstringchar	\[	\306
+altstringchar	\|	\370
+altstringchar	\\	\330
+altstringchar	\}	\345
+altstringchar	\]	\305
+
+
+suffixes
+
+flag A:
+#ENER - som abrikos
+	.	>	EN
+	.	>	ER	
+	.	>	ERNE
+	[^SZX]	>       S
+	.	>	ENS
+	.	>	ERS	
+	.	>	ERNES
+
+flag B:
+#NR - som abe	
+	.	>	N
+	.	>	R	
+	.	>	RNE
+	.	>       S
+	.	>	NS
+	.	>	RS	
+	.	>	RNES
+
+flag C:
+#EN - som fejl
+	.	>	EN
+	.	>	ENE
+	[^SZX]	>       S
+	.	>	ENS
+	.	>	ENES
+
+flag D:
+#ENE - som tilstand
+	.	>	EN
+	.	>	E
+	.	>	ENE
+	[^SZX]	>       S
+	.	>	ENS
+	.	>	ES
+	.	>	ENES
+
+flag E:
+#ENNE - som sender
+	.	>	EN
+	.	>	E
+	.	>	NE
+	.	>       S
+	.	>	ENS
+	.	>	ES
+	.	>	NES
+
+flag F:
+#BENER - som klub
+	.	>	BEN
+	.	>	BER
+	.	>	BERNE
+	.	>       S
+	.	>	BENS
+	.	>	BERS
+	.	>	BERNES
+
+flag G:
+#DENER - som godbid
+	.	>	DEN
+	.	>	DER
+	.	>	DERNE
+	.	>       S
+	.	>	DENS
+	.	>	DERS
+	.	>	DERNES
+
+flag H:
+#FENER - som filosof
+	.	>	FEN
+	.	>	FER
+	.	>	FERNE
+	.	>       S
+	.	>	FENS
+	.	>	FERS
+	.	>	FERNES
+
+flag J:
+#LENER - som model
+	.	>	LEN
+	.	>	LER
+	.	>	LERNE
+	.	>       S
+	.	>	LENS
+	.	>	LERS
+	.	>	LERNES410
+
+
+flag I:
+#KENER - som almanak
+	.	>	KEN
+	.	>	KER
+	.	>	KERNE
+	.	>       S
+	.	>	KENS
+	.	>	KERS
+	.	>	KERNES
+
+flag K:
+#MENER - som sum
+	.	>	MEN
+	.	>	MER
+	.	>	MERNE
+	.	>       S
+	.	>	MENS
+	.	>	MERS
+	.	>	MERNES
+
+flag L:
+#NENER - som ven
+	.	>	NEN
+	.	>	NER
+	.	>	NERNE
+	.	>       S
+	.	>	NENS
+	.	>	NERS
+	.	>	NERNES
+
+flag M:
+#PENER - som prop
+	.	>	PEN
+	.	>	PER
+	.	>	PERNE
+	.	>       S
+	.	>	PENS
+	.	>	PERS
+	.	>	PERNES
+
+flag N:
+#SENER - som proces
+	.	>	SEN
+	.	>	SER
+	.	>	SERNE
+	.	>	SENS
+	.	>	SERS
+	.	>	SERNES
+
+flag O:
+#TENER - som gut
+	.	>	TEN
+	.	>	TER
+	.	>	TERNE
+	.	>       S
+	.	>	TENS
+	.	>	TERS
+	.	>	TERNES
+
+flag P:
+#ETER - som aksiom
+	.	>	ET
+	.	>	ER
+	.	>	ERNE
+	.	>       S
+	.	>	ETS
+	.	>	ERS
+	.	>	ERNES
+
+flag Q:
+#TR - som stykke
+	.	>	T
+	.	>	R
+	.	>	RNE
+	.	>       S
+	.	>	TS
+	.	>	RS
+	.	>	RNES
+
+flag R:
+#ET - som kort
+	.	>	ET
+	.	>	ENE
+	[^SZX]	>       S
+	.	>	ETS
+	.	>	ENES
+
+
+flag S:
+#ETE - som navn
+	.	>	ET
+	.	>	E
+	.	>	ENE
+	[^SZX]	>       S
+	.	>	ETS
+	.	>	ES
+	.	>	ENES
+
+flag T:
+#FETER - som stof
+	.	>	FET
+	.	>	FER
+	.	>	FERNE
+	.	>       S
+	.	>	FETS
+	.	>	FERS
+	.	>	FERNES
+
+flag U:
+#LETER - som hul
+	.	>	LET
+	.	>	LER
+	.	>	LERNE
+	.	>       S
+	.	>	LETS
+	.	>	LERS
+	.	>	LERNES
+
+flag V:
+#METER - som program
+	.	>	MET
+	.	>	MER
+	.	>	MERNE
+	.	>       S
+	.	>	METS
+	.	>	MERS
+	.	>	MERNES
+
+flag W:
+#PETER - som princip
+	.	>	PET
+	.	>	PER
+	.	>	PERNE
+	.	>       S
+	.	>	PETS
+	.	>	PERS
+	.	>	PERNES
+
+flag X:
+#SETER - som kompas
+	.	>	SET
+	.	>	SER
+	.	>	SERNE
+	.	>	SETS
+	.	>	SERS
+	.	>	SERNES
+
+flag Y:
+#TETER - som toilet
+	.	>	TET
+	.	>	TER
+	.	>	TERNE
+	.	>       S
+	.	>	TETS
+	.	>	TERS
+	.	>	TERNES
+
+flag Z:
+#GENITIV
+	[^SZX]	>	S
+
+flag a:
+#EDE - som feje
+	.	> 	-E,-	# fej
+	.	>	R	# fejer	
+	.	>	T	# fejet
+	.	> 	DE	# fejede
+	.	> 	NDE	# fejende
+	.	> 	S	# fejes
+	.	> 	DES	# fejedes
+
+flag b:
+#TE - som bage	
+	.	>	-E,-	# bag
+	.	>	R	# bager
+	.	> 	-E,T	# bagt
+	.	> 	-E,TE	# bagte
+	.	>	NDE	# bagende
+	.	>       S	# bages
+	.	>	-E,TES	# bagtes
+
+flag c:
+#TOT - till\346gsord med t-endelse
+	.	>	E	# defensive
+	.	>	T	# defensivt
+
+flag d:
+#NAVN
+	[^SZX]	>	S	
+
+
+flag e:
+#GETER - som anl\346g
+        .       >       GET     # anl\346gget
+        .       >       GENE    # anl\346ggene
+        .       >       S       # anl\346gs
+        .       >       GETS    # anl\346ggets
+        .       >       GENES   # anl\346ggenes
+
+
+flag f:
+#DEDE - som passe   NY 17/7-92
+#som EDE men imperativ/bydem\345de er IKKE med pga. konsonant-fordobling
+	.	>	R	# passer	
+	.	>	T	# passet
+	.	> 	DE	# passede
+	.	> 	NDE	# passende
+	.	> 	S	# passes
+	.	> 	DES	# passedes

@@ -1,0 +1,271 @@
+: Use /bin/sh
+#
+# $Id: Makepatch,v 1.16 1994/11/01 05:54:33 geoff Exp $
+#
+# Copyright 1992, 1993, Geoff Kuenning, Granada Hills, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgment:
+#      This product includes software developed by Geoff Kuenning and
+#      other unpaid contributors.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+#	Make an ispell patch kit.  This is not a clever script,
+#	just a handy one.
+#
+#	Usage:
+#
+USAGE="Usage:  Makepatch [-n] [-d destdir] [-o file] ... [new-files]"
+#
+#	destdir is the directory in which the kits and patches are kept.
+#
+#	new-files are any new files to be added to the distribution.
+#
+#	The -n switch suppresses RCS updates, so that the patch can be
+#	tested.
+#
+#	The -o switch can be used to limit patching to certain files.
+#	This is useful to control the size of patches.  Version.h is
+#	always patched.  This switch can appear more than once.
+#
+# $Log: Makepatch,v $
+# Revision 1.16  1994/11/01  05:54:33  geoff
+# When doing a partial run, update the fields code in the right RCS
+# directory.
+#
+# Revision 1.15  1994/11/01  05:27:14  geoff
+# Change the special code for handling the fields routines to reflect my
+# latest source-tree reorganization.
+#
+# Revision 1.14  1994/05/18  02:56:48  geoff
+# Correctly detect dictionary files for context selection
+#
+# Revision 1.13  1994/05/17  06:37:27  geoff
+# Add the -o switch, to help handle overly-large patches.  Remember to
+# return a success status at the end (rcsdiff can return a nonzero
+# status).
+#
+# Revision 1.12  1994/02/08  06:03:56  geoff
+# Don't expect a comma after version number (it makes patch barf)
+#
+# Revision 1.11  1994/01/25  07:11:15  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#
+destdir=kits
+baserelease=3.1
+
+trialrun=
+files=
+partialrun=false
+nl='
+'
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-d)
+	    destdir="$2"
+	    shift; shift
+	    ;;
+	-n)
+	    trialrun=echo
+	    shift
+	    ;;
+	-o)
+	    files="$files $2"
+	    partialrun=true
+	    shift; shift
+	    ;;
+	-*)
+	    echo "$USAGE" 1>&2
+	    exit 1
+	    ;;
+	*)
+	    break
+	    ;;
+    esac
+done
+
+allfiles=`Makekit -e`
+if $partialrun
+then
+    :
+else
+    files="$allfiles"
+fi
+
+[ -d "$destdir" ]  ||  mkdir "$destdir"
+
+if [ -r "$destdir/Patch${baserelease}.01" ]
+then
+    lastpatch=`ls $destdir/Patch${baserelease}.?? | tail -1 \
+      | sed "s;$destdir/Patch${baserelease}.;;"`
+else
+    lastpatch=00
+fi
+
+patchno=`expr $lastpatch + 1`
+case "$patchno" in
+    [1-9])
+	patchno=0$patchno
+	;;
+esac
+
+patchfile="$destdir/Patch${baserelease}.$patchno"
+case "$trialrun" in
+    echo)
+	patchfile="${patchfile}-test"
+	;;
+esac
+lastpatchid=`echo Patch${baserelease}.$lastpatch | sed 's/\./_/g'`
+patchid=`echo Patch${baserelease}.$patchno | sed 's/\./_/g'`
+
+echo 'Index: version.h' > "$patchfile"
+prereq=`co -r$lastpatchid -p RCS/version.h \
+  | egrep 'International Ispell Version' \
+  | sed -e 's/^.*International Ispell Version //' -e 's/ .*$//'`
+echo "Prereq: $prereq" >> "$patchfile"
+echo "" >> "$patchfile"
+patchlevel=`egrep "International Ispell Version $baserelease" version.h \
+  | sed -e "s/^.*Version $baserelease\.//" -e 's/ .*$//'`
+case "$patchlevel" in
+    $patchno)
+	;;
+    $lastpatch)
+	$trialrun co -l version.h
+	# Note this requires System V date command!
+	date=`date +%D`
+	co -p -q version.h \
+	  | sed "/International/s;$baserelease.$lastpatch ../../..;$baserelease.$patchno $date;" \
+	  | case "$trialrun" in
+		'')
+		    cat > version.h
+		    ;;
+		echo)
+		    echo 'Edit version.h to produce:'
+		    egrep 'International Ispell Version'
+		    ;;
+	    esac
+	;;
+    *)
+	echo "Sorry, I can't figure out what level you're patching!" 1>&2
+	exit 1
+	;;
+esac
+lastrev=`rlog -h version.h | sed -n 's/head:[	 ]*//p'`
+if $partialrun
+then
+    $trialrun rcs -N$patchid:$lastpatchid \
+      `echo $allfiles | tr ' ' "$nl" \
+        | sed '/^fields.[ch3]$/s;^;'"$HOME/src/local/fields/;"`
+fi
+case "$trialrun" in
+    '')
+	rcs -N$patchid:$lastrev version.h
+	rcsdiff -r$lastpatchid -r$patchid version.h >> "$patchfile"
+	;;
+    echo)
+	echo rcs -N$patchid:$lastrev version.h
+	rcsdiff -r$lastpatchid version.h >> "$patchfile"
+	;;
+esac
+
+for basefile in $files
+do
+    case "$basefile" in
+	fields.[ch3])
+	    rcsfile=$HOME/src/local/fields/RCS/$basefile,v
+	    ;;
+	*)
+	    rcsfile=`rlog -R $basefile`
+	    ;;
+    esac
+    lastrev=`rlog -h $rcsfile | sed -n 's/head:[	 ]*//p'`
+    case "$basefile" in
+	version.h)
+	    ;;
+	*)
+	    $trialrun rcs -N$patchid:$lastrev $rcsfile
+	    case "$trialrun" in
+		'')
+		    changes=`rcsdiff -r$lastpatchid -r$patchid $rcsfile \
+			$basefile 2>/dev/null \
+		      | sed 1q`
+		    ;;
+		echo)
+		    changes=`rcsdiff -r$lastpatchid $rcsfile $basefile \
+			2>/dev/null \
+		      | sed 1d`
+		    ;;
+	    esac
+	    case "$changes" in
+		'')
+		    ;;
+		*)
+		    case "$basefile" in
+			languages/english/*.[0-9])
+			    context=
+			    ;;
+			*)
+			    context=-u
+			    ;;
+		    esac
+		    echo "" >> "$patchfile"
+		    echo "Index: $basefile" >> "$patchfile"
+		    echo "" >> "$patchfile"
+		    case "$trialrun" in
+			'')
+			    rcsdiff $context -r$lastpatchid -r$patchid \
+				$rcsfile $basefile \
+			      >> "$patchfile"
+			    ;;
+			echo)
+			    rcsdiff $context -r$lastpatchid $rcsfile \
+				$basefile \
+			      >> "$patchfile"
+			    ;;
+		    esac
+		    ;;
+	    esac
+    esac
+done
+
+#
+# Do new files
+#
+for basefile
+do
+    echo "" >> "$patchfile"
+    echo "Index: $basefile" >> "$patchfile"
+    echo "" >> "$patchfile"
+    diff -c /dev/null $basefile | sed "s;/dev/null;$basefile;" >> "$patchfile"
+done
+exit 0

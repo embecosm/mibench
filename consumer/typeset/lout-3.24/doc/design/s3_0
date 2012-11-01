@@ -1,0 +1,10 @@
+@Section
+    @Title { Definitions }
+@Begin
+@PP
+The need to provide a means of packaging useful pieces of code for easy
+repeated use was recognised in the very earliest programming
+languages.  This need is even more acute in document formatting, if that
+is possible, because the majority of users are not programmers and do
+not understand the code they invoke.
+@BeginSubSections

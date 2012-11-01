@@ -1,0 +1,172 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_REVISION($Revision: 1.4 $) 
+AC_PREREQ(2.0)
+AC_INIT(say.c)
+AC_CANONICAL_HOST
+AC_CONFIG_HEADER(config.h)
+
+PROGS="say"
+dnl Set up link to the native play program
+hplay=dummy
+dbm=none
+make_dist=/dev/null 
+
+AC_PREFIX_PROGRAM(gcc)
+
+if test -z "$CC" && test -n "$GCC" ; then
+CC=$GCC
+fi 
+
+dnl Checks for programs.
+AC_PROG_CC
+
+if test "$GCC" != yes; then
+CFLAGS="-O"
+fi 
+
+AC_ISC_POSIX
+AC_PROG_MAKE_SET
+AC_PROG_INSTALL
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(fcntl.h limits.h sys/types.h sys/file.h sys/ioctl.h sys/time.h unistd.h)
+if test "$ac_cv_header_stdc" != yes; then
+AC_CHECK_FUNCS(strchr memcpy)
+AC_CHECK_HEADERS(memory.h malloc.h)
+fi 
+
+case "$host" in
+*-sun-*) hplay=sun; AC_CHECK_HEADERS(sys/ioccom.h sys/audioio.h sun/audioio.h);;
+*-sgi-*) hplay=sgi ;;
+*-next-*) hplay=NeXT; AC_CHECK_HEADERS(libc.h) ;;
+*-*-linux*) hplay=linux ;;
+*-*-hpux*)  hplay=hpux ;;
+*-*-*) echo "Unknown host type $host" ;;
+esac
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_OFF_T
+
+dnl See if float can be used in protos followed by K&R definition
+AC_MSG_CHECKING(if we can use float in prototypes)
+AC_TRY_COMPILE([#include "$srcdir/proto.h"],[
+} int func PROTO((float a));
+int func(a) float a; { ],AC_MSG_RESULT(yes),[
+AC_DEFINE(NOPROTOFLOAT)
+AC_MSG_RESULT(no)
+])
+
+if test -d $prefix/include; then 
+ CPPFLAGS="$CPPFLAGS -I$prefix/include"
+fi 
+
+if test -d $prefix/lib; then 
+ LIBS="-L$prefix/lib $LIBS"
+fi 
+
+AC_ARG_WITH(gdbm,[  --with-gdbm[=<path>]    Uninstalled GNU gdbm source directory],[
+if test "$withval" != "" && test -d "$withval" ; then
+ CPPFLAGS="-I$withval $CPPFLAGS"
+ LIBS="-L$withval $LIBS" 
+else 
+ echo "--with-gdbm=$withval" 
+fi]) 
+
+AC_ARG_WITH(aDict,[  --with-aDict[=<path>]   American Dictionary],[
+if test "$withval" != "" && test -r "$withval" ; then
+ ADICT="$withval"
+ DICTS="$DICTS aDict.db"
+else
+ echo "Cannot read $withval"
+fi]) 
+
+AC_ARG_WITH(bDict,[  --with-bDict[=<path>]   British Dictionary],[
+if test "$withval" != "" && test -r "$withval" ; then
+ BDICT="$withval"
+ DICTS="$DICTS bDict.db"
+else
+ echo "Cannot read $withval"
+fi]) 
+
+CPPFLAGS="-I. -I$srcdir $CPPFLAGS"
+
+AC_CHECK_LIB(gdbm,gdbm_open)
+if test "$ac_cv_lib_gdbm" = yes; then
+PROGS="$PROGS mkdictdb dlookup"
+else
+DICTS=""
+fi 
+
+if test "$hplay" = sgi; then
+AC_CHECK_LIB(audio,ALopenport)
+fi 
+
+AC_CHECK_LIB(M,atan)
+AC_CHECK_LIB(m,atan)
+
+dnl Checking for X11
+AC_PATH_XTRA
+if test -n "$x_includes" ; then 
+CPPFLAGS="$CPPFLAGS -I$x_includes"
+fi 
+
+AC_CHECK_LIB(socket,socket,XLIBS="-lsocket $XLIBS")
+AC_CHECK_LIB(nsl,inet_addr,XLIBS="-lnsl $XLIBS")
+AC_CHECK_LIB(X11,XauReadAuth,[
+XLIBS="$X_LIBS -lX11 $XLIBS"
+AC_DEFINE(HAVE_LIBX11)
+],,$X_LIBS $XLIBS $LIBS)
+
+dnl See if we can find nas audio library
+AC_CHECK_HEADERS(audio/audiolib.h)
+if test "$ac_cv_header_audio_audiolib_h" = yes ; then
+  AC_CHECK_LIB(audio,AuOpenServer,[
+  XLIBS="-laudio $XLIBS"
+  AC_DEFINE(HAVE_NAS)
+  ],,$XLIBS $LIBS)
+  if test "$ac_cv_lib_audio" = yes; then
+   if test "$hplay" = dummy; then
+    hplay="na" 
+    LIBS="$XLIBS $LIBS"
+    XLIBS=""
+   else
+    PROGS="$PROGS nasay"
+   fi 
+ fi 
+fi
+
+dnl Check for obscure but speed-enhancing sun hack 
+if test "$hplay" = sun; then
+AC_TRY_LINK(,nonstandard_arithmetic();,AC_DEFINE(HAVE_NONSTDARITH))
+fi 
+
+dnl Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+AC_TYPE_SIGNAL
+
+AC_MSG_CHECKING(for GNU make)
+if make -v 2>/dev/null | grep -i 'GNU *Make' > /dev/null ; then
+make_dist=$srcdir/config/make_dist
+AC_MSG_RESULT(yes)
+else
+AC_MSG_RESULT(no)
+fi  
+
+AC_SUBST(CC)
+AC_SUBST(INSTALL)
+AC_SUBST(INSTALL_PROGRAM)
+AC_SUBST(INSTALL_DATA)
+AC_SUBST(DICTS)
+AC_SUBST(ADICT)
+AC_SUBST(BDICT)
+AC_SUBST(XLIBS)
+AC_SUBST(PROGS)
+AC_SUBST(NOPROTOFLOAT)
+AC_SUBST(HAVE_NONSTDARITH)
+AC_SUBST_FILE(make_dist)
+
+AC_LINK_FILES(config/${hplay}play.c,hplay.c)
+AC_OUTPUT(Makefile)
+

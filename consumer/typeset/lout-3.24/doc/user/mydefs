@@ -1,0 +1,214 @@
+
+   ###################################################
+   #                                                 #
+   #  Lout keywords and @Code symbol.                #
+   #                                                 #
+   ###################################################
+
+   def @Code right x
+   { { Helvetica Base -1p } @Font lines @Break x }
+
+   def @@BackEnd           { @Code "@BackEnd"           }
+   def @@Begin             { @Code "@Begin"             }
+   def @@Break             { @Code "@Break"             }
+   def @@Case              { @Code "@Case"              }
+   def @@Database          { @Code "@Database"          }
+   def @@End               { @Code "@End"               }
+   def @@Font              { @Code "@Font"              }
+   def @@Char              { @Code "@Char"              }
+   def @@Galley            { @Code "@Galley"            }
+   def @@Graphic           { @Code "@Graphic"           }
+   def @@HAdjust           { @Code "@HAdjust"           }
+   def @@HContract         { @Code "@HContract"         }
+   def @@HCover            { @Code "@HCover"            }
+   def @@HExpand           { @Code "@HExpand"           }
+   def @@HScale            { @Code "@HScale"            }
+   def @@High              { @Code "@High"              }
+   def @@HShift            { @Code "@HShift"            }
+   def @@Include           { @Code "@Include"           }
+   def @@Insert            { @Code "@Insert "           }
+   def @@IncludeGraphic    { @Code "@IncludeGraphic"    }
+   def @@Key               { @Code "@Key"               }
+   def @@LClos             { @Code "@LClos"             }
+   def @@LEnv              { @Code "@LEnv"              }
+   def @@LInput            { @Code "@LInput"            }
+   def @@LVis              { @Code "@LVis"              }
+   def @@Moment            { @Code "@Moment"            }
+   def @@Next              { @Code "@Next"              }
+   def @@Null              { @Code "@Null"              }
+   def @@OneCol            { @Code "@OneCol"            }
+   def @@OneRow            { @Code "@OneRow"            }
+   def @@Open              { @Code "@Open"              }
+   def @@Outline           { @Code "@Outline"             }
+   def @@PAdjust           { @Code "@PAdjust"           }
+   def @@PrependGraphic    { @Code "@PrependGraphic"    }
+   def @@Rotate            { @Code "@Rotate"            }
+   def @@Scale             { @Code "@Scale"             }
+   def @@SetColor          { @Code "@SetColor"          }
+   def @@SetColour         { @Code "@SetColour"         }
+   def @@Language          { @Code "@Language"          }
+   def @@CurrLang          { @Code "@CurrLang"          }
+   def @@Space             { @Code "@Space"             }
+   def @@SysDatabase       { @Code "@SysDatabase"       }
+   def @@SysInclude        { @Code "@SysInclude"        }
+   def @@SysIncludeGraphic { @Code "@SysIncludeGraphic" }
+   def @@SysPrependGraphic { @Code "@SysPrependGraphic" }
+   def @@Tag               { @Code "@Tag"               }
+   def @@Tagged            { @Code "@Tagged"            }
+   def @@Use               { @Code "@Use"               }
+   def @@VAdjust           { @Code "@VAdjust"           }
+   def @@VContract         { @Code "@VContract"         }
+   def @@VCover            { @Code "@VCover"            }
+   def @@VExpand           { @Code "@VExpand"           }
+   def @@VScale            { @Code "@VScale"            }
+   def @@VShift            { @Code "@VShift"            }
+   def @@Wide              { @Code "@Wide"              }
+   def @@Yield             { @Code "@Yield"             }
+
+
+   ###################################################
+   #                                                 #
+   #  Miscellaneous symbols used in the guide.       #
+   #                                                 #
+   ###################################################
+
+   def @TeX
+   { @OneCol { T &0.4fo {-0.2f @VShift E} &0.45fo X }
+   }
+
+   def @LaTeX
+   { @OneCol { L &0.3fo { +0.1f @VShift 0.8f @Font A } &0.4fo @TeX }
+   }
+
+   import @BasicSetup
+   def @Batlow { Batlow Food Distributors Pty. Ltd. }
+
+   import @BasicSetup
+   def @GreyBox right x { @Box paint { lightgrey } x }
+
+   import @BasicSetup
+   def @HeadingBox left x right y
+   {
+       @Box { @CentredDisplay @Heading x y }
+   }
+
+   def @FilledBox
+   {
+     @BackEnd @Case {
+       PostScript @Yield {
+         { "0 0 moveto xsize 0 lineto xsize ysize lineto 0 ysize lineto"
+           "closepath fill"
+         } @Graphic { 0.6f @High ^/ 0.4f @High 4f @Wide }
+       }
+       PDF @Yield {
+         { "0 0 m __xsize 0 l __xsize __ysize l 0 __ysize l h f"
+         } @Graphic { 0.6f @High ^/ 0.4f @High 4f @Wide }
+       }
+     }
+   }
+
+   import @Eq
+   def epi { p sub i ` log sub 2 ` p sub i }
+ 
+   import @Eq
+   def ep right x { p sub x ` log sub 2 ` p sub x }
+ 
+   def @Dbl left x right y
+   { 1.95i @Wide
+     { 1.25i @Wide { |1rt @Code x } |0.2i @Eq {non y} }
+   }
+ 
+   import @Eq
+   def @ExA { 1 over sqrt { 1 - 4 x sup 2 } }
+
+   def @@Diag { @Code "@Diag" }
+
+   extend @DiagSetup @Diag
+   macro @MyNode {
+    @Node
+	outline {
+	    LR:: { xsize 0 }
+	    LR:< 0d
+	    UL:: { 0 ysize }
+	    UL:< 270d
+	    0 0 LR UL 0 0
+	}
+   }
+
+   extend @DiagSetup @Diag
+   macro @MyLink {
+    @Link
+	path {
+	    FROM:: from
+	    TO:: to
+	    FROM TO
+	}
+   }
+
+   def @ShowHMark
+      named linewidth  { 0.015 cm }
+      named linestyle  { dashed   }
+      named dashlength { 0.15 cm  }
+      named paint      { light    }
+      right x
+   {
+      @Fig
+      {
+         @Figure
+                 shape {
+                   @BackEnd @Case {
+                     PostScript @Yield {
+                         -0.3 cm ymark
+                         {xsize ymark} ++ {0.3 cm 0}
+                     }
+                     PDF @Yield { ""    #       VT: PDF currently has no output
+                     }
+                   }
+                 }
+                 linewidth { linewidth }
+                 linestyle { linestyle }
+                 dashlength { dashlength }
+         x
+      }
+   }
+ 
+   def @ZeroWidth right x { @OneCol { |0io x |0io } }
+ 
+   def @SomeText
+   {
+Johnson suddenly uttered, in a strong determined tone, an apophegm, at
+which many will start:  `Patriotism is the last refuge of a scoundrel.'
+   }
+ 
+   import @DiagSetup
+   def @OpenCircle { @Diag { @Circle margin { 0.2f } } }
+ 
+   import @DiagSetup
+   def @ClosedCircle { @Diag { @Circle paint { black } margin { 0.2f } } }
+ 
+   import @TblSetup @BasicSetup
+   def @AmberLight
+   {
+       @OneRow @Tbl
+           aformat { @Cell indentvertical { align } A }
+           marginhorizontal { 0i }
+           marginvertical { 0i }
+           strut { no }
+           rule { no }
+           paint { no }
+        {
+            @Rowa A { @OpenCircle }
+            @MarkRowa A { @ClosedCircle }
+            @Rowa A { @OpenCircle }
+        }
+   }
+
+   import @DiagSetup @Diag
+   def @Four named code { } right x
+   {
+       3.8c @Wide @Code code    ||0.3c
+       2.7c @Wide @StartRight x ||0.3c
+       2.7c @Wide @StartUp    x ||0.3c
+       2.7c @Wide @StartLeft  x ||0.3c
+       2.2c @Wide @StartDown  x
+   }

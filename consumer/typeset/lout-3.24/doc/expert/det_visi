@@ -1,0 +1,181 @@
+@Section
+  @Tag { visibility }
+  @Title { Nested definitions, body parameters, extend, import, and export }
+@Begin
+@PP
+A definition may contain
+nested.def @Index { Nested definitions }
+other definitions at the beginning of its body:
+@ID @OneRow @Code {
+"def @NineSquare"
+"   right x"
+"{"
+"   def @Three { x |0.2i x |0.2i x }"
+""
+"   @Three /0.2i @Three /0.2i @Three"
+"}"
+}
+A parameter like @Code x may be invoked anywhere within the body of the
+symbol it is a parameter of, including within nested definitions.  A
+nested symbol like @Code "@Three" may be invoked anywhere from the
+beginning of its own body to the end of the body of the symbol it is
+defined within.  So, assuming an appropriate definition of
+{@Code "@Box"},
+@ID @Code {
+"@NineSquare @Box"
+}
+has result
+@ID @Fig {
+@NineSquare @Box { 0.2i @Wide 0.2i @High }
+}
+Nested definitions may themselves contain nested definitions, to
+arbitrary depth.
+@PP
+There are three special features which permit a nested symbol or
+parameter to be invoked outside its normal range; that is, outside the
+body of the enclosing symbol.  The first and simplest of these features
+is the {@I {body parameter}},
+parameter.body @SubIndex { @Code body parameter }
+body.par @Index { @Code body parameter }
+an alternative form of right parameter.  The Eq equation formatting
+package @Cite { $kingston1995lout.user, Chapter 7 } is a classic example
+of the use of a body parameter.  In outline, it looks like this:
+@ID @OneRow @Code {
+"export \"+\" sup over"
+""
+"def @Eq"
+"    body x"
+"{"
+"    def \"+\" ..."
+"    def sup ..."
+"    def over ..."
+"    ..."
+""
+"    Slope @Font x"
+"}"
+}
+First we list those nested symbols and parameters that we intend to
+refer to outside the body of @Code "@Eq" in an @Code export clause,
+export @Index { @Code export clause }
+preceding the definition as shown.  Only exported symbols may be
+invoked outside the body of {@Code "@Eq"}.  The body parameter is like a
+right parameter except that the exported symbols are visible within it:
+@ID @Code {
+"@Eq { {x sup 2 + y sup 2} over 2 }"
+}
+calls on the nested definitions of @Code "@Eq" to produce the result
+@ID {
+@Eq { {x sup 2 + y sup 2} over 2 }
+}
+The body parameter's value must be enclosed in braces.  The term `body
+parameter' is a reminder that the value is interpreted as if it was
+within the body of the symbol.
+@PP
+A body parameter may not be exported, and in fact a body parameter may
+be invoked only within the body of the enclosing symbol, not within
+any nested definitions.  For example, @Code "x" above may not be invoked
+within {@Code "sup"}.  This restriction is needed to avoid the
+possibility of recursion, when the actual body parameter invokes an
+exported nested definition which invokes the body parameter, etc.
+@PP
+The second place where exported symbols may be used is in the right
+parameter of the @@Open symbol, and following its alternative form,
+@@Use (Section {@NumberOf open}).
+@PP
+Exported nested symbols and parameters may be made visible within
+a subsequent definition or macro by preceding it with an @Code import
+import @Index { @Code import clause }
+clause, like this:
+@ID @OneRow @Code {
+"import @Eq"
+"def pythag { sqrt { x sup 2 + y sup 2 } }"
+}
+Note however that @Code pythag can only be used with some invocation of
+{@Code "@Eq"}:  within the body parameter of an invocation of {@Code "@Eq"},
+within the right parameter of an {@Code "@Eq&&tag @Open"}, or following
+a {@Code "@Use { @Eq ... }"}.  There may be several symbols in the
+@Code import clause.
+@PP
+In a similar way to {@Code "import"}, a definition may be preceded
+by {@Code "extend"} followed by a symbol name:
+@ID @OneRow @Code {
+"extend @Eq"
+"def pythag { sqrt { x sup 2 + y sup 2 } }"
+}
+The effect of this is just as though the definition of @Code "pythag"
+had occurred directly after the existing definitions within
+{@Code "@Eq"}, with {@Code "pythag"} added to {@Code "@Eq"}'s
+export list.  This is useful for extending the capabilities of a
+package of definitions like @Code "@Eq" without modifying its source
+file.  The essential differences to @Code "import" are that all the
+symbols of @Code "@Eq" become visible within {@Code "pythag"}, not
+just the exported ones, and only one symbol may follow the
+@Code "extend" keyword.
+@PP
+Actually, more than one symbol may follow {@Code extend}, but this
+usage indicates a `path name' of the symbol.  For example,
+@ID @OneRow @Code {
+"extend @DocumentLayout @ReportLayout"
+"def @Keywords ..."
+}
+causes the definition of @Code "@Keywords" to occur directly after
+the existing definitions of {@Code "@ReportLayout"}, which itself
+lies within {@Code "@DocumentLayout"}.
+@PP
+A named parameter may also be preceded by an @Code "import" clause.
+As usual, the meaning is that the visible local definitions of
+the import symbol(s) are visible within the body (the default
+value) of the named parameter.  But furthermore, those symbols
+will be visible within all invocations of the parameter.  For
+example, suppose we define
+@ID @OneRow @Code {
+"def @Diag"
+"    import @Algebra named linewidth { 1p }"
+"    import @Algebra named dashlength { 2p }"
+"    ..."
+}
+Then, if @Code "@Algebra" exports symbols {@Code "+"},
+{@Code "-"}, and so on, we may write
+@ID @OneRow @Code {
+"@Diag"
+"    linewidth { 1f - 2p }"
+"    dashlength { 1f + 2p }"
+}
+using the symbols from {@Code "@Algebra"}.  There may be several
+symbols after the @Code "import" keyword.  All these symbols
+share an important restriction:  they may not have parameters.
+This is necessary because Lout would be unable to determine
+suitable values for any such parameters, if they did exist.
+@PP
+As an exception to the rule just given, a named parameter may
+import the symbol it is a parameter of:
+@ID @OneRow @Code {
+"export @Cell"
+"def @Tbl"
+"    import @Tbl named @Format { ... }"
+}
+In this example the exported definitions of @Code "@Tbl" (i.e.
+{@Code "@Cell"}) will be visible within {@Code "@Format"}.  However,
+they may only be used in actual parameters, not in the default
+value of the named parameter.  This is owing to implementation
+problems:  at the time the default value of {@Code "@Format"} is
+read, the exported symbols have not been read and are consequently
+not known.
+@PP
+Since @Code "@Cell" is nested within {@Code "@Tbl"}, the
+value of an invocation of @Code "@Cell" may depend on the value
+of parameters of {@Code "@Tbl"}.  If @Code "@Cell" is used within
+an actual {@Code "@Format"} parameter, its value depends on the
+value of parameters of the invocation of {@Code "@Tbl"} of which
+the {@Code "@Format"} parameter is a part.
+@PP
+A definition, macro, or named parameter may have several alternative
+names, like this:
+@ID @Code "macro @CD @CentredDisplay @CenteredDisplay { ... }"
+This is useful for abbreviated and alternative spellings, as shown.  The
+names appear together, and they may subsequently be used interchangeably.
+@PP
+If one name of a symbol appears in an export or import list, its other
+names are automaticaly included as well, and should not also appear
+in the list.
+@End @Section

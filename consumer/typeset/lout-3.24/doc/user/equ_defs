@@ -1,0 +1,53 @@
+@Section
+   @Title { Defining new equation formatting symbols }
+@Begin
+@PP
+Whenever you type particular equations or parts of equations repeatedly,
+you can save time by using definitions.  Definitions are the subject of
+Section {@NumberOf definitions}, so here we will just give a few examples
+of their use in equation formatting.
+@PP
+Suppose for example that @OneCol @Eq { p sub i ` log sub 2 ` p sub i }
+occurs frequently in your document.  Then
+@ID @Code "def epi { p sub i ` log sub 2 ` p sub i }"
+makes the symbol @Code "epi" stand for the object between the braces:
+@ID {
+@Code "big sum from i=1 to n ` epi"
+|7ct
+@Eq { big sum from i=1 to n ` epi }
+}
+Parameters are very useful when parts of the symbol vary:
+@ID @OneRow @Code {
+"def ep"
+"   right x"
+"{ p sub x ` log sub 2 ` p sub x"
+"}"
+}
+The parameter @Code x will be replaced by the object just to the right
+of {@Code "ep"}:
+@ID {
+@Code {
+"big sum from i=1 to k ` ep i +"
+"big sum from j=k+1 to n ep j"
+}
+||7ct
+@Eq {
+big sum from i=1 to k ` ep i +
+big sum from j=k+1 to n ep j
+}
+}
+The precedence of the symbols you define will be 100 by default.
+@PP
+To make the symbols of @Code "@Eq" available within such definitions,
+each must be preceded by {@Code "import @Eq"}.  As explained in Section
+{@NumberOf definitions}, the definitions go into a file called
+{@Code "mydefs"}, which might then look like this:
+@ID @OneRow @Code {
+"import @Eq"
+"def epi { p sub i ` log sub 2 ` p sub i }"
+""
+"import @Eq"
+"def ep right x { p sub x ` log sub 2 ` p sub x }"
+}
+Use of @Code "epi" and @Code "ep" outside @Code "@Eq" will cause an error.
+@End @Section

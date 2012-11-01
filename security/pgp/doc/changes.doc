@@ -1,0 +1,445 @@
+[Note: This file now contains all the information that used to be in
+the newfor22.doc through newfor26.doc, starting with the most recent
+information first]
+
+Changes for PGP 2.6.2i/2.6.3i
+
+  The most important changes are described in the file readme.1st. See
+  pgp262i.diffs and pgp263i.diffs for a more detailed list of changes.
+
+Changes for PGP 2.6.2
+
+- Some people reported a "bug" that you could stick an extra paragraph
+  in the beginning of a clear-signed message and PGP would still report
+  a good signature.  PGP allows comment "headers" before ASCII-armor
+  blocks (like the Version: header that's there for debugging
+  purposes), terminated, as with e-mail and usenet messages, by a blank
+  line.  These headers are just window dressing; PGP ignores them.  So
+  this is actually a "feature"; the bug is that people think it's part
+  of the signed message.  There are a number of ways to fake the
+  visual appearance of a blank line using common file-viewing
+  utilities, a blank line is easy to miss even if you know about it,
+  and headers are not presently used in clear-signed messages.  So now
+  headers are forbidden at the beginning of a clear-signed message.
+  Also, PGP enforces an RFC-822-like syntax on header lines before ASCII
+  armor.
+  Note that in no case has PGP's output ever been compromised; the problem
+  arises only if people see the "good signature" message but try to read
+  the input directly to see what was signed.
+- Closed files properly in a number of error situations, which also helps
+  PGP run under OS/2. (Contributed by John Frickson)
+- Improved OS/2 makefile target.
+- Added a few contributed makefile entries (hpux9, amix, encore, machten)
+- Fixed MAX_BIT_PRECISION to 2048.
+- Changed the +'s printed during prime generation (to indicate that a
+  candidate prime just passed a Fermat test) to *'s, since some people's
+  modems go into command mode when fed slow strings of +'s.
+- Added a copyright notice for RSAREF.
+- Updated the manual-checking error message to tell people that they
+  can find a simple fix if they RTFM.  Hopefully this will further
+  encourage people to complain to whoever distributed PGP without the
+  manual instead of just getting frustrated.
+- Fixed (at long last) PGP's table of file extensions to know that
+  gzip is .gz, and not .z. (Which was the preferred form some time ago.)
+- Fixed a bug in key editing with the public and secret keyrings in
+  different directories.  The old code was assuming they were in the same
+  directory, which used to be a safe assumption, but no more.
+- Fixed a problem with access() on VMS returning failure when fed a
+  directory that exists.
+- Enlarged randseed.bin to hold more entropy, and arranged for it to be
+  saved on each invocation of PGP so the entropy from keystrokes while
+  not encrypting would be available for future use.  See the comment in
+  random.c for implementation details.
+- A problem checking separate signatures on files with upper-128
+  characters has been fixed.  PGP was assuming that since MS-DOS uses
+  CRLF line endings, files for signature testing are already in canonical
+  test format.  This is not true if upper-128 characters are in use.
+- Got rid of pkcs_compat as redundant.
+
+Changes to PGP 2.6.1
+
+PGP 2.6.1 is a bugfix release of PGP 2.6. It fixes many bugs that have been
+reported by the PGP user community since the original release of PGP 2.6
+back in May of 1994. The most notable bugs are the "xorbytes" bug that
+resulted in less randomness then full Shannon Entropy for all key bits.
+(Note: People who generated keys with PGP 2.6 do *not* need to generate
+new keys). Another bug that manifested itself as "DOS error 8" errors has
+also been fixed. It is also safe to edit your key userid with PGP 2.6.1
+even if you store your passphrase in the PGPPASS variable.
+
+PGP 2.6.1 will now accept keys up to length 2,048 bits, however it
+will still only generate keys up to 1,024 bits. This is a phased
+upgrade approach to increasing PGP's keysize.
+
+Changes to PGP 2.6:
+
+This version of PGP uses a version of RSAREF provided to MIT by RSA Data
+Security for use in PGP. This version is legal within the U.S.  See the
+enclosed RSAREF license for full details. Basically this is a
+non-commercial release. If you want to use it in a commercial or
+governmental setting, talk to ViaCrypt (2014 West Peoria Avenue,
+Phoenix, Arizona 85029, +1 602 944-0773).
+
+While PGP version 2.5 used RSAREF version 2.0, PGP 2.6 uses RSAREF
+version 1.  This change was made in consultation with RSA Data
+Security, which is currently revising its version 2.0 distribution.
+The version of RSAREF included with this distribution is RSAREF
+version 1, not version 2.0.
+
+PGP 2.6 will read messages, signatures and keys created with versions of
+PGP post 2.2. (i.e., 2.3, 2.3a, 2.4 and 2.5). However after 9/1/94 Version
+2.6 will create messages which contain a version number of "3" in signatues,
+messages and keys (see pgformat.doc for details). PGP2.6 will be able to
+read these signatures, messages and keys, but prior versions will not.
+
+Versions prior to 2.6 would not permit a new signature to be added to a key
+if there was an already existing signature from the same signer. Starting
+with version 2.6 newer signatures will override older ones *as long as the
+newer signature verifies*. This change is important because many keys have
+signatures on them that were created by PGP version 2.2 or earlier. These
+signatures can not be verified by PGP 2.5 or higher. Owners of keys with
+these obsolete signatures should attempt to gather new signatures and
+add them to their key.
+
+Significant changes were also made for version 2.5. Because version 2.6 is
+coming out very soon after 2.5 (which was only really a beta test version)
+readers are encouraged to read the file "newfor25.doc" as well as this file.
+
+Changes to PGP 2.5:
+
+                 ***** MOST IMPORTANT *****
+
+This version of PGP uses RSAREF 2.0, so it's legal in the U.S.!  The
+RSAREF license forbids you to (among other things; see the license for
+full details) "use the program to provide services to others for which
+you are compensated in any manner", but that still covers a lot of
+people.  If you want to use it in a commercial or governmental
+setting, talk to ViaCrypt (2014 West Peoria Avenue, Phoenix, Arizona
+85029, +1 602 944-0773).
+
+PGP 2.5 should always be distributed with a copy of the RSAREF 2.0
+license of March 16, 1994 from RSA Data Security, Inc., so that all
+users will be aware of their obligations under the RSAREF license.
+
+Since the RSAREF license conflicts with the GNU General Public License that
+PGP was formerly distributed under, the GPL had to go.  PGP is still
+freely distributable, though.  (From a copyright point of view; export
+controls or some other legal hassle may apply.)
+
+*** IMPORTANT CHANGE:
+
+RSAREF 2.0 can understand only the pkcs_compat=1 formats for signatures
+and encrypted files.  This has been the default since 2.3, so old files
+should not be too much of a problem, but old key signatures will
+encounter difficulties.  This change will result in a hole being ripped
+in the "web of trust" as many old signatures are invalidated.  Please check
+your key rings (pgp -kc) and re-issue any signatures that have been
+invalidated.  PGP by default offers to remove such signatures.  Even if you
+leave them in, they are not trusted.
+
+Another RSAREF limitation is that it cannot cope with keys longer than
+1024 bits.  PGP now prints a reasonably polite error message in such a
+case.
+
+OTHER CHANGES:
+
+The support files are thinner.  The various contrib directory utilities
+have not been updated since 2.3a, and since the PGP developers know how
+annoying it is to have people using an ancient version and complaining
+about a bug in a program that was fixed a year ago, they have been
+omitted rather than annoy the contributors in this way.  Also, the
+language translation file, language.txt, is incomplete.  The strings
+that were in 2.3a are there, and some that could be updated without
+much knowledge of the language, but others that are new to 2.5 are
+untranslated.  The format should be obvious and some tools for
+manipulating the language traslations are included in the contrib
+directory.
+
+Printed KeyIDs have been incresed to 32 bits, as there were enough keys
+out there that 24-bit keyIDs were no longer sufficiently unique.  The
+previous 24-bit keyID is the LAST 6 digits of an 8-digit 32-bit keyID.
+For example, what was printed as A966DD now appears as C7A966DD.
+
+The config-file options
+	pubring=<filename>,
+	secring=<filename>, and
+	randseed=<filename>
+have been added.  Hopefully, the uses will be obvious.  With these, you can
+keep keyrings anywhere you like.  Of course, they can also be specified on
+the command line with +pubring= (or abbreviated to +pub=).
+
+If the line
+	comment=<string>
+appears in the config file, the line "Comment: <string>" appears in
+ASCII armor output.  Of course, you can also use this from the
+command line, e.g. to include a filename in the ASCII armor, do
+"pgp -eat +comment=filename filename recipient".
+
+PGP now enables clearsig by default.  If you sign and ascii-armor a
+text file, and do not encrypt it, it is clearsigned unless you ask
+for this not to be done.
+
+The now enables textmode.  Textmode detects non-text files and
+automatically turns itself off, so it's quite safe to leave on all
+the time.  If you haven't got these defaults yourself, you might
+want to enable them.
+
+All prompts and progress messages are now printed to stderr, to make them
+easier to find and ensure they don't get confused with data on standard
+output such as pgp -m output.
+
+PGP now wipes temp files (and files wiped with pgp -w) with pseudo-random
+data in an attempt to force disk compressors to overwrite as much data as
+possible.
+
+On Unix, if the directory /usr/local/lib/pgp exists, it is searched
+fror help files, language translations, and the PGP documentation.  On
+VMS, the equivalent is PGP$LIBRARY:.  (This is PGP_SYSTEM_DIR, defined
+in fileio.h, if you need to change it for your site.)
+
+Also, it is searched for a default global config.txt.  This file may
+be overridden by a local config.txt, and it may not set pubring,
+secring, randseed or myname (which should be strictly personal)
+
+The normal help files (pgp -h) are pgp.hlp or <language>.hlp, such as
+fr.hlp.  Now, there is a separate help file for pgp -k, called pgpkey.hlp,
+or <language>key.hlp.  No file is provided by default; PGP will use
+its one-page internal help by default, but you can create such a file
+at your site.
+
+On Unix systems, $PGPPATH defaults to $HOME/.pgp.
+
+PGP used to get confused if you had a keyring containing signatures from
+you, but not your public key.  (PGP can't use the signatures in this case.
+Only signatures from keys in the keyring are counted.)
+PGP still can't use the signatures, but prints better warning messages.
+Also, adding a key on your secret key ring to your public keyring
+now asks if the key should be considered ultimately-trusted.
+Prviously, you had to run pgp -ke to force this check, which was
+non-obvious.
+
+Due to a few people distributing PGP without the manual (including one
+run of a few thousand CD-ROMs), and the resultant flood of phone calls
+from confused users, PGP now looks to make sure a manual is somewhere in
+the vicinity when running to discourage this sort of thing.  (If you're
+getting this warning and need details on how to get rid of it, try pgp -kg.)
+
+On Unix, PGP now figures out the resolution of the system clock at run
+time for the purpose of computing the amount of entropy in keystroke
+timings.  This means that on many Unix machines, less typing should be
+required to generate keys.  (SunOS and Linux especially.)
+
+The small prime table used in generating keys has been enlarged, which
+should speed up key generation somewhat.
+
+There was a bug in PGP 2.3a (and, in fact in 2.4 and dating back to 1.0!)
+when generating primes 2 bits over a multiple of the unit size (16 bits
+on PC's, 32 bits on most larger computers), if the processor doesn't deal
+with expressions like "1<<32" by producing a result of 1.  In practice,
+that corresponds to a key size of 64*x+4 bits.
+
+Code changes:
+
+At the request of Windows programmers, the PSTR() macro used to translate
+string has been renamed to LANG().
+
+The random-number code has been *thoroughly* cleaned up.  So has the
+IDEA code and the MD5 code.  The MD5 code was developed from scratch and
+is available for public use.
+
+The Turbo C makefile was dropped in favour of a Borland C .prj file.
+You can use makefile.msc as a guide if you need one for a command-line
+Turbo C.
+
+Changes to PGP 2.4:
+
+- Fixed a bug with the -z <passphrase> option.  If no passphrase was given,
+  PGP used to crash.
+
+- When using -c, the IV is generated properly now, and the randseed.bin
+  postwash is done.  (This bug could have resulted in the same ciphertext
+  being generated for the same plaintext, if the same passphrase is used.)
+
+- Memory allocated with halloc() is now freed with hfree() in ztrees.c and
+  zdeflate.c.  (MS-DOS only.)
+
+- The decompression code now detects end of input reliably, fixing a
+  bug that used to have it produce infinite amounts of output on come
+  corrputed input.  Decompression has also been sped up.
+
+- PGP -m won't try to write its final output to the current directory.
+  This makes it less efficent if you want to save the text to a file, but
+  more secure if you don't.
+
+- Number of bits allowed when generating keys limited to 1024, in line
+  with the limits in RSAREF and BSAFE.  It used to be higher, but
+  folks, if you think you need a key larger than that, do some research
+  into the complexity of factoring.
+
+- Version number changed to pgp2.4
+
+News for PGP 2.3a
+
+There was a bug in PGP's handling of clear-signed messages when lines
+were terminated with CR-LF pairs.  This has been revamped.  The previous
+limit on the length of lines in clear-signed messages has been eliminated.
+
+The randseed.bin file was not closed when read, which resulted in it
+not being rewritten with a new value under some operating systems.
+Fixed.
+
+Not all of the bytes in randseed.bin were being used, resulting in less
+randomness than desired when picking session keys.  While it did not make
+the compromise of session keys likely, it was undesirable and has been fixed.
+
+PGP should now compile with less difficulty under OS/2.
+The Turbo C makefile was incorrect.  Fixed.
+The VMS build files were out of date.  Fixed.
+
+PGP was not accepting octal escapes in the language.txt file that did not
+begin with \0.  \377 is now acceptable.
+The language.txt file got mangled in the middle somehow.  Fixed.
+
+News for PGP 2.3
+
+This PGP 2.3 release has several bug fixes over PGP 2.2, and a few
+new (although somewhat esoteric) features.  Among them are:
+
+- An important bug: there was a bug with compression under MS-DOS which
+  caused the wrong piece of memory to be freed, with results that ranged
+  from none to undecodable messages to machine crashes.
+
+- When adding keys, PGP now properly closes all the files it opens, so
+  you don't run out of file handles (MS-DOS) or file descriptors (UNIX).
+
+- Sometimes PGP would not properly ask the user to set trust parameters
+  when keys were validated by adding new signatures.  This has been
+  fixed.
+
+- When PGP messages are sent through a MIME mail system, a conflict
+  arises over the use of the '=' character.  PGP can now decode ASCII
+  armored messages which have been mangled by MIME's quoting mechanism.
+
+- PGP previously kept track of one pass phrase (from the PGPPASS
+  environment variable, the file descriptor named by the PGPPASSFD
+  environment variable, a -z <password> option, or previous user
+  prompts), and tried it if it needed a subsequent pass phrase.  This
+  caused bugs if you attempted something that required two pass phrases,
+  such as pgp -sc (sign and conventionally encrypt).  PGP now keeps
+  track of any number of pass phrases, including multiple -z options,
+  and uses them as necessary.  Mostly, it just Does The Right Thing,
+  but if you care, the exact algorithm is as follows:
+
+  - There is a pool of private-key pass phrases that starts out with the
+    contents of the PGPPASS environment variable (if any), and has every
+    pass phrase that is successfully used to unlock a private key added
+    to it.  When a private key needs unlocking, every pass phrase in the
+    pool is tried first.
+  - There is a list of PGP pass phrases available for use by whatever needs
+    one.  This is initialized with the -z command-line options and the
+    phrase read from the PGPPASSFD file descriptor.  When a pass phrase
+    is needed, it is taken from the front of that list.  When a pass
+    phrase is needed to unlock a secret key, every key on the list is tried,
+    and if it "fits" and unlocks the secret key, it is moved to the key
+    pass phrase pool.
+  - If the above fails to produce a pass phrase, the user is prompted to
+    supply one.
+
+  Key generation (we need all the keystrokes we can get for random-number
+  accumulation) and key signing (to make sure the user really means to do
+  what they're doing) are exceptions; the user is always prompted for a
+  pass phrase under those circumstances.
+
+New options:
+
++pkcs_compat=n
+	This defaults to 1, which tells PGP to generate encryption key
+	and signature blocks in a format derived from the PKCS standards.
+	This format is understood (but not generated) by PGP 2.2.  If set
+	to 0, the old format is generated, which may be needed for
+	portability to PGP versions before 2.2.  PGP is still incompatible
+	with the PKCS standards in many ways, but in future, values of 2
+	or higher may be used to produce formats which are more compatible.
+
+Other notes:
+
+The MS-DOS executable was compiled with Borland C++ version 3.0, optimized
+for maximum speed, except that jump optimisation was turned off.  If it
+is turned on, the Transform() function in md5.c is compiled incorrectly.
+The pgp.prj file that was used is included in the source distribution.
+
+Thanks to everyone who worked on PGP and sent in bug reports.  Two who
+didn't make it into the manual are to Lindsay DuBois for a bit of last-
+minute translation, and Reptilian Research for support in developing PGP.
+
+And thanks to the Cypherpunks who managed to get PGP so much attention
+in Wired magazine recently.
+
+I hope you enjoy PGP!
+
+	-Colin <colin@nyx.cs.du.edu>
+
+News for PGP 2.2
+
+The main change since PGP 2.1 is a speedup in key management, and 
+the ability to encrypt for more than one recipient.  Apart from
+this there are some bugfixes and some new options to make it easier
+to use PGP from shell scripts or mailers.
+
+You can encrypt for more than one recipient by specifying additional
+userids on the command line eg:
+
+	pgp -e plaintext Alice Bob Carol
+
+
+Some notes about the changes:
+
+- PGP doesn't do a keycheck on a keyfile before it is added anymore,
+this is to speed up merging a big keyfile with your public keyring which
+may already have most of the keys in the keyfile you are adding.  After
+PGP has checked a signature it sets a flag in your public keyring to
+mark this signature as checked.  Because PGP 2.1 didn't have these
+flags, PGP will check *all* signatures on your keyring the first time
+you add a key with PGP 2.2.  After that PGP will only check new
+signatures.  Also by using an older version than 2.2 on your keyring you
+will clear these flags again.
+
+
+New options:
+
++interactive
+	If you add a keyfile, PGP will ask for each new key if it should
+	be added to your keyring.
+
+Options for use in shell scripts:
+
++verbose=n
+	The default is 1.  With +verbose=0, PGP will only print an error
+	message if something goes wrong.  With +verbose=2, PGP will tell
+	you what it's doing in detail suitable for debugging.
+
++force
+	Overwrite output file without asking, or with -kr: remove key
+	without asking (only if it has just one userid).
+
++batchmode
+	With this option PGP won't ask any questions or prompt for
+	alternate file names.  Some of the key commands still need
+	user interaction and can't be done from a shell script.
+	You can also use this option to check if a file has a good
+	signature.  If the input file did not have a signature the exit
+	code will be 1, if the file had a signature and if it checked OK
+	the exit code will be 0.  Note that if the input file has more
+	than one armored messages, a good signature on one of these
+	messages will make the exit code 0 (if there are no errors).
+
+These "long" options can be abbreviated as long as the abbreviation is
+unambiguous.  "interactive" and "verbose" can also be set in config.txt;
+you can then turn these flags off on the command line with +option=.
+
+
+Some of the bug fixes:
+
+- Key lookup on keyID (eg 0x12AB) fixed for -ks/-krs.
+
+- Dearmoring of Macintosh type text files (CR only) now also works.

@@ -1,0 +1,238 @@
+@Section
+   @Title { Bibliographies }
+   @Tag { biblio }
+@Begin
+@PP
+bibliographies @Index { Bibliographies }
+The first step in the production of a bibliography is to create a
+database of references based on the definition
+reference.example @Index { @Code "@Reference" example }
+@ID @Code {
+      "export @Type @Author @Title @Institution @Number @Publisher"
+//1vx "       @Year @Proceedings @Journal @Volume @Pages @Comment"
+//1vx ""
+//1vx "def @Reference"
+//1vx "   named @Tag"         |2f  "{ TAG? }"
+ /1vx "   named @Type"        |    "{ TYPE? }"
+ /1vx "   named @Author"      |    "{ AUTHOR? }"
+ /1vx "   named @Title"       |    "{ TITLE? }"
+ /1vx "   named @Institution" |    "{ INSTITUTION? }"
+ /1vx "   named @Number"      |    "{ NUMBER? }"
+ /1vx "   named @Publisher"   |    "{ PUBLISHER? }"
+ /1vx "   named @Year"        |    "{ YEAR? }"
+ /1vx "   named @Proceedings" |    "{ PROCEEDINGS? }"
+ /1vx "   named @Journal"     |    "{ JOURNAL? }"
+ /1vx "   named @Volume"      |    "{ VOLUME? }"
+ /1vx "   named @Pages"       |    "{ PAGES? }"
+ /1vx "   named @Comment"     |    "{ @Null }"
+//1vx "{ @Null }"
+}
+For example, the database might contain
+@IL
+@LI @Code {
+"{ @Reference"
+"     @Tag { strunk1979style }"
+"     @Type { Book }"
+"     @Author { Strunk, William and White, E. B. }"
+"     @Title { The Elements of Style }"
+"     @Publisher { MacMillan, third edition }"
+"     @Year { 1979 }"
+"}"
+}
+
+@LI @Code {
+"{ @Reference"
+"     @Tag { kingston92 }"
+"     @Type { TechReport }"
+"     @Author { Kingston, Jeffrey H. }"
+"     @Title { Document Formatting with Lout (Second Edition) }"
+"     @Number { 449 }"
+"     @Institution { Basser Department of Computer"
+"Science F09, University of Sydney 2006, Australia }"
+"     @Year { 1992 }"
+"}"
+}
+@EL
+Since named parameters are optional, we have one for every conceivable
+type of attribute, and simply leave out those that do not apply in any
+particular reference.  We can print a reference by using the @@Open
+symbol to get at its attributes:
+@ID @Code {
+"@Reference&&strunk1979style @Open"
+"{  @Author,  {Slope @Font @Title}.  @Publisher, @Year.  }"
+}
+The right parameter of @@Open may use the exported parameters of the
+left, and so the result is
+@ID {
+@Reference&&strunk1979style @Open
+{  @Author,  {Slope @Font @Title}.  @Publisher, @Year.  } |0io
+}
+Incidentally, we are not limited to just one database of references;
+several @@Database symbols can nominate the same symbol, and invocations of
+that symbol can appear in the document itself as well if we wish.
+@PP
+The second step is to create a database of print styles for the various
+types of reference (Book, TechReport, etc.), based on the following
+definition:
+@ID @Code {
+"export @Style"
+"def @RefStyle"
+"   left @Tag"
+"   named @Style right reftag {}"
+"{}"
+}
+Notice that the named parameter @Code "@Style" has a right parameter
+{@Code "reftag"}.  The style database has one entry for each type of
+reference:
+@ID @Code {
+"{ Book @RefStyle @Style"
+"  {  @Reference&&reftag @Open"
+"     { @Author,  {Slope @Font @Title}.  @Publisher, @Year.  @Comment }"
+"  }"
+"}"
+""
+"{ TechReport @RefStyle @Style"
+"  {  @Reference&&reftag @Open"
+"     { @Author,  {Slope @Font @Title}.  Tech. Rep. @Number (@Year),"
+"@Institution.  @Comment }"
+"  }"
+"}"
+}
+and so on.  The following prints the reference whose tag is
+@Code strunk1979style in the Book style:
+@ID @Code {
+"@RefStyle&&Book @Open { @Style strunk1979style }"
+}
+It has result
+@ID {
+@RefStyle&&Book @Open { @Style strunk1979style } |0io
+}
+Notice how the @Code "@Style" parameter of @Code "@RefStyle" is given the
+parameter {@Code strunk1979style}, which it uses to open the appropriate
+reference.
+@PP
+We can consult the @Code "@Type" attribute of a reference to find out
+its style, which brings us to the following definition for printing out
+a reference in the style appropriate to it:
+@ID @Code {
+"def @RefPrint"
+"   right reftag"
+"{  @RefStyle&&{ @Reference&&reftag @Open { @Type } }"
+"   @Open { @Style reftag }"
+"}"
+}
+For example, to evaluate {@Code "@RefPrint strunk1979style"}, Lout first
+evaluates
+@ID @Code {
+"@Reference&&strunk1979style  @Open  { @Type }"
+}
+whose result is {@Code { @Reference&&strunk1979style  @Open  { @Type } }},
+and then evaluates
+@ID @Code {
+"@RefStyle&&Book @Open { @Style strunk1979style }"
+}
+as before.  Complicated as this is, with its two databases and clever
+passing about of tags, the advantages of separating references from
+printing styles are considerable:  printing styles may be changed
+easily, and non-expert users need never see them.
+@PP
+Finally, we come to the problem of printing out a numbered list of
+references, and referring to them by number in the body of the
+document.  The first step is to create a numbered list of places that
+galleys containing references may attach to:
+referencesection.example @Index { @Code "@ReferenceSection" example }
+@ID @Code {
+"def @ReferenceSection"
+"    named @Tag {}"
+"    named @Title { References }"
+"    named @RunningTitle { dft }"
+"    named style right tag { tag. }"
+"    named headstyle right @Title { @Heading @Title }"
+"    named indent { @DispIndent }"
+"    named gap { @DispGap }"
+"    named start { 1 }"
+"{"
+"    def @RefList right num"
+"    {"
+"        @NumberMarker num  &  indent @Wide {style num}  |  @RefPlace"
+"        //gap @RefList @Next num"
+"    }"
+""
+"        @Protect headstyle @Title"
+"    //  @PageMarker&&preceding @Tagged @Tag"
+"    //  @Title @MajorContentsEntry {@PageOf @Tag}"
+"    //  @Runner"
+"            @FootEven { |0.5rt 0.8f @Font @B @PageNum }"
+"            @FootOdd  { |0.5rt 0.8f @Font @B @PageNum }"
+"    //@DispGap  @RefList start"
+"    //  @Runner"
+"            @TopEven { @B @PageNum }"
+"            @TopOdd  { @I {@RunningTitle @OrElse @Title} |1rt @B @PageNum }"
+"}"
+}
+We place the expression @Code "@ReferenceSection" at the point where we
+want the list of references to appear; its value is something like
+@ID @Code {
+"1.   @RefPlace"
+"2.   @RefPlace"
+"3.   @RefPlace"
+"..."
+}
+where @Code "@RefPlace" is @Code "@Galley" as usual.  We can scatter
+multiple lists of references through the document if we wish (at the end
+of each chapter, for example), simply by placing @Code "@ReferenceSection"
+at each point.
+@PP
+Our task is completed by the following definition:
+ref.example @Index { @Code "@Ref" example }
+@ID @Code {
+"def @Ref right x"
+"{"
+"    def sendref into { @RefPlace&&following }"
+"        right @Key"
+"    {"
+"        @NumberMarker&&preceding @Tagged x  &"
+"        @PageMarker&&preceding @Tagged x  &"
+"        @RefPrint x"
+"    }"
+""
+"    @NumberMarker&&x @Open { @Tag } sendref x"
+"}"
+}
+Given this definition, the invocation {@Code "@Ref strunk1979style"} has result
+@ID @Code "@NumberMarker&&strunk1979style @Open { @Tag }"
+plus the galley {@Code "sendref strunk1979style"}.  We first
+follow what happens to the galley.
+@PP
+According to its @Code into clause, the galley will replace a
+@Code "@RefPlace" in the nearest following {@Code "@ReferenceSection"}.  If
+every such galley is a sorted galley whose key is the reference's tag, as
+this one is, they will appear sorted by tag.  The galley's object is
+@ID @Code {
+"@NumberMarker&&preceding @Tagged strunk1979style  &"
+"@PageMarker&&preceding @Tagged strunk1979style  &"
+"@RefPrint strunk1979style"
+}
+The result of the @@Tagged symbol is always @@Null, so this prints the
+@Code strunk1979style reference in the appropriate style at the
+{@Code "@RefPlace"}, as desired.
+@PP
+Now @Code "@NumberMarker&&preceding" is the nearest preceding invocation of
+@Code "@NumberMarker" in the final document.  This must be the invocation of
+@Code "@NumberMarker" just before the @Code "@RefPlace" that received
+the galley, and so this invocation of @Code "@NumberMarker" is given @Code
+strunk1979style as an additional tag by the @@Tagged symbol.  Its original tag
+was the number of the reference place, which means that
+@ID @Code {
+"@NumberMarker&&strunk1979style @Open { @Tag }"
+}
+has for its result the number of the reference place that received the
+@Code strunk1979style galley, and this is the desired result of
+{@Code "@Ref strunk1979style"}.
+@PP
+It might seem that if we refer to the @Code strunk1979style reference twice,
+two copies will be sent to the reference list and it will appear
+twice.  However, when more than one sorted galley with the same key is sent
+to the same place, only one of them is printed (Section {@NumberOf galleys});
+so provided that sorted galleys are used there is no problem.
+@End @Section

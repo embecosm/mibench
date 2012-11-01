@@ -1,0 +1,353 @@
+.TH lame 1 "November 8, 1999" " " "LAME audio compressor MP3 "
+.SH NAME
+lame \- create mp3 audio files
+.SH SYNOPSIS
+.nf
+lame [options] <infile> <outfile>
+.fi
+.SH DESCRIPTION
+.PP
+Lame is a program which can be used to create compressed audio files.
+(Lame aint MP3 encoder).   These audio files can be played back by popular 
+mp3 players such as mpg123.  To read from stdin, use "-" for <infile>.
+To write to stdout, use a "-" for <outfile>.
+
+.SH OPTIONS
+.TP
+.BI -m  " mode"
+ (s)tereo, (j)oint, (f)orce or (m)ono  (default j)
+force = force mid/side stereo on all frames.  Faster if you know mid/side
+stereo is appropriate for the input file.
+.TP
+.BI -b  " bitrate"
+set the bitrate, default 128kbps
+.TP
+.BI -s " sample-freq"
+frequency of input file (khz) - default 44.1
+.TP
+.BI --resamp " sfreq"
+sampling frequency of output file(kHz)- default=input sfreq
+.TP
+.BI --mp3input
+input file is a MP3 file
+.TP
+.BI --voice
+experimental voice mode
+.TP
+.BI -v
+use variable bitrate (VBR)
+.TP
+.BI -V " n"
+quality setting for VBR. Default n=4, 0=high quality,bigger files.
+9=smaller files
+.TP
+.BI -b " <bitrate>"
+specify minimum allowed bitrate for VBR, default 32kbs
+.TP
+.BI -B " <bitrate>"
+specify miximum allowed bitrate for VBR, default 256kbs
+.TP
+.BI -t
+disable Xing VBR informational tag
+.TP
+.BI --nohist
+disable VBR histogram display
+
+.TP
+.BI -h
+slower, but (maybe) higher quality
+.TP
+.BI -f
+fast mode (low quality)
+.TP
+.BI -k
+disable sfb=21 cutoff
+.TP
+.BI -d
+allow channels to have different blocktypes
+.TP
+.BI --athonly
+only use the ATH for masking
+.TP
+.BI -r
+input is raw pcm
+.TP
+.BI -x
+force byte-swapping of input
+.TP
+.BI -a
+autoconvert from stereo to mono file for mono encoding
+.TP
+.BI -e " emp"
+de-emphasis n/5/c  (default: n)
+.TP
+.BI -p
+add CRC error protection (adds additional 16bits per frame to stream)
+.TP
+.BI -c
+mark as copyright
+.TP
+.BI -o
+mark as non-original (i.e. do not set the original bit)
+.TP
+.BI -S
+don't print progress report, VBR histograms
+.TP
+.BI -g
+run graphical analysis on <infile>.  <infile> can also be a .mp3 file.
+(This feature is a compile time option. Your binary may for speed reasons be
+compiled without this.)
+
+
+
+.SH EXAMPLES
+.LP
+Recommended way to create a fixed 128kbs mp3 file from a wav file
+.IP
+.B lame -h
+.I foo.wav foo.mp3
+.LP
+Copy track 7 from a regular audio CD, using cdparanoia
+
+.IP
+.B cdparanoia 7 foo.wav  ;
+.B  lame -h foo.wav foo.mp3
+
+.LP
+Copy track 7 from a regular audio CD with cdda2wav, where the cdrom device is
+device /dev/cdrom to an mp3 file foo.mp3
+
+.IP
+.B cdda2wav \-O
+.I wav
+.B \-t 7 \-D
+.I /dev/cdrom
+.I \-
+.B  | lame 
+.I \- foo.mp3
+
+.IP
+
+.LP
+Streaming from mono 22.05kHz raw pcm data and using sox to 
+downsample to 16kHz:
+.IP
+cat inputfile | sox -t raw -x -w -s -c 1 -r 22050 -  
+-t raw -x -w -s -c 1 -r 16000 - | lame -r -m m -b 24 -s 16 - - > output
+.IP
+
+
+
+.SH BUGS
+.PP
+Quality is much better than encoders based on the ISO routines,
+but still not as good as the FhG encoder.
+.SH SEE ALSO
+.BR mpg123 (1) ,
+.BR cdparanoia (1) ,
+.BR cdda2wav (1) ,
+.BR sox (1)
+.SH AUTHORS
+.nf
+LAME originally developed by Mike Cheng
+(www.uq.net.au/~zzmcheng)
+GPSYCHO psycho-acoustic model by Mark Taylor 
+(www.sulaco.org/mp3).
+mpglib by Michael Hipp
+Manual page by William Schelter, Nils Faerber
+.f
+ -=- MIME -=- 
+
+--jI8keyz6grp/JLjh
+Content-Type: text/plain; charset=us-ascii
+
+Hi Mark!
+I have just updated the man page for lame 3.53beta to the latest options
+with some minor cosmetic changes. Find the new version as attachment...
+CU
+  nils
+
+-- 
+Nils Faerber (Linux Nils)        eMail: nils@unix-ag.org
+Student of computer science      http://www.si.unix-ag.org/~nils/
+Unix user group, University of Siegen, Germany
+
+Siegen ... the arctic rain forest!
+--
+--jI8keyz6grp/JLjh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="lame.1"
+
+.TH lame 1 "November 8, 1999" " " "LAME audio compressor MP3 "
+.SH NAME
+lame \- create mp3 audio files
+.SH SYNOPSIS
+.nf
+lame [options] <infile> <outfile>
+.fi
+.SH DESCRIPTION
+.PP
+Lame is a program which can be used to create compressed audio files.
+(Lame aint MP3 encoder).   These audio files can be played back by popular 
+mp3 players such as mpg123.  To read from stdin, use "-" for <infile>.
+To write to stdout, use a "-" for <outfile>.
+
+.SH OPTIONS
+.TP
+.BI -m  " mode"
+ (s)tereo, (j)oint, (f)orce or (m)ono  (default j)
+force = force mid/side stereo on all frames.  Faster if you know mid/side
+stereo is appropriate for the input file.
+.TP
+.BI -b  " bitrate"
+set the bitrate, default 128kbps
+.TP
+.BI -s " sample-freq"
+frequency of input file (khz) - default 44.1
+.TP
+.BI --resamp " sfreq"
+sampling frequency of output file(kHz)- default=input sfreq
+.TP
+.BI --mp3input
+input file is a MP3 file
+.TP
+.BI --voice
+experimental voice mode
+.TP
+.BI -v
+use variable bitrate (VBR)
+.TP
+.BI -V " n"
+quality setting for VBR. Default n=4, 0=high quality,bigger files.
+9=smaller files
+.TP
+.BI -b " <bitrate>"
+specify minimum allowed bitrate for VBR, default 32kbs
+.TP
+.BI -B " <bitrate>"
+specify miximum allowed bitrate for VBR, default 256kbs
+.TP
+.BI -t
+disable Xing VBR informational tag
+.TP
+.BI --nohist
+disable VBR histogram display
+
+.TP
+.BI -h
+slower, but (maybe) higher quality
+.TP
+.BI -f
+fast mode (low quality)
+.TP
+.BI -k
+disable sfb=21 cutoff
+.TP
+.BI -d
+allow channels to have different blocktypes
+.TP
+.BI --athonly
+only use the ATH for masking
+.TP
+.BI -r
+input is raw pcm
+.TP
+.BI -x
+force byte-swapping of input
+.TP
+.BI -a
+autoconvert from stereo to mono file for mono encoding
+.TP
+.BI -e " emp"
+de-emphasis n/5/c  (default: n)
+.TP
+.BI -p
+add CRC error protection (adds additional 16bits per frame to stream)
+.TP
+.BI -c
+mark as copyright
+.TP
+.BI -o
+mark as non-original (i.e. do not set the original bit)
+.TP
+.BI -S
+don't print progress report, VBR histograms
+.TP
+.BI -g
+run graphical analysis on <infile>.  <infile> can also be a .mp3 file.
+(This feature is a compile time option. Your binary may for speed reasons be
+compiled without this.)
+
+
+
+.SH EXAMPLES
+.LP
+Recommended way to create a fixed 128kbs mp3 file from a wav file
+.IP
+.B lame -h
+.I foo.wav foo.mp3
+.LP
+Copy track 7 from a regular audio CD, using cdparanoia
+
+.IP
+.B cdparanoia 7 foo.wav  ;
+.B  lame -h foo.wav foo.mp3
+
+.LP
+Copy track 7 from a regular audio CD with cdda2wav, where the cdrom device is
+device /dev/cdrom to an mp3 file foo.mp3
+
+.IP
+.B cdda2wav \-O
+.I wav
+.B \-t 7 \-D
+.I /dev/cdrom
+.I \-
+.B  | lame 
+.I \- foo.mp3
+
+.IP
+
+.LP
+Streaming from mono 22.05kHz raw pcm data and using sox to 
+downsample to 16kHz:
+.IP
+cat inputfile | sox -t raw -x -w -s -c 1 -r 22050 -  
+-t raw -x -w -s -c 1 -r 16000 - | lame -r -m m -b 24 -s 16 - - > output
+.IP
+
+
+
+.SH BUGS
+.PP
+Quality is much better than encoders based on the ISO routines,
+but still not as good as the FhG encoder.
+.SH SEE ALSO
+.BR mpg123 (1) ,
+.BR cdparanoia (1) ,
+.BR cdda2wav (1) ,
+.BR sox (1)
+.SH AUTHORS
+.nf
+LAME originally developed by Mike Cheng
+(www.uq.net.au/~zzmcheng)
+GPSYCHO psycho-acoustic model by Mark Taylor 
+(www.sulaco.org/mp3).
+mpglib by Michael Hipp
+Manual page by William Schelter, Nils Faerber
+.f
+
+--jI8keyz6grp/JLjh--
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,352 @@
+@Section
+   @Title { Technical reports }
+   @Tag { reports }
+@Begin
+@PP
+To make a technical report,
+start off with the @Code "report" setup
+reports. @Index { reports }
+technical.reports. @Index { technical reports }
+report. @Index @Code "@Report"
+file and the @Code "@Report" symbol:
+@ID @OneRow @Code {
+"@SysInclude { report }"
+"@Report"
+"    @Title {}"
+"    @Author {}"
+"    @Institution {}"
+"    @DateLine { No }"
+"    @AtEnd {}"
+"    @CoverSheet { Yes }"
+"    @ContentsSeparate { No }"
+"    @InitialFont { Times Base 12p }"
+"    @InitialBreak { hyphen adjust 1.2fx }"
+"    @InitialSpace { lout }"
+"    @InitialLanguage { English }"
+"    @PageOrientation { Portrait }"
+"    @PageHeaders { Simple }"
+"    @ColumnNumber { 1 }"
+"    @FirstPageNumber { 1 }"
+"    @OptimizePages { No }"
+"    @AbstractDisplay { Yes }"
+"    @AbstractTitle { Abstract }"
+"    @Abstract {}"
+"//"
+}
+This shows all the options of {@Code "@Report"}
+@FootNote {
+Version 3.13 of Lout is not completely upwardly compatible with
+previous versions in its handling of technical reports.  The change
+concerns the abstract, and if you see the error message
+@ID @Code "symbol @Abstract unknown or misspelt"
+you probably need to convert your document.  To convert an older
+document to Version 3.13, move any @Code "@Abstract" from after the
+@Code "//" to before it, delete any options to the @Code "@Abstract"
+symbol, and delete any initial paragraph symbol within the abstract.
+You can use the @Code "@AbstractTitle" option described in this section
+to change the title of the abstract.
+}
+with their default values.  As usual with options, they may be given in
+any order, and only the ones whose values need to be changed need be
+given at all.  The meaning of the @Code "//" symbol is beyond our scope,
+but disaster will ensue if it is forgotten.
+@PP
+The @Code "@Title" option holds the title of the report.  It will be
+printed using the @Code clines paragraph breaking style (Section
+{@NumberOf paras}), which centres each line, so it makes sense
+to have multi-line titles:
+@ID @OneRow @Code {
+"@Report"
+"    @Title {"
+"The solution of real instances of"
+"the timetabling problem"
+"}"
+"    ..."
+}
+With a multi-line title, each line after the first should begin
+at the left margin, not indented.  It doesn't matter where the first
+line begins, because space following an open brace is ignored.
+@PP
+The @Code "@Author" and @Code "@Institution" options hold the author's
+name and institution or address, and will also be printed using the
+@Code clines style.  If there are several authors but only one
+institution, list all the authors in the @Code "@Author" option:
+@ID @Code "@Author { Tim B. Cooper and Jeffrey H. Kingston }"
+With more authors, or with more than one institution, it is best to
+ignore the @Code "@Institution" option and place all the information
+within the @Code "@Author" option, enclosing institution information
+in @Code "@I" symbols.  In extreme cases, a table with columns of
+authors might be necessary (Chapter {@NumberOf tables}).
+@PP
+@Code "@DateLine" may be set to {@Code No}, meaning no dateline,
+{@Code Yes}, meaning print the current date, or anything else, which is
+taken to be a date and printed:
+@ID @Code "@DateLine { 4 July, 1776 }"
+A good plan is to use @Code "@DateLine { Yes }" until
+the report is finalized.
+@PP
+The {@Code "@AtEnd"} option will come out on a single unnumbered
+page with no page headers or footers, and using the same margins as for
+even pages, after the very last page of the report; even after the
+index if there is one.  It is intended to make it possible to
+include a back cover, so @Code "@PageOf last.page" does not take
+account of any @Code "@AtEnd" page.
+@PP
+The remaining options (except {@Code "@Abstract"}) are setup file options
+(Section {@NumberOf setup}) that frequently need to be changed.  If your
+changes to the overall formatting are confined to these options, you can
+change them here and avoid having your own setup file.  If you already have
+your own setup file, change them in either place and omit them in
+the other.
+@PP
+If @Code "@CoverSheet" is {@Code Yes}, an unnumbered cover
+cover.sheet. @Index @Code "@CoverSheet"
+sheet will be produced containing the title, author, institution,
+abstract, and dateline.  Otherwise they will appear on the
+first page.  The `cover sheet' is in reality a sequence of Intro pages
+(Section {@NumberOf headers}), numbered by default with Roman numerals
+on pages after the first.
+@PP
+In order to get a table of contents, it is necessary to use your
+own setup file (Section {@NumberOf setup} explains how to do this)
+and to set the @Code "@MakeContents" option within it to
+{@Code Yes}.  The table of contents will ordinarily appear beginning
+on the first page, but if the @Code "@ContentsSeparate" option of
+@Code "@Report" is
+contents.separate @Index @Code "@ContentsSeparate"
+set to @Code "Yes" it will appear on separate pages.
+@PP
+@Code "@InitialFont" is the font of the bulk of the report,
+and should contain a family, a face, and a size.  The default
+value selects the Times family, the Base face, and the 12 point size.
+@PP
+@Code "@InitialBreak" controls the behaviour of paragraph breaking in
+the bulk of the report.  It should have three parts:  a paragraph
+breaking style ({@Code adjust}, {@Code ragged}, etc.), an inter-line
+spacing ({@Code "1.2fx"} for single spacing, {@Code "2.4fx"} for
+double spacing, and so on), and either @Code "hyphen" or
+@Code "nohyphen" for turning hyphenation on or off.  It may also
+have @Code "nobreakfirst" or @Code "nobreaklast" (or both), meaning
+to disallow a page break after the first line of a paragraph, or
+before the last, respectively.
+@PP
+@Code "@InitialSpace" determines how Lout treats white space between
+two objects, as described in Section
+{@NumberOf white}.  @Code "@InitialLanguage" determines the language
+of the bulk of the report.
+@PP
+@Code "@PageOrientation" determines the orientation of the page.  Its
+value may be {@Code Portrait} (the default), {@Code Landscape},
+{@Code ReversePortrait}, or {@Code ReverseLandscape}.  See
+Section {@NumberOf pagesize} for further details.
+@PP
+@Code "@PageHeaders" determines the appearance of page headers and
+footers.  Its value may be {@Code None},
+{@Code Simple}, {@Code Titles}, or {@Code NoTitles}.  Section
+{@NumberOf headers} has the details, but just briefly, {@Code None}
+produces no page headers, {@Code Simple} produces a centred page number
+between hyphens on every page except the cover sheet and the first
+page, @Code Titles produces full running titles as in the present
+document, and @Code "NoTitles" is like @Code "Titles" with the running
+titles omitted, leaving just the page numbers.
+@PP
+@Code "@ColumnNumber" is the number of columns per page in the bulk of
+the report, and may be anything from {@Code 1} (the default value) to
+{@Code 10}.  However, there is nothing analogous to the @Code "@FullWidth"
+symbol of ordinary documents.  Instead, the cover sheet, title material,
+and all figures and tables will be printed full width, and the rest will
+be set in columns.  There is a separate @Code "@IndexColumnNumber" option
+in the setup file which determines the number of columns in the index
+(Section {@NumberOf indexes}).
+@PP
+@Code "@FirstPageNumber" is the page number given to the first page.
+@PP
+Lout ordinarily places lines onto a page until space runs out, then moves
+to the next page and so on.  This often produces ugly empty spaces at
+the bottoms of pages preceding large unbreakable displays.  Setting the
+@Code "@OptimizePages" option to {@Code "Yes"} causes Lout to examine the
+overall situation and try to minimize the ugliness, using the @TeX
+optimal paragraph breaking algorithm.  It takes two runs to do this,
+with intermediate results stored in Lout's cross reference database
+(Section {@NumberOf cross}); so deleting file {@Code lout.li} will reset
+it, which might be wise after major changes.  It is possible for the
+optimizer to cycle, never settling on a single final best version; this
+is usually caused by footnotes or floating figures inserted at points
+which end up near page boundaries.
+@PP
+Finally we have three options that control the abstract.
+@Code "@AbstractDisplay" may be @Code { Yes } or {@Code No};
+it determines whether the abstract is displayed (occupying
+the full page width except for an indent at each side like a quoted
+display) or inline (occupying the column width).  There is a more
+general option, {@Code "@AbstractFormat"}, in the setup file that
+offers more formatting choices.  @Code "@AbstractTitle" is the title
+of the abstract; its default value is @Code Abstract or its equivalent
+in the current language.  Finally, @Code "@Abstract" contains the
+abstract. @Index @Code "@Abstract"
+abstract itself; it may be empty or absent, in which case there will
+be no abstract.  The abstract may contain footnotes in the usual way.
+@PP
+After the compulsory {@Code "//"} comes the report body in the
+form of a sequence of sections:
+section.reports @SubIndex { in reports }
+@ID @OneRow @Code {
+"@Section"
+"    @Title { Introduction }"
+"@Begin"
+"@PP"
+"..."
+"@End @Section"
+}
+No @Code "@BeginSections" or @Code "@EndSections" symbols are needed.  The
+beginsections.reports @SubIndex { in reports }
+endsections.reports @SubIndex { in reports }
+general rule is that you need these bracketing symbols only when you are
+inside something else.  Sections lie inside @Code "@Text" in ordinary
+documents, but they don't lie inside anything else in technical reports.
+@PP
+A section may have subsections, between
+subsection.reports @SubIndex { in reports }
+beginsubsections.reports @SubIndex { in reports }
+endsubsections.reports @SubIndex { in reports }
+@Code "@BeginSubSections" and {@Code "@EndSubSections"}:
+@ID @OneRow @Code {
+"preceding text"
+"@BeginSubSections"
+"@SubSection ... @End @SubSection"
+"@SubSection ... @End @SubSection"
+"..."
+"@SubSection ... @End @SubSection"
+"@EndSubSections"
+}
+Within each subsection there may be sub-subsections, each introduced
+by {@Code "@SubSubSection"}, with the whole sequence bracketed by
+subsubsection.reports @SubIndex { in reports }
+beginsubsubsections.reports @SubIndex { in reports }
+endsubsubsections.reports @SubIndex { in reports }
+@Code "@BeginSubSubSections" and {@Code "@EndSubSubSections"}:
+@ID @OneRow @Code {
+"preceding text"
+"@BeginSubSubSections"
+"@SubSubSection ... @End @SubSubSection"
+"@SubSubSection ... @End @SubSubSection"
+"..."
+"@SubSubSection ... @End @SubSubSection"
+"@EndSubSubSections"
+}
+There are no sub-sub-subsections.
+@PP
+After the sections comes an optional sequence of appendices:
+appendix.reports @SubIndex { in technical reports }
+@ID @OneRow @Code {
+"@Appendix"
+"    @Title { Derivation of the renewal formula }"
+"@Begin"
+"@PP"
+"..."
+"@End @Appendix"
+}
+No @Code "@BeginAppendices" or @Code "@EndAppendices" symbols are needed,
+beginappendices.reports @SubIndex { in reports }
+endappendices.reports @SubIndex { in reports }
+because (like the sections above) these appendices do not lie inside
+any other large-scale structure symbol.  The appendices are numbered
+A, B, C, etc., as is conventional for them.  Within each appendix
+there may be a sequence of subappendices, obtained with the
+@Code "@SubAppendix" symbol and bracketed by @Code "@BeginSubAppendices"
+subappendix.reports @SubIndex { in reports }
+beginsubappendices.reports @SubIndex { in reports }
+endsubappendices.reports @SubIndex { in reports }
+and {@Code "@EndSubAppendices"}:
+@ID @OneRow @Code {
+"preceding text"
+"@BeginSubAppendices"
+"@SubAppendix ... @End @SubAppendix"
+"@SubAppendix ... @End @SubAppendix"
+"..."
+"@SubAppendix ... @End @SubAppendix"
+"@EndSubAppendices"
+}
+There are sub-subappendices following the same pattern, but no
+subsubappendix.reports @SubIndex { in reports }
+beginsubsubappendices.reports @SubIndex { in reports }
+endsubsubappendices.reports @SubIndex { in reports }
+sub-sub-subappendices.
+@PP
+The report ends with the last section or appendix; any reference list or
+index will be appended automatically.  Although we have described how to
+create reports as though everything was in one large file, in practice it
+is much better to divide the report into multiple files, following the
+method given in Section {@NumberOf organizing}.
+@PP
+In addition to the {@Code "@Title"} option, each large-scale structure
+symbol ({@Code "@Section"}, {@Code "@SubSection"}, {@Code "@SubSubSection"},
+{@Code "@Appendix"}, {@Code "@SubAppendix"},
+and {@Code "@SubSubAppendix"}) has a @Code "@Tag" option for cross
+referencing (Section {@NumberOf cross}), an @Code "@InitialLanguage"
+option for changing the language of that part of the document, and a
+@Code "@RunningTitle" option which will be used in place of @Code "@Title"
+in running headers if given.  @Code "@RunningTitle" is useful when the
+full title is rather long.
+@PP
+The features described in other chapters are all available within
+technical reports.  To get a table of contents, change the @Code
+"@MakeContents" option in the setup file to {@Code Yes}; the rest is
+automatic, and you don't need the @Code "@ContentsGoesHere" symbol from
+ordinary documents.  To get an index, again you need only change the
+@Code "@MakeIndex" setup file option to {@Code Yes}.  Endnotes and
+references appear at the end of the report.  Figures and tables are
+numbered 1, 2, 3, etc.
+@PP
+Within the @Code "report" setup file there is a @Code "@ReportSetup"
+symbol whose options control the appearance of features specific to
+report.setup @Index @Code "@ReportSetup"
+reports (in other words, the features described in this section).  Section
+{@NumberOf setup} explains setup files and their options in general; here
+is a representative sample of these options, showing their default values:
+@ID @OneRow @Code {
+"@Use { @ReportSetup"
+"    # @CoverSheet { Yes }"
+"    # @DateLine { No }"
+"    # @ReferencesBeforeAppendices { No }"
+"    # @AbstractWord { abstract }"
+"    # @ContentsWord { contents }"
+"    # @SectionNumbers { Arabic }"
+"    # @SectionHeadingFont { Bold }"
+"    # @SectionGap { 2.00v }"
+"    # @SectionInContents { Yes }"
+"}"
+}
+@Code "@CoverSheet" and @Code "@DateLine" are as for {@Code "@Report"};
+you can set them in either place as you prefer.  @Code
+"@ReferencesBeforeAppendices" determines whether the reference list is
+printed out before or after any appendices.  @Code "@AbstractWord"
+determines the value of the title of the abstract if none is given there;
+its default value, {@Code abstract}, produces `Abstract' in the current
+language.  @Code "@ContentsWord" is similar; its default value produces
+`Contents' in the current language.  The other four options
+control the appearance of sections, and there are similar options for
+controlling the other large-scale structure symbols.
+@PP
+@Code "@SectionNumbers" determines how sections will be numbered, and may
+be @Code { None }, @Code { Arabic }, @Code { Roman }, @Code { UCRoman },
+@Code { Alpha }, or @Code { UCAlpha }.  The default value is @Code Arabic
+for sections, and also for all large-scale structure symbols except
+appendices, for which it is {@Code UCAlpha}.  This produces the appendices
+numbered in upper-case letters (A, B, C, etc.) that were mentioned earlier.
+@PP
+@Code "@SectionHeadingFont" is the font used for section headings.  The
+default value shown above produces the bold face from the family of the
+initial font.  A family name and size is acceptable here as well:
+@ID @Code "@SectionHeadingFont { Helvetica Base +2p }"
+produces section headings in the Helvetica font, two points larger
+than the initial font size.
+@PP
+@Code "@SectionGap" determines how much space is left blank before each
+section title;  the default value shown above is twice the current
+inter-line spacing.  The special value @Code "2b" may be used to get a
+page break rather than a space.  @Code "@SectionInContents" determines
+whether or not an entry is made in the table of contents for each section;
+it may be @Code Yes or {@Code No}.  There are similar options for other
+large-scale structure symbols.
+@End @Section

@@ -1,0 +1,127 @@
+Here's a quick summary of PGP 2.6.3(i) commands:
+================================================
+
+To encrypt a plaintext file with the recipient's public key:
+     pgp -e textfile her_userid
+
+To sign a plaintext file with your secret key:
+     pgp -s textfile [-u your_userid]
+
+To sign a plaintext file with your secret key and have the output
+readable to people without running PGP first:
+     pgp -sta textfile [-u your_userid]
+
+To sign a plaintext file with your secret key, and then encrypt it 
+with the recipient's public key:
+     pgp -es textfile her_userid [-u your_userid]
+
+To encrypt a plaintext file with just conventional cryptography, type:
+     pgp -c textfile
+
+To decrypt an encrypted file, or to check the signature integrity of a
+signed file:
+     pgp ciphertextfile [-o plaintextfile]
+
+To encrypt a message for any number of multiple recipients:
+     pgp -e textfile userid1 userid2 userid3
+
+
+Key management commands:
+------------------------
+
+To generate your own unique public/secret key pair:
+     pgp -kg
+
+To add a public or secret key file's contents to your public or
+secret key ring:
+     pgp -ka keyfile [keyring]
+
+To extract (copy) a key from your public or secret key ring:
+     pgp -kx userid keyfile [keyring]
+or:  pgp -kxa userid keyfile [keyring]
+
+To view the contents of your public key ring:
+     pgp -kv[v] [userid] [keyring] 
+
+To view the "fingerprint" of a public key, to help verify it over 
+the telephone with its owner:
+     pgp -kvc [userid] [keyring]
+
+To view the contents and check the certifying signatures of your 
+public key ring:
+     pgp -kc [userid] [keyring] 
+
+To edit the userid or pass phrase for your secret key:
+     pgp -ke userid [keyring]
+
+To edit the trust parameters for a public key:
+     pgp -ke userid [keyring]
+
+To remove a key or just a userid from your public key ring:
+     pgp -kr userid [keyring]
+
+To sign and certify someone else's public key on your public key ring:
+     pgp -ks her_userid [-u your_userid] [keyring]
+
+To remove selected signatures from a userid on a keyring:
+     pgp -krs userid [keyring]
+
+To permanently revoke your own key, issuing a key compromise 
+certificate:
+     pgp -kd your_userid
+
+To disable or reenable a public key on your own public key ring:
+     pgp -kd userid
+
+
+Esoteric commands:
+------------------
+
+To decrypt a message and leave the signature on it intact:
+     pgp -d ciphertextfile
+
+To create a signature certificate that is detached from the document:
+     pgp -sb textfile [-u your_userid]
+
+To detach a signature certificate from a signed message:
+     pgp -b ciphertextfile
+
+
+Command options that can be used in combination with other 
+command options (sometimes even spelling interesting words!):
+-------------------------------------------------------------
+
+To produce a ciphertext file in ASCII radix-64 format, just add the
+-a option when encrypting or signing a message or extracting a key:
+     pgp -sea textfile her_userid
+or:  pgp -kxa userid keyfile [keyring]
+
+To wipe out the plaintext file after producing the ciphertext file,
+just add the -w (wipe) option when encrypting or signing a message:
+     pgp -sew message.txt her_userid
+
+To specify that a plaintext file contains ASCII text, not binary, and
+should be converted to recipient's local text line conventions, add
+the -t (text) option to other options:
+     pgp -seat message.txt her_userid
+
+To view the decrypted plaintext output on your screen (like the
+Unix-style "more" command), without writing it to a file, use 
+the -m (more) option while decrypting:
+     pgp -m ciphertextfile
+
+To specify that the recipient's decrypted plaintext will be shown
+ONLY on her screen and cannot be saved to disk, add the -m option:
+     pgp -steam message.txt her_userid
+
+To recover the original plaintext filename while decrypting, add 
+the -p option:
+     pgp -p ciphertextfile
+
+To use a Unix-style filter mode, reading from standard input and
+writing to standard output, add the -f option:
+     pgp -feast her_userid <inputfile >outputfile
+
+To include additional userids from a textfile when encrypting a
+message, use the -@ option:
+     pgp -e textfile one_userid -@moreids.txt

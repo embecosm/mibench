@@ -1,0 +1,258 @@
+#!/bin/csh
+# Moritz Willers
+# 21. September 1993
+# Version 0.2
+#
+# Usage:
+#
+set USAGE = 'Usage: configure [-r] [-t]'
+#
+# If run with the -r switch, you must be root, and nextispell will be
+# installed in /LocalLibrary rather than your personal Library.  If
+# run with the -t switch, TeX support will be installed.  Installing
+# both TeX and non-TeX support requires two runs, one with and one
+# without the -t switch.
+#
+set INSTALLDIR = ~/Library
+set spellname = spell
+set texsuff
+set stringchartype = 'NeXT'
+unset definetex
+while ( $#argv > 0 )
+    switch ($argv[1])
+	case '-r':
+	    set INSTALLDIR = /LocalLibrary
+	    breaksw
+	case '-t':
+	    set spellname = texspell
+	    set texsuff = '-TeX'
+	    set stringchartype = 'tex'
+	    set definetex
+	    breaksw
+	default:
+	    sh -c "echo '$USAGE' 1>&2"
+	    exit 1
+	    breaksw
+    endsw
+    shift argv
+end
+
+echo ""
+echo "Let's see whether you've got ispell"
+ispell -vv > /dev/null
+if ($status) then
+    echo "You must first install ispell before you can run this skript"
+    exit 0
+endif
+echo "Ok"
+
+echo ""
+echo "Looking for your hash files"
+set LIBDIR = `ispell -vv | grep LIBDIR | awk '{print $3}' | sed 'y/"/ /'`
+set files = `ls ${LIBDIR}`
+echo "There are:"
+foreach file ($files)
+    if ($file:e == "hash") then
+	echo "      $file"
+    endif
+end
+
+if ( ! -d ${INSTALLDIR}/Services) mkdir ${INSTALLDIR}/Services
+
+foreach file ($files)
+    if ($file:e == "hash") then
+	set name = ${file:r}${spellname}
+	echo ""
+	#
+	# English variants are listed first because there are so many;
+	# all other languages are listed alphabetically by the native
+	# name, with the English name given second
+	#
+	# I don't know enough about the NeXT's international-language
+	# support to know whether non-English dictionaries can be
+	# insalled under the native language name, instead of the
+	# English one, so the "deutsch" dictionary is installed as
+	# "German" and so forth.  European NeXT owners are welcome to
+	# change this if they wish.
+	#
+	switch ("$file:r")
+	    case 'altamer':
+		set longname = "Default Alternate American"
+		breaksw
+	    case 'altamersml':
+		set longname = "Alternate American, Small"
+		breaksw
+	    case 'altamersml+':
+		set longname = "Alternate American, Small-Plus"
+		breaksw
+	    case 'altamermed':
+		set longname = "Alternate American, Medium"
+		breaksw
+	    case 'altamermed+':
+		set longname = "Alternate American, Medium-Plus"
+		breaksw
+	    case 'altamerlrg':
+		set longname = "Alternate American, Large"
+		breaksw
+	    case 'altamerlrg+':
+		set longname = "Alternate American, Large-Plus"
+		breaksw
+	    case 'altamerxlg':
+		set longname = "Alternate American, Extra-Large"
+		breaksw
+	    case 'altamerxlg+':
+		set longname = "Alternate American, Extra-Large-Plus"
+		breaksw
+	    case 'american':
+		set longname = "Default American"
+		breaksw
+	    case 'americansml':
+		set longname = "American, Small"
+		breaksw
+	    case 'americansml+':
+		set longname = "American, Small-Plus"
+		breaksw
+	    case 'americanmed':
+		set longname = "American, Medium"
+		breaksw
+	    case 'americanmed+':
+		set longname = "American, Medium-Plus"
+		breaksw
+	    case 'americanlrg':
+		set longname = "American, Large"
+		breaksw
+	    case 'americanlrg+':
+		set longname = "American, Large-Plus"
+		breaksw
+	    case 'americanxlg':
+		set longname = "American, Extra-Large"
+		breaksw
+	    case 'americanxlg+':
+		set longname = "American, Extra-Large-Plus"
+		breaksw
+	    case 'british':
+		set longname = "Default British"
+		breaksw
+	    case 'britishsml':
+		set longname = "British, Small"
+		breaksw
+	    case 'britishsml+':
+		set longname = "British, Small-Plus"
+		breaksw
+	    case 'britishmed':
+		set longname = "British, Medium"
+		breaksw
+	    case 'britishmed+':
+		set longname = "British, Medium-Plus"
+		breaksw
+	    case 'britishlrg':
+		set longname = "British, Large"
+		breaksw
+	    case 'britishlrg+':
+		set longname = "British, Large-Plus"
+		breaksw
+	    case 'britishxlg':
+		set longname = "British, Extra-Large"
+		breaksw
+	    case 'britishxlg+':
+		set longname = "British, Extra-Large-Plus"
+		breaksw
+	    case 'english':
+		set longname = "Default English"
+		breaksw
+
+	    case dansk:
+		set longname = "Danish"
+		breaksw
+	    case danish:
+		set longname = "Danish"
+		breaksw
+
+	    case deutsch:
+		set longname = "German"
+		breaksw
+	    case german:
+		set longname = "German"
+		breaksw
+
+	    case castellano:
+		set longname = "Spanish"
+		breaksw
+	    case espanol:
+		set longname = "Spanish"
+		breaksw
+	    case spanish:
+		set longname = "Spanish"
+		breaksw
+
+	    case francais:
+		set longname = "French"
+		breaksw
+	    case french:
+		set longname = "French"
+		breaksw
+
+	    case italiano:
+		set longname = "Italian"
+		breaksw
+	    case italian:
+		set longname = "Italian"
+		breaksw
+
+	    case nederlands:
+		set longname = "Dutch"
+		breaksw
+	    case dutch:
+		set longname = "Dutch"
+		breaksw
+
+	    case norsk:
+		set longname = "Norwegian"
+		breaksw
+	    case norwegian:
+		set longname = "Norwegian"
+		breaksw
+
+	    case portuguese:
+		set longname = "Portuguese"
+		breaksw
+
+	    case russkij:
+		set longname = "Russian"
+		breaksw
+	    case russian:
+		set longname = "Russian"
+		breaksw
+
+	    case svenska:
+		set longname = "Swedish"
+		breaksw
+	    case swedish:
+		set longname = "Swedish"
+		breaksw
+		
+	    default:
+		set longname = "$file:r"
+		echo "$file:r is not a NeXT supported Language"
+		echo "I will do my best to include it into the spell checker anyway"
+		breaksw
+	endsw
+	echo "Making $longname${texsuff} ..."
+	echo "Spell Checker: Ispell${texsuff}" > services
+	echo "Language: $longname" >> services
+	echo "Executable: $name" >> services
+
+	echo '#define VENDOR "ispell'"${texsuff}"'"' > configure.h
+	echo '#define LANGUAGE "'"$longname"'"' >> configure.h
+	echo '#define ISPELL "ispell", "ispell", "-a", "-t", "-T.'"$stringchartype"'", "-d'"$file:r"'"' >> configure.h
+	if ( $?definetex ) echo '#define TEX' >> configure.h
+	make install INSTALLDIR=$INSTALLDIR NAME=$name > /dev/null
+    endif
+end
+echo ""
+echo "Making services ..."
+make_services
+echo ""
+echo "I'm done."
+echo ""
+

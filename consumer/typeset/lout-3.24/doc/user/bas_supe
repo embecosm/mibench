@@ -1,0 +1,17 @@
+@Section
+   @Title { Superscripts and subscripts }
+   @Tag { super }
+@Begin
+@PP
+There are @Code "@Sup" and @Code "@Sub" symbols for producing
+superscripts and subscripts:
+@ID @Code "2 @Sup nd"
+produces
+@ID { 2 @Sup nd }
+and the @Code "@Sub" symbol works in a similar way.  These symbols
+are probably never required in English language text, since the
+only uses for them are in footnotes, which produce the superscript
+automatically, and equations, which have their own versions of these
+symbols.  Both symbols have a @Code "gap" option which determines the
+vertical spacing.
+@End @Section

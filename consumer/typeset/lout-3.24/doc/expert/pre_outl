@@ -1,0 +1,21 @@
+@Section
+   @Title { "@Outline"  }
+   @Tag { outline }
+@Begin
+@PP
+The @@Outline symbol
+outline.sym @Index { @@Outline symbol }
+causes all the words in the right parameter (which may be an
+arbitrary object) to be printed in outline, rather than filled as
+is usual.  For example,
+@ID @Code @Verbatim { @Outline @Box 24p @Font HELP }
+produces
+@ID @Outline @Box 24p @Font HELP
+Outlining is part of the style information, in the same way as
+colour, font, underlining, and so forth.  Outlining can be applied
+to any font likely to be used in practice.  At the time of writing,
+there is no way to control the thickness of the outline, and
+@@Outline has no effect in PDF output.  The size of outlined
+words is taken by Lout to be the same as if they had not been
+outlined, even though they are in reality slightly larger.
+@End @Section

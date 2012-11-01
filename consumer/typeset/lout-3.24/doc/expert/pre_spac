@@ -1,0 +1,55 @@
+@Section
+   @Title { "@Space" }
+   @Tag { space }
+@Begin
+@PP
+The @@Space symbol
+space.sym @Index { @@Space symbol }
+changes the value of the @Code s unit of measurement (Section
+s.unit.space @SubIndex { and @@Space symbol }
+{@NumberOf concatenation}) within its right parameter to the value
+given by the left parameter:
+@ID {
+@Code "1c @Space { a b c d }"
+}
+has result
+@ID {
+1c @Space { a b c d }
+}
+As for the @@Break symbol, the left parameter of @@Space may be given
+relative to the enclosing @Code s unit, and it may include a gap
+mode.  Note that the @@Font symbol also sets the @Code s unit.
+@PP
+The left parameter of the @@Space symbol may also hold any one of the
+five special values {@Code lout}, {@Code compress}, {@Code separate},
+{@Code troff}, and {@Code tex}, which control the way in which Lout
+treats white space separating two objects.  The names {@Code troff}
+and {@Code tex} indicate that the behaviour of these options is
+inspired by these other document formatting systems.
+@PP
+The default setting, {@Code lout}, produces as many spaces in the output as
+there are in the input.  The {@Code compress} setting causes all sequences
+of two or more white space characters to be treated the same as one white
+space character.  The {@Code separate} setting is like {@Code compress}
+but also causes zero white spaces between two objects (but not within
+one word) to be treated the same as one white space character.
+@PP
+The {@Code troff} setting is the same as {@Code lout} except that
+wherever a sentence ends at the end of a line, one extra space is
+added.  Formally, when two objects are separated by white space
+characters which include at least one newline character, and the
+first object is a word ending in any one of a certain set of
+sequences of characters, the extra space is added.  The set of
+sequences of characters depends on the current language and is defined
+in the @Code langdef for that language (see Section {@NumberOf language}).
+@PP
+The {@Code tex} option is the most complicated.  First, the
+{@Code compress} option is applied.  Then, at every sentence ending,
+whether or not at the end of a line, one extra space is added.  A
+sentence ending is defined as for {@Code troff} except that, in addition
+to the preceding word having to end in one of a certain set of sequences of
+characters, the character preceding that sequence must exist and must
+be a lower-case letter.  A character is a lower-case letter if, in the
+Lout Character Mapping file (Section {@NumberOf font}) associated with
+the current font, an upper-case equivalent of the character is defined.
+@End @Section

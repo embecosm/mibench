@@ -1,0 +1,550 @@
+.TH PGP 1 "PGP Version 2.6.3i"
+.\" NAME should be all caps, SECTION should be 1-8, maybe w/ subsection
+.\" other parms are allowed: see man(7), man(1)
+.SH NAME
+pgp \- Pretty Good Privacy encryption system
+.\" denote multiple entry points thus; makewhatis(8) will catch them
+.SH SYNOPSIS
+.B pgp \fR[\fIoptions\fR] \fIpgpfile
+.PP
+.B pgp \-e \fR[\fIoptions\fR] \fIfile user\fR .\|.\|.
+.PP
+.SH DESCRIPTION
+
+.B PGP
+(Pretty Good Privacy) is a public key encryption package to
+protect E-mail and data files.  It lets you communicate securely with
+people you've never met, with no secure channels needed for prior
+exchange of keys.  It's well featured and fast, with sophisticated
+key management, digital signatures, data compression, and good
+ergonomic design.  If you really want to learn how to use it
+properly, it's best to read the full documentation that comes with
+the system, which is very complete.  This is a "quick start" guide
+and reference manual; it is necessarily incomplete, and assumes you
+are already familiar with most of the basic concepts, including the
+concepts behind public key cryptography.
+
+.SS "Terminology"
+
+.B user id\fR: an ascii string used
+to identify a user.  User IDs tend to
+look like "John Q. Public <jqp@xyzcorp.com>"; please try sticking to
+that format.  When giving a user id to PGP, you may specify any unique
+(case-insensitive) substring.  E.g. john, or jqp@xyz.
+
+.B pass phrase\fR: the secret string used to conventionally encipher your
+private key.  It's important that this be kept secret.
+
+.B keyring\fR: a file containing a set of public or secret keys.  Default
+names for public and secret rings are "pubring.pgp" and "secring.pgp"
+respectively.
+
+.B ascii armor\fR: the ascii radix 64 format PGP uses for transmitting
+messages over channels like E-Mail; similar in concept to uuencoding.
+
+.SS "Command summary"
+
+To see a quick command usage summary for PGP, just type:
+.br
+.B        pgp -h
+
+To encrypt a plaintext file with the recipient's public key:
+.br
+.B        pgp -e \fItextfile her_userid \fR...
+      
+To sign a plaintext file with your secret key:
+.br
+.B        pgp -s \fItextfile \fR[\fB-u \fIyour_userid\fR]
+ 
+To sign a plaintext file with your secret key, and then encrypt it 
+with the recipient's public key:
+.br
+.B        pgp -es \fItextfile her_userid \fR...
+[\fB-u \fIyour_userid\fR]
+      
+To create a signature certificate that is detached from the document:
+.br
+.B        pgp -sb \fItextfile \fR[\fB-u \fIyour_userid\fR]
+      
+To encrypt a plaintext file with just conventional cryptography, type:
+.br
+.B        pgp -c \fItextfile
+      
+To decrypt an encrypted file, or to check the signature integrity of a
+signed file:
+.br
+.B        pgp \fIciphertextfile \fR[\fB-o \fIplaintextfile\fR]
+     
+To see a quick summary of PGP's key-management commands, just type:
+.br
+.B        pgp -k
+
+To generate your own unique public/secret key pair:
+.br
+.B        pgp -kg
+      
+To add a public or secret key file's contents to your public or
+secret key ring:
+.br
+.B        pgp -ka \fIkeyfile \fR[\fIkeyring\fR]
+      
+To remove a key from your public key ring:
+.br
+.B        pgp -kr \fIuserid \fR[\fIkeyring\fR]
+      
+To extract (copy) a key from your public or secret key ring:
+.br
+.B        pgp -kx\fR[\fBa\fR] \fIuserid keyfile \fR[\fIkeyring\fR]
+      
+To view the contents of your public key ring:
+.br
+.B        pgp -kv\fR[\fBv\fR] [\fIuserid\fR] [\fIkeyring\fR]
+      
+To view the "fingerprint" of a public key, to help verify it over 
+the telephone with its owner:
+.br
+.B     pgp -kvc \fR[\fIuserid\fR] [\fIkeyring\fR]
+
+To view the contents and check the certifying signatures of your 
+public key ring:
+.br
+.B        pgp -kc \fR[\fIuserid\fR] [\fIkeyring\fR] 
+      
+To edit the pass phrase for or add a userid to your secret key:
+.br
+.B        pgp -ke \fIuserid \fR[\fIkeyring\fR]
+      
+To edit the trust parameters for a public key:
+.br
+.B        pgp -ke \fIuserid \fR[\fIkeyring\fR]
+      
+To remove a key or just a userid from your public key ring:
+.br
+.B        pgp -kr \fIuserid \fR[\fIkeyring\fR]
+
+To sign and certify someone else's public key on your public key ring:
+.br
+.B        pgp -ks \fIher_userid \fR[\fB-u \fIyour_userid\fR] [\fIkeyring\fR]
+      
+To remove selected signatures from a userid on a keyring:
+.br
+.B        pgp -krs \fIuserid \fR[\fIkeyring\fR]
+      
+      
+Command options that can be used in combination with other command
+options (sometimes even spelling interesting words):
+      
+To produce a ciphertext file in ASCII radix-64 format, just add the
+-a option when encrypting or signing a message or extracting a key:
+.br
+.B        pgp -sea \fItextfile her_userid
+.br
+.B        pgp -kxa \fIuserid keyfile \fR[\fIkeyring\fR]
+      
+To wipe out the plaintext file after producing the ciphertext file,
+just add the
+.B -w
+(wipe) option when encrypting or signing a message:
+.br
+.B        pgp -sew \fImessage.txt her_userid
+      
+To specify that a plaintext file contains ASCII text, not binary, and
+should be converted to recipient's local text line conventions, add
+the
+.B -t
+(text) option to other options:
+.br
+.B        pgp -seat \fImessage.txt her_userid
+      
+To view the decrypted plaintext output on your screen (like the
+Unix-style "more" command), without writing it to a file, use 
+the
+.B -m
+(more) option while decrypting:
+.br
+.B        pgp -m \fIciphertextfile
+      
+To specify that the recipient's decrypted plaintext will be shown
+.B only
+on her screen and cannot be saved to disk, add the
+.B -m
+option:
+.br
+.B        pgp -steam \fImessage.txt her_userid
+      
+To recover the original plaintext filename while decrypting, add 
+the
+.B -p
+option:
+.br
+.B        pgp -p \fIciphertextfile
+      
+To use a Unix-style filter mode, reading from standard input and
+writing to standard output, add the
+.B -f
+option:
+.br
+.B        pgp -feast \fIher_userid \fB<\fIinputfile \fB>\fIoutputfile
+      
+
+.SS "The Config File"
+
+PGP uses a configuration database that is stored in the file
+"config.txt"; please see the manual for complete details.
+Blank lines and lines beginning with "#" are comments.
+Options take string, numeric, or boolean values.  The
+boolean values are "on" and "off".
+These options can also be specified on the command line,
+using a syntax such as
+.B +armor=on\fR.
+Keywords can be abbreviated to unique prefixes.  Keywords are not
+case-sensitive.  "=on" is assumed for boolean options if nothing
+is specified.  Some highlights:
+
+.B MYNAME - Default User ID for
+.B Making Signatures
+      
+Default setting:  MYNAME = ""
+      
+The configuration parameter MYNAME specifies the default user ID to
+use to select the secret key for making signatures.  If MYNAME is not
+defined, the most recent secret key you installed on your secret key
+ring is used.  The user may also override this setting by
+specifying a user ID on the PGP command line with the
+.B -u
+option.
+
+.B TEXTMODE - Assuming Plaintext is a
+.B Text File
+      
+Default setting:  TEXTMODE = off
+      
+The configuration parameter TEXTMODE is equivalent to the
+.B -t
+command line option.  If enabled, it causes PGP to assume the plaintext
+is a text file, not a binary file, and converts it to "canonical text"
+before encrypting it.  Canonical text has a carriage return and a
+linefeed at the end of each line of text.
+
+This mode is automatically turned off if PGP detects that the plaintext
+file contains 8-bit binary data.  Thus, it is safe to leave enabled at
+all times.
+
+.B ARMOR - Enable ASCII Armor Output
+
+Default setting:  ARMOR = off
+
+The configuration parameter ARMOR is equivalent to the
+.B -a
+command line option.  If enabled, it causes PGP to emit ciphertext or
+keys in ASCII Radix-64 format suitable for transporting through E-mail
+channels.  Output files are named with the ".asc" extension.
+
+If you tend to use PGP mostly for E-mail, it may be a good idea to
+enable this parameter.
+
+.B ARMORLINES - Size of ASCII Armor Multipart Files
+
+Default setting:  ARMORLINES = 720
+
+For large ASCII armor files, PGP splits them into files named
+".asc1", ".asc2", ".asc3", etc. so as not to
+choke mailers, which typically starts to happen around 50,000
+bytes.  This specifies the number of (64-byte) lines to place in
+each file.  If set to 0, PGP will not split ASCII armor files.
+
+.B CLEARSIG - Enable Clear-Signed Output
+
+Default setting:  CLEARSIG = on
+
+Normally, a signed and ASCII-armored PGP message is gibberish,
+even though the text is not encrypted.  This prevents munging
+by mailers, but requires PGP to simply read the message.
+
+If CLEARSIG is enabled, then when signing and ASCII-armoring a text
+file, PGP uses a different format that includes the plaintext in
+human-readable form.  Lines beginning with "-" are quoted with "\-\ ".
+To cope with some of the stupider mailers in the world, lines beginning
+with "From" are also quoted, and trailing whitespace on lines is
+stripped.  PGP will remove the quoting if you use it to decrypt the
+message, but the trailing whitespace is not recovered.  This is still
+useful enough to be enabled by default.
+
+.B ENCRYPTTOSELF - Add MYNAME to Recipients List
+
+Default setting:  ENCRYPTTOSELF = off
+
+If this is emabled, MYNAME will be implcitly added to the list of
+recipients for any message you encrypt with a public key.  Since in
+this case, MYNAME is looked up in the public keyring, it is important
+that it unambiguously specify the right key.
+
+.B LANGUAGE - Language To Use
+
+Default setting:  LANGUAGE = en
+
+If you want to use a different language, and translations are in the
+language.txt file, setting this option will cause PGP's messages to
+appear in a different language.  If a translation for a message is
+not available, it appears in english.
+
+If you look at the supplied language.txt file, the format should
+be obvious.
+
+.B CHARSET - Character Set
+
+Default setting:  CHARSET = noconv
+
+PGP tries to translate all text-mode messages into the ISO Latin-1
+alphabet, or the KOI-8 alphabet for cyrillic alphabets.  This
+setting indicates the native character set, so PGP can do the
+translation.  Options are noconv, latin1 or koi8, indicating that
+no translation should be done; cp850, indicating that IBM PC code
+page 850 mappings should be used; ascii, indicating that a minimal
+ASCII subset should be used; and alt_codes, indicating that the
+IBM PC alt codes should be used for the cyrillic alphabet.
+
+.B KEEPBINARY - Preserve Intermediate .pgp File
+
+Default setting:  KEEPBINARY = off
+
+If KEEPBINARY is enabled, then PGP will produce a .pgp file in addition
+to a .asc file when ASCII armor is enabled.
+
+.B TMP - Temporary file directory
+
+Default setting:  TMP = ""
+
+PGP produces temporary files while decrypting a message.
+This is the directory they are stored in.  If not specified in the config
+file, the environment variable TMP is used, or the current directory.
+It helps security somewhat if this is not a publicly-readable directory.
+A local file system is also a good idea.
+
+.B COMPRESS - Compress Plaintext Before Encrypting
+
+Default setting:  COMPRESS = on
+
+PGP usually compresses the plaintext before encrypting it, so it will
+have less to encrypt and the file you send will be smaller.  It also
+makes cryptanalysis harder.  This is usually only turned off for
+debugging purposes.
+
+.B PAGER - Select Shell Command to Display Pager Output
+
+Default setting:  PAGER = ""
+
+If set, PGP uses this program to view files when the 
+.B -m
+option is specified.  By default, PGP uses a simple builtin pager.
+
+.B SHOWPASS - Echo Pass Phrase During Entry
+
+Default setting:  SHOWPASS = off
+
+If someone is unable to type a long pass phrase reliably without seeing it,
+this can be turned on, at the cost of security.
+
+.B INTERACTIVE - Prompt Before Adding Each Key
+
+Default setting:  INTERACTIVE = off
+
+By default, when given a file containing new keys, PGP asks if you would
+like to add them to your public key ring.  Since adding keys does not
+imply that you trust them, adding more just wakes up space.  If this
+option is set, PGP asks about each key in a key file.
+
+.B VERBOSE - Level of Detail Printed
+
+Default setting:  VERBOSE = 1
+
+When set to 0, PGP only prints messages that are necessary or indicate an
+error.  When set to 2, PGP prints a significant amount of debugging
+information describing what it's doing.  Values above 2 have no effect.
+
+.B PUBRING - Public Key Ring Location
+
+Default setting:  PUBRING = $PGPPATH/pubring.pgp
+
+This is the path name to the public key ring to use.
+
+.B SECRING - Secret Key Ring Location
+
+Default setting:  SECRING = $PGPPATH/secring.pgp
+
+This is the path name to the secret key ring to use.
+
+.B BAKRING - Backup Secret Key Ring
+
+Default setting:  BAKRING = ""
+
+If this is set, when checking your key ring (\fBpgp -kc\fR), PGP will
+compare the normal secret key ring against the given backup
+copy, usually kept on write-protected removable media.  This
+is to protect against wholesale modifications to your key rings
+in a spoofing attack.
+
+.B RANDSEED - Random Number Seed File
+
+Default setting:  RANDSEED = $PGPPATH/randseed.bin
+
+This is the path to a random seed file which is part of PGP's
+random number generation algorithm, used to generate session keys.
+While PGP goes to great lengths to use every available source of
+randomness in generating session keys, this file is part of the
+process and protecting it from disclosure is desirable.
+
+.B COMMENT - ASCII Armor Comment
+
+Default setting:  COMMENT = ""
+
+If set to a non-empty string, the value of this variable is
+printed in the header of ASCII armor files, preceded by "Comment: ".
+
+.B LEGAL_KLUDGE - Incompatibility with PGP versions prior to 2.6
+
+Default setting:  LEGAL_KLUDGE = on
+
+If set, PGP will generate keys and messages in a new format that
+cannot be read by PGP 2.5 and earlier versions.
+
+
+
+.SS "Key certification"
+
+PGP employs a system where users specify trusted users who may sign
+other people's public keys.  It is important that you understand how
+this mechanism works; a full description is in the manual. 
+
+
+.B Important\fR: The manual also describes how to generate and send a
+"key compromise" certificate that tells readers that your private key
+has been compromised.  If your key has been compromised, please read
+the manual section on key compromise certificates and how to create
+them; the faster you send out a key compromise certificate, the smaller
+the window of opportunity for "bad guys" to send forged messages.
+
+.SS "Important Hints"
+
+PGP automatically tries compressing your input file; there is little point
+in precompressing input for transmission.
+
+PGP "ascii armor" is only needed on the outer transmitted message; as
+an example, if you are, say, sending a public key to someone else and
+you are for some reason signing it, simply armor the outer message;
+it's better to sign the binary form of the key.
+
+.SS "Foreign Languages"
+
+PGP is easily customized for foreign language help and error
+messages; it has been translated into a number of non-english languages.
+See the manual for details on the file "language.txt".
+
+.SH ENVIRONMENT
+
+PGP uses several special files for its purposes, such as your standard
+key ring files "pubring.pgp" and "secring.pgp", the random number seed
+file "randseed.bin", the PGP configuration file "config.txt", and the
+foreign language string translation file "language.txt".  These
+special files can be kept in any directory, by setting the environment
+variable "PGPPATH" to the desired pathname.  If PGPPATH remains
+undefined, these special files are assumed to be in the current
+directory.
+
+Normally, PGP prompts the user to type a pass phrase whenever PGP
+needs a pass phrase to unlock a secret key.  But it is possible to
+store the pass phrase in an environment variable from your operating
+system's command shell.  The environment variable PGPPASS can be
+used to hold the pass phrase that PGP attempts to use first.  If
+the pass phrase stored in PGPPASS is incorrect, PGP recovers by
+prompting the user for the correct pass phrase.  This dangerous
+feature makes your life more convenient if you have to regularly deal
+with a large number of incoming messages addressed to your secret key,
+by eliminating the need for you to repeatedly type in your pass phrase
+every time you run PGP.
+.B  This is a very dangerous feature\fR; on UNIX it
+is trivial to read someone else's environment using the ps(1) command.
+If you are contemplating using this feature, be sure to read the
+sections "How to Protect Secret Keys from Disclosure" and "Exposure on
+Multi-user Systems" in the full PGP manual.
+
+If the environment variable PGPPASSFD is defined, it must have a numeric
+value, which PGP uses as a file descriptor number to read a pass phrase
+from.  This is done before anything else, so it can be combined with
+an input file on standard input.  This is mainly for use by shell scripts,
+since under Unix it is difficult to read the contents of other people's
+pipes.
+
+.SH "RETURN VALUE"
+
+PGP returns a 0 to the shell on success, and a nonzero error code on
+failure.  See the source code for details on nonzero status return
+values.
+
+.SH FILES
+.br
+.nf
+.\" set tabstop to longest possible filename
+.ta \w'/usr/local/lib/pgp/language.txt'u
+*.pgp	ciphertext, signature, or key file
+*.asc	ascii armor file
+/usr/local/lib/config.txt	system-wide configuration file
+$PGPPATH/config.txt	per-user configuration file
+$PGPPATH/pubring.pgp	public key ring
+$PGPPATH/secring.pgp	secret key ring
+$PGPPATH/randseed.bin	random number seed file
+/usr/local/lib/pgp/language.txt
+$PGPPATH/language.txt	foreign language translation file
+/usr/local/lib/pgp/pgp.hlp
+$PGPPATH/pgp/pgp.hlp  	online help text file
+/usr/local/lib/pgp/pgpkey.hlp
+$PGPPATH/pgp/pgpkey.hlp  	online key-management help text file
+
+.SH NOTE
+
+The manual is really good, and it's really important in the long run
+that you read it.  PGP may be an unpickable lock, but you have to
+put in in the door properly to keep out intruders.  So read the manual
+and find out how!
+
+.SH CAVEATS
+
+It is impossible to overemphasize the importance of protecting your
+secret key.  Anyone gaining access to it can forge messages from you or
+read mail addressed to you.  Be very cautious in using PGP on any
+multi-user unix system.
+
+PGP is believed by its authors to be the most secure cryptographic
+software available to the public when used as directed, but then again
+everyone always claims their pet encryption system is secure.  Read the
+section in the manual on "Trusting Snake Oil" and the section on
+"Vulnerabilities" for caveats.
+
+.SH DIAGNOSTICS
+
+Mostly self explanatory.
+
+.SH BUGS
+
+PGP was initially written for the PC, and behaves very PCish.  In
+particular, its automagic file selection, file extensions, and the
+like all make it somewhat alien in the UNIX environment.
+
+This man page needs to be updated to reflect all the latest features.
+
+.SH AUTHORS
+
+Originally written by Philip R. Zimmermann.  Later augmented by a cast
+of thousands.
+
+.SH "LEGAL RESTRICTIONS"
+
+PGP 2.6.3i is freeware, and may be used for non-commercial purposes
+only. This version of PGP is illegal to use within the USA but is
+fine elsewhere in the world. US users should get a copy of MIT PGP
+2.6.2 instead, or purchase the commercial version 2.7.1 from ViaCrypt.
+
+For detailed information on PGP licensing, distribution, copyrights,
+patents, trademarks, liability limitations, and export controls, see
+the "Legal Issues" section in the "PGP User's Guide, Volume II:
+Special Topics".

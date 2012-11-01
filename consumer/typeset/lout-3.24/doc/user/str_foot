@@ -1,0 +1,150 @@
+@Section
+   @Title { Footnotes and endnotes }
+   @Tag { footnotes }
+@Begin
+@PP
+A footnote is created by typing
+footnote. @Index @Code "@FootNote"
+@ID @Code "@FootNote { Like this. }"
+after the word that the footnote refers to.  It will be numbered
+automatically and placed at the foot of the page or column;
+@FootNote { Like this. }
+or, if space there is insufficient, it may start on or run onto the
+following page or column.  The footnote must be enclosed in braces.
+@PP
+The @Code "@FootNote" symbol has a @Code "@Location" option which
+determines where it goes:
+@ID @Code {
+"@FootNote"
+"    @Location { ColFoot }"
+"{ ... }"
+}
+places the footnote at the bottom of the column, and
+@ID @Code {
+"@FootNote"
+"    @Location { PageFoot }"
+"{ ... }"
+}
+places it at the bottom of the current page, occupying the full page
+width even in a multi-column document (this is occasionally
+useful for footnotes to headings).  Of course, in a single-column
+document there is no difference anyway.  The default value of the
+@Code "@Location" option is {@Code "ColFoot"}.
+@PP
+Endnotes work in exactly the same way as footnotes, except that the
+endnote. @Index @Code "@EndNote"
+symbol to use is @Code "@EndNote" and they appear either at the end
+of the document or at the end of some major part of it, depending on
+the type of document (Chapter {@NumberOf types}).  Endnotes are
+always column width and so have no @Code "@Location" option.
+@PP
+Footnotes are usually labelled with consecutive Arabic numberals, but
+you can tell Lout to label a footnote (not an endnote) with something
+else, like this:
+@ID @OneRow @Code @Verbatim {
+@FootNote
+    @Label { @Dagger }
+{ This footnote will be labelled with a dagger, not a number. }
+}
+whose result should appear at the bottom of this page.
+@FootNote
+    @Label { @Dagger }
+{ This footnote will be labelled with a dagger, not a number. }
+Symbols commonly used for footnote labels include @Code "@Dagger" (@Dagger),
+@Code "@DaggerDbl" (@DaggerDbl), @Code "@Star" (@Star),
+@Code "@SectSym" (@SectSym), and @Code "@ParSym" (@ParSym),
+but you can use any object.  If you want no label at all,
+use an empty object like this:
+@ID @OneRow @Code @Verbatim {
+@FootNote
+    @Label {}
+}
+Footnotes with a @Code "@Label" option are excluded from the automatic
+numbering that applies to other footnotes.
+@PP
+The language of a footnote or endnote will be the language of the
+document as a whole.  This is not necessarily the same as the
+current language at the point where the footnote or endnote occurs,
+or even the language of the enclosing large-scale structure symbol.  It
+may be necessary to enclose the body of the footnote in a language
+symbol, like this:
+@ID @Code "@FootNote { French @Language { ... } }"
+Doing it the other way ({@Code "French @Language @FootNote ..."}) is
+not effective.
+@PP
+A footnote attached to the very last line of a chapter or appendix of
+a book occasionally runs onto the first page of the following chapter
+or appendix, and this looks very poor.  If this happens, the solution
+is to place an @Code "@LP" after the last line (including the footnote).
+@PP
+In the rare case where more than one footnote is attached to one word,
+use @Code "@AnotherFootNote" for the second and subsequent footnotes:
+anotherfootnote. @Index @Code "@AnotherFootNote"
+@ID @Code {
+"something or other."
+"@FootNote { The first footnote. }"
+"@AnotherFootNote { The second footnote. }"
+}
+This ensures that the superscripts will be separated by
+commas, as convention demands.
+@PP
+The setup file contains a number of options for controlling the
+appearance of footnotes.  (See Section @NumberOf setup for a general
+introduction to setup files and their options.)  Here are all the
+options, with their default values:
+@ID @OneRow @Code {
+"@FootNoteThrough { No }"
+"@FootNoteLocation { ColFoot }"
+"@FootNoteNumbers { Arabic }"
+"@FootNoteFont { 0.80f }"
+"@FootNoteBreak { 1.20fx }"
+"@FootNoteFormat { { number &0.05f } @Insert body }"
+"@FootLen { 2.00c }"
+"@FootAboveGap { 1.00v }"
+"@FootGap { 0.20c }"
+}
+There are also setup file options for controlling endnotes.  Since
+they are quite similar to the ones for footnotes, we won't say any
+more about them here.
+@PP
+@Code "@FootNoteThrough" may be @Code "Yes" or @Code { "No" };
+footnotethrough. @Index @Code "@FootNoteThrough"
+@Code "Yes" means that the footnotes are numbered continuously
+through the document (or through each chapter in the case of books);
+@Code "No" means that the numbering begins afresh on each
+page.  @Code "@FootNoteLocation" determines the default value of
+footnotelocatin. @Index @Code "@FootNoteLocation"
+the @Code "@Location" option mentioned above; it may be either
+@Code "ColFoot" or {@Code "PageFoot"}.  @Code "@FootNoteNumbers"
+determines how the footnotes are numbered;
+footnotenumbers. @Index @Code "@FootNoteNumbers"
+it may be {@Code Arabic}, {@Code Roman}, {@Code UCRoman}, {@Code Alpha},
+or {@Code UCAlpha}.
+@PP
+@Code "@FootNoteFont" and @Code "@FootNoteBreak" determine the
+footnotefont. @Index @Code "@FootNoteFont"
+footnotebreak. @Index @Code "@FootNoteBreak"
+font and paragraph breaking style of footnotes.  The default value
+of @Code "@FootNoteFont" produces the same font family and face as the
+bulk of the document, but reduced to 0.8 times the original size.
+@PP
+@Code "@FootNoteFormat" determines the format of the footnote.  The
+@Code number symbol within it must appear exactly once, and is replaced
+by the number of the footnote (if numbered).  The @Code body symbol is
+replaced by the body (that is, the content) of the footnote.  The default
+value shown uses symbols from raw Lout to add a small space at the right of
+the number, then insert it at the beginning of the first paragraph of
+the body.  Another suitable value might be
+@ID @Code "@FootNoteFormat { number |1fx body }"
+which places the body in a separate column to the number, one
+font width to the right of the left edge of the number.
+@PP
+@Code "@FootLen" determines the length of the small horizontal line
+footlen. @Index @Code "@FootLen"
+drawn above the footnotes; 
+@Code "@FootAboveGap" determines the minimum space to be left clear
+footabovegap. @Index @Code "@FootAboveGap"
+above this line; and @Code "@FootGap" determines the
+footgap. @Index @Code "@FootGap"
+vertical separation between footnotes.  All three may be any length.
+@End @Section

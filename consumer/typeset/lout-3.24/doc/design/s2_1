@@ -1,0 +1,87 @@
+@SubSection
+    @Tag { genesis }
+    @Title { The genesis of the object abstraction }
+@Begin
+@PP
+When one examines previous document formatting systems [4]
+looking for ideas for abstractions, as the author did in 1984, the Eqn
+formatting language [5] stands out like a beacon.  In
+Eqn, a mathematical formula such as 
+@ID @Eq { { x sup 2 + 1 } over 4 }
+is produced by typing
+@ID @Code "{ x sup 2 + 1 } over 4"
+in the input file; @Code sup and @Code over are binary operators, and
+braces are used for grouping.  This is document formatting at a very
+high level, close to the language of mathematics itself, with all
+reference to font changes and spacing suppressed.
+@PP
+Eqn provides a single data type (let us call it the {@I expression}),
+built up recursively in context-free style:  where one expression may appear,
+any expression may appear.  This approach is common in algebra and
+programming languages, where its simplicity and expressiveness have long
+been appreciated; but Eqn was the first language to demonstrate its
+utility in document formatting.
+@PP
+Each expression is treated by Eqn as a rectangle with a
+{@I {horizontal axis}}, used for alignment with adjacent expressions:
+@ID @ShowMarks marks { horizontal } @Eq { { x sup 2 + 1 } over 4 }
+The size and rendering of the expression on the printed page are
+known only to the implementation, never explicitly calculated or
+accessed by the user.  This prohibition is
+crucial to the maintenance of the context-free property in practice.  In
+Lout, for example, equations, figures, tables, and arbitrary objects may
+be mixed together freely.  This would be impossible if size information
+was hidden from the implementation in user calculations.
+@PP
+The object abstraction of Lout is a direct descendant of the Eqn
+expression.  It employs the same context-free recursive style of construction,
+and each object is treated by Lout as a rectangle:
+@ID @Fig {
+@ShowMarks { 1c @Wide ^| 2c @Wide 0.45c @High ^/ 0.35c @High }
+}
+The horizontal axis, called a @I { row mark } in Lout, has a
+vertical analogue called a {@I {column mark}}, creating a valuable
+symmetry between horizontal and vertical.  Multiple column and row marks
+are permitted:
+@ID @OneRow @Fig {
+A:: @Box margin { 0c } paint { grey } { 1.2c @Wide 0.8c @High }
+|1c
+B:: @Box margin { 0c } paint { grey } { 1c @Wide 0.8c @High }
+/0.5c
+C:: @Box margin { 0c } paint { grey } { 0.7c @Wide 0.8c @High }
+|1c
+D:: @Box margin { 0c } paint { grey } { 1.3c @Wide 0.8c @High }
+// @Line linestyle { dashed }
+     from { A@W -- { 0.3 cm 0 } }
+     to   { B@W ++ { 1.6 cm 0 } }
+// @Line linestyle { dashed }
+     from { C@W -- { 0.3 cm 0 } }
+     to   { D@W ++ { 1.6 cm 0 } }
+// @Line linestyle { dashed }
+     from { A@NW ++ { 0 0.3 cm } }
+     to   { C@SW -- { 0 0.3 cm } }
+// @Line linestyle { dashed }
+     from { B@NW ++ { 0.3 cm 0.3 cm } }
+     to   { D@SW ++ { 0.3 cm -0.3 cm } }
+}
+so that objects are able to represent tables.
+@PP
+This abstraction has some limitations, the most obvious being the restriction
+of size calculations to rectangular bounding boxes.  Non-rectangular and
+disconnected shapes arise naturally in figures and in the characters of
+fonts; the extension to them is conceptually straightforward and might
+help to explain some fine points of layout such as kerning.  However,
+there are implementation and language design problems, particularly
+when filling non-rectangular shapes with text, and so the author chose
+to keep to Eqn's rectangles.
+@PP
+A more fundamental limitation of the object abstraction arises from the
+inability of recursive data types to describe cross-linked structures,
+which seem to require some means of naming the multiply referenced
+parts.  Lout is obliged to introduce additional abstractions to cope
+with cross linking:  galleys for inserting text into pages
+(Section {@NumberOf galleys}), cross references (Section {@NumberOf cross}),
+and labelled points in figure drawing [6].  An
+abstraction closer to hypertext might form a more unified basis for
+these features.
+@End @SubSection

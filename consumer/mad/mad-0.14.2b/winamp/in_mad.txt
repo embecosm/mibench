@@ -1,0 +1,195 @@
+
+Introduction
+============
+
+  Congratulations! You are about to experience exceptionally high-quality
+  MPEG audio.
+
+  This plug-in is a replacement for the default MPEG audio decoder that
+  comes with Winamp. MAD is a high-quality MPEG audio decoder with support
+  for output resolutions from 8 to 32 bits.
+
+  For more information about MAD and the MAD plug-in, please visit:
+
+      http://www.mars.org/home/rob/proj/mpeg/mad-plugin/
+
+License
+=======
+
+  This program is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or (at your option)
+  any later version.
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details:
+
+      http://www.mars.org/home/rob/misc/GPL2.html
+
+  The source code for this plug-in is available from the same place you
+  obtained this plug-in. If you choose to redistribute this plug-in, you
+  must accompany it with the complete source code or an offer to obtain the
+  source in accordance with section 3 of the GPL.
+
+Recommendations
+===============
+
+  In order to get the most from this plug-in, it is recommended that you
+  have a high-quality audio setup, including a nice sound card and good
+  speakers. You can still benefit from MAD's high quality dithered output
+  with any sound card, but to best enjoy the fine detail in the sound MAD
+  produces, a high-end sound card with a 24-bit DAC is recommended.
+
+Configuration
+=============
+
+  1. Start Winamp.
+
+  2. Configure the plug-in from Winamp's Preferences panel under the
+     Plug-ins/Input section. Choose the highest output resolution supported
+     by your sound card (usually 8 or 16 bits, but possibly 24 or 32 for
+     high-end cards.)
+
+  3. Disable the Nullsoft MPEG audio decoder plug-in by deleting the file
+     association extension list (version 2.7), unchecking the "Use for MP1,
+     MP2, and MP3 files" option (version 2.666), or unchecking the "Layer
+     III", "Layer II", and "Layer I" options (version 2.33 or 2.34) in its
+     configuration.
+
+     Alternatively, you could move the file in_mp3.dll out of your Winamp
+     Plugins directory (usually C:\Program Files\Winamp\Plugins) and restart
+     Winamp.
+
+  4. Play MP3, MP2, or MP1 files and enjoy high quality sound.
+
+Frequently Asked Questions
+==========================
+
+  Q. I can't get it to work. I get an error message whenever I try to play
+     something. What's wrong?
+
+  A. You have probably selected an output resolution unsupported by your
+     sound card. Try 16 bits instead.
+
+     Note: SB Live! cards do not support 24- or 32-bit output.
+
+  Q. On some files, Winamp seems to play as normal except I hear no sound.
+     What's wrong?
+
+  A. The most likely cause for this is that the files were encoded with CRC
+     protection, but the checksums are wrong. Some early encoders were known
+     to create such files. MAD has to assume the CRCs are valid, so it
+     thinks every frame in the file is corrupt, and plays silence instead.
+
+     If you open the file info dialog and view the "Statistics" tab, you
+     will probably see the number of CRC errors accumulating at the same
+     rate as the number of decoded frames.
+
+     You will have to fix these files before MAD will play them.
+
+  Q. What is "Auto clipping attenuation"?
+
+  A. This version of the MAD plug-in has the ability to attenuate (weaken)
+     the digital signal reproduced from the MPEG audio data, so that it does
+     not experience distortion from clipping. Clipping occurs when the
+     signal is so strong that it exceeds the maximum representable
+     amplitude, known as "full scale."
+
+     You can attenuate the signal manually from the file info dialog, or you
+     can have the signal attenuated automatically whenever clipping
+     occurs. If you choose to attenuate automatically, you can further
+     control how aggressively the signal is attenuated. The default setting
+     should be appropriate for most circumstances, but you can adjust it in
+     case the signal is attenuated too abruptly or not quickly enough.
+
+Changes
+=======
+
+  Changes since 0.14.1b:
+    - fixed a possible crash due to bad Xing header information
+    - eliminated the error dialog when trying to open a (bad) file
+    - increased the size of the info dialog box in preparation for an ID3v2
+      tag editor
+
+  Changes since 0.14.0b:
+    - none visible; the plug-in is now linked with the new libid3tag
+      library, which will eventually enable full ID3v2 support
+
+  Changes since 0.13.0b:
+    - a new, improved dithering algorithm has been implemented
+    - streaming can now be disabled (to use other plug-ins with better
+      streaming support)
+
+  Changes since 0.12.5b:
+    - the last complete audio frame should now always be decoded
+    - Xing VBR headers are now detected and read if "Fast playing time
+      calculation" is enabled
+    - visuals for 24- and 32-bit output should now display correctly
+    - corrected a problem decoding MPEG-2 Layer III intensity stereo 
+
+  Changes since 0.12.4b:
+    - several more performance improvements
+
+  Changes since 0.12.3b:
+    - many performance improvements
+    - alias reduction is now performed on mixed short blocks
+
+  Changes since 0.12.2b:
+    - added decoding statistics to file info dialog
+    - title formatting is greatly enhanced, and includes the ability to
+      use conditional constructs
+    - output can now be attenuated to eliminate clipping
+    - MAD now supports the MPEG 2.5 format
+
+  Changes since 0.12.1b:
+    - several performance improvements
+
+  Changes since 0.7.3b:
+    - fixed a potential problem related to a thread conflict
+    - changed the version numbering to coincide with the MAD source releases
+    - created a PiMP installer executable
+
+  Changes since 0.7.2a:
+    - fixed a problem that could cause Winamp to crash if the File Info box
+      is dismissed before the MPEG Audio length is calculated
+    - fixed some ID3v2-induced problems related to determining the correct
+      sample rate, et al.
+
+  Changes since 0.7.1a:
+    - a different method for packing stereo PCM samples is used which *may*
+      be somewhat faster than before
+    - fixed several seek-related issues; should no longer get a "blip" sound
+    - slightly improved error handling on bad frames
+
+Known Issues
+============
+
+  - there are buffering issues related to streaming support
+  - the ID3v2 tag editor is missing
+  - using DSP effects (including the equalizer) will negate the effects of
+    dithering
+
+Acknowledgments
+===============
+
+  The author would like to thank the following individuals for their
+  support, suggestions, beta testing, debugging, and indeed for proposing
+  the idea to write this plug-in in the first place:
+
+      kaiwei
+      David Shin
+
+  The following individuals have also made notable contributions:
+
+      Matt Parnell
+      John Stewart
+
+Feedback
+========
+
+  Please send bug reports, comments, and suggestions to the author:
+
+      Rob Leslie <rob@mars.org>
+

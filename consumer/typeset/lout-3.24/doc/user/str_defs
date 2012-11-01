@@ -1,0 +1,134 @@
+@Section
+   @Title { Defining new symbols }
+   @Tag { definitions }
+@Begin
+@PP
+Whenever you find yourself typing the same thing repeatedly, you can
+definitions. @Index definitions
+save a lot of time by defining your own personal symbol to stand for that
+thing.  For example, suppose you type your company's name, @Batlow,
+frequently.  You can define your own symbol, {@Code "@Batlow"} say,
+so that
+@ID @Code {
+"Concerning your crate supply contract with @Batlow, @Batlow wishes to ..."
+}
+produces
+@ID {
+Concerning your crate supply contract with @Batlow, @Batlow wishes to ...
+}
+You will never have to type @Batlow again.
+@PP
+The method is to create a file called @Code "mydefs" in your current
+mydefs.file @Index { @Code mydefs file }
+directory, containing definitions like this:
+@ID @OneRow @Code {
+"import @BasicSetup"
+"def @Batlow { Batlow Food Distributors Pty. Ltd. }"
+}
+The meaning of the first line, {@Code "import @BasicSetup"}, will
+be explained shortly.  After that comes @Code "def" for `define,'
+then the name of the symbol being defined, then its value between
+braces.  So this example defines a symbol called @Code "@Batlow" to
+stand for the object following it between braces.  Lout will read this
+file during its setup phase (Section {@NumberOf setup}).
+@PP
+Your symbols may have any names you wish made from letters and
+{@Code "@"}.  However, it is good practice to have exactly one
+{@Code "@"}, at the start, and to choose distinctive names that
+have no chance of being the same as the name of any existing
+symbol.  @Code "@Batlow" is a good choice, for example.
+@PP
+The object between braces is quite arbitrary; in particular, it may
+contain symbols.  For example, suppose you frequently need a small grey box:
+@ID @OneRow @Code {
+"import @BasicSetup"
+"def @GreyBox { @Box paint { lightgrey } {} }"
+}
+This defines a @Code "@GreyBox" symbol that produces {@GreyBox}.  Most
+of the symbols in this guide are from the @I {BasicSetup package},
+import. @Index @Code import
+which is why @Code "import @BasicSetup" is required:  it makes
+these symbols available to the definition, and can actually be omitted
+before definitions like the one for @Code "@Batlow" which do not use
+any symbols.  However it does no harm, so we place it in front of every
+definition as a matter of course.
+@FootNote {
+Later chapters of this guide introduce specialized symbols for producing
+tables, equations, diagrams, graphs, and computer programs.  You need a
+different @Code "import" clause when using those symbols within a
+definition, because they are not from the BasicSetup package.  Examples
+may be found in the chapters concerned.
+}
+@PP
+Now suppose you frequently need a grey box, but enclosing different
+things:  @GreyBox ENTRY one moment, @GreyBox EXIT the next.  You could
+try omitting the @Code "{}" from the definition above, but that does
+not work, because Lout notices the missing object while reading the
+definition, and inserts an empty object in the usual way (Section
+{@NumberOf empty}).
+@PP
+However, there is a way to define a @Code "@GreyBox" symbol so that
+@Code "@GreyBox ENTRY" produces {@GreyBox ENTRY}, @Code "@GreyBox EXIT"
+produces {@GreyBox EXIT}, and so on:
+@ID @OneRow @Code {
+"import @BasicSetup"
+"def @GreyBox right x { @Box paint { lightgrey } x }"
+}
+The addition of @Code "right x" immediately after the symbol's name
+places @Code "@GreyBox" into that class of symbols, like {@Code "@I"}
+and @Code {"@Box"}, which consume and transform the object to their
+right.  The @Code "x" in @Code "right x" means that the object to the
+right will be referred to as @Code "x" within the definition.  So in
+@ID @Code "@GreyBox { Hello world }"
+@Code "@GreyBox" consumes the following object, which becomes
+{@Code "x"}, so that the value is
+@ID @Code "@Box paint { lightgrey } { Hello world }"
+which produces @GreyBox { Hello world }.
+@PP
+It is a good principle to choose symbol names that refer to what the symbol
+is for, rather than how it does what it does.  Here is a good example:
+@ID @OneRow @Code {
+"import @BasicSetup"
+"def @Poetry right x { lines @Break @I x }"
+}
+This kind of name is very pleasant to use, since it allows you to
+forget about what is going on behind the scenes:
+@ID @OneRow @Code {
+"@IndentedDisplay @Poetry {"
+"Teach me to hear Mermaides singing,"
+"Or to keep off envies stinging,"
+"     And finde"
+"     What winde"
+"Serves to'advance an honest minde."
+"}"
+}
+Most of Lout's symbols follow this principle.
+@PP
+You can define symbols that consume the object to their left as well
+as the object to their right, as the {@Code "@Font"}, {@Code "@Break"},
+and {@Code "@Colour"} symbols do:
+@ID @OneRow @Code {
+"import @BasicSetup"
+"def @HeadingBox left x right y"
+"{  @Box { @CentredDisplay @Heading x y }"
+"}"
+}
+This definition occupies several lines only because it is long; as
+usual, end of line is the same as one space.  Now
+@ID @OneRow @Code {
+"Cheating @HeadingBox {"
+"The Department uses assignments ... of that student alone."
+"}"
+}
+is much easier to type than the equivalent example in Section
+{@NumberOf boxes}.  The result is the same:
+@QD Cheating @HeadingBox {
+The Department uses assignments both as a teaching device and as a
+major component of its assessment of each student.  It therefore
+requires that all programs, exercises etc. handed in bearing an
+individual student's name be the work of that student alone.
+}
+Do not use a paragraph, display, or list symbol at the beginning or end
+of a definition, since the result is not what people who do it are
+hoping for.
+@End @Section

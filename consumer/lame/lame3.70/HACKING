@@ -1,0 +1,106 @@
+************************************************************************
+LAME API
+
+For a general outline of the code, see the file API.  
+Also, main.c is a simple front end to libmp3lame.a
+
+The guts of the code are called from lame_encode_buffer().
+
+lame_encode_buffer() handles buffering, resampling, filtering, and
+then calls lame_encode_frame() for each frame:
+
+lame_encode_frame():
+   l3psycho_anal()        compute masking thresholds
+   mdct_sub()             compute MDCT coefficients
+   iteration_loop()       choose scalefactors (via iteration)
+                          which determine noise shapping, and 
+                          choose best huffman tables for lossless compression
+
+   III_formatBitstream    format the bitstream and store in bit_buffer
+   copy_buffer()          make a copy of bit_buffer, to return to calling program
+   write_buffer()         optionally output bit_buffer to a file
+   empty_buffer()	  mark bit_buffer as empty
+
+
+
+
+
+************************************************************************
+We are in the process of switching the whole code to FLOAT or FLOAT8,
+which ever is faster (defined in machine.h).  
+Avoid using float or double, and instead use:
+
+FLOAT    4 byte floating point.  
+FLOAT8   8 byte floating point (only when necessary)
+
+
+************************************************************************
+Initialization:   LAME can be used as a library, and there are two
+kinds of static data:  data that has to be initialized only once
+when the library is called, and data that has to be initialized
+every time you start encoding a new sample.
+
+These routines should be coded something like:
+
+#include "globalflags"
+void subroutine(void)
+{
+  static int firstcall=1;
+  if (firstcall) {
+    firstcall=0;
+    /* code that needs to be done only once when routine is loaded */
+  }
+  if (gf.frameNum==0) {
+    /* code that needs to be done before encoding each file/stream */
+  }
+}
+
+The frameNum==0 code only works for routines which are only called
+once per frame.  More general code would be:
+
+
+#include "globalflags"
+void subroutine(void)
+{
+  static int init=0;
+  if (gf.frameNum==0 && !init) {
+    /* code that needs to be done before encoding each file/stream */
+    init=1;
+  }
+  if (gf.frameNum>0) init=0;
+}
+
+
+
+
+
+************************************************************************
+Global flags
+
+For better or worse, there are many global flags in lame, 
+in the 'gf' structure.  
+
+The rules for adding a global flag are:
+
+1. declair in struct gf in lame.h
+2. default values must be set in lame_init()
+3. include "globalflags.h" in routines that need access to these flags.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

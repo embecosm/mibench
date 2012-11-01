@@ -1,0 +1,83 @@
+@Section
+   @Title { Sorted galleys }
+   @Tag { sorted }
+@Begin
+@PP
+When footnotes are placed at the bottom of a page, they appear there in
+first come, first served order.  To make galleys appear in sorted order, as
+sorted.galley @Index { Sorted galleys }
+is needed in bibliographies and indexes, a parameter or nested definition
+with the special name @@Key
+key. @Index { @@Key parameter }
+is added to the galley definition, like this:
+@ID @OneRow @Code {
+"def @IndexEntry into { @IndexPlace&&following }"
+"   left @Key"
+"   right x"
+"{ x }"
+}
+@@Key must be set to a simple word, or several words with nothing more
+complex than font changes within them, when the galley is invoked:
+@ID @Code {
+"{ cities compare } @IndexEntry { cities, comparison of, 27 }"
+}
+and this key is used to sort the galleys.
+@PP
+If several sorted galleys with the same key are sent to the same place,
+the default behaviour is to print only the first of them; the assumption
+is that the others are probably unwanted duplicates.  This holds good
+for sorted reference lists, for example:  we don't want two copies of
+a reference just because we happen to cite it twice.  However, the
+other common example of sorted galleys, index entries, requires something
+different:  @I merged galleys.
+@PP
+Suppose that at some point of the document we insert the index entry
+@ID @Code "aardvarks @IndexEntry { Aardvarks, 23 }"
+while at another point we insert
+@ID @Code "aardvarks @IndexEntry { Aardvarks, 359 }"
+How the page numbers are worked out is not relevant here.  Clearly we
+would like to merge these two entries into one entry that comes out as
+@ID "Aardvarks, 23, 359"
+The following definition will merge two objects in this way:
+@ID @OneRow @Code {
+"def @Merge left x right y"
+"{"
+"    {x @Rump y} @Case"
+"    {"
+"        \"\"      @Yield x"
+"        else   @Yield { x, x @Rump y }"
+"    }"
+"}"
+}
+The @@Rump symbol is the subject of Section {@NumberOf rump}; this
+says `if the two things to be merged are equal, the result is one
+of them; otherwise it is the first followed by a comma and space
+and then the rump of the second.'  Our only problem is that this
+symbol has to be applied to two galleys from widely separated
+parts of the document.
+@PP
+Lout makes this possible by the following special rule:  if a
+sorted galley contains a nested definition of a symbol whose name
+is @@Merge (@@Merge must have just two parameters, left and right),
+merge. @Index { @@Merge symbol }
+and if that sorted galley is preceded in the list of
+sorted galleys destined for some target by another sorted galley
+with the same key, then rather than being discarded, the second
+galley is merged into the first using the @@Merge symbol.
+@PP
+The natural thing to do when more than two galleys have the same
+key is to merge the first two, then merge the third with the
+result of that, then the fourth with the result of that, and
+so on.  For efficiency reasons beyond our scope here, Lout does
+the merging in a different order:  it merges @Eq { n } galleys
+by merging the first @Eq { lfloor n slash 2 rfloor } together,
+then the last @Eq { lceil n slash 2 rceil } together, then
+merging the result.  Of course, if the @@Merge symbol is
+associative this has the same effect.  The @@Merge symbol above
+is not strictly associative, but it is close enough in practice.  The
+total time it takes to merge @Eq { n } galleys with equal keys
+is @Eq { O ( n sup 2 ) } or somewhat higher (but always polynomial
+in @Eq { n }) depending on how many times the parameters occur
+within the body of @@Merge; to do it in the natural linear order
+would take Lout exponential time.
+@End @Section

@@ -1,0 +1,30 @@
+@Section
+   @Tag { underline }
+   @Title { "@Underline" }
+@Begin
+@PP
+underline.sym @Index { @@Underline symbol }
+The @@Underline symbol underlines its right parameter, but only if that
+parameter is a word or a paragraph:
+@ID @Code "We @Underline { really do } mean this."
+produces
+@ID { We @Underline { really do } mean this. }
+It is not possible to underline an arbitrary object using this symbol;
+the @@Underline symbol will be ignored if this is attempted.
+@PP
+It is very easy to @I define a symbol which will underline an arbitrary
+object, using the @@Graphic symbol.  This raises the question of why
+@@Underline is needed at all.  The answer is that @@Underline has two
+properties that distinguish it from symbols based on @@Graphic.
+@PP
+First, when @@Underline both contains a paragraph and is used within a
+paragraph, as in the example above, the inner and outer paragraphs are
+merged into one, permitting the underlined text to break over several
+lines.  This is how the @@Font symbol works too, but symbols based on
+@@Graphic do not permit this merging.
+@PP
+Second, Adobe font files specify the correct position and thickness of
+underlining for each font, and the @@Underline symbol follows these
+specifications.  The font used is the font of the first object underlined,
+if it is a simple word, or else the font of the enclosing paragraph.
+@End @Section

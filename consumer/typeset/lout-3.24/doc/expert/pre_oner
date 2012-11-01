@@ -1,0 +1,36 @@
+@Section
+   @Title { "@OneCol" and "@OneRow" }
+   @Tag { onerow }
+@Begin
+@PP
+The @@OneRow symbol
+onerow.sym @Index { @@OneRow symbol }
+principal.mark.effect @SubIndex { effect on @@OneCol and @@OneRow }
+returns its right parameter modified so that only the principal row mark
+protrudes.  This is normally the first row mark, but another one may be
+chosen by preceding it with @Code "^/" or {@Code "^//"}.  For example,
+@ID @Code {
+"@OneRow {  |0.5rt  Slope @Font x + 2  ^//1p  @HLine  //1p  |0.5rt  5 }"
+}
+has result
+@LP
+@ID {
+@ShowMarks
+@OneRow { |0.5rt Slope @Font x + 2 ^//1p @HLine //1p |0.5rt 5 }
+}
+@LP
+with one row mark protruding from the bar as shown.  Compare this with
+@ID @Code {
+"@OneRow {  |0.5rt  Slope @Font x + 2  //1p  @HLine  //1p  |0.5rt  5 }"
+}
+where the mark protrudes from the numerator:
+@LP
+@ID {
+@ShowMarks
+@OneRow { |0.5rt Slope @Font x + 2 //1p @HLine //1p |0.5rt 5 }
+}
+onecol.sym @Index { @@OneCol symbol }
+@@OneCol has the same effect on columns as @@OneRow does on rows, with
+the symbols @Code "^|" and @Code "^||" (or {@Code "^&"}) determining
+which mark is chosen.
+@End @Section

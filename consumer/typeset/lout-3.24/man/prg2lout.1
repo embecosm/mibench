@@ -1,0 +1,149 @@
+.TH PRG2LOUT 1
+.SH NAME
+prg2lout - convert computer program text into Lout
+.SH SYNOPSIS
+\fBprg2lout\fR -l \fIlanguage\fR [ \fIoptions\fR ] \fIfiles\fR...
+.SH DESCRIPTION
+Reformat computer program text for input to the Lout document formatting
+system, taking care of comments, character strings, tab characters, etc.
+.LP
+.B prg2lout
+reads the named program source files and produces output
+suitable for input to
+.BR "lout -s" .
+Thus,
+.LP
+.RS
+.B "prg2lout -l C foo.c | lout -s | lpr"
+.RE
+.LP
+will print the C program
+.B foo.c
+on a PostScript printer.  Each file will start on a new page, preceded
+by its name in bold.
+.SH OPTIONS
+.TP
+.B \-llanguage
+(Compulsory.)  Files are written in this programmming language.  Run
+\fIprg2lout -u\fR to see the list of languages available.
+.TP
+.B \-pfixed
+Use a fixed width font (the default for C).
+.TP
+.B \-pvarying
+Use a varying-width italic font with non-italic bold keywords (the
+default for Eiffel).
+.TP
+.B \-psymbol
+Use a varying-width italic font with mathematical symbols and
+non-italic bold keywords.
+.TP
+.B \-n
+Do not print the file name before each source file.
+.TP
+.BI \-f " font"
+Select a font family.
+The default is 
+.B \-fCourier
+for
+.BR \-pfixed ,
+and
+.B \-fTimes
+for
+.B \-pvarying
+and
+.BR \-psymbol .
+.TP
+.BI \-s " size"
+Select a Lout font size.  The default is
+.B -s9p
+(meaning 9 points) for
+.BR \-pfixed ,
+and
+.B \-s10p
+for
+.B \-pvarying
+and
+.BR \-psymbol .
+These work well with 80-character-wide programs.
+.TP
+.BI \-v " vsize"
+Select a Lout vertical inter-line gap.  The default is
+.B -v1.1fx
+meaning 1.1 times the font size measured from baseline to baseline.
+.TP
+.BI \-t " num"
+Set the tab interval to
+.I num
+characters (default is
+.BR \-t8 ).
+.TP
+.BI \-T " width"
+Without this option,
+.B prg2lout
+simulates tabs with spaces.  With this option,
+.B prg2lout
+simulates tabs with Lout tabulation operators;
+.I width
+is the width of one tab interval in the final print, measured in Lout
+units.  This guarantees alignment of characters following tabs even
+with varying-width fonts, provided
+.I width
+is sufficiently large.  For example,
+.B -T0.5i
+produces half-inch tab intervals.
+.TP
+.BI \-L " number"
+Attach line numbers to the program text, beginning with
+.I number
+or 1 if number is not given.  You may need to give the 1 anyway to
+prevent .I prg2lout from taking a following file name as a number.
+.TP
+.BI \-S " filename"
+Use
+.I filename
+as the setup file instead of the system default setup file.  The setup
+file determines the value of all formatting options not given to
+.I prg2lout
+as command line arguments.
+.TP
+.B \-u
+Print usage information on stderr, including available languages, and exit.
+.TP
+.B \-V
+Print version information on stderr and exit.
+.SS Raw Mode
+There is a \(lq\&raw mode\(rq usage of
+.B prg2lout
+invoked by a
+.B -r
+flag (must be the first argument).  This converts one program file into
+Lout-readable source without any heading or trailing information.
+Synopsis:
+.LP
+.RS
+.B prg2lout
+.B  \-r
+.BI \-i \ infile
+.BI \-o \ out
+.BI \-e \ err
+.BI \-t \ num
+.BI \-T \ width
+.RE    
+.LP
+Users should never need this mode; it is invoked automatically
+from within Lout by symbols supplied with the standard configuration
+(see reference).
+.SH SEE ALSO
+.BR lout (1),
+.BR lpr (1),
+.BR ghostview (1).
+.SH REFERENCES
+.LP
+Jeffrey H. Kingston, 
+.I
+\(lq\&A User's Guide to the Lout Document Formatting System\(rq\c
+\&, Chapter 11.
+.SH AUTHOR
+.LP
+Jeffrey H. Kingston

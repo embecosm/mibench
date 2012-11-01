@@ -1,0 +1,35 @@
+@Section
+   @Title { Rotation }
+   @Tag { rotation }
+@Begin
+@PP
+The @Code "@Rotate" symbol rotates the following object by any positive
+rotate. @Index @Code "@Rotate"
+or negative angle, measured in degrees:
+@ID @Code "45d @Rotate @Box WARNING!"
+has result
+@ID { 45d @Rotate @Box WARNING! }
+As usual, the object to be rotated may be arbitrary.  However, it is
+difficult for Lout to choose appropriate column widths for paragraphs
+inside rotated objects, so if a rotated object contains paragraphs that
+should be broken it is best to define the object's width explicitly,
+using the @Code "@Wide" symbol:
+wide @RawIndex { @Code "@Wide" }
+wide.rotate @SubIndex { with @Code "@Rotate" }
+@ID @OneRow @Code {
+"-90d @Rotate 4.5c @Wide {"
+"Papal initiatives and influence from the crowning of"
+"Charlemagne to the First Crusade"
+"}"
+}
+The result here is
+@ID {
+-90d @Rotate 4.5c @Wide {
+Papal initiatives and influence from the crowning of
+Charlemagne to the First Crusade
+}
+}
+The @Code "@Wide" symbol fixes the width of the following object, in
+this example to the length 4.5 centimetres, which is all Lout needs to
+decide the column widths of any paragraphs within it.
+@End @Section

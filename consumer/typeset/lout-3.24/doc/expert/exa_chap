@@ -1,0 +1,273 @@
+@Section
+   @Title { Chapters and sections }
+   @Tag { chapters }
+@Begin
+@PP
+The definitions of chapters and sections from the DocumentSetup package
+chapters. @Index { Chapters and sections }
+of Version 2 (in Version 3, the BookSetup extension of DocumentSetup)
+form the subject of this section.  They allow a chapter to be entered
+like this:
+document.layout.chapters @SubIndex { chapters and sections }
+@ID @Code {
+"@Chapter"
+"    @Title { ... }"
+"    @Tag { ... }"
+"@Begin"
+"    ..."
+"@End @Chapter"
+}
+Within the chapter a sequence of sections may be included by writing
+@ID @Code {
+"@BeginSections"
+"@Section { ... }"
+"..."
+"@Section { ... }"
+"@EndSections"
+}
+These are numbered automatically, and an entry is made for each in a
+table of contents.
+@PP
+The user of the DocumentSetup package can find the number of the chapter or
+section with a given tag by writing @Code "@NumberOf tag" at any point
+in the document.  This feature is based on the following definitions:
+numberof.example @Index { @Code "@NumberOf" example }
+@ID @Code {
+"export @Tag"
+"def @NumberMarker right @Tag { @Null }"
+""
+"def @NumberOf right x"
+"{  @NumberMarker&&x @Open { @Tag }  }"
+}
+Each chapter and section will contain one invocation of
+{@Code "@NumberMarker"}; a full explanation will be given later.
+@PP
+A sequence of places for receiving chapters is easily defined:
+@ID @Code {
+"export @Tag"
+"def @ChapterList right @Tag"
+"{"
+"    @Galley"
+"    //@ChapterGap  @ChapterList @Next @Tag"
+"}"
+}
+@Code "@ChapterGap" will usually be {@Code "1.1b"}, ensuring that each
+chapter begins on a new page.  The @Code "@Chapter" galley itself is
+defined as follows:
+chapter.example @Index { @Code "@Chapter" example }
+@IndentedList
+@LI @Code {
+"export @FootNote @BeginSections @EndSections @Section"
+"def @Chapter force into { @ChapterList&&preceding }"
+"    named @Tag {}"
+"    named @Title {}"
+"    named @RunningTitle { dft }"
+"    body @Body"
+"{"
+"    def @FootNote right x { @ColFootNote x }"
+""
+"    def @BeginSections ..."
+"    def @EndSections ..."
+"    def @Section ..."
+}
+@LI @Code {
+"    def @ChapterTitle"
+"    {"
+"        @ChapterNumbers @Case {"
+"            {Yes yes}  @Yield  { Chapter {@NumberOf @Tag}.  |2s  @Title }"
+"            else  @Yield  @Title"
+"        }"
+"    }"
+""
+"    def @ChapterNum"
+"    {"
+"        @ChapterNumbers @Case {"
+"            {Yes yes}  @Yield  { Chapter {@NumberOf @Tag} }"
+"            else  @Yield @Null"
+"        }"
+"    }"
+}
+@LI @Code {
+"        ragged @Break @BookTitleFormat @ChapterTitle"
+"    //  @NumberMarker {"
+"            @ChapterList&&@Tag @Open { @Tag }"
+"        }"
+"    //  @ChapterList&&preceding  @Tagged @Tag"
+"    //  @NumberMarker&&preceding @Tagged @Tag"
+"    //  @PageMarker&&preceding   @Tagged @Tag"
+"    //  { @ChapterTitle } @MajorContentsEntry {@PageOf @Tag}"
+"    //  @Runner"
+"            @FootEven { |0.5rt 0.8f @Font @B @PageNum }"
+"            @FootOdd  { |0.5rt 0.8f @Font @B @PageNum }"
+"    //  @Body"
+"    //@SectionGap @ChapRefSection"
+"    //  @Runner"
+"            @TopEven { @B @PageNum |1rt @I @ChapterNum }"
+"            @TopOdd  { @I {@RunningTitle @OrElse @Title} |1rt @B @PageNum }"
+"}"
+}
+@EndList
+We will see the symbols for sections shortly.  Notice how their use has
+been restricted to within the right parameter of {@Code "@Chapter"}, by
+nesting them and using a body parameter.
+@PP
+The meaning of @Code "@FootNote" within @Code "@Chapter" has been set
+to {@Code "@ColFootNote"}, which produces a footnote targeted to
+{@Code "@ColFootList"} (see Section {@NumberOf pagelayout}).  In other
+words, footnotes within chapters go at the foot of the column, not at
+the foot of the page.  (Of course, in single-column books this
+distinction is insignificant.)  @Code "@ChapterTitle" and
+@Code "@ChapterNum" are trivial definitions which vary depending on
+whether the user has requested numbered chapters or not.
+@PP
+Each invocation of @Code "@Chapter" has its own unique {@Code "@Tag"},
+either supplied by the user or else inserted automatically by Lout.  We
+now trace the cross referencing of chapter numbers on a hypothetical
+third chapter whose tag is {@Code "euclid"}.
+@PP
+@Code "@ChapterList&&preceding @Tagged euclid" attaches @Code "euclid"
+as an extra tag to the first invocation of @Code "@ChapterList"
+preceding itself in the final printed document.  But this
+@Code "@ChapterList" must be the target of the chapter, and so
+@ID @Code "@ChapterList&&euclid @Open { @Tag }"
+is 3, the number of the chapter ({@Code "@Tag"} refers to the parameter
+of {@Code "@ChapterList"}, not the parameter of {@Code "@Chapter"}).
+ Consequently the invocation of
+@Code "@NumberMarker" within the chapter is equal to
+{@Code "@NumberMarker 3"}.
+@PP
+@Code "@NumberMarker&&preceding @Tagged euclid" attaches @Code "euclid"
+to {@Code "@NumberMarker 3"} as an extra tag, and so
+{@Code "@NumberOf euclid"}, which expands to
+@ID @Code "@NumberMarker&&euclid @Open { @Tag }"
+must be equal to 3, as required.  This scheme could be simplified by
+placing the invocation of @Code "@NumberMarker" within
+@Code "@ChapterList" rather than within {@Code "@Chapter"}, but it turns
+out that that scheme does not generalize well to sections and subsections.
+@PP
+There is a trap for the unwary in the use of @Code preceding and
+{@Code following}.  Suppose that the invocation of @Code "@NumberMarker"
+within @Code "@Chapter" is replaced by the seemingly equivalent
+@ID @Code "@NumberMarker { @ChapterList&&preceding @Open { @Tag } }"
+Now suppose that @Code "@NumberOf euclid" appears somewhere within
+Chapter 7.  It will expand to
+@ID @Code "@NumberMarker&&euclid @Open { @Tag }"
+which would now be equal to
+@ID @Code "@ChapterList&&preceding @Open { @Tag }"
+whose value, evaluated as it is within Chapter 7, is 7, not 3.  Use of
+@Code preceding or @Code following within the parameter
+of a symbol, rather than within the body, is likely to be erroneous.
+@PP
+Much of the remainder of the definition of @Code "@Chapter" is fairly
+self-explanatory:  there is a heading, a tag sent to mark the page on
+which the chapter begins, a @Code "@ContentsEntry" galley sent to the
+table of contents, galleys for the figures and tables of the chapter to
+collect in, @Code "@Body" where the body of the chapter goes, and
+@Code "@ChapRefSection" to hold a concluding list of references.  This
+leaves only the two invocations of @Code "@Runner" to explain.
+@PP
+The first @Code "@Runner" is just below the heading.  It will be the target
+of the @Code "@Runner&&following" cross reference at the beginning of the
+first page of the chapter (see Section {@NumberOf pagelayout}), which
+consequently will have null running headers and the given footers.
+@PP
+The second @Code "@Runner" appears at the very end of the chapter, hence
+on its last page.  Since no invocations of @Code "@Runner" lie between
+it and the first {@Code "@Runner"}, it will be the target of
+@Code "@Runner&&following" on every page from the second page of the
+chapter to the last, inclusive, and will supply the format of their
+headers and footers.
+@PP
+The interested reader might care to predict the outcome in unusual
+cases, such as when the heading occupies two pages, or when a chapter
+occupies only one, or (assuming a change to the gap between chapters)
+when a chapter starts halfway down a page.  Such predictions can be made
+with great confidence.
+@PP
+The expression @Code "@RunningTitle @OrElse @Title" appearing in the second
+@Code "@Runner" returns the value of the @Code "@RunningTitle" parameter
+of @Code "@Chapter" if this is not equal to the default value
+{@Code "dft"}, or @Code "@Title" otherwise:
+orelse.example @Index { @Code "@OrElse" example }
+@ID @Code {
+"def @OrElse"
+"    left x"
+"    right y"
+"{"
+"    x @Case {"
+"        dft  @Yield  y"
+"        else  @Yield  x"
+"    }"
+"}"
+}
+This produces the effect of
+@ID @Code {
+"named  @RunningTitle  {  @Title  }"
+}
+which unfortunately is not permissible as it stands, because @Code "@Title"
+is not visible within the default value of {@Code "@RunningTitle"}.
+@PP
+Finally, the definitions for sections omitted earlier are as follows:
+section.example @Index { @Code "@Section" example }
+@IndentedList
+@LI @Code {
+"def @EndSectionsPlace { @Galley }"
+"def @EndSections force into { @EndSectionsPlace&&preceding } {}"
+"macro @BeginSections { //@SectionGap @SectionList 1 // @EndSectionsPlace // }"
+}
+@LI @Code {
+"def @Section force into { @SectionList&&preceding }"
+"    named @Tag {}"
+"    named @Title {}"
+"    named @RunningTitle { dft }"
+"    body @Body"
+"{"
+"    def @SectionTitle"
+"    {"
+"        @SectionNumbers @Case {"
+"            {Yes yes} @Yield { {@NumberOf @Tag}.  |2s  @Title }"
+"            else      @Yield @Title"
+"        }"
+"    }"
+""
+"        @Heading @Protect @SectionTitle"
+"    //  @NumberMarker {"
+"            {@ChapterList&&@Tag @Open { @Tag }}.{"
+"             @SectionList&&@Tag @Open { @Tag }}"
+"        }"
+"    //  @ChapterList&&preceding  @Tagged @Tag"
+"    //  @SectionList&&preceding  @Tagged @Tag"
+"    //  @NumberMarker&&preceding @Tagged @Tag"
+"    //  @PageMarker&&preceding   @Tagged @Tag"
+"    //  { &3f @SectionTitle } @ContentsEntry {@PageOf @Tag}"
+"    //0io @Body"
+"}"
+}
+@EndList
+The @Code "@BeginSections" macro invokes {@Code "@SectionList"},
+preceded by the appropriate gap and followed by an @Code "@EndSectsPlace"
+for closing the list of sections when the @Code "@EndSections" symbol is
+found.  @Code "@Section" itself is just a copy of @Code "@Chapter" with
+slight changes to the format.  The parameter of @Code "@NumberMarker" is
+a simple generalization of the one within {@Code "@Chapter"}.  Notice
+that we have taken care that the value of this parameter be
+a juxtaposition of simple words:  although
+@ID @Code {
+"{@ChapterList&&@Tag @Open { @Tag }}. &"
+"{@SectionList&&@Tag @Open { @Tag }}"
+}
+is formally equivalent, @Code "&" was not permitted within a
+@Code "@Tag" parameter until recently.
+@PP
+The DocumentSetup package also contains definitions for subsections in the
+same style.  They raise the question of whether Lout is capable of
+producing subsections should the user place {@Code "@BeginSections"},
+{@Code "@Section"}, and {@Code "@EndSections"} within a {@I section},
+and whether such nesting could proceed to arbitrary depth.  Arbitrary
+nesting of sections within sections is available now, although the
+numbering would of course be wrong.  The author has worked out
+definitions which provide correct numbering to arbitrary depth, with an
+arbitrary format for each level.  These were not incorporated into
+DocumentSetup because the author considers sub-subsections to be poor
+style, and he prefers separate names for the symbols at each level.
+@End @Section

@@ -1,0 +1,563 @@
+@Section
+    @Tag { dia_node }
+    @Title { Nodes }
+@Begin
+@PP
+@Code "@Diag" has one basic symbol for creating nodes.  It is called
+node. @Index { @Code "@Node" }
+{@Code "@Node"}, and it takes the following object and encloses it in an
+outline whose shape is determined by the {@Code "outline"} option:
+@ID {
+@Code {
+"@Node"
+"    outline { curvebox }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@Node
+    outline { curvebox }
+{ Hello, world }
+}
+}
+As Section {@NumberOf dia_defi} explains, the @Code outline option may be
+used to produce an outline of any shape.  There are also nine values that
+produce standard shapes:  {@Code box}, {@Code curvebox}, {@Code shadowbox},
+{@Code square}, {@Code diamond}, {@Code polygon}, {@Code isosceles},
+{@Code ellipse}, and {@Code circle}.
+@PP
+The shape of the outline is determined by the @Code outline option, but
+its size and position depend on the size and position of its
+{@I base}:  the following object with a small margin around it.  For
+example, this is how a circle is positioned over its base (shown in
+grey):
+@ID @OneRow {
+@Code {
+"@Node"
+"    outline { circle }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@Box paint { lightgrey } outlinestyle { noline } margin { 0c }
+@Node
+    outline { circle }
+{ Hello, world }
+}
+}
+Lout works only with the base, having no idea where the outline is, which
+explains why this circle is too high for the space allowed
+it.  Section {@NumberOf dia_summ} shows how each of the standard
+outlines is positioned over its base.
+@PP
+The @Code "@Node" symbol has many options, but all of them without
+exception share the following very useful property:  they may be given
+to the @Code "@Diag" symbol as well, where they apply to every node in
+the diagram:
+@ID @OneRow {
+@Code {
+"@Diag"
+"    outline { circle }"
+"{"
+"    @Node @I a"
+"    @DP"
+"    @Node @I b"
+"}"
+}
+||7ct
+@Diag
+    outline { circle }
+{
+    @Node @I a
+    @DP
+    @Node @I b
+}
+}
+These options also appear in the setup file ({@Code diag});
+if set there, they apply to every node in every diagram of the
+document.  As the number of nodes increases, it becomes very tedious and
+error-prone to duplicate options at all the nodes.  Giving each option
+just once, at the @Code "@Diag" symbol or in the setup file, saves time
+and makes it easy to change all the nodes into squares or any other shape
+later on.  Any setup file option may be overridden in a diagram by giving
+the option to its @Code "@Diag" symbol; any @Code "@Diag" option or setup
+file option may be overridden at any node by giving the option again there.
+@PP
+Sometimes a diagram contains several different node types, each with
+its own combination of options (for example, the syntax diagrams of
+Section {@NumberOf dia_synt} have three node types).  To handle these
+cases there are three alternative versions of the @Code "@Node"
+symbol, called {@Code "@ANode"}, {@Code "@BNode"}, and
+anode.fig @Index { @Code "@ANode" in @Code "@Diag" }
+bnode.fig @Index { @Code "@BNode" in @Code "@Diag" }
+cnode.fig @Index { @Code "@CNode" in @Code "@Diag" }
+{@Code "@CNode"}.  These have exactly the same options as
+{@Code "@Node"}, but the @I default values of these options
+are different, in that they come from @Code "@Diag" options,
+or else setup file options, that have an extra letter in front
+of their name:  @Code { a }, @Code { b }, or @Code { c }.  Here is
+a small example (see later in this section for the @Code font option):
+@ID @OneRow {
+@Code @Verbatim {
+@Diag
+    aoutline { box }
+    afont { Italic }
+    boutline { curvebox }
+    bfont { Bold }
+{
+    @ANode identifier
+    @DP
+    @BNode keyword
+}
+}
+||7ct
+@Diag
+    aoutline { box }
+    afont { Italic }
+    boutline { curvebox }
+    bfont { Bold }
+{
+    @ANode identifier
+    @DP
+    @BNode keyword
+}
+}
+Note that when giving an option directly to {@Code "@ANode"},
+{@Code "@BNode"}, and {@Code "@CNode"}, the initial @Code { a },
+@Code { b }, or @Code { c } used with @Code "@Diag" and in the
+setup file is omitted.
+@PP
+To save time in simple cases, @Code "@Diag" provides nine other
+node symbols called
+{@Code "@Box"},
+box.fig @Index { @Code "@Box" in @Code "@Diag" }
+{@Code "@CurveBox"},
+curvebox.fig @Index { @Code "@CurveBox" in @Code "@Diag" }
+{@Code "@ShadowBox"},
+shadowbox.fig @Index { @Code "@ShadowBox" in @Code "@Diag" }
+{@Code "@Square"},
+square. @Index @Code "@Square"
+{@Code "@Diamond"},
+diamond. @Index @Code "@Diamond"
+{@Code "@Polygon"},
+{@Code "@Isosceles"},
+isosceles. @Index @Code "@Isosceles"
+{@Code "@Ellipse"},
+ellipse. @Index @Code "@Ellipse"
+and {@Code "@Circle"}.  These are just abbreviations for @Code "@Node"
+with the appropriate value of {@Code outline}, nothing more.  They take
+the same options as {@Code "@Node"} (except that @Code outline is
+already fixed), and everything works in the same way.
+@PP
+There is a @Code shadow option which determines the depth of the shadow
+in shadow boxes:
+@ID {
+@Code {
+"@Node"
+"    outline { shadowbox }"
+"    shadow { 0.4f }"
+"{ WARNING }"
+}
+||7ct
+@Diag {
+@Node
+    outline { shadowbox }
+    shadow { 0.4f }
+{ WARNING }
+}
+}
+This example shows the default value, 0.4 times the current font
+size.  For polygons there is a @Code sides option for specifying the number
+polygon. @Index @Code "@Polygon"
+of sides, and an @Code angle option for rotating the outline:
+@IL
+@LI {
+@Code {
+"@Polygon"
+"   sides { 5 }"
+}
+||7ct
+@Diag {
+@Polygon
+   sides { 5 }
+{ 1c @High 1c @Wide }
+}
+}
+
+@LI {
+@Code {
+"@Polygon"
+"   sides { 5 }"
+"   angle { 0d }"
+}
+||7ct
+@Diag {
+@Polygon
+   sides { 5 }
+   angle { 0d }
+{ 1c @High 1c @Wide }
+}
+}
+@EL
+Setting @Code angle to @Code 0d causes the first vertex to be placed
+directly underneath the centre, and as the angle increases, the
+position of the first vertex rotates anticlockwise.  The defaults are
+3 sides and the angle that gives the polygon a
+horizontal base (i.e. 180 degrees divided by the number of sides).  Thus
+the two cases with symmetry about a vertical axis are obtained by the
+default angle and @Code "0d" respectively, which is convenient.  The
+{@Code "shadow"}, {@Code "sides"}, and {@Code "angle"} options may be
+given to any node, and also to {@Code "@Diag"} and in the setup file,
+where they apply to every node as usual.  However, they only affect the
+appearance of shadow boxes and polygons, respectively.
+@PP
+The {@Code outlinestyle}, {@Code outlinedashlength}, and {@Code outlinewidth}
+options apply to any node and affect the appearance of the outline:
+@ID @OneRow {
+@Code {
+"@CurveBox"
+"   outlinestyle { solid }"
+"   outlinedashlength { 0.2f }"
+"   outlinewidth { thin }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@CurveBox
+   outlinestyle { solid }
+   outlinedashlength { 0.2f }
+   outlinewidth { thin }
+{ Hello, world }
+}
+}
+This example shows the default values of these options.  The
+{@Code outlinestyle} option may be {@Code solid}, {@Code dashed},
+dashed. @Index { dashed lines }
+dotted. @Index { dotted lines }
+{@Code cdashed}, {@Code dotted}, or {@Code noline}:
+@ID @OneRow {
+@Code {
+"@CurveBox"
+"   outlinestyle { cdashed }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@CurveBox
+   outlinestyle { cdashed }
+{ Hello, world }
+}
+}
+The @Code dashed option makes all dashes the same length, whereas
+@Code cdashed halves the length of the first and last dash on each segment,
+which usually looks better.  The length of dashes is {@Code outlinedashlength},
+and the distance between dashes or dots is at most {@Code outlinedashlength},
+reduced to make the dashes or dots fit evenly.  The @Code outlinewidth
+option determines the width of the line, dashes, or dots, and may be
+{@Code thin}, {@Code medium}, {@Code thick}, or any length.  The values
+used for {@Code thin}, {@Code medium}, and {@Code thick} are
+{@Code 0.04f}, {@Code 0.08f}, and {@Code 0.12f}.
+@PP
+The {@Code outlinestyle} option may contain a sequence of the values
+mentioned above, meaning that they are to be applied in turn to each
+segment of the outline:
+@ID @OneRow {
+@Code {
+"@CurveBox"
+"   outlinestyle { solid cdashed }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@CurveBox
+   outlinestyle { solid cdashed }
+{ Hello, world }
+}
+}
+If there are more segments than values, {@Code outlinestyle} cycles back
+to the first value again; this is why a single value is applied to all
+segments.  Section {@NumberOf dia_summ} shows how each of the
+standard shapes is divided into segments.
+@PP
+The node symbols of @Code "@Diag" are quite separate symbols from the
+three basic box symbols of Section {@NumberOf boxes}.  Although much
+is the same, one obvious difference between the two is that to get no
+outline in those boxes you use @Code { "linewidth { none }" }, whereas
+to get no outline here you use @Code { "outlinestyle { noline }" }.  The
+basic boxes can only draw the outline solid or not at all, and their
+options have been kept simple to reflect that.
+@PP
+Nodes may be painted any of the colours listed in Section
+{@NumberOf colour}, using the @Code "paint" option:
+@ID @OneRow {
+@Code {
+"@Box"
+"   paint { grey }"
+"@Diamond"
+"   outlinestyle { noline }"
+"   paint { white }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@Box
+   paint { grey }
+@Diamond
+   outlinestyle { noline }
+   paint { white }
+{ Hello, world }
+}
+}
+In this example the object following @Code "@Box" is a diamond containing
+{@Code "Hello, world"}.  The default value of @Code "paint" is
+{@Code nopaint}, a special value (not a colour) meaning don't use any paint.
+@PP
+When painting it is important to know what order things are done in, because
+anything put down earlier will disappear under the paint.  This is why
+@Code nopaint and @Code white are different.  Painting is done first, then
+boundaries, and finally the following object.
+@PP
+Each node symbol has 
+@Code "font" and @Code "break" options which may be used to
+set the font and paragraph breaking style of the following object:
+@ID @OneRow {
+@Code {
+"@Box"
+"    font { Helvetica Base }"
+"    break { clines }"
+"{"
+"WARNING"
+"DANGEROUS"
+"PENGUINS"
+"}"
+}
+||7ct
+@Diag {
+@Box
+    font { Helvetica Base }
+    break { clines }
+{
+WARNING
+DANGEROUS
+PENGUINS
+}
+}
+}
+Both options have empty default values, which leave the font and break
+style unchanged.  There is also a @Code "format" option for making more
+radical changes to the appearance of the following object:
+@ID @OneRow {
+@Code {
+"@Box"
+"    format {"
+"        {0.8 1.5} @Scale @S @Body"
+"    }"
+"{"
+"Dangerous Penguins"
+"}"
+}
+||7ct
+@Diag {
+@Box
+    format { { 0.8 1.5 } @Scale @S @Body }
+{
+Dangerous Penguins
+}
+}
+}
+The result is the @Code "format" option with any @Code "@Body" symbol
+within it replaced by the following object.  These are very useful when
+attached to the @Code "@Diag" symbol:
+@ID @OneRow @Code {
+"@Diag"
+"    font { Helvetica Base }"
+"    break { clines }"
+"    format { { 0.8 1.5 } @Scale @S @Body }"
+"{"
+"    ..."
+"}"
+}
+since then they apply to every node, as usual, thereby eliminating
+a lot of tedious, error-prone duplication of formatting information
+at each node.
+@PP
+The @Code margin option determines the size of the margin added to
+the following object:
+@ID @OneRow {
+@Code {
+"@Box"
+"    margin { 0c }"
+"{ Hello, world }"
+}
+||7ct
+@Diag {
+@Box
+    margin { 0c }
+{ Hello, world }
+}
+}
+These margins are included in the node's base (described above), so a
+larger margin enlarges the base and hence the outline as well.  The
+default value of @Code margin is {@Code 0.6f} (six-tenths of the current
+font size), and so the margin will automatically increase when the font size
+does, for example in overhead transparencies.
+@PP
+The @Code margin option adds the same margin to all four sides.  For
+finer control, the @Code hmargin option determines the horizontal (left
+and right) margins only, overriding {@Code margin}.  Similarly, the
+@Code vmargin option determines the vertical (top and foot) margins.  There
+are also {@Code leftmargin}, {@Code rightmargin},
+{@Code topmargin}, and {@Code footmargin} options which override
+{@Code margin}, {@Code hmargin}, and {@Code vmargin}.
+@PP
+When nodes appear side by side, the {@Code valign} option is
+useful for controlling their vertical position with respect to each
+other.  For example,
+@ID @OneRow {
+@Code {
+"@Diag"
+"    valign { foot }"
+"{"
+"@Box font { 24p } Big"
+"@Box font { 8p } Small"
+"}"
+}
+||7ct
+@Diag
+    valign { foot }
+{
+@Box font { 24p } Big
+@Box font { 8p } Small
+}
+}
+causes the feet of the boxes to be aligned.  In this example it is
+applied to all nodes at once, but of course it can be applied
+to individual nodes as well.  The value of {@Code valign} can be a
+length, which means that the point of alignment is
+to be that far down from the top of the base (including margins); or
+it may be {@Code top}, {@Code ctr}, or {@Code foot}, meaning alignment
+through the top, centre (the default value), or foot.
+@PP
+The {@Code vsize} option specifies a particular
+height for a node (not including margins):
+@ID @OneRow {
+@Code {
+"@Diag"
+"    vsize { 2f }"
+"{"
+"@Box font { 24p } Big"
+"@Box font { 8p } Small"
+"}"
+}
+||7ct
+@Diag
+    vsize { 2f }
+{
+@Box font { 24p } Big
+@Box font { 8p } Small
+}
+}
+The font size used when calculating @Code vsize is not affected by
+the value of any @Code font option.  If the following object is too
+tall for the chosen height, Lout will print a warning message (`forced
+to enlarge {@Code "@High"}', probably) and enlarge the base.
+@PP
+There is a @Code vindent option which is effective only when @Code vsize
+is used.  It controls where in the vertical space the following object
+is to appear:
+@ID @OneRow {
+@Code {
+"@Diag"
+"    vsize { 3f }"
+"{"
+"@Box vindent { top } Top"
+"@Box Centre"
+"@Box vindent { foot } Foot"
+"}"
+}
+||7ct
+@Diag
+    vsize { 3f }
+    vindent { ctr }
+{
+@Box vindent { top } Top
+@Box Centre
+@Box vindent { foot } Foot
+}
+}
+The value may be {@Code top} for at the top, {@Code ctr} (the default
+value) for in the centre, {@Code foot} for at the foot, or a length,
+meaning that distance down from the top.  These values are the same as
+for the @Code valign option.
+@PP
+Small discrepancies in the size of nodes can be very annoying,
+particularly when the nodes appear side by side:
+@ID @OneRow {
+@Code {
+"@Diag"
+"{"
+"@Box Hole @Box in"
+"@Box my @Box pocket"
+"}"
+}
+||7ct
+@Diag
+{
+@Box Hole @Box in
+@Box my @Box pocket
+}
+}
+These are caused by the slightly different heights of the objects within
+the nodes.  Selecting a fixed vertical size for all nodes goes some way
+towards solving this problem:
+@ID @OneRow {
+@Code {
+"@Diag"
+"    vsize { 1f }"
+"{"
+"@Box Hole @Box in"
+"@Box my @Box pocket"
+"}"
+}
+||7ct
+@Diag
+    vsize { 1f }
+{
+@Box Hole @Box in
+@Box my @Box pocket
+}
+}
+The size @Code "1f" is a good choice because most fonts are designed to
+be @Code "1f" high from the top of the tallest character to the foot of the
+deepest.  However, there is still a problem with the baselines of the words
+being misaligned.  A better solution is to insert a @I { vertical strut }
+into each node:  an invisible object with zero width and height equal to
+{@Code 1f}.  This is done using the @Code vstrut option:
+@ID @OneRow {
+@Code {
+"@Diag"
+"    vstrut { yes }"
+"{"
+"@Box Hole @Box in"
+"@Box my @Box pocket"
+"}"
+}
+||7ct
+@Diag
+    vstrut { yes }
+{
+@Box Hole @Box in
+@Box my @Box pocket
+}
+}
+The @Code vstrut option may be {@Code yes}, {@Code no} (the default value), or
+a length, meaning to insert a strut of this height.  So @Code "vstrut { yes }"
+is equivalent to {@Code "vstrut { 1.0f }"}.
+@PP
+There are {@Code halign}, {@Code hsize}, {@Code hindent}, and {@Code hstrut}
+options which work horizontally exactly as {@Code valign}, {@Code vsize},
+{@Code vindent}, and {@Code vstrut} work vertically, except that they
+use {@Code left} and {@Code right} where the vertical ones use
+{@Code top} and {@Code foot}.  The best way to fix horizontal size
+discrepancies is with {@Code hsize}, not {@Code hstrut}.
+@End @Section

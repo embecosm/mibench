@@ -1,0 +1,14 @@
+mp3x
+lame
+*.d
+Debug
+DebugGTK
+Release
+ReleaseGTK
+WinGTK
+*.ncb
+*.plg
+*.opt
+*.dll
+*.new.mp3
+*.wav.mp3

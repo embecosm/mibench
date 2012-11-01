@@ -1,0 +1,24 @@
+@Section
+   @Tag { prependgraphic }
+   @Title { "@PrependGraphic and @SysPrependGraphic" }
+@Begin
+@PP
+prependgraphic.sym @Index { @@PrependGraphic symbol }
+sysprependgraphic.sym @Index { @@SysPrependGraphic symbol }
+postscript.prependgraphic @SubIndex { used by @@PrependGraphic }
+These symbols, which may appear anywhere that a definition or @@Use
+symbol may appear, tell Lout to include the contents of a file in the
+preamble of its output.  For Basser Lout this means that the file must
+contain PostScript (and ideally it would begin and end with the
+@Code "%%BeginResource" and @Code "%%EndResource" comments of
+DSC 3.0).  For example,
+@ID @Code {
+"@SysPrependGraphic { diagf.lpg }"
+}
+appears at the start of the Diag package; the file @Code diagf.lpg
+contains a number of PostScript definitions used by Diag for drawing
+diagrams.  It saves a lot of space to include them just once at the
+start like this, rather than with every diagram.  @@PrependGraphic and
+@@SysPrependGraphic search for the file in the same places as @@Include and
+@@SysInclude respectively.
+@End @Section

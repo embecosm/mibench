@@ -1,0 +1,163 @@
+
+		Stealth V1.1 by Henry Hastur
+		----------------------------
+
+Stealth is a simple filter for PGP which strips off all identifying header
+information to leave only the encrypted data in a format suitable for
+steganographic use. That is, the data can be hidden in images, audio
+files, text files, CAD files, and/or any other file type that may contain
+random data, then sent to another person who can retrieve the data from 
+the file, attach headers, and PGP decrypt it.
+
+Stealth is not intended to replace the standardised methods of using
+encryption (e.g. ASCII-armoured PGP email) ; in an ideal world we would
+all be able to send openly encrypted mail or files to each other with no 
+fear of reprisals, however there are often cases when this is not possible,
+either because the local government does not approve of encrypted 
+communication, or perhaps because you are working for a company that
+does not allow encrypted email but doesn't care about Mandelbrot
+GIFs. This is where Stealth and steganography can come into play.
+
+
+Compiling
+---------
+
+Stealth has currently only been tested on BSD and SVR4 Unix (and as
+such should work with most varieties of Unix), with both non-ANSI
+compilers and ANSI compilers with 'minimal ANSI' flags. In order to
+compile the program, you should just be able to extract the files
+from the tar file provided, then type 'make'. If that fails you may
+need to change the definition of CC and CFLAGS in the makefile to
+get it to compile. On machines with gcc, the GNU C compiler, Stealth
+can be compiled by simply changing the 'CC=cc' line in makefile to
+'CC=gcc'.
+
+Stealth can be compiled on MS-DOS using the Microsoft C compiler with
+the following command line :
+
+cl /DDOS stealth.c
+
+That's all there is to it - the compiler will output a STEALTH.EXE
+ready for use. Other compilers should work, but you may need to change
+header files and the code at the beginning of main() which sets the
+mode of stdin and stdout to binary.
+
+Usage
+-----
+
+Stealth always reads from its standard input and writes to the standard
+output, though when adding headers to data the data has to be stored in a
+temporary file (see Security Concerns below).
+
+Command line arguments :
+
+	-c 	Conventional encryption used rather than public key
+	-a	Add headers (defaults to strip headers)
+	-v	Verbose output.
+
+The -a argument takes a string specifying the key id to put into the
+header. This can be specified either as an identifying name (e.g.
+foo.bar@snafu.com), or as a 24-bit key id as given by the pgp -kv
+command, prefixed by '0x' (See examples below). The latter has been
+added for MS-DOS users who can only pass a single word to the program
+for a key name.
+
+Stealth needs to be able to find your pubring.pgp file, which it does
+by first checking in the directory pointed to by $PGPPATH, then the
+current directory.
+ 
+
+Examples
+--------
+
+To encrypt a file with PGP and store it in the file pgp.stl prior to sending :
+
+pgp -ef < secrets.dat | stealth > pgp.stl
+
+To encrypt a file with conventional (IDEA) encryption, and pass to a
+steganography program called steg_program :
+
+pgp -fec < secrets.dat | stealth -c | steg_program
+
+To take the output from a steganographic extraction tool, add headers
+for key "Your Id", and decrypt :
+
+steg_program | stealth -a "Your Id" | pgp -f > secrets.dat
+
+[ Note : this use of " marks will only work on Unix, not MS-DOS. If
+  you have to specify a key with more than one word, you will probably
+  have to specify the key id instead ]
+
+To take the conventionally encrypted output from a steg program, attach
+headers and decrypt :
+
+steg_program | stealth -ac | pgp -f > secrets.dat
+
+To take the output from a steganography program, add  the headers
+for a key whose 24-bit id is 23ffff, and decrypt :
+
+steg_program | stealth -a 0x23ffff | pgp -f > secrets.dat
+
+
+Limitations
+-----------
+
+Files can be signed, but can only be encrypted to one recipient - extra
+RSA headers for all but the first recipient will be stripped from the
+file. In addition, if you specify conventional encryption but pass an
+RSA-encrypted file into the filter the RSA-block will be stripped. In
+either case, stealth will print out warnings to inform you of this.
+
+Stealth provides no support for ASCII-armoured PGP messages - it will
+only work with the binary output format, and the output will have to
+be converted to a useable form after processing, either with a
+steganography program or a standard utility such as uuencode.
+
+Finally, for technical reasons there are potential problems with public
+keys of size (typically) 8*n + 1 or 8*n + 2 (e.g. 513 or 1026). If you
+are encrypting to a key of a peculiar size, it's possible that the algorithm
+used to add headers could fail, but fortunately this can be detected while
+stripping the headers, and a warning will be printed. If this warning appears,
+you will probably want to encrypt the data again until a suitably sized
+RSA-block is created.
+
+It is NOT neccesary to remove garbage data that the steganography program
+may have added to the end of the PGP-encrypted data. PGP output contains
+an encrypted end-of-file mark that allows the program to decrypt correctly
+and ignore any trailing garbage.
+
+
+Security Concerns
+-----------------
+
+After passing through the stealth filter, the PGP-encrypted data is
+essentially white noise, with no identifying marks, and whilst it may
+well have enough peculiarities for an expert cryptanalyst to recognize
+it as encrypted data, the probability is much less than would be the
+case with a PGP header identifying the recipient attached.
+
+One other concern is that stealth has to create a temporary file when
+reading in data to attach headers, and depending on the build options
+chosen the program will store it in either $PGPPATH, the current directory
+or /tmp. On Unix machines, the file will be deleted as soon as it is opened,
+making it difficult to capture, but on other operating systems the file
+will only be deleted when it has been used. (In either case the file will
+be zeroed before being closed).
+
+In addition, some operating systems will use temporary files on your disk
+to emulate unix pipes (e.g. MS-DOS) - these files will not be zeroed when
+finished with !
+
+
+Export Restrictions
+-------------------
+
+Stealth is probably not covered by current export restrictions under the
+US ITAR regs, but I'm not a lawyer, so if in doubt check it out yourself.
+It was written outside the US and imported, so should soon be available
+on some European ftp sites as well as US sites.
+
+
+						Henry Hastur
+
+

@@ -1,0 +1,128 @@
+Voici un résumé rapide des commandes de PGP 2.6.3(i):
+=====================================================
+
+Pour chiffrer un fichier en clair avec la clé publique du destinataire, 
+tapez:
+   pgp -e fichier  son_nom  [autres noms]
+
+Pour signer un texte en clair avec votre clé secrète:
+   pgp -s  fichier [-u votre_nom]
+
+Pour signer un texte en clair avec votre clé secrète, puis le chiffrer
+avec la clé publique du destinataire, produisant un fichier .pgp:
+   pgp -es fichier  son_nom  [aures noms]  [-u votre_nom]
+
+Pour chiffrer de manière conventionelle seulement:
+   pgp -c fichier
+
+Pour déchiffrer ou vérifier une signature pour un fichier chiffré (.pgp):
+   pgp fichier_chiffré  [-o fichier_en_clair]
+
+Pour déchiffrer un fichier avec une armure ASCII en plusieurs parties:
+sauvegarder toutes les parties dans l'ordre correct dans un ficher avec
+une extension .asc, puis tapez:
+   pgp fichier_armure [-o fichier_en_clair]
+
+
+Fonctions de gestion des clés:
+------------------------------
+
+Pour générer votre propre paire de clés publique/secrète:
+   pgp -kg
+
+Pour ajouter le contenu d'un fichier de clés à votre fichier de clés
+public ou secret:
+   pgp -ka fichier_de_clés  [votre_fichier_de_clés]
+ou: pgp -kxa nom_d_utilisateur fichier_de_la_clé [fichier_de_clés]
+
+Pour retirer une clé de votre fichier de clés public ou secret:
+   pgp -kr nom_d_utilisateur [fichier_de_clés]
+
+Pour extraire (copier) une clé de votre fichier de clés public ou secret:
+   pgp -kx nom_d_utilisateur fichier_de_la_clé [fichier_de_clés]
+
+Pour visualiser le contenu de votre fichier de clés:
+   pgp -kv[v]  [nom_d_utilisateur]  [ficher_de_clés]
+
+Pour visualiser l'empreinte d'une clé publique, afin de faciliter sa
+verification au téléphone avec son propriétaire:
+  prp -kvc [nom_d_utilisateur]  [ficher_de_clés]
+
+Pour vérifier les signatures sur votre fichier de clés publiques:
+   pgp -kc [nom_d_utilisateur]  [ficher_de_clés]
+
+Pour modifier le nom d'utilisateur ou le mot de passe pour votre clé secréte:
+   pgp -ke nom_d_utilisateur  [ficher_de_clés]
+
+Pour modifier les paramètres de confiance pour une clé publique:
+   pgp -ke nom_d_utilisateur  [ficher_de_clés]
+
+Pour signer la clé publique de quelqu'un d'autre sur votre fichier de
+   clés publiques:
+   pgp -ks  son_nom  [-u votre_nom]  [fichier_de_clés]
+
+Pour enlever certaines signatures d'une personne sur un fichier de clés:
+   pgp -krs  son_nom  [fichier_de_clés]
+
+Pour inactiver une clé publique afin que PGP ne l'utlise pas, ou pour
+la réactiver:
+  pgp -kd  son_nom  [fichier_de_clés]
+
+Pour révoquer votre propre clé de façon permanente et émettre un
+certificat de compromission de clé:
+  pgp -kd  votre_nom  [fichier_de_clés]
+
+
+Commandes ésotériques:
+----------------------
+
+Pour déchiffrer un message et laisser intacte la signature:
+   pgp -d  fichier_chiffré
+
+Pour créer un certificat de signature détaché du document:
+   pgp -sb fichier_de_texte  [-u votre_nom]
+
+Pour détacher un certificat de signature d'un message signé:
+   pgp -b  fichier_chiffré
+
+
+Options qui peuvent être utilisées en combinaison avec d'autres options:
+------------------------------------------------------------------------
+
+Pour produire un fichier chiffré en format ASCII base-64, ajouter l'option -a
+lors du chiffrement ou de la signature d'un message ou l'extraction d'une clé:
+
+     pgp -sea fichier  son_nom
+ou:  pgp -kxa nom_d_utilisateur fichier_de_la_clé [fichier_de_clés]
+
+Pour effacer complètement le fichier en clair après avoir produit le
+fichier chiffré, ajoutez l'option -w lors du chiffrement ou de la signature
+d'un message:
+   pgp -sew  fichier son_nom
+
+Pour spécifier qu'un fichier en clair contient du texte ASCII et non
+du binaire, et qu'il faut le convertir aux conventions locales de lignes
+de texte, ajouter l'option -t (texte) aux autres options:
+    pgp -seat fichier son_nom
+
+Pour voir le fichier dechiffré sur votre écran (comme la command "more"
+de style Unix), sans l'écrire dans un fichier, utilisez l'option -m
+(more) lors du déchiffrement:
+   pgp -m fichier_chiffré
+
+Pour specifier que le texte déchiffré du destinataire sera affiché
+SEULEMENT sur son écran et ne peut pas être sauvegardé sur disque,
+ajouter l'option -m:
+   pgp -steam  fichier son_nom
+
+Pour récuperer le nom de fichier en clair originel lors du déchiffrement,
+ajouter l'option -p:
+   pgp -p fichier_chiffré
+
+Pour utiliser un mode filtre au style Unix, lisant l'entrée standard
+et écrivant sur la sortie standard, ajouter l'option -f:
+   pgp -feast  son_nom  < fichier_entrée > fichier_sortie
+
+Pour destiner le message à des destinataires supplémentaires, utilisez
+l'option -@:
+      pgp -e texte un_destinatiare -@plus.txt

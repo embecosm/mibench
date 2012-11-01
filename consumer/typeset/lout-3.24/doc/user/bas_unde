@@ -1,0 +1,27 @@
+@Section
+   @Title { Underlining }
+   @Tag { underlining }
+@Begin
+@PP
+The @Code "@Underline" symbol underlines the following object:
+underline.sym @Index @Code "@Underline"
+@ID @OneRow @Code {
+"This little paragraph of text will have"
+"@Underline { three underlined words } in it."
+}
+produces
+@ID @OneRow 1.6i @Wide {
+This little paragraph of text will have
+@Underline { three underlined words } in it.
+}
+The underlining is continuous unless a line break intervenes.  You
+can't use this symbol to underline an arbitrary object:  it is carefully
+designed to produce high-quality underlining of single words and
+parts of paragraphs, and it works only for those objects.
+@PP
+Each font contains information about how words in that font should be
+underlined:  how far below the baseline the line should be drawn, and how
+thick.  The @Code "@Underline" symbol uses this information; the font
+it bases its underlining on is the font of the first object underlined
+if it is a word, or else the font of the enclosing paragraph.
+@End @Section

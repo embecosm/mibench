@@ -1,0 +1,46 @@
+@Section
+   @Title { Typesetting computer programs independently of any document }
+   @Tag { alone }
+@Begin
+@PP
+Printing of program files independently of any document is accomplished by
+the following Unix pipeline:
+@ID @Code "prg2lout  -l language  options  files  |  lout  -s  >  out.ps"
+where @Code language stands for any one of the programming language
+names in the first column of the table above.  As usual with Lout, the
+output will be a PostScript file.  Each input file will begin on a new
+page of the output, starting with its name in bold type.  The options
+provide control over the final appearance, as follows:
+@WideTaggedList
+@TI { {@Code-p}{@I style} } {
+Select a printing style.  Your choices are {@Code -pfixed},
+{@Code -pvarying}, and {@Code -psymbol}, with the default value
+varying with the language as given in the fourth column of the
+table above.  Consult Section {@NumberOf embedded} for examples
+of these styles.
+}
+@TI { @Code -n } {
+Do not print file names.
+}
+@TI { {@Code -f}{@I font} } {
+Select a Lout font family.  The default is @Code "-fCourier" for
+{@Code -pfixed}, and @Code "-fTimes" for @Code -pvarying and {@Code -psymbol}.
+}
+@TI { {@Code -v}{@I vsize} } {
+Select an inter-line spacing size in Lout units.  The default is
+@Code -v1.1fx meaning 1.1 times the font size measured from baseline
+to baseline.
+}
+@TI { {@Code -L}{@I number} } {
+Add line numbers to the program print, starting with {@I number}, or
+1 if {@I number} is omitted.
+}
+@TI { {@Code -S}{@I file} } {
+Use @I file as the setup file for printing your language.  This allows
+you to change all the options mentioned in subsequent sections, rather
+than just the few given here.
+}
+@EndList
+There are also {@Code -t} and {@Code -T} options for dealing with tab
+characters (Section {@NumberOf tabs}).
+@End @Section

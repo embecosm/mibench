@@ -1,0 +1,72 @@
+@Section
+   @Title { "@Moment" }
+   @Tag { moment }
+@Begin
+@PP
+The predefined symbol @@Moment
+moment.sym @Index { @@Moment symbol }
+has the following definition:
+@ID @OneRow @Code {
+"def @Moment"
+"   named @Tag {}"
+"   named @Second {}"
+"   named @Minute {}"
+"   named @Hour {}"
+"   named @Day {}"
+"   named @Month {}"
+"   named @Year {}"
+"   named @Century {}"
+"   named @WeekDay {}"
+"   named @YearDay {}"
+"   named @DaylightSaving {}"
+"{}"
+}
+It may be used like any other symbol.  Lout provides an invocation of
+@@Moment with tag {@Code now}, whose other parameters are numbers
+encoding the current date and time:
+@ID @OneRow @Tab 
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "@Second" }
+    B { the current second, usually between 00 and 59 }
+@Rowa
+    A { "@Minute" }
+    B { the current minute, between 00 and 59 }
+@Rowa
+    A { "@Hour" }
+    B { the current hour, between 00 and 23 }
+@Rowa
+    A { "@Day" }
+    B { the current day of the month, between 1 and 31 }
+@Rowa
+    A { "@Month" }
+    B { the current month, between 1 (January) and 12 (December) }
+@Rowa
+    A { "@Year" }
+    B { the current year of the century, between 00 and 99 }
+@Rowa
+    A { "@Century" }
+    B { the current century, e.g. 19 or 20 }
+@Rowa
+    A { "@WeekDay" }
+    B { the current day of the week, between 1 (Sunday) and 7 (Saturday) }
+@Rowa
+    A { "@YearDay" }
+    B { the current day of the year, between 0 and 365 }
+@Rowa
+    A { "@DaylightSaving" }
+    B { an implementation-dependent number that may encode the
+daylight saving currently in effect }
+}
+date @Index { Date, printing of current }
+Unix manual entries state that @Code "@Second" can be as high as 61, to
+allow for leap seconds.  Judicious use of databases can convert these
+numbers into useful dates.  For example,
+@ID @Code {
+"@Moment&&now @Open { @Day {@Months&&@Month}, @Century{@Year} }"
+}
+produces something like
+@Moment&&now @Open { @Day {@Months&&@Month}, @Century{@Year} }
+given a suitable database of months.
+@End @Section

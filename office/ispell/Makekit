@@ -1,0 +1,268 @@
+: Use /bin/sh
+#
+# $Id: Makekit,v 1.39 1995/10/11 04:58:07 geoff Exp $
+#
+# Copyright 1992, 1993, Geoff Kuenning, Granada Hills, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgment:
+#      This product includes software developed by Geoff Kuenning and
+#      other unpaid contributors.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+#	Make an ispell distribution kit.  This is not a clever script,
+#	just a handy one.
+#
+#	Usage:
+#
+#	Makekit [-c] [-d destdir] [-e]
+#
+#	destdir is the directory in which the kits will be made;  you will
+#	want to pick someplace that has lots of space.
+#
+#	If -e is specified, the list of files in the kit is echoed to
+#	stdout and no kit is made.
+#
+#	If -c is specified, the intermediate dictionary files are cleaned up.
+#
+# $Log: Makekit,v $
+# Revision 1.39  1995/10/11  04:58:07  geoff
+# Add the Portuguese language files
+#
+# Revision 1.38  1995/01/15  00:54:45  geoff
+# Add iwhich and the new Spanish support
+#
+# Revision 1.37  1994/05/18  02:56:25  geoff
+# Remember to list dictionaries with the -e switch
+#
+# Revision 1.36  1994/04/27  02:58:42  geoff
+# Add the new English-dialect Makefiles
+#
+# Revision 1.35  1994/02/07  08:39:49  geoff
+# Don't delete everything when we're only echoing names
+#
+# Revision 1.34  1994/01/25  08:51:16  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#
+posting=3.1
+maxsize=60000		# This leaves room for some headers
+clean=false
+destdir=kits
+echolist=false
+PATH=`pwd`:$PATH; export PATH
+USAGE="Usage:  Makekit [-c] [-d destdir] [-e]"
+
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-c)
+	    clean=true
+	    shift
+	    ;;
+	-d)
+	    destdir="$2"
+	    shift; shift
+	    ;;
+	-e)
+	    echolist=true
+	    shift
+	    ;;
+	*)
+	    echo "$USAGE" 1>&2
+	    exit 1
+	    ;;
+    esac
+done
+
+case "$destdir" in
+    /*)
+	;;
+    *)
+	destdir=`pwd`/$destdir
+	;;
+esac
+
+flist='
+Contributors
+README
+Magiclines
+Makefile
+Makekit
+Makepatch
+WISHES
+buildhash.c
+config.X
+correct.c
+defmt.c
+dump.c
+fields.3
+fields.c
+fields.h
+findaffix.X
+good.c
+hash.c
+icombine.c
+ijoin.c
+ishar
+ispell.1X
+ispell.4
+ispell.c
+ispell.el
+ispell.h
+ispell.texinfo
+iwhich
+local.h.samp
+lookup.c
+makedict.sh
+makedent.c
+makeshar
+munchlist.X
+parse.y
+proto.h
+splitdict
+sq.1
+sq.c
+subset.X
+term.c
+tgood.c
+tree.c
+tryaffix.X
+unsq.c
+version.h
+xgets.c
+zapdups.X
+languages/Makefile
+languages/Where
+languages/fix8bit.c
+languages/altamer/Makefile
+languages/american/Makefile
+languages/british/Makefile
+languages/dansk/Makefile
+languages/dansk/dansk.7bit
+languages/deutsch/Makefile
+languages/deutsch/deutsch.7bit
+languages/deutsch/deutsch-alt.7bit
+languages/english/Makefile
+languages/english/english.4l
+languages/english/english.aff
+languages/english/msgs.h
+languages/espanol/Makefile
+languages/espanol/castellano.7bit
+languages/espanol/espanol.7bit
+languages/francais/Makefile
+languages/francais/francais.7bit
+languages/francais/francais-alt.7bit
+languages/nederlands/Makefile
+languages/nederlands/nederlands.7bit
+languages/norsk/Makefile
+languages/norsk/norsk.7bit
+languages/portugues/Makefile
+languages/portugues/portugues.aff
+languages/svenska/Makefile
+languages/svenska/svenska.7bit
+addons/nextispell/Makefile
+addons/nextispell/README
+addons/nextispell/configure
+addons/nextispell/configure.h.template
+addons/nextispell/configureTeX
+addons/nextispell/nextispell.m
+addons/nextispell/services.template
+addons/xspell.shar
+'
+
+if $echolist
+then
+    echo $flist
+    echo languages/english/*.[0-3]
+    exit 0
+fi
+
+[ -d "$destdir" ]  ||  mkdir "$destdir"
+rm -f $destdir/Post${posting}.??.shar
+
+#
+# Make the main shar files
+#
+cursize=0
+files=
+chmod +x makeshar ishar
+sharno=`makeshar -n -m $maxsize -o $destdir/Post${posting}. -pX $flist`
+
+#
+# Set up to make dictionary files
+#
+
+chmod +x splitdict
+[ -d "$destdir/languages" ]  ||  mkdir "$destdir/languages"
+
+#
+# Make the English dictionaries
+#
+[ -d "$destdir/languages/english" ]  ||  mkdir "$destdir/languages/english"
+rm -f $destdir/languages/english/*.?.??
+
+./splitdict $maxsize languages/english/english.0 \
+  $destdir/languages/english/eng.0.
+./splitdict $maxsize languages/english/english.1 \
+  $destdir/languages/english/eng.1.
+./splitdict $maxsize languages/english/english.2 \
+  $destdir/languages/english/eng.2.
+./splitdict $maxsize languages/english/english.3 \
+  $destdir/languages/english/eng.3.
+./splitdict $maxsize languages/english/american.0 \
+  $destdir/languages/english/amer.0.
+./splitdict $maxsize languages/english/american.1 \
+  $destdir/languages/english/amer.1.
+./splitdict $maxsize languages/english/american.2 \
+  $destdir/languages/english/amer.2.
+./splitdict $maxsize languages/english/altamer.0 \
+  $destdir/languages/english/altamer.0.
+./splitdict $maxsize languages/english/altamer.1 \
+  $destdir/languages/english/altamer.1.
+./splitdict $maxsize languages/english/altamer.2 \
+  $destdir/languages/english/altamer.2.
+./splitdict $maxsize languages/english/british.0 \
+  $destdir/languages/english/brit.0.
+./splitdict $maxsize languages/english/british.1 \
+  $destdir/languages/english/brit.1.
+./splitdict $maxsize languages/english/british.2 \
+  $destdir/languages/english/brit.2.
+
+sharno=`expr $sharno + 1`
+cd $destdir
+makeshar -f $sharno -m $maxsize -o $destdir/Post${posting}. -pX \
+  languages/english/eng.?.?? languages/english/amer.?.?? \
+  languages/english/altamer.?.?? languages/english/brit.?.??
+if $clean
+then
+    rm -f $destdir/languages/english/*.?.??
+fi

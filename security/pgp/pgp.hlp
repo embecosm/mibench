@@ -1,0 +1,37 @@
+Here's a short summary of commands in PGP 2.6.3i:
+
+Generate new key pair:  pgp -kg    [keybits]
+Add key:                pgp -ka     keyfile           [keyring]
+Extract key:            pgp -kx[a]  userid   keyfile  [keyring]
+View key(s):            pgp -kv[v] [userid]           [keyring]
+View fingerprint:       pgp -kvc   [userid]           [keyring]
+Check & view in detail: pgp -kc    [userid]           [keyring]
+Remove userid or key:   pgp -kr     userid            [keyring]
+                        (Repeat for multiple userids on a key)
+Edit trust params:      pgp -ke     userid            [keyring]
+Add another userid:     pgp -ke     your_userid       [keyring]
+Edit passphrase:        pgp -ke     your_userid       [keyring]
+Sign a key in pubring:  pgp -ks other_id [-u sign_id] [keyring]
+Remove a sig from key:  pgp -krs    userid            [keyring]
+Revoke, dis/enable:     pgp -kd     userid            [keyring]
+
+Encrypt:                pgp -e[a]  textfile TO_id [TO_id2 TO_id3...]
+Sign:                   pgp -s[a]  textfile                         [-u MY_id]
+Sign & encrypt:         pgp -se[a] textfile TO_id [TO_id2 TO_id3...][-u MY_id]
+Make detached cert:     pgp -sb[a] [+clearsig=on] mainfile          [-u MY_id]
+  (Can do binaries)     (clearsig=on may be set in CONFIG.TXT)
+Encrypt with IDEA only: pgp -c     textfile
+Decrypt or check sig:   pgp [-d] [-p] cryptogram
+                        (-d to keep pgp data, -p for original file name)
+Check detached cert:    pgp certfile [mainfile]
+                        (If root of filenames are the same omit [mainfile])
+
+Use [a] for ASCII output
+Use [-o outfile] to specify an output file
+Use [-@ textfile] to specify additional userids when encrypting
+Use [-z"pass phrase"] to specify your pass phrase
+Use [+batchmode] for errorlevel returns
+Use [f] for stream redirection ( pgp -f[ARGS] <infile >outfile )
+Use [w] to wipe plaintext file (encryption operations)
+Use [m] to force display of plaintext only (no output file)
+Use [t] to alter line endings for unix, etc.

@@ -1,0 +1,29 @@
+@Section
+   @Title { "@HExpand" and "@VExpand" }
+   @Tag { hexpand }
+@Begin
+@PP
+hexpand. @Index { @@HExpand symbol }
+vexpand. @Index { @@VExpand symbol }
+expansion @Index { Expansion of object }
+The @@HExpand symbol causes its right parameter to be as wide as it
+possibly could be without violating a @@Wide symbol or intruding into
+the space occupied by neighbouring gaps or objects.  The @@VExpand
+symbol is similar, but it affects height.  For example, in the object
+@ID @Code {
+"8i @Wide 11i @High {"
+"    //1i  ||1i @HExpand @VExpand x ||1i"
+"    //1i"
+"}"
+}
+object @Code x could have any size up to six inches wide by nine inches
+high, so the @@HExpand and @@VExpand symbols cause it to have exactly
+this size.  This is important, for example, if @Code x contains
+@Code "|1rt" or {@Code "/1rt"}; without the expansion these might not
+move as far across or down as expected.
+@PP
+As Section {@NumberOf size} explains in detail, most objects are
+already as large as they possibly could be.  Consequently these symbols
+are needed only rarely.  @@HExpand includes a @@OneCol effect, and
+@@VExpand includes a @@OneRow effect.
+@End @Section

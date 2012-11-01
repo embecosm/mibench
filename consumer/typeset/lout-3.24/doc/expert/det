@@ -1,0 +1,17 @@
+@Chapter
+   @Title { Details }
+   @Tag { details }
+@Begin
+@BeginSections
+@Include { det_lexi }
+@Include { det_name }
+@Include { det_visi }
+@Include { det_filt }
+@Include { det_prec }
+@Include { det_size }
+@Include { det_gall }
+@Include { det_sort }
+@Include { det_hori }
+@Include { det_opti }
+@EndSections
+@End @Chapter

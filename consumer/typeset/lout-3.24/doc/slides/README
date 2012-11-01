@@ -1,0 +1,18 @@
+Directory lout/doc/slides
+
+This directory contains the Lout source of
+a set of overhead transparencies entitled
+`A Practical Introduction to the Lout
+Document Formatting System.'  To format
+the transparencies, type
+
+	lout all > outfile.ps
+
+in this directory.  This needs to be done
+twice to resolve all cross references.
+There should be no error messages at all
+after the second run.  A copy of the final
+outfile.ps is included.
+
+Jeff Kingston
+8 October 2000

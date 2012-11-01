@@ -1,0 +1,20 @@
+@Section
+   @Tag { pagelabel }
+   @Title { "@PageLabel" }
+@Begin
+@PP
+pagelabel.sym @Index { @@PageLabel symbol }
+The @@PageLabel symbol associates a page label in the PostScript
+output file with the page within which (or just before which) the symbol
+occurs, so that PostScript viewers are able to index the page
+by this label.  (The label is printed in the @Code "%%Page" comment
+preceding the page in the PostScript output file.)  For example,
+@ID @Code "@PageLabel iv"
+associates the label @Code "iv" with the page.  The label may be
+an arbitrary object; if its value is not a simple word, it will
+be replaced by {@Code "?"}.
+@PP
+@@PageLabel is unrelated to Lout's cross referencing mechanism;
+it is for communicating a label to the PostScript output file, not to
+other parts of Lout.  The result of @@PageLabel is a null object.
+@End @Section

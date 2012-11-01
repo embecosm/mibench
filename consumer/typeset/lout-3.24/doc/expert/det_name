@@ -1,0 +1,90 @@
+@Section
+  @Tag { named }
+  @Title { Named parameters }
+@Begin
+@PP
+In addition to left and right (or body) parameters, a symbol may have
+any number of {@I {named parameters}}:
+parameter.named @SubIndex { @Code named parameter }
+named.par @Index { @Code named parameter }
+@ID @OneRow @Code  {
+"def @Chapter"
+"    named @Tag {}"
+"    named @Title {}"
+"    right x"
+"{"
+"    ..."
+"}"
+}
+Their definitions appear in between those of any left and right
+parameters, and each is followed by a @I {default value} between
+default @Index { Default value of parameter }
+braces.  When @Code "@Chapter" is invoked, its named parameters are
+given values in the following way:
+@ID @OneRow @Code  {
+"@Chapter"
+"    @Tag { intro }"
+"    @Title { Introduction }"
+"{"
+"    ..."
+"}"
+}
+That is, a list of named parameters appears immediately following the
+symbol, each with its value enclosed in braces.  Any right parameter
+follows after them.  They do not have to appear in the order they were
+defined, and they can even be omitted altogether, in which case the
+default value from the definition is used instead.
+@PP
+If the keyword @Code "compulsory" appears after @Code "named" and
+before the parameter's name, Lout will print a warning message whenever
+this parameter is missing.  However it will still use the default value
+as just described.
+@PP
+A named @Code "@Tag" parameter
+tag.par @Index { @Code "@Tag" parameter, default value of }
+does not take its default value from the definition; instead, if a default
+value is needed, Lout invents a simple word which differs from every other
+tag.  This is important, for example, in the production of numbered
+chapters and sections (Section {@NumberOf chapters}).  The same thing occurs
+if there is a @Code "@Tag" parameter but its value is the empty object:  the
+value will be replaced by an invented one.
+@PP
+Named parameters may have parameters, {@PageMark strange} as in the
+following definition:
+@ID @OneRow @Code {
+"def @Strange"
+"    named @Format right @Val { [@Val] }"
+"    right x"
+"{"
+"    @Format x"
+"}"
+}
+The named parameter @Code "@Format" has right parameter {@Code "@Val"},
+and the default value of @Code "@Format" is this parameter enclosed in
+brackets.  When @Code "@Format" is invoked it must be supplied with
+a right parameter, which will replace {@Code "@Val"}.  Thus,
+@ID @Code {
+"@Strange 27"
+}
+equals @Code "@Format 27" and so has result
+@ID {
+@Strange 27
+}
+The @Code "@Format" symbol is like a definition with parameters whose
+body can be changed:
+@ID @OneRow @Code {
+"@Strange"
+"    @Format { Slope @Font @Val. }"
+"27"
+}
+still equals {@Code "@Format 27"}, but this time the result is
+@ID {
+@Strange
+    @Format { Slope @Font @Val. }
+27
+}
+In practice, examples of named parameters with parameters all have this
+flavour of format being separated from content; running headers (Section
+{@NumberOf pagelayout}) and printing styles for bibliographies
+(Section {@NumberOf biblio}) are two major ones.
+@End @Section

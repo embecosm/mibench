@@ -1,0 +1,41 @@
+@Section
+   @Title { "@Open and @Use" }
+   @Tag { open }
+@Begin
+@PP
+The @@Open symbol
+open.sym @Index { @@Open symbol }
+takes a cross reference or symbol
+invocation for its left parameter, and an arbitrary object, which must
+be enclosed in braces, for its right parameter.  The right parameter
+may refer to the exported parameters and nested definitions of the invocation
+denoted by the left parameter, and its value is the @@Open
+symbol's result.  The target of the cross reference may lie in an
+external database (Section {@NumberOf database}).  Any symbol available
+outside the @@Open which happens to have the same name as one of the
+symbols made available by the @@Open will be unavailable within the @@Open.
+@PP
+use.sym @Index { @@Use symbol }
+The @@Use symbol is an @@Open symbol in a
+different form.  It may only appear among or after the definitions
+in Lout's input, and it is equivalent to enclosing the remainder of the
+input in an @@Open symbol.  For example,
+@ID @OneRow {
+      @I definitions
+//1vx @Code "@Use" @Code "{" @I x @Code "}"
+//1vx @Code "@Use" @Code "{" @I y @Code "}"
+//1vx @I { rest of input }
+}
+is equivalent to
+@ID @OneRow {
+      @I definitions
+//1vx @I x @Code "@Open"
+//1vx @Code "{" &4mt @I y @Code "@Open"
+//1vx   &4mt @Code "{" @I { rest of input }
+//1vx   &4mt @Code "}"
+//1vx @Code "}"
+}
+The @@Use symbol allows a set of standard packages to be opened without
+the inconvenience of enclosing the entire document in @@Open symbols.  Such
+enclosure could cause Basser Lout to run out of memory.
+@End @Section

@@ -1,0 +1,771 @@
+#----Le laboratoire de robotique de l'Institut de recherche d'Hydro-Quebec-----
+# 
+# Nom     : 
+# Fonction: Fichier d'affixes pour dictionnaire francais
+# Fichiers: francais.aff, voir aussi german.aff et english.aff
+# Notes   : 
+# 
+# Cr\351\351    : 15 fevrier 92 ------- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+# Modifie : 30 juin 93 --------4- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+#           Copyright (c) 1992 Hydro-Quebec
+# 
+# Historique: 
+# 
+# 30 juin 93 --------4- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+# 	S\351paration du drapeau 'L' en 'L' et 'Q'.
+# 
+# 29 mars 92 --------3- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+# 	Troisi\350me version: nouveaux noms propres, nouvelles apostrophes et
+# 	r\350gles compl\350tes des verbes du premier groupe.
+# 
+# 23 f\351vrier 92 -----2- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+# 	Deuxi\350me version, ajout\351 apostrophes et corrig\351 verbes.
+# 
+# 19 f\351vrier 92 -----1- Martin Boyer <mboyer@ireq-robot.hydro.qc.ca>
+# 	Premi\350re version.
+#------------------------------------------------------------------------------
+
+# This affix file uses upper-case affix flags,
+# so you must #define MASKBITS 32 (at least) in your local.h file.
+
+# Voici les drapeaux utilis\351s, au cas o\371 vous voudriez en ajouter:
+#
+#	      ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
+# Utilise:    *****      * * *****   *
+#             ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Disponible:      ------ - -     --- --
+
+
+# En attendant que ce dico soit parfait...
+allaffixes on
+
+# D\351finition des jeux de caract\350res.
+# La base est cod\351e suivant la norme ISO 8859-1.
+# Les \351quivalences sont donn\351es pour TeX (LaTeX est identique, sauf
+# dans l'environnement "tabular").
+
+# Ordre de tri des caract\350res.
+# L'ordre alphab\351tique normal est utilis\351, les voyelles accentu\351es
+# apparaissent imm\351diatement apr\350s leur version normale.  L'ordre des
+# accents est celui de la norme ISO 8859-1.
+
+defstringtype "list" "nroff" ".list"
+
+boundarychars	[---]
+boundarychars	'
+wordchars	a	A
+stringchar	\340	\300
+stringchar	\342	\302
+wordchars	[b-c]	[B-C]
+stringchar	\347	\307
+wordchars	[d-e]	[D-E]
+stringchar	\350	\310
+stringchar	\351	\311
+stringchar	\352	\312
+stringchar	\353	\313	# No\353l, aigu\353
+wordchars	[f-i]	[F-I]
+stringchar	\356	\316	# ma\356tre
+stringchar	\357	\317	# Za\357re, a\357eux
+wordchars	[j-o]	[J-O]
+stringchar	\364	\324
+wordchars	[p-u]	[P-U]
+stringchar	\371	\331	# o\371
+stringchar	\373	\333	# d\373
+stringchar	\374	\334	# capharna\374m, crapa\374ter (??)
+wordchars	[v-z]	[V-Z]
+boundarychars	[.]		# adresses \351lectroniques ("." est un regexp!)
+
+#
+# TeX
+#
+altstringtype "tex" "TeX" ".tex" ".bib"
+
+altstringchar	"\\`a"	\340
+altstringchar	"\\`A"	\300
+altstringchar	"\\^a"	"\342"
+altstringchar	\\^A	\302
+altstringchar	"\\c c"	\347
+altstringchar	"\\c C"	\307
+altstringchar	\\`e	\350
+altstringchar	\\`E	\310
+altstringchar	\\'e	\351
+altstringchar	\\'E	\311
+altstringchar	\\^e	\352
+altstringchar	\\^E	\312
+altstringchar	\\"e	\353
+altstringchar	\\"E	\313
+altstringchar	"\\^\\i "	\356
+altstringchar	"\\^\\I "	\316
+altstringchar	"\\\"\\i "	\357
+altstringchar	"\\\"\\I "	\317
+altstringchar	\\^o	\364
+altstringchar	\\^O	\324
+altstringchar	\\`u	\371
+altstringchar	\\`U	\331
+altstringchar	\\^u	\373
+altstringchar	\\^U	\333
+altstringchar	\\"u	\374
+altstringchar	\\"U	\334
+
+#
+# Alternate form for NeXTSTEP charset (guesses by GHK; may need correction)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+
+altstringchar	\325	\340
+altstringchar	\201	\300
+altstringchar	\327	\342
+altstringchar	\203	\302
+altstringchar	\333	\347
+altstringchar	\207	\307
+altstringchar	\334	\350
+altstringchar	\210	\310
+altstringchar	\335	\351
+altstringchar	\211	\311
+altstringchar	\336	\352
+altstringchar	\212	\312
+altstringchar	\337	\353
+altstringchar	\213	\313
+altstringchar	\344	\356
+altstringchar	\216	\316
+altstringchar	\345	\357
+altstringchar	\217	\317
+altstringchar	\356	\364
+altstringchar	\224	\324
+altstringchar	\362	\371
+altstringchar	\227	\331
+altstringchar	\364	\373
+altstringchar	\231	\333
+altstringchar	\366	\374
+altstringchar	\232	\334
+
+prefixes
+
+flag *R:
+    [^a\340\342e\350\351\352i\356o\364uh]>	RE	# re: refaire, remanier, relecture
+    [a\340\342e\350\351\352i\356o\364uh] >	r\351	# r\351: r\351\351valuer, r\351inviter
+
+flag *D:			# d\351: d\351faire, d\351grossir
+    .		    >	d\351
+
+flag *N:			# \351lision d'une n\351gation
+    [a\340\342e\350\351\352i\356o\364uh] >	n'	# je n'aime pas, il n'y a pas
+
+flag *T:			# \351lision d'un pronom complement d'objet direct
+				# verbes transitifs seulement
+    [a\340\342e\350\351\352i\356o\364uh] >	l'	# je l'aime
+    [a\340\342e\350\351\352i\356o\364uh] >	m'	# je m'adore
+    [a\340\342e\350\351\352i\356o\364uh] >	t'	# je t'idolatre
+
+flag *P:			# verbes essentiellement pronominaux
+				# ou emploi pronominal
+    [a\340\342e\350\351\352i\356o\364uh] >	m'	# je m'absente
+    [a\340\342e\350\351\352i\356o\364uh] >	t'	# tu t'\351vanouis
+    [a\340\342e\350\351\352i\356o\364uh] >	s'	# elle s'hypertrophie
+
+flag *L:			# \351lision d'articles
+    [a\340\342e\350\351\352i\356o\364uh] >	d'	# d'id\351e
+    [a\340\342e\350\351\352i\356o\364uh] >	l'	# l'amour
+
+flag *Q:			# \351lision de pr\351positions,
+				# adjectifs ind\351finis, conjonctions, etc.
+    [a\340\342e\350\351\352i\356o\364uh] >	qu'	# qu'une
+    [a\340\342e\350\351\352i\356o\364uh] >	quoiqu'	# quoiqu'il, quoiqu'elle (autres applications?)
+    [a\340\342e\350\351\352i\356o\364uh] >	quelqu'	# quelqu' (valide?)
+    [a\340\342e\350\351\352i\356o\364uh] >	puisqu'	# puisqu' (valide?)
+
+
+suffixes
+
+# Les conjugaisons suivantes du Bescherelle ne sont pas utilis\351es
+# (elles ne repr\351sentent qu'un seul verbe):
+# 1 2 3 4 5 20 21 30 34 40 41 43 46 48 51
+
+# Verbes du premier groupe (6 7 8 9 10 11 12 13 14 15 16 17 18)
+#			   (. . . .  .  .  C  .  .  .  .  .  x)
+# Certaines terminaisons n'existent pas:
+#   -[e\351]ber
+#   -e[bcgt]rer
+#   -eder
+#   -\351ver
+flag *A:			# r\350gle g\351n\351rale
+    [^CG] E R		>   -ER,A
+    [^CG] E R		>   -ER,AI
+    [^CG] E R		>   -ER,AIENT
+    [^CG] E R		>   -ER,AIS
+    [^CG] E R		>   -ER,AIT
+    [^CG] E R		>   -ER,ANT
+    [^CG] E R		>   -ER,AS
+    [^CG] E R		>   -ER,ASSE
+    [^CG] E R		>   -ER,ASSENT
+    [^CG] E R		>   -ER,ASSES
+    [^CG] E R		>   -ER,ASSIEZ
+    [^CG] E R		>   -ER,ASSIONS
+    [^CDGHLMNPRSTUVY] E R   >	-ER,E
+    [^CDGHLMNPRSTUVY] E R   >   -ER,ENT
+    [^CDLMNPRSTVY] E R	    >	-ER,ERA
+    [^CDLMNPRSTVY] E R	    >	-ER,ERAI
+    [^CDLMNPRSTVY] E R	    >	-ER,ERAIENT
+    [^CDLMNPRSTVY] E R	    >	-ER,ERAIS
+    [^CDLMNPRSTVY] E R	    >	-ER,ERAIT
+    [^CDLMNPRSTVY] E R	    >	-ER,ERAS
+    [^CDLMNPRSTVY] E R	    >	-ER,EREZ
+    [^CDLMNPRSTVY] E R	    >	-ER,ERIEZ
+    [^CDLMNPRSTVY] E R	    >	-ER,ERIONS
+    [^CDLMNPRSTVY] E R	    >	-ER,ERONS
+    [^CDLMNPRSTVY] E R	    >	-ER,ERONT
+    [^CDGHLMNPRSTUVY] E R   >	-ER,ES
+    E R			>   -ER,EZ
+    E R			>   -ER,IEZ
+    E R			>   -ER,IONS
+    [^CG] E R		>   -ER,ONS
+    [^CG] E R		>   -ER,\342mes
+    [^CG] E R		>   -ER,\342t
+    [^CG] E R		>   -ER,\342tes
+    E R			>   -ER,\350rent
+    E R			>   -ER,\351
+    E R			>   -ER,\351e
+    E R			>   -ER,\351es
+    E R			>   -ER,\351s
+				# -CER, c\351dille devant 'ao' (7)
+    C E R	>	-CER,\347a
+    C E R	>	-CER,\347ai
+    C E R	>	-CER,\347aient
+    C E R	>	-CER,\347ais
+    C E R	>	-CER,\347ait
+    C E R	>	-CER,\347ant
+    C E R	>	-CER,\347as
+    C E R	>	-CER,\347asse
+    C E R	>	-CER,\347assent
+    C E R	>	-CER,\347asses
+    C E R	>	-CER,\347assiez
+    C E R	>	-CER,\347assions
+    C E R	>	-CER,\347ons
+    C E R	>	-CER,\347\342mes
+    C E R	>	-CER,\347\342t
+    C E R	>	-CER,\347\342tes
+				# -GER, 'e' devant 'ao' (8)
+    G E R	>	-GER,gea
+    G E R	>	-GER,geai
+    G E R	>	-GER,geaient
+    G E R	>	-GER,geais
+    G E R	>	-GER,geait
+    G E R	>	-GER,geant
+    G E R	>	-GER,geas
+    G E R	>	-GER,geasse
+    G E R	>	-GER,geassent
+    G E R	>	-GER,geasses
+    G E R	>	-GER,geassiez
+    G E R	>	-GER,geassions
+    G E R	>	-GER,geons
+    G E R	>	-GER,ge\342mes
+    G E R	>	-GER,ge\342t
+    G E R	>	-GER,ge\342tes
+				# -\351GER: assi\351ger (14)
+    [^\351] G E R	>	-GER,ge
+    [^\351] G E R	>	-GER,gent
+    [^\351] G E R	>	-GER,ges
+    \351 G E R	>	-\351GER,\350ge
+    \351 G E R	>	-\351GER,\350gent
+    \351 G E R	>	-\351GER,\350ges
+				# -AYER (16)
+    A Y E R	>	-ER,e
+    A Y E R	>	-ER,ent
+    A Y E R	>	-ER,era
+    A Y E R	>	-ER,erai
+    A Y E R	>	-ER,eraient
+    A Y E R	>	-ER,erais
+    A Y E R	>	-ER,erait
+    A Y E R	>	-ER,eras
+    A Y E R	>	-ER,erez
+    A Y E R	>	-ER,eriez
+    A Y E R	>	-ER,erions
+    A Y E R	>	-ER,erons
+    A Y E R	>	-ER,eront
+    A Y E R	>	-ER,es
+			    # Forme alternative de (16) et -OYER, -UYER (17)
+    [AOU] Y E R	>	-YER,ie
+    [AOU] Y E R	>	-YER,ient
+    [AOU] Y E R	>	-YER,iera
+    [AOU] Y E R	>	-YER,ierai
+    [AOU] Y E R	>	-YER,ieraient
+    [AOU] Y E R	>	-YER,ierais
+    [AOU] Y E R	>	-YER,ierait
+    [AOU] Y E R	>	-YER,ieras
+    [AOU] Y E R	>	-YER,ierez
+    [AOU] Y E R	>	-YER,ieriez
+    [AOU] Y E R	>	-YER,ierions
+    [AOU] Y E R	>	-YER,ierons
+    [AOU] Y E R	>	-YER,ieront
+    [AOU] Y E R	>	-YER,ies
+				# -EYER: r\350gle g\351n\351rale
+    E Y E R	>	-ER,E
+    E Y E R	>	-ER,ENT
+    E Y E R	>	-ER,ERA
+    E Y E R	>	-ER,ERAI
+    E Y E R	>	-ER,ERAIENT
+    E Y E R	>	-ER,ERAIS
+    E Y E R	>	-ER,ERAIT
+    E Y E R	>	-ER,ERAS
+    E Y E R	>	-ER,EREZ
+    E Y E R	>	-ER,ERIEZ
+    E Y E R	>	-ER,ERIONS
+    E Y E R	>	-ER,ERONS
+    E Y E R	>	-ER,ERONT
+    E Y E R	>	-ER,ES
+				# -<consonne>ER sans 'e' avant: r\350gle g\351n\351rale
+    [^e\351] [CDMPSTV] E R	    >	-ER,E
+    [^e\351] [CDMPSTV] E R	    >	-ER,ENT
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERA
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERAI
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERAIENT
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERAIS
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERAIT
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERAS
+    [^e\351] [CDMPSTV] E R	    >	-ER,EREZ
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERIEZ
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERIONS
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERONS
+    [^e\351] [CDMPSTV] E R	    >	-ER,ERONT
+    [^e\351] [CDMPSTV] E R	    >	-ER,ES
+    [^e\351G] [LN] E R	>	-ER,E
+    [^e\351G] [LN] E R	>	-ER,ENT
+    [^e\351G] [LN] E R	>	-ER,ERA
+    [^e\351G] [LN] E R	>	-ER,ERAI
+    [^e\351G] [LN] E R	>	-ER,ERAIENT
+    [^e\351G] [LN] E R	>	-ER,ERAIS
+    [^e\351G] [LN] E R	>	-ER,ERAIT
+    [^e\351G] [LN] E R	>	-ER,ERAS
+    [^e\351G] [LN] E R	>	-ER,EREZ
+    [^e\351G] [LN] E R	>	-ER,ERIEZ
+    [^e\351G] [LN] E R	>	-ER,ERIONS
+    [^e\351G] [LN] E R	>	-ER,ERONS
+    [^e\351G] [LN] E R	>	-ER,ERONT
+    [^e\351G] [LN] E R	>	-ER,ES
+    [^\351] G [LN] E R >		-ER,E
+    [^\351] G [LN] E R >		-ER,ENT
+    G [LN] E R	    >		-ER,ERA
+    G [LN] E R	    >		-ER,ERAI
+    G [LN] E R	    >		-ER,ERAIENT
+    G [LN] E R	    >		-ER,ERAIS
+    G [LN] E R	    >		-ER,ERAIT
+    G [LN] E R	    >		-ER,ERAS
+    G [LN] E R	    >		-ER,EREZ
+    G [LN] E R	    >		-ER,ERIEZ
+    G [LN] E R	    >		-ER,ERIONS
+    G [LN] E R	    >		-ER,ERONS
+    G [LN] E R	    >		-ER,ERONT
+    [^\351] G [LN] E R >		-ER,ES
+    [^e\351BCGTV] R E R	>	-ER,E
+    [^e\351BCGTV] R E R	>	-ER,ENT
+    [^e\351BCGTV] R E R	>	-ER,ERA
+    [^e\351BCGTV] R E R	>	-ER,ERAI
+    [^e\351BCGTV] R E R	>	-ER,ERAIENT
+    [^e\351BCGTV] R E R	>	-ER,ERAIS
+    [^e\351BCGTV] R E R	>	-ER,ERAIT
+    [^e\351BCGTV] R E R	>	-ER,ERAS
+    [^e\351BCGTV] R E R	>	-ER,EREZ
+    [^e\351BCGTV] R E R	>	-ER,ERIEZ
+    [^e\351BCGTV] R E R	>	-ER,ERIONS
+    [^e\351BCGTV] R E R	>	-ER,ERONS
+    [^e\351BCGTV] R E R	>	-ER,ERONT
+    [^e\351BCGTV] R E R	>	-ER,ES
+    [^e\351] [BCGTV] R E R	    >	-ER,E
+    [^e\351] [BCGTV] R E R	    >	-ER,ENT
+    [^e] [BCGTV] R E R	    >	-ER,ERA
+    [^e] [BCGTV] R E R	    >	-ER,ERAI
+    [^e] [BCGTV] R E R	    >	-ER,ERAIENT
+    [^e] [BCGTV] R E R	    >	-ER,ERAIS
+    [^e] [BCGTV] R E R	    >	-ER,ERAIT
+    [^e] [BCGTV] R E R	    >	-ER,ERAS
+    [^e] [BCGTV] R E R	    >	-ER,EREZ
+    [^e] [BCGTV] R E R	    >	-ER,ERIEZ
+    [^e] [BCGTV] R E R	    >	-ER,ERIONS
+    [^e] [BCGTV] R E R	    >	-ER,ERONS
+    [^e] [BCGTV] R E R	    >	-ER,ERONT
+    [^e\351] [BCGTV] R E R	    >	-ER,ES
+    [^C] H E R	    >		-ER,E
+    [^C] H E R	    >		-ER,ENT
+    [^C] H E R	    >		-ER,ES
+    [^\351] C H E R    >		-ER,E
+    [^\351] C H E R    >		-ER,ENT
+    [^\351] C H E R    >		-ER,ES
+    [^GQ] U E R	    >		-ER,E
+    [^GQ] U E R	    >		-ER,ENT
+    [^GQ] U E R	    >		-ER,ES
+    [^\351] [GQ] U E R	>	-ER,E
+    [^\351] [GQ] U E R	>	-ER,ENT
+    [^\351] [GQ] U E R	>	-ER,ES
+				# -ELER, -ETER qui doublent la consonne (11)
+    E L E R	>	-ER,LE
+    E L E R	>	-ER,LENT
+    E L E R	>	-ER,LERA
+    E L E R	>	-ER,LERAI
+    E L E R	>	-ER,LERAIENT
+    E L E R	>	-ER,LERAIS
+    E L E R	>	-ER,LERAIT
+    E L E R	>	-ER,LERAS
+    E L E R	>	-ER,LEREZ
+    E L E R	>	-ER,LERIEZ
+    E L E R	>	-ER,LERIONS
+    E L E R	>	-ER,LERONS
+    E L E R	>	-ER,LERONT
+    E L E R	>	-ER,LES
+    E T E R	>	-ER,TE
+    E T E R	>	-ER,TENT
+    E T E R	>	-ER,TERA
+    E T E R	>	-ER,TERAI
+    E T E R	>	-ER,TERAIENT
+    E T E R	>	-ER,TERAIS
+    E T E R	>	-ER,TERAIT
+    E T E R	>	-ER,TERAS
+    E T E R	>	-ER,TEREZ
+    E T E R	>	-ER,TERIEZ
+    E T E R	>	-ER,TERIONS
+    E T E R	>	-ER,TERONS
+    E T E R	>	-ER,TERONT
+    E T E R	>	-ER,TES
+				# -E.ER (9): e.e* -> \350.e*
+    E C E R	>	-ECER,\350ce
+    E C E R	>	-ECER,\350cent
+    E C E R	>	-ECER,\350cera
+    E C E R	>	-ECER,\350cerai
+    E C E R	>	-ECER,\350ceraient
+    E C E R	>	-ECER,\350cerais
+    E C E R	>	-ECER,\350cerait
+    E C E R	>	-ECER,\350ceras
+    E C E R	>	-ECER,\350cerez
+    E C E R	>	-ECER,\350ceriez
+    E C E R	>	-ECER,\350cerions
+    E C E R	>	-ECER,\350cerons
+    E C E R	>	-ECER,\350ceront
+    E C E R	>	-ECER,\350ces
+    E M E R	>	-EMER,\350ME
+    E M E R	>	-EMER,\350MENT
+    E M E R	>	-EMER,\350MERA
+    E M E R	>	-EMER,\350MERAI
+    E M E R	>	-EMER,\350MERAIENT
+    E M E R	>	-EMER,\350MERAIS
+    E M E R	>	-EMER,\350MERAIT
+    E M E R	>	-EMER,\350MERAS
+    E M E R	>	-EMER,\350MEREZ
+    E M E R	>	-EMER,\350MERIEZ
+    E M E R	>	-EMER,\350MERIONS
+    E M E R	>	-EMER,\350MERONS
+    E M E R	>	-EMER,\350MERONT
+    E M E R	>	-EMER,\350MES
+    E N E R	>	-ENER,\350NE
+    E N E R	>	-ENER,\350NENT
+    E N E R	>	-ENER,\350NERA
+    E N E R	>	-ENER,\350NERAI
+    E N E R	>	-ENER,\350NERAIENT
+    E N E R	>	-ENER,\350NERAIS
+    E N E R	>	-ENER,\350NERAIT
+    E N E R	>	-ENER,\350NERAS
+    E N E R	>	-ENER,\350NEREZ
+    E N E R	>	-ENER,\350NERIEZ
+    E N E R	>	-ENER,\350NERIONS
+    E N E R	>	-ENER,\350NERONS
+    E N E R	>	-ENER,\350NERONT
+    E N E R	>	-ENER,\350NES
+    E P E R	>	-EPER,\350PE
+    E P E R	>	-EPER,\350PENT
+    E P E R	>	-EPER,\350PERA
+    E P E R	>	-EPER,\350PERAI
+    E P E R	>	-EPER,\350PERAIENT
+    E P E R	>	-EPER,\350PERAIS
+    E P E R	>	-EPER,\350PERAIT
+    E P E R	>	-EPER,\350PERAS
+    E P E R	>	-EPER,\350PEREZ
+    E P E R	>	-EPER,\350PERIEZ
+    E P E R	>	-EPER,\350PERIONS
+    E P E R	>	-EPER,\350PERONS
+    E P E R	>	-EPER,\350PERONT
+    E P E R	>	-EPER,\350PES
+    E R E R	>	-ERER,\350RE
+    E R E R	>	-ERER,\350RENT
+    E R E R	>	-ERER,\350RERA
+    E R E R	>	-ERER,\350RERAI
+    E R E R	>	-ERER,\350RERAIENT
+    E R E R	>	-ERER,\350RERAIS
+    E R E R	>	-ERER,\350RERAIT
+    E R E R	>	-ERER,\350RERAS
+    E R E R	>	-ERER,\350REREZ
+    E R E R	>	-ERER,\350RERIEZ
+    E R E R	>	-ERER,\350RERIONS
+    E R E R	>	-ERER,\350RERONS
+    E R E R	>	-ERER,\350RERONT
+    E R E R	>	-ERER,\350RES
+    E S E R	>	-ESER,\350SE
+    E S E R	>	-ESER,\350SENT
+    E S E R	>	-ESER,\350SERA
+    E S E R	>	-ESER,\350SERAI
+    E S E R	>	-ESER,\350SERAIENT
+    E S E R	>	-ESER,\350SERAIS
+    E S E R	>	-ESER,\350SERAIT
+    E S E R	>	-ESER,\350SERAS
+    E S E R	>	-ESER,\350SEREZ
+    E S E R	>	-ESER,\350SERIEZ
+    E S E R	>	-ESER,\350SERIONS
+    E S E R	>	-ESER,\350SERONS
+    E S E R	>	-ESER,\350SERONT
+    E S E R	>	-ESER,\350SES
+    E V E R	>	-EVER,\350VE
+    E V E R	>	-EVER,\350VENT
+    E V E R	>	-EVER,\350VERA
+    E V E R	>	-EVER,\350VERAI
+    E V E R	>	-EVER,\350VERAIENT
+    E V E R	>	-EVER,\350VERAIS
+    E V E R	>	-EVER,\350VERAIT
+    E V E R	>	-EVER,\350VERAS
+    E V E R	>	-EVER,\350VEREZ
+    E V E R	>	-EVER,\350VERIEZ
+    E V E R	>	-EVER,\350VERIONS
+    E V E R	>	-EVER,\350VERONS
+    E V E R	>	-EVER,\350VERONT
+    E V E R	>	-EVER,\350VES
+    E V R E R	>	-EVRER,\350VRE
+    E V R E R	>	-EVRER,\350VRENT
+    E V R E R	>	-EVRER,\350VRERA
+    E V R E R	>	-EVRER,\350VRERAI
+    E V R E R	>	-EVRER,\350VRERAIENT
+    E V R E R	>	-EVRER,\350VRERAIS
+    E V R E R	>	-EVRER,\350VRERAIT
+    E V R E R	>	-EVRER,\350VRERAS
+    E V R E R	>	-EVRER,\350VREREZ
+    E V R E R	>	-EVRER,\350VRERIEZ
+    E V R E R	>	-EVRER,\350VRERIONS
+    E V R E R	>	-EVRER,\350VRERONS
+    E V R E R	>	-EVRER,\350VRERONT
+    E V R E R	>	-EVRER,\350VRES
+				# -\351.ER (10): \351.e* -> \350.e*
+    \351 [CDLMNPRSTY] E R	>   -ER,ERA
+    \351 [CDLMNPRSTY] E R	>   -ER,ERAI
+    \351 [CDLMNPRSTY] E R	>   -ER,ERAIENT
+    \351 [CDLMNPRSTY] E R	>   -ER,ERAIS
+    \351 [CDLMNPRSTY] E R	>   -ER,ERAIT
+    \351 [CDLMNPRSTY] E R	>   -ER,ERAS
+    \351 [CDLMNPRSTY] E R	>   -ER,EREZ
+    \351 [CDLMNPRSTY] E R	>   -ER,ERIEZ
+    \351 [CDLMNPRSTY] E R	>   -ER,ERIONS
+    \351 [CDLMNPRSTY] E R	>   -ER,ERONS
+    \351 [CDLMNPRSTY] E R	>   -ER,ERONT
+    \351 B R E R		>   -\351BRER,\350BRE
+    \351 B R E R		>   -\351BRER,\350BRENT
+    \351 B R E R		>   -\351BRER,\350BRES
+    \351 C E R		>   -\351CER,\350CE
+    \351 C E R		>   -\351CER,\350CENT
+    \351 C E R		>   -\351CER,\350CES
+    \351 C H E R		>   -\351CHER,\350CHE
+    \351 C H E R		>   -\351CHER,\350CHENT
+    \351 C H E R		>   -\351CHER,\350CHES
+    \351 C R E R		>   -\351CRER,\350CRE
+    \351 C R E R		>   -\351CRER,\350CRENT
+    \351 C R E R		>   -\351CRER,\350CRES
+    \351 D E R		>   -\351DER,\350DE
+    \351 D E R		>   -\351DER,\350DENT
+    \351 D E R		>   -\351DER,\350DES
+    \351 G L E R		>   -\351GLER,\350GLE
+    \351 G L E R		>   -\351GLER,\350GLENT
+    \351 G L E R		>   -\351GLER,\350GLES
+    \351 G N E R		>   -\351GNER,\350GNE
+    \351 G N E R		>   -\351GNER,\350GNENT
+    \351 G N E R		>   -\351GNER,\350GNES
+    \351 G R E R		>   -\351GRER,\350GRE
+    \351 G R E R		>   -\351GRER,\350GRENT
+    \351 G R E R		>   -\351GRER,\350GRES
+    \351 G U E R		>   -\351GUER,\350GUE
+    \351 G U E R		>   -\351GUER,\350GUENT
+    \351 G U E R		>   -\351GUER,\350GUES
+    \351 L E R		>   -\351LER,\350LE
+    \351 L E R		>   -\351LER,\350LENT
+    \351 L E R		>   -\351LER,\350LES
+    \351 M E R		>   -\351MER,\350ME
+    \351 M E R		>   -\351MER,\350MENT
+    \351 M E R		>   -\351MER,\350MES
+    \351 N E R		>   -\351NER,\350NE
+    \351 N E R		>   -\351NER,\350NENT
+    \351 N E R		>   -\351NER,\350NES
+    \351 P E R		>   -\351PER,\350PE
+    \351 P E R		>   -\351PER,\350PENT
+    \351 P E R		>   -\351PER,\350PES
+    \351 Q U E R		>   -\351QUER,\350QUE
+    \351 Q U E R		>   -\351QUER,\350QUENT
+    \351 Q U E R		>   -\351QUER,\350QUES
+    \351 R E R		>   -\351RER,\350RE
+    \351 R E R		>   -\351RER,\350RENT
+    \351 R E R		>   -\351RER,\350RES
+    \351 S E R		>   -\351SER,\350SE
+    \351 S E R		>   -\351SER,\350SENT
+    \351 S E R		>   -\351SER,\350SES
+    \351 T E R		>   -\351TER,\350TE
+    \351 T E R		>   -\351TER,\350TENT
+    \351 T E R		>   -\351TER,\350TES
+    \351 T R E R		>   -\351TRER,\350TRE
+    \351 T R E R		>   -\351TRER,\350TRENT
+    \351 T R E R		>   -\351TRER,\350TRES
+    \351 V R E R		>   -\351VRER,\350VRE
+    \351 V R E R		>   -\351VRER,\350VRENT
+    \351 V R E R		>   -\351VRER,\350VRES
+    \351 Y E R		>   -\351YER,\350YE
+    \351 Y E R		>   -\351YER,\350YENT
+    \351 Y E R		>   -\351YER,\350YES
+
+
+flag *C:			# -ELER, -ETER qui changent le 'e' en '\350'
+    E [LT] E R	>	-ER,A
+    E [LT] E R	>	-ER,AI
+    E [LT] E R	>	-ER,AIENT
+    E [LT] E R	>	-ER,AIS
+    E [LT] E R	>	-ER,AIT
+    E [LT] E R	>	-ER,ANT
+    E [LT] E R	>	-ER,AS
+    E [LT] E R	>	-ER,ASSE
+    E [LT] E R	>	-ER,ASSENT
+    E [LT] E R	>	-ER,ASSES
+    E [LT] E R	>	-ER,ASSIEZ
+    E [LT] E R	>	-ER,ASSIONS
+    E [LT] E R	>	-ER,EZ
+    E [LT] E R	>	-ER,IEZ
+    E [LT] E R	>	-ER,IONS
+    E [LT] E R	>	-ER,ONS
+    E [LT] E R	>	-ER,\342mes
+    E [LT] E R	>	-ER,\342t
+    E [LT] E R	>	-ER,\342tes
+    E [LT] E R	>	-ER,\350rent
+    E [LT] E R	>	-ER,\351
+    E [LT] E R	>	-ER,\351e
+    E [LT] E R	>	-ER,\351es
+    E [LT] E R	>	-ER,\351s
+    E L E R	>	-ELER,\350le
+    E L E R	>	-ELER,\350lent
+    E L E R	>	-ELER,\350lera
+    E L E R	>	-ELER,\350lerai
+    E L E R	>	-ELER,\350leraient
+    E L E R	>	-ELER,\350lerais
+    E L E R	>	-ELER,\350lerait
+    E L E R	>	-ELER,\350leras
+    E L E R	>	-ELER,\350lerez
+    E L E R	>	-ELER,\350leriez
+    E L E R	>	-ELER,\350lerions
+    E L E R	>	-ELER,\350lerons
+    E L E R	>	-ELER,\350leront
+    E L E R	>	-ELER,\350les
+    E T E R	>	-ETER,\350te
+    E T E R	>	-ETER,\350tent
+    E T E R	>	-ETER,\350tera
+    E T E R	>	-ETER,\350terai
+    E T E R	>	-ETER,\350teraient
+    E T E R	>	-ETER,\350terais
+    E T E R	>	-ETER,\350terait
+    E T E R	>	-ETER,\350teras
+    E T E R	>	-ETER,\350terez
+    E T E R	>	-ETER,\350teriez
+    E T E R	>	-ETER,\350terions
+    E T E R	>	-ETER,\350terons
+    E T E R	>	-ETER,\350teront
+    E T E R	>	-ETER,\350tes
+
+flag *B:			# Verbes du deuxieme groupe
+    I R		>	-IR,is
+    I R		>	-IR,it
+    I R		>	-IR,issons
+    I R		>	-IR,issez
+    I R		>	-IR,issent
+    I R		>	-IR,issais
+    I R		>	-IR,issait
+    I R		>	-IR,issions
+    I R		>	-IR,issiez
+    I R		>	-IR,issaient
+    I R		>	-IR,\356mes
+    I R		>	-IR,\356tes
+    I R		>	-IR,irent
+    I R		>	-IR,irai
+    I R		>	-IR,iras
+    I R		>	-IR,ira
+    I R		>	-IR,irons
+    I R		>	-IR,irez
+    I R		>	-IR,iront
+    I R		>	-IR,isse
+    I R		>	-IR,isses
+    I R		>	-IR,\356t
+    I R		>	-IR,irais
+    I R		>	-IR,irait
+    I R		>	-IR,irions
+    I R		>	-IR,iriez
+    I R		>	-IR,iraient
+    I R		>	-IR,issant
+    I R		>	-IR,i
+    I R		>	-IR,ie
+    I R		>	-IR,ies
+
+#flag *S:			# Pluriel
+#    [^LSUXZ]	>	S	# r\350gle g\351n\351rale du pluriel
+#    [^A] [^I] L	>	S	# par opp. \340 -AIL
+#    [^AI] L	>	S	# par opp. \340 -AL et -AIL
+#    A I L	>	-AIL,aux # sauf attirail chandail d\351tail \351pouvantail...
+#    A L		>	-AL,aux	 # sauf bal carnaval chacal festival r\351gal...
+#    [^AE] U	>	S	# par opp. \340 -eu, -au, sauf bijou caillou...
+#    [AE] U	>	X	# -eu, -(e)au, sauf bleu, pneu, landau, sarrau
+#
+#flag *E:			# Feminin
+#    [^EFLNRTX]	>	E	# r\350gle g\351n\351rale du f\351minin
+#    F		>	-F,VE	# abusif > abusive, neuf > neuve
+#    [AO] L	>	E	# par opposition \340 -EL, -UL, -EIL
+#    [EU] L	>	LE	# accidentel > accidentelle, nul > nulle
+#    [^E] I L	>	E	# par opposition \340 -EIL
+#    E I L	>	LE	# pareil > pareille
+#    [AIU] N	>	E	# par opp. \340 -ON, -IEN (sauf paysan>paysanne)
+#    O N		>	NE	# bon > bonne
+#    I E N	>	NE	# ancien > ancienne
+#    [AIOU] [RT]	>	E	# par opposition \340 -ER, -ET
+#    E R		>	-ER,\350re	# premier > premi\350re
+#    E T		>	TE	# complet > complete (exceptions)
+#    X		>	-X,se	# nerveux > nerveuse (exceptions)
+
+flag *S:			# Pluriel sans f\351minin (favorise la r\350gle X)
+    [^ESXZ]	    >	S	# r\350gle g\351n\351rale du pluriel
+
+flag *X:			# Feminin + pluriel (adjectifs)
+    [^EFLNRSTUXZ]   >	E	# r\350gle g\351n\351rale du f\351minin
+    [^EFLNRSTUXZ]   >	ES	# r\350gle g\351n\351rale du f\351minin pluriel
+    [^EFLNRSTUXZ]   >	S	# r\350gle g\351n\351rale du pluriel
+    [EF]	    >	S	# aimable > aimables, abusif > abusifs
+    F		    >	-F,VE	# abusif > abusive, neuf > neuve
+    F		    >	-F,VES	# abusif > abusives
+    A L		    >	E	# spatial > spatiale
+    A L		    >	ES	# spatial > spatiales
+    A L		    >	-L,ux	# spatial > spatiaux
+    [EU] L	    >	LE	# accidentel > accidentelle, nul > nulle
+    [EU] L	    >	LES	# accidentel > accidentelles, nul > nulles
+    [EIOU] L	    >	S	# accidentel > accidentels, civil > civils,
+				# pareil > pareils, espagnol > espagnols,
+				# nul > nuls
+    [^E] I L	    >	E	# civil > civile
+    [^E] I L	    >	ES	# civil > civiles
+    E I L	    >	LE	# pareil > pareille
+    E I L	    >	LE	# pareil > pareilles
+    O L		    >	E	# espagnol > espagnole
+    O L		    >	ES	# espagnol > espagnoles
+    [AIU] N	    >	E	# alezan > alezane, vain > vaine, un > une
+				# Note: paysan > paysanne(s)
+    [AIU] N	    >	ES	# alezan > alezanes, vain > vaines, un > unes
+    [AIU] N	    >	S	# alezan > alezans, vain > vains, un > uns
+    [EO] N	    >	NE	# ancien, citoyen, bon > bonne
+    [EO] N	    >	NES	# anciennes, citoyennes, bonnes
+    [EO] N	    >	S	# anciens, citoyens, bons
+    [^E] [RT]	    >	E	# clair > claire, \351l\351gant > \351l\351gante
+    [^E] [RT]	    >	ES	# clair > claires, \351l\351gant > \351l\351gantes
+    [^E] [RT]	    >	S	# clair > clairs, \351l\351gant > \351l\351gants
+    E R		    >	-ER,\350re		# premier > premi\350re
+    E R		    >	-ER,\350res	# premier > premi\350res
+    E [RT]	    >	S	# premier > premiers, muet > muets
+    E T		    >	TE	# muet > muette (exceptions)
+    E T		    >	TES	# muet > muettes (exceptions)
+    E A U	    >	-EAU, ELLE	# beau > belle, puceau > pucelle
+    E A U	    >	-EAU, ELLES	# beau > belles, puceau > pucelles
+				# Il n'y a pas de f\351minin pour -[^e]au
+    [AE] U	    >	X	# feu > feux (sauf bleu, pneu, landau, sarrau)
+    [^AE] U	    >	S	# par opp. \340 -eu, -au, sauf bijou caillou...
+    X		    >	-X,SE	# nerveux > nerveuse (exceptions)
+    X		    >	-X,SES	# nerveux > nerveuses (exceptions)

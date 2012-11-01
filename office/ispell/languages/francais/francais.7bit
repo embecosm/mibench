@@ -1,0 +1,235 @@
+# French.aff by Nicolas Brouard June 1992 V1.0
+# Brouard@frined51.bitnet
+# Uses ISO8859/1 codes
+
+allaffixes on
+defstringtype "list" "nroff" ".list"
+
+wordchars	a	A
+wordchars	\340	\300
+wordchars	\344	\304
+wordchars	\346	\306
+wordchars	[b-c]	[B-C]
+wordchars	\347	\307
+wordchars	[d-e]	[D-E]
+wordchars	\350	\310
+wordchars	\351	\311
+wordchars	\352	\312
+wordchars	\353	\313
+wordchars	[f-i]	[F-I]
+wordchars	\356	\316
+wordchars	\357	\317
+wordchars	[j-o]	[J-O]
+wordchars	\364	\324
+wordchars	\366	\326
+wordchars	\367	\327
+wordchars	[p-u]	[P-U]
+wordchars	\371	\331
+wordchars	\373	\333
+wordchars	\374	\334
+wordchars	[t-z]	[T-Z]
+
+#
+# Alternate form for NeXTSTEP charset (guesses by GHK; may need correction)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+
+altstringchar	\325	\340
+altstringchar	\201	\300
+altstringchar	\333	\347
+altstringchar	\207	\307
+altstringchar	\334	\350
+altstringchar	\210	\310
+altstringchar	\335	\351
+altstringchar	\211	\311
+altstringchar	\336	\352
+altstringchar	\212	\312
+altstringchar	\337	\353
+altstringchar	\213	\313
+altstringchar	\344	\356
+altstringchar	\216	\316
+altstringchar	\345	\357
+altstringchar	\217	\317
+altstringchar	\356	\364
+altstringchar	\224	\324
+altstringchar	\362	\371
+altstringchar	\227	\331
+altstringchar	\364	\373
+altstringchar	\231	\333
+altstringchar	\366	\374
+altstringchar	\232	\334
+
+# Here's a record of flags used, in case you want to add new ones.
+#
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Used:      ***************  *         ***************  **  *    
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+# Available:                -- --------                --  -- ----
+#		\300\301\302\303\304\305\306\307\310\311\312\313\314\315\316\317\320\321\322\323\324\325\326\327\330\331\332\333\334\335\336\337
+#  Used         ********************            
+# 		\340\341\342\343\344\345\346\347\350\351\352\353\354\355\356\357\360\361\362\363\364\365\366\367\370\371\372\373\374\375\376
+# Available:                        -----------
+#                                               
+prefixes
+
+flag *r:
+    .		>	RE		# As in fermer > refermer
+flag *R:
+    .		>	R\311		# As in citer > r\351citer
+
+flag *I:
+    .		>	IN		# As in dispos\351 > indispos\351
+
+suffixes
+
+# Verbes du premier groupe "aimer"
+flag *a:	# Pr\351sent Je, il
+    [^CG] E R   > -ER,E	# aimer >aime
+flag *A:	# Pr\351sent Tu
+    [^CG] E R   > -ER,ES	# aimer >aimes
+flag *\340:	# Nous
+    [^CG] E R   > -ER,ONS	# aimer >aimons
+flag *\300:		# Vous
+    [^CG] E R   > -ER,EZ	# aimer >aimez
+flag *\341:		# Ils
+    [^CG] E R   > -ER,ENT	# aimer >aiment
+flag *\301:	# Imparfait	Je, tu
+    [^CG] E R   > -ER,AIS	# aimer >aimais
+flag *\342:	# Imparfait	Il
+    [^CG] E R   > -ER,AIT	# aimer >aimait
+flag *\302:	# Imparfait et Subjonctif Nous
+    [^CG] E R   > -ER,IONS	# aimer >aimions
+flag *\343:	# Imparfait et Subjonctif	Vous
+    [^CG] E R   > -ER,IEZ	# aimer >aimiez
+flag *\303:	# Imparfait	Ils
+    [^CG] E R   > -ER,AIENT	# aimer >aimaient
+flag *\344:	# Pass\351 simple	J'
+    [^CG] E R   > -ER,AI		# aimer >aimai
+flag *\304:	# Pass\351 simple	Tu
+    [^CG] E R   > -ER,AS		# aimer >aimas
+flag *\345:	# Pass\351 simple	Il
+    [^CG] E R   > -ER,A		# aimer >aima
+flag *\305:	# Pass\351 simple Nous
+    [^CG] E R   > -ER,\302MES	# aimer >aim\342mes
+flag *\346:	# Pass\351 simple, Vous
+    [^CG] E R   > -ER,\302TES	# aimer >aim\342tes
+flag *\306:	# Pass\351 simple Ils
+    [^CG] E R   > -ER,\311RENT	# aimer >aim\350rent
+flag *b:	# Futur
+    [^CG] E R   > -ER,ERAI	# aimer >aimerai
+flag *B:	# Futur tu
+    [^CG] E R   > -ER,ERAS	# aimer >aimeras
+flag *c:	# Futut Il
+    [^CG] E R   > -ER,ERA	# aimer >aimera
+flag *C:	# Futur	Nous
+    [^CG] E R   > -ER,ERONS	# aimer >aimerons
+flag *\347:	# Futur Vous
+    [^CG] E R   > -ER,EREZ	# aimer >aimerez
+flag *\307:	# Futur Ils
+    [^CG] E R   > -ER,ERONT	# aimer >aimeront
+flag *d: 	#Conditionnel Je Tu
+    [^CG] E R   > -ER,ERAIT	# aimer >aimerais
+flag *D: 	#Conditionnel Il
+    [^CG] E R   > -ER,ERAIT	# aimer >aimerait
+flag *\360:	# Conditionnel Nous
+    [^CG] E R   > -ER,ERIONS	# aimer >aimerions
+flag *\320:	# Conditionnel Vous
+    [^CG] E R   > -ER,ERIEZ	# aimer >aimeriez
+flag *E:	# Conditionnel Ils
+    [^CG] E R   > -ER,ERAIENT	# aimer >aimeraient
+flag *\350:	# Subjonctif imparfait Je
+    [^CG] E R   > -ER,ASSE	# aimer >aimasse
+flag *\310:	# Subjonctif imparfait Tu
+    [^CG] E R   > -ER,ASSES	# aimer >aimasses
+flag *\351:	# Subjonctif imparfait il
+    [^CG] E R   > -ER,\302T	# aimer >aim\342t
+flag *\311:	# Subjonctif imparfait Nous
+    [^CG] E R   > -ER,SSIONS	# aimer >aimassions
+flag *\352:	# Subjonctif imparfait Vous
+    [^CG] E R   > -ER,SSIEZ	# aimer >aimassiez
+flag *\312:	# Subjonctif imparfait Ils
+    [^CG] E R   > -ER,SSENT	# aimer >aimassent
+flag *\353:	# Participe pass\351
+    [^CG] E R   > -ER,\311	# aimer >aim\351
+flag *\313:	# Participe pass\351
+    [^CG] E R   > -ER,\311E	# aimer >aim\351e
+flag *f:	# Participe pass\351
+    [^CG] E R   > -ER,\311S	# aimer >aim\351s
+flag *F:	# Participe pass\351
+    [^CG] E R   > -ER,\311ES	# aimer >aim\351es
+flag *g:	# Participe pr\351sent
+    [^CG] E R   > -ER,ANT	# aimer >aimant
+
+# Verbes du deuxi\350me groupe Finir
+
+flag *G:	# Finir Pr\351sent Je, tu
+	I R	> -IR,IS	# finir >finis
+flag *h:	# Finir Pr\351sent Il
+	I R	> -IR,IT	# finir >finit
+flag *H:	# Finir Pr\351sent Nous
+	I R	> -IR,ISSONS	# finir >finissons
+flag *i:	# Finir Pr\351sent Vous
+	I R	> -IR,ISSEZ	# finir >finissez
+flag *I:	# Finir Pr\351sent Ils
+	I R	> -IR,ISSENT	# finir >finissent
+flag *\354:	# Finir Imparfait Je, tu
+	I R	> -IR,ISSAIS	# finir >finissais
+flag *\314:	# Finir Imparfait Il
+	I R	> -IR,ISSAIT	# finir >finissait
+flag *\355:	# Finir Imparfait Nous
+	I R	> -IR,ISSIONS	# finir >finissions
+flag *\315:	# Finir Imparfait Vous
+	I R	> -IR,ISSIEZ	# finir >finissiez
+flag *\356:	# Finir Imparfait Ils
+	I R	> -IR,ISSAIENT	# finir >finissaient
+flag *\316:	# Finir Pass\351 simple Nous
+	I R	> -IR,\316MES	# finir >fin\356mes
+flag *\357:	# Finir Pass\351 simple
+	I R	> -IR,\316TES	# finir >fin\356tes
+flag *\317:	# Finir Pass\351 simple
+	I R	> -IR,IRENT	# finir >finirent
+flag *j:	# Finir Futur Je
+	I R	> -IR,IRAI	# finir >finirai
+flag *J:	# Finir Futur Tu
+	I R	> -IR,IRAS	# finir >finiras
+flag *k:	# Finir Futur Il
+	I R	> -IR,IRA	# finir >finira
+flag *K:	# Finir Futur Nous
+	I R	> -IR,IRONS	# finir >finirons
+flag *l:	# Finir Futur Vous
+	I R	> -IR,IREZ	# finir >finirez
+flag *L:	# Finir Futur Ils
+	I R	> -IR,IRONT	# finir >finiront
+flag *m:	# Finir Subjonctif pr\351sent Je
+	I R	> -IR,ISSE	# finir >finisse
+flag *M:	# Finir Subjonctif pr\351sent Tu
+	I R	> -IR,ISSES	# finir >finisses
+flag *n:	# Finir Subjonctif pr\351sent Nous
+	I R	> -IR,ISSIONS	# finir >finissions
+flag *N:	# Finir Subjonctif pr\351sent Vous
+	I R	> -IR,ISSIEZ	# finir >finissiez
+flag *\361:	# Finir Subjonctif imparfait Il
+	I R	> -IR,\316T	# finir >fin\356t
+flag *\321:	# Finir Conditionnel Je, tu
+	I R	> -IR,IRAIS	# finir >finirais
+flag *o:	# Finir Conditionnel Il
+	I R	> -IR,IRAIT	# finir >finirait
+flag *O:	# Finir Conditionnel Nous
+	I R	> -IR,IRIONS	# finir >finirions
+flag *\362:	# Finir Conditionnel Vous
+	I R	> -IR,IRIEZ	# finir >finiriez
+flag *\322:	# Finir Conditionnel Ils
+	I R	> -IR,IRAIENT	# finir >finiraient
+flag *\363:	# Finir Participe pass\351e f\351minin
+	I R	> -IR,IE	# finir >finie
+flag *\323:	# Finir Participe pr\351sent
+	I R	> -IR,ISSANT	# finir >finissant
+
+flag *e:	# F\351minisation
+    [^XZHY]	>	E		# As in ami > amie
+
+flag v:		# F\351minisation
+    I F		>	-IF,IVE		# As in cr\351atif > cr\351ative
+
+flag *s:	# Pluriel
+    [^SXZHY]	>	S		# As in fait > faits

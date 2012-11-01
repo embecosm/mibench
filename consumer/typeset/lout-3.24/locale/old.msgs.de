@@ -1,0 +1,497 @@
+$set 1
+1 Wort ist zu lang
+2 Neu: typ %s
+3 Neu: Länge Null!
+4 assert failed in %s
+5 %s - Debug Schalter nicht implementiert
+6 kann locale nicht initialisieren
+7 Nutzung: -o <Filename>
+8 Nutzung: -c <Filename>
+9 Nutzung: -e <Filename>
+10 Nutzung: -EPS
+11 Nutzung: -D <Verzeichnisname>
+12 Nutzung: -C <Verzeichnisname>
+13 Nutzung: -F <Verzeichnisname>
+14 Nutzung: -H <Verzeichnisname>
+15 Nutzung: -I <Verzeichnisname>
+16 Nutzung: -i <Filename>
+17 zwei -h Schalter illegal
+18 Nutzung: -h <Filename>
+21 Nutzung: lout -%c<Länge><Länge>
+22 lout -%c: Einheit muß c, i, p, or m sein
+23 lout -%c: Einheit muß c, i, p, or m sein
+24 Nutzung: lout [ -i <Filename> ] Files
+25 Standardeingabe zweifach angegeben
+26 unbekannter Komandoschalter %s
+27 kann Ausgabefile %s nicht öffnen
+$set 2
+1 Include-File %s zu tief geschachtelt
+2 Datenbankfile %s zu tief geschachtelt
+3 Beim öffnen des File %s ging der Speicher aus
+4 unerlaubte Macroausführung in Datenbank
+5 Zeile ist zu lang (oder abschließendes Zeilenende vermißt)
+6 Zeichen %c außerhalb einer angeführten Zeichenkette
+7 kann File %s nicht öffnen
+8 unbekannter Filetyp
+9 Rekursion im Macro
+10 %s erwartet (nach %s)
+11 Name eines Include-File wird hier erwartet
+12 unbeendete Zeichenkette
+13 unbeendete Zeichenkette
+14 überspringe Null-Zeichen in Zeichenkette
+15 LexGetToken: Fehler in angeführter Zeichenkette
+16 LexGetToken: bad chtbl[]
+17 Zeile ist zu lang (oder abschließendes Zeilenende vermißt)
+18 Filterparameter im Macro
+19 Fileende beim Lesen von Filterparametern erreicht
+20 erwarte hier %s (nach %s)
+21 erwarte hier Filename
+22 kann Include-File %s nicht öffnen
+23 %s in Filterparameter nicht implementiert
+24 LexScanFilter: bad chtbl[]
+25 Zeile ist zu lang (oder abschließendes Zeilenende vermißt)
+$set 3
+1 Beim Erweitern der Filetabelle ging der Speicher aus
+2 zu viele Files (Maximum ist %d)
+3 Datenbank File %s wo Source-File erwartet wird
+4 Datenbank Index-File %s wo Source-File erwartet wird
+5 Filename %s%s ist zu lang
+6 Filename %s%s ist zu lang
+7 Fileposition %s... is zu lang zum ausgeben
+8 Fileposition %s... is zu lang zum ausgeben
+9 File
+10 von
+11 Zeile
+12 Files %s und %s existieren beide
+13 Filepfadname %s/%s ist zu lang
+14 Files %s und %s%s existieren beide
+$set 4
+1 EchoCatOp: %d
+2 EchoToken: %s
+$set 5
+1 erwarte hier Font-Familiennamen
+2 erwarte hier Font-Familiennamen
+3 erwarte hier Anfang %s des fontdef
+4 erwarte hier Anfang %s des langdef
+5 in Deklaration %s linke geschweifte Klammer erwartet
+6 erwarte hier Name des %s File
+7 erwarte hier Symbolnamen oder %s (%s Deklaration)
+8 Symbolnamen vermißt in  %s Deklaration
+9 erwarte hier Namen des %s File
+10 Symbol %s unbekannt or falsch buchstabiert
+11 Symbol %s in Macro nicht erlaubt
+12 unerwartees Ende der Eingabe
+13 %s hier nicht erwartet
+14 ungepaartes %s in Macro
+15 ungepaartes %s in Macro
+16 Symbol %s unbekannt oder falsch buchstabiert
+17 Symbolname erwartet nach %s
+18 %s %s paart sich nicht mit %s %s
+19 ungepaartes %s in Macro
+20 %s muß benanntem Parameter folgen %s
+21 rechter Parameter von %s muß mit %s beginnen
+22 ReadTokenList: %s
+23 %s ignoriert (Name vermißt)
+24 %s ignoriert (Anfang %s vermißt)
+25 Import-Name hier erwartet
+26 Import %s nicht im Scope
+27 %s Symbolname hier erwartet
+28 erweitertes Symbol %s nicht im Scope
+29 Schlüsselwort %s oder %s hier erwartet
+30 Schlüsselwort %s hier erwartet
+31 ignoriere Exportliste des Macro
+32 Symbolname hier erwartet
+33 %s hier erwartet
+34 %s hier erwartet
+35 Präzedenz ist zu gering (%d ersetzt)
+36 Präzedenz ist zu hoch (%d ersetzt)
+37 Assoziativität geändert zu %s
+38 kann Parameternamen %s nicht finden
+39 kann Parameternamen %s nicht finden
+40 öffnende linke geschweifte Klammer oder @Begin von %s erwartet
+41 exportiertes Symbol %s ist nicht definiert in %s
+42 Körperparameter %s kann nicht exportiert werden
+43 Symbol %s zweifach exportiert
+44 unbekanntes oder falsch buchstabiertes Symbol %s
+$set 6
+1 Ausdruck ist zu tief geschachtelt
+2 Ausdruck ist zu tief geschachtelt
+3 linker Parameter von %s ist kein Symbol (oder nicht sichtbar)
+4 ungepaartes %s (%s eingefügt)
+5 reduziere: ungepaartes %s
+6 ungepaartes %s; %s bei %s eingefügt (nach %s)
+7 ungepaartes %s in gar nichts eingeschlossen
+8 reduziere: ungepaartes %s
+9 reduziere: ungepaartes %s
+10 %s %s angefügt am Fileende um %s bei %s zu paaren
+11 %s ersetzt durch %s %s um %s bei %s zu paaren
+12 %s %s ersetzt durch %s %s um %s bei %s
+13 reduziere: %s
+14 Kreuzreferenz Datenbank-Filename %s ist zu lang
+15 Syntaxfehler in Kreuzreferenz Datenbank
+16 Fehler in Kreuzreferenz Datenbank
+17 Fehler in Kreuzreferenz Datenbank
+18 beende nun
+19 %s erwartet nach %s
+20 Symbol %s erscheint in zwei %s Klauseln
+21 ungültiger Parameter von %s
+22 Symbol %s unbekannt oder falsch buchstabiert
+23 unerwartes Ende der Eingabe
+24 %s ersetzt durch %s
+25 unbekanntes oder fasch buchstabiertes Symbol %s nach %s entfernt
+26 Symbol erwartet nach %s
+27 %s Symbol deplaziert
+28 %s folgend Symbol erwartet
+29 %s Klausel(n) verändert seit vorherigem Lauf
+30 %s folgend Symbol erwartet
+31 %s muß benanntem Parameter %s folgen
+32 benannter Parameter %s von %s erscheint doppelt
+33 %s hier deplaziert (%s hat keinen rechten Parameter)
+34 rechter Parameter von %s muß in geschweifte Klammern eingeschlossen sein
+35 Körperparameter von %s muß in geschweifte Klammern eingeschlossen sein
+36 ungültiger linker Parameter von %s
+37 rechter Parameter von %s muß in geschweifte Klammern eingeschlossen sein
+38 Parse: %s
+$set 7
+1 CopyObject: %s
+$set 8
+1 Wort ist zu lang
+2 Wort ist zu lang
+3 ersetze ungültigen Skalierungsfaktor durch 1.0
+4 ersetze ungültigen Skalierungsfaktor %s durch 1.0
+5 ersetze zu kleinen Skalierungsfaktor %s durch 1.0
+6 ersetze zu großen Skalierungsfaktor %s durch 1.0
+7 %s entfernt (rechter Parameter ist schlecht)
+8 erwarte %s hier
+9 Fehler in linkem Parameter von %s
+10 Fehler in linkem Parameter von %s
+11 ersetze unbekannten %s Schalter %s durch %s
+12 %s gelöscht (Auswahl %s unbekannt)
+13 linker Parameter von %s ist keine Kreuzreferenz
+14 linker Parameter von %s muß ein Symbol sein
+15 Symbol %s hier nicht erlaubt (es hat kein %s)
+16 %s oder %s im linken Parameter von %s erwartet
+17 rechter Parameter von %s muß ein einfaches Wort sein
+18 maximale Tiefe der Symbolerweiterung (%d) erreicht
+19 die momentan erweiterten Symbole sind:
+20 bei %d: %s
+21 beende nun
+22 Symbol %s außerhalb von %s benutzt
+23 Filterparameter des %s Symbol ist nicht einfach
+24 Word %s%s ist zu lang
+25 vermisse %s Symbol oder Schalter
+26 ersetze ungültigen linken Parameter von %s durch 2i
+27 ersetze ungültigen linken Parameter von %s durch +0i
+28 ersetze ungültigen linken Parameter von %s durch 0d
+29 %s hier nicht erwartet
+30 %s ausgelassen (Parameter ist kein einfaches Wort)
+31 %s ausgelassen (Kein aktueller Font an dieser Stelle)
+32 %s ausgelassen (Zeichen %s unbekannt in Font %s)
+33 keine aktuelle Sprache an dieser Stelle, benutze %s
+34 ungültiger linker Parameter von %s
+35 %s geslöscht (ungültiger rechter Parameter)
+36 Manifest: %s
+$set 9
+1 Symbol mit Importliste mißbraucht
+$set 10
+1 Beim Erweitern der Kreuzreferenztabelle ging der Speicher aus.
+2 automatisch generierte Marke %s&%d ist zu lang
+3 automatisch generierte Marke %s.%s.%d ist zu lang
+5 Wert des rechten Parameters von %s ist kein einfaches Wort
+6 Wert des rechten Parameters von %s ist ein leeres Wort
+7 in Kreuzreferenz benutzes Symbol %s hat keinen %s Parameter
+8 automatisch generierte Marke %s_%d ist zu lang
+9 %s oder %s Marke hier nicht erlaubt
+10 in Kreuzreferenz benutzes Symbol %s hat keinen %s Parameter
+11 CrossExpand: %d
+12 nicht aufgelößte Kreuzreferenz %s%s%s
+13 %s Parameter ist kein Wort
+14 %s Parameter ist ein leeres Wort
+15 es kommt kein %s vor diesem %s%s%s
+16 es kommt kein %s vor diesem %s%s%s
+17 Marke von %s ist kein einfaches Wort
+18 Marke von %s ist kein einfaches Wort
+19 CrossSequence: %s
+20 es folgt kein %s nach diesem %s%s%s
+21 und mehr undefiniert %s%s%s
+$set 11
+1 ungültiger Parameter von %s
+2 abstellen %s ist mit momentanem Abstellen nicht kompatibel
+3 unbekannter Schalter zu %s Symbol (%s)
+4 Zeilenabstellen %s ist mit momentanem Abstellen nicht kompatibel
+5 ungültiger linker Parameter von %s
+6 ungültiger linker Parameter von %s
+$set 12
+1 MinSize: %s
+2 gezwungen %s zu vergrößern
+3 ^ gelöscht (es darf diesem Objekt nicht voranstehen)
+4 Lücke ersetzt durch 0i (Einheit %c hier nicht erlaubt)
+5 %s gelöscht (kann File %s nicht öffnen)
+6 %s bekam Null-Größe (keine BoundingBox Zeile im File %s)
+7 %s gelöscht (erste Zeile im File %s falsch)
+8 %s bekam Null-Größe (falsche BoundingBox-Zeile im File %s)
+9 MinSize: %s
+10 MinSize: back(x, dim) < 0!
+11 MinSize: fwd(x, dim) < 0!
+$set 13
+1 reduziere Spaltenabstand auf 0i (Objekt ist zu weit)
+2 BreakTable: %d
+3 BreakTable: %d
+4 %s gelöscht (zu weit; kann %s nicht umbrechen)
+5 Wort %s gelöscht (zu weit)
+6 %s %s reduziert (zu weit)
+7 %s oder %s gelöscht (zu weit)
+8 Spaltenmarke des nicht umgebrochenen Abschnitts nach links bewegt
+9 Spaltenmarke des Abschnitts vor Umbruch nach links bewegt
+10 BreakObject: %s
+$set 14
+1 %s Objekt gelöscht (zu weit für %s Paragraph)
+2 %s Objekt gelöscht (zu weit für %s Paragraph)
+3 übergroßes Objekt hat Größe Null oder weniger
+4 %s Objekt gelöscht (zu weit für %s Paragraph)
+5 Paragraph gelöscht (zugewiesene Weite %s ist zu schmal)
+6 hyphen oder nohyphen Option vermißt
+7 FillObject: %d
+$set 15
+1 Beschränkt: %s
+2 DebugBeschränkt: %s
+$set 16
+1 FindShift: %s", INTERN,&fpos(x),"units
+2 FindShift: %s", INTERN, &fpos(x),"type
+3 maximale Größe %s überschritten
+4 Größenbeschränkung %s,%s,%s gebrochen durch %s,%s
+5 AdjustSize: %s
+$set 17
+1 Lücke ist kein einfaches Wort
+2 vermisse Weite von %s
+3 %s, %s und %s muß in doppelte Anführungszeichen eingeschlossen sein
+4 vermisse Einheits-Buchstabe von %s
+5 %.1fr zu groß (1.0r substituiert)
+6 Länge %s ist zu groß (Maximum %dc substituiert)
+7 unbekannter Lücken Modus in %s
+8 ungültige Weite oder Lücke in %s
+9 MinGap: units %d
+10 MinGap: NO_MODE
+11 MinGap: mode %d
+12 ExtraGap: NO_MODE
+13 ExtraGap: %d
+14 ActualGap: units %d
+15 ActualGap: NO_MODE
+16 ActualGap: mode %d
+17 EchoGap: %d
+$set 18
+1 kann Galley %s nicht anhängen
+2 Galley zu tief geschachtelt (max ist %d)
+3 Galley %s gelöscht (unzureichende Weite am Ziel)
+4 rechter Parameter von %s ist vertikal begrenzt
+$set 19
+1 Galley %s von hier gelöscht (kein Ziel)
+2 rezeptives Symbol %s hat unbegrenzte Weite
+3 zu wenig horizontaler Platz für Galley %s bei %s
+4 diese Komponente von %s paßte nicht in nächstes Ziel
+5 diese Komponente von %s paßte nicht in nächstes Ziel
+6 AttachGalley: %s
+7 %s Objekt zu groß für %s Platz; %s eingefügt
+$set 20
+1 DebugInnersNames: %s
+2 FlushGalley: attach_status %d
+3 FlushGalley: dest_index %s
+4 FlushGalley: %s
+5 Fehler in Datenbank-File %s
+$set 21
+1 Galley %s darf nur eine Spaltenmarke haben
+2 ersetze unendlichen Skalierungsfaktor (unbegrenzte Weite) durch 1.0
+3 ersetze unendlichen Skalierungsfaktor (Null-weites Objekt) durch 1.0
+4 ersetze sehr großen Skalierungsfaktor (über 100) durch 1.0
+5 Objekt gelöscht (Skalierungsfaktor ist Null)
+6 Objekt gelöscht (Skalierungsfaktor ist kleiner als 0.01)
+7 SizeGalley: %s
+8 %s fehlt unerwarteter Weise im Körper von %s
+$set 22
+1 FlushInners: %s
+2 FindSplit: missing galley component
+3 FindSplitInGalley failed
+4 FindSplitInGalley: %s
+5 Galley %s muß eine einzige Spaltenmarke haben
+6 Galley %s gelöscht (niemals angehängt)
+7 unterstütze: %s
+8 KillGalley: head
+9 zwinge Galley an Eingabepunkt
+10 Ziel von %s ist keine Kreuzreferenz
+11 linker Parameter von %s ist kein Symbol
+12 ersetze %s%s? durch %s%s%s
+13 TargetSymbol: vermisse Ziel von x
+$set 23
+1 Objekt gelöscht (es kann nicht vertikal skaliert werden)
+2 Objekt gelöscht (es kann nicht horizontal skaliert werden)
+3 FixAndPrintObject: %s
+$set 24
+1 kann %s File %s nicht öffnen
+2 %s File %s ist leer
+3 %s File %s hat keinen PostScript BeginResource Komentar
+4 schneide -EPS Dokument am Ende der ersten Seite ab
+5 Fehler im linken Parameter von %s
+6 Fehler im linken Parameter von %s
+7 ignoriere LanguageLevel Komentar in %s File %s
+8 ignoriere Extensions Kommentar in %s File %s
+$set 25
+1 echo: %s
+2 echo: %s
+3 echo: %s
+$set 26
+1 BeginZeichenkette: momentan in Zeichenkette
+2 AppendZeichenkette: keine aktuelle Zeichenkette
+3 AppendZeichenkette Abbruch
+4 EndZeichenkette: keine Zeichenkette
+$set 27
+1 unbekanntes Debug Flag %s
+2 ProFileOn: %s nochmals gestartet
+3 ProFileOn: Überlauf
+4 ProFileOff: %s ist nicht aktuell
+5 ProFileOff: Überlauf
+$set 28
+1 -e Argument erscheint zweifach in der Komandozeile
+2 kann Fehler-File %s nicht öffnen
+3 zu viele Ebenen von Fehlermeldungen
+4   %6s interner Fehler: %s\n
+5   %6s schlimmer Fehler: %s\n
+6 zu viele Fehlermeldungen
+7 ungültiger Fehlertyp
+$set 29
+1   Scope[%2d] = %s
+2 Scopetiefenlimit überschritten
+3 ungültiger Symbolname %s
+4 %s muß eine lokale Definition sein
+5 ein Körperparameter kann nicht %s benannt werden
+6 der rechte Parameter eines Galley darf nicht %s genannt werden
+7 Symbol %s bereits definiert bei %s
+8 voller Symbolname ist zu lang
+9 voller Symbolname ist zu lang
+10 in Symbol %s wird %s vermißt
+11 DeleteSymBody: %s
+$set 31
+1 beende nun (es ging der Speicher aus)
+$set 32
+1 Wort %s ist zu lang
+2 Nächstes: %s
+$set 33
+1 beim Vergrößern der dbcheck-Tabelle ging der Speicher aus
+2 Dbcheck: Eintrag zweifach eingetragen
+3 NumToSym: no sym
+4 einfügen in gelesene Datenbank
+5 Datenbank Filename %s%s ist zu lang
+6 kann nicht auf Datenbankfile %s schreiben
+7 Kreuzreferenz %s&&%s bereits benutzt bei %s
+8 Kreuzreferenz %s&&%s bereits benutzt
+9 DbConvert: lese Datenbank
+10 Syntaxfehler in Datenbankfile %s
+11 %s in Datenbank gefunden aber nicht in Zeile %s deklariert
+12 Datenbanksymbol %s hat keine Marke
+13 Marke des Datenbanksymbol ist kein einfaches Wort
+14 Marke des Datenbanksymbol ist ein leeres Wort
+15 erwarte hier %s oder Ende des File
+16 kann Datenbankfile %s nicht öffnen
+17 undefiniertes Symbol in Datenbankfile %s (Zeile %d)
+18 DbRetrieveNext: writing
+$set 35
+1 unable to obtain the current time
+$set 36
+1 in Trennungsfile: '%c' ist in keiner Klasse
+2 DoTriePrint: findrep failed
+3 beim Aufbauen der Trenntabelle ging der Speicher aus
+4 hyphenation trie Zeichenkette Limit überschritten
+5 hyphenation trie Knotenlimit überschritten
+6 Trennungsklasse von %c kann nicht geändert werden
+7 Trennungszeichenkette %s bereits vorhanden
+8 kann Trennungsfile %s nicht öffnen
+9 vermisse Kopfzeile des Trennungsfile %s
+10 vermisse Klassenkopf des Trennungsfile %s
+11 TrieRead: %d
+12 Formatfehler in Trennungsfile %s
+13 kann Trennugsfile %s nicht schreiben
+14 kann Trennungsfile %s nich öffnen
+15 beim lesen des Trennungsfiles ging der Speicher aus
+16 Fehler beim Lesen des gepackten Trennungsfiles %s
+17 Falsche magische Nummer im Trennungsfile %s
+18 keine aktuelle Sprache für Wort %s
+$set 37
+1 Fontdefinition enthält keine Folge von Worten
+2 Fontdefinition enthält ein Nicht-Wort
+3 Fontdefinition enthält nicht exakt vier Wörter
+4 Font %s %s bereits definiert bei%s
+5 erwate hier entweder Recode oder NoRecode
+6 zu viele verschiedene Fonts und Größen (Maximum ist %d)
+7 beim Vergrößern der Fonttabelle ging der Speicher aus
+8 kann Fontfile %s nicht öffnen
+9 Fontfile %s beginnt nicht mit StartFontMetrics
+10 beim Lesen des Fontfile %s ging der Speicher aus
+11 beim Lesen des Fontfile %s ging der Speicher aus
+12 beim Lesen des Fontfile %s ging der Speicher aus
+13 XHeight im Fontfile zweifach gefunden (Zeile %d)
+14 FontName im Fontfile %s zweifach gefunden %s (Zeile %d)
+15 FontName Fontfile %s (Zeile %d) leer
+16 FontName im Fontfile (%s) und fontdef (%s) stimmen nicht überein
+17 vermisse FontName im File %s
+18 ignoriere nicht kodierte Ligatur %s in Fontfile %s (Zeile %d)
+19 zu viele Ligaturen in Fontfile %s (Zeile %d)
+20 vermisse WX im Fontfile %s (Zeile %d)
+21 vermisse B im Fontfile %s (Zeile %d)
+22 Syntaxfehler an StartKernPairs Zeile im Fontfile %s (Zeile %d)
+23 Syntaxfehler im Fontfile %s (Zeile %d): %s
+24 nicht kodiertes Kernzeichen %s im Fontfile %s (Zeile %d)
+25 nicht kodiertes Kernzeichen %s im Fontfile %s (Zeile %d)
+26 nicht anschließendes Kerning Paar %s %s im Fontfile  %s (Zeile %d)
+27 zu viele Kerning Paare im Fontfile %s (Zeile %d)
+28 Kerning Paar %s %s erscheint zweifach im Fontfile  %s (Zeile %d)
+29 vermisse EndFontMetrics im Fontfile %s
+30 Fehler im linken Parameter von %s
+31 Fehler im linken Parameter von %s
+32 Anfangsfont muß Familie, Schnitt und Größe haben
+33 Fontfamilie %s nicht definiert
+34 es existieren keine Fonts
+35 Fontfamilienname %s muß von Schnittnamen begleidet werden
+36 Fontschnittname %s in Fontfamilie %s nicht definiert
+37 kein aktueller Font an dem Basisgröße %s geändert werden könnte
+38 FontChange: %d
+39 %s %s ignoriert (Ergebnis nicht positiv)
+40 zu viele verschiedene Fonts und Größen (maximal %d)
+41 beim Vergrößern der Fonttabelle ging der Speicher aus
+42 beim Ändern des Font oder der Fontgröße ging der Speicher aus
+43 beim Ändern des Font oder der Fontgröße ging der Speicher aus
+44 kein aktueller Font beim Wort %s
+45 keine aktuelle Farbe beim Wort %s
+46 keine aktuelle Sprache beim Wort %s
+47 Zeichen %s ausgelassen (es hat keinen Glyph im Font %s)
+48 kein aktueller Font an diesem Punkt
+49 Familien- und Schnittnamen %s %s sind zu lang
+$set 38
+1 zu viele Kodierungsvektoren
+2 beim Laden des Kodierungsvektors ging der Speicher aus
+3 kann Kodierungsvektorfile %s nicht öffnen
+4 zu viele Zeichennamen im Kodierungsvektorfile %s
+5 zu wenige Zeichennamen im Kodierungsvektorfile %s 
+$set 40
+1 kann temporäres Filterfile %s nicht öffnen
+2 %s
+3 Versagen (Nicht-Null-Status) des Filter: %s
+4 kann temporäres Filterfile %s nicht lesen
+$set 41
+1 Datenbankindexfile scheint veraltet zu sein
+2 Syntaxfehler im Datenbankfile
+3 WriteClosure: %s
+4 WriteObject: %s
+5 Filename %s%s ist zu lang
+6 kann nicht an Datenbankfile %s anhängen
+7 Link(%s, %s) versagt
+8 unlink(%s) versagt
+$set 42
+1 beim Vergrößern der Farbtabelle ging der Speicher aus
+2 zu viele Farben (Maximum ist %d)
+3 %s ignoriert (ungültiger linker Parameter)
+4 %s ignoriert (leerer linker Parameter)
+$set 43
+1 beim Vergrößern der Sprachtabelle ging der Speicher aus
+2 Sprachname %s doppelt benutzt (zuerst bei %s)
+3 erwarte hier Trennungsfilenamen
+4 %s ignoriert (ungültiger linker Parameter)
+5 %s ignoriert (unbekannte Sprache %s)

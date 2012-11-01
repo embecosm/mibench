@@ -1,0 +1,133 @@
+He aquí un rápido resumen de las órdenes para PGP 2.6.3(i):
+===========================================================
+
+Para encriptar un fichero normal con la clave pública del 
+destinatario:
+     pgp -e fnormal identificador_des [otros identificadores]
+
+Para firmar un fichero normal con su clave secreta:
+     pgp -s fnormal [-u su_identificador]
+
+Para firmar un fichero normal con su clave secreta y después 
+encriptarlo con la clave pública del destinatario:
+     pgp -es fnormal identificador_des [otros id.] [-u su_identificador]
+
+Para encriptar un fichero normal sólo con criptografía convencional, 
+escriba:
+     pgp -c fnormal
+
+Para desencriptar un fichero, o comprobar la integridad de la firma 
+en un fichero firmado:
+     pgp fcifrado [-o fnormal]
+
+Para desencriptar un fichero con armadura ASCII en varias partes: grabe
+todas las partes por orden en un fichero con extensión .asc y escriba:
+     pgp farmadura [-o fnormal]
+
+
+Funciones para la gestión de claves:
+------------------------------------
+
+Para generar su propio par único de claves pública/secreta:
+     pgp -kg
+
+Para añadir el contenido de un fichero de claves públicas o secretas 
+al anillo correspondiente:
+     pgp -ka fdclaves [anillo]
+
+Para extraer (copiar) una clave del anillo de claves públicas o 
+secretas:
+     pgp -kx identificador fdclaves [anillo]
+o:   pgp -kxa identificador fdclaves [anillo]
+
+Para visualizar el contenido del anillo de claves públicas:
+     pgp -kv[v] [identificador] [anillo]
+
+Para ver la "huella dactilar" de una clave pública, y poder verificarla por 
+teléfono con su dueña:
+     pgp -kvc [identificador] [anillo]
+
+Para visualizar el contenido y comprobar las firmas de certificación 
+en el anillo de claves públicas:
+     pgp -kc [identificador] [anillo]
+
+Para modificar el identificador o la frase de contraseña de la clave 
+secreta:
+     pgp -ke identificador [anillo]
+
+Para modificar los parámetros de confianza de una clave pública:
+     pgp -ke identificador [anillo]
+
+Para suprimir una clave, o sólo un identificador, del anillo de 
+claves públicas:
+     pgp -kr identificador [anillo]
+
+Para firmar la clave pública de alguien en el anillo de claves 
+públicas:
+     pgp -ks identificador_des [-u su_identificador] [anillo]
+
+Para suprimir de un anillo ciertas firmas de un usuario:
+     pgp -krs identificador [anillo]
+
+Para desactivar una clave pública, para que PGP no la utilice, o para
+reactivarla:
+     pgp -kd identificador [anillo]
+
+Para revocar permanentemente su propia clave, emitiendo un 
+certificado de compromiso de clave:
+     pgp -kd su_identificador
+
+
+Ordenes esotéricas:
+-------------------
+
+Para desencriptar un mensaje y dejar su firma intacta:
+     pgp -d fcifrado
+
+Para crear un certificado de firma separado del documento:
+     pgp -sb ftexto [-u su_identificador]
+
+Para separar un certificado de firma del mensaje firmado:
+     pgp -b fcifrado
+
+
+Opciones que pueden utilizarse en combinación con otras:
+--------------------------------------------------------
+
+Para producir un fichero cifrado en formato ASCII radix-64, añada 
+simplemente la opción -a cuando encripte o firme un mensaje, o 
+cuando extraiga una clave:
+     pgp -sea ftexto identificador_des
+o:   pgp -kax identificador fdclave [anillo]
+
+Para eliminar automáticamente el fichero normal después de crear el 
+fichero cifrado, añada simplemente la opción -w (wipe {limpiar}) 
+cuando encripte o firme un mensaje:
+     pgp -wes mensaje.txt identificador_des
+
+Para indicar que un fichero normal contiene texto ASCII, no binario, 
+y que debe ajustarse a los convenios de línea del destinatario, añada la 
+opción -t (texto) a las otras opciones:
+     pgp -seta mensaje.txt identificador_des
+
+Para visualizar el texto desencriptado en la pantalla (como con la 
+orden "more" {más} de Unix), sin grabarlo en un fichero, utilice la 
+opción -m (more) al desencriptar:
+     pgp -m fcifrado
+
+Para indicar que el texto desencriptado para el destinatario SOLO se 
+puede mostrar en la pantalla de este, sin grabarse en el disco, 
+añada la opción -m:
+     pgp -metas mensaje.txt identificador_des
+
+Para recuperar el nombre original del fichero normal al 
+desencriptar, añada la opción -p:
+     pgp -p fcifrado
+
+Para utilizar en modo filtro, como en Unix, leyendo de la entrada 
+estándar y escribiendo en la salida estándar, añada la opción -f:
+     pgp -festa identificador_des <fentrada >fsalida
+
+Para incluir identificadores de un fichero al encriptar un mensaje,
+utiliza la opción -@:
+     pgp -e fichero un_identificador -@masids.txt

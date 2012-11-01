@@ -1,0 +1,81 @@
+Things remaining to be done to ispell:
+
+	- It might be nice to support multiple personal dictionaries.  On
+	  the other hand, it's pretty easy to combine them with "cat".
+	- A small amount of string space could be saved if buildhash would
+	  combine strings with common suffixes (e.g., "and" could be stored
+	  as a pointer to the tail of "bland").
+	- (Pace Willisson) Pace's latest version of ispell compresses
+	  common digrams to reduce the size of the hash file, and stores
+	  shorter words in the dictionary entry itself.  (Since the digram
+	  compression also reduces word size, this is a big win).  He also
+	  improved startup time, at a slight running-time penalty, by
+	  eliminating the mass conversion of string indexes to pointers
+	  and just using the indexes as such whenever a string is accessed.
+	- (Peter Wan) Ispell should have a "server mode" for large sites, to
+	  get rid of the time needed to read in the dictionary.  On System V,
+	  this could be accomplished by having the first execution of ispell
+	  read the dictionary into a shared-memory region.  Later incarnations
+	  would then get the dictionary by just attaching to the region.
+	  One problem would be that the dictionary gets modified during
+	  the run, so you might still have to do a memory-to-memory copy
+	  after the attach.  The size of having two copies of the dictionary
+	  might prohibit this on many machines.  Another approach is a
+	  message-based "good.c server", but this too would have to deal
+	  with the possibility of modifying the dictionary.
+	- The findaffix script takes ridiculous amounts of time and disk
+	  space.  It desperately needs to be rewritten in C, which would
+	  also allow it to correctly support string characters and to
+	  suppress reporting of choices that are already in the affix file.
+	- Some of the following ideas require more flag bits in the
+	  dictionary.  Since there is only one bit remaining for most
+	  cases, I plan to use that bit as some sort of an indicator
+	  that more flag bits reside somewhere else.  This will be a
+	  kludge, but it will save some space.  Beware!  Don't plan on
+	  using that last flag bit for something else.
+	- (Ian Dall)  For some applications, it can be handy to allow
+	  multiple dictionary hash files.  This shouldn't be too hard, since
+	  there's already similar code to support the personal dictionary.
+	- (Not mine, but I've lost the name of the originator.)
+	  Some misspellings are common, but corrections will not ever
+	  be found by ispell's algorithm.  It would be nice to be able
+	  to explicitly specify misspelling/correction pairs for such
+	  words (e.g., "lite->light").
+	- Ispell has too much knowledge of particular text formatters
+	  (i.e., nroff and TeX) wired into it.  It would be nice if
+	  ispell were more flexible about this, so that it could be
+	  used with some of the other file formats (e.g., Rich Text
+	  Format) that are occasionally used with Unix.
+	- Several people, notably Peter Mutsaers, have asked if the
+	  affix file format could be extended to allow limited
+	  variables, so that you could specify things like
+	  "[AEIOU][DNL] > \2ING" to handle words like "pad->padding".
+	- Ispell should be smart enough to ignore hyphenation signs,
+	  such as the TeX \- hyphenation indicator.
+	- Since there can be two personal dictionaries, there should
+	  be a way to specify which dictionary a new word ("I"
+	  command) should be inserted into.
+	- For languages that form lots of compound words, such as
+	  German, munchlist should be smart enough to split compound
+	  words into their components when appropriate.
+	- (Jeff Edmonds) The personal dictionary should be able to
+	  remove certain words from the master dictionary, so that
+	  obscure words like "wether" wouldn't mask favorite typos.
+	- (Jeff Edmonds) It would be wonderful if ispell could correct
+	  inserted spaces such as "th e" for "the" or even "can not"
+	  for "cannot".
+	- Since ispell has dictionaries available to it, it is
+	  conceivable that it could automatically determine the
+	  language of a particular file by choosing the dictionary
+	  that produced the fewest spelling errors on the first few
+	  lines.
+	- It is long past the time when the ispell.1 manual page
+	  should have been broken up into components describing the
+	  various programs in the suite.
+	- If the -C flag is disabled, ispell should (at least
+	  optionally) use the "??" form to suggestion possible
+	  compound formations.
+	- The elisp interface should provide a way for ispell to
+	  return error messages to emacs, so that users don't get
+	  inexplicable failures when things like dictionary open
+	  failures happen.

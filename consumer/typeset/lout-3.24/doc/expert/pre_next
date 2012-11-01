@@ -1,0 +1,17 @@
+@Section
+   @Title { "@Next" }
+   @Tag { next }
+@Begin
+@PP
+next.sym @Index { @@Next symbol }
+The @@Next symbol returns its parameter
+plus one.  It is rather clever at working this out:  it hunts through
+the parameter from right to left, looking for a number to increment:
+@ID @Code {
+"@Next (3.99)"
+}
+has result {@Next (3.99)}.  If @@Next cannot find a digit inside
+its parameter, it is an error.  Roman numerals are handled by storing
+them in a database, as explained in Section {@NumberOf paras};
+@@Next will not increment a Roman numeral.
+@End @Section

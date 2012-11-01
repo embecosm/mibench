@@ -1,0 +1,45 @@
+@Section
+    @Title { Introduction }
+@Begin
+@PP
+Lout [1, 2] is a high-level language
+for document formatting, designed and implemented by the author.  The
+implementation, known as Basser Lout, is a fully operational production
+version written in C for the Unix operating system,
+@FootNote { Unix is a trademark of "AT&T" Bell Laboratories. }
+which translates Lout source code into PostScript,
+@FootNote { PostScript is a trademark of Adobe Systems, Incorporated. }
+a device-independent graphics rendering language accepted by many
+high-resolution output devices, including most laser printers.  Basser
+Lout is available free of charge [3].  It includes
+installation instructions, C source, seven standard packages, and complete
+documentation in the form of six technical reports and a manual page.
+@PP
+The Lout project arose out of the author's desire to bring to document
+formatting languages the elegance of expression found in programming
+languages like Algol-60 and Pascal.  This emphasis on expressiveness
+has produced an order of magnitude reduction in the cost of developing
+document formatting applications.  For example, an equation formatting
+application, which may be difficult or impossible to add to other
+systems, can be written in Lout in a few days.
+@PP
+When expert users can implement such applications quickly, non-experts
+benefit.  Although Lout itself provides only a small kernel of carefully
+chosen primitives, packages written in Lout and distributed with Basser
+Lout provide an unprecedented array of advanced features in a form
+accessible to non-expert users.  The features include rotation and scaling,
+fonts, paragraph and page breaking, displays and lists, floating figures
+and tables, footnotes, chapters and sections (automatically numbered),
+running page headers and footers, odd-even page layouts, automatically
+generated tables of contents, sorted indexes and reference lists,
+bibliographic and other databases (including databases of formats for
+printing references), equations, tables, diagrams, formatting of
+Pascal programs, and automatically maintained cross references.
+@PP
+This paper charts the evolution of Lout from conception in mid-1984 to the
+public release of Basser Lout in October 1991.  Lout is organized around
+four key concepts -- objects, definitions, galleys, and cross references --
+and they were developed in the order listed, so this paper will treat each
+in turn, discussing its design, implementation, problems, and
+prospects for further improvement.
+@End @Section

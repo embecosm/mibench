@@ -1,0 +1,3 @@
+#define VENDOR "ispell"
+#define LANGUAGE "English"
+#define ISPELL "ispell", "ispell", "-a", "-denglish"

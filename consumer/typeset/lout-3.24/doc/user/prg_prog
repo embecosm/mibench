@@ -1,0 +1,35 @@
+@Section
+   @Title { Embedding program text within program comments }
+   @Tag { cpp_prog }
+@Begin
+@PP
+The standard reference for the Eiffel language @Cite { $meyer1992eiffel }
+specifies that identifiers within comments may or should be enclosed
+in ` and ' so that they may be noticed and printed in an italic
+font:
+@ID @OneRow @Code @Verbatim {
+@ID @Eiffel {
+deposit(amount: REAL) is
+        -- deposit `amount' dollars
+}
+}
+produces
+@ID @OneRow @Eiffel {
+deposit(amount: REAL) is
+	-- deposit `amount' dollars
+}
+This has been generalized in Lout:  arbitrary text within an
+Eiffel comment between ` and ' will be treated as Eiffel text and
+printed accordingly.  Some other languages may also offer this
+feature:  see the fifth column of the table at the start of this
+chapter.  In principle the precise means of getting it could vary
+from language to language, but the languages available at the moment
+either do not have it at all, or else they use ` and ' like Eiffel.
+@PP
+On the subject of Eiffel, the Eiffel reference @Cite { $meyer1992eiffel }
+has some quite detailed style guidelines, and these have been closely
+followed in the implementation of the @Code "@Eiffel" symbol.  In
+particular, @Code "@Eiffel" prints dots larger than usual when they
+denote feature calls, as the example @OneCol @Eiffel { account.deposit(20) }
+shows.
+@End @Section

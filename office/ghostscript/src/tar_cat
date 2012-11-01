@@ -1,0 +1,45 @@
+#!/bin/sh
+# NOTE: DO NOT CHANGE THE FORMAT OF THIS FILE OR MOVE THE #END LINE.
+# Because of the brain-damaged Unix environment in which the only
+# language powerful enough to be reasonable for system building (Tcl)
+# isn't available on all platforms, I have to cobble together system tools
+# out of Tcl programs operating on scripts for less powerful interpreters.
+#	Note the names of the shared makefiles.
+version_mak=version.mak
+gs_mak=gs.mak
+lib_mak=lib.mak
+int_mak=int.mak
+jpeg_mak=jpeg.mak
+libpng_mak=libpng.mak
+zlib_mak=zlib.mak
+devs_mak=devs.mak
+generic_mak_list="${gs_mak} ${lib_mak} ${int_mak} ${jpeg_mak} ${libpng_mak} ${zlib_mak} ${devs_mak}"
+#	Note the names of the shared Unix makefiles.
+unixhead_mak=unixhead.mak
+unixtail_mak=unixtail.mak
+unix_end_mak=unix-end.mak
+#	Note the names of the per-platform makefiles.
+dgc_head_mak=dgc-head.mak
+dvx_head_mak=dvx-head.mak
+dvx_tail_mak=dvx-tail.mak
+ansihead_mak=ansihead.mak
+cc_head_mak=cc-head.mak
+gcc_head_mak=gcc-head.mak
+#END
+#	Note the names of the merged makefiles.
+dvx_gcc_mak=dvx-gcc.mak
+unixansi_mak=unixansi.mak
+unix_cc_mak=unix-cc.mak
+unix_gcc_mak=unix-gcc.mak
+#
+# Construct the merged makefiles.
+#
+cat ${version_mak} ${dgc_head_mak} ${dvx_head_mak} ${generic_mak_list} \
+  ${dvx_tail_mak} ${unix_end_mak} >${dvx_gcc_mak}
+cat ${version_mak} ${ansihead_mak} ${unixhead_mak} ${generic_mak_list} \
+  ${unixtail_mak} ${unix_end_mak} >${unixansi_mak}
+cat ${version_mak} ${cc_head_mak} ${unixhead_mak} ${generic_mak_list} \
+  ${unixtail_mak} ${unix_end_mak} >${unix_cc_mak}
+cat ${version_mak} ${gcc_head_mak} ${unixhead_mak} ${generic_mak_list} \
+  ${unixtail_mak} ${unix_end_mak} >${unix_gcc_mak}
+chmod +x ${dvx_gcc_mak} ${unixansi_mak} ${unix_cc_mak} ${unix_gcc_mak}

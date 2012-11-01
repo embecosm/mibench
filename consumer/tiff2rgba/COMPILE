@@ -1,0 +1,19 @@
+Compile Instructions
+--------------------
+1)  Change directories to ../tiff-v3.5.4.
+2)  Type "./configure" to configure the Makefile for your system.  Select
+    all default options.
+3)  Type "make".  This will create the executables used by the scripts. If
+    this doesn't work see the tiff-v3.5.4/README file for more details on
+    how to fix or modify the install process.
+
+NOTE:  This install process will create the executables that are used by
+the four different variants of tiff that are used in the MiBench suite.
+In other words, you only need to do this once.
+
+Clean Instructions
+------------------
+1)  Change directories to tiff-v3.5.4.
+2)  Type "make distclean".  This will delete post-compile files (i.e.
+    old executables, output, object files, etc...).
+

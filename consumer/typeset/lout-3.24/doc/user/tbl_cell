@@ -1,0 +1,97 @@
+@Section
+    @Title { Changing the appearance of cells }
+    @Tag { tbl_cell }
+@Begin
+@PP
+The @Code "@Cell" symbol offers a few options for changing the appearance
+cell.option @Index { cell options in tables }
+of entries placed in it.  Like all options, these
+appear immediately after the @Code "@Cell" symbol, with their values in braces:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+   aformat { @Cell paint { lightgrey } font { Italic } break { clines } A }
+{
+@Rowa A {
+IMPORTANT
+Do not throw stones at this notice
+}
+}
+}
+The result here is
+@CD
+@Tbl
+   aformat { @Cell paint { lightgrey } font { Italic } break { clines } A | @Cell B }
+{
+@Rowa A {
+IMPORTANT
+Do not throw stones at this notice
+}
+}
+with a light grey background, Italic font, and
+@Code "clines" paragraph breaking style.  The paint colour
+may be any colour from Section {@NumberOf colour}.  Another option,
+{@Code background}, allows an arbitrary object to be placed in the
+background of the cell, in front of any paint but behind the entry.
+@PP
+Later sections introduce other @Code "@Cell" options, for
+fixed-width columns, indented entries, margins, and rules.  It is also
+possible to combine other symbols from Lout with cell formatting, by
+placing them between the @Code "@Cell" symbol and its following letter,
+rotated.entries @Index { rotated entries in tables }
+like this:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    aformat { @Cell 90d @Rotate @S A | @Cell @B grey @Colour B }
+{
+@Rowa
+    A { Col A }
+    B { Col B }
+}
+}
+Think of the @Code "A" as standing for the value of the @Code "A"
+option of the @Code "@Rowa" symbol (which it does), and you'll see
+that this is just Lout's usual rule of symbols applying to the
+object that follows them.  The result here is
+@CD @Tbl
+    aformat { @Cell 90d @Rotate @S A | @Cell @B grey @Colour B }
+{
+@Rowa
+    A { Col A }
+    B { Col B }
+}
+In simple cases @Code "@B" is easier than {@Code "font { Bold }"};
+the latter is useful as a default value, as we will see in a moment.
+Note the difference between a coloured background, obtained with
+{@Code "paint"}, and a coloured entry, obtained using the @Code "@Colour"
+symbol.
+@PP
+@Code "@Tbl" offers many places where you can set cell options.  The meaning
+of the option is the same wherever you set it;
+what changes is the extent of its application.  Taking the @Code "paint"
+option as a representative example, the most specific place to set it
+is at a @Code "@Cell" symbol as above; then it affects only that cell
+in rows formatted using that format.  Alternatively,
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    apaint { lightgrey }
+    aformat { @Cell A | @Cell B }
+}
+will paint every cell in the {@Code "aformat"}.  And
+@ID @OneRow @Code @Verbatim {
+@Rowa
+    paint { lightgrey }
+    A { ... }
+}
+will paint every cell in a particular row.  To paint the entire table, use
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    paint { lightgrey }
+}
+And finally, there is a @Code "paint" option in the
+setup file (Section {@NumberOf tbl_setu}), which if set will paint every
+table in the document.  When a more general setting of an option is
+contradicted by a more specific setting (e.g. when @Code "@Tbl" has
+@Code "paint { lightgrey }" but some cell or row has
+{@Code "paint { nopaint }"}), the more specific setting applies.  For a
+precise description, see Section {@NumberOf tbl_summ}.
+@End @Section

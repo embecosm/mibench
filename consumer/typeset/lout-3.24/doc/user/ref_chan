@@ -1,0 +1,200 @@
+@Section
+    @Title { Changing the appearance of citations and the reference list }
+    @Tag { changeref }
+@Begin
+@PP
+By default, citations appear like this @Cite { $kingston1995lout.expert },
+and the reference list appears like the one at the end of this
+document, with the entries numbered, and sorted by their @Code "@Tag"
+options.  This section explains how to change all this, by setting
+options in the setup file.
+@PP
+For a general introduction to setup files and their options, see
+Section {@NumberOf setup}.  Here we just describe the setup
+file options that relate to references.  Here they are, with their
+default values:
+@ID @OneRow @Code {
+"@MakeReferences { Yes }"
+"@RefCiteStyle { [cite] }"
+"@RefCiteLabels { @RefNum }"
+"@RefNumbers { Arabic }"
+"@RefListFormat { Labels }"
+"@RefListLabels { [@RefNum] }"
+"@RefListTitle { references }"
+"@ChapRefListTitle { references }"
+"@RefListIndent { 0c }"
+"@RefListRightIndent { 0c }"
+"@RefListGap { 1.00v }"
+"@RefListFont { }"
+"@RefListBreak { }"
+"@RefListLabelWidth { 2.00f }"
+"@RefListSortKey { @Tag }"
+}
+makereferences.sym @Index { @Code "@MakeReferences" }
+Setting @Code "@MakeReferences" to @Code "No" will cause Lout to ignore
+all citation symbols and omit all reference lists.
+@PP
+@Code "@RefCiteStyle" and @Code "@RefCiteLabels" combine to
+refcitestyle.sym @Index { @Code "@RefCiteStyle" }
+determine the appearance of citations.  The result of each @Code "@Cite"
+symbol is the value of @Code "@RefCiteStyle" with the @Code "cite"
+symbol replaced by the object following the @Code "@Cite" symbol.  For
+example, the default value shown above encloses each citation in
+brackets.  The @Code "cite" symbol must appear exactly once within
+{@Code "@RefCiteStyle"}.
+@PP
+@Code "@RefCiteLabels" determines the appearance of each label within
+refcitelabels.sym @Index { @Code "@RefCiteLabels" }
+the citation.  Within it, the @Code "@RefNum" symbol will produce the
+number of the reference, and you may also use any of the options of the
+@Code "@Reference" symbol listed at the beginning of Section
+{@NumberOf entries}:
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { "@RefCiteLabels { @RefNum }" }
+    B { [3] }
+@Rowa
+    A { "@RefCiteLabels { @Label }" }
+    B { [Kin93] }
+@Rowa
+    A { "@RefCiteLabels { @Author, @Year }" }
+    B { [Jeffrey H. Kingston, 1993] }
+}
+The value of @Code "@RefCiteLabels" may be any object.  The @Code "@Label"
+symbol will produce the @Code "label" option of @Code "$" or @Code "@Ref"
+if there is one, rather than the @Code "@Label" option of the reference;
+this @Code "label" option is explained in Section {@NumberOf labelled}.
+@PP
+@Code "@RefNumbers" determines the kind of numbering produced by the
+refnumbers.sym @Index { @Code "@RefNumbers" }
+@Code "@RefNum" symbol used within @Code "@RefCiteLabels" above and
+@Code "@RefListLabels" below.  Its value may be {@Code Arabic},
+{@Code Roman}, {@Code UCRoman}, {@Code Alpha}, or {@Code UCAlpha}, as
+usual for numbering in Lout.  If you don't use {@Code "@RefNum"},
+@Code "@RefNumbers" has no effect.
+@PP
+The remaining eleven setup file options are all concerned with the
+appearance of the reference list.  The first, {@Code "@RefListFormat"},
+reflistformat.sym @Index { @Code "@RefListFormat" }
+determines the overall format of the list.  Here is what its four
+@NoCite { $strunk1979style } possible values do:
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col @OneCol B }
+    vmargin { 0.3v }
+{
+@Rowa
+    A { "@RefListFormat { NoLabels }" }
+    B {  @RefPrint strunk1979style }
+@Rowa
+@Rowa
+    A { "@RefListFormat { Labels }" }
+    B {  2f @Wide {{@NumberOf strunk1979style}.} | @RefPrint strunk1979style }
+@Rowa
+@Rowa
+    A { "@RefListFormat { DropLabels }" }
+    B {  {@NumberOf strunk1979style}. //1vx
+	 2f @Wide {} | @RefPrint strunk1979style
+      }
+@Rowa
+@Rowa
+    A { "@RefListFormat { InLabels }" }
+    B {  {@NumberOf strunk1979style}. &2s @RefPrint strunk1979style }
+}
+@Code "@RefListFormat" is not concerned with the appearance of the
+labels and references, only with where they appear.
+@PP
+@Code "@RefListLabels" determines the appearance of the labels in the
+reflistlabels.sym @Index { @Code "@RefListLabels" }
+reference list (and so has no effect if @Code "@RefListFormat" is
+{@Code "NoLabels"}).  It is a combination of @Code "@RefCiteStyle"
+and {@Code "@RefCiteLabels"}; you can use @Code "@RefNum" and all the
+options of @Code "@Reference" within it.  The default value,
+@ID @Code "@RefListLabels { @RefNum. }"
+produces a numbered reference list in the style of
+{@Code "@NumberedList"}.  Another useful value is
+@ID @Code "@RefListLabels { [@Label] }"
+which produces the @Code "@Label" option of the reference, or the
+@Code "label" option of the citation if there is one, enclosed in
+brackets.  If you do switch to non-numeric labels you will need to
+either use @Code "DropLabels" or else increase the
+@Code "@RefListLabelWidth" option described below.
+@PP
+@Code "@RefListTitle" determines the heading placed just before the
+reflisttitle.sym @Index { @Code "@RefListTitle" }
+reference list at the end of the document:
+@ID @Code "@RefListTitle { Further Reading }"
+Two special values, @Code "references" and {@Code "bibliography"},
+produce References and Bibliography in English and their equivalents
+in other languages.  @Code "@ChapRefListTitle" is the same as
+chapreflisttitle.sym @Index { @Code "@ChapRefListTitle" }
+{@Code "@RefListTitle"}, but applied to the reference list at the end
+of each chapter of a book when @Code "@ChapCite" is used.
+@PP
+{@Code "@RefListIndent"}, {@Code "@RefListRightIndent"}, and
+reflistindent.sym @Index { @Code "@RefListIndent" }
+reflistrightindent.sym @Index { @Code "@RefListRightIndent" }
+reflistgap.sym @Index { @Code "@RefListGap" }
+{@Code "@RefListGap"} determine the left indent, right indent, and gap
+between reference list items, analogously to the {@Code "indent"},
+{@Code "rightindent"}, and {@Code "gap"} options of the @Code "@List"
+symbol (Section {@NumberOf lists}).  @Code "@RefListFont" and
+@Code "@RefListBreak" determine the font and
+reflistfont.sym @Index { @Code "@RefListFont" }
+reflistbreak.sym @Index { @Code "@RefListBreak" }
+paragraph breaking style of the reference list.  For example,
+@ID @OneRow @Code {
+"@RefListFont { -2p }"
+"@RefListBreak { 1.2fx outdent }"
+}
+switches to a smaller size with outdented paragraphs (these work well
+with {@Code NoLabels}).  The empty default values produce the same
+font and break style as in the document as a whole.
+@PP
+@Code "@RefListLabelWidth" determines the distance from the left
+reflistlabelwidth.sym @Index { @Code "@RefListLabelWidth" }
+edge of the labels to the left edge of the references, when
+@Code "@RefListFormat" is @Code Labels or {@Code DropLabels} (it
+has no effect when @Code "@RefListFormat" is @Code NoLabels or
+{@Code "InLabels"}).  This is different to {@Code "@RefListIndent"},
+which determines the distance from the edge of the column to the
+left edge of the item.
+@PP
+Particular care is needed when @Code "@RefListFormat"
+is @Code Labels and the labels are non-numeric, for then if the
+labels are too wide they will overstrike the references.  The default
+value, {@Code 2.00f}, is twice the current font size.  It may be
+changed to any length (Section {@NumberOf objects}).  Regrettably,
+Lout is not clever enough to choose a good value by itself.
+@PP
+Finally, @Code "@RefListSortKey" determines the sorting key used when
+sort.ref @Index { sorting of reference lists }
+reflistsortkey.sym @Index { @Code "@RefListSortKey" }
+ordering the reference list.  The default value,
+@ID @Code "@RefListSortKey { @Tag }"
+sorts by tag; the other popular possibility is to sort by the
+@Code "@Label" option:
+@ID @Code "@RefListSortKey { @Label }"
+As usual @Code "@Label" will use the value of a @Code "label" option
+to the citation if there is one.  There is no way to sort by order of
+first appearance in the document.
+@PP
+@Code "@RefListSortKey" may be any sequence of words
+and options from the @Code "@Reference" symbol, but not @Code "@RefNum"
+for obvious reasons.  A possible more elaborate sorting key is
+@ID @Code "@RefListSortKey { @Author:@Year:@Tag }"
+sorting first by author, then by year within each author, and finally
+by tag.  However you
+are supposed to choose tags which have this effect, and that is more
+reliable since the modern practice is to put the authors' surnames
+after their given names.  There seems to be little practical use for
+sorting keys other than {@Code "@Tag"} and {@Code "@Label"}.
+@PP
+A colon within the @Code "@RefListSortKey" option is converted by Lout
+into a character smaller than any printable character, which ensures that
+the sorting is carried out separately on the three fields.  It is essential
+that the sort key uniquely identify the reference, because if two sort
+keys are equal only one of the references will be printed.  The easiest
+way to ensure this is to always include @Code "@Tag" in the sort key.
+@End @Section

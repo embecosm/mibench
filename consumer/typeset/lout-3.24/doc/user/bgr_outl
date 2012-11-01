@@ -1,0 +1,16 @@
+@Section
+   @Title { Outlined words }
+   @Tag { outline }
+@Begin
+@PP
+The @@Outline symbol
+outline.sym @Index { @@Outline symbol }
+causes all the words in the following object (which may be
+arbitrary as usual) to be printed in outline.  For example,
+@ID @Code @Verbatim { @Outline @Box 24p @Font HELP }
+produces
+@ID @Outline @Box 24p @Font HELP
+There is no way to control the thickness of the outline, and
+@@Outline has no effect in PDF output.  On the other hand,
+it works with any font likely to be used in practice.
+@End @Section

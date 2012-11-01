@@ -1,0 +1,141 @@
+@Section
+   @Title { Objects, symbols, options, and lengths }
+   @Tag { objects }
+@Begin
+@PP
+Lout is not concerned with the exact shapes of individual characters,
+only with the rectangular areas they occupy:
+@ID {
+@Box margin { 0c } B &
+@Box margin { 0c } i &
+@Box margin { 0c } o &
+@Box margin { 0c } l &
+@Box margin { 0c } o &
+@Box margin { 0c } g &
+@Box margin { 0c } y
+}
+When letters join together into a word, the result is a larger rectangle
+enclosing them all:
+@ID @Box margin { 0c } Biology
+When words join into lines we get even larger rectangles:
+@ID @Box margin { 0c } { Biology is the study of living things. }
+and so on up through paragraphs and columns to the largest rectangles,
+which are pages.  We call any such rectangle, whether made up of one
+character, one word, one line, one paragraph, one page, or anything
+object. @Index { object }
+else, an @I { object }.
+@PP
+We also often say, for example, `the object
+{@Code "@I { Hello world }"},' referring to a piece of Lout's input as
+an object.  This makes sense because we are anticipating the result
+produced, in this case the object @I { Hello world }.  It's true that if
+a line break happens to fall between @I Hello and @I { world }, the
+result of @Code "@I { Hello world }" is not a single rectangle.  We
+answer this by thinking of objects as existing before paragraph breaking
+rearranges them.
+@PP
+Not everything is an object, however.  @Code "@I" alone is not an object,
+merely a symbol with the potential of producing an object when given an
+object to work on.  To understand this, ask yourself what rectangle
+@Code "@I" alone could possibly represent:  there is no such rectangle.
+@PP
+It helps to imagine the assembly of objects taking place before your
+eyes.  Look at @Code Hello and imagine the objects H, e, l, l, o being
+assembled into the larger object Hello; look at @Code "Hello world"
+and imagine Hello and world being assembled into Hello world.  When
+looking at
+@ID @Code "@I { Hello world }"
+you need to imagine the @Code "@I" symbol consuming the following object,
+Hello world, and replacing it with the object @I { Hello world }.  Here
+is another example:
+@ID @Code "@CurveBox { Hello world }"
+The @Code "@CurveBox" symbol (Section {@NumberOf boxes}) consumes
+Hello world and replaces it with the object
+@ID @CurveBox { Hello world }
+This brings us to a basic principle of Lout:  @I { Where you can put
+one object, you can put any object }.  A few examples will show the
+vast range of possibilities opened up by this:
+@ID @Code "@CurveBox { @I Hello world }"
+produces
+@ID @CurveBox { @I Hello world }
+It doesn't bother @Code "@CurveBox" if one of the words inside
+it is in italics.  Next:
+@ID @Code "@I @CurveBox { Hello world }"
+produces
+@ID @I @CurveBox { Hello world }
+The object following @Code "@I" cannot be just @Code {"@CurveBox"},
+since that is not an object by itself (it needs to be applied to some
+object first).  So the object following @Code "@I" is
+@Code {"@CurveBox { Hello world }"}, and it is this that is consumed by
+@Code "@I" and modified.  The @Code "@I" symbol is happy to hunt
+through the object looking for words to italicize.  We could go on
+indefinitely in this way, producing
+@ID @CurveBox { @CurveBox Hello @CurveBox world }
+for example by {@Code "@CurveBox { @CurveBox Hello @CurveBox world }"}.
+@PP
+Symbols like @Code "@CurveBox" often have @I { options }, which are
+option. @Index { option }
+subsidiary symbols that modify the result.  For example, @Code "@CurveBox"
+has @Code "margin" and @Code "paint" options:
+@ID @OneRow @Code {
+"@CurveBox"
+"    margin { 0.5c }"
+"    paint { lightgrey }"
+"{ Hello world }"
+}
+Options come immediately after the main symbol, before any following
+object.  Each consists of the option name followed by the value we want
+the option to have, always enclosed in braces.  Setting out options on
+separate lines as we have done above makes them easy to see but is not
+compulsory (end of line and space are the same to Lout).  The result,
+naturally enough, is a curved box with a 0.5 centimetre margin around
+its contents, painted light grey:
+@ID @CurveBox
+    margin { 0.5c }
+    paint { lightgrey }
+{ Hello world }
+Options are optional:  if you leave out an option, Lout supplies a
+sensible @I default value for it.  Options may be given in any
+order.  They are a very useful way of adding flexibility to symbols
+without cluttering things up when they aren't needed.  They also help
+with learning:  you can learn the basic symbol first and worry about
+the options later.
+@PP
+Whenever a length is required, as in the @Code margin option above, it
+length. @Index { length }
+centimetres. @Index { centimetres }
+inches. @Index { inches }
+point.unit @Index { point (unit of measurement) }
+em.unit @Index { em (unit of measurement) }
+f.unit @Index { @Code f unit of measurement }
+s.unit @Index { @Code s unit of measurement }
+v.unit @Index { @Code v unit of measurement }
+units.of @Index { units of measurement }
+may be given using any one of the following seven units of measurement:
+@ID @OneRow @Tab
+    @Fmta { @Col @Code A ! @Col B }
+    vmargin { 0.5vx }
+{
+@Rowa A { c } B { Centimetres }
+@Rowa A { i } B { Inches ({@Code "1i"} = {@Code "2.54c"}) }
+@Rowa A { p } B { Points ({@Code "72p"} = {@Code "1i"}) }
+@Rowa A { m } B { Ems ({@Code "12m"} = {@Code "1i"}) }
+@Rowa A { f } B { @Code "1f" is the current font size }
+@Rowa A { s } B { @Code "1s" is the current width of a space character }
+@Rowa A { v } B { @Code "1v" is the current inter-line spacing }
+}
+The first four all define absolute distances and are strictly
+interchangeable.  It is traditional to measure font sizes in points; typical
+sizes are @Code "12p" and {@Code "10p"}, but fractional sizes are allowed.
+@PP
+If you use the @Code "f" unit, the length will depend on the current
+font size.  This can be very useful.  For example, the default value of
+the @Code "margin" option of @Code "@CurveBox" is @Code "0.3f" (0.3
+times the current font size).  If you use a large font, for example in
+an overhead transparency, you get a correspondingly large margin without
+having to ask for it.
+@PP
+The @Code "s" and @Code "v" units are less useful.  The @Code "v" unit
+is used within paragraph symbols (Section {@NumberOf paragraphs}) to
+ensure that the space between paragraphs widens with the inter-line spacing.
+@End @Section

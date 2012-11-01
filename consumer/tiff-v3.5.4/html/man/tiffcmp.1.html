@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML><HEAD><TITLE>Manpage of TIFFCMP</TITLE>
+</HEAD><BODY BGCOLOR=WHITE><FONT FACE="helvetica, sans, arial">
+<H1>TIFFCMP</H1>
+Section: User Commands  (1)<BR>Updated: September 26, 1994<BR><A HREF="#index">Index</A>
+<BR><A HREF="index.html">Return to Main Contents</A>
+<HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+tiffcmp - compare two
+<FONT SIZE="-1">TIFF</FONT>
+files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tiffcmp</B>
+
+[
+<I>options</I>
+
+]
+<I>file1.tif file2.tif</I>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>Tiffcmp</I>
+
+compares the tags and data in two files created according
+to the Tagged Image File Format, Revision 6.0.
+The schemes used for compressing data in each file
+are immaterial when data are compared-data are compared on
+a scanline-by-scanline basis after decompression.
+Most directory tags are checked; notable exceptions are:
+<I>GrayResponseCurve</I>,
+
+<I>ColorResponseCurve</I>,
+
+and
+<I>ColorMap</I>
+
+tags.
+Data will not be compared if any of the
+<I>BitsPerSample</I>,
+
+<I>SamplesPerPixel</I>,
+
+or
+<I>ImageWidth</I>
+
+values are not equal.
+By default,
+<I>tiffcmp</I>
+
+will terminate if it encounters any difference.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-l</B>
+
+<DD>
+List each byte of image data that differs between the files.
+<DT><B>-t</B>
+
+<DD>
+Ignore any differences in directory tags.
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>BUGS</H2>
+
+Tags that are not recognized by the library are not
+compared; they may also generate spurious diagnostics.
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="pal2rgb+1.html">pal2rgb</A></I>(1),
+
+<I><A HREF="tiffinfo+1.html">tiffinfo</A></I>(1),
+
+<I><A HREF="tiffcp+1.html">tiffcp</A></I>(1),
+
+<I><A HREF="tiffmedian+1.html">tiffmedian</A></I>(1),
+
+<I><A HREF="libtiff+3">libtiff</A></I>(3)
+
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">BUGS</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 01:31:47 GMT, November 23, 1999
+</BODY>
+</HTML>

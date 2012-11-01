@@ -1,0 +1,79 @@
+
+
+                 ****      nextispell     *******
+
+
+Release 0.5, 3rd of January 1995
+
+This is a new improved release of the former internationalspell, a
+spell service for the NeXT spell panel (like the one in Edit).
+
+The new release is quicker and more reliable.
+
+by Moritz Willers (willers@butp.unibe.ch (NeXTMail))
+   University of Berne
+   Institute for Theoretical Physics
+   Switzerland
+
+
+
+To install just type: configure.  To make TeX-style parsing be the
+default, use "configure -t".  (You will have to make two configure
+runs to get both TeX-style and nroff-style parsing.)  To install in
+the system-wide /LocalLibrary rather than in your personal ~/Library,
+you must be root, and use "configure -r" or "configure -r -t".
+
+
+You need to have ispell installed with the corresponding hash files to
+make use of this spell server (The spell server invokes ispell and
+communicates with it via a pipe).
+
+Major advantage:
+	based on ispell
+	    -> you can spellcheck any language!!
+Major disadvantage:
+	I can't think of any (no more)
+	except that it still isn't as fast as I would like it to be
+
+to be more specific:
+	- you can spellcheck in TeX mode
+	- you can spell any language you've got or produced a wordlist and a
+	  *.aff file for
+	- ispell can be a bit of a pain to install
+
+to be found at cs.orst.edu in /pub/next/binaries/util/nextispell.tar.gz
+
+Thanks to Detlev Droege and Geoff Kuenning for new ideas and thanks to
+Christoph Hauert for his ever patient help.
+
+
+		      ****************
+
+Internal:
+
+The spellserver gives ispell the text to correct bout 80 characters at
+a time now, this makes it faster now. However with a huge hash file,
+like the german one, ispell is still rather slow.  From time to time
+the program still hangs because the reading on a pipe would block. You
+will find this error in the Console.
+
+Modify the code as you like and if you come up with anything better
+let me know it.
+
+The configuration scripts haven't been improved yet.
+
+
+
+                ***  Some words about ispell: ***
+
+You can get ispell from (thanks to Geoff Kuenning)
+
+	ftp.cs.ucla.edu
+	/pub/ispell
+
+Current version:
+	
+International Ispell Version 3.1.00, 12/21/93
+
+Be sure to get ispell 3.1 and not 4.0 which is something completely
+different and doesn't work with my program.

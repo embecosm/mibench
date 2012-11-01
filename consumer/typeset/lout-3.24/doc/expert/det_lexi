@@ -1,0 +1,262 @@
+@Section
+  @Tag { lexical }
+  @Title { Lexical structure (words, spaces, symbols) and macros }
+@Begin
+@PP
+The input to Lout consists of a sequence of @I {textual units},
+textual.unit @Index {Textual unit }
+which may be
+either {@I{white spaces}},
+@I identifiers,
+@I delimiters,
+or
+@I {literal words}.  Each
+is a sequence of @I characters chosen from:
+letter @Index { Letter character }
+other @Index { Other character }
+quote @Index { Quote character }
+escape @Index { Escape character }
+comment.char @Index { Comment character }
+underscore.char @Index { Underscore character }
+@ID @Tab
+    vmargin { 0.5vx }
+    @Fmta { @Col A ! @Col B }
+{
+@Rowa A { letter      } B { @Code "@ab-zAB-Z_" }
+@Rowa A { white space } B { @I { space  formfeed  tab  newline } }
+@Rowa A { quote       } B { @Code "\"" }
+@Rowa A { escape      } B { @Code "\\" }
+@Rowa A { comment     } B { @Code "#" }
+@Rowa A { other       } B { @Code "!$%&'()*+,-./0123456789:;<=>?[]^`{|}~" }
+}
+Notice that @Code "@" and @Code "_" are classed as letters.  Basser
+Lout accepts the accented letters of the ISO-LATIN-1 character set
+(depending on how it is installed), and these are also classed as
+letters.  The ten digits are classed as `other' characters, and in
+fact the `other' class contains all 8-bit characters (except octal 0)
+not assigned to previous classes.
+@PP
+A @I {white space} is a sequence of one or more white space characters.
+white.space @Index { White space }
+formfeed @Index { Formfeed }
+space.f @Index { Space }
+ Lout treats the formfeed character exactly like the space character;
+it is useful for getting page breaks when printing Lout source code.
+@PP
+A @I delimiter is a sequence of one or more `other' characters which
+delimiter @Index { Delimiter }
+is the name of a symbol.  For example, @Code "{" and @Code "//" are
+delimiters.  When defining a delimiter, the name must be enclosed
+in quotes:
+@ID @Code {
+"def  \"^\"  { {}  ^&  {} }"
+}
+but quotes are not used when the delimiter is invoked.  A delimiter may
+have delimiters and any other characters adjacent, whereas identifiers
+may not be adjacent to letters or other identifiers.  The complete list
+of predefined delimiters is
+@ID @OneRow @Code {
+{
+      "/"
+  @JL "//"
+  @JL "^/"
+  @JL "^//"
+} |2.2cx {
+      "|"
+  @JL "||"
+  @JL "^|"
+  @JL "^||"
+} |2.2cx {
+      "&"
+  @JL "^&"
+} |2.2cx {
+      "&&"
+  @JL "{"
+  @JL "}"
+}
+}
+A longer delimiter like @Code "<=" will be recognised in
+preference to a shorter one like {@Code "<"}.
+@PP
+An @I identifier is a sequence of one or more letters which is the name of a
+identifier @Index { Identifier }
+symbol.  It is conventional but not essential to begin identifiers with
+{@Code "@"};  Basser Lout will print a warning message if it finds an
+unquoted literal word (see below) beginning with {@Code "@"}, since such
+words are usually misspelt identifiers.  The ten digits are not letters
+and may not appear in identifiers; and although the underscore character
+is a letter and may be used in identifiers, it is not conventional to
+do so.  The complete list of predefined identifiers is
+@ID @OneRow @Code {
+{     "@BackEnd"
+  @JL "@Background"
+  @JL "@Begin"
+  @JL "@BeginHeaderComponent"
+  @JL "@Break"
+  @JL "@Case"
+  @JL "@ClearHeaderComponent"
+  @JL "@Common"
+  @JL "@Char"
+  @JL "@CurrFace"
+  @JL "@CurrFamily"
+  @JL "@CurrLang"
+  @JL "@CurrYUnit"
+  @JL "@CurrZUnit"
+  @JL "@Database"
+  @JL "@End"
+  @JL "@EndHeaderComponent"
+  @JL "@Enclose"
+  @JL "@Filter"
+  @JL "@FilterErr"
+  @JL "@FilterIn"
+  @JL "@FilterOut"
+  @JL "@Font"
+  @JL "@ForceGalley"
+  @JL "@Galley"
+  @JL "@Graphic"
+  @JL "@HAdjust"
+  @JL "@HContract"
+  @JL "@HCover"
+  @JL "@HExpand"
+  @JL "@High"
+  @JL "@HLimited"
+  @JL "@HScale"
+} |4.4cx {
+      "@HShift"
+  @JL "@HSpan"
+  @JL "@Include"
+  @JL "@IncludeGraphic"
+  @JL "@Insert"
+  @JL "@KernShrink"
+  @JL "@Key"
+  @JL "@Language"
+  @JL "@LClos"
+  @JL "@LEnv"
+  @JL "@LInput"
+  @JL "@LVis"
+  @JL "@LUse"
+  @JL "@LinkSource"
+  @JL "@LinkDest"
+  @JL "@Meld"
+  @JL "@Merge"
+  @JL "@Minus"
+  @JL "@Moment"
+  @JL "@Next"
+  @JL "@NotRevealed"
+  @JL "@Null"
+  @JL "@OneCol"
+  @JL "@OneOf"
+  @JL "@OneRow"
+  @JL "@Open"
+  @JL "@Optimize"
+  @JL "@Outline"
+  @JL "@PAdjust"
+  @JL "@PageLabel"
+  @JL "@PlainGraphic"
+  @JL "@Plus"
+  @JL "@PrependGraphic"
+} |4.4cx {
+      "@RawVerbatim"
+  @JL "@Rotate"
+  @JL "@Rump"
+  @JL "@Scale"
+  @JL "@SetColor"
+  @JL "@SetColour"
+  @JL "@SetHeaderComponent"
+  @JL "@Space"
+  @JL "@StartHSpan"
+  @JL "@StartHVSpan"
+  @JL "@StartVSpan"
+  @JL "@SysDatabase"
+  @JL "@SysInclude"
+  @JL "@SysIncludeGraphic"
+  @JL "@SysPrependGraphic"
+  @JL "@Tag"
+  @JL "@Tagged"
+  @JL "@Target"
+  @JL "@Underline"
+  @JL "@Use"
+  @JL "@VAdjust"
+  @JL "@VContract"
+  @JL "@VCover"
+  @JL "@Verbatim"
+  @JL "@VExpand"
+  @JL "@VLimited"
+  @JL "@VScale"
+  @JL "@VShift"
+  @JL "@VSpan"
+  @JL "@Wide"
+  @JL "@Yield"
+  @JL "@YUnit"
+  @JL "@ZUnit"
+}
+}
+plus the names of the parameters of @@Moment.  The symbols @@LClos, @@LEnv,
+lclos @Index { @@LClos symbol }
+lenv @Index { @@LEnv symbol }
+linput @Index { @@LInput symbol }
+lvis @Index { @@LVis symbol }
+luse @Index { @@LUse symbol }
+@@LInput, @@LVis and @@LUse appear in cross reference databases generated
+by Lout and are not for use elsewhere.
+@PP
+A sequence of characters which is neither a white space, an identifier, nor a
+delimiter, is by default a @I {literal word}, which means that it will
+word @Index { Word }
+literal.word @Index { Literal word }
+quoted.word @Index { Quoted word }
+pass through Lout unchanged.  An arbitrary sequence of characters
+enclosed in double quotes, for example @Code "\"{  }\"", is also a
+literal word.  Space characters may be included, but not tabs or
+newlines.  There are special character sequences, used only between
+quotes, for obtaining otherwise inaccessible characters:
+@ID @Tab
+   vmargin { 0.5vx }
+   @Fmta { @Col A ! @Col B }
+{
+@Rowa A { @Code "\\\""   } B { produces @Code "\"" }
+@Rowa A { @Code "\\\\"   } B { "\\" }
+@Rowa A { @Code "\\ddd"  } B { the character whose ASCII code is }
+@Rowa A {                } B { the up to three digit octal number {@Code ddd} }
+}
+So, for example, @Code "\"\\\"@PP\\\"\"" produces {@Code "\"@PP\""}.
+@PP
+When the comment character
+comment @Index { Comment }
+@Code "#" is encountered, everything from
+that point to the end of the line is ignored.  This is useful for
+including reminders to oneself, like this:
+@ID @OneRow @Code {
+"# Lout user manual"
+"# J. Kingston, June 1989"
+}
+for temporarily deleting parts of the document, and so on.
+@PP
+@I Macros
+macro @Index { Macro }
+provide a means of defining symbols which stand for a
+sequence of textual units rather than an object.  For example, the macro
+definition
+@ID @Code {
+"macro  @PP  {  //1.3vx  2.0f @Wide  &0i }"
+}
+makes Lout replace the symbol @Code "@PP" by the given textual units
+before assembling its input into objects.  A similar macro to this
+one is used to separate the paragraphs of the present document.  The
+enclosing braces and any spaces adjacent to them are dropped, which can
+be a problem:  @Code "@PP2i" has result {@Code "//1.3vx 2.0f @Wide &0i2i"}
+which is erroneous.
+@PP
+The meaning of symbols used within the body of a macro is determined by
+where the macro is defined, not by where it is used.  Due to implementation
+problems, @@Open symbols will not work within macros.  Named and body
+parameters will work if the symbol that they are parameters of is also
+present.  There is no way to get a left or right brace into the body of
+a macro without the matching brace.
+@PP
+Macros may be nested within other definitions and exported, but they may
+not be parameters.  They may not have parameters or nested definitions
+of their own, and consequently a preceding @Code export clause (Section
+{@NumberOf visibility}) would be pointless; however, an @Code import
+clause is permitted.
+@End @Section

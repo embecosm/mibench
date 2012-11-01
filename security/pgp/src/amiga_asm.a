@@ -1,0 +1,152 @@
+; 68000.s for SAS/asm v6.x
+; register parameters, small code/small data model
+
+        SECTION code
+
+        XREF    _global_precision
+
+; r1 = r1 + r2 + carry
+; boolean P_ADDC(unitptr r1, unitptr r2, boolean carry)
+; D0.B           A0          A1          D0.B
+
+        XDEF    _P_ADDC
+        XDEF    @P_ADDC
+_P_ADDC:
+        move.l  4(SP),a0
+        move.l  8(SP),a1
+        move.l  12(SP),d0
+@P_ADDC:
+        move.l  d2,-(sp)
+        move.b  d0,d1
+        sne     d1
+        moveq.l #0,d2
+        move.w  _global_precision(a4),d2
+        asl.l   #2,d2
+        add.l   d2,a0
+        add.l   d2,a1
+        asr.l   #2,d2
+        subq.l  #1,d2
+        asr.b   #1,d1
+add_loop:
+        addx.l  -(a1),-(a0)
+        dbf     d2,add_loop
+        scs     d0
+        move.l  (sp)+,d2
+        rts
+
+; r1 = r1 - r2 - borrow
+; boolean P_SUBB(unitptr r1, unitptr r2, boolean borrow)
+; D0.B           A0          A1          D0.B
+
+        XDEF    _P_SUBB
+        XDEF    @P_SUBB
+_P_SUBB:
+        move.l  4(SP),a0
+        move.l  8(SP),a1
+        move.l  12(SP),d0
+@P_SUBB:
+        move.l  d2,-(sp)
+        move.b  d0,d1
+        sne     d1
+        moveq.l #0,d2
+        move.w  _global_precision(a4),d2
+        asl.l   #2,d2
+        add.l   d2,a0
+        add.l   d2,a1
+        asr.l   #2,d2
+        subq.l  #1,d2
+        asr.b   #1,d1
+sub_loop:
+        subx.l  -(a1),-(a0)
+        dbf     d2,sub_loop
+        scs     d0
+        move.l  (sp)+,d2
+        rts
+
+; r1 = r1 << 1 | carry;
+; boolean P_ROTL(unitptr r1, boolean carry)
+; D0.B           A0          D0.B
+
+        XDEF    _P_ROTL
+        XDEF    @P_ROTL
+_P_ROTL:
+        move.l  4(SP),a0
+        move.l  8(SP),d0
+@P_ROTL:
+        move.l  d2,-(sp)
+        move.b  d0,d1
+        sne     d1
+        moveq.l #0,d2
+        move.w  _global_precision(a4),d2
+        asl.l   #2,d2
+        add.l   d2,a0
+        asr.l   #1,d2
+        subq.l  #1,d2
+        asr.b   #1,d1
+rol_loop:
+        roxl.w  -(a0)
+        dbf     d2,rol_loop
+        scs     d0
+        move.l  (sp)+,d2
+        rts
+
+        XDEF    _P_SETP
+        XDEF    @P_SETP
+_P_SETP:
+@P_SETP:
+        rts
+
+
+;********************************************************************
+; P_SMUL copied from the sun3 mc68020.s and modified RKNOP 940612
+;  P_SMUL(*a,*b,x) performs a+=b*x.  Pointers are to LSB despite
+;                                     Motorola byte ordering
+;********************************************************************
+
+        IFD _M68020
+
+                XDEF     _P_SMUL
+                XDEF     @P_SMUL
+
+_P_SMUL:
+                move.l  4(SP),a0
+                move.l  8(SP),a1
+                move.l  12(SP),d0
+@P_SMUL:
+                tst.l   d0                      ; test to speed multiplies by 0
+                beq.b   .exit
+
+                movem.l d2-d5,-(sp)             ;Save registers
+
+                move.l  d0,d1                   ; &a in a0, &b in a1, x in d0
+                move.w  _global_precision(a4),d5 ;longword count
+
+                subq.w  #2,d5                   ; first longword not handled in loop
+                clr.l   d4                      ; Clear d4 so we have a 0 for adding X-bit later
+
+                move.l  (a1),d2                 ; d2 has lower byte of product
+                mulu.l  d1,d3:d2                ; d3 has carry (high byte of product)
+                add.l   d2,(a0)                 ; accumulate
+
+                tst.w   d5                      ;This code is needed if global_precision<2
+                blt.b   .SMUL2                  ; only one longword?
+
+.SMUL1          move.l  -(a0),d0                ; Predecrement 'cause a0 started pointing at LSB
+                addx.l  d3,d0                   ; accumulate carry and X-bit
+                move.l  -(a1),d2
+                mulu.l  d1,d3:d2
+                addx.l  d4,d3                   ;add X-bit to carry
+                add.l   d2,d0                   ;accumulate
+                move.l  d0,(a0)
+                dbf     d5,.SMUL1               ;loop until ((--d5)==-1)
+
+.SMUL2          addx.l  d4,d3                   ; add X-bit to carry
+                move.l  d3,-(a0)                ; And put that in the highest byte of (a0)
+
+                movem.l (sp)+,d2-d5             ;restore registers saved earlier
+.exit           rts
+
+
+        ENDC ; _M68020
+
+        END

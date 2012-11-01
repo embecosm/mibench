@@ -1,0 +1,84 @@
+@Section
+    @Title { Cell width and height }
+    @Tag { tbl_widt }
+@Begin
+@PP
+Lout is quite good a choosing suitable widths for cells.  It leaves
+narrow cells at their natural width, then uses paragraph breaking to
+reduce the wider cells to a common width which is as large as
+the available space allows:
+@QD @OneRow @Tbl
+    aformat { @Cell @I A | @Cell B | @Cell C }
+{
+@Rowa
+    A { Acacia }
+    B {
+Shrub or small tree with grey-green foliage and brilliant
+yellow blossom in late winter.
+}
+    C {
+Distributed widely throughout Australia except in the most arid
+parts; many varieties.
+}
+}
+This usually looks good, but if you need something else, there is
+the @Code width option:
+@ID @OneRow @Code "@Cell width { 3c }"
+Here we have asked for a cell width of three centimetres; this includes
+the cell margins.  When using @Code width to fine-tune the appearance of
+a table wide enough to require paragraph breaking, it is best to use
+@Code width to make cells narrower, not wider.
+@PP
+Regrettably, there is no way to request that several cells in a row be
+given a common width equal to the width of the widest.  One simple way to
+approximate this is to give these cells the same @Code width value.  The
+@Code width option also has a special value, {@Code "expand"}.  All
+cells with @Code "width { expand }" are assigned a common width
+expand.cell.width @Index { @Code expand cell width in tables }
+equal to the maximum amount permitted by the available space.  For example,
+@ID @OneRow @Code @Verbatim {
+@QuotedDisplay @Tbl
+    width { expand }
+    paint { lightgrey }
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { 23.56 }
+    B { 98.76 }
+    C { 65.00 }
+}
+}
+has result
+@QuotedDisplay @Tbl
+    width { expand }
+    paint { lightgrey }
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { 23.56 }
+    B { 98.76 }
+    C { 65.00 }
+}
+We have used our usual trick of making the option apply to several cells
+by moving it to a more general level, in this case to {@Code "@Tbl"}.
+The available space can be reduced using the @Code "@Wide" symbol; if
+we replace @Code "@QuotedDisplay @Tbl" in the example above with
+@ID @OneRow @Code "@CentredDisplay 4i @Wide @Tbl"
+the result will be
+@CentredDisplay 4i @Wide @Tbl
+    width { expand }
+    paint { lightgrey }
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { 23.56 }
+    B { 98.76 }
+    C { 65.00 }
+}
+with the total table width reduced to four inches.
+@PP
+There is an analogous @Code height option which makes a cell take on
+a particular fixed height, again including margins.  Make sure there
+is enough height in the cell to hold its entry when you use this
+option.  The @Code "expand" value is not available for height.
+@End @Section

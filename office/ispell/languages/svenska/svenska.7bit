@@ -1,0 +1,396 @@
+
+wordchars [a-z\345\344\366] [A-Z\305\304\326]
+
+defstringtype "ascii" "nroff" ".txt" ".doc" ".asc"
+
+#
+# Alternate form for NeXTSTEP charset (guesses by GHK; may need correction)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+
+#altstringchar \351 e
+#altstringchar \311 E
+
+suffixes
+
+flag \002:
+  .  >  "n"
+  .  >  "ns"
+flag \003:
+  .  >  "s"
+flag \004:
+  .  >  -"a","or"
+  .  >  -"a","orna"
+  .  >  -"a","ornas"
+  .  >  -"a","ors"
+flag \005:
+  .  >  "es"
+flag \006:
+  .  >  "esen"
+  .  >  "esens"
+flag \007:
+  .  >  -"um","an"
+  .  >  -"um","ans"
+flag \010:
+  .  >  -"us","i"
+  .  >  -"us","is"
+flag \016:
+  .  >  -"o","i"
+  .  >  -"o","is"
+flag \017:
+  .  >  "e"
+flag \020:
+  .  >  "ar"
+  .  >  "arna"
+  .  >  "arnas"
+  .  >  "ars"
+flag \021:
+  .  >  "en"
+  .  >  "ens"
+flag \022:
+  .  >  "a"
+flag \023:
+  .  >  "are"
+  .  >  "ast"
+flag \024:
+  .  >  "ares"
+  .  >  "aste"
+  .  >  "astes"
+flag \025:
+  .  >  "tt"
+flag \026:
+  .  >  -"d","tt"
+flag \027:
+  .  >  -"dd","tt"
+flag \030:
+  .  >  -"d","t"
+flag \031:
+  .  >  -"n","t"
+flag \032:
+  .  >  "ma"
+  .  >  "mare"
+  .  >  "mares"
+  .  >  "mas"
+  .  >  "mast"
+  .  >  "maste"
+  .  >  "mastes"
+  .  >  "me"
+  .  >  "mes"
+flag \033:
+  .  >  -"el","la"
+  .  >  -"el","lare"
+  .  >  -"el","lares"
+  .  >  -"el","las"
+  .  >  -"el","last"
+  .  >  -"el","laste"
+  .  >  -"el","lastes"
+  .  >  -"el","le"
+  .  >  -"el","les"
+flag \034:
+  .  >  -"er","ra"
+  .  >  -"er","rare"
+  .  >  -"er","rares"
+  .  >  -"er","ras"
+  .  >  -"er","rast"
+  .  >  -"er","raste"
+  .  >  -"er","rastes"
+  .  >  -"er","re"
+  .  >  -"er","res"
+flag \035:
+  .  >  -"en","na"
+  .  >  -"en","nare"
+  .  >  -"en","nares"
+  .  >  -"en","nas"
+  .  >  -"en","nast"
+  .  >  -"en","naste"
+  .  >  -"en","nastes"
+  .  >  -"en","ne"
+  .  >  -"en","nes"
+flag \036:
+  .  >  -"a","es"
+flag \037:
+  .  >  -"a","e"
+flag !:
+  .  >  "re"
+  .  >  "res"
+  .  >  "st"
+  .  >  "ste"
+  .  >  "stes"
+flag $:
+  .  >  -"re","st"
+  .  >  -"re","sta"
+  .  >  -"re","stas"
+  .  >  -"re","ste"
+  .  >  -"re","stes"
+flag %:
+  .  >  -"re","erst"
+  .  >  -"re","ersta"
+  .  >  -"re","erstas"
+  .  >  -"re","erste"
+  .  >  -"re","erstes"
+flag &:
+  .  >  -"a","s"
+flag ':
+  .  >  -"a",-
+flag (:
+  .  >  "nde"
+  .  >  "ndes"
+flag ):
+  .  >  "d"
+  .  >  "des"
+  .  >  "ds"
+flag +:
+  .  >  "de"
+flag /:
+  .  >  "er"
+  .  >  "ers"
+flag 0:
+  .  >  -"a","d"
+  .  >  -"a","da"
+  .  >  -"a","das"
+  .  >  -"a","de"
+  .  >  -"a","des"
+  .  >  -"a","ds"
+flag 1:
+  .  >  -"a","t"
+  .  >  -"a","ts"
+flag 2:
+  .  >  -"ma","s"
+flag 3:
+  .  >  -"ma","d"
+  .  >  -"ma","da"
+  .  >  -"ma","das"
+  .  >  -"ma","de"
+  .  >  -"ma","des"
+  .  >  -"ma","ds"
+  .  >  -"ma","t"
+  .  >  -"ma","ts"
+  .  >  -"ma",-
+flag 4:
+  .  >  -"na","d"
+  .  >  -"na","da"
+  .  >  -"na","das"
+  .  >  -"na","de"
+  .  >  -"na","des"
+  .  >  -"na","ds"
+  .  >  -"na","t"
+  .  >  -"na","ts"
+flag 5:
+  .  >  -"da","t"
+  .  >  -"da","ts"
+flag 6:
+  .  >  -"da","tt"
+  .  >  -"da","tts"
+flag 7:
+  .  >  -"a","ta"
+  .  >  -"a","tas"
+  .  >  -"a","te"
+  .  >  -"a","tes"
+flag 8:
+  .  >  -"de","t"
+  .  >  -"de","ts"
+  .  >  -"e","a"
+  .  >  -"e","as"
+flag 9:
+  .  >  "ern"
+  .  >  "erns"
+flag ;:
+  .  >  "as"
+flag <:
+  .  >  "tts"
+flag =:
+  .  >  "ende"
+  .  >  "endes"
+flag ?:
+  .  >  "dd"
+  .  >  "dda"
+  .  >  "ddas"
+  .  >  "dde"
+  .  >  "ddes"
+  .  >  "dds"
+flag @:
+  .  >  -"a","it"
+flag A:
+  .  >  -"a","en"
+  .  >  -"a","ens"
+  .  >  -"a","et"
+flag B:
+  .  >  -"a","its"
+  .  >  -"a","na"
+  .  >  -"a","nas"
+  .  >  -"a","ne"
+  .  >  -"a","nes"
+flag C:
+  .  >  -"it","en"
+  .  >  -"it","ens"
+  .  >  -"it","et"
+flag D:
+  .  >  -"it","na"
+  .  >  -"it","nas"
+  .  >  -"it","ne"
+  .  >  -"it","nes"
+flag E:
+  .  >  -"it","e"
+  .  >  -"it","es"
+flag F:
+  .  >  -"it","a"
+  .  >  -"it","as"
+flag G:
+  .  >  -"e","ar"
+  .  >  -"e","arna"
+  .  >  -"e","arnas"
+  .  >  -"e","ars"
+flag H:
+  .  >  -"s","des"
+  .  >  -"s","ts"
+flag I:
+  .  >  -"s","d"
+  .  >  -"s","de"
+  .  >  -"s","ds"
+  .  >  -"s","t"
+flag J:
+  .  >  -"s","ndes"
+flag K:
+  .  >  -"s","nde"
+flag L:
+  .  >  "da"
+  .  >  "dande"
+  .  >  "dandes"
+  .  >  "das"
+  .  >  "der"
+flag M:
+  .  >  -"dje",-
+flag N:
+  .  >  -"en","a"
+  .  >  -"en","as"
+  .  >  -"n","ts"
+flag O:
+  .  >  -"el","lar"
+  .  >  -"el","larna"
+  .  >  -"el","larnas"
+  .  >  -"el","lars"
+flag P:
+  .  >  -"er","rar"
+  .  >  -"er","rarna"
+  .  >  -"er","rarnas"
+  .  >  -"er","rars"
+flag Q:
+  .  >  -"en","nar"
+  .  >  -"en","narna"
+  .  >  -"en","narnas"
+  .  >  -"en","nars"
+flag R:
+  .  >  -"en","nen"
+  .  >  -"en","nens"
+flag S:
+  .  >  -"mel","lar"
+  .  >  -"mel","larna"
+  .  >  -"mel","larnas"
+  .  >  -"mel","lars"
+flag T:
+  .  >  -"mer","rar"
+  .  >  -"mer","rarna"
+  .  >  -"mer","rarnas"
+  .  >  -"mer","rars"
+flag U:
+  .  >  "men"
+  .  >  "mens"
+flag V:
+  .  >  "mar"
+  .  >  "marna"
+  .  >  "marnas"
+  .  >  "mars"
+flag W:
+  .  >  -"e","s"
+  .  >  -"e",-
+flag X:
+  .  >  -"e","n"
+  .  >  -"e","ns"
+flag Y:
+  .  >  "erna"
+  .  >  "ernas"
+flag Z:
+  .  >  -"er","rer"
+  .  >  -"er","rerna"
+  .  >  -"er","rernas"
+  .  >  -"er","rers"
+flag _:
+  .  >  -"el","ler"
+  .  >  -"el","lerna"
+  .  >  -"el","lernas"
+  .  >  -"el","lers"
+flag `:
+  .  >  "et"
+  .  >  "ets"
+flag a:
+  .  >  "r"
+flag b:
+  .  >  "rna"
+  .  >  "rnas"
+  .  >  "rs"
+flag c:
+  .  >  "t"
+flag d:
+  .  >  "ts"
+flag e:
+  .  >  -"um","et"
+  .  >  -"um","ets"
+flag f:
+  .  >  -"um","er"
+  .  >  -"um","erna"
+  .  >  -"um","ernas"
+  .  >  -"um","ers"
+flag g:
+  .  >  -"a","er"
+flag h:
+  .  >  -"a","erna"
+  .  >  -"a","ernas"
+  .  >  -"a","ers"
+flag i:
+  .  >  -"y","ies"
+flag j:
+  .  >  -"us","er"
+  .  >  -"us","erna"
+  .  >  -"us","ernas"
+  .  >  -"us","ers"
+flag k:
+  .  >  -"e","na"
+  .  >  -"e","nas"
+flag l:
+  .  >  -"el","let"
+  .  >  -"el","lets"
+flag m:
+  .  >  -"el","len"
+  .  >  -"el","lens"
+flag n:
+  .  >  -"er","ret"
+  .  >  -"er","rets"
+flag o:
+  .  >  -"er","ren"
+  .  >  -"er","rens"
+flag p:
+  .  >  -"en","net"
+  .  >  -"en","nets"
+flag q:
+  .  >  -"mer","ren"
+  .  >  -"mer","rens"
+  .  >  -"mer","ret"
+  .  >  -"mer","rets"
+flag r:
+  .  >  "met"
+  .  >  "mets"
+flag s:
+  .  >  "na"
+  .  >  "nas"
+flag t:
+  .  >  -"um","a"
+  .  >  -"um","as"
+flag u:
+  .  >  -"on","a"
+  .  >  -"on","as"
+flag v:
+  .  >  -"en","ina"
+  .  >  -"en","inas"
+flag w:
+  .  >  "sen"
+  .  >  "sens"

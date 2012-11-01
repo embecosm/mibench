@@ -1,0 +1,208 @@
+@Section
+    @Tag { dia_geom }
+    @Title { Expert usage:  numbers, lengths, angles, and points }
+@Begin
+@PP
+@@Diag has many options whose values contain lengths, angles, and
+points.  Options such as @Code margin and {@Code vsize}, which affect the
+size or appearance of the base of a node, may contain only the kinds of
+lengths described in Section {@NumberOf objects}; but in all other cases
+arbitrarily complex algebraic expressions may be used to specify the
+values.
+@PP
+The usual mathematical operations may be applied to numbers, angles, and
+lengths:
+@ID @Code "2.0f + 3.0f * sin { 30d }"
+is a valid length.  Since this is just ordinary algebra on real numbers,
+the unsurprising details are deferred to the summary
+(Section {@NumberOf dia_summ}).  Grouping is always done with braces,
+never parentheses.
+@PP
+More interesting are the geometrical symbols that @@Diag provides.  The
+most fundamental is not a symbol at all:  two lengths side by side define
+a point.  For example,
+@ID @Code "xsize  ysize * 0.5"
+within an outline is the point at the far right of the base, halfway
+up.
+@PP
+There are @Code "++" and @Code "--" symbols for vector addition and
+subtraction of two points, and @Code "**" for multiplication by a
+scalar.  For example,
+@ID @Code "A@CTR ++ { 1.0f 0 }"
+is the point @Code 1f to the right of {@Code "A@CTR"}.  It is a good idea
+to distinguish between @I { absolute points }, like {@Code "A@CTR"}
+and @Code "0.5,1", which denote fixed positions on the page, and
+@I { relative points }, like {@Code "1.0f 0"}, which serve as offsets
+from absolute points.  The difference of two absolute points is a relative
+point; adding two absolute points gives an unpredictable result because
+it depends on the origin of the coordinate system.  However, the expression
+@ID @Code "P1 ** x ++ P2 ** {1 - x}"
+is safe for any two absolute points {@Code P1} and {@Code P2} and any
+number {@Code x}; it produces a point on the line through the two
+points.
+@PP
+These remarks on safety do not apply within the @Code outline option of
+{@Code "@Node"}, because there the coordinate system is clearly
+specified.  Vector operations, with the aid of a few well-chosen tags,
+can greatly simplify the production of outlines:
+@ID {
+@Code {
+"@Node"
+"   outline {"
+"      SB:: {0 ysize} ** 0.4"
+"      ST:: {0 ysize} ** 0.6"
+"      HB:: {xsize 0} ** 0.7"
+"      SB"
+"      SB ++ HB"
+"      HB"
+"      xsize  ysize * 0.5"
+"      HB ++ {0 ysize}"
+"      HB ++ ST"
+"      ST"
+"      SB"
+"   }"
+"   paint { grey }"
+"{ 6c @Wide 2c @High }"
+}
+||7ct
+@Diag {
+@ShowTags @Node
+   outline {
+      SB:: {0 ysize} ** 0.4
+      ST:: {0 ysize} ** 0.6
+      HB:: {xsize 0} ** 0.7
+      SB
+      SB ++ HB
+      HB
+      xsize  ysize * 0.5
+      HB ++ {0 ysize}
+      HB ++ ST
+      ST
+      SB
+   }
+   paint { grey }
+{ 6c @Wide 2c @High }
+}
+}
+But absolute sums like @Code "SB ++ HB" are not safe
+in link paths and stray options like {@Code "alabelpos"}.
+@PP
+Sometimes it is useful to define tags
+which are not wanted afterwards and are better forgotten.  For
+this there is the @Code ":=" symbol, which works in much the same
+way as @Code "::" except that the tag is forgotten after the outline
+or path option ends.  The value assigned does not have to be a point, it
+can be a length or angle, or even a sequence of values.  It is
+permissible to change the value assigned to a tag by reassigning.
+@PP
+Two very useful symbols, {@Code angleto} and {@Code atangle}, bring
+angleto. @Index { @Code angleto symbol in @Code "@Diag" }
+atangle. @Index { @Code atangle symbol in @Code "@Diag" }
+angles into the algebra.  The {@Code angleto} symbol finds the angle
+from one point to another.  For example,
+@ID @Code "SB angleto ST"
+in the outline above would produce {@Code 90d}.  The @Code atangle symbol
+finds the point at a given length and angle from the origin.  For example,
+@ID @Code "1.4142f atangle 45d"
+is the point {@Code "1f 1f"}, and
+@ID @Code "B@NE  ++ 2f atangle 115d"
+is the point @Code 2f from {@Code "B@NE"} to its northwest.
+@PP
+There is a @Code prev symbol, used only within {@Code outline} and
+prev. @Index { @Code prev symbol in @Code "@Diag" }
+{@Code path}, which returns the previous point on the outline or
+path, ignoring points within {@Code "[]"}.  It makes relative movements
+very easy:
+@ID {
+@Code {
+"   outline {"
+"      0 0"
+"      { 2c atangle 30d }"
+"      prev ++ { 2c atangle 90d }"
+"      prev ++ { 2c atangle 150d }"
+"      prev ++ { 2c atangle 210d }"
+"      prev ++ { 2c atangle 270d }"
+"      0 0"
+"   }"
+}
+||7ct
+@Diag { ||2.5c
+@Node
+   outline {
+      0 0
+      { 2c atangle 30d }
+      prev ++ { 2c atangle 90d }
+      prev ++ { 2c atangle 150d }
+      prev ++ { 2c atangle 210d }
+      prev ++ { 2c atangle 270d }
+      0 0
+   }
+{ 4c @Wide 4c @High }
+}
+}
+This example is rather naughty because the outline does not grow and
+shrink with the base as it should.  Such outlines, while tempting, are
+always regretted later.
+@PP
+There are {@Code xcoord} and {@Code ycoord} symbols for finding the
+xcoord. @Index { @Code xcoord symbol in @Code "@Diag" }
+ycoord. @Index { @Code ycoord symbol in @Code "@Diag" }
+@I x and @I y coordinates of a point:
+@ID @Code {
+"{xcoord P1} min {xcoord P2}"   "{ycoord P1} max {ycoord P2}"
+}
+is the point at the top left-hand corner of the smallest rectangle
+containing points {@Code P1} and {@Code P2}.  And there is a
+@Code distance symbol which produces the (non-negative) distance between
+two points:
+@ID @Code "CTR  ++  { CTR distance NW } atangle { CTR angleto NW }"
+equals {@Code NW}.
+@PP
+The rest of this section is concerned with how the `special virtue'
+of the @Code from and @Code to options, their ability to accept a node
+tag as well as a point, is implemented behind the scenes.  A good
+user-defined link should also have this virtue, because it is extremely
+useful.
+@PP
+The solution is based on a symbol called {@Code boundaryatangle},
+whose preceding object should be either a point or else the tag
+of a node with one of the standard shapes, and whose following object
+is an angle:
+@ID @Code {
+"{ xsize ysize*0.5 } boundaryatangle 45d"
+"A boundaryatangle 45d"
+}
+In the first case the result is the point, regardless of the
+angle.  In the second case, the result is the point on the boundary of
+the node whose tag is given, at the given angle from the centre.
+@PP
+There is a second symbol with a similar adaptive ability, called
+{@Code "??"}, which is defined to be @Code "@" whenever that would
+make sense, and otherwise to produce the preceding object for its
+result.  For example, @Code "A??CTR" will equal @Code "A@CTR" if there
+is such a thing; but
+@ID @Code "{ xsize ysize*0.5 }??CTR"
+will have result {@Code "{ xsize ysize*0.5 }"} since replacing
+@Code "??" by @Code "@" does not produce anything sensible.
+@PP
+Now suppose we want a link path that connects @Code "from" and
+@Code "to" by a straight line, where @Code "from" and @Code "to" may be
+either node tags or points.  In either case a suitable direction for the
+line to take is
+@ID @Code "from??CTR angleto to??CTR"
+and so the desired path is
+@ID @Code {
+"path {"
+"    FROM:: from boundaryatangle { from??CTR angleto to??CTR }"
+"    TO:: to boundaryatangle { to??CTR angleto from??CTR }"
+"    FROM"
+"    TO"
+"}"
+}
+The first line defines point @Code FROM to be on the boundary of
+@Code from at the appropriate angle, if @Code "from" is a node tag;
+otherwise @Code "FROM" is just the point {@Code from}.  The second
+line defines point @Code TO similarly, and then the last two lines
+join these two points.  The @Code line standard link type is exactly
+this plus a few additional tags and directions.
+@End @Section

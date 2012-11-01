@@ -1,0 +1,74 @@
+@Section
+    @Title { Margins }
+    @Tag { tbl_marg }
+@Begin
+@PP
+The @Code "@Cell" symbol offers a @Code margin option for changing the
+margins @RawIndex { margins }
+margins.in.tables @SubIndex { margins in tables }
+amount of margin left between the entry and the boundary of the cell:
+@ID @Code "@Cell margin { 0.3f }"
+The default values are different for horizontal and vertical margins,
+which brings us to the @Code marginhorizontal and @Code marginvertical
+options:
+@ID @OneRow @Code @Verbatim {
+@Cell
+    marginhorizontal { 0.6f }
+    marginvertical { 0.3f }
+}
+These are the default values, 0.6 and 0.3 times the current font size
+respectively.  Another useful value is {@Code "marginvertical { 0.5vx }"},
+which asks for a vertical margin of half the current line separation, but
+measured from baseline to baseline (this is what the @Code "x" means).
+This produces a separation equal to the separation of the surrounding lines:
+@CD @Tbl
+    marginvertical { 0.5vx }
+    aformat { @Cell A  |  @Cell B  |  @Cell C }
+{
+@Rowa
+    A { Austen }
+    B { Chaucer }
+    C { Donne }
+@Rowa
+    A { Balzac }
+    B { Darwin }
+    C { Goethe }
+@Rowa
+    A { Byron }
+    B { Dickens }
+    C { Homer }
+}
+This margin does not work so well when the cells contain paragraphs,
+diagrams or other things that could not be described as single lines.
+@PP
+There are {@Code "marginabove"}, {@Code "marginbelow"}, {@Code "marginleft"},
+and {@Code "marginright"} options for setting margins individually.  For
+example, sometimes you don't want the extreme left and right margins in
+a table, and they can be got rid of like this:
+@ID @OneRow @Code @Verbatim {
+@Tbl
+    paint { lightgrey }
+    aformat { @Cell ml { 0i } A  |  @Cell B  |  @Cell mr { 0i } C }
+{
+@Rowa
+    A { Column A }
+    B { Column B }
+    C { Column C }
+}
+}
+We've used abbreviated versions of the options' names:  @Code "ml" for
+{@Code marginleft}, and @Code "mr" for {@Code marginright}.  Every option
+has such an abbreviated name, made from the first letters of the parts of
+its full name (Section {@NumberOf tbl_summ} lists all these names).  The
+result is
+@DP @RCD @Tbl
+    paint { lightgrey }
+    aformat { @Cell ml { 0i } A  |  @Cell B  |  @Cell mr { 0i } C }
+{
+@Rowa
+    A { Column A }
+    B { Column B }
+    C { Column C }
+}
+# with the painting showing the reduced margins.
+@End @Section

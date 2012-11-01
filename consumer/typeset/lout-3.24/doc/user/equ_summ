@@ -1,0 +1,728 @@
+@Section
+   @Title { Summary }
+@Begin
+@PP
+This section is a complete list of the symbols provided by
+{@Code "@Eq"}.  We divide them into auxiliary, parameterized, short names
+(further divided into relations, binary operators, and punctuation),
+and full names.  The auxiliary symbols are:
+@ID @Tab
+     vmargin { 0.5vx }
+     @Fmta { @Col A ! @Col B }
+{
+@Rowa
+    A { @Code "`" }
+    B { Thin space }
+@Rowa
+    A { @Code "``" }
+    B { Medium space }
+@Rowa
+    A { @Code "```" }
+    B { Thick space }
+@Rowa
+    A { @Code "bin x" }
+    B { Treat @Code x as a binary operator }
+@Rowa
+    A { @Code "rel x" }
+    B { Treat @Code x as a relation }
+@Rowa
+    A { @Code "punct x" }
+    B { Treat @Code x as a punctuation symbol }
+@Rowa
+    A { @Code "non x" }
+    B { Remove spaces normally put into @Code x }
+@Rowa
+    A { @Code "vctr x" }
+    B { Centre @Code x vertically }
+@Rowa
+    A { @Code "big x" }
+    B { Make @Code x larger }
+@Rowa
+    A { @Code "small x" }
+    B { Make @Code x smaller }
+}
+Here are all the parameterized symbols, shown in groups of equal
+precedence, with the precedence itself at right:
+@ID @OneRow lines @Break {
+@Code "matrix pmatrix bmatrix brmatrix fmatrix cmatrix amatrix not" (100)
+@Code "dot dotdot hat tilde vec dyad overbar underbar" (62)
+@Code "sup sub tsub supp" (60)   @Code "on ton" (61)
+@Code "from to widefrom wideto" (58)
+@Code "sqrt root" (56)
+@Code "over frac" (54)
+@Code "col lcol ccol rcol mcol" (52)
+@Code "row axisrow" (50)
+# @Code "above labove cabove rabove mabove" (52)
+# @Code "nextcol" (50)
+}
+See Section {@NumberOf symbols} for examples of matrices.  Here are some
+examples of the other symbols:
+@IL
+
+@LI {
+@Code "x dot"
+|7ct
+@Eq { x dot }
+}
+
+@LI {
+@Code "x dotdot"
+|7ct
+@Eq { x dotdot }
+}
+
+@LI {
+@Code "x hat"
+|7ct
+@Eq { x hat }
+}
+
+@LI {
+@Code "x tilde"
+|7ct
+@Eq { x tilde }
+}
+
+@LI {
+@Code "x vec"
+|7ct
+@Eq { x vec }
+}
+
+@LI {
+@Code "x dyad"
+|7ct
+@Eq { x dyad }
+}
+
+@LI {
+@Code "x+y overbar"
+|7ct
+@Eq { x+y overbar }
+}
+
+@LI {
+@Code "x+y underbar"
+|7ct
+@Eq { x+y underbar }
+}
+
+@EL
+These marks are centred over the preceding object, except the last two
+which are extended to the width of the object.
+@IL
+
+@LI {
+@Code "a sup b"
+|7ct
+@Eq {a sup b}
+}
+
+@LI {
+@Code "a sub b"
+|7ct
+@Eq {a sub b}
+}
+
+@LI {
+@Code "W tsub b"
+|7ct
+@Eq {W tsub b}
+}
+
+@LI {
+@Code "a supp b on c"
+|7ct
+@Eq {a supp b on c}
+}
+
+@LI {
+@Code "W supp b ton c"
+|7ct
+@Eq {W supp b ton c}
+}
+
+@EL
+Note that @Code "supp" and @Code "on" (or {@Code "ton"}) must be used
+together as shown; @Code "tsub" and @Code "ton" are exactly like
+@Code "sub" and @Code "on" except that the subscript is tucked in.
+@IL
+
+@LI {
+@Code "big sum from i"
+|7ct
+@Eq {big sum from i}
+}
+
+@LI {
+@Code "big prod to j"
+|7ct
+@Eq {big prod to j}
+}
+
+@LI {
+@Code { "{a, ... , z} widefrom"
+"{90d @Rotate blbrace}" }
+|7ct
+@Eq { {a, ... , z} widefrom {90d @Rotate blbrace} }
+}
+
+@LI {
+@Code "{a, ... , z} wideto minus"
+|7ct
+@Eq { {a, ... , z} wideto minus }
+}
+
+@EL
+@Code "widefrom" and @Code "wideto" are like @Code "from" and
+@Code "to" except that they horizontally scale the right parameter
+to the width of the left.
+@IL
+
+@LI {
+@Code "sqrt {x over y}"
+|7ct
+@Eq { sqrt {x over y} }
+}
+
+@LI {
+@Code "3 root {x over y}"
+|7ct
+@Eq { 3 root {x over y} }
+}
+
+@EL
+The left parameter of @Code "root" may be any object.  Here are
+four ways to denote division:
+@IL
+
+@LI {
+@Code "2 over 3"
+|7ct
+@Eq { 2 over 3 }
+}
+
+@LI {
+@Code "2 frac 3"
+|7ct
+@Eq { 2 frac 3 }
+}
+
+@LI {
+@Code "2 div 3"
+|7ct
+@Eq { 2 div 3 }
+}
+
+@LI {
+@Code "2 slash 3"
+|7ct
+@Eq { 2 slash 3 }
+}
+
+@EL
+The @Code "div" symbol is a binary operator (see below), and
+@Code "slash" is the full name for the @Code "/" character from
+the Adobe Symbol font.  You can't use @Code "/" itself, because
+it is one of Lout's special symbols.
+@PP
+The following short names define relations (that is, they have a thick
+space on each side):
+@DP
+ragged @Break {
+"<"		@Dbl @Eq {  <			}
+">"		@Dbl @Eq {  >			}
+"="		@Dbl @Eq {  =			}
+"<="		@Dbl @Eq {  <=			}
+"prec"		@Dbl @Eq {  prec		}
+"preceq"	@Dbl @Eq {  preceq		}
+"<<"		@Dbl @Eq {  <<			}
+"subset"	@Dbl @Eq {  subset		}
+"subseteq"	@Dbl @Eq {  subseteq		}
+"sqsubseteq"	@Dbl @Eq {  sqsubseteq		}
+"in"		@Dbl @Eq {  in			}
+"vdash"		@Dbl @Eq {  vdash		}
+"smile"		@Dbl @Eq {  smile		}
+"frown"		@Dbl @Eq {  frown		}
+">="		@Dbl @Eq {  >=			}
+"succ"		@Dbl @Eq {  succ		}
+"succeq"	@Dbl @Eq {  succeq		}
+">>"		@Dbl @Eq {  >>			}
+"supset"	@Dbl @Eq {  supset		}
+"supseteq"	@Dbl @Eq {  supseteq		}
+"sqsupseteq"	@Dbl @Eq {  sqsupseteq		}
+"ni"		@Dbl @Eq {  ni			}
+"dashv"		@Dbl @Eq {  dashv		}
+"mid"		@Dbl @Eq {  mid			}
+"parallel"	@Dbl @Eq {  parallel		}
+"=="		@Dbl @Eq {  ==			}
+"~"		@Dbl @Eq {  ~			}
+"-~"		@Dbl @Eq {  -~			}
+"asymp"		@Dbl @Eq {  asymp		}
+"~~"		@Dbl @Eq {  ~~			}
+"=~"		@Dbl @Eq {  =~			}
+"bowtie"	@Dbl @Eq {  bowtie		}
+"propto"	@Dbl @Eq {  propto		}
+"models"	@Dbl @Eq {  models		}
+"doteq"		@Dbl @Eq {  doteq		}
+"trieq"		@Dbl @Eq {  trieq		}
+"perp"		@Dbl @Eq {  perp		}
+"notsub"	@Dbl @Eq {  notsub		}
+"notin"		@Dbl @Eq {  notin		}
+"!="		@Dbl @Eq {  !=			}
+"<->"		@Dbl @Eq {  <->			}
+"<--"		@Dbl @Eq {  <--			}
+"-->"		@Dbl @Eq {  -->			}
+"up"		@Dbl @Eq {  up			}
+"down"		@Dbl @Eq {  down		}
+"<=>"		@Dbl @Eq {  <=>			}
+"<=="		@Dbl @Eq {  <==			}
+"==>"		@Dbl @Eq {  ==>			}
+"dblup"		@Dbl @Eq {  dblup		}
+"dbldown"	@Dbl @Eq {  dbldown		}
+":"		@Dbl @Eq {  :			}
+"::"		@Dbl @Eq {  ::			}
+":="		@Dbl @Eq {  :=			}
+}
+@DP
+These can be negated by preceding them with {@Code "not"}, as in
+negation. @Index { negation of equation symbols }
+{@Code "not =="}, for example, which yields {@Eq { not == }}.  The
+following short names define binary operators (medium space on each side):
+@DP
+ragged @Break {
+"+"		@Dbl @Eq {  +			}
+"-"		@Dbl @Eq {  -			}
+"+-"		@Dbl @Eq {  +-			}
+"-+"		@Dbl @Eq {  -+			}
+"setminus"	@Dbl @Eq {  setminus		}
+"cdot"		@Dbl @Eq {  cdot		}
+"times"		@Dbl @Eq {  times		}
+"*"		@Dbl @Eq {  *			}
+"circ"		@Dbl @Eq {  circ		}
+"div"		@Dbl @Eq {  div			}
+"cap"		@Dbl @Eq {  cap			}
+"cup"		@Dbl @Eq {  cup			}
+"uplus"		@Dbl @Eq {  uplus		}
+"sqcap"		@Dbl @Eq {  sqcap		}
+"sqcup"		@Dbl @Eq {  sqcup		}
+"triangleleft"	@Dbl @Eq {  triangleleft	}
+"triangleright"	@Dbl @Eq {  triangleright	}
+"wr"		@Dbl @Eq {  wr			}
+"bigcirc"	@Dbl @Eq {  bigcirc		}
+"bigtriangleup"	@Dbl @Eq {  bigtriangleup	}
+"bigtriangledown"@Dbl @Eq {  bigtriangledown	}
+"vee"		@Dbl @Eq {  vee			}
+"wedge"		@Dbl @Eq {  wedge		}
+"oplus"		@Dbl @Eq {  oplus		}
+"ominus"	@Dbl @Eq {  ominus		}
+"otimes"	@Dbl @Eq {  otimes		}
+"oslash"	@Dbl @Eq {  oslash		}
+"odot"		@Dbl @Eq {  odot		}
+"dagger"	@Dbl @Eq {  dagger		}
+"daggerdbl"	@Dbl @Eq {  daggerdbl		}
+"amalg"		@Dbl @Eq {  amalg		}
+}
+@DP
+The following names define arrow symbols (no extra space):
+@DP
+ragged @Break {
+"leftarrow"		@Dbl @Eq {  leftarrow			}
+"longleftarrow"		@Dbl @Eq {  longleftarrow		}
+"dblleftarrow"		@Dbl @Eq {  dblleftarrow		}
+"dbllongleftarrow"	@Dbl @Eq {  dbllongleftarrow		}
+"rightarrow"		@Dbl @Eq {  rightarrow			}
+"longrightarrow"	@Dbl @Eq {  longrightarrow		}
+"dblrightarrow"		@Dbl @Eq {  dblrightarrow		}
+"dbllongrightarrow"	@Dbl @Eq {  dbllongrightarrow		}
+"leftrightarrow"	@Dbl @Eq {  leftrightarrow		}
+"longleftrightarrow"	@Dbl @Eq {  longleftrightarrow		}
+"dblleftrightarrow"	@Dbl @Eq {  dblleftrightarrow		}
+{ 1.15i @Wide @HScale "dbllongleftrightarrow" } @Dbl @Eq {  dbllongleftrightarrow	}
+"mapsto"		@Dbl @Eq {  mapsto			}
+"longmapsto"		@Dbl @Eq {  longmapsto			}
+"hookleftarrow"		@Dbl @Eq {  hookleftarrow		}
+"hookrightarrow"	@Dbl @Eq {  hookrightarrow		}
+"leadsto"		@Dbl @Eq {  leadsto			}
+"leftharpoonup"		@Dbl @Eq {  leftharpoonup		}
+"rightharpoonup"	@Dbl @Eq {  rightharpoonup		}
+"leftharpoondown"	@Dbl @Eq {  leftharpoondown		}
+"rightharpoondown"	@Dbl @Eq {  rightharpoondown		}
+"rightleftharpoons"	@Dbl @Eq {  rightleftharpoons		}
+"uparrow"		@Dbl @Eq {  uparrow			}
+"dbluparrow"		@Dbl @Eq {  dbluparrow			}
+"downarrow"		@Dbl @Eq {  downarrow			}
+"dbldownarrow"		@Dbl @Eq {  dbldownarrow		}
+"updownarrow"		@Dbl @Eq {  updownarrow			}
+"dblupdownarrow"	@Dbl @Eq {  dblupdownarrow		}
+"nearrow"		@Dbl @Eq {  nearrow			}
+"searrow"		@Dbl @Eq {  searrow			}
+"swarrow"		@Dbl @Eq {  swarrow			}
+"nwarrow"		@Dbl @Eq {  nwarrow			}
+}
+@DP
+The following names define punctuation symbols (thin space on the
+right-hand side):
+@DP
+ragged @Break {
+";"		@Dbl @Eq {  ;			}
+","		@Dbl @Eq {  ,			}
+"col"		@Dbl @Eq {  col			}
+}
+@DP
+The following symbols are used in ways typified by the large sum and
+product symbols.  In display equations they should be preceded by the
+@Code "big" symbol:
+@DP
+ragged @Break {
+"sum"		@Dbl @Eq {  sum			}
+"prod"		@Dbl @Eq {  prod		}
+"coprod"	@Dbl @Eq {  coprod		}
+@LP
+"int"		@Dbl @Eq {  int			}
+"oint"		@Dbl @Eq {  oint		}
+"bcap"		@Dbl @Eq {  bcap		}
+@LP
+"bcup"		@Dbl @Eq {  bcup		}
+"bvee"		@Dbl @Eq {  bvee		}
+"bwedge"	@Dbl @Eq {  bwedge		}
+@LP
+"bodot"		@Dbl @Eq {  bodot		}
+"botimes"	@Dbl @Eq {  botimes		}
+"boplus"	@Dbl @Eq {  boplus		}
+@LP
+"buplus"	@Dbl @Eq {  buplus		}
+}
+@DP
+The following symbols are defined so that they will appear in Roman,
+as is conventional for them in equations:
+@DP
+ragged @Break {
+"arccos"	@Dbl @Eq {  arccos		}
+"arcsin"	@Dbl @Eq {  arcsin		}
+"arctan"	@Dbl @Eq {  arctan		}
+"arg"		@Dbl @Eq {  arg			}
+"cos"		@Dbl @Eq {  cos			}
+"cosh"		@Dbl @Eq {  cosh		}
+"cot"		@Dbl @Eq {  cot			}
+"coth"		@Dbl @Eq {  coth		}
+"csc"		@Dbl @Eq {  csc			}
+"deg"		@Dbl @Eq {  deg			}
+"det"		@Dbl @Eq {  det			}
+"dim"		@Dbl @Eq {  dim			}
+"exp"		@Dbl @Eq {  exp			}
+"gcd"		@Dbl @Eq {  gcd			}
+"hom"		@Dbl @Eq {  hom			}
+"inf"		@Dbl @Eq {  inf			}
+"ker"		@Dbl @Eq {  ker			}
+"lg"		@Dbl @Eq {  lg			}
+"lim"		@Dbl @Eq {  lim			}
+"liminf"	@Dbl @Eq {  liminf		}
+"limsup"	@Dbl @Eq {  limsup		}
+"ln"		@Dbl @Eq {  ln			}
+"log"		@Dbl @Eq {  log			}
+"max"		@Dbl @Eq {  max			}
+"min"		@Dbl @Eq {  min			}
+"Pr"		@Dbl @Eq {  Pr			}
+"sec"		@Dbl @Eq {  sec			}
+"sin"		@Dbl @Eq {  sin			}
+"sinh"		@Dbl @Eq {  sinh		}
+"supr"		@Dbl @Eq {  supr		}
+"tan"		@Dbl @Eq {  tan			}
+"tanh"		@Dbl @Eq {  tanh		}
+"mod"		@Dbl @Eq {  mod			}
+}
+@DP
+The following symbols are also defined to ensure that they will appear
+in Roman:
+@DP
+ragged @Break {
+"0"		@Dbl @Eq {  0			}
+"1"		@Dbl @Eq {  1			}
+"2"		@Dbl @Eq {  2			}
+"3"		@Dbl @Eq {  3			}
+"4"		@Dbl @Eq {  4			}
+"5"		@Dbl @Eq {  5			}
+"6"		@Dbl @Eq {  6			}
+"7"		@Dbl @Eq {  7			}
+"8"		@Dbl @Eq {  8			}
+"9"		@Dbl @Eq {  9			}
+"!"		@Dbl @Eq {  !			}
+"?"		@Dbl @Eq {  ?			}
+"%"		@Dbl @Eq {  %			}
+"("		@Dbl @Eq {  (			}
+")"		@Dbl @Eq {  )			}
+"["		@Dbl @Eq {  [			}
+"]"		@Dbl @Eq {  ]			}
+}
+@DP
+The following symbols make good @Code atleft and @Code atright parameters
+of the @Code matrix symbol:
+@LP
+@LP
+ragged @Break {
+"lpar"		@Dbl @Eq {  lpar		}
+"blpar"		@Dbl @Eq {  blpar		}
+"rpar"		@Dbl @Eq {  rpar		}
+"brpar"		@Dbl @Eq {  brpar		}
+"lbrack"	@Dbl @Eq {  lbrack		}
+"blbrack"	@Dbl @Eq {  blbrack		}
+"rbrack"	@Dbl @Eq {  rbrack		}
+"brbrack"	@Dbl @Eq {  brbrack		}
+"lbrace"	@Dbl @Eq {  lbrace		}
+"blbrace"	@Dbl @Eq {  blbrace		}
+"rbrace"	@Dbl @Eq {  rbrace		}
+"brbrace"	@Dbl @Eq {  brbrace		}
+"lfloor"	@Dbl @Eq {  lfloor		}
+"blfloor"	@Dbl @Eq {  blfloor		}
+"rfloor"	@Dbl @Eq {  rfloor		}
+"brfloor"	@Dbl @Eq {  brfloor		}
+"lceil"		@Dbl @Eq {  lceil		}
+"blceil"	@Dbl @Eq {  blceil		}
+"rceil"		@Dbl @Eq {  rceil		}
+"brceil"	@Dbl @Eq {  brceil		}
+"langle"	@Dbl @Eq {  langle		}
+"blangle"	@Dbl @Eq {  blangle		}
+"rangle"	@Dbl @Eq {  rangle		}
+"brangle"	@Dbl @Eq {  brangle		}
+}
+@LP
+@LP
+Here are some miscellaneous symbols:
+@DP
+ragged @Break {
+"hbar"		@Dbl @Eq {  hbar		}
+"Re"		@Dbl @Eq {  Re			}
+"Im"		@Dbl @Eq {  Im			}
+"partial"	@Dbl @Eq {  partial		}
+"infty"		@Dbl @Eq {  infty		}
+"prime"		@Dbl @Eq {  prime		}
+"nabla"		@Dbl @Eq {  nabla		}
+"surd"		@Dbl @Eq {  surd		}
+"top"		@Dbl @Eq {  top			}
+"bot"		@Dbl @Eq {  bot			}
+"dbar"		@Dbl @Eq {  dbar		}
+"triangle"	@Dbl @Eq {  triangle		}
+"backslash"	@Dbl @Eq {  backslash		}
+"forall"	@Dbl @Eq {  forall		}
+"exists"	@Dbl @Eq {  exists		}
+"neg"		@Dbl @Eq {  neg			}
+"circle"	@Dbl @Eq {  circle		}
+"filledcircle"	@Dbl @Eq {  filledcircle	}
+"square"	@Dbl @Eq {  square		}
+"ldots"		@Dbl @Eq {  ldots		}
+"cdots"		@Dbl @Eq {  cdots		}
+"vdots"		@Dbl @Eq {  vdots		}
+"ddots"		@Dbl @Eq {  ddots		}
+"del"		@Dbl @Eq {  del			}
+"grad"		@Dbl @Eq {  grad		}
+"triangleup"	@Dbl @Eq {  triangleup		}
+"triangledown"	@Dbl @Eq {  triangledown	}
+"..."		@Dbl @Eq {  ...			}
+",...,"		@Dbl @Eq {  ,...,		}
+"half"		@Dbl @Eq {  half		}
+"third"		@Dbl @Eq {  third		}
+"'"		@Dbl @Eq {  '			}
+"empty"		@Dbl @Eq {  empty		}
+}
+@DP
+Finally, here is the long list of full names from the Adobe Symbol font;
+these are the same characters as you get with the @Code "@Sym" symbol
+of Section {@NumberOf characters}, but within equations you don't need
+to type {@Code "@Sym"}:
+@DP
+ragged @Break {
+"space"		@Dbl @Eq {  space		}
+"exclam"	@Dbl @Eq {  exclam		}
+"universal"	@Dbl @Eq {  universal		}
+"numbersign"	@Dbl @Eq {  numbersign		}
+"existential"	@Dbl @Eq {  existential		}
+"percent"	@Dbl @Eq {  percent		}
+"ampersand"	@Dbl @Eq {  ampersand		}
+"suchthat"	@Dbl @Eq {  suchthat		}
+"parenleft"	@Dbl @Eq {  parenleft		}
+"parenright"	@Dbl @Eq {  parenright		}
+"asteriskmath"	@Dbl @Eq {  asteriskmath	}
+"plus"		@Dbl @Eq {  plus		}
+"comma"		@Dbl @Eq {  comma		}
+"minus"		@Dbl @Eq {  minus		}
+"period"	@Dbl @Eq {  period		}
+"slash"		@Dbl @Eq {  slash		}
+"zero"		@Dbl @Eq {  zero		}
+"one"		@Dbl @Eq {  one			}
+"two"		@Dbl @Eq {  two			}
+"three"		@Dbl @Eq {  three		}
+"four"		@Dbl @Eq {  four		}
+"five"		@Dbl @Eq {  five		}
+"six"		@Dbl @Eq {  six			}
+"seven"		@Dbl @Eq {  seven		}
+"eight"		@Dbl @Eq {  eight		}
+"nine"		@Dbl @Eq {  nine		}
+"colon"		@Dbl @Eq {  colon		}
+"semicolon"	@Dbl @Eq {  semicolon		}
+"less"		@Dbl @Eq {  less		}
+"equal"		@Dbl @Eq {  equal		}
+"greater"	@Dbl @Eq {  greater		}
+"question"	@Dbl @Eq {  question		}
+"congruent"	@Dbl @Eq {  congruent		}
+"Alpha"		@Dbl @Eq {  Alpha		}
+"Beta"		@Dbl @Eq {  Beta		}
+"Chi"		@Dbl @Eq {  Chi			}
+"Delta"		@Dbl @Eq {  Delta		}
+"Epsilon"	@Dbl @Eq {  Epsilon		}
+"Phi"		@Dbl @Eq {  Phi			}
+"Gamma"		@Dbl @Eq {  Gamma		}
+"Eta"		@Dbl @Eq {  Eta			}
+"Iota"		@Dbl @Eq {  Iota		}
+"thetaone"	@Dbl @Eq {  thetaone		}
+"Kappa"		@Dbl @Eq {  Kappa		}
+"Lambda"	@Dbl @Eq {  Lambda		}
+"Mu"		@Dbl @Eq {  Mu			}
+"Nu"		@Dbl @Eq {  Nu			}
+"Omicron"	@Dbl @Eq {  Omicron		}
+"Pi"		@Dbl @Eq {  Pi			}
+"Theta"		@Dbl @Eq {  Theta		}
+"Rho"		@Dbl @Eq {  Rho			}
+"Sigma"		@Dbl @Eq {  Sigma		}
+"Tau"		@Dbl @Eq {  Tau			}
+"Upsilon"	@Dbl @Eq {  Upsilon		}
+"sigmaone"	@Dbl @Eq {  sigmaone		}
+"Omega"		@Dbl @Eq {  Omega		}
+"Xi"		@Dbl @Eq {  Xi			}
+"Psi"		@Dbl @Eq {  Psi			}
+"Zeta"		@Dbl @Eq {  Zeta		}
+"bracketleft"	@Dbl @Eq {  bracketleft		}
+"therefore"	@Dbl @Eq {  therefore		}
+"bracketright"	@Dbl @Eq {  bracketright	}
+"perpendicular"	@Dbl @Eq {  perpendicular	}
+"underscore"	@Dbl @Eq {  underscore		}
+"radicalex"	@Dbl @Eq {  radicalex		}
+"alpha"		@Dbl @Eq {  alpha		}
+"beta"		@Dbl @Eq {  beta		}
+"chi"		@Dbl @Eq {  chi			}
+"delta"		@Dbl @Eq {  delta		}
+"epsilon"	@Dbl @Eq {  epsilon		}
+"phi"		@Dbl @Eq {  phi			}
+"gamma"		@Dbl @Eq {  gamma		}
+"eta"		@Dbl @Eq {  eta			}
+"iota"		@Dbl @Eq {  iota		}
+"phione"	@Dbl @Eq {  phione		}
+"kappa"		@Dbl @Eq {  kappa		}
+"lambda"	@Dbl @Eq {  lambda		}
+"mu"		@Dbl @Eq {  mu			}
+"nu"		@Dbl @Eq {  nu			}
+"omicron"	@Dbl @Eq {  omicron		}
+"pi"		@Dbl @Eq {  pi			}
+"theta"		@Dbl @Eq {  theta		}
+"rho"		@Dbl @Eq {  rho			}
+"sigma"		@Dbl @Eq {  sigma		}
+"tau"		@Dbl @Eq {  tau			}
+"upsilon"	@Dbl @Eq {  upsilon		}
+"omegaone"	@Dbl @Eq {  omegaone		}
+"omega"		@Dbl @Eq {  omega		}
+"xi"		@Dbl @Eq {  xi			}
+"psi"		@Dbl @Eq {  psi			}
+"zeta"		@Dbl @Eq {  zeta		}
+"braceleft"	@Dbl @Eq {  braceleft		}
+"bar"		@Dbl @Eq {  bar			}
+"braceright"	@Dbl @Eq {  braceright		}
+"similar"	@Dbl @Eq {  similar		}
+"Upsilonone"	@Dbl @Eq {  Upsilonone		}
+"minute"	@Dbl @Eq {  minute		}
+"lessequal"	@Dbl @Eq {  lessequal		}
+"fraction"	@Dbl @Eq {  fraction		}
+"infinity"	@Dbl @Eq {  infinity		}
+"florin"	@Dbl @Eq {  florin		}
+"club"		@Dbl @Eq {  club		}
+"diamond"	@Dbl @Eq {  diamond		}
+"heart"		@Dbl @Eq {  heart		}
+"spade"		@Dbl @Eq {  spade		}
+"arrowboth"	@Dbl @Eq {  arrowboth		}
+"arrowleft"	@Dbl @Eq {  arrowleft		}
+"arrowup"	@Dbl @Eq {  arrowup		}
+"arrowright"	@Dbl @Eq {  arrowright		}
+"arrowdown"	@Dbl @Eq {  arrowdown		}
+"degree"	@Dbl @Eq {  degree		}
+"plusminus"	@Dbl @Eq {  plusminus		}
+"second"	@Dbl @Eq {  second		}
+"greaterequal"	@Dbl @Eq {  greaterequal	}
+"multiply"	@Dbl @Eq {  multiply		}
+"proportional"	@Dbl @Eq {  proportional	}
+"partialdiff"	@Dbl @Eq {  partialdiff		}
+"bullet"	@Dbl @Eq {  bullet		}
+"divide"	@Dbl @Eq {  divide		}
+"notequal"	@Dbl @Eq {  notequal		}
+"equivalence"	@Dbl @Eq {  equivalence		}
+"approxequal"	@Dbl @Eq {  approxequal		}
+"ellipsis"	@Dbl @Eq {  ellipsis		}
+"arrowvertex"	@Dbl @Eq {  arrowvertex		}
+"arrowhorizex"	@Dbl @Eq {  arrowhorizex	}
+"carriagereturn"@Dbl @Eq {  carriagereturn	}
+"aleph"		@Dbl @Eq {  aleph		}
+"Ifraktur"	@Dbl @Eq {  Ifraktur		}
+"Rfraktur"	@Dbl @Eq {  Rfraktur		}
+"weierstrass"	@Dbl @Eq {  weierstrass		}
+"circlemultiply"@Dbl @Eq {  circlemultiply	}
+"circleplus"	@Dbl @Eq {  circleplus		}
+"emptyset"	@Dbl @Eq {  emptyset		}
+"intersection"	@Dbl @Eq {  intersection	}
+"union"		@Dbl @Eq {  union		}
+"propersuperset"@Dbl @Eq {  propersuperset	}
+"reflexsuperset"@Dbl @Eq {  reflexsuperset	}
+"notsubset"	@Dbl @Eq {  notsubset		}
+"propersubset"	@Dbl @Eq {  propersubset	}
+"reflexsubset"	@Dbl @Eq {  reflexsubset	}
+"element"	@Dbl @Eq {  element		}
+"notelement"	@Dbl @Eq {  notelement		}
+"angle"		@Dbl @Eq {  angle		}
+"gradient"	@Dbl @Eq {  gradient		}
+"registerserif"	@Dbl @Eq {  registerserif	}
+"copyrightserif"@Dbl @Eq {  copyrightserif	}
+"trademarkserif"@Dbl @Eq {  trademarkserif	}
+"product"	@Dbl @Eq {  product		}
+"radical"	@Dbl @Eq {  radical		}
+"dotmath"	@Dbl @Eq {  dotmath		}
+"logicalnot"	@Dbl @Eq {  logicalnot		}
+"logicaland"	@Dbl @Eq {  logicaland		}
+"logicalor"	@Dbl @Eq {  logicalor		}
+"arrowdblboth"	@Dbl @Eq {  arrowdblboth	}
+"arrowdblleft"	@Dbl @Eq {  arrowdblleft	}
+"arrowdblup"	@Dbl @Eq {  arrowdblup		}
+"arrowdblright"	@Dbl @Eq {  arrowdblright	}
+"arrowdbldown"	@Dbl @Eq {  arrowdbldown	}
+"lozenge"	@Dbl @Eq {  lozenge		}
+"angleleft"	@Dbl @Eq {  angleleft		}
+"registersans"	@Dbl @Eq {  registersans	}
+"copyrightsans"	@Dbl @Eq {  copyrightsans	}
+"trademarksans"	@Dbl @Eq {  trademarksans	}
+"summation"	@Dbl @Eq {  summation		}
+"parenlefttp"	@Dbl @Eq {  parenlefttp		}
+"parenleftex"	@Dbl @Eq {  parenleftex		}
+"parenleftbt"	@Dbl @Eq {  parenleftbt		}
+"bracketlefttp"	@Dbl @Eq {  bracketlefttp	}
+"bracketleftex"	@Dbl @Eq {  bracketleftex	}
+"bracketleftbt"	@Dbl @Eq {  bracketleftbt	}
+"bracelefttp"	@Dbl @Eq {  bracelefttp		}
+"braceleftmid"	@Dbl @Eq {  braceleftmid	}
+"braceleftbt"	@Dbl @Eq {  braceleftbt		}
+"braceex"	@Dbl @Eq {  braceex		}
+"angleright"	@Dbl @Eq {  angleright		}
+"integral"	@Dbl @Eq {  integral		}
+"integraltp"	@Dbl @Eq {  integraltp		}
+"integralex"	@Dbl @Eq {  integralex		}
+"integralbt"	@Dbl @Eq {  integralbt		}
+"parenrighttp"	@Dbl @Eq {  parenrighttp	}
+"parenrightex"	@Dbl @Eq {  parenrightex	}
+"parenrightbt"	@Dbl @Eq {  parenrightbt	}
+"bracketrighttp"@Dbl @Eq {  bracketrighttp	}
+"bracketrightex"@Dbl @Eq {  bracketrightex	}
+"bracketrightbt"@Dbl @Eq {  bracketrightbt	}
+"bracerighttp"	@Dbl @Eq {  bracerighttp	}
+"bracerightmid"	@Dbl @Eq {  bracerightmid	}
+"bracerightbt"	@Dbl @Eq {  bracerightbt	}
+}
+@DP
+The names given are the same as Adobe's, as used by the @Code "@Sym"
+symbol, except in a few places where the Adobe name contains a digit,
+which is not possible for a symbol name in Lout.
+@End @Section

@@ -1,0 +1,41 @@
+@Section
+   @Title { An alternative version that uses @TeX's fonts }
+   @Tag { teq }
+@Begin
+@PP
+There is an alternative version of the @Code "@Eq" symbol that
+tex.mathfonts @SubIndex { mathematical fonts }
+uses fonts taken from the @TeX document formatting
+system.  These fonts are said to produce better-looking
+mathematics than the Adobe Systems Symbol font used by the
+standard @Code "@Eq" symbol.
+@PP
+The fonts were converted from @TeX form to PostScript form by
+Basil K. Malyshev, who has attached a license to them permitting
+non-commercial use only.  This is a much more stringent license
+than the one attached to Lout itself.  For this reason, the files
+needed to use these @TeX fonts are distributed separately from the
+rest of Lout, although you can get them from the same place (see the
+preface of this guide).
+@PP
+Once these files are installed, you change from the standard
+@Code "@Eq" symbol to the @TeX version by changing the initial
+@Code "@SysInclude { eq }" to {@Code "@SysInclude { teq }"}.  Do
+absolutely nothing else.
+@PP
+Unfortunately, the @TeX fonts are not usually resident on PostScript
+printing devices, which means that Lout is obliged to include them in its
+PostScript output file.  You don't have to do anything to make this
+happen, but the cost is fairly large:  changing to @Code "@SysInclude { teq }"
+increases the size of the PostScript output file by 252 kilobytes.
+@PP
+It is possible to gain access to characters in the @TeX
+fonts that are not accessible directly from {@Code "@Eq"}, mainly
+script capitals and bold-italic Greek letters.  For example, you can
+use @Code "{cmsy Base} @Font @Char \"A\"" to get a script A, and
+@Code "{cmmi Bold} @Font @Char \"pi\"" to get a bold-italic
+{@Sym pi}.  For the full story, consult file @Code "teq" in the
+Lout system include directory for the names of these fonts, and then
+look in Lout's font directory for their font metrics files, which
+show the names and encodings of all the characters.
+@End @Section

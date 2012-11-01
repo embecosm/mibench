@@ -1,0 +1,95 @@
+@Section
+    @Title { Setting up a bibliographic database }
+    @Tag { databases }
+@Begin
+@PP
+The basic idea is to store your references in a separate
+database.file @Index { database file }
+@I { database file }, in a form which does not include formatting
+details such as font changes.  This makes it easy to use the same
+references in many documents, and it leaves the formatting to Lout.  Here
+is an example of a reference as it would appear in a database file:
+@ID @OneRow @Code {
+"{ @Reference"
+"    @Tag { vanleunen1992 }"
+"    @Type { Book }"
+"    @Author { Mary-Claire van Leunen }"
+"    @Title { A Handbook for Scholars }"
+"    @Publisher { Oxford }"
+"    @Edition { Revised Edition }"
+"    @Year { 1992 }"
+"}"
+}
+reference. @Index @Code "@Reference"
+@Code "@Reference" is a symbol, and {@Code "@Tag"}, {@Code "@Type"},
+{@Code "@Author"}, and so on are its options.  The database file as
+a whole consists of a sequence of references, each enclosed in braces
+as shown.
+@PP
+The @Code "@Tag" option is compulsory:  since you cite a reference by
+giving its tag, there must be one.  The @Code "@Type" option is also
+type. @Index { @Code "@Type" option }
+compulsory, since it says whether the reference is to a book, a journal
+article, or whatever, and this determines what other options are
+required.  Section {@NumberOf entries} describes all the types provided
+by Lout, and Section {@NumberOf refstyles} explains how to add your own.
+@PP
+Lout database file names must end in {@Code ".ld"}, so now suppose that
+you have made one called
+ld.file @Index { @Code ".ld" file }
+refs.ld.file @Index { @Code "refs.ld" file }
+@Code "refs.ld" and put it in the same directory as your document.  Next,
+place
+@ID @Code "@Database @Reference { refs }"
+database. @Index @Code "@Database"
+at the start of your document, just before {@Code "@Doc"},
+{@Code "@Document"}, {@Code "@Report"}, or whatever.  Alternatively,
+you may place it at the end of your setup file.  It informs Lout that
+you might be referring to @Code "@Reference" symbols in database
+@Code "refs" (that is, in file {@Code "refs.ld"}).
+@PP
+If you want to maintain a central database, used by many documents, you
+won't want it in the same directory as any one of them.  A Unix
+pathname will be more appropriate:
+@ID @Code "@Database @Reference { \"/usr/jeff/lib/refs\" }"
+or whatever.  Quotes are needed because of the @Code "/" characters.
+@PP
+With the database file created and the @Code "@Database" line in place,
+you are ready to start citing references.  The first time that the
+database.index.file @Index { database index file }
+index.file @Index { index file }
+database is used, Lout will create an @I { index file } whose purpose
+is to speed up the retrieval of your references.  Thanks to this file
+you can have hundreds or even thousands of references in your database,
+without slowing Lout down very much.  However, whenever you change your
+database file @I { you must remove its corresponding index file }, so
+that Lout knows to create it afresh.
+@FootNote {
+Depending on how it was installed on your system, Lout may be able to
+use the time of last modification of the database file and its index
+file to determine automatically whether the index file needs to be
+created afresh, thus saving you the trouble of removing it.  You can
+find out whether this is true of your system by typing the command
+{@Code "lout -V"}.
+}
+ The index file is stored in the
+same directory as the database file, and it has the same name except
+that it ends in @Code ".li" rather than @Code ".ld" (e.g.
+li.file @Index { @Code ".li" file }
+{@Code "refs.li"}).
+@PP
+If a separate database file is not convenient for some reason, perhaps
+because you need a self-contained document in a single file, the
+@Code "@Reference" symbols may be incorporated into the document
+itself, anywhere that ordinary text may appear.  Nothing will appear
+where they are typed in, but Lout will notice them and treat them as if
+they had come from a database file.  In this case no @Code "@Database"
+symbol is needed unless you are referring to a database as well.
+@PP
+You may have multiple databases, like this:
+@ID @OneRow @Code {
+"@Database @Reference { myrefs }"
+"@Database @Reference { \"/usr/pub/refs/theoryrefs\" }"
+}
+Lout will search the databases in the order you list them.
+@End @Section

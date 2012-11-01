@@ -1,0 +1,31 @@
+@Chapter
+    @Title { References }
+    @Tag { biblio }
+@Begin
+@LP
+The simple way to make a list of references is to put them in a numbered
+references. @Index { references }
+or tagged list at the end of your document.  If you use references only
+rarely, that is probably the best way, but if you use them frequently this
+chapter will save you hours of work in the long run.
+@PP
+Some good general principles and many examples have been given by van Leunen
+van.leunen. @Index { van Leunen, Mary-Claire }
+@Cite { $vanleunen1992handbook }.  Broadly speaking Lout follows her
+recommendations, with some unification and scaling back as is inevitable
+with software.  Scribe @Cite { $reid1980scribe }
+latex. @Index @LaTeX
+scribe. @RawIndex Scribe
+scribe.reference @SubIndex { reference formatting }
+and @LaTeX @Cite { $lamport1986latex } followed the first edition of the
+same source, so translation from Scribe and @LaTeX references is
+fairly straightforward.
+@BeginSections
+@Include { ref_sett }
+@Include { ref_cite }
+@Include { ref_labe }
+@Include { ref_entr }
+@Include { ref_chan }
+@Include { ref_crea }
+@EndSections
+@End @Chapter

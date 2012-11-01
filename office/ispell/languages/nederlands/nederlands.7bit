@@ -1,0 +1,156 @@
+#
+# $Id: nederlands.7bit,v 1.4 1995/01/08 23:24:11 geoff Exp $
+#
+# by Arjan de Vet (devet@win.tue.nl).
+#
+# Permission for non-profit use is hereby granted.
+#
+# Modified by Johan Vromans <jv@NL.net> to use ISO Latin-1 characters.
+#
+# $Log: nederlands.7bit,v $
+# Revision 1.4  1995/01/08  23:24:11  geoff
+# Add alternate 8-bit characters for the NeXT, for supporting nextispell.
+#
+# Revision 1.3  1994/01/25  07:12:47  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
+#
+
+defstringtype "ascii" "nroff" ".txt" ".doc" ".asc"
+
+# allow for ' and - in words
+boundarychars '
+boundarychars \-
+
+wordchars	a	A
+wordchars	\340	\300
+wordchars	\341	\301
+wordchars	\342	\302
+wordchars	\344	\304
+wordchars	[b-c]	[B-C]
+wordchars	\347	\307
+wordchars	[d-e]	[D-E]
+wordchars	\350	\310
+wordchars	\351	\311
+wordchars	\352	\312
+wordchars	\353	\313
+wordchars	[f-i]	[F-I]
+wordchars	\354	\314
+wordchars	\355	\315
+wordchars	\356	\316
+wordchars	\357	\317
+wordchars	[j-n]	[J-N]
+wordchars	\361	\321
+wordchars	[o]	[O]
+wordchars	\362	\322
+wordchars	\363	\323
+wordchars	\364	\324
+wordchars	\366	\326
+wordchars	[p-u]	[P-U]
+wordchars	\371	\331
+wordchars	\372	\332
+wordchars	\373	\333
+wordchars	\374	\334
+wordchars	[v-z]	[V-Z]
+
+#
+# Alternate form for NeXTSTEP charset (these are guesses by GHK, and
+# definitely need correction and extension)
+#
+altstringtype "NeXT" "TeX" ".NeXT" ".rtf"
+
+altstringchar	\325	\340
+altstringchar	\201	\300
+altstringchar	\326	\341
+altstringchar	\202	\301
+altstringchar	\327	\342
+altstringchar	\203	\302
+altstringchar	\331	\344
+altstringchar	\205	\304
+altstringchar	\333	\347
+altstringchar	\207	\307
+altstringchar	\334	\350
+altstringchar	\210	\310
+altstringchar	\335	\351
+altstringchar	\211	\311
+altstringchar	\336	\352
+altstringchar	\212	\312
+altstringchar	\337	\353
+altstringchar	\213	\313
+altstringchar	\340	\354
+altstringchar	\214	\314
+altstringchar	\344	\355
+altstringchar	\216	\315
+altstringchar	\344	\356
+altstringchar	\216	\316
+altstringchar	\345	\357
+altstringchar	\217	\317
+altstringchar	\347	\361
+altstringchar	\221	\321
+altstringchar	\354	\362
+altstringchar	\222	\322
+altstringchar	\355	\363
+altstringchar	\223	\323
+altstringchar	\356	\364
+altstringchar	\224	\324
+altstringchar	\360	\366
+altstringchar	\226	\326
+altstringchar	\362	\371
+altstringchar	\227	\331
+altstringchar	\363	\372
+altstringchar	\230	\332
+altstringchar	\364	\373
+altstringchar	\231	\333
+altstringchar	\366	\374
+altstringchar	\232	\334
+
+suffixes
+
+flag D:
+    T		>	-T,DEN		# ?
+    [^T]	>	DEN		# ?
+
+flag E:
+    .		>	E		# as in goed > goede
+
+flag F:
+    F		>	-F,VEN		# As in duif > duiven
+    S		>	-S,ZEN		# as in muis > muizen
+
+flag M:
+    B		>	BEN		# As in web > webben
+    D		>	DEN		# As in wad > wadden
+    F		>	FEN		# As in karaf > karaffen
+    G		>	GEN		# As in trog > troggen
+    K		>	KEN		# As in tak > takken
+    L		>	LEN		# As in hal > hallen
+    M		>	MEN		# As in kam > kammen
+    N		>	NEN		# As in ven > vennen
+    P		>	PEN		# As in map > mappen
+    R		>	REN		# As in nar > narren
+    S		>	SEN		# As in bos > bossen
+    T		>	TEN		# As in bot > botten
+    Z		>	ZEN		# As in fez > fezzen
+
+flag N:
+    [AEIOU]	>	N		# As in lade > laden
+    [^AEIOU]	>	EN		# As in wiel > wielen
+
+flag R:
+    E		>	R		# grote > groter
+    [^E]	>	ER		# ?
+
+flag S:
+    .		>	S		# As in appel > appels
+
+flag T:
+    .		>	T		# As in werk > werkt
+    [KFSTP]	>	TE		# As in werk > werkte
+    [KFSTP]	>	TEN		# As in werk > werkten
+    C H		>	TE		# As in lach > lachte
+    C H		>	TEN		# As in lach > lachten
+    [^KFSTPH]	>	DE		# As in antwoord > antwoordde
+    [^KFSTPH]	>	DEN		# As in antwoord > antwoordden
+
+flag U:
+    .		>	T		# as in maak > maakt

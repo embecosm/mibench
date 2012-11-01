@@ -1,0 +1,31 @@
+@Section
+   @Title { "@Begin" and "@End" }
+   @Tag { begin }
+@Begin
+@PP
+The body of a symbol @Code "@Sym" may be enclosed in @@Begin and
+begin. @Index { @@Begin symbol }
+end. @Index { @@End symbol }
+@@End @Code "@Sym" instead of the more usual braces:
+@ID @Code {
+"def @Section"
+"    named @Title {}"
+"    right @Body"
+"@Begin"
+"    @Title //2v @Body"
+"@End @Section"
+}
+They may also enclose the right or body parameter of a symbol invocation:
+@ID @Code {
+"@Chapter"
+"    @Title { Introduction }"
+"@Begin"
+"This subject needs no introduction."
+"@End @Chapter"
+}
+Apart from their utility as documentation aids, these forms allow Basser
+Lout to pinpoint mismatched braces, which can otherwise create total
+havoc.  For this reason, they should enclose the major parts of documents,
+such as chapters and sections.  Note that braces cannot be
+replaced by @@Begin and @@End in general.
+@End @Section

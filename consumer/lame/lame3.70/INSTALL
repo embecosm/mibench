@@ -1,0 +1,69 @@
+LAME 3.xx    3/00 Mark Taylor (http://www.sulaco.org/mp3)
+
+=======================================================================
+Building the MPEG audio encoding software on Windows:
+=======================================================================
+There are MSVC project files, and a Makefile.MSVC included
+with the project.  For production use, be sure to compile
+a "release" version and compile with the "maximum speed" compile
+option, and #define NDEBUG.   
+
+Note that MSVC "professional" claims to produce faster executables
+then MSVC "standard".  It is possible to compile the GTK frame
+analyzer under windows, see README.WINGTK
+
+
+
+
+
+=======================================================================
+Building the MPEG audio encoding software on *NIX platforms:
+=======================================================================
+If you are reading this, you have already applied the patch to the
+dist10 ISO demonstration source (or downloaded a full source
+distrubtion).  If you do not have GTK 1.1.16 or higher, or do not want
+the graphical frame analyzer (it uses a lot of memory), edit the
+Makefile and dont define GTK and GTKLIBS.  If you have trouble with
+libncurses/libtermcap, you can also disable that in the Makefile.
+
+Now just type:
+
+% make
+
+If it doesn't work, figure out why and send me the fix!  
+If you are using a newer version of EGCS, check the Makefile.
+There are some flags which may improve performance.
+
+LAME has built in support for 16bit raw pcm, aiff and simple wav
+formats.  Some complex .wav headers will confuse LAME. If you have
+trouble with this, or want to encode from other sound formats, you can
+now compile LAME to use Erik de Castro Lopo's libsndfile.  To use
+libsndfile in LAME:
+
+  1. install libsndfile (see http://www.zip.com.au/~erikd/libsndfile/).  
+  2. set SNDLIB and LIBSNDFILE as shown in the LAME Makefile.  
+  3. make clean ; make
+
+Thanks to Albert Faber for adding the libsndfile support!
+
+LAME can also be compiled into a BladeEnc compatiable MS Windows .dll 
+file.  See the Dll/ directory for details. 
+
+
+
+=======================================================================
+To encode:
+=======================================================================
+see the file "USAGE" for some usage guidlines.
+
+
+
+=======================================================================
+Portability
+=======================================================================
+LAME 3.x has been run on every modern OS.  see the Makefile.
+
+
+
+
+

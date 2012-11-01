@@ -1,0 +1,336 @@
+@Section
+   @Title { Indexes }
+   @Tag { indexes }
+@Begin
+@PP
+Although Lout is not clever enough to guess what entries should go in
+indexes. @Index { indexes }
+your index, it will do almost everything else for you:  sort the
+entries and attach the correct page numbers automatically.  As for
+tables of contents, the default setting is to have an index in
+books but not in other types of documents.  This and a few aspects of
+the appearance of the index can be changed by changing the setup file,
+as explained at the end of this section.
+@PP
+Now, suppose you are discussing Galileo and you want his name in your
+index.  Let's be ambitious and say that you want the index to contain
+something like this:
+@ID @OneRow lines @Break {
+Galileo Galilei
+    life of, 201
+    telescope, his use of, 201--203
+    trial of, 205--211, 242, 395
+}
+Each line shows off one of Lout's four tricks:  the first is a
+@I { raw entry } (no page number attached); the second is a
+@I sub-entry (indented); the third has a @I { page number range }
+instead of a single page number; and the fourth is a @I { merged entry }
+(several page numbers or ranges within one entry).
+@PP
+We'll take each of them in turn in a moment, but first, let's see how
+to get a basic entry, like this one:
+@ID { Galileo Galilei, 201 }
+To get this into your index, type
+@ID @Code "galileo @Index { Galileo Galilei }"
+at the point where you mention Galileo.  Nothing will be printed there,
+but the object following the @Code "@Index" symbol will be placed in
+the index, with a comma and the correct page number appended
+automatically.
+@PP
+The object preceding the @Code "@Index" symbol is a compulsory key
+which is used for sorting the index entries,
+@FootNote {
+The collating sequence used to decide what comes after what is either
+the collating sequence used by the @Code "memcmp()" library routine (just
+the underlying binary character codes), or else the one used by the
+@Code "strcoll()" collating sequence, which understands accented
+characters and whose effect depends on your locale.  To find out
+whether @Code "strcoll()" is in use or not, type @Code "lout -V" which
+prints out several lines of this and similar information, including
+information about command line flags to switch between the two kinds of
+collation.
+@PP
+If the sorting you get turns out to be not what you expected, the
+first thing to try is the replacement of all accented letters in index
+keys by unaccented ones.  Sorting is quite an intractable problem:  even
+if @Code "strcoll()" gets the sorting right for one language, there still
+remains the problem of sorting multilingual indexes.
+@PP
+Older versions of Lout assumed that the @I tab character was collated
+before any character that could appear in a sorting key, causing
+problems when this was not so.  Recent versions of Lout no longer
+make this assumption.
+}
+but which is not itself printed anywhere.  It is best to construct these
+sorting keys from lower-case letters and the . character only, beginning
+with a letter, although multi-word keys are allowed.  These sorting keys
+do not have to be distinct from the tags used in cross referencing;
+however, they do have to be distinct from each other, unless you want
+merged entries (see below).
+@PP
+Our first trick, raw entries (no page number attached), is very
+easy:  just use @Code "@RawIndex" instead of {@Code "@Index"}.  So the
+first line of our ambitious example is obtained by
+@ID @Code "galileo @RawIndex { Galileo Galilei }"
+This could go anywhere, since no page numbers are involved.
+@PP
+Another use for @Code "@RawIndex" is to get blank lines into the index
+between the letters of the alphabet, by inserting phantom entries:
+@ID @OneRow @Code {
+"b @RawIndex {}"
+"c @RawIndex {}"
+"d @RawIndex {}"
+"..."
+"z @RawIndex {}"
+}
+In fact there is a symbol called @Code "@IndexBlanks" that makes
+indexblanks. @Index @Code "@IndexBlanks"
+exactly these 25 entries.  Unfortunately, these blanks will occasionally
+appear at the top of a column, and if there are no tags beginning with
+x, for example, there will be two blank lines between the w and y
+entries.  You can start off with @Code "@IndexBlanks" and replace it
+later by the appropriate subset, if necessary.
+@FootNote {
+For Lout to solve this problem automatically, it would need to be told
+which letter each index entry belongs under, perhaps by symbols
+{@Code "@AIndex"}, {@Code "@BIndex"}, etc.  The author felt that this
+would have been too tedious.
+}
+@PP
+Our second trick, sub-entries, is also very easy, since a sub-entry
+differs from an ordinary entry only by having an indent.  The symbol
+is {@Code "@SubIndex"}, so the second line of our ambitious example is
+produced by
+@ID @Code "galileo.life @SubIndex { life of }"
+You should always give sub-entries the same sorting key as their
+corresponding main entries, plus a . and another word, because then
+you can be certain that the sorting will place sub-entries directly
+after their main entries.  There is a @Code "@SubSubIndex" symbol that
+produces a double indent, and there are @Code "@RawSubIndex" and
+@Code "@RawSubSubIndex" symbols.
+@PP
+For our third trick, page number ranges, we use the @Code "to" option
+of the {@Code "@Index"}, {@Code "@SubIndex"}, and {@Code "@SubSubIndex"}
+symbols.  For example, to produce the sub-entry
+@ID { telescope, his use of, 201--203 }
+put
+@ID @Code {
+  "galileo.telescope @SubIndex to { gt.end } { telescope, his use of }"
+}
+at the beginning of the range, and
+@ID @Code "@PageMark { gt.end }"
+at the end.  You can use any tag you like inside the @Code "to" option,
+as long as it differs from every other tag (notice that sorting keys
+do not have to differ from tags, but @Code "to" options do:  this
+is because @Code "to" options go into @Code "@PageMark" like other
+tags do, and if two tags are the same we would have an ambiguous
+result of {@Code "@PageOf"}).  If both ends of the range fall on the
+same page, the @Code "to" option is ignored:  you will never get
+201--201.
+@PP
+Our fourth and final trick is the merged entry:
+@ID { trial of, 205--211, 242, 395 }
+The main thing to grasp is that this merged entry was originally three
+separate entries (sub-entries in this case):
+@ID @OneRow lines @Break {
+trial of, 205--211
+trial of, 242
+trial of, 395
+}
+We already know how to produce these three entries, using three
+@Code "@SubIndex" symbols, one with a @Code "to" option.  Now we have
+discovered that Lout is able to merge several entries into one
+entry.  This raises two questions:  how does Lout know which entries
+to merge? and given those entries, what does the merging produce?
+@PP
+The answer to the first question is that Lout merges entries whose
+sorting keys are equal.  The merged entry above is produced by these
+three entries, placed in the appropriate places:
+@ID @OneRow @Code {
+"galileo.trial @SubIndex to { gtrial.end } { trial of }"
+"galileo.trial @SubIndex { trial of }"
+"galileo.trial @SubIndex { trial of }"
+}
+The entries are merged because they have the same sorting key
+({@Code "galileo.trial"}), not because they happen to have the
+same content ({@Code "trial of"}).  In fact, once the page numbers are
+added the content is not the same at all.
+@PP
+Now, having decided that the three entries
+@ID @OneRow lines @Break {
+trial of, 205--211
+trial of, 242
+trial of, 395
+}
+must be merged, what does Lout do?  Without being too formal, it
+finds the shortest larger entry that contains everything in the
+given entries, more or less, preserving the order in which
+the entries' points of origin appear in the final printed document.
+@PP
+If the entries are not different at all, then the result will be
+the same as each of them.  With this in mind, let us return to
+our initial, ambitious example:
+@ID @OneRow lines @Break {
+Galileo Galilei
+    life of, 201
+    telescope, his use of, 201--203
+    trial of, 205--211, 242, 395
+}
+We now know how to produce all four of these entries, but one problem
+of some practical importance remains.  Suppose we delete the section on
+the life of Galileo.  If we had put the entry that produces `Galileo
+Galilei' in that section, we might inadvertently delete it, and the
+other two sub-entries will lose their main entry.  Before deleting
+anything, we must hunt through it for index entries and ponder their
+significance, an error-prone and time-wasting thing to do.
+@PP
+The solution is as follows.  When an index entry has sub-entries, make
+it raw, and repeat it just before each of its sub-entries:
+@ID @OneRow @Code {
+"galileo @RawIndex { Galileo Galilei }"
+"galileo.life @SubIndex { life of }"
+}
+at the first place,
+@ID @OneRow @Code {
+"galileo @RawIndex { Galileo Galilei }"
+"galileo.telescope @SubIndex { telescope, his use of }"
+}
+at the second, and so on.  Now it is easy to verify that every
+sub-entry has a main entry; and when deleting a sub-entry we can and
+should delete the adjacent main entry.  After sorting, our index
+entries will be
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col B }
+{
+@Rowa
+    A { galileo }
+    B { Galileo Galilei }
+@Rowa
+    A { galileo }
+    B { Galileo Galilei }
+@Rowa
+    A { galileo }
+    B { Galileo Galilei }
+@Rowa
+    A { galileo }
+    B { Galileo Galilei }
+@Rowa
+    A { galileo }
+    B { Galileo Galilei }
+@Rowa
+    A { galileo.life }
+    B { {}    life of, 201 }
+@Rowa
+    A { galileo.telescope }
+    B { {}    telescope, his use of, 201--203 }
+@Rowa
+    A { galileo.trial }
+    B { {}    trial of, 205--211 }
+@Rowa
+    A { galileo.trial }
+    B { {}    trial of, 242 }
+@Rowa
+    A { galileo.trial }
+    B { {}    trial of, 395 }
+}
+The first five entries have the same sorting key, and will be merged
+as required.
+@PP
+The language of the index entry will be the initial language of the
+document as a whole, which is not necessarily the language at the point
+where the index entry occurs.  To get the correct language you will need a
+@Code "@Language" symbol following the @Code "@Index" symbol:
+@ID @Code "galileo. @Index French @Language { Galileo Galilei }"
+or whatever.  If you don't do this your index entry might be hyphenated
+incorrectly.
+@PP
+Although the page numbers in index entries will be kept up to date
+automatically as the document changes, as all cross references are, 
+it is best to refrain from inserting index entries until the document
+is complete and an overall plan of the structure of the index can
+be made.
+@PP
+The remainder of this section describes how to change the appearance of
+the index by setting options in the setup file.  For setup files and
+their options in general, consult Section {@NumberOf setup}.
+@PP
+There are eight setup file options for the index.  Here they are with
+their default values:
+@ID @OneRow @Code @Verbatim {
+@MakeIndex { No }
+@IndexFont { }
+@IndexBreak { oragged 1.2fx }
+@IndexColumnNumber { 2 }
+@IndexColumnGap { 1.00c }
+@IndexCtd { Yes }
+@IndexCtdWord { continued }
+@IndexCtdFormat { @Body @I (@CtdWord) }
+}
+The @Code "@MakeIndex" option, which may be @Code Yes or {@Code No},
+makeindex. @Index @Code "@MakeIndex"
+determines whether to produce an index or not.  Although the default
+value is {@Code No}, any type of document may be given an index just
+by changing it to {@Code Yes}.  This has already been done in the
+@Code book setup file, but not in the others.
+@PP
+@Code "@IndexFont" determines the font and font size of index entries
+indexfont. @Index @Code "@IndexFont"
+(e.g. {@Code "Times Base 12p"}).  Leaving it empty as above produces
+the same font as the rest of the document.  @Code "@IndexBreak" is the
+indexbreak. @Index @Code "@IndexBreak"
+paragraph breaking style applied to index entries; @Code oragged is the
+traditional and best way.
+@PP
+@Code "@IndexColumnNumber" and @Code "@IndexColumnGap" determine the
+indexcolumnnumber. @Index @Code "@IndexColumnNumber"
+indexcolumngap. @Index @Code "@IndexColumnGap"
+number of index columns per page, and the gap between them, and are
+exactly analogous to the @Code "@ColumnNumber" and @Code "@ColumnGap"
+options described in Section {@NumberOf columns}.
+@PP
+The last three options work together to control the appearance of
+running headers
+@FootNote {
+Index running headers are new in Version 3.19 of Lout.
+}
+in the index.  If an @Code "@Index" entry has @Code "@SubIndex" entries
+that run over to the next column, Lout will print an unobtrusive running
+header at the top of that column, something like this in English:
+@ID { procrastination @I (ctd.) }
+It will print two running headers if a @Code "@SubIndex" entry has
+@Code "@SubSubIndex" entries that run over, one for the main entry and an
+indented one for the sub-entry.  You can turn off these running headers by
+setting @Code "@IndexCtd" to {@Code No}.  A particular word is associated
+with index running headers; by default it is @Code "ctd." in English and
+its equivalent in other languages.  This is what the default value,
+{@Code "continued"}, of the @Code "@IndexCtdWord" option gives you; if you
+want some other word, change that option to the word you want.  Finally,
+you can control the format of the running headers using
+{@Code "@IndexCtdFormat"}.  Within this option, the symbol @Code "@Body"
+stands for the value of the index entry that is running over (minus any
+page numbers), and @Code "@CtdWord" stands for the word produced by the
+@Code "@IndexCtdWord" option.  The default value of {@Code "@IndexCtdFormat"},
+shown above, yields the index entry followed by @Code "@IndexCtdWord" in
+italics and parentheses.
+@PP
+Lout offers the possibility of having up to three independent indexes
+(useful for glossaries, author indexes, etc.).  The other two are called
+index A and index B, and they precede the main index in the
+output.  Just replace @Code Index by @Code IndexA to refer to index A,
+and by @Code IndexB to refer to index B.  For example,
+@ID @Code "smith.j @IndexA { Smith, John }"
+will insert an index entry to index A, and @Code "@IndexBBlanks"
+will insert the usual 25 blank entries into index B.
+@PP
+In large projects it might help to rename the @Code "@IndexA" symbol
+to something else, such as {@Code "@AuthorIndex"}.  This can
+be done by placing
+@ID @Code {
+"import @DocumentSetup"
+"macro @AuthorIndex { @IndexA }"
+}
+in the @Code mydefs file.  See Section {@NumberOf definitions} for
+an introduction to the @Code "mydefs" file; the word @Code macro
+is needed here instead of @Code "def" because we are introducing
+a new name for an existing symbol, not defining a new symbol.
+@End @Section

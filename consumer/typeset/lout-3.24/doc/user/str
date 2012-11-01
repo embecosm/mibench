@@ -1,0 +1,19 @@
+@Chapter
+    @Title { Adding Structure to Documents }
+    @Tag { structure }
+@Begin
+@BeginSections
+@Include { str_disp }
+@Include { str_list }
+@Include { str_foot }
+@Include { str_marg }
+@Include { str_theo }
+@Include { str_figs }
+@Include { str_larg }
+@Include { str_cros }
+@Include { str_cont }
+@Include { str_indx }
+@Include { str_colu }
+@Include { str_defs }
+@EndSections
+@End @Chapter

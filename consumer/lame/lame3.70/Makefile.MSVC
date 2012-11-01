@@ -1,0 +1,86 @@
+# Makefile.MSVC: MSVC Makefile for LAME 3.57beta
+
+PGM = lame
+CC = cl
+LN = link
+
+# debugging options
+# CC_OPTS = /nologo /Zi /Ge /GZ
+# LN_OPTS = /nologo /debug:full /debugtype:cv /fixed:no
+
+# profiling options
+# CC_OPTS = /nologo /Zi /O2ab2gitwy /G6AFs /DNDEBUG 
+# LN_OPTS = /nologo /debug:full /debugtype:cv /fixed:no /profile
+
+# release options
+CC_OPTS = /nologo /O2ab2gitwy /G6AFs /DNDEBUG 
+LN_OPTS = /nologo
+
+GTK =
+GTKLIBS =
+SNDLIB =
+LIBSNDFILE =
+LIBS =
+MAKEDEP =
+TIMER_SWITCH =
+BRHIST_SWITCH =
+LIBTERMCAP =
+
+CC_SWITCHES = $(CC_OPTS) $(DISTRIB) $(SNDLIB) $(GTK) \
+              /DBS_FORMAT=BINARY $(TIMER_SWITCH) $(BRHIST_SWITCH)
+LN_SWITCHES = $(LN_OPTS)
+
+c_sources = \
+ main.c \
+ brhist.c \
+ formatBitstream.c \
+ fft.c \
+ get_audio.c \
+ l3bitstream.c \
+        id3tag.c \
+ ieeefloat.c \
+        lame.c \
+        newmdct.c \
+ parse.c \
+ portableio.c \
+ psymodel.c \
+ quantize.c \
+ quantize-pvt.c \
+ vbrquantize.c \
+ loopold.c \
+ reservoir.c \
+ tables.c \
+ takehiro.c \
+ timestatus.c \
+ util.c \
+        VbrTag.c \
+        version.c \
+        gtkanal.c \
+        gpkplotting.c \
+        mpglib/common.c \
+        mpglib/dct64_i386.c \
+        mpglib/decode_i386.c \
+        mpglib/layer3.c \
+        mpglib/tabinit.c \
+        mpglib/interface.c \
+        mpglib/main.c 
+
+OBJ = $(c_sources:.c=.obj)
+
+.c.obj:
+ @$(CC) $(CC_SWITCHES) /c $< /Fo$@
+
+$(PGM).exe: $(OBJ) Makefile.MSVC
+ @echo $(PGM).exe
+ @$(LN) $(LN_SWITCHES) $(OBJ) $(LIBS) $(LIBSNDFILE) $(GTKLIBS) \
+   $(LIBTERMCAP) /out:$(PGM).exe /map:$(PGM).map
+
+clean:
+ @-del *.obj
+ @-del dll\*.obj
+ @-del mpglib\*.obj
+
+rebuild: clean $(PGM).exe
+
+
+

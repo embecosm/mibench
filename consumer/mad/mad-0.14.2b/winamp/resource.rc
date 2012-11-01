@@ -1,0 +1,316 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+# include <windows.h>
+
+# define IDC_STATIC -1
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "# include <windows.h>\r\n"
+    "\r\n"
+    "# define IDC_STATIC -1\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "# include ""messages.rc""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONFIG DIALOG DISCARDABLE  0, 0, 322, 186
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configure MAD Plug-in"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "&Enabled",IDC_CONF_ENABLED,"Button",BS_AUTOCHECKBOX | 
+                    WS_GROUP | WS_TABSTOP,268,44,42,10
+    GROUPBOX        "Title Format",IDC_STATIC,7,7,120,99,WS_GROUP
+    EDITTEXT        IDC_TITLE_FORMAT,17,21,100,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "%0  Track",IDC_STATIC,17,40,33,8
+    LTEXT           "%1  Artist",IDC_STATIC,17,50,30,8
+    LTEXT           "%2  Title",IDC_STATIC,17,60,28,8
+    LTEXT           "%3  Album",IDC_STATIC,17,70,34,8
+    LTEXT           "%4  Year",IDC_STATIC,17,80,29,8
+    LTEXT           "%5  Comment",IDC_STATIC,62,40,44,8
+    LTEXT           "%6  Genre",IDC_STATIC,62,50,34,8
+    LTEXT           "%7  File name",IDC_STATIC,62,60,44,8
+    LTEXT           "%8  File path",IDC_STATIC,62,70,41,8
+    LTEXT           "%9  File extension",IDC_STATIC,62,80,57,8
+    LTEXT           "Conditional:",IDC_STATIC,17,90,38,8
+    LTEXT           "%?x<IF | ELSE>",IDC_STATIC,62,90,51,8
+    GROUPBOX        "Channels",IDC_STATIC,7,111,120,68,WS_GROUP
+    CONTROL         "&Normal (stereo)",IDC_CHAN_STEREO,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,17,123,63,10
+    CONTROL         "&Mono downmix",IDC_CHAN_MONO,"Button",
+                    BS_AUTORADIOBUTTON,17,133,63,10
+    CONTROL         "&Left only",IDC_CHAN_LEFT,"Button",BS_AUTORADIOBUTTON,
+                    17,143,43,10
+    CONTROL         "&Right only",IDC_CHAN_RIGHT,"Button",BS_AUTORADIOBUTTON,
+                    17,153,47,10
+    CONTROL         "Re&verse left/right",IDC_CHAN_REVERSE,"Button",
+                    BS_AUTORADIOBUTTON,17,163,71,10
+    GROUPBOX        "Priority",IDC_STATIC,136,7,55,55,WS_GROUP
+    CONTROL         "Slider1",IDC_PRIO_SLIDER,"msctls_trackbar32",TBS_VERT | 
+                    TBS_NOTICKS | WS_GROUP | WS_TABSTOP,141,16,15,42
+    LTEXT           "Highest",IDC_STATIC,159,19,25,8
+    LTEXT           "Normal",IDC_STATIC,159,33,23,8
+    LTEXT           "Lowest",IDC_STATIC,159,47,24,8
+    GROUPBOX        "Resolution",IDC_STATIC,200,7,55,55,WS_GROUP
+    CONTROL         "&8 bits",IDC_RES_8BITS,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,209,17,37,10
+    CONTROL         "&16 bits",IDC_RES_16BITS,"Button",BS_AUTORADIOBUTTON,
+                    209,27,37,10
+    CONTROL         "&24 bits",IDC_RES_24BITS,"Button",BS_AUTORADIOBUTTON,
+                    209,37,37,10
+    CONTROL         "&32 bits",IDC_RES_32BITS,"Button",BS_AUTORADIOBUTTON,
+                    209,47,37,10
+    GROUPBOX        "Output",IDC_STATIC,136,66,119,59,WS_GROUP
+    CONTROL         "&Auto clipping attenuation",IDC_OUT_AUTOATTENUATION,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,146,78,
+                    94,10
+    CONTROL         "Slider1",IDC_OUT_SENSITIVITY,"msctls_trackbar32",
+                    TBS_AUTOTICKS | WS_GROUP | WS_TABSTOP,145,93,100,15
+    LTEXT           "Least",IDC_OUT_LABEL1,145,110,23,8
+    CTEXT           "Sensitivity",IDC_OUT_LABEL2,174,110,42,8
+    RTEXT           "Most",IDC_OUT_LABEL3,222,110,23,8
+    GROUPBOX        "Miscellaneous",IDC_STATIC,136,129,119,50,WS_GROUP
+    CONTROL         "&Fast playing time calculation",IDC_MISC_FASTTIMECALC,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,145,141,
+                    104,10
+    CONTROL         "Display average &bit rate",IDC_MISC_AVGBITRATE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,145,152,104,10
+    CONTROL         "High-resolution &DSP support",IDC_MISC_HIRESDSP,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,145,163,105,
+                    10
+    DEFPUSHBUTTON   "OK",IDOK,265,7,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,265,24,50,14
+END
+
+IDD_PROPPAGE_MPEG DIALOG DISCARDABLE  0, 0, 212, 188
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "General"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Type:",IDC_STATIC,10,9,19,8
+    LTEXT           "",IDC_MPEG_TYPE,45,9,160,8,NOT WS_GROUP
+    LTEXT           "Location:",IDC_STATIC,10,21,30,8
+    EDITTEXT        IDC_MPEG_LOCATION,45,21,160,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER
+    LTEXT           "Size:",IDC_STATIC,10,33,16,8
+    LTEXT           "",IDC_MPEG_SIZE,45,33,160,8,NOT WS_GROUP
+    LTEXT           "Length:",IDC_STATIC,10,45,25,8
+    LTEXT           "",IDC_MPEG_LENGTH,45,45,160,8,NOT WS_GROUP
+    GROUPBOX        "MPEG Audio",IDC_STATIC,7,64,198,112,WS_GROUP
+    LTEXT           "Layer:",IDC_STATIC,17,77,20,8
+    LTEXT           "",IDC_MPEG_LAYER,69,77,120,8,NOT WS_GROUP
+    LTEXT           "Sample Rate:",IDC_STATIC,17,101,44,8
+    LTEXT           "",IDC_MPEG_SAMPLERATE,69,101,120,8,NOT WS_GROUP
+    LTEXT           "Mode:",IDC_STATIC,17,113,21,8
+    LTEXT           "",IDC_MPEG_MODE,69,113,120,8,NOT WS_GROUP
+    LTEXT           "Emphasis:",IDC_STATIC,17,125,33,8
+    LTEXT           "",IDC_MPEG_EMPHASIS,69,125,120,8,NOT WS_GROUP
+    LTEXT           "Flags:",IDC_STATIC,17,137,20,8
+    CONTROL         "",IDC_MPEG_COPYRIGHT,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED,69,137,10,8
+    LTEXT           "Copyright",IDC_STATIC,81,137,30,8,NOT WS_GROUP
+    CONTROL         "",IDC_MPEG_ORIGINAL,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED,69,148,10,8
+    LTEXT           "Original",IDC_STATIC,81,148,24,8,NOT WS_GROUP
+    CONTROL         "",IDC_MPEG_CRC,"Button",BS_AUTOCHECKBOX | WS_DISABLED,
+                    69,159,10,8
+    LTEXT           "CRC Protection",IDC_STATIC,81,159,50,8,NOT WS_GROUP
+    LTEXT           "Bit Rate:",IDC_STATIC,17,89,28,8
+    LTEXT           "",IDC_MPEG_BITRATE,69,89,120,8,NOT WS_GROUP
+END
+
+IDD_PROPPAGE_ID3V1 DIALOG DISCARDABLE  0, 0, 212, 188
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "ID3v1"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_ID3V1_TITLE,51,19,140,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ID3V1_ARTIST,51,34,140,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ID3V1_ALBUM,51,49,140,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ID3V1_YEAR,51,64,25,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ID3V1_TRACK,166,64,25,12,ES_AUTOHSCROLL | ES_NUMBER
+    COMBOBOX        IDC_ID3V1_GENRE,51,78,140,90,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_ID3V1_COMMENT,51,94,140,12,ES_AUTOHSCROLL
+    LTEXT           "Title",IDC_STATIC,16,21,14,8
+    LTEXT           "Artist",IDC_STATIC,16,36,16,8
+    LTEXT           "Album",IDC_STATIC,16,51,20,8
+    LTEXT           "Year",IDC_STATIC,16,66,16,8
+    LTEXT           "Track",IDC_STATIC,137,66,20,8
+    LTEXT           "Genre",IDC_STATIC,16,81,20,8
+    LTEXT           "Comment",IDC_STATIC,16,96,30,8
+END
+
+IDD_PROPPAGE_ID3V2 DIALOG DISCARDABLE  0, 0, 212, 188
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "ID3v2"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_ID3V2_FRAMES,7,7,198,53,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "&Add",IDC_ID3V2_ADD,40,66,50,14
+    PUSHBUTTON      "&Remove",IDC_ID3V2_REMOVE,121,66,50,14,WS_DISABLED
+    GROUPBOX        "",IDC_STATIC,7,83,198,79,WS_GROUP
+    CONTROL         "Sync ID3v1",IDC_ID3V2_SYNC,"Button",BS_AUTOCHECKBOX | 
+                    WS_GROUP | WS_TABSTOP,152,171,53,10
+END
+
+IDD_PROPPAGE_STATS DIALOG DISCARDABLE  0, 0, 212, 188
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Statistics"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Frames",IDC_STATIC,7,11,118,48,WS_GROUP
+    LTEXT           "Decoded:",IDC_STATIC,16,22,32,8
+    LTEXT           "",IDC_STATS_DECODED,58,22,41,8,NOT WS_GROUP
+    LTEXT           "Joint Stereo:",IDC_STATIC,16,33,40,8
+    CONTROL         "Joint Stereo",IDC_STATS_JSPIE,"MAD_JSPIE",0x0,58,34,18,
+                    18
+    CONTROL         "MS",IDC_STATS_LEGENDMS,"MAD_LEGEND",0x0,80,34,6,6
+    LTEXT           "Mid/Side",IDC_STATIC,88,33,30,8,NOT WS_GROUP
+    CONTROL         "I",IDC_STATS_LEGENDI,"MAD_LEGEND",0x0,80,45,6,6
+    GROUPBOX        "Errors",IDC_STATIC,131,11,74,48,WS_GROUP
+    LTEXT           "Sync.:",IDC_STATIC,140,22,21,8
+    LTEXT           "",IDC_STATS_SYNCERR,164,22,33,8,NOT WS_GROUP
+    LTEXT           "CRC:",IDC_STATIC,140,33,18,8
+    LTEXT           "",IDC_STATS_CRCERR,164,33,33,8,NOT WS_GROUP
+    LTEXT           "Other:",IDC_STATIC,140,44,20,8
+    LTEXT           "",IDC_STATS_OTHERR,164,44,33,8,NOT WS_GROUP
+    GROUPBOX        "Output",IDC_STATIC,7,65,198,75,WS_GROUP
+    LTEXT           "Attenuation:",IDC_STATIC,16,77,39,8
+    LTEXT           "",IDC_STATS_ATTENUATION,77,77,43,8,NOT WS_GROUP
+    LTEXT           "Clipped Samples:",IDC_STATIC,16,88,55,8
+    LTEXT           "",IDC_STATS_CLIPPED,77,88,45,8,NOT WS_GROUP
+    LTEXT           "Peak Clipping:",IDC_STATIC,16,99,46,8
+    LTEXT           "0",IDC_STATIC,77,99,8,8,NOT WS_GROUP
+    CONTROL         "Progress1",IDC_STATS_CLIPPING,"msctls_progress32",0x0,
+                    85,100,52,6
+    LTEXT           "6 dB",IDC_STATIC,140,99,16,8,NOT WS_GROUP
+    PUSHBUTTON      "&Attenuate",IDC_STATS_ATTENUATE,47,116,50,14,
+                    WS_DISABLED | WS_GROUP
+    PUSHBUTTON      "&Reset",IDC_STATS_RESET,113,116,50,14,WS_DISABLED
+    LTEXT           "Intensity",IDC_STATIC,88,44,27,8,NOT WS_GROUP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 315
+        VERTGUIDE, 127
+        VERTGUIDE, 135
+        VERTGUIDE, 254
+        VERTGUIDE, 265
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 179
+        HORZGUIDE, 62
+        HORZGUIDE, 66
+        HORZGUIDE, 106
+        HORZGUIDE, 111
+        HORZGUIDE, 125
+        HORZGUIDE, 129
+        HORZGUIDE, 179
+    END
+
+    IDD_PROPPAGE_MPEG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
+    END
+
+    IDD_PROPPAGE_ID3V1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
+    END
+
+    IDD_PROPPAGE_ID3V2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
+    END
+
+    IDD_PROPPAGE_STATS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        VERTGUIDE, 125
+        VERTGUIDE, 131
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+# include "messages.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

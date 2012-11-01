@@ -1,0 +1,49 @@
+@SysInclude { tab }
+@SysInclude { tbl }
+@SysInclude { eq }
+@SysInclude { fig }
+@SysInclude { graph }
+@SysInclude { pas }
+@SysInclude { diag }
+@SysInclude { cprint }
+@SysInclude { eiffel }
+@SysInclude { perl }
+# @SysInclude { book }
+@Include { letterbook } # for testing Letter size formatting
+
+@SysDatabase @Reference { loutrefs }
+
+@Book
+    @Title { A User's Guide to the
+
+Lout
+
+Document Formatting System
+}
+    @Author { Jeffrey H. Kingston }
+    @Edition { Version 3.24
+October, 2000 }
+    @Publisher {
+Copyright @CopyRight 1991, 2000 Jeffrey H. Kingston,
+Basser Department of Computer Science,
+The University of Sydney 2006, Australia.  ISBN 0 86758 951 5.
+}
+    @InitialLanguage { English }
+    # @OptimizePages { Yes }
+//
+
+@Include { preface }
+@Include { bas     }
+@Include { str     }
+@Include { typ     }
+@Include { fmt     }
+@Include { ref     }
+@Include { tbl     }
+@Include { equ     }
+@Include { bgr     }
+@Include { dia     }
+@Include { gra     }
+@Include { prg     }
+@Include { pascal  }
+@Include { ap_qck  }
+@Include { ap_byp  }

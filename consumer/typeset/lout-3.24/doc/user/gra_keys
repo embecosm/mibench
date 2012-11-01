@@ -1,0 +1,104 @@
+@Section
+   @Title { Adding a key to the graph }
+   @Tag { key }
+@Begin
+@PP
+A @I key to a graph is an explanation of what each data set
+key. @Index { key in graph }
+represents.  To assist you in constructing a key, some extra symbols
+are provided in addition to {@Code "@Graph"}:
+graph.cross @Index @Code "@GraphCross"
+graph.plus @Index @Code "@GraphPlus"
+graph.square @Index @Code "@GraphSquare"
+graph.filled.square @Index @Code "@GraphFilledSquare"
+graph.diamond @Index @Code "@GraphDiamond"
+graph.filled.diamond @Index @Code "@GraphFilledDiamond"
+graph.circle @Index @Code "@GraphCircle"
+graph.filled.circle @Index @Code "@GraphFilledCircle"
+graph.triangle @Index @Code "@GraphTriangle"
+graph.filled.triangle @Index @Code "@GraphFilledTriangle"
+graph.noline @Index @Code "@GraphNoLine"
+graph.solid @Index @Code "@GraphSolid"
+graph.dashed @Index @Code "@GraphDashed"
+graph.dotted @Index @Code "@GraphDotted"
+@ID @Tab
+    @Fmta { @Col @Code A ! @Col B ! @Col @Code C ! @Col D }
+{
+@Rowa
+    A { "@GraphCross" }
+    B { @GraphCross }
+    C { "@GraphPlus" }
+    D { @GraphPlus }
+@Rowa
+    A { "@GraphSquare" }
+    B { @GraphSquare }
+    C { "@GraphFilledSquare" }
+    D { @GraphFilledSquare }
+@Rowa
+    A { "@GraphDiamond" }
+    B { @GraphDiamond }
+    C { "@GraphFilledDiamond" }
+    D { @GraphFilledDiamond }
+@Rowa
+    A { "@GraphCircle" }
+    B { @GraphCircle }
+    C { "@GraphFilledCircle" }
+    D { @GraphFilledCircle }
+@Rowa
+    A { "@GraphTriangle" }
+    B { @GraphTriangle }
+    C { "@GraphFilledTriangle" }
+    D { @GraphFilledTriangle }
+@Rowa
+@Rowa
+    A { "@GraphNoLine" }
+    B { @GraphNoLine }
+@Rowa
+    A { "@GraphSolid" }
+    B { @GraphSolid }
+@Rowa
+    A { "@GraphDashed" }
+    B { @GraphDashed }
+@Rowa
+    A { "@GraphDotted" }
+    B { @GraphDotted }
+}
+These extra symbols may be used anywhere in your document except within
+the right parameter of {@Code "@Graph"}; they are commonly used within
+the caption options of {@Code "@Graph"}:
+@ID @OneRow @Code {
+"@Graph"
+"    rightcaption {"
+"@GraphPlus @GraphSolid @GraphPlus  Boston"
+"@GraphPlus @GraphDashed @GraphPlus  New York"
+"@GraphPlus @GraphDotted @GraphPlus  Philadelphia"
+"}"
+}
+Recall that unlike the other captions, @Code rightcaption is set using
+the @Code "lines @Break" style rather than {@Code "clines @Break"}
+(Section {@NumberOf captions}).  Adding this caption to the graph
+from Section {@NumberOf data}, the complete result is
+@CD @Graph
+    rightcaption {
+@GraphPlus @GraphSolid @GraphPlus  Boston
+@GraphPlus @GraphDashed @GraphPlus  New York
+@GraphPlus @GraphDotted @GraphPlus  Philadelphia
+}
+{
+    @Data  points { plus }  pairs { solid }
+    { 1720 12000  1730 13000  1740 15601  1760 15631  1770 15877 }
+
+    @Data  points { plus }  pairs { dashed }
+    { 1720 7000  1730 8622  1740 10451  1750 14255  1760 18000  1770 22667 }
+
+    @Data  points { plus }  pairs { dotted }
+    { 1720 10000  1730 11500  1740 12654  1750 18202  1760 23750  1770 34583 }
+
+}
+The first eight symbols have a @Code "symbolsize" option with the
+usual meaning and the usual default value ({@Code "0.15 ft"}).  The
+last four symbols have @Code "dashlength" and @Code "linewidth" options
+with the usual default values, {@Code "0.2 ft"} and {@Code "0.5 pt"}
+respectively, and a @Code "length" option, which determines the length
+of the line drawn by each symbol; its default value is {@Code "1.0 ft"}.
+@End @Section

@@ -1,0 +1,72 @@
+@Section
+   @Title { Captions }
+   @Tag { captions }
+@Begin
+@PP
+There are options for placing captions above, below, left, and right of
+captions.graphs @SubIndex { in graphs }
+the frame:
+@ID @OneRow @Code {
+"@Graph"
+"    abovecaption { This appears above }"
+"    belowcaption { This appears below }"
+"    leftcaption { At left }"
+"    rightcaption { At right }"
+"{"
+"}"
+}
+produces
+@CD @Graph
+    abovecaption { This appears above }
+    belowcaption { This appears below }
+    leftcaption { At left }
+    rightcaption { At right }
+{
+}
+The captions may be arbitrary Lout objects, so may include
+equations, {@Code "@Rotate"}, and so on.  Each caption except
+@Code rightcaption is printed in the
+@Code "clines @Break" style, which means that multiple lines in one
+caption will be centred beneath each other.  The @Code rightcaption
+option uses the @Code "lines @Break" style, in which the lines are
+left justified beneath each other.  Incidentally, this example shows
+what happens if there is no data.
+@PP
+There are options for controlling the amount of space between each
+caption (when non-empty) and the frame.  Here they are with their
+default values:
+@ID @OneRow @Code {
+"@Graph"
+"    abovegap { 0.5 cm }"
+"    belowgap { 0.5 cm }"
+"    leftgap { 1.5 cm }"
+"    rightgap { 0.5 cm }"
+"{"
+"    ..."
+"}"
+}
+This is particularly important in the case of {@Code "leftgap"} (and
+@Code "rightgap" if @Code rticks is used), because
+Lout has no idea how wide the ticks and labels attached to the y axis
+are; 1.5 cm is just a wild guess and often needs adjustment.  On the
+other hand, Lout does know how high the ticks and labels on the x axis
+are; it allows 1.7 times the current font size for them, and
+@Code "belowgap" is additional to this.
+@PP
+When a graph is to be presented as a centred display, it is generally
+best if the centring is done with respect to the frame alone, not the
+captions, ticks, and labels.  The @Code "hidecaptions" option does this by
+making the left and right captions and gaps seem to Lout to have zero width:
+@ID @OneRow @Code {
+"@Graph"
+"    hidecaptions { yes }"
+"{"
+"    ..."
+"}"
+}
+Actually @Code "yes" has been made the default value, since the vast
+majority of graphs are centred displays.  In the rare cases where
+this feature is not wanted (for example, if a graph appears as an entry
+in a table), use {@Code "hidecaptions { no }"}.  The y and r ticks and labels
+seem to Lout to have zero width already, so do not need to be hidden.
+@End @Section
