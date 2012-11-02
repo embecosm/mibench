@@ -25,5 +25,5 @@ make clean
 make
 
 # Run the programs
-./runme_small.sh
-./runme_large.sh
+../../${RUNIT} ./basicmath_small
+../../${RUNIT} ./basicmath_large

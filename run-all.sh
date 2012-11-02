@@ -26,8 +26,9 @@ srcdirs="automotive/basicmath
          automotive/qsort
          automotive/susan"
 srcdirs="automotive/basicmath"
-export CC=/opt/arc-2012-10-30-1517/bin/arc-elf32-gcc
-export RUN="/opt/arc-2012-10-30-1517/bin/arc-elf32-run -v"
+# export CC=/opt/arc-2012-10-30-1517/bin/arc-linux-uclibc-gcc
+export CC=arc-linux-uclibc-gcc
+export RUNIT=run-remote.sh
 
 for d in ${srcdirs}
 do
